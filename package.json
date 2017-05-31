@@ -6,7 +6,7 @@
   "scripts": {
     "test": ""
   },
-  "bin": {},
+  "bin": {"cassSetServer":"bin/cassSetServer"},
   "contributors": [
     {
       "name": "Devlin Junker",
@@ -28,7 +28,8 @@
     "antlr4": "^4.6.0"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "bin/"
   ],
   "main": "index.js",
   "repository": {

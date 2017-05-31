@@ -10,24 +10,44 @@ var document = {};
 var view = {};
 var localStorage = {};
 
-eval(fs.readFileSync("./node_modules/cassproject/lib/random.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/blobHelper.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/stjs.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/ec.base.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/ec.crypto.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/org.json-ld.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/org.cassproject.schema.general.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/org.schema.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/org.cassproject.schema.ebac.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/org.cassproject.schema.cass.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/ebac.identity.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/ebac.repository.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/cass.competency.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/RollupListener.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/RollupLexer.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/RollupParser.js")+"");
-eval(fs.readFileSync("./node_modules/cassproject/lib/cass.rollup.js")+"");
+function load(lib){
+	if (fs.existsSync(lib))
+	{
+		return fs.readFileSync(lib);
+	}
+	else if (fs.existsSync(module.filename.replace("index.js","")+lib))
+	{
+		return fs.readFileSync(module.filename.replace("index.js","")+lib);
+	}
+	else if (fs.existsSync("./node_modules/cassproject/"+lib))
+	{
+		return fs.readFileSync("./node_modules/cassproject/"+lib);
+	}
+	else if (fs.existsSync("/usr/lib/node_modules/"+lib))
+	{
+		return fs.readFileSync("/usr/lib/node_modules/"+lib);
+	}
+}
 
+eval(load.call(this,"lib/random.js")+"");
+eval(load.call(this,"lib/blobHelper.js")+"");
+eval(load.call(this,"lib/stjs.js")+"");
+eval(load.call(this,"lib/ec.base.js")+"");
+eval(load.call(this,"lib/ec.crypto.js")+"");
+eval(load.call(this,"lib/org.json-ld.js")+"");
+eval(load.call(this,"lib/org.cassproject.schema.general.js")+"");
+eval(load.call(this,"lib/org.schema.js")+"");
+eval(load.call(this,"lib/org.cassproject.schema.ebac.js")+"");
+eval(load.call(this,"lib/org.cassproject.schema.cass.js")+"");
+eval(load.call(this,"lib/ebac.identity.js")+"");
+eval(load.call(this,"lib/ebac.repository.js")+"");
+eval(load.call(this,"lib/cass.competency.js")+"");
+eval(load.call(this,"lib/RollupListener.js")+"");
+eval(load.call(this,"lib/RollupLexer.js")+"");
+eval(load.call(this,"lib/RollupParser.js")+"");
+eval(load.call(this,"lib/cass.rollup.js")+"");
+
+global.EcRemote = EcRemote;
 global.EcRepository = EcRepository;
 global.EcRemoteIdentityManager = EcRemoteIdentityManager;
 global.EcIdentityManager = EcIdentityManager;

@@ -1,6 +1,6 @@
 {
   "name": "cassproject",
-  "version": "0.2.3",
+  "version": "0.2.5",
   "description": "Competency and Skills Service",
   "main": "index.js",
   "scripts": {
@@ -29,7 +29,10 @@
   },
   "files": [
     "lib/",
-    "bin/"
+    "bin/",
+    "RollupLexer.js",
+    "RollupListener.js",
+    "RollupParser.js"
   ],
   "main": "index.js",
   "repository": {

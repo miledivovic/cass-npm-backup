@@ -1,6 +1,6 @@
 {
   "name": "cassproject",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Competency and Skills Service",
   "main": "index.js",
   "scripts": {
@@ -25,6 +25,7 @@
     "form-data": "^2.1.2",
     "node-jquery-xhr": "^2.1.3-a",
     "node-forge": "^0.6.47",
+    "pem-jwk": "^1.5.1",
     "antlr4": "^4.6.0"
   },
   "files": [

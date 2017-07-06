@@ -4,6 +4,7 @@ require("node-jquery-xhr");
 var forge = require("node-forge");
 var FormData = require('form-data');
 var antlr4 = require('antlr4/index');
+var pemJwk = require('pem-jwk');
 
 var window = null;
 var document = {};
@@ -31,6 +32,7 @@ function load(lib){
 
 eval(load.call(this,"lib/random.js")+"");
 eval(load.call(this,"lib/blobHelper.js")+"");
+eval(load.call(this,"lib/base64toArrayBuffer.js")+"");
 eval(load.call(this,"lib/stjs.js")+"");
 eval(load.call(this,"lib/ec.base.js")+"");
 eval(load.call(this,"lib/ec.crypto.js")+"");

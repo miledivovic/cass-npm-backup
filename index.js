@@ -39,6 +39,7 @@ eval(load.call(this,"lib/ec.crypto.js")+"");
 eval(load.call(this,"lib/org.json-ld.js")+"");
 eval(load.call(this,"lib/org.cassproject.schema.general.js")+"");
 eval(load.call(this,"lib/org.schema.js")+"");
+eval(load.call(this,"lib/org.w3.skos.js")+"");
 eval(load.call(this,"lib/org.cassproject.schema.ebac.js")+"");
 eval(load.call(this,"lib/org.cassproject.schema.cass.js")+"");
 eval(load.call(this,"lib/ebac.identity.js")+"");

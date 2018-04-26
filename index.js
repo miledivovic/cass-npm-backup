@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var XMLHttpRequest = require('xhr2');
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 require("text-encoding");
 var forge = require("node-forge");
 var FormData = require('form-data');

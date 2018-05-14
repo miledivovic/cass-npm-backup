@@ -1,59 +1,58 @@
 {
-  "name": "cassproject",
-  "version": "0.3.4",
-  "description": "Competency and Skills Service",
-  "main": "index.js",
-  "scripts": {
-	"test": ""
-  },
-  "bin": {
-	"cassSetServer": "bin/cassSetServer",
-	"cassListFrameworks": "bin/cassListFrameworks"
-  },
-  "contributors": [
-	{
-	  "name": "Devlin Junker",
-	  "email": "devlin.junker@eduworks.com"
+	"name": "cassproject",
+	"version": "0.3.5",
+	"description": "Competency and Skills Service",
+	"main": "index.js",
+	"scripts": {
+		"test": ""
 	},
-	{
-	  "name": "Thomas Buskirk",
-	  "email": "tom.buskirk@eduworks.com"
+	"bin": {
+		"cassSetServer": "bin/cassSetServer",
+		"cassListFrameworks": "bin/cassListFrameworks"
 	},
-	{
-	  "name": "Ronald 'Fritz' Ray",
-	  "email": "fritz.ray@eduworks.com"
-	}
-  ],
-  "dependencies": {
-	"form-data": "^2.1.2",
-	"xmlhttprequest": "^1.8.0",
-	"esprima":"*",
-	"text-encoding": "^0.6.4",
-	"node-forge": "^0.6.47",
-	"pem-jwk": "^1.5.1",
-	"antlr4": "^4.6.0"
-  },
-  "files": [
-	"lib/",
-	"bin/",
-	"RollupLexer.js",
-	"RollupListener.js",
-	"RollupParser.js"
-  ],
-  "main": "index.js",
-  "repository": {
-	"type": "git",
-	"url": "git+ssh://git@github.com/cassproject/cass-npm.git"
-  },
-  "keywords": [
-	"cass",
-	"cassproject",
-	"competency"
-  ],
-  "author": "Fritz Ray <fritz.ray@eduworks.com> (http://docs.cassproject.org)",
-  "license": "Apache-2.0",
-  "bugs": {
-	"url": "https://github.com/cassproject/cass-npm/issues"
-  },
-  "homepage": "https://github.com/cassproject/cass-npm#readme"
+	"contributors": [
+		{
+			"name": "Devlin Junker",
+			"email": "devlin.junker@eduworks.com"
+		},
+		{
+			"name": "Thomas Buskirk",
+			"email": "tom.buskirk@eduworks.com"
+		},
+		{
+			"name": "Ronald 'Fritz' Ray",
+			"email": "fritz.ray@eduworks.com"
+		}
+	],
+	"dependencies": {
+		"form-data": "^2.1.2",
+		"xmlhttprequest": "^1.8.0",
+		"esprima": "*",
+		"text-encoding": "^0.6.4",
+		"node-forge": "^0.6.47",
+		"pem-jwk": "^1.5.1",
+		"antlr4": "^4.6.0"
+	},
+	"files": [
+		"lib/",
+		"bin/",
+		"RollupLexer.js",
+		"RollupListener.js",
+		"RollupParser.js"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@github.com/cassproject/cass-npm.git"
+	},
+	"keywords": [
+		"cass",
+		"cassproject",
+		"competency"
+	],
+	"author": "Fritz Ray <fritz.ray@eduworks.com> (http://docs.cassproject.org)",
+	"license": "Apache-2.0",
+	"bugs": {
+		"url": "https://github.com/cassproject/cass-npm/issues"
+	},
+	"homepage": "https://github.com/cassproject/cass-npm#readme"
 }

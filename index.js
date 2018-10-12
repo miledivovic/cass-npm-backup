@@ -79,3 +79,4 @@ global.forge = forge;
 global.FormData = FormData;
 global.antlr4 = antlr4;
 global.pemJwk = pemJwk;
+global.stjs = stjs;

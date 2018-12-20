@@ -54,6 +54,8 @@ eval(load.call(this,"lib/org.cassproject.schema.ebac.js")+"");
 results.push(esprima.parse(load.call(this,"lib/org.cassproject.schema.ebac.js")+""));
 eval(load.call(this,"lib/org.cassproject.schema.cass.js")+"");
 results.push(esprima.parse(load.call(this,"lib/org.cassproject.schema.cass.js")+""));
+eval(load.call(this,"lib/com.eduworks.schema.js")+"");
+results.push(esprima.parse(load.call(this,"lib/com.eduworks.schema.js")+""));
 eval(load.call(this,"lib/ebac.identity.js")+"");
 results.push(esprima.parse(load.call(this,"lib/ebac.identity.js")+""));
 eval(load.call(this,"lib/ebac.repository.js")+"");

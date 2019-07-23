@@ -1,0 +1,91 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <groupId>org.cassproject</groupId>
+    <artifactId>cass-npm</artifactId>
+    <packaging>jar</packaging>
+    <version>0.0.1</version>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <ec-version>SNAPSHOT</ec-version>
+    </properties>
+    
+    <developers>
+        <developer>
+            <name>Ronald "Fritz" Ray</name>
+            <email>fritz.ray@eduworks.com</email>
+            <organization>Eduworks Corporation</organization>
+            <organizationUrl>http://www.eduworks.com</organizationUrl>
+            <roles>
+                <role>Architect</role>
+                <role>Developer</role>
+            </roles>
+            <timezone>PST</timezone>
+        </developer>
+    </developers>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.eduworks</groupId>
+            <artifactId>ec.ui.framework</artifactId>
+            <version>${ec-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eduworks</groupId>
+            <artifactId>cass.competency</artifactId>
+            <version>${ec-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eduworks</groupId>
+            <artifactId>ebac.identity</artifactId>
+            <version>${ec-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eduworks</groupId>
+            <artifactId>cass.rollup</artifactId>
+            <version>${ec-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eduworks</groupId>
+            <artifactId>cass.import</artifactId>
+            <version>${ec-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eduworks</groupId>
+            <artifactId>cass.adapter</artifactId>
+            <version>${ec-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.eduworks</groupId>
+            <artifactId>org.credentialengine</artifactId>
+            <version>${ec-version}</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>asid</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>2.10</version>
+                <executions>
+                    <execution>
+                        <id>unpack-js</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includes>*.js</includes>
+                            <excludes>*skyrepo*.js,formdata.js,jvm-npm.js</excludes>
+                            <outputDirectory>lib</outputDirectory>
+                            <overWriteReleases>true</overWriteReleases>
+                            <overWriteSnapshots>true</overWriteSnapshots>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

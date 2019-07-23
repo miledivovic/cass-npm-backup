@@ -1,19 +1,9 @@
 var fs = require('fs');
+var theOutput = "";
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-require("text-encoding");
-var forge = require("forge");
-var FormData = require('form-data');
-var antlr4 = require('antlr4/index');
-var pemJwk = require('pem-jwk');
-
-var window = {
-	crypto: null
-};
-var Worker = null;
-var document = {};
-var view = {};
-var localStorage = {};
+function output(str) {
+	theOutput += str + "\n";
+}
 
 function load(lib) {
 	if (fs.existsSync(lib)) {
@@ -29,38 +19,37 @@ function load(lib) {
 
 var esprima = require('esprima');
 var results = [];
-eval(load.call(this, "lib/random.js") + "");
-eval(load.call(this, "lib/blobHelper.js") + "");
-eval(load.call(this, "lib/base64toArrayBuffer.js") + "");
-eval(load.call(this, "lib/stjs.js") + "");
-eval(load.call(this, "lib/ec.base.js") + "");
+output(load.call(this, "lib/random.js") + "");
+output(load.call(this, "lib/blobHelper.js") + "");
+output(load.call(this, "lib/stjs.js") + "");
+output(load.call(this, "lib/ec.base.js") + "");
 results.push(esprima.parse(load.call(this, "lib/ec.base.js") + ""));
-eval(load.call(this, "lib/ec.crypto.js") + "");
+output(load.call(this, "lib/ec.crypto.js") + "");
 results.push(esprima.parse(load.call(this, "lib/ec.crypto.js") + ""));
-eval(load.call(this, "lib/org.json-ld.js") + "");
+output(load.call(this, "lib/org.json-ld.js") + "");
 results.push(esprima.parse(load.call(this, "lib/org.json-ld.js") + ""));
-eval(load.call(this, "lib/org.cassproject.schema.general.js") + "");
+output(load.call(this, "lib/org.cassproject.schema.general.js") + "");
 results.push(esprima.parse(load.call(this, "lib/org.cassproject.schema.general.js") + ""));
-eval(load.call(this, "lib/org.schema.js") + "");
+output(load.call(this, "lib/org.schema.js") + "");
 results.push(esprima.parse(load.call(this, "lib/org.schema.js") + ""));
-eval(load.call(this, "lib/org.w3.skos.js") + "");
+output(load.call(this, "lib/org.w3.skos.js") + "");
 results.push(esprima.parse(load.call(this, "lib/org.w3.skos.js") + ""));
-eval(load.call(this, "lib/org.cassproject.schema.ebac.js") + "");
+output(load.call(this, "lib/org.cassproject.schema.ebac.js") + "");
 results.push(esprima.parse(load.call(this, "lib/org.cassproject.schema.ebac.js") + ""));
-eval(load.call(this, "lib/org.cassproject.schema.cass.js") + "");
+output(load.call(this, "lib/org.cassproject.schema.cass.js") + "");
 results.push(esprima.parse(load.call(this, "lib/org.cassproject.schema.cass.js") + ""));
-eval(load.call(this, "lib/com.eduworks.schema.js") + "");
+output(load.call(this, "lib/com.eduworks.schema.js") + "");
 results.push(esprima.parse(load.call(this, "lib/com.eduworks.schema.js") + ""));
-eval(load.call(this, "lib/ebac.identity.js") + "");
+output(load.call(this, "lib/ebac.identity.js") + "");
 results.push(esprima.parse(load.call(this, "lib/ebac.identity.js") + ""));
-eval(load.call(this, "lib/ebac.repository.js") + "");
+output(load.call(this, "lib/ebac.repository.js") + "");
 results.push(esprima.parse(load.call(this, "lib/ebac.repository.js") + ""));
-eval(load.call(this, "lib/cass.competency.js") + "");
+output(load.call(this, "lib/cass.competency.js") + "");
 results.push(esprima.parse(load.call(this, "lib/cass.competency.js") + ""));
-eval(load.call(this, "lib/RollupListener.js") + "");
-eval(load.call(this, "lib/RollupLexer.js") + "");
-eval(load.call(this, "lib/RollupParser.js") + "");
-eval(load.call(this, "lib/cass.rollup.js") + "");
+output(load.call(this, "lib/RollupListener.js") + "");
+output(load.call(this, "lib/RollupLexer.js") + "");
+output(load.call(this, "lib/RollupParser.js") + "");
+output(load.call(this, "lib/cass.rollup.js") + "");
 results.push(esprima.parse(load.call(this, "lib/cass.rollup.js") + ""));
 
 var decls = "";
@@ -70,10 +59,6 @@ for (var j = 0; j < results.length; j++)
 		if (results[j].body[i].declarations != null)
 			decls += "\nglobal." + results[j].body[i].declarations[0].id.name + " = " + results[j].body[i].declarations[0].id.name;
 
-eval(decls);
+output(decls);
 
-global.forge = forge;
-global.FormData = FormData;
-global.antlr4 = antlr4;
-global.pemJwk = pemJwk;
-global.stjs = stjs;
+fs.writeFileSync("output.js", (load.call(this, "template.js") + "").replace("//CODE GENERATED HERE", theOutput));

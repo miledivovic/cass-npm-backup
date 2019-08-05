@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "2.9.11",
+	"version": "2.9.12",
 	"description": "Competency and Skills Service",
 	"main": "output.js",
 	"scripts": {
@@ -10,7 +10,8 @@
 		"cassSetServer": "bin/cassSetServer",
 		"cassListFrameworks": "bin/cassListFrameworks"
 	},
-	"contributors": [{
+	"contributors": [
+		{
 			"name": "Devlin Junker",
 			"email": "devlin.junker@eduworks.com"
 		},

@@ -4,11 +4,11 @@
     <groupId>org.cassproject</groupId>
     <artifactId>cass-npm</artifactId>
     <packaging>jar</packaging>
-    <version>3.0.4</version>
+    <version>3.0.5</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <ec-version>3.0.4</ec-version>
+        <ec-version>3.0.5</ec-version>
     </properties>
 
     <developers>

@@ -33022,12 +33022,18 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         fd.append("data", data.toJson());
         var afterSignatureSheet = function(signatureSheet) {
             fd.append("signatureSheet", signatureSheet);
-            if (!EcRepository.alwaysTryUrl) 
-                if (repo != null) 
+            if (!EcRepository.alwaysTryUrl) {
+                if (repo != null) {
+                    if (data.id.indexOf(repo.selectedServer) != -1) {
+                        EcRemote.postExpectingString(data.id, "", fd, success, failure);
+                        return;
+                    }
                     if (!repo.constructor.shouldTryUrl(data.id) || data.id.indexOf(repo.selectedServer) == -1) {
                         EcRemote.postExpectingString(EcRemote.urlAppend(repo.selectedServer, "data/" + data.getDottedType() + "/" + EcCrypto.md5(data.shortId())), "", fd, success, failure);
                         return;
                     }
+                }
+            }
             EcRemote.postExpectingString(data.id, "", fd, success, failure);
         };
         var offset = 0;

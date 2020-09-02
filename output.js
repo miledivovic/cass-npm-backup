@@ -33991,6 +33991,8 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
                         if (p1.isAny(result.getTypes())) {
                             result.copyFrom(p1);
                             set(result);
+                        } else {
+                            set(null);
                         }
                     }, EcAsyncHelper.setNull(set));
                 }, function(results) {

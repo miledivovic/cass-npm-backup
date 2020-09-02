@@ -52,6 +52,9 @@ output(load.call(this, "lib/RollupParser.js") + "");
 output(load.call(this, "lib/cass.rollup.js") + "");
 results.push(esprima.parse(load.call(this, "lib/cass.rollup.js") + ""));
 
+output(load.call(this, "lib/cass.import.js") + "");
+results.push(esprima.parse(load.call(this, "lib/cass.import.js") + ""));
+
 var decls = "";
 
 for (var j = 0; j < results.length; j++)

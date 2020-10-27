@@ -1694,8 +1694,9 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
     };
     /**
      *  Returns the index of an object or value if the object or value exists in the array. Uses .equals if available.
+     * 
      *  @param {Array} a Array to check over.
-     *  @param {any} o Object to check for.
+     *  @param {any}   o Object to check for.
      *  @return Index of the result, -1 if the result isn't in the array.
      *  @static
      *  @method indexOf
@@ -1766,18 +1767,6 @@ Triple = stjs.extend(Triple, null, [], function(constructor, prototype) {
                 return true;
         }
         return false;
-    };
-}, {}, {});
-var EcBrowserDetection = function() {};
-EcBrowserDetection = stjs.extend(EcBrowserDetection, null, [], function(constructor, prototype) {
-    constructor.isIeOrEdge = function() {
-        if (window == null) 
-            return false;
-        if (window.navigator == null) 
-            return false;
-        if (window.navigator.appName == null) 
-            return false;
-        return window.navigator.appName == "Microsoft Internet Explorer" || (window.navigator.appName == "Netscape" && window.navigator.appVersion.indexOf("Edge") > -1);
     };
 }, {}, {});
 /**
@@ -2059,6 +2048,18 @@ EcRemote = stjs.extend(EcRemote, null, [], function(constructor, prototype) {
             }
             success(o);
         };
+    };
+}, {}, {});
+var EcBrowserDetection = function() {};
+EcBrowserDetection = stjs.extend(EcBrowserDetection, null, [], function(constructor, prototype) {
+    constructor.isIeOrEdge = function() {
+        if (window == null) 
+            return false;
+        if (window.navigator == null) 
+            return false;
+        if (window.navigator.appName == null) 
+            return false;
+        return window.navigator.appName == "Microsoft Internet Explorer" || (window.navigator.appName == "Netscape" && window.navigator.appVersion.indexOf("Edge") > -1);
     };
 }, {}, {});
 var EcLocalStorage = function() {};
@@ -7830,6 +7831,26 @@ function() {
 };
 DanceEvent = stjs.extend(DanceEvent, SchemaEvent, [], null, {about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
+ *  Schema.org/UserInteraction
+ *  UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use [[Action]]-based vocabulary, alongside types such as [[Comment]].
+ * 
+ *  @author schema.org
+ *  @class UserInteraction
+ *  @module org.schema
+ *  @extends SchemaEvent
+ */
+var UserInteraction = /**
+ *  Constructor, automatically sets @context and @type.
+ * 
+ *  @constructor
+ */
+function() {
+    SchemaEvent.call(this);
+    this.context = "http://schema.org/";
+    this.type = "UserInteraction";
+};
+UserInteraction = stjs.extend(UserInteraction, SchemaEvent, [], null, {about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
+/**
  *  Schema.org/DeliveryEvent
  *  An event involving the delivery of an item.
  * 
@@ -7882,26 +7903,6 @@ DeliveryEvent = stjs.extend(DeliveryEvent, SchemaEvent, [], function(constructor
      */
     prototype.accessCode = null;
 }, {hasDeliveryMethod: "DeliveryMethod", about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
-/**
- *  Schema.org/UserInteraction
- *  UserInteraction and its subtypes is an old way of talking about users interacting with pages. It is generally better to use [[Action]]-based vocabulary, alongside types such as [[Comment]].
- * 
- *  @author schema.org
- *  @class UserInteraction
- *  @module org.schema
- *  @extends SchemaEvent
- */
-var UserInteraction = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    SchemaEvent.call(this);
-    this.context = "http://schema.org/";
-    this.type = "UserInteraction";
-};
-UserInteraction = stjs.extend(UserInteraction, SchemaEvent, [], null, {about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
  *  Schema.org/PublicationEvent
  *  A PublicationEvent corresponds indifferently to the event of publication for a CreativeWork of any type e.g. a broadcast event, an on-demand event, a book/journal publication via a variety of delivery media.
@@ -13490,6 +13491,75 @@ VisualArtwork = stjs.extend(VisualArtwork, CreativeWork, [], function(constructo
     prototype.depth = null;
 }, {height: "Distance", width: "Distance", depth: "Distance", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
+ *  Schema.org/Article
+ *  An article, such as a news article or piece of investigative report. Newspapers and magazines have articles of many different types and this is intended to cover them all.\n\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html).
+ * 
+ *  @author schema.org
+ *  @class Article
+ *  @module org.schema
+ *  @extends CreativeWork
+ */
+var Article = /**
+ *  Constructor, automatically sets @context and @type.
+ * 
+ *  @constructor
+ */
+function() {
+    CreativeWork.call(this);
+    this.context = "http://schema.org/";
+    this.type = "Article";
+};
+Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype) {
+    /**
+     *  Schema.org/pagination
+     *  Any description of pages that is not separated into pageStart and pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49".
+     * 
+     *  @property pagination
+     *  @type Text
+     */
+    prototype.pagination = null;
+    /**
+     *  Schema.org/pageEnd
+     *  The page on which the work ends; for example "138" or "xvi".
+     * 
+     *  @property pageEnd
+     *  @type Integer
+     */
+    prototype.pageEnd = null;
+    /**
+     *  Schema.org/articleSection
+     *  Articles may belong to one or more 'sections' in a magazine or newspaper, such as Sports, Lifestyle, etc.
+     * 
+     *  @property articleSection
+     *  @type Text
+     */
+    prototype.articleSection = null;
+    /**
+     *  Schema.org/articleBody
+     *  The actual body of the article.
+     * 
+     *  @property articleBody
+     *  @type Text
+     */
+    prototype.articleBody = null;
+    /**
+     *  Schema.org/pageStart
+     *  The page on which the work starts; for example "135" or "xiii".
+     * 
+     *  @property pageStart
+     *  @type Integer
+     */
+    prototype.pageStart = null;
+    /**
+     *  Schema.org/wordCount
+     *  The number of words in the text of the Article.
+     * 
+     *  @property wordCount
+     *  @type Integer
+     */
+    prototype.wordCount = null;
+}, {about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
+/**
  *  Schema.org/TVSeries
  *  CreativeWorkSeries dedicated to TV broadcast and associated online delivery.
  * 
@@ -13630,75 +13700,6 @@ TVSeries = stjs.extend(TVSeries, CreativeWork, [], function(constructor, prototy
      */
     prototype.episode = null;
 }, {seasons: "CreativeWorkSeason", actor: "Person", trailer: "VideoObject", season: "CreativeWorkSeason", episodes: "Episode", countryOfOrigin: "Country", musicBy: "Person", containsSeason: "CreativeWorkSeason", directors: "Person", director: "Person", productionCompany: "Organization", actors: "Person", episode: "Episode", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
-/**
- *  Schema.org/Article
- *  An article, such as a news article or piece of investigative report. Newspapers and magazines have articles of many different types and this is intended to cover them all.\n\nSee also [blog post](http://blog.schema.org/2014/09/schemaorg-support-for-bibliographic_2.html).
- * 
- *  @author schema.org
- *  @class Article
- *  @module org.schema
- *  @extends CreativeWork
- */
-var Article = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    CreativeWork.call(this);
-    this.context = "http://schema.org/";
-    this.type = "Article";
-};
-Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype) {
-    /**
-     *  Schema.org/pagination
-     *  Any description of pages that is not separated into pageStart and pageEnd; for example, "1-6, 9, 55" or "10-12, 46-49".
-     * 
-     *  @property pagination
-     *  @type Text
-     */
-    prototype.pagination = null;
-    /**
-     *  Schema.org/pageEnd
-     *  The page on which the work ends; for example "138" or "xvi".
-     * 
-     *  @property pageEnd
-     *  @type Integer
-     */
-    prototype.pageEnd = null;
-    /**
-     *  Schema.org/articleSection
-     *  Articles may belong to one or more 'sections' in a magazine or newspaper, such as Sports, Lifestyle, etc.
-     * 
-     *  @property articleSection
-     *  @type Text
-     */
-    prototype.articleSection = null;
-    /**
-     *  Schema.org/articleBody
-     *  The actual body of the article.
-     * 
-     *  @property articleBody
-     *  @type Text
-     */
-    prototype.articleBody = null;
-    /**
-     *  Schema.org/pageStart
-     *  The page on which the work starts; for example "135" or "xiii".
-     * 
-     *  @property pageStart
-     *  @type Integer
-     */
-    prototype.pageStart = null;
-    /**
-     *  Schema.org/wordCount
-     *  The number of words in the text of the Article.
-     * 
-     *  @property wordCount
-     *  @type Integer
-     */
-    prototype.wordCount = null;
-}, {about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
  *  Schema.org/MusicPlaylist
  *  A collection of music tracks in playlist form.
@@ -15816,26 +15817,6 @@ function() {
 };
 Beach = stjs.extend(Beach, CivicStructure, [], null, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
- *  Schema.org/ParkingFacility
- *  A parking lot or other parking facility.
- * 
- *  @author schema.org
- *  @class ParkingFacility
- *  @module org.schema
- *  @extends CivicStructure
- */
-var ParkingFacility = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    CivicStructure.call(this);
-    this.context = "http://schema.org/";
-    this.type = "ParkingFacility";
-};
-ParkingFacility = stjs.extend(ParkingFacility, CivicStructure, [], null, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
-/**
  *  Schema.org/EventVenue
  *  An event venue.
  * 
@@ -15855,6 +15836,26 @@ function() {
     this.type = "EventVenue";
 };
 EventVenue = stjs.extend(EventVenue, CivicStructure, [], null, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
+/**
+ *  Schema.org/ParkingFacility
+ *  A parking lot or other parking facility.
+ * 
+ *  @author schema.org
+ *  @class ParkingFacility
+ *  @module org.schema
+ *  @extends CivicStructure
+ */
+var ParkingFacility = /**
+ *  Constructor, automatically sets @context and @type.
+ * 
+ *  @constructor
+ */
+function() {
+    CivicStructure.call(this);
+    this.context = "http://schema.org/";
+    this.type = "ParkingFacility";
+};
+ParkingFacility = stjs.extend(ParkingFacility, CivicStructure, [], null, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
  *  Schema.org/GovernmentBuilding
  *  A government building.
@@ -15898,26 +15899,6 @@ function() {
 };
 Campground = stjs.extend(Campground, CivicStructure, [], null, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
- *  Schema.org/PlaceOfWorship
- *  Place of worship, such as a church, synagogue, or mosque.
- * 
- *  @author schema.org
- *  @class PlaceOfWorship
- *  @module org.schema
- *  @extends CivicStructure
- */
-var PlaceOfWorship = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    CivicStructure.call(this);
-    this.context = "http://schema.org/";
-    this.type = "PlaceOfWorship";
-};
-PlaceOfWorship = stjs.extend(PlaceOfWorship, CivicStructure, [], null, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
-/**
  *  Schema.org/MovieTheater
  *  A movie theater.
  * 
@@ -15946,6 +15927,26 @@ MovieTheater = stjs.extend(MovieTheater, CivicStructure, [], function(constructo
      */
     prototype.screenCount = null;
 }, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
+/**
+ *  Schema.org/PlaceOfWorship
+ *  Place of worship, such as a church, synagogue, or mosque.
+ * 
+ *  @author schema.org
+ *  @class PlaceOfWorship
+ *  @module org.schema
+ *  @extends CivicStructure
+ */
+var PlaceOfWorship = /**
+ *  Constructor, automatically sets @context and @type.
+ * 
+ *  @constructor
+ */
+function() {
+    CivicStructure.call(this);
+    this.context = "http://schema.org/";
+    this.type = "PlaceOfWorship";
+};
+PlaceOfWorship = stjs.extend(PlaceOfWorship, CivicStructure, [], null, {photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
  *  Schema.org/BusStop
  *  A bus stop.
@@ -18593,26 +18594,6 @@ function() {
 };
 GovernmentOffice = stjs.extend(GovernmentOffice, LocalBusiness, [], null, {branchOf: "Organization", serviceArea: "GeoShape", address: "PostalAddress", funder: "Person", memberOf: "Organization", subOrganization: "Organization", hasOfferCatalog: "OfferCatalog", reviews: "Review", members: "Organization", aggregateRating: "AggregateRating", makesOffer: "Offer", contactPoints: "ContactPoint", seeks: "Demand", member: "Organization", founders: "Person", alumni: "Person", events: "SchemaEvent", logo: "ImageObject", employees: "Person", department: "Organization", contactPoint: "ContactPoint", parentOrganization: "Organization", employee: "Person", numberOfEmployees: "QuantitativeValue", hasPOS: "Place", review: "Review", foundingLocation: "Place", owns: "OwnershipInfo", event: "SchemaEvent", founder: "Person", sponsor: "Organization", location: "PostalAddress", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
- *  Schema.org/RealEstateAgent
- *  A real-estate agent.
- * 
- *  @author schema.org
- *  @class RealEstateAgent
- *  @module org.schema
- *  @extends LocalBusiness
- */
-var RealEstateAgent = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    LocalBusiness.call(this);
-    this.context = "http://schema.org/";
-    this.type = "RealEstateAgent";
-};
-RealEstateAgent = stjs.extend(RealEstateAgent, LocalBusiness, [], null, {branchOf: "Organization", serviceArea: "GeoShape", address: "PostalAddress", funder: "Person", memberOf: "Organization", subOrganization: "Organization", hasOfferCatalog: "OfferCatalog", reviews: "Review", members: "Organization", aggregateRating: "AggregateRating", makesOffer: "Offer", contactPoints: "ContactPoint", seeks: "Demand", member: "Organization", founders: "Person", alumni: "Person", events: "SchemaEvent", logo: "ImageObject", employees: "Person", department: "Organization", contactPoint: "ContactPoint", parentOrganization: "Organization", employee: "Person", numberOfEmployees: "QuantitativeValue", hasPOS: "Place", review: "Review", foundingLocation: "Place", owns: "OwnershipInfo", event: "SchemaEvent", founder: "Person", sponsor: "Organization", location: "PostalAddress", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
-/**
  *  Schema.org/SelfStorage
  *  A self-storage facility.
  * 
@@ -18632,6 +18613,26 @@ function() {
     this.type = "SelfStorage";
 };
 SelfStorage = stjs.extend(SelfStorage, LocalBusiness, [], null, {branchOf: "Organization", serviceArea: "GeoShape", address: "PostalAddress", funder: "Person", memberOf: "Organization", subOrganization: "Organization", hasOfferCatalog: "OfferCatalog", reviews: "Review", members: "Organization", aggregateRating: "AggregateRating", makesOffer: "Offer", contactPoints: "ContactPoint", seeks: "Demand", member: "Organization", founders: "Person", alumni: "Person", events: "SchemaEvent", logo: "ImageObject", employees: "Person", department: "Organization", contactPoint: "ContactPoint", parentOrganization: "Organization", employee: "Person", numberOfEmployees: "QuantitativeValue", hasPOS: "Place", review: "Review", foundingLocation: "Place", owns: "OwnershipInfo", event: "SchemaEvent", founder: "Person", sponsor: "Organization", location: "PostalAddress", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
+/**
+ *  Schema.org/RealEstateAgent
+ *  A real-estate agent.
+ * 
+ *  @author schema.org
+ *  @class RealEstateAgent
+ *  @module org.schema
+ *  @extends LocalBusiness
+ */
+var RealEstateAgent = /**
+ *  Constructor, automatically sets @context and @type.
+ * 
+ *  @constructor
+ */
+function() {
+    LocalBusiness.call(this);
+    this.context = "http://schema.org/";
+    this.type = "RealEstateAgent";
+};
+RealEstateAgent = stjs.extend(RealEstateAgent, LocalBusiness, [], null, {branchOf: "Organization", serviceArea: "GeoShape", address: "PostalAddress", funder: "Person", memberOf: "Organization", subOrganization: "Organization", hasOfferCatalog: "OfferCatalog", reviews: "Review", members: "Organization", aggregateRating: "AggregateRating", makesOffer: "Offer", contactPoints: "ContactPoint", seeks: "Demand", member: "Organization", founders: "Person", alumni: "Person", events: "SchemaEvent", logo: "ImageObject", employees: "Person", department: "Organization", contactPoint: "ContactPoint", parentOrganization: "Organization", employee: "Person", numberOfEmployees: "QuantitativeValue", hasPOS: "Place", review: "Review", foundingLocation: "Place", owns: "OwnershipInfo", event: "SchemaEvent", founder: "Person", sponsor: "Organization", location: "PostalAddress", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
  *  Schema.org/FoodEstablishment
  *  A food-related business.
@@ -20680,26 +20681,6 @@ function() {
 };
 DayOfWeek = stjs.extend(DayOfWeek, Enumeration, [], null, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
- *  Schema.org/ReservationStatusType
- *  Enumerated status values for Reservation.
- * 
- *  @author schema.org
- *  @class ReservationStatusType
- *  @module org.schema
- *  @extends Enumeration
- */
-var ReservationStatusType = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    Enumeration.call(this);
-    this.context = "http://schema.org/";
-    this.type = "ReservationStatusType";
-};
-ReservationStatusType = stjs.extend(ReservationStatusType, Enumeration, [], null, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
-/**
  *  Schema.org/RestrictedDiet
  *  A diet restricted to certain foods or preparations for cultural, religious, health or lifestyle reasons.
  * 
@@ -20719,6 +20700,26 @@ function() {
     this.type = "RestrictedDiet";
 };
 RestrictedDiet = stjs.extend(RestrictedDiet, Enumeration, [], null, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
+/**
+ *  Schema.org/ReservationStatusType
+ *  Enumerated status values for Reservation.
+ * 
+ *  @author schema.org
+ *  @class ReservationStatusType
+ *  @module org.schema
+ *  @extends Enumeration
+ */
+var ReservationStatusType = /**
+ *  Constructor, automatically sets @context and @type.
+ * 
+ *  @constructor
+ */
+function() {
+    Enumeration.call(this);
+    this.context = "http://schema.org/";
+    this.type = "ReservationStatusType";
+};
+ReservationStatusType = stjs.extend(ReservationStatusType, Enumeration, [], null, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 /**
  *  Schema.org/PaymentStatusType
  *  A specific payment status. For example, PaymentDue, PaymentComplete, etc.
@@ -29490,36 +29491,6 @@ EcCreativeWork = stjs.extend(EcCreativeWork, CreativeWork, [], function(construc
         }, success, failure, paramObj);
     };
 }, {about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
-var EcQuiz = function() {
-    CreativeWork.call(this);
-    this.type = "Quiz";
-    this.context = "http://schema.eduworks.com/0.1/";
-};
-EcQuiz = stjs.extend(EcQuiz, CreativeWork, [], function(constructor, prototype) {
-    constructor.myType = "http://schema.eduworks.com/0.1/Quiz";
-    prototype.duration = null;
-    prototype.question = null;
-    /**
-     *  Searches a repository for quizzes that match the search query
-     * 
-     *  @param {EcRepository}          repo Repository to search using the query
-     *  @param {String}                query Query string to pass to the search web service
-     *  @param {Callback1<Array<Quiz>> success Callback triggered after
-     *                                 completing the search, returns the results
-     *  @param {Callback1<String>}     failure Callback triggered if error searching
-     *  @param {Object}                paramObj Parameter object for search
-     *  @param start
-     *  @param size
-     *  @memberOf Quiz
-     *  @method search
-     *  @static
-     */
-    constructor.search = function(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcQuiz();
-        }, success, failure, paramObj);
-    };
-}, {question: {name: "Array", arguments: [null]}, about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 var EcComment = function() {
     Comment.call(this);
 };
@@ -29639,6 +29610,36 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
         }
     };
 }, {parentItem: "Question", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
+var EcQuiz = function() {
+    CreativeWork.call(this);
+    this.type = "Quiz";
+    this.context = "http://schema.eduworks.com/0.1/";
+};
+EcQuiz = stjs.extend(EcQuiz, CreativeWork, [], function(constructor, prototype) {
+    constructor.myType = "http://schema.eduworks.com/0.1/Quiz";
+    prototype.duration = null;
+    prototype.question = null;
+    /**
+     *  Searches a repository for quizzes that match the search query
+     * 
+     *  @param {EcRepository}          repo Repository to search using the query
+     *  @param {String}                query Query string to pass to the search web service
+     *  @param {Callback1<Array<Quiz>> success Callback triggered after
+     *                                 completing the search, returns the results
+     *  @param {Callback1<String>}     failure Callback triggered if error searching
+     *  @param {Object}                paramObj Parameter object for search
+     *  @param start
+     *  @param size
+     *  @memberOf Quiz
+     *  @method search
+     *  @static
+     */
+    constructor.search = function(repo, query, success, failure, paramObj) {
+        EcRepository.searchAs(repo, query, function() {
+            return new EcQuiz();
+        }, success, failure, paramObj);
+    };
+}, {question: {name: "Array", arguments: [null]}, about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, atProperties: {name: "Array", arguments: [null]}}, {});
 var EcQuestion = function() {
     Question.call(this);
 };
@@ -37239,6 +37240,29 @@ NodeRelation = stjs.extend(NodeRelation, null, [], function(constructor, prototy
         return this.getSource().toString() + " >>" + this.getType() + "<< " + this.getTarget().toString();
     };
 }, {type: {name: "Enum", arguments: ["RelationType.RELATION_TYPE"]}, source: "Node", target: "Node"}, {});
+var RrS = function() {
+    this.token = new Array();
+    this.query = new Array();
+};
+RrS = stjs.extend(RrS, null, [], function(constructor, prototype) {
+    prototype.token = null;
+    prototype.query = null;
+    prototype.addToken = function(rrToken) {
+        this.token.push(rrToken);
+    };
+    prototype.addQuery = function(rrQuery) {
+        this.query.push(rrQuery);
+    };
+}, {token: {name: "Array", arguments: ["RrToken"]}, query: {name: "Array", arguments: ["RrQuery"]}}, {});
+var RrToken = function() {};
+RrToken = stjs.extend(RrToken, null, [], function(constructor, prototype) {
+    prototype.number = null;
+    prototype.bool = null;
+}, {}, {});
+var RrQuery = function() {};
+RrQuery = stjs.extend(RrQuery, null, [], function(constructor, prototype) {
+    prototype.query = null;
+}, {}, {});
 var CgEdge = function(source, target, relation) {
     this.source = source;
     this.target = target;
@@ -37322,29 +37346,6 @@ SimpleAssertion = stjs.extend(SimpleAssertion, null, [], function(constructor, p
     prototype.setNegative = function(negative) {
         this.negative = negative;
     };
-}, {}, {});
-var RrS = function() {
-    this.token = new Array();
-    this.query = new Array();
-};
-RrS = stjs.extend(RrS, null, [], function(constructor, prototype) {
-    prototype.token = null;
-    prototype.query = null;
-    prototype.addToken = function(rrToken) {
-        this.token.push(rrToken);
-    };
-    prototype.addQuery = function(rrQuery) {
-        this.query.push(rrQuery);
-    };
-}, {token: {name: "Array", arguments: ["RrToken"]}, query: {name: "Array", arguments: ["RrQuery"]}}, {});
-var RrToken = function() {};
-RrToken = stjs.extend(RrToken, null, [], function(constructor, prototype) {
-    prototype.number = null;
-    prototype.bool = null;
-}, {}, {});
-var RrQuery = function() {};
-RrQuery = stjs.extend(RrQuery, null, [], function(constructor, prototype) {
-    prototype.query = null;
 }, {}, {});
 /**
  *  Data structure used to hold data relevant to a request to determine the competence of an individual.
@@ -43868,8 +43869,8 @@ global.Hypergraph = Hypergraph
 global.EcDate = EcDate
 global.EcArray = EcArray
 global.Triple = Triple
-global.EcBrowserDetection = EcBrowserDetection
 global.EcRemote = EcRemote
+global.EcBrowserDetection = EcBrowserDetection
 global.EcLocalStorage = EcLocalStorage
 global.Graph = Graph
 global.EcObject = EcObject
@@ -43911,8 +43912,8 @@ global.EducationEvent = EducationEvent
 global.SocialEvent = SocialEvent
 global.LiteraryEvent = LiteraryEvent
 global.DanceEvent = DanceEvent
-global.DeliveryEvent = DeliveryEvent
 global.UserInteraction = UserInteraction
+global.DeliveryEvent = DeliveryEvent
 global.PublicationEvent = PublicationEvent
 global.ScreeningEvent = ScreeningEvent
 global.ChildrensEvent = ChildrensEvent
@@ -44008,8 +44009,8 @@ global.SoftwareApplication = SoftwareApplication
 global.Question = Question
 global.Dataset = Dataset
 global.VisualArtwork = VisualArtwork
-global.TVSeries = TVSeries
 global.Article = Article
+global.TVSeries = TVSeries
 global.MusicPlaylist = MusicPlaylist
 global.Recipe = Recipe
 global.MenuSection = MenuSection
@@ -44058,12 +44059,12 @@ global.RVPark = RVPark
 global.Aquarium = Aquarium
 global.Airport = Airport
 global.Beach = Beach
-global.ParkingFacility = ParkingFacility
 global.EventVenue = EventVenue
+global.ParkingFacility = ParkingFacility
 global.GovernmentBuilding = GovernmentBuilding
 global.Campground = Campground
-global.PlaceOfWorship = PlaceOfWorship
 global.MovieTheater = MovieTheater
+global.PlaceOfWorship = PlaceOfWorship
 global.BusStop = BusStop
 global.FireStation = FireStation
 global.Bridge = Bridge
@@ -44168,8 +44169,8 @@ global.Dentist = Dentist
 global.Pharmacy = Pharmacy
 global.Physician = Physician
 global.GovernmentOffice = GovernmentOffice
-global.RealEstateAgent = RealEstateAgent
 global.SelfStorage = SelfStorage
+global.RealEstateAgent = RealEstateAgent
 global.FoodEstablishment = FoodEstablishment
 global.TouristInformationCenter = TouristInformationCenter
 global.EmploymentAgency = EmploymentAgency
@@ -44223,8 +44224,8 @@ global.PerformanceRole = PerformanceRole
 global.OrganizationRole = OrganizationRole
 global.ItemListOrderType = ItemListOrderType
 global.DayOfWeek = DayOfWeek
-global.ReservationStatusType = ReservationStatusType
 global.RestrictedDiet = RestrictedDiet
+global.ReservationStatusType = ReservationStatusType
 global.PaymentStatusType = PaymentStatusType
 global.ActionStatusType = ActionStatusType
 global.MapCategoryType = MapCategoryType
@@ -44509,8 +44510,8 @@ global.AssertionEnvelope = AssertionEnvelope
 global.EcAnswer = EcAnswer
 global.EcPerson = EcPerson
 global.EcCreativeWork = EcCreativeWork
-global.EcQuiz = EcQuiz
 global.EcComment = EcComment
+global.EcQuiz = EcQuiz
 global.EcQuestion = EcQuestion
 global.EcOrganization = EcOrganization
 global.RemoteIdentityManagerInterface = RemoteIdentityManagerInterface
@@ -44536,11 +44537,11 @@ global.RelationType = RelationType
 global.Node = Node
 global.PapCompetencyPrediction = PapCompetencyPrediction
 global.NodeRelation = NodeRelation
-global.CgEdge = CgEdge
-global.SimpleAssertion = SimpleAssertion
 global.RrS = RrS
 global.RrToken = RrToken
 global.RrQuery = RrQuery
+global.CgEdge = CgEdge
+global.SimpleAssertion = SimpleAssertion
 global.InquiryPacket = InquiryPacket
 global.PapSettings = PapSettings
 global.ArrayUtil = ArrayUtil

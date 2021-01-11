@@ -30049,6 +30049,10 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
         } else {
             var oldKey = this.getCurrentOrgKey();
             var newKey = EcPpk.generateKey();
+            var identity = new EcIdentity();
+            identity.ppk = newKey;
+            identity.displayName = "Organization Rekey New Key";
+            EcIdentityManager.addIdentity(identity);
             var rekeyRequest = EcRekeyRequest.generateRekeyRequest(repo.selectedServer, oldKey, newKey);
             this.addOrgKey(newKey);
             var newKeys = EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(this.getOrgKeys()), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
@@ -43958,8 +43962,14 @@ CTDLASNCSVImport = stjs.extend(CTDLASNCSVImport, null, [], function(constructor,
                     translator.recast("https://schema.cassproject.org/0.4/ceasn2cass", "https://schema.cassproject.org/0.4", function(e) {
                         var f = new EcFramework();
                         f.copyFrom(e);
-                        if (EcFramework.template != null && (EcFramework.template)["@owner"] != null) {
-                            (f)["owner"] = (EcFramework.template)["@owner"];
+                        if (EcFramework.template != null) {
+                            for (var key in (EcFramework.template)) {
+                                if (key.equals("@owner")) {
+                                    (f)["owner"] = (EcFramework.template)[key];
+                                } else {
+                                    (f)[key] = (EcFramework.template)[key];
+                                }
+                            }
                         }
                         if ((e)["owner"] != null) {
                             var id = new EcIdentity();
@@ -44306,8 +44316,14 @@ CTDLASNCSVConceptImport = stjs.extend(CTDLASNCSVConceptImport, null, [], functio
                     translator.recast("https://schema.cassproject.org/0.4/ceasn2cassConcepts", "https://schema.cassproject.org/0.4/skos", function(e) {
                         var f = new EcConceptScheme();
                         f.copyFrom(e);
-                        if (EcConceptScheme.template != null && (EcConceptScheme.template)["@owner"] != null) {
-                            (f)["owner"] = (EcConceptScheme.template)["@owner"];
+                        if (EcConceptScheme.template != null) {
+                            for (var key in (EcConceptScheme.template)) {
+                                if (key.equals("@owner")) {
+                                    (f)["owner"] = (EcConceptScheme.template)[key];
+                                } else {
+                                    (f)[key] = (EcConceptScheme.template)[key];
+                                }
+                            }
                         }
                         if ((e)["owner"] != null) {
                             var id = new EcIdentity();

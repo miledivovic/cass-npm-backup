@@ -15,9 +15,17 @@ var FormData = require('form-data');
 var antlr4 = require('antlr4/index');
 var pemJwk = require('pem-jwk');
 
+var crypto = null;
+try {
+    const {subtle} = require('crypto').webcrypto;
+  crypto = {subtle:subtle};
+} catch (err) {
+  crypto = {subtle:null};
+}
+
 if (global.window === undefined)
 	var window = {
-		crypto: null
+		crypto: crypto
 	};
 else
 	var window = global.window;

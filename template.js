@@ -3,6 +3,8 @@ if (global.XMLHttpRequest === undefined)
 else
 	var XMLHttpRequest = global.XMLHttpRequest;
 
+var request = require("request");
+var isNodeJs = {};
 require("text-encoding");
 if (global.forge === undefined)
 	if (typeof __webpack_require__ === 'function')

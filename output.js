@@ -15,9 +15,17 @@ var FormData = require('form-data');
 var antlr4 = require('antlr4/index');
 var pemJwk = require('pem-jwk');
 
+var crypto = null;
+try {
+    const {subtle} = require('crypto').webcrypto;
+  crypto = {subtle:subtle};
+} catch (err) {
+  crypto = {subtle:null};
+}
+
 if (global.window === undefined)
 	var window = {
-		crypto: null
+		crypto: crypto
 	};
 else
 	var window = global.window;
@@ -9105,9 +9113,17 @@ var FormData = require('form-data');
 var antlr4 = require('antlr4/index');
 var pemJwk = require('pem-jwk');
 
+var crypto = null;
+try {
+    const {subtle} = require('crypto').webcrypto;
+  crypto = {subtle:subtle};
+} catch (err) {
+  crypto = {subtle:null};
+}
+
 if (global.window === undefined)
 	var window = {
-		crypto: null
+		crypto: crypto
 	};
 else
 	var window = global.window;
@@ -32850,6 +32866,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
     prototype.selectedServer = null;
     prototype.autoDetectFound = false;
     prototype.timeOffset = 0;
+    prototype.cassDockerEndpoint = null;
     prototype.init = function(selectedServer, success, failure) {
         this.selectedServer = selectedServer;
         this.negotiateTimeOffset(success, failure);
@@ -33273,7 +33290,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         if (data.owner != null && data.owner.length == 0) {
             delete (data)["owner"];
         }
-        if (EcEncryptedValue.encryptOnSave(data.id, null)) {
+        if (EcEncryptedValue.encryptOnSave(data.id, null) && !data.isAny(new EcEncryptedValue().getTypes())) {
             var encrypted = EcEncryptedValue.toEncryptedValue(data, false);
             EcIdentityManager.sign(encrypted);
             EcRepository._saveWithoutSigning(encrypted, success, failure, repo);
@@ -33321,10 +33338,11 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         var serialized = new Array();
         for (var i = 0; i < data.length; i++) {
             var d = data[i];
-            if (EcEncryptedValue.encryptOnSave(d.id, null)) {
+            if (EcEncryptedValue.encryptOnSave(d.id, null) && !d.isAny(new EcEncryptedValue().getTypes())) {
                 var encrypted = EcEncryptedValue.toEncryptedValue(d, false);
                 EcIdentityManager.sign(encrypted);
                 data[i] = encrypted;
+                d = encrypted;
             } else {
                 EcIdentityManager.sign(d);
             }
@@ -33347,7 +33365,14 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         fd.append("data", JSON.stringify(serialized));
         var afterSignatureSheet = function(signatureSheet) {
             fd.append("signatureSheet", signatureSheet);
-            EcRemote.postExpectingString(me.selectedServer, "sky/repo/multiPut", fd, success, failure);
+            var server = me.selectedServer;
+            if (me.cassDockerEndpoint != null) {
+                server = me.cassDockerEndpoint;
+            }
+            console.log("docker endpoint and server: ");
+            console.log(me.cassDockerEndpoint);
+            console.log(server);
+            EcRemote.postExpectingString(server, "sky/repo/multiPut", fd, success, failure);
         };
         if (EcRemote.async == false) {
             var signatureSheet;
@@ -40307,8 +40332,16 @@ EcFrameworkGraph = stjs.extend(EcFrameworkGraph, EcDirectedGraph, [], function(c
         repo.multiget(precache, function(data) {
             var competencyTemplate = new EcCompetency();
             var alignmentTemplate = new EcAlignment();
+            var encryptedTemplate = new EcEncryptedValue();
             var eah = new EcAsyncHelper();
             eah.each(data, function(d, callback0) {
+                if (d.isAny(encryptedTemplate.getTypes())) {
+                    var me2 = this;
+                    EcEncryptedValue.fromEncryptedValueAsync(d, function(ecRemoteLinkedData) {
+                        me2(ecRemoteLinkedData, callback0);
+                    }, callback0);
+                    return;
+                }
                 if (d.isAny(competencyTemplate.getTypes())) {
                     EcCompetency.get(d.id, function(c) {
                         me.addToMetaStateArray(me.getMetaStateCompetency(c), "framework", framework);

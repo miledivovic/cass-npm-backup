@@ -33730,7 +33730,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method multiget
      */
     prototype.multiget = function(urls, success, failure) {
-        if (urls == null || urls.length == 0) {
+        if (urls == null) {
             if (failure != null) {
                 failure("");
             }
@@ -40376,19 +40376,23 @@ EcFrameworkGraph = stjs.extend(EcFrameworkGraph, EcDirectedGraph, [], function(c
     prototype.addFramework = function(framework, repo, success, failure) {
         this.frameworks.push(framework);
         var me = this;
-        var precache = new Array();
-        if (framework.competency != null) {
-            precache = precache.concat(framework.competency);
-        }
-        if (framework.relation != null) {
-            precache = precache.concat(framework.relation);
-        }
-        repo.multiget(precache, function(data) {
+        if (framework.competency == null) 
+            framework.competency = new Array();
+        if (framework.relation == null) 
+            framework.relation = new Array();
+        repo.multiget(framework.competency, function(data) {
             var eah = new EcAsyncHelper();
             eah.each(data, function(d, callback0) {
                 me.handleCacheElement(d, callback0, framework);
             }, function(strings) {
-                success();
+                repo.multiget(framework.relation, function(data) {
+                    var eah2 = new EcAsyncHelper();
+                    eah2.each(data, function(d2, callback2) {
+                        me.handleCacheElement(d2, callback2, framework);
+                    }, function(strings2) {
+                        success();
+                    });
+                }, failure);
             });
         }, failure);
     };
@@ -40567,7 +40571,7 @@ EcFrameworkGraph = stjs.extend(EcFrameworkGraph, EcDirectedGraph, [], function(c
             return false;
         if (this.containsEdge(alignment)) 
             return false;
-        var source = (this.competencyMap)[alignment.source];
+        var source = (this.competencyMap)[EcRemoteLinkedData.trimVersionFromUrl(alignment.source)];
         if (source == null && (this.dontTryAnyMore)[alignment.source] != null) 
             return false;
         if (source == null) 

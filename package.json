@@ -29,10 +29,11 @@
 		"base64-arraybuffer": "^0.2.0",
 		"esprima": "*",
 		"forge": "^2.3.0",
-		"node-forge": "^0.6.47",
-		"text-encoding": "^0.7.0",
 		"form-data": "^2.1.2",
+		"node-forge": "^0.6.47",
 		"pem-jwk": "^1.5.1",
+		"request": "^2.88.2",
+		"text-encoding": "^0.7.0",
 		"xmlhttprequest": "^1.8.0"
 	},
 	"files": [

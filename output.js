@@ -40384,36 +40384,39 @@ EcFrameworkGraph = stjs.extend(EcFrameworkGraph, EcDirectedGraph, [], function(c
             precache = precache.concat(framework.relation);
         }
         repo.multiget(precache, function(data) {
-            var competencyTemplate = new EcCompetency();
-            var alignmentTemplate = new EcAlignment();
-            var encryptedTemplate = new EcEncryptedValue();
             var eah = new EcAsyncHelper();
             eah.each(data, function(d, callback0) {
-                if (d.isAny(encryptedTemplate.getTypes())) {
-                    var me2 = this;
-                    EcEncryptedValue.fromEncryptedValueAsync(d, function(ecRemoteLinkedData) {
-                        me2(ecRemoteLinkedData, callback0);
-                    }, callback0);
-                    return;
-                }
-                if (d.isAny(competencyTemplate.getTypes())) {
-                    EcCompetency.get(d.id, function(c) {
-                        me.addToMetaStateArray(me.getMetaStateCompetency(c), "framework", framework);
-                        me.addCompetency(c);
-                        callback0();
-                    }, callback0);
-                } else if (d.isAny(alignmentTemplate.getTypes())) {
-                    EcAlignment.get(d.id, function(alignment) {
-                        me.addRelation(alignment);
-                        me.addToMetaStateArray(me.getMetaStateAlignment(alignment), "framework", framework);
-                        callback0();
-                    }, callback0);
-                } else 
-                    callback0();
+                me.handleCacheElement(d, callback0, framework);
             }, function(strings) {
                 success();
             });
         }, failure);
+    };
+    prototype.handleCacheElement = function(d, callback0, framework) {
+        var competencyTemplate = new EcCompetency();
+        var alignmentTemplate = new EcAlignment();
+        var encryptedTemplate = new EcEncryptedValue();
+        var me = this;
+        if (d.isAny(encryptedTemplate.getTypes())) {
+            EcEncryptedValue.fromEncryptedValueAsync(d, function(ecRemoteLinkedData) {
+                me.handleCacheElement(ecRemoteLinkedData, callback0, framework);
+            }, callback0);
+            return;
+        }
+        if (d.isAny(competencyTemplate.getTypes())) {
+            EcCompetency.get(d.id, function(c) {
+                me.addToMetaStateArray(me.getMetaStateCompetency(c), "framework", framework);
+                me.addCompetency(c);
+                callback0();
+            }, callback0);
+        } else if (d.isAny(alignmentTemplate.getTypes())) {
+            EcAlignment.get(d.id, function(alignment) {
+                me.addRelation(alignment);
+                me.addToMetaStateArray(me.getMetaStateAlignment(alignment), "framework", framework);
+                callback0();
+            }, callback0);
+        } else 
+            callback0();
     };
     prototype.fetchFrameworkAlignments = function(framework) {
         var me = this;

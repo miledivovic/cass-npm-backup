@@ -2,8 +2,6 @@ node_modules
 
 bower_components/
 
-package-lock\.json
-
 \.idea/
 
 target/
@@ -17,3 +15,9 @@ target/
 \.project
 
 npm-debug.log
+
+cass-npm.iml
+
+.node-xmlhttprequest*
+
+package-lock.json

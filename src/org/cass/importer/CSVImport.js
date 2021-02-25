@@ -1,0 +1,456 @@
+/**
+ *  Import methods to handle an CSV file of competencies and a
+ *  CSV file of relationships and store them in a CASS instance
+ * 
+ *  @author devlin.junker@eduworks.com
+ *  @author fritz.ray@eduworks.com
+ *  @module org.cassproject
+ *  @class CSVImport
+ *  @static
+ *  @extends Importer
+ */
+var CSVImport = function() {};
+CSVImport = stjs.extend(CSVImport, null, [], function(constructor, prototype) {
+    constructor.INCREMENTAL_STEP = 5;
+    constructor.importCsvLookup = null;
+    constructor.saved = 0;
+    constructor.progressObject = null;
+    /**
+     *  Analyzes a CSV File to return the column names to the user for specifying
+     *  which columns contain which data. This should be called before import.
+     * 
+     *  @param {Object}            file
+     *                             CSV file to be analyzed
+     *  @param {Callback1<Object>} success
+     *                             Callback triggered after successfully analyzing the CSV file
+     *  @param {Callback1<Object>} [failure]
+     *                             Callback triggered if there is an error analyzing the CSV file
+     *  @memberOf CSVImport
+     *  @method analyzeFile
+     *  @static
+     */
+    constructor.analyzeFile = function(file, success, failure) {
+        if (file == null) {
+            failure("No file to analyze");
+            return;
+        }
+        if ((file)["name"] == null) {
+            failure("Invalid file");
+        } else if (!((file)["name"]).endsWith(".csv")) {
+            failure("Invalid file type");
+        }
+        Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
+            var tabularData = (results)["data"];
+            success(tabularData);
+        }, error: failure});
+    };
+    /**
+     *  Helper function to transform a competencies oldID to match the new server url
+     * 
+     *  @param {String}             oldId
+     *                              Old ID found in the CSV file
+     *  @param {EcRemoteLinkedData} newObject
+     *                              New competency being created
+     *  @param {String}             selectedServer
+     *                              New URL Prefix that the new competency's ID should match
+     *  @memberOf CSVImport
+     *  @method transformId
+     *  @private
+     *  @static
+     */
+    constructor.transformId = function(oldId, newObject, selectedServer, repo) {
+        if (oldId == null || oldId == "" || oldId.toLowerCase().indexOf("http") == -1) 
+            newObject.assignId(selectedServer, oldId);
+         else {
+            newObject.id = oldId;
+        }
+    };
+    /**
+     *  Method to create competencies (and relationships if the parameters are passed in)
+     *  based on a CSV file and references to which columns correspond to which pieces
+     *  of data.
+     * 
+     *  @param {Object}                        file
+     *                                         CSV File to import competencies from
+     *  @param {String}                        serverUrl
+     *                                         URL Prefix for the created competencies (and relationships?)
+     *  @param {EcIdentity}                    owner
+     *                                         EcIdentity that will own the created competencies (and relationships?)
+     *  @param {int}                           nameIndex
+     *                                         Index of the column that contains the competency names
+     *  @param {int}                           descriptionIndex
+     *                                         Index of the column that contains the competency descriptions
+     *  @param {int}                           scopeIndex
+     *                                         Index of the column that contains the competency scopes
+     *  @param {int}                           idIndex
+     *                                         Index of the column that contains the old competency ID (Optional, if not exists pass null or negative)
+     *  @param {Object}                        [relations]
+     *                                         CSV File to import relationships from (Optional, if not exists pass null)
+     *  @param {int}                           [sourceIndex]
+     *                                         Index (in relation file) of the column containing the relationship source competency ID (Optional, if not exists pass null or negative)
+     *  @param {int}                           [relationTypeIndex]
+     *                                         Index (in relation file) of the column containing the relationship type (Optional, if not exists pass null or negative)
+     *  @param {int}                           [destIndex]
+     *                                         Index (in relation file) of the column containing the relationship destination competency ID (Optional, if not exists pass null or negative)
+     *  @param {Callback2<Array<EcCompetency>, Array<EcAlignment>>} success
+     *                                         Callback triggered after the competencies (and relationships?) have been created
+     *  @param {Callback1<Object>}             [failure]
+     *                                         Callback triggered if an error during creating the competencies
+     *  @param {Callback1<Object>}             [incremental]
+     *                                         Callback triggered incrementally during creation of competencies to indicate progress,
+     *                                         returns an object indicating the number of competencies (and relationships?) created so far
+     *  @memberOf CSVImport
+     *  @method importCompetencies
+     *  @static
+     */
+    constructor.importCompetencies = function(file, serverUrl, owner, nameIndex, descriptionIndex, scopeIndex, idIndex, relations, sourceIndex, relationTypeIndex, destIndex, success, failure, incremental, uniquify, repo) {
+        CSVImport.progressObject = null;
+        CSVImport.importCsvLookup = new Object();
+        if (nameIndex < 0) {
+            failure("Name Index not Set");
+            return;
+        }
+        var competencies = [];
+        Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
+            var tabularData = (results)["data"];
+            var colNames = tabularData[0];
+            for (var i = 1; i < tabularData.length; i++) {
+                if (tabularData[i].length == 0 || (tabularData[i].length == 1 && (tabularData[i][0] == null || tabularData[i][0] == undefined || tabularData[i][0] == ""))) {
+                    continue;
+                }
+                if (tabularData[i][nameIndex] == null || tabularData[i][nameIndex] == undefined || tabularData[i][nameIndex] == "") {
+                    continue;
+                }
+                var competency = new EcCompetency();
+                competency.name = tabularData[i][nameIndex];
+                if (descriptionIndex >= 0) 
+                    competency.description = tabularData[i][descriptionIndex];
+                if (scopeIndex >= 0) 
+                    competency.scope = tabularData[i][scopeIndex];
+                if ((uniquify == undefined || uniquify == null || uniquify == false) && idIndex != null && idIndex >= 0) {
+                    competency.id = tabularData[i][idIndex];
+                    CSVImport.transformId(tabularData[i][idIndex], competency, serverUrl, repo);
+                } else {
+                    if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
+                        competency.generateId(serverUrl);
+                     else 
+                        competency.generateShortId(serverUrl);
+                }
+                if (owner != undefined && owner != null) 
+                    competency.addOwner(owner.ppk.toPk());
+                var shortId = null;
+                if (idIndex != null && idIndex != undefined && idIndex >= 0) {
+                    var oldId = tabularData[i][idIndex];
+                    shortId = EcRemoteLinkedData.trimVersionFromUrl(oldId);
+                    (CSVImport.importCsvLookup)[shortId] = competency.shortId();
+                }
+                if (idIndex != null && idIndex != undefined && idIndex >= 0 && tabularData[i][idIndex] != null && tabularData[i][idIndex] != "") {
+                    if ((CSVImport.importCsvLookup)[tabularData[i][idIndex]] == null) 
+                        (CSVImport.importCsvLookup)[tabularData[i][idIndex]] = competency.shortId();
+                }
+                (CSVImport.importCsvLookup)[competency.getName()] = competency.shortId();
+                for (var idx = 0; idx < tabularData[i].length; idx++) {
+                    var name = colNames[idx];
+                    if (name == null || name.trim() == "" || name.startsWith("@") || name.indexOf(".") != -1 || tabularData[i][idx].trim() == "" || idx == nameIndex || idx == descriptionIndex || idx == scopeIndex || idx == idIndex) {
+                        continue;
+                    } else {
+                        (competency)[colNames[idx]] = tabularData[i][idx];
+                    }
+                }
+                competencies.push(competency);
+            }
+            CSVImport.saved = 0;
+            for (var i = 0; i < competencies.length; i++) {
+                var comp = competencies[i];
+                CSVImport.saveCompetency(comp, incremental, competencies, relations, success, serverUrl, owner, sourceIndex, relationTypeIndex, destIndex, failure, repo);
+            }
+        }, error: failure});
+    };
+    constructor.saveCompetency = function(comp, incremental, competencies, relations, success, serverUrl, owner, sourceIndex, relationTypeIndex, destIndex, failure, repo) {
+        Task.asyncImmediate(function(o) {
+            var keepGoing = o;
+            var saveDone = function(results) {
+                CSVImport.saved++;
+                if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0) {
+                    if (CSVImport.progressObject == null) 
+                        CSVImport.progressObject = new Object();
+                    (CSVImport.progressObject)["competencies"] = CSVImport.saved;
+                    incremental(CSVImport.progressObject);
+                }
+                if (CSVImport.saved == competencies.length) {
+                    if (relations == null) 
+                        success(competencies, new Array());
+                     else 
+                        CSVImport.importRelations(serverUrl, owner, relations, sourceIndex, relationTypeIndex, destIndex, competencies, success, failure, incremental, repo);
+                }
+                keepGoing();
+            };
+            comp.save(saveDone, saveDone, repo);
+        });
+    };
+    /**
+     *  Handles actually importing the relationships from the relationship CSV file
+     * 
+     *  @param {String}                        serverUrl
+     *                                         URL Prefix for the created competencies (and relationships?)
+     *  @param {EcIdentity}                    owner
+     *                                         EcIdentity that will own the created competencies (and relationships?)
+     *  @param {Object}                        file
+     *                                         CSV File to import competencies from
+     *  @param {int}                           sourceIndex
+     *                                         Index (in relation file) of the column containing the relationship source competency ID
+     *  @param {int}                           relationTypeIndex
+     *                                         Index (in relation file) of the column containing the relationship type
+     *  @param {int}                           destIndex
+     *                                         Index (in relation file) of the column containing the relationship destination competency ID
+     *  @param {Array<EcCompetency>}           competencies
+     *                                         Array of newly created competencies
+     *  @param {Callback2<Array<EcCompetency>, Array<EcAlignment>>} success
+     *                                         Callback triggered after the relationships have been created
+     *  @param {Callback1<Object>}             failure
+     *                                         Callback triggered if an error during creating the relationships
+     *  @param {Callback1<Object>}             incremental
+     *                                         Callback triggered incrementally during creation to indicate progress
+     *  @memberOf CSVImport
+     *  @method importRelations
+     *  @private
+     *  @static
+     */
+    constructor.importRelations = function(serverUrl, owner, file, sourceIndex, relationTypeIndex, destIndex, competencies, success, failure, incremental, repo) {
+        var relations = new Array();
+        if (sourceIndex == null || sourceIndex < 0) {
+            failure("Source Index not Set");
+            return;
+        }
+        if (relationTypeIndex == null || relationTypeIndex < 0) {
+            failure("Relation Type Index not Set");
+            return;
+        }
+        if (destIndex == null || destIndex < 0) {
+            failure("Destination Index not Set");
+            return;
+        }
+        Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
+            var tabularData = (results)["data"];
+            for (var i = 1; i < tabularData.length; i++) {
+                var alignment = new EcAlignment();
+                var sourceKey = tabularData[i][sourceIndex];
+                var relationTypeKey = tabularData[i][relationTypeIndex];
+                var destKey = tabularData[i][destIndex];
+                if ((CSVImport.importCsvLookup)[sourceKey] == null) 
+                    alignment.source = sourceKey;
+                 else 
+                    alignment.source = (CSVImport.importCsvLookup)[sourceKey];
+                if ((CSVImport.importCsvLookup)[destKey] == null) 
+                    alignment.target = destKey;
+                 else 
+                    alignment.target = (CSVImport.importCsvLookup)[destKey];
+                alignment.relationType = relationTypeKey;
+                if (owner != null) 
+                    alignment.addOwner(owner.ppk.toPk());
+                if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
+                    alignment.generateId(serverUrl);
+                 else 
+                    alignment.generateShortId(serverUrl);
+                relations.push(alignment);
+            }
+            CSVImport.saved = 0;
+            for (var i = 0; i < relations.length; i++) {
+                var relation = relations[i];
+                CSVImport.saveRelation(relation, incremental, relations, success, competencies, failure, repo);
+            }
+            if (CSVImport.saved == 0 && CSVImport.saved == relations.length) {
+                success(competencies, relations);
+            }
+        }, error: failure});
+    };
+    constructor.saveRelation = function(relation, incremental, relations, success, competencies, failure, repo) {
+        Task.asyncImmediate(function(o) {
+            var keepGoing = o;
+            relation.save(function(results) {
+                CSVImport.saved++;
+                if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0) {
+                    if (CSVImport.progressObject == null) 
+                        CSVImport.progressObject = new Object();
+                    (CSVImport.progressObject)["relations"] = CSVImport.saved;
+                    incremental(CSVImport.progressObject);
+                    incremental(CSVImport.saved);
+                }
+                if (CSVImport.saved == relations.length) {
+                    success(competencies, relations);
+                }
+                keepGoing();
+            }, function(results) {
+                failure("Failed to save competency or relation");
+                for (var j = 0; j < competencies.length; j++) {
+                    competencies[j]._delete(null, null, null);
+                }
+                for (var j = 0; j < relations.length; j++) {
+                    relations[j]._delete(null, null);
+                }
+                keepGoing();
+            }, repo);
+        });
+    };
+    constructor.hasContextColumn = function(colNames) {
+        for (var idx = 0; idx < colNames.length; idx++) {
+            if (colNames[idx] == "@context") {
+                return idx;
+            }
+        }
+        return -1;
+    };
+    constructor.hasTypeColumn = function(colNames) {
+        for (var idx = 0; idx < colNames.length; idx++) {
+            if (colNames[idx] == "@type") {
+                return idx;
+            }
+        }
+        return -1;
+    };
+    constructor.expandObject = function(nestedFields, nestedObj, value) {
+        if (nestedFields.length == 0) {
+            return;
+        } else if (nestedFields.length == 1) {
+            (nestedObj)[nestedFields[0]] = value;
+        } else {
+            var key = nestedFields[0];
+            if ((nestedObj)[key] == null || (nestedObj)[key] == undefined) 
+                (nestedObj)[key] = new Object();
+            nestedFields.splice(0, 1);
+            CSVImport.expandObject(nestedFields, (nestedObj)[key], value);
+        }
+    };
+    constructor.transformReferences = function(data) {
+        var props = (data);
+        for (var prop in props) {
+            if (props[prop] == null || props[prop] == undefined || Object.prototype.toString.call(props[prop]).indexOf("String") == -1) {
+                if (EcObject.isObject(props[prop])) {
+                    var nested = props[prop];
+                    CSVImport.transformReferences(nested);
+                    (data)[prop] = nested;
+                }
+                continue;
+            }
+            var oldVal = props[prop];
+            if ((CSVImport.importCsvLookup)[oldVal] != null && (CSVImport.importCsvLookup)[oldVal] != undefined && (CSVImport.importCsvLookup)[oldVal] != "") {
+                (data)[prop] = (CSVImport.importCsvLookup)[oldVal];
+            }
+        }
+    };
+    constructor.importData = function(file, serverUrl, owner, success, failure, incremental, idIndex, assignedContext, assignedType, repo) {
+        var objects = [];
+        var hasAssignedContext = assignedContext != undefined && assignedContext != null && assignedContext.trim() != "";
+        var hasAssignedType = assignedType != undefined && assignedType != null && assignedType.trim() != "";
+        CSVImport.importCsvLookup = new Object();
+        Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
+            var tabularData = (results)["data"];
+            var colNames = tabularData[0];
+            var contextIdx = -1;
+            var typeIdx = -1;
+            if (!hasAssignedContext && (contextIdx = CSVImport.hasContextColumn(colNames)) == -1) {
+                failure("Was not passed and cannot find column with data context");
+            } else if (!hasAssignedType && (typeIdx = CSVImport.hasTypeColumn(colNames)) == 1) {
+                failure("Was not passed and cannot find column with data type");
+            }
+            for (var i = 1; i < tabularData.length; i++) {
+                if (tabularData[i].length == 0 || (tabularData[i].length == 1 && (tabularData[i][0] == null || tabularData[i][0] == undefined || tabularData[i][0] == ""))) {
+                    continue;
+                }
+                var context = null;
+                var type = null;
+                if (hasAssignedContext) 
+                    context = assignedContext;
+                 else 
+                    context = tabularData[i][contextIdx];
+                if (hasAssignedType) 
+                    type = assignedType;
+                 else 
+                    type = tabularData[i][typeIdx];
+                var data = new EcRemoteLinkedData(context, type);
+                var nestedObjs = {};
+                for (var idx = 0; idx < tabularData[i].length; idx++) {
+                    var name = colNames[idx];
+                    if (name == "@id" || name == "id") {
+                        data.id = tabularData[i][idx];
+                        continue;
+                    } else if (name == null || name.trim() == "" || name.startsWith("@") || tabularData[i][idx].trim() == "" || idx == contextIdx || idx == typeIdx) {
+                        continue;
+                    } else if (name.indexOf(".") != -1) {
+                        var split = (name.split("."));
+                        if (split.length > 1) {
+                            var key = split[0];
+                            if (nestedObjs[key] == null || nestedObjs[key] == undefined) 
+                                nestedObjs[key] = new Object();
+                            split.splice(0, 1);
+                            CSVImport.expandObject(split, nestedObjs[key], tabularData[i][idx]);
+                            continue;
+                        }
+                        name = split[0];
+                    }
+                    var val = tabularData[i][idx];
+                    (data)[name] = val;
+                }
+                for (var key in nestedObjs) {
+                    (data)[key] = nestedObjs[key];
+                }
+                if (owner != null) 
+                    data.addOwner(owner.ppk.toPk());
+                var fileId = data.id;
+                if (idIndex != undefined && idIndex != null && idIndex >= 0) {
+                    data.id = tabularData[i][idIndex];
+                    CSVImport.transformId(tabularData[i][idIndex], data, serverUrl, repo);
+                } else {
+                    if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
+                        data.generateId(serverUrl);
+                     else 
+                        data.generateShortId(serverUrl);
+                }
+                var shortId;
+                if (idIndex != null && idIndex != undefined && idIndex >= 0) {
+                    var oldId = tabularData[i][idIndex];
+                    shortId = EcRemoteLinkedData.trimVersionFromUrl(oldId);
+                    (CSVImport.importCsvLookup)[shortId] = data.shortId();
+                }
+                if (idIndex != null && idIndex != undefined && idIndex >= 0 && tabularData[i][idIndex] != null && tabularData[i][idIndex] != "") {
+                    if ((CSVImport.importCsvLookup)[tabularData[i][idIndex]] == null) 
+                        (CSVImport.importCsvLookup)[tabularData[i][idIndex]] = data.shortId();
+                } else if (fileId != null && fileId != undefined && fileId != "") {
+                    if ((CSVImport.importCsvLookup)[fileId] == null) 
+                        (CSVImport.importCsvLookup)[fileId] = data.shortId();
+                    shortId = EcRemoteLinkedData.trimVersionFromUrl(fileId);
+                    if ((CSVImport.importCsvLookup)[shortId] == null) 
+                        (CSVImport.importCsvLookup)[shortId] = data.shortId();
+                }
+                objects.push(data);
+            }
+            CSVImport.saved = 0;
+            for (var i = 0; i < objects.length; i++) {
+                var data = objects[i];
+                CSVImport.transformReferences(data);
+                CSVImport.saveTransformedData(data, incremental, objects, success, failure, repo);
+            }
+        }, error: failure});
+    };
+    constructor.saveTransformedData = function(data, incremental, objects, success, failure, repo) {
+        Task.asyncImmediate(function(o) {
+            var keepGoing = o;
+            var scs = function(results) {
+                CSVImport.saved++;
+                if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0) 
+                    incremental(CSVImport.saved);
+                if (CSVImport.saved == objects.length) 
+                    success(objects);
+                keepGoing();
+            };
+            var err = function(results) {
+                failure("Failed to save object");
+                keepGoing();
+            };
+            if (repo == null) 
+                EcRepository.save(data, scs, err);
+             else 
+                repo.saveTo(data, scs, err);
+        });
+    };
+}, {importCsvLookup: "Object", progressObject: "Object"}, {});

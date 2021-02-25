@@ -4,7 +4,8 @@
 	"description": "Competency and Skills Service",
 	"main": "output.js",
 	"scripts": {
-		"test": "node test.js"
+		"test": "node test.js",
+		"docs": "yuidoc -c yuidoc.json -o docs -e .js src"
 	},
 	"bin": {
 		"cassSetServer": "bin/cassSetServer",
@@ -61,6 +62,9 @@
 	"homepage": "https://github.com/cassproject/cass-npm#readme",
 	"devDependencies": {
 		"esprima": "*",
-		"prettier": "^2.2.1"
-	}
+		"prettier": "^2.2.1",
+		"yuidoc-ember-cli-theme": "^1.0.4",
+		"yuidocjs": "^0.10.2"
+	},
+	"_id": "cassproject@3.1.7"
 }

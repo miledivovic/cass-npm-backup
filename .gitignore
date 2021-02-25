@@ -21,3 +21,4 @@ cass-npm.iml
 .node-xmlhttprequest*
 
 package-lock.json
+docs/

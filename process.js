@@ -38,7 +38,6 @@ function load(lib) {
 
 var esprima = require('esprima');
 var results = [];
-output(load.call(this, "lib/base64toArrayBuffer.js") + "");
 output(load.call(this, "lib/random.js") + "");
 output(load.call(this, "lib/blobHelper.js") + "");
 output(load.call(this, "lib/stjs.js") + "");

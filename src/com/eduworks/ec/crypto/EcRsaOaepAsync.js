@@ -83,7 +83,12 @@ EcRsaOaepAsync = stjs.extend(EcRsaOaepAsync, null, [], function(constructor, pro
             window.crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 ppk.key = key;
                 window.crypto.subtle.decrypt(algorithm, key, base64.decode(cipherText)).then(function(p1) {
-                    var result = forge.util.decodeUtf8(ab2str(p1));
+                    try {
+                        var result = forge.util.decodeUtf8(ab2str(p1));
+                    }
+                    catch (ex) {
+                        var result = ab2str(p1);
+                    }
                     if (EcCrypto.caching) {
                         (EcCrypto.decryptionCache)[ppk.toPem() + cipherText] = result;
                     }
@@ -92,7 +97,12 @@ EcRsaOaepAsync = stjs.extend(EcRsaOaepAsync, null, [], function(constructor, pro
             }, failure);
          else 
             window.crypto.subtle.decrypt(algorithm, ppk.key, base64.decode(cipherText)).then(function(p1) {
-                var result = forge.util.decodeUtf8(ab2str(p1));
+                try {
+                    var result = forge.util.decodeUtf8(ab2str(p1));
+                }
+                catch (ex) {
+                    var result = ab2str(p1);
+                }
                 if (EcCrypto.caching) {
                     (EcCrypto.decryptionCache)[ppk.toPem() + cipherText] = result;
                 }

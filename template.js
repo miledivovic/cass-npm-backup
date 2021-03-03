@@ -35,11 +35,13 @@ var RollupLexer = require('./lib/antlr4/RollupLexer').RollupLexer;
 var RollupParser = require('./lib/antlr4/RollupParser').RollupParser;
 var RollupListener = require('./lib/antlr4/RollupListener').RollupListener;
 var pemJwk = require('pem-jwk');
+var base64 = require('base64-arraybuffer');
 
 var crypto = null;
+if (crypto === undefined)
 try {
-    const {subtle} = require('crypto').webcrypto;
-  crypto = {subtle:subtle};
+  crypto = {subtle:require('crypto').webcrypto};
+  console.log(crypto);
 } catch (err) {
   crypto = {subtle:null};
 }
@@ -82,3 +84,6 @@ global.generateUUID = generateUUID;
 global.RollupLexer = RollupLexer;
 global.RollupListener = RollupListener;
 global.RollupParser = RollupParser;
+global.base64 = base64;
+global.jsonld = require('jsonld');
+global.UUID = require('pure-uuid');

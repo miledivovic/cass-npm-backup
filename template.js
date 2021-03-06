@@ -13,14 +13,15 @@ if (global.forge === undefined)
 		var forge = require("node-forge");
 else
 	var forge = global.forge;
+var base64 = require('base64-arraybuffer');
 var FormData = require('form-data');
 var antlr4 = require('antlr4/index');
 var pemJwk = require('pem-jwk');
 
 var crypto = null;
+if (crypto === undefined)
 try {
-    const {subtle} = require('crypto').webcrypto;
-  crypto = {subtle:subtle};
+  crypto = {subtle:require('crypto').webcrypto};
 } catch (err) {
   crypto = {subtle:null};
 }
@@ -67,3 +68,6 @@ global.FormData = FormData;
 global.antlr4 = antlr4;
 global.pemJwk = pemJwk;
 global.stjs = stjs;
+global.base64 = base64;
+global.jsonld = require('jsonld');
+global.UUID = require('pure-uuid');

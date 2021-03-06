@@ -13,14 +13,15 @@ if (global.forge === undefined)
 		var forge = require("node-forge");
 else
 	var forge = global.forge;
+var base64 = require('base64-arraybuffer');
 var FormData = require('form-data');
 var antlr4 = require('antlr4/index');
 var pemJwk = require('pem-jwk');
 
 var crypto = null;
+if (crypto === undefined)
 try {
-    const {subtle} = require('crypto').webcrypto;
-  crypto = {subtle:subtle};
+  crypto = {subtle:require('crypto').webcrypto};
 } catch (err) {
   crypto = {subtle:null};
 }
@@ -8606,7 +8607,10 @@ global.forge = forge;
 global.FormData = FormData;
 global.antlr4 = antlr4;
 global.pemJwk = pemJwk;
-global.stjs = stjs; in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+global.stjs = stjs;
+global.base64 = base64;
+global.jsonld = require('jsonld');
+global.UUID = require('pure-uuid'); in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
      * 
      *  @property price
      *  @type Number
@@ -9163,14 +9167,15 @@ if (global.forge === undefined)
 		var forge = require("node-forge");
 else
 	var forge = global.forge;
+var base64 = require('base64-arraybuffer');
 var FormData = require('form-data');
 var antlr4 = require('antlr4/index');
 var pemJwk = require('pem-jwk');
 
 var crypto = null;
+if (crypto === undefined)
 try {
-    const {subtle} = require('crypto').webcrypto;
-  crypto = {subtle:subtle};
+  crypto = {subtle:require('crypto').webcrypto};
 } catch (err) {
   crypto = {subtle:null};
 }
@@ -12256,7 +12261,10 @@ global.forge = forge;
 global.FormData = FormData;
 global.antlr4 = antlr4;
 global.pemJwk = pemJwk;
-global.stjs = stjs; in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+global.stjs = stjs;
+global.base64 = base64;
+global.jsonld = require('jsonld');
+global.UUID = require('pure-uuid'); in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
      * 
      *  @property price
      *  @type Number
@@ -19999,7 +20007,10 @@ global.forge = forge;
 global.FormData = FormData;
 global.antlr4 = antlr4;
 global.pemJwk = pemJwk;
-global.stjs = stjs; in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+global.stjs = stjs;
+global.base64 = base64;
+global.jsonld = require('jsonld');
+global.UUID = require('pure-uuid'); in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
      * 
      *  @property price
      *  @type Number
@@ -32920,7 +32931,6 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
     prototype.selectedServer = null;
     prototype.autoDetectFound = false;
     prototype.timeOffset = 0;
-    prototype.cassDockerEndpoint = null;
     prototype.init = function(selectedServer, success, failure) {
         this.selectedServer = selectedServer;
         this.negotiateTimeOffset(success, failure);
@@ -32933,7 +32943,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             if (p1 != null) {
                 if ((p1)["ping"] == "pong") {
                     if ((p1)["time"] != null) 
-                        me.timeOffset = (new Date().getTime()) - ((p1)["time"]);
+                        me.timeOffset = (((p1)["time"] - new Date().getTime()));
                     me.buildKeyForwardingTable(success, failure);
                 }
             }
@@ -33419,14 +33429,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         fd.append("data", JSON.stringify(serialized));
         var afterSignatureSheet = function(signatureSheet) {
             fd.append("signatureSheet", signatureSheet);
-            var server = me.selectedServer;
-            if (me.cassDockerEndpoint != null) {
-                server = me.cassDockerEndpoint;
-            }
-            console.log("docker endpoint and server: ");
-            console.log(me.cassDockerEndpoint);
-            console.log(server);
-            EcRemote.postExpectingString(server, "sky/repo/multiPut", fd, success, failure);
+            EcRemote.postExpectingString(me.selectedServer, "sky/repo/multiPut", fd, success, failure);
         };
         if (EcRemote.async == false) {
             var signatureSheet;
@@ -34180,7 +34183,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             if (p1 != null) {
                 if ((p1)["ping"] == "pong") {
                     if ((p1)["time"] != null) 
-                        me.timeOffset = (new Date().getTime()) - ((p1)["time"]);
+                        me.timeOffset = (((p1)["time"] - new Date().getTime()));
                     if (me.autoDetectFound == false) {
                         me.selectedServer = guess;
                         me.autoDetectFound = true;
@@ -34228,7 +34231,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             if (p1 != null) {
                 if ((p1)["ping"] == "pong") {
                     if ((p1)["time"] != null) 
-                        me.timeOffset = (new Date().getTime()) - ((p1)["time"]);
+                        me.timeOffset = (((p1)["time"] - new Date().getTime()));
                     me.selectedServer = guess;
                     me.autoDetectFound = true;
                 }
@@ -43765,6 +43768,9 @@ CSVImport = stjs.extend(CSVImport, null, [], function(constructor, prototype) {
         Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
             var tabularData = (results)["data"];
             for (var i = 1; i < tabularData.length; i++) {
+                if (tabularData[i].length == 0 || (tabularData[i].length == 1 && (tabularData[i][0] == null || tabularData[i][0] == undefined || tabularData[i][0] == ""))) {
+                    continue;
+                }
                 var alignment = new EcAlignment();
                 var sourceKey = tabularData[i][sourceIndex];
                 var relationTypeKey = tabularData[i][relationTypeIndex];
@@ -45295,3 +45301,6 @@ global.FormData = FormData;
 global.antlr4 = antlr4;
 global.pemJwk = pemJwk;
 global.stjs = stjs;
+global.base64 = base64;
+global.jsonld = require('jsonld');
+global.UUID = require('pure-uuid');

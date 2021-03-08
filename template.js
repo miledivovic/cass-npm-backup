@@ -53,10 +53,14 @@ if (global.view === undefined)
 	var view = {};
 else
 	var view = global.view;
-if (global.localStorage === undefined)
+try{
+	if (global.localStorage === undefined)
+		var localStorage = {};
+	else
+		var localStorage = global.localStorage;
+} catch (err) {
 	var localStorage = {};
-else
-	var localStorage = global.localStorage;
+}
 
 var esprima = require('esprima');
 var results = [];

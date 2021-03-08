@@ -3,8 +3,17 @@ if (global.XMLHttpRequest === undefined)
 else
 	var XMLHttpRequest = global.XMLHttpRequest;
 
-var request = require("request");
-var isNodeJs = {};
+var bon = require('browser-or-node');
+
+if (bon.isBrowser) {
+  	// do browser only stuff
+}
+
+if (bon.isNode) {
+	// do node.js only stuff
+	var isNodeJs = {};
+	var request = require("request");
+}
 require("text-encoding");
 if (global.forge === undefined)
 	if (typeof __webpack_require__ === 'function')
@@ -44,10 +53,14 @@ if (global.view === undefined)
 	var view = {};
 else
 	var view = global.view;
-if (global.localStorage === undefined)
+try{
+	if (global.localStorage === undefined)
+		var localStorage = {};
+	else
+		var localStorage = global.localStorage;
+} catch (err) {
 	var localStorage = {};
-else
-	var localStorage = global.localStorage;
+}
 
 var esprima = require('esprima');
 var results = [];
@@ -8610,7 +8623,8 @@ global.pemJwk = pemJwk;
 global.stjs = stjs;
 global.base64 = base64;
 global.jsonld = require('jsonld');
-global.UUID = require('pure-uuid'); in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+global.UUID = require('pure-uuid');
+ in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
      * 
      *  @property price
      *  @type Number
@@ -9157,8 +9171,17 @@ LocalBusiness = stjs.extend(LocalBusiness, Organization, [], function(constructo
 else
 	var XMLHttpRequest = global.XMLHttpRequest;
 
-var request = require("request");
-var isNodeJs = {};
+var bon = require('browser-or-node');
+
+if (bon.isBrowser) {
+  	// do browser only stuff
+}
+
+if (bon.isNode) {
+	// do node.js only stuff
+	var isNodeJs = {};
+	var request = require("request");
+}
 require("text-encoding");
 if (global.forge === undefined)
 	if (typeof __webpack_require__ === 'function')
@@ -9198,10 +9221,14 @@ if (global.view === undefined)
 	var view = {};
 else
 	var view = global.view;
-if (global.localStorage === undefined)
+try{
+	if (global.localStorage === undefined)
+		var localStorage = {};
+	else
+		var localStorage = global.localStorage;
+} catch (err) {
 	var localStorage = {};
-else
-	var localStorage = global.localStorage;
+}
 
 var esprima = require('esprima');
 var results = [];
@@ -12264,7 +12291,8 @@ global.pemJwk = pemJwk;
 global.stjs = stjs;
 global.base64 = base64;
 global.jsonld = require('jsonld');
-global.UUID = require('pure-uuid'); in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+global.UUID = require('pure-uuid');
+ in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
      * 
      *  @property price
      *  @type Number
@@ -20010,7 +20038,8 @@ global.pemJwk = pemJwk;
 global.stjs = stjs;
 global.base64 = base64;
 global.jsonld = require('jsonld');
-global.UUID = require('pure-uuid'); in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
+global.UUID = require('pure-uuid');
+ in the value.\n* Use '.' (Unicode 'FULL STOP' (U+002E)) rather than ',' to indicate a decimal point. Avoid using these symbols as a readability separator.\n* Note that both [RDFa](http://www.w3.org/TR/xhtml-rdfa-primer/#using-the-content-attribute) and Microdata syntax allow the use of a "content=" attribute for publishing simple machine-readable values alongside more human-friendly formatting.\n* Use values from 0123456789 (Unicode 'DIGIT ZERO' (U+0030) to 'DIGIT NINE' (U+0039)) rather than superficially similiar Unicode symbols.
      * 
      *  @property price
      *  @type Number

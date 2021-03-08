@@ -3,8 +3,17 @@ if (global.XMLHttpRequest === undefined)
 else
 	var XMLHttpRequest = global.XMLHttpRequest;
 
-var request = require("request");
-var isNodeJs = {};
+var bon = require('browser-or-node');
+
+if (bon.isBrowser) {
+  	// do browser only stuff
+}
+
+if (bon.isNode) {
+	// do node.js only stuff
+	var isNodeJs = {};
+	var request = require("request");
+}
 require("text-encoding");
 if (global.forge === undefined)
 	if (typeof __webpack_require__ === 'function')

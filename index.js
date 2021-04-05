@@ -14511,9 +14511,6 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             if (me.cassDockerEndpoint != null) {
                 server = me.cassDockerEndpoint;
             }
-            console.log("docker endpoint and server: ");
-            console.log(me.cassDockerEndpoint);
-            console.log(server);
             EcRemote.postExpectingString(server, "sky/repo/multiPut", fd, success, failure);
         };
         if (EcRemote.async == false) {

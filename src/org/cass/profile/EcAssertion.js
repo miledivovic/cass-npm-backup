@@ -558,24 +558,8 @@ EcAssertion = stjs.extend(EcAssertion, Assertion, [], function(constructor, prot
                 console.error(msg);
             return;
         }
-        if (this.confidence == null) {
-            var msg = "Failing to save: Confidence cannot be missing";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
-        }
         if (this.assertionDate == null) {
             var msg = "Failing to save: Assertion Date cannot be missing";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
-        }
-        if (this.decayFunction == null) {
-            var msg = "Failing to save: Decay Function cannot be missing";
             if (failure != null) 
                 failure(msg);
              else 

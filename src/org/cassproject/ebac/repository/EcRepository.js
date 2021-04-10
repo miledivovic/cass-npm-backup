@@ -1,3 +1,5 @@
+let FormData = require("form-data");
+
 /**
  *  Repository object used to interact with the CASS Repository web services.
  *  Should be used for all CRUD and search operations
@@ -6,27 +8,28 @@
  *  @module com.eduworks.ec
  *  @class EcRepository
  */
-var EcRepository = function() {
-    EcRepository.repos.push(this);
-};
-EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototype) {
-    constructor.caching = false;
-    constructor.cachingSearch = false;
-    constructor.unsigned = false;
-    constructor.alwaysTryUrl = false;
-    constructor.cache = new Object();
-    constructor.fetching = new Object();
-    constructor.repos = new Array();
-    prototype.adminKeys = null;
-    prototype.selectedServer = null;
-    prototype.autoDetectFound = false;
-    prototype.timeOffset = 0;
-    prototype.cassDockerEndpoint = null;
-    prototype.init = function(selectedServer, success, failure) {
+module.exports = class EcRepository {
+
+    constructor(){
+        EcRepository.repos.push(this);
+    }
+    static caching = false;
+    static cachingSearch = false;
+    static unsigned = false;
+    static alwaysTryUrl = false;
+    static cache = new Object();
+    static fetching = new Object();
+    static repos = new Array();
+    adminKeys = null;
+    selectedServer = null;
+    autoDetectFound = false;
+    timeOffset = 0;
+    cassDockerEndpoint = null;
+    init = function(selectedServer, success, failure) {
         this.selectedServer = selectedServer;
         this.negotiateTimeOffset(success, failure);
     };
-    prototype.negotiateTimeOffset = function(success, failure) {
+    negotiateTimeOffset = function(success, failure) {
         var oldTimeout = EcRemote.timeout;
         EcRemote.timeout = 500;
         var me = this;
@@ -62,7 +65,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         }
         EcRemote.timeout = oldTimeout;
     };
-    prototype.buildKeyForwardingTable = function(success, failure) {
+    buildKeyForwardingTable = function(success, failure) {
         var params = new Object();
         (params)["size"] = 10000;
         EcRepository.searchAs(this, "*", function() {
@@ -90,7 +93,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method get
      *  @static
      */
-    constructor.get = function(url, success, failure) {
+    static get = function(url, success, failure) {
         if (url == null) {
             failure("URL is null. Cannot EcRepository.get");
             return;
@@ -166,7 +169,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             }, failure);
         }
     };
-    constructor.setOffset = function(url) {
+    static setOffset = function(url) {
         var offset = 0;
         for (var i = 0; i < EcRepository.repos.length; i++) {
             if (url.indexOf(EcRepository.repos[i].selectedServer) != -1) {
@@ -175,7 +178,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         }
         return offset;
     };
-    constructor.getHandleData = function(p1, originalUrl, success, failure, finalUrl) {
+    static getHandleData = function(p1, originalUrl, success, failure, finalUrl) {
         delete (EcRepository.fetching)[originalUrl];
         var d = new EcRemoteLinkedData("", "");
         d.copyFrom(p1);
@@ -190,7 +193,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         }
         success(d);
     };
-    constructor.shouldTryUrl = function(url) {
+    static shouldTryUrl = function(url) {
         if (url == null) 
             return false;
         if (EcRepository.alwaysTryUrl) 
@@ -207,7 +210,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             return true;
         return false;
     };
-    constructor.find = function(url, error, history, i, success, failure) {
+    static find = function(url, error, history, i, success, failure) {
         if (isNaN(i) || i == undefined || i > EcRepository.repos.length || EcRepository.repos[i] == null) {
             delete (EcRepository.fetching)[url];
             if (failure != null) 
@@ -249,7 +252,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             EcRepository.find(url, s, history, i + 1, success, failure);
         });
     };
-    constructor.findBlocking = function(url, error, history, i) {
+    static findBlocking = function(url, error, history, i) {
         if (i > EcRepository.repos.length || EcRepository.repos[i] == null) {
             delete (EcRepository.fetching)[url];
             return null;
@@ -287,7 +290,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(url) {
+    static getBlocking = function(url) {
         if (url.toLowerCase().indexOf("http") != 0) {
             return null;
         }
@@ -354,7 +357,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method escapeSearch
      *  @static
      */
-    constructor.escapeSearch = function(query) {
+    static escapeSearch = function(query) {
         var s = null;
         s = (query.split("\\")).join("\\\\");
         s = (s.split("-")).join("\\-");
@@ -394,7 +397,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method save
      *  @static
      */
-    constructor.save = function(data, success, failure) {
+    static save = function(data, success, failure) {
         EcRepository._save(data, success, failure, null);
     };
     /**
@@ -411,7 +414,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method save
      *  @static
      */
-    prototype.saveTo = function(data, success, failure) {
+    saveTo = function(data, success, failure) {
         EcRepository._save(data, success, failure, this);
     };
     /**
@@ -429,7 +432,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method _save
      *  @static
      */
-    constructor._save = function(data, success, failure, repo) {
+    static _save = function(data, success, failure, repo) {
         if (data.invalid()) {
             var msg = "Cannot save data. It is missing a vital component.";
             if (failure != null) {
@@ -469,7 +472,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method multiput
      *  @static
      */
-    prototype.multiput = function(data, success, failure) {
+    multiput = function(data, success, failure) {
         var me = this;
         for (var i = 0; i < data.length; i++) {
             var d = data[i];
@@ -509,7 +512,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
                 failure("Data is malformed.");
                 return;
             }
-            if (EcRepository.alwaysTryUrl || this.constructor.shouldTryUrl(d.id) || d.id.indexOf(this.selectedServer) != -1) 
+            if (EcRepository.alwaysTryUrl || this.shouldTryUrl(d.id) || d.id.indexOf(this.selectedServer) != -1) 
                 d.updateTimestamp();
             if (d.owner != null) 
                 for (var j = 0; j < d.owner.length; j++) 
@@ -554,7 +557,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method _saveWithoutSigning
      *  @static
      */
-    constructor._saveWithoutSigning = function(data, success, failure, repo) {
+    static _saveWithoutSigning = function(data, success, failure, repo) {
         if (EcRepository.caching) {
             delete (EcRepository.cache)[data.id];
             delete (EcRepository.cache)[data.shortId()];
@@ -565,7 +568,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             failure("Data is malformed.");
             return;
         }
-        if (EcRepository.alwaysTryUrl || repo == null || repo.constructor.shouldTryUrl(data.id) || (repo != null && data.id.indexOf(repo.selectedServer) != -1)) 
+        if (EcRepository.alwaysTryUrl || repo == null || repo.shouldTryUrl(data.id) || (repo != null && data.id.indexOf(repo.selectedServer) != -1)) 
             data.updateTimestamp();
         var fd = new FormData();
         fd.append("data", data.toJson());
@@ -577,7 +580,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
                         EcRemote.postExpectingString(data.id, "", fd, success, failure);
                         return;
                     }
-                    if (!repo.constructor.shouldTryUrl(data.id) || data.id.indexOf(repo.selectedServer) == -1) {
+                    if (!repo.shouldTryUrl(data.id) || data.id.indexOf(repo.selectedServer) == -1) {
                         EcRemote.postExpectingString(EcRemote.urlAppend(repo.selectedServer, "data/" + data.getDottedType() + "/" + EcCrypto.md5(data.shortId())), "", fd, success, failure);
                         return;
                     }
@@ -620,7 +623,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method _delete
      *  @static
      */
-    constructor._delete = function(data, success, failure) {
+    static _delete = function(data, success, failure) {
         EcRepository.DELETE(data, success, failure);
     };
     /**
@@ -638,7 +641,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method DELETE
      *  @static
      */
-    constructor.DELETE = function(data, success, failure) {
+    static DELETE = function(data, success, failure) {
         if (EcRepository.caching) {
             delete (EcRepository.cache)[data.id];
             delete (EcRepository.cache)[data.shortId()];
@@ -694,7 +697,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method DELETE
      *  @static
      */
-    prototype.deleteRegistered = function(data, success, failure) {
+    deleteRegistered = function(data, success, failure) {
         if (EcRepository.caching) {
             delete (EcRepository.cache)[data.id];
             delete (EcRepository.cache)[data.shortId()];
@@ -739,7 +742,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method precache
      */
-    prototype.precache = function(urls, success) {
+    precache = function(urls, success) {
         if (urls == null || urls.length == 0) {
             if (success != null) {
                 success();
@@ -784,7 +787,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method precachePost
      */
-    prototype.precachePost = function(success, cacheUrls, fd, me) {
+    precachePost = function(success, cacheUrls, fd, me) {
         EcRemote.postExpectingObject(me.selectedServer, "sky/repo/multiGet", fd, function(p1) {
             var results = p1;
             for (var i = 0; i < results.length; i++) {
@@ -827,7 +830,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method multiget
      */
-    prototype.multiget = function(urls, success, failure) {
+    multiget = function(urls, success, failure) {
         if (urls == null) {
             if (failure != null) {
                 failure("");
@@ -846,7 +849,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             this.multigetInner(urls, success, results, eah);
         }
     };
-    prototype.multigetInner = function(urls, success, results, eah) {
+    multigetInner = function(urls, success, results, eah) {
         eah.each(urls, function(url, done) {
             EcRepository.get(url, function(result) {
                 results.push(result);
@@ -873,7 +876,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method search
      */
-    prototype.search = function(query, eachSuccess, success, failure) {
+    search = function(query, eachSuccess, success, failure) {
         this.searchWithParams(query, null, eachSuccess, success, failure);
     };
     /**
@@ -887,7 +890,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method search
      */
-    prototype.searchBlocking = function(query) {
+    searchBlocking = function(query) {
         return this.searchWithParamsBlocking(query, null);
     };
     /**
@@ -907,7 +910,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method searchWithParams
      */
-    prototype.searchWithParams = function(originalQuery, originalParamObj, eachSuccess, success, failure) {
+    searchWithParams = function(originalQuery, originalParamObj, eachSuccess, success, failure) {
         if (EcRemote.async == false) {
             var result = this.searchWithParamsBlocking(originalQuery, originalParamObj);
             if (result == null) {
@@ -1013,7 +1016,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method searchWithParams
      */
-    prototype.searchWithParamsBlocking = function(originalQuery, originalParamObj) {
+    searchWithParamsBlocking = function(originalQuery, originalParamObj) {
         var query = originalQuery;
         var paramObj = originalParamObj;
         if (paramObj == null) {
@@ -1076,7 +1079,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
         EcRemote.async = oldAsync;
         return result;
     };
-    prototype.searchParamProps = function(query, paramObj, paramProps) {
+    searchParamProps = function(query, paramObj, paramProps) {
         if ((paramObj)["start"] != null) {
             paramProps["start"] = (paramObj)["start"];
         }
@@ -1125,7 +1128,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method autoDetectRepository
      */
-    prototype.autoDetectRepositoryAsync = function(success, failure) {
+    autoDetectRepositoryAsync = function(success, failure) {
         var protocols = new Array();
         if (window != null) {
             if (window.location != null) {
@@ -1199,7 +1202,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method autoDetectRepository
      */
-    prototype.autoDetectRepository = function() {
+    autoDetectRepository = function() {
         EcRemote.async = false;
         var protocols = new Array();
         if (window != null) {
@@ -1272,7 +1275,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method autoDetectRepositoryAsync
      *  @private
      */
-    prototype.autoDetectRepositoryActualAsync = function(guess, success, failure) {
+    autoDetectRepositoryActualAsync = function(guess, success, failure) {
         var me = this;
         var successCheck = function(p1) {
             if (p1 != null) {
@@ -1318,7 +1321,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method autoDetectRepositoryActual
      *  @private
      */
-    prototype.autoDetectRepositoryActual = function(guess) {
+    autoDetectRepositoryActual = function(guess) {
         var oldTimeout = EcRemote.timeout;
         EcRemote.timeout = 500;
         var me = this;
@@ -1362,7 +1365,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method listTypes
      */
-    prototype.listTypes = function(success, failure) {
+    listTypes = function(success, failure) {
         var fd = new FormData();
         fd.append("signatureSheet", EcIdentityManager.signatureSheet(60000 + this.timeOffset, this.selectedServer));
         EcRemote.postExpectingObject(this.selectedServer, "sky/repo/types", fd, function(p1) {
@@ -1381,7 +1384,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method backup
      */
-    prototype.backup = function(serverSecret, success, failure) {
+    backup = function(serverSecret, success, failure) {
         EcRemote.getExpectingObject(this.selectedServer, "util/backup?secret=" + serverSecret, success, failure);
     };
     /**
@@ -1393,7 +1396,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method restoreBackup
      */
-    prototype.restoreBackup = function(serverSecret, success, failure) {
+    restoreBackup = function(serverSecret, success, failure) {
         EcRemote.getExpectingObject(this.selectedServer, "util/restore?secret=" + serverSecret, success, failure);
     };
     /**
@@ -1405,7 +1408,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRepository
      *  @method wipe
      */
-    prototype.wipe = function(serverSecret, success, failure) {
+    wipe = function(serverSecret, success, failure) {
         EcRemote.getExpectingObject(this.selectedServer, "util/purge?secret=" + serverSecret, success, failure);
     };
     /**
@@ -1422,7 +1425,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @method handleSearchResults
      *  @private
      */
-    prototype.handleSearchResults = function(results, eachSuccess, success, failure) {
+    handleSearchResults = function(results, eachSuccess, success, failure) {
         if (results == null) {
             if (failure != null) 
                 failure("Error in search. See HTTP request for more details.");
@@ -1458,7 +1461,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
      *  @memberOf EcRemoteIdentityManager
      *  @method fetchServerAdminKeys
      */
-    prototype.fetchServerAdminKeys = function(success, failure) {
+    fetchServerAdminKeys = function(success, failure) {
         var service;
         if (this.selectedServer.endsWith("/")) {
             service = "sky/admin";
@@ -1477,7 +1480,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             failure("");
         });
     };
-    constructor.getAs = function(id, result, success, failure) {
+    static getAs = function(id, result, success, failure) {
         EcRepository.get(id, function(p1) {
             if (p1.getClass() == result.getClass()) 
                 if (success != null) {
@@ -1503,7 +1506,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             }, failure);
         }, failure);
     };
-    constructor.getBlockingAs = function(id, result) {
+    static getBlockingAs = function(id, result) {
         var p1 = EcRepository.getBlocking(id);
         if (p1 == null) 
             return null;
@@ -1523,7 +1526,7 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             return null;
         }
     };
-    constructor.searchAs = function(repo, query, factory, success, failure, paramObj) {
+    static searchAs = function(repo, query, factory, success, failure, paramObj) {
         if (paramObj == null) 
             paramObj = new Object();
         var template = (factory());
@@ -1552,4 +1555,4 @@ EcRepository = stjs.extend(EcRepository, null, [], function(constructor, prototy
             }
         }, failure);
     };
-}, {cache: "Object", fetching: "Object", repos: {name: "Array", arguments: ["EcRepository"]}, adminKeys: {name: "Array", arguments: [null]}}, {});
+}

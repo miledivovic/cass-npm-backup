@@ -1,7 +1,5 @@
 
-// var fs = require('fs');
-// eval(fs.readFileSync("index.js")+"");
-require(".");
+require("./newIndex.js");
 
 var clog = console.log;
 console.log = function(s){

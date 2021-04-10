@@ -5,8 +5,7 @@
  *  @class EcArray
  *  @module com.eduworks.ec
  */
-var EcArray = function() {};
-EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
+module.exports = class EcArray{
     /**
      *  Returns true if the result is an array.
      * 
@@ -16,7 +15,7 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
      *  @method isArray
      *  @memberOf EcArray
      */
-    constructor.isArray = function(o) {
+    static isArray = function(o) {
         return Object.prototype.toString.call(o) == "[object Array]";
     };
     /**
@@ -27,7 +26,7 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
      *  @method removeDuplicates
      *  @memberOf EcArray
      */
-    constructor.removeDuplicates = function(a) {
+    static removeDuplicates = function(a) {
         for (var i = 0; i < a.length; i++) 
             for (var j = i; j < a.length; j++) {
                 if (j == i) 
@@ -45,7 +44,7 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
      *  @method setAdd
      *  @memberOf EcArray
      */
-    constructor.setAdd = function(a, o) {
+    static setAdd = function(a, o) {
         if (!EcArray.has(a, o)) 
             a.push(o);
     };
@@ -58,7 +57,7 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
      *  @method setAdd
      *  @memberOf EcArray
      */
-    constructor.setRemove = function(a, o) {
+    static setRemove = function(a, o) {
          while (EcArray.has(a, o))
             a.splice(EcArray.indexOf(a, o), 1);
     };
@@ -71,7 +70,7 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
      *  @method has
      *  @memberOf EcArray
      */
-    constructor.has = function(a, o) {
+    static has = function(a, o) {
         if (EcArray.isObject(o)) 
             for (var i = 0; i < a.length; i++) {
                 if (a[i] == o) 
@@ -98,7 +97,7 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
      *  @method isObject
      *  @memberOf EcArray
      */
-    constructor.isObject = function(o) {
+    static isObject = function(o) {
         if (EcArray.isArray(o)) 
             return false;
         if (o == null) 
@@ -115,7 +114,7 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
      *  @method indexOf
      *  @memberOf EcArray
      */
-    constructor.indexOf = function(a, o) {
+    static indexOf = function(a, o) {
         if (EcArray.isObject(o)) 
             for (var i = 0; i < a.length; i++) {
                 if (a[i] == o) 
@@ -133,4 +132,4 @@ EcArray = stjs.extend(EcArray, null, [], function(constructor, prototype) {
             }
         return -1;
     };
-}, {}, {});
+}

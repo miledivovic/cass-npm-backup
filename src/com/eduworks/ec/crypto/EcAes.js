@@ -4,8 +4,7 @@
  *  @module com.eduworks.ec
  *  @author fritz.ray@eduworks.com
  */
-var EcAes = function() {};
-EcAes = stjs.extend(EcAes, null, [], function(constructor, prototype) {
+module.exports = class EcAes{
     /**
      *  Generates a random secret of length @i
      *  @method newSecret
@@ -13,7 +12,7 @@ EcAes = stjs.extend(EcAes, null, [], function(constructor, prototype) {
      *  @param {integer} i Length of secret
      *  @return {string} String representing the new secret, encoded using Base64.
      */
-    constructor.newSecret = function(i) {
+    static newSecret = function(i) {
         return forge.util.encode64(forge.random.getBytesSync(i));
     };
     /**
@@ -23,7 +22,7 @@ EcAes = stjs.extend(EcAes, null, [], function(constructor, prototype) {
      *  @param {integer} i Length of initialization Vector
      *  @return {string} String representing the new Initialization Vector, encoded using Base64.
      */
-    constructor.newIv = function(i) {
+    static newIv = function(i) {
         return forge.util.encode64(forge.random.getBytesSync(i));
     };
-}, {}, {});
+}

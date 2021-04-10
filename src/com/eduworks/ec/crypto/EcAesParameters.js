@@ -1,6 +1,7 @@
-var EcAesParameters = function(iv) {
-    this.iv = forge.util.decode64(iv);
-};
-EcAesParameters = stjs.extend(EcAesParameters, null, [], function(constructor, prototype) {
-    prototype.iv = null;
-}, {iv: "forge.payload"}, {});
+
+module.exports = class EcAesParameters{
+    constructor(iv)
+    {
+        iv = forge.util.decode64(iv);
+    }
+}

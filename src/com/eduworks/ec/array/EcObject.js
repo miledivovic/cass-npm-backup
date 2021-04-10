@@ -5,8 +5,7 @@
  *  @class EcObject
  *  @module com.eduworks.ec
  */
-var EcObject = function() {};
-EcObject = stjs.extend(EcObject, null, [], function(constructor, prototype) {
+module.exports = class EcObject{
     /**
      *  Returns true if the result is an object.
      * 
@@ -15,7 +14,7 @@ EcObject = stjs.extend(EcObject, null, [], function(constructor, prototype) {
      *  @static
      *  @method isArray
      */
-    constructor.isObject = function(o) {
+    static isObject = function(o) {
         if (EcArray.isArray(o)) 
             return false;
         if (o == null) 
@@ -30,7 +29,7 @@ EcObject = stjs.extend(EcObject, null, [], function(constructor, prototype) {
      *  @static
      *  @method keys
      */
-    constructor.keys = function(o) {
+    static keys = function(o) {
         return ecKeys(o);
     };
-}, {}, {});
+}

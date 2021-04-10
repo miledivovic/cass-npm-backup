@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "4.0.1",
+	"version": "4.0.2",
 	"description": "Competency and Skills Service",
 	"main": "output.js",
 	"scripts": {
@@ -9,6 +9,7 @@
 		"test13": "npm run testkill; docker run -d --name cass-test -p80:80 cassproject/cass:alpine-1.3.15 && node test.js && npm run testkill",
 		"test12": "npm run testkill; docker run -d --name cass-test -p80:80 cassproject/cass:alpine-1.2.41 && node test.js && npm run testkill",
 		"testkill": "docker kill cass-test; docker rm cass-test",
+		"autotest": "nodemon test.js",
 		"build": "node process.js",
 		"publish": "npm publish",
 		"docs": "yuidoc -c yuidoc.json -o docs -e .js src"
@@ -37,6 +38,7 @@
 	],
 	"dependencies": {
 		"antlr4": "4.8.0",
+		"axios": "^0.21.1",
 		"base64-arraybuffer": "^0.2.0",
 		"browser-or-node": "^1.3.0",
 		"forge": "^2.3.0",
@@ -73,6 +75,7 @@
 	"homepage": "https://github.com/cassproject/cass-npm#readme",
 	"devDependencies": {
 		"esprima": "*",
+		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
 		"yuidoc-ember-cli-theme": "^1.0.4",
 		"yuidocjs": "^0.10.2"

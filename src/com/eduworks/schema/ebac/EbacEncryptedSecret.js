@@ -12,10 +12,10 @@
  *  @class EbacEncryptedSecret
  *  @module org.cassproject
  */
-var EbacEncryptedSecret = function() {
-    EcLinkedData.call(this, Ebac.context, EbacEncryptedSecret.TYPE_0_4);
-};
-EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], function(constructor, prototype) {
+module.exports = class EbacEncryptedSecret extends EcLinkedData{
+    constructor(){
+        super(Ebac.context, EbacEncryptedSecret.TYPE_0_4);
+    }
     static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/encryptedSecret";
     static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/encryptedSecret";
     static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/EncryptedSecret";
@@ -108,4 +108,4 @@ EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], functio
         a.push(EbacEncryptedSecret.TYPE_0_1);
         return a;
     };
-}, {atProperties: {name: "Array", arguments: [null]}}, {});
+};

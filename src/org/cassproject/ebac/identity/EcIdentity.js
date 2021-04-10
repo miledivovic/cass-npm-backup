@@ -10,10 +10,10 @@
  *  @class EcIdentity
  *  @constructor
  */
-var EcIdentity = function() {
-    this.displayName = "Alias " + EcIdentity.identityCounter++;
-};
-EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) {
+class EcIdentity{
+    constructor(){
+        this.displayName = "Alias " + EcIdentity.identityCounter++;
+    }
     static identityCounter = 1;
     /**
      *  Private Key of this identity
@@ -105,4 +105,4 @@ EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) 
         c.source = this.source;
         return c;
     };
-}, {ppk: "EcPpk"}, {});
+};

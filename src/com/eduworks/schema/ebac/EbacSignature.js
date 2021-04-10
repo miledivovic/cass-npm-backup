@@ -6,10 +6,11 @@
  *  @class EbacSignature
  *  @module org.cassproject
  */
-var EbacSignature = function() {
-    EcLinkedData.call(this, Ebac.context, EbacSignature.TYPE_0_4);
-};
-EbacSignature = stjs.extend(EbacSignature, EcLinkedData, [], function(constructor, prototype) {
+module.exports = class EbacSignature extends EcLinkedData{
+    constructor(){
+
+        super(Ebac.context, EbacSignature.TYPE_0_4);
+    }
     static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/timeLimitedSignature";
     static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/timeLimitedSignature";
     static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/TimeLimitedSignature";
@@ -57,4 +58,4 @@ EbacSignature = stjs.extend(EbacSignature, EcLinkedData, [], function(constructo
         a.push(EbacSignature.TYPE_0_1);
         return a;
     };
-}, {atProperties: {name: "Array", arguments: [null]}}, {});
+};

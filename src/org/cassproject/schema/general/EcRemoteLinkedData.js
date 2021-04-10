@@ -7,17 +7,19 @@
  *  @extends EcLinkedData
  *  @module org.cassproject
  */
-var EcRemoteLinkedData = /**
- *  Constructor for remote linked data object.
- * 
- *  @param {string} context JSON-LD Context.
- *  @param {string} type JSON-LD Type.
- *  @constructor
- */
-function(context, type) {
-    EcLinkedData.call(this, context, type);
-};
-EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(constructor, prototype) {
+
+class EcRemoteLinkedData extends EcLinkedData{
+    
+    /**
+    *  Constructor for remote linked data object.
+    * 
+    *  @param {string} context JSON-LD Context.
+    *  @param {string} type JSON-LD Type.
+    *  @constructor
+    */
+    constructor(){
+        super(context, type);
+    }
     /**
      *  PEM encoded public keys of the owner of the object. A repository, upon
      *  receiving a write operation, will ensure either the data did not
@@ -45,9 +47,11 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @type string (URL)
      */
     id = null;
+
     equals(obj) {
         return this.isId((obj).id);
     };
+
     /**
      *  PEM encoded public keys of identities authorized to view the object. A
      *  repository will ignore write operations from these identities, but will
@@ -570,4 +574,4 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
     static forwardKey(oldKey, newKey) {
         (EcRemoteLinkedData.forwardingTable)[oldKey] = newKey;
     };
-}, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

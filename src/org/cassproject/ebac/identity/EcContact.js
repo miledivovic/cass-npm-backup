@@ -109,4 +109,4 @@ module.exports = class EcContact{
         c.source = EcAesCtr.encrypt(this.source, secret, c.iv);
         return c;
     };
-}, {pk: "EcPk"}, {});
+};

@@ -6,10 +6,10 @@
  *  @class EbacCredentials
  *  @module org.cassproject
  */
-var EbacCredentials = function() {
-    EcLinkedData.call(this, Ebac.context, EbacCredentials.TYPE_0_4);
-};
-EbacCredentials = stjs.extend(EbacCredentials, EcLinkedData, [], function(constructor, prototype) {
+module.exports = class EbacCredentials extends EcLinkedData{
+    constructor(){
+        super(Ebac.context, EbacCredentials.TYPE_0_4);
+    }
     static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/credentials";
     static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/credentials";
     static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/Credentials";
@@ -65,4 +65,4 @@ EbacCredentials = stjs.extend(EbacCredentials, EcLinkedData, [], function(constr
         a.push(EbacCredentials.TYPE_0_1);
         return a;
     };
-}, {credentials: {name: "Array", arguments: ["EbacCredential"]}, contacts: {name: "Array", arguments: ["EbacContact"]}, atProperties: {name: "Array", arguments: [null]}}, {});
+};

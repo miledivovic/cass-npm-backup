@@ -8,7 +8,7 @@
  *  @module org.cassproject
  */
 
-class EcRemoteLinkedData extends EcLinkedData{
+module.exports = class EcRemoteLinkedData extends EcLinkedData{
     
     /**
     *  Constructor for remote linked data object.
@@ -574,4 +574,72 @@ class EcRemoteLinkedData extends EcLinkedData{
     static forwardKey(oldKey, newKey) {
         (EcRemoteLinkedData.forwardingTable)[oldKey] = newKey;
     };
+
+    /**
+     *  Returns the name of the thing
+     * 
+     *  @return {String} name of Thing
+     *  @memberOf Thing
+     *  @method getName
+     */
+     getName() {
+        var n = this.name;
+        return Thing.getDisplayStringFrom(n);
+    };
+    /**
+     *  Method to set Thing name
+     * 
+     *  @param {String} name
+     *                  Name to set for this Thing
+     *  @memberOf Thing
+     *  @method setName
+     */
+    setName(name) {
+        if (this.name != null && EcObject.isObject(this.name) && (this.name).hasOwnProperty("@value")) {
+            var obj = (this)["name"];
+            (obj)["@value"] = name;
+            (this)["name"] = obj;
+        } else {
+            this.name = name;
+        }
+    };
+    /**
+     *  Returns the description of the thing
+     * 
+     *  @return {String} description of Thing
+     *  @memberOf Thing
+     *  @method getDescription
+     */
+    getDescription() {
+        var n = this.description;
+        return Thing.getDisplayStringFrom(n);
+    };
+    static getDisplayStringFrom(n) {
+        if (n != null && EcArray.isArray(n)) {
+            if ((n).length > 0) 
+                n = (n)[0];
+        }
+        if (n != null && EcObject.isObject(n) && (n).hasOwnProperty("@value")) {
+            return (n)["@value"];
+        }
+        return n;
+    };
+    /**
+     *  Method to set Thing description
+     * 
+     *  @param {String} description
+     *                  Description to set for its Thing
+     *  @memberOf Thing
+     *  @method setDescription
+     */
+    setDescription(description) {
+        if (this.description != null && EcObject.isObject(this.description) && (this.description).hasOwnProperty("@value")) {
+            var obj = (this)["description"];
+            (obj)["@value"] = description;
+            (this)["description"] = obj;
+        } else {
+            this.description = description;
+        }
+    };
+
 };

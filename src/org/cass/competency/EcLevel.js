@@ -9,10 +9,7 @@
  *  @constructor
  *  @extends Level
  */
-var EcLevel = function() {
-    Level.call(this);
-};
-EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
+module.exports = class EcLevel extends Level{
     /**
      *  Retrieves a level from the server specified by its ID
      * 
@@ -27,7 +24,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcLevel(), success, failure);
     };
     /**
@@ -42,7 +39,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcLevel());
     };
     /**
@@ -62,7 +59,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcLevel();
         }, success, failure, paramObj);
@@ -84,7 +81,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @method searchByCompetency
      *  @static
      */
-    constructor.searchByCompetency = function(repo, competencyId, success, failure, paramObj) {
+    static searchByCompetency(repo, competencyId, success, failure, paramObj) {
         if (competencyId == null || competencyId == "") {
             failure("No Competency Specified");
             return;
@@ -107,7 +104,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @memberOf EcLevel
      *  @method addRelationship
      */
-    prototype.addRelationship = function(targetLevel, alignmentType, identity, serverUrl, success, failure, repo) {
+    addRelationship(targetLevel, alignmentType, identity, serverUrl, success, failure, repo) {
         var a = new EcAlignment();
         a.source = this.id;
         a.target = targetLevel.id;
@@ -128,7 +125,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @memberOf EcLevel
      *  @method setName
      */
-    prototype.setName = function(name) {
+    setName(name) {
         this.name = name;
     };
     /**
@@ -139,7 +136,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @memberOf EcLevel
      *  @method setDescription
      */
-    prototype.setDescription = function(description) {
+    setDescription(description) {
         this.description = description;
     };
     /**
@@ -152,7 +149,7 @@ EcLevel = stjs.extend(EcLevel, Level, [], function(constructor, prototype) {
      *  @memberOf EcLevel
      *  @method save
      */
-    prototype.save = function(success, failure, repo) {
+    save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Level name cannot be empty";
             if (failure != null) 

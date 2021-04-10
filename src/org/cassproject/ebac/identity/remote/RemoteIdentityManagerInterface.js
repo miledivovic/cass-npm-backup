@@ -1,12 +1,12 @@
 module.exports = class RemoteIdentityManagerInterface{
-    prototype.configure = function(usernameSalt, usernameIterations, usernameWidth, passwordSalt, passwordIterations, passwordWidth, secretSalt, secretIterations) {};
-    prototype.configureFromServer = function(success, failure) {};
-    prototype.isGlobal = function() {};
-    prototype.clear = function() {};
-    prototype.setDefaultIdentityManagementServer = function(server) {};
-    prototype.startLogin = function(username, password) {};
-    prototype.changePassword = function(username, oldPassword, newPassword) {};
-    prototype.fetch = function(success, failure) {};
-    prototype.commit = function(success, failure) {};
-    prototype.create = function(success, failure) {};
-}, {}, {});
+    configure(usernameSalt, usernameIterations, usernameWidth, passwordSalt, passwordIterations, passwordWidth, secretSalt, secretIterations) {};
+    configureFromServer(success, failure) {};
+    isGlobal() {};
+    clear() {};
+    setDefaultIdentityManagementServer(server) {};
+    startLogin(username, password) {};
+    changePassword(username, oldPassword, newPassword) {};
+    fetch(success, failure) {};
+    commit(success, failure) {};
+    create(success, failure) {};
+};

@@ -23,5 +23,5 @@ OrderedCollection = stjs.extend(OrderedCollection, Collection, [], function(cons
      *  @property memberList
      *  @type List
      */
-    prototype.memberList = null;
+    memberList = null;
 }, {memberList: {name: "Array", arguments: ["Object"]}, member: {name: "Array", arguments: ["Object"]}, owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

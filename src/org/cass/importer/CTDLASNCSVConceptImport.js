@@ -1,5 +1,5 @@
 module.exports = class CTDLASNCSVConceptImport{
-    constructor.analyzeFile = function(file, success, failure) {
+    static analyzeFile(file, success, failure) {
         if (file == null) {
             failure("No file to analyze");
             return;
@@ -40,7 +40,7 @@ module.exports = class CTDLASNCSVConceptImport{
             success(conceptSchemeCounter, conceptCounter);
         }, error: failure});
     };
-    constructor.importFrameworksAndCompetencies = function(repo, file, success, failure, ceo, endpoint) {
+    static importFrameworksAndCompetencies(repo, file, success, failure, ceo, endpoint) {
         if (file == null) {
             failure("No file to analyze");
             return;
@@ -204,4 +204,4 @@ module.exports = class CTDLASNCSVConceptImport{
             });
         }, error: failure});
     };
-}, {}, {});
+};

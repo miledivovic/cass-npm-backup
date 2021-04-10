@@ -25,7 +25,7 @@ OwnershipInfo = stjs.extend(OwnershipInfo, StructuredValue, [], function(constru
      *  @property typeOfGood
      *  @type Service
      */
-    prototype.typeOfGood = null;
+    typeOfGood = null;
     /**
      *  Schema.org/ownedFrom
      *  The date and time of obtaining the product.
@@ -33,7 +33,7 @@ OwnershipInfo = stjs.extend(OwnershipInfo, StructuredValue, [], function(constru
      *  @property ownedFrom
      *  @type DateTime
      */
-    prototype.ownedFrom = null;
+    ownedFrom = null;
     /**
      *  Schema.org/ownedThrough
      *  The date and time of giving up ownership on the product.
@@ -41,7 +41,7 @@ OwnershipInfo = stjs.extend(OwnershipInfo, StructuredValue, [], function(constru
      *  @property ownedThrough
      *  @type DateTime
      */
-    prototype.ownedThrough = null;
+    ownedThrough = null;
     /**
      *  Schema.org/acquiredFrom
      *  The organization or person from which the product was acquired.
@@ -49,5 +49,5 @@ OwnershipInfo = stjs.extend(OwnershipInfo, StructuredValue, [], function(constru
      *  @property acquiredFrom
      *  @type Person
      */
-    prototype.acquiredFrom = null;
+    acquiredFrom = null;
 }, {typeOfGood: "Service", acquiredFrom: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

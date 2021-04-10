@@ -7,11 +7,11 @@
  *  @module com.eduworks.ec
  */
 module.exports = class EcAesCtrAsyncWorker{
-    constructor.rotator = 0;
-    constructor.w = null;
-    constructor.q1 = null;
-    constructor.q2 = null;
-    constructor.initWorker = function() {
+    static rotator = 0;
+    static w = null;
+    static q1 = null;
+    static q2 = null;
+    static initWorker() {
         if (window == null && ((typeof self).equals("undefined")) || Worker == undefined || Worker == null) {
             return;
         }
@@ -29,7 +29,7 @@ module.exports = class EcAesCtrAsyncWorker{
             EcAesCtrAsyncWorker.createWorker(index);
         }
     };
-    constructor.createWorker = function(index) {
+    static createWorker(index) {
         EcAesCtrAsyncWorker.q1.push(new Array());
         EcAesCtrAsyncWorker.q2.push(new Array());
         var wkr;
@@ -70,7 +70,7 @@ module.exports = class EcAesCtrAsyncWorker{
      *  @method encrypt
      *  @static
      */
-    constructor.encrypt = function(plaintext, secret, iv, success, failure) {
+    static encrypt(plaintext, secret, iv, success, failure) {
         EcAesCtrAsyncWorker.initWorker();
         if (!EcRemote.async || EcAesCtrAsyncWorker.w == null) {
             success(EcAesCtr.encrypt(plaintext, secret, iv));
@@ -101,7 +101,7 @@ module.exports = class EcAesCtrAsyncWorker{
      *  @method decrypt
      *  @static
      */
-    constructor.decrypt = function(ciphertext, secret, iv, success, failure) {
+    static decrypt(ciphertext, secret, iv, success, failure) {
         if (EcCrypto.caching) {
             var cacheGet = null;
             cacheGet = (EcCrypto.decryptionCache)[secret + iv + ciphertext];
@@ -135,4 +135,4 @@ module.exports = class EcAesCtrAsyncWorker{
             EcAesCtrAsyncWorker.w[worker].postMessage(o);
         }
     };
-}, {w: {name: "Array", arguments: [{name: "Worker", arguments: ["Object"]}]}, q1: {name: "Array", arguments: [{name: "Array", arguments: ["Callback1"]}]}, q2: {name: "Array", arguments: [{name: "Array", arguments: ["Callback1"]}]}}, {});
+};

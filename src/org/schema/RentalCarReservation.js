@@ -25,7 +25,7 @@ RentalCarReservation = stjs.extend(RentalCarReservation, Reservation, [], functi
      *  @property pickupTime
      *  @type DateTime
      */
-    prototype.pickupTime = null;
+    pickupTime = null;
     /**
      *  Schema.org/dropoffTime
      *  When a rental car can be dropped off.
@@ -33,7 +33,7 @@ RentalCarReservation = stjs.extend(RentalCarReservation, Reservation, [], functi
      *  @property dropoffTime
      *  @type DateTime
      */
-    prototype.dropoffTime = null;
+    dropoffTime = null;
     /**
      *  Schema.org/dropoffLocation
      *  Where a rental car can be dropped off.
@@ -41,7 +41,7 @@ RentalCarReservation = stjs.extend(RentalCarReservation, Reservation, [], functi
      *  @property dropoffLocation
      *  @type Place
      */
-    prototype.dropoffLocation = null;
+    dropoffLocation = null;
     /**
      *  Schema.org/pickupLocation
      *  Where a taxi will pick up a passenger or a rental car can be picked up.
@@ -49,5 +49,5 @@ RentalCarReservation = stjs.extend(RentalCarReservation, Reservation, [], functi
      *  @property pickupLocation
      *  @type Place
      */
-    prototype.pickupLocation = null;
+    pickupLocation = null;
 }, {dropoffLocation: "Place", pickupLocation: "Place", provider: "Person", programMembershipUsed: "ProgramMembership", reservationStatus: "ReservationStatusType", underName: "Organization", bookingAgent: "Organization", reservationFor: "Thing", broker: "Person", reservedTicket: "Ticket", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

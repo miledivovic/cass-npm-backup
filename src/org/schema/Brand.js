@@ -25,7 +25,7 @@ Brand = stjs.extend(Brand, Intangible, [], function(constructor, prototype) {
      *  @property aggregateRating
      *  @type AggregateRating
      */
-    prototype.aggregateRating = null;
+    aggregateRating = null;
     /**
      *  Schema.org/logo
      *  An associated logo.
@@ -33,7 +33,7 @@ Brand = stjs.extend(Brand, Intangible, [], function(constructor, prototype) {
      *  @property logo
      *  @type ImageObject
      */
-    prototype.logo = null;
+    logo = null;
     /**
      *  Schema.org/review
      *  A review of the item.
@@ -41,5 +41,5 @@ Brand = stjs.extend(Brand, Intangible, [], function(constructor, prototype) {
      *  @property review
      *  @type Review
      */
-    prototype.review = null;
+    review = null;
 }, {aggregateRating: "AggregateRating", logo: "ImageObject", review: "Review", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

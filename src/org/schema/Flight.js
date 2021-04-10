@@ -25,7 +25,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property arrivalAirport
      *  @type Airport
      */
-    prototype.arrivalAirport = null;
+    arrivalAirport = null;
     /**
      *  Schema.org/provider
      *  The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller.
@@ -33,7 +33,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property provider
      *  @type Person
      */
-    prototype.provider = null;
+    provider = null;
     /**
      *  Schema.org/arrivalGate
      *  Identifier of the flight's arrival gate.
@@ -41,7 +41,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property arrivalGate
      *  @type Text
      */
-    prototype.arrivalGate = null;
+    arrivalGate = null;
     /**
      *  Schema.org/flightNumber
      *  The unique identifier for a flight including the airline IATA code. For example, if describing United flight 110, where the IATA code for United is 'UA', the flightNumber is 'UA110'.
@@ -49,7 +49,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property flightNumber
      *  @type Text
      */
-    prototype.flightNumber = null;
+    flightNumber = null;
     /**
      *  Schema.org/carrier
      *  'carrier' is an out-dated term indicating the 'provider' for parcel delivery and flights.
@@ -57,7 +57,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property carrier
      *  @type Organization
      */
-    prototype.carrier = null;
+    carrier = null;
     /**
      *  Schema.org/departureAirport
      *  The airport where the flight originates.
@@ -65,7 +65,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property departureAirport
      *  @type Airport
      */
-    prototype.departureAirport = null;
+    departureAirport = null;
     /**
      *  Schema.org/boardingPolicy
      *  The type of boarding policy used by the airline (e.g. zone-based or group-based).
@@ -73,7 +73,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property boardingPolicy
      *  @type BoardingPolicyType
      */
-    prototype.boardingPolicy = null;
+    boardingPolicy = null;
     /**
      *  Schema.org/aircraft
      *  The kind of aircraft (e.g., "Boeing 747").
@@ -81,7 +81,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property aircraft
      *  @type Vehicle
      */
-    prototype.aircraft = null;
+    aircraft = null;
     /**
      *  Schema.org/arrivalTime
      *  The expected arrival time.
@@ -89,7 +89,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property arrivalTime
      *  @type DateTime
      */
-    prototype.arrivalTime = null;
+    arrivalTime = null;
     /**
      *  Schema.org/seller
      *  An entity which offers (sells / leases / lends / loans) the services / goods.  A seller may also be a provider.
@@ -97,7 +97,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property seller
      *  @type Person
      */
-    prototype.seller = null;
+    seller = null;
     /**
      *  Schema.org/webCheckinTime
      *  The time when a passenger can check into the flight online.
@@ -105,7 +105,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property webCheckinTime
      *  @type DateTime
      */
-    prototype.webCheckinTime = null;
+    webCheckinTime = null;
     /**
      *  Schema.org/mealService
      *  Description of the meals that will be provided or available for purchase.
@@ -113,7 +113,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property mealService
      *  @type Text
      */
-    prototype.mealService = null;
+    mealService = null;
     /**
      *  Schema.org/departureGate
      *  Identifier of the flight's departure gate.
@@ -121,7 +121,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property departureGate
      *  @type Text
      */
-    prototype.departureGate = null;
+    departureGate = null;
     /**
      *  Schema.org/departureTerminal
      *  Identifier of the flight's departure terminal.
@@ -129,7 +129,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property departureTerminal
      *  @type Text
      */
-    prototype.departureTerminal = null;
+    departureTerminal = null;
     /**
      *  Schema.org/estimatedFlightDuration
      *  The estimated time the flight will take.
@@ -137,7 +137,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property estimatedFlightDuration
      *  @type Text
      */
-    prototype.estimatedFlightDuration = null;
+    estimatedFlightDuration = null;
     /**
      *  Schema.org/flightDistance
      *  The distance of the flight.
@@ -145,7 +145,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property flightDistance
      *  @type Distance
      */
-    prototype.flightDistance = null;
+    flightDistance = null;
     /**
      *  Schema.org/arrivalTerminal
      *  Identifier of the flight's arrival terminal.
@@ -153,7 +153,7 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property arrivalTerminal
      *  @type Text
      */
-    prototype.arrivalTerminal = null;
+    arrivalTerminal = null;
     /**
      *  Schema.org/departureTime
      *  The expected departure time.
@@ -161,5 +161,5 @@ Flight = stjs.extend(Flight, Intangible, [], function(constructor, prototype) {
      *  @property departureTime
      *  @type DateTime
      */
-    prototype.departureTime = null;
+    departureTime = null;
 }, {arrivalAirport: "Airport", provider: "Person", carrier: "Organization", departureAirport: "Airport", boardingPolicy: "BoardingPolicyType", aircraft: "Vehicle", seller: "Person", flightDistance: "Distance", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

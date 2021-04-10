@@ -7,5 +7,5 @@
  *  @class Exporter
  *  @abstract
  */
-var Exporter = function() {};
-Exporter = stjs.extend(Exporter, null, [], null, {}, {});
+
+module.exports = class Exporter{}

@@ -27,7 +27,7 @@ GeoCircle = stjs.extend(GeoCircle, GeoShape, [], function(constructor, prototype
      *  @property geoRadius
      *  @type Number
      */
-    prototype.geoRadius = null;
+    geoRadius = null;
     /**
      *  Schema.org/geoMidpoint
      *  Indicates the GeoCoordinates at the centre of a GeoShape e.g. GeoCircle.
@@ -35,5 +35,5 @@ GeoCircle = stjs.extend(GeoCircle, GeoShape, [], function(constructor, prototype
      *  @property geoMidpoint
      *  @type GeoCoordinates
      */
-    prototype.geoMidpoint = null;
+    geoMidpoint = null;
 }, {geoMidpoint: "GeoCoordinates", address: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

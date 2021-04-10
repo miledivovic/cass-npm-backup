@@ -11,10 +11,10 @@ var XapiConfig = function() {
     EcLinkedData.call(this, null, null);
 };
 XapiConfig = stjs.extend(XapiConfig, EcLinkedData, [], function(constructor, prototype) {
-    prototype.enabled = false;
-    prototype.xapiAuth = null;
-    prototype.xapiEndpoint = null;
-    prototype.xapiHostName = null;
+    enabled = false;
+    xapiAuth = null;
+    xapiEndpoint = null;
+    xapiHostName = null;
     /**
      *  Retrieves the adapter configuration values from the server
      * 
@@ -25,7 +25,7 @@ XapiConfig = stjs.extend(XapiConfig, EcLinkedData, [], function(constructor, pro
      *  @method get
      *  @static
      */
-    constructor.get = function(serverUrl, success, failure) {
+    static get(serverUrl, success, failure) {
         var fd = new FormData();
         var offset = EcRepository.setOffset(serverUrl);
         EcIdentityManager.signatureSheetAsync(60000 + offset, serverUrl, function(signatureSheet) {
@@ -42,7 +42,7 @@ XapiConfig = stjs.extend(XapiConfig, EcLinkedData, [], function(constructor, pro
      *  @memberOf XapiConfig
      *  @method save
      */
-    prototype.save = function(serverUrl, success, failure) {
+    save(serverUrl, success, failure) {
         var fd = new FormData();
         fd.append("config", JSON.stringify(this));
         var offset = EcRepository.setOffset(serverUrl);

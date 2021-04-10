@@ -9,11 +9,11 @@ var EbacEncryptedValue = function() {
     EcRemoteLinkedData.call(this, Ebac.context, EbacEncryptedValue.myType);
 };
 EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/encryptedValue";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/encryptedValue";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/EncryptedValue";
-    constructor.TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/EncryptedValue";
-    constructor.myType = EbacEncryptedValue.TYPE_0_4;
+    static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/encryptedValue";
+    static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/encryptedValue";
+    static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/EncryptedValue";
+    static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/EncryptedValue";
+    static myType = EbacEncryptedValue.TYPE_0_4;
     /**
      *  Optional Hint used to aid in search.
      *  Displays the type of the encrypted object.
@@ -21,7 +21,7 @@ EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], fun
      *  @property encryptedType
      *  @type string
      */
-    prototype.encryptedType = null;
+    encryptedType = null;
     /**
      *  Optional Hint used to aid in search.
      *  Displays the context of the encrypted object.
@@ -29,14 +29,14 @@ EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], fun
      *  @property encryptedContext
      *  @type string
      */
-    prototype.encryptedContext = null;
+    encryptedContext = null;
     /**
      *  Base-64 encoded, AES encrypted form of the encrypted object (or string).
      * 
      *  @property payload
      *  @type string
      */
-    prototype.payload = null;
+    payload = null;
     /**
      *  Optional Hint used to aid in search and display.
      *  Name of the inner encrypted object.
@@ -44,7 +44,7 @@ EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], fun
      *  @property name
      *  @type string
      */
-    prototype.name = null;
+    name = null;
     /**
      *  Array of EbacEncryptedSecret objects encoded in Base-64, encrypted using
      *  RSA public keys of owners, readers, or other parties to allow them
@@ -53,8 +53,8 @@ EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], fun
      *  @property secret
      *  @type string[]
      */
-    prototype.secret = null;
-    prototype.copyFrom = function(that) {
+    secret = null;
+    copyFrom(that) {
         var me = (this);
         for (var key in me) 
             delete me[key];
@@ -66,8 +66,8 @@ EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], fun
         if (!this.isAny(this.getTypes())) 
              throw new RuntimeException("Incompatible type: " + this.getFullType());
     };
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (EbacEncryptedValue.TYPE_0_1 == this.type) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -81,7 +81,7 @@ EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], fun
             this.setContextAndType(Ebac.context_0_4, EbacEncryptedValue.TYPE_0_4);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(EbacEncryptedValue.TYPE_0_4);
         a.push(EbacEncryptedValue.TYPE_0_3);

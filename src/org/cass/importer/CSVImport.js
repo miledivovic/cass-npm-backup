@@ -10,10 +10,10 @@
  *  @extends Importer
  */
 module.exports = class CSVImport{
-    constructor.INCREMENTAL_STEP = 5;
-    constructor.importCsvLookup = null;
-    constructor.saved = 0;
-    constructor.progressObject = null;
+    static INCREMENTAL_STEP = 5;
+    static importCsvLookup = null;
+    static saved = 0;
+    static progressObject = null;
     /**
      *  Analyzes a CSV File to return the column names to the user for specifying
      *  which columns contain which data. This should be called before import.
@@ -28,7 +28,7 @@ module.exports = class CSVImport{
      *  @method analyzeFile
      *  @static
      */
-    constructor.analyzeFile = function(file, success, failure) {
+    static analyzeFile(file, success, failure) {
         if (file == null) {
             failure("No file to analyze");
             return;
@@ -57,7 +57,7 @@ module.exports = class CSVImport{
      *  @private
      *  @static
      */
-    constructor.transformId = function(oldId, newObject, selectedServer, repo) {
+    static transformId(oldId, newObject, selectedServer, repo) {
         if (oldId == null || oldId == "" || oldId.toLowerCase().indexOf("http") == -1) 
             newObject.assignId(selectedServer, oldId);
          else {
@@ -102,7 +102,7 @@ module.exports = class CSVImport{
      *  @method importCompetencies
      *  @static
      */
-    constructor.importCompetencies = function(file, serverUrl, owner, nameIndex, descriptionIndex, scopeIndex, idIndex, relations, sourceIndex, relationTypeIndex, destIndex, success, failure, incremental, uniquify, repo) {
+    static importCompetencies(file, serverUrl, owner, nameIndex, descriptionIndex, scopeIndex, idIndex, relations, sourceIndex, relationTypeIndex, destIndex, success, failure, incremental, uniquify, repo) {
         CSVImport.progressObject = null;
         CSVImport.importCsvLookup = new Object();
         if (nameIndex < 0) {
@@ -165,7 +165,7 @@ module.exports = class CSVImport{
             }
         }, error: failure});
     };
-    constructor.saveCompetency = function(comp, incremental, competencies, relations, success, serverUrl, owner, sourceIndex, relationTypeIndex, destIndex, failure, repo) {
+    static saveCompetency(comp, incremental, competencies, relations, success, serverUrl, owner, sourceIndex, relationTypeIndex, destIndex, failure, repo) {
         Task.asyncImmediate(function(o) {
             var keepGoing = o;
             var saveDone = function(results) {
@@ -215,7 +215,7 @@ module.exports = class CSVImport{
      *  @private
      *  @static
      */
-    constructor.importRelations = function(serverUrl, owner, file, sourceIndex, relationTypeIndex, destIndex, competencies, success, failure, incremental, repo) {
+    static importRelations(serverUrl, owner, file, sourceIndex, relationTypeIndex, destIndex, competencies, success, failure, incremental, repo) {
         var relations = new Array();
         if (sourceIndex == null || sourceIndex < 0) {
             failure("Source Index not Set");
@@ -263,7 +263,7 @@ module.exports = class CSVImport{
             }
         }, error: failure});
     };
-    constructor.saveRelation = function(relation, incremental, relations, success, competencies, failure, repo) {
+    static saveRelation(relation, incremental, relations, success, competencies, failure, repo) {
         Task.asyncImmediate(function(o) {
             var keepGoing = o;
             relation.save(function(results) {
@@ -291,7 +291,7 @@ module.exports = class CSVImport{
             }, repo);
         });
     };
-    constructor.hasContextColumn = function(colNames) {
+    static hasContextColumn(colNames) {
         for (var idx = 0; idx < colNames.length; idx++) {
             if (colNames[idx] == "@context") {
                 return idx;
@@ -299,7 +299,7 @@ module.exports = class CSVImport{
         }
         return -1;
     };
-    constructor.hasTypeColumn = function(colNames) {
+    static hasTypeColumn(colNames) {
         for (var idx = 0; idx < colNames.length; idx++) {
             if (colNames[idx] == "@type") {
                 return idx;
@@ -307,7 +307,7 @@ module.exports = class CSVImport{
         }
         return -1;
     };
-    constructor.expandObject = function(nestedFields, nestedObj, value) {
+    static expandObject(nestedFields, nestedObj, value) {
         if (nestedFields.length == 0) {
             return;
         } else if (nestedFields.length == 1) {
@@ -320,10 +320,10 @@ module.exports = class CSVImport{
             CSVImport.expandObject(nestedFields, (nestedObj)[key], value);
         }
     };
-    constructor.transformReferences = function(data) {
+    static transformReferences(data) {
         var props = (data);
         for (var prop in props) {
-            if (props[prop] == null || props[prop] == undefined || Object.prototype.toString.call(props[prop]).indexOf("String") == -1) {
+            if (props[prop] == null || props[prop] == undefined || Object.toString.call(props[prop]).indexOf("String") == -1) {
                 if (EcObject.isObject(props[prop])) {
                     var nested = props[prop];
                     CSVImport.transformReferences(nested);
@@ -337,7 +337,7 @@ module.exports = class CSVImport{
             }
         }
     };
-    constructor.importData = function(file, serverUrl, owner, success, failure, incremental, idIndex, assignedContext, assignedType, repo) {
+    static importData(file, serverUrl, owner, success, failure, incremental, idIndex, assignedContext, assignedType, repo) {
         var objects = [];
         var hasAssignedContext = assignedContext != undefined && assignedContext != null && assignedContext.trim() != "";
         var hasAssignedType = assignedType != undefined && assignedType != null && assignedType.trim() != "";
@@ -431,7 +431,7 @@ module.exports = class CSVImport{
             }
         }, error: failure});
     };
-    constructor.saveTransformedData = function(data, incremental, objects, success, failure, repo) {
+    static saveTransformedData(data, incremental, objects, success, failure, repo) {
         Task.asyncImmediate(function(o) {
             var keepGoing = o;
             var scs = function(results) {

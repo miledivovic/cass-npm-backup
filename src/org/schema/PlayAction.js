@@ -25,7 +25,7 @@ PlayAction = stjs.extend(PlayAction, Action, [], function(constructor, prototype
      *  @property audience
      *  @type Audience
      */
-    prototype.audience = null;
+    audience = null;
     /**
      *  Schema.org/event
      *  Upcoming or past event associated with this place, organization, or action.
@@ -33,5 +33,5 @@ PlayAction = stjs.extend(PlayAction, Action, [], function(constructor, prototype
      *  @property event
      *  @type SchemaEvent
      */
-    prototype.event = null;
+    event = null;
 }, {audience: "Audience", event: "SchemaEvent", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -14,28 +14,28 @@ var EcIdentity = function() {
     this.displayName = "Alias " + EcIdentity.identityCounter++;
 };
 EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) {
-    constructor.identityCounter = 1;
+    static identityCounter = 1;
     /**
      *  Private Key of this identity
      * 
      *  @property ppk
      *  @type EcPpk
      */
-    prototype.ppk = null;
+    ppk = null;
     /**
      *  Display name of this identity
      * 
      *  @property displayName
      *  @type String
      */
-    prototype.displayName = null;
+    displayName = null;
     /**
      *  String identifying where this identity came from
      * 
      *  @property displayName
      *  @type String
      */
-    prototype.source = null;
+    source = null;
     /**
      *  Helper function to decrypt a credential (storable version of an identity)
      *  into an identity)
@@ -53,7 +53,7 @@ EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) 
      *  @method fromCredential
      *  @static
      */
-    constructor.fromCredential = function(credential, secret, source) {
+    static fromCredential(credential, secret, source) {
         var i = new EcIdentity();
         i.ppk = EcPpk.fromPem(EcAesCtr.decrypt(credential.ppk, secret, credential.iv));
         i.source = source;
@@ -61,7 +61,7 @@ EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) 
             i.displayName = EcAesCtr.decrypt(credential.displayName, secret, credential.iv);
         return i;
     };
-    prototype.equals = function(obj) {
+    equals(obj) {
         if (stjs.isInstanceOf(obj.constructor, EcIdentity)) {
             if (this.ppk == null) 
                 return false;
@@ -69,7 +69,7 @@ EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) 
                 return false;
             return this.ppk.toPem().equals((obj).ppk.toPem());
         }
-        return Object.prototype.equals.call(this, obj);
+        return Object.equals.call(this, obj);
     };
     /**
      *  Helper function to encrypt an identity into a credential (storable
@@ -82,7 +82,7 @@ EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) 
      *  @memberOf EcIdentity
      *  @method toCredential
      */
-    prototype.toCredential = function(secret) {
+    toCredential(secret) {
         var c = new EbacCredential();
         c.iv = EcAes.newIv(16);
         c.ppk = EcAesCtr.encrypt(this.ppk.toPem(), secret, c.iv);
@@ -98,7 +98,7 @@ EcIdentity = stjs.extend(EcIdentity, null, [], function(constructor, prototype) 
      *  @memberOf EcIdentity
      *  @method toContact
      */
-    prototype.toContact = function() {
+    toContact() {
         var c = new EcContact();
         c.displayName = this.displayName;
         c.pk = this.ppk.toPk();

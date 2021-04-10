@@ -25,7 +25,7 @@ LocationFeatureSpecification = stjs.extend(LocationFeatureSpecification, Propert
      *  @property hoursAvailable
      *  @type OpeningHoursSpecification
      */
-    prototype.hoursAvailable = null;
+    hoursAvailable = null;
     /**
      *  Schema.org/validFrom
      *  The date when the item becomes valid.
@@ -33,7 +33,7 @@ LocationFeatureSpecification = stjs.extend(LocationFeatureSpecification, Propert
      *  @property validFrom
      *  @type DateTime
      */
-    prototype.validFrom = null;
+    validFrom = null;
     /**
      *  Schema.org/validThrough
      *  The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.
@@ -41,5 +41,5 @@ LocationFeatureSpecification = stjs.extend(LocationFeatureSpecification, Propert
      *  @property validThrough
      *  @type DateTime
      */
-    prototype.validThrough = null;
+    validThrough = null;
 }, {hoursAvailable: "OpeningHoursSpecification", value: "StructuredValue", valueReference: "StructuredValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

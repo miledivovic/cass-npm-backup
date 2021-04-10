@@ -7,11 +7,11 @@
  *  @module com.eduworks.ec
  */
 module.exports = class EcRsaOaepAsyncWorker{
-    constructor.rotator = 0;
-    constructor.w = null;
-    constructor.q1 = null;
-    constructor.q2 = null;
-    constructor.initWorker = function() {
+    static rotator = 0;
+    static w = null;
+    static q1 = null;
+    static q2 = null;
+    static initWorker() {
         if (window == null && ((typeof self).equals("undefined")) || Worker == undefined || Worker == null) {
             return;
         }
@@ -29,7 +29,7 @@ module.exports = class EcRsaOaepAsyncWorker{
             EcRsaOaepAsyncWorker.createWorker(index);
         }
     };
-    constructor.createWorker = function(index) {
+    static createWorker(index) {
         EcRsaOaepAsyncWorker.q1.push(new Array());
         EcRsaOaepAsyncWorker.q2.push(new Array());
         var wkr;
@@ -69,7 +69,7 @@ module.exports = class EcRsaOaepAsyncWorker{
      *  @method encrypt
      *  @static
      */
-    constructor.encrypt = function(pk, plaintext, success, failure) {
+    static encrypt(pk, plaintext, success, failure) {
         EcRsaOaepAsyncWorker.initWorker();
         if (!EcRemote.async || EcRsaOaepAsyncWorker.w == null) {
             success(EcRsaOaep.encrypt(pk, plaintext));
@@ -98,7 +98,7 @@ module.exports = class EcRsaOaepAsyncWorker{
      *  @method decrypt
      *  @static
      */
-    constructor.decrypt = function(ppk, ciphertext, success, failure) {
+    static decrypt(ppk, ciphertext, success, failure) {
         if (EcCrypto.caching) {
             var cacheGet = null;
             cacheGet = (EcCrypto.decryptionCache)[ppk.toPem() + ciphertext];
@@ -144,7 +144,7 @@ module.exports = class EcRsaOaepAsyncWorker{
      *  @method sign
      *  @static
      */
-    constructor.sign = function(ppk, text, success, failure) {
+    static sign(ppk, text, success, failure) {
         EcRsaOaepAsyncWorker.initWorker();
         if (!EcRemote.async || EcRsaOaepAsyncWorker.w == null) {
             success(EcRsaOaep.sign(ppk, text));
@@ -173,7 +173,7 @@ module.exports = class EcRsaOaepAsyncWorker{
      *  @method signSha256
      *  @static
      */
-    constructor.signSha256 = function(ppk, text, success, failure) {
+    static signSha256 = function(ppk, text, success, failure) {
         EcRsaOaepAsyncWorker.initWorker();
         if (!EcRemote.async || EcRsaOaepAsyncWorker.w == null) {
             success(EcRsaOaep.signSha256(ppk, text));
@@ -203,7 +203,7 @@ module.exports = class EcRsaOaepAsyncWorker{
      *  @method verify
      *  @static
      */
-    constructor.verify = function(pk, text, signature, success, failure) {
+    static verify(pk, text, signature, success, failure) {
         EcRsaOaepAsyncWorker.initWorker();
         if (!EcRemote.async || EcRsaOaepAsyncWorker.w == null) {
             success(EcRsaOaep.verify(pk, text, signature));
@@ -220,4 +220,4 @@ module.exports = class EcRsaOaepAsyncWorker{
             EcRsaOaepAsyncWorker.w[worker].postMessage(o);
         }
     };
-}, {w: {name: "Array", arguments: [{name: "Worker", arguments: ["Object"]}]}, q1: {name: "Array", arguments: [{name: "Array", arguments: ["Callback1"]}]}, q2: {name: "Array", arguments: [{name: "Array", arguments: ["Callback1"]}]}}, {});
+};

@@ -9,21 +9,18 @@
  *  @static
  *  @extends Importer
  */
-var ASNImport = function() {
-    Importer.call(this);
-};
-ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype) {
-    constructor.INCREMENTAL_STEP = 5;
-    constructor.jsonFramework = null;
-    constructor.frameworkUrl = null;
-    constructor.jsonCompetencies = null;
-    constructor.competencyCount = 0;
-    constructor.relationCount = 0;
-    constructor.importedFramework = null;
-    constructor.competencies = null;
-    constructor.progressObject = null;
-    constructor.savedCompetencies = 0;
-    constructor.savedRelations = 0;
+module.exports = class ASNImport extends Importer{
+    static INCREMENTAL_STEP = 5;
+    static jsonFramework = null;
+    static frameworkUrl = null;
+    static jsonCompetencies = null;
+    static competencyCount = 0;
+    static relationCount = 0;
+    static importedFramework = null;
+    static competencies = null;
+    static progressObject = null;
+    static savedCompetencies = 0;
+    static savedRelations = 0;
     /**
      *  Recursive function that looks through the file and saves each
      *  competency object in a map for use during importing. It also counts
@@ -38,7 +35,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
      *  @private
      *  @static
      */
-    constructor.asnJsonPrime = function(obj, key) {
+    static asnJsonPrime(obj, key) {
         var value = (obj)[key];
         if (Importer.isObject(value)) {
             if ((value)["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"] != null) {
@@ -69,7 +66,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
      *  @private
      *  @static
      */
-    constructor.lookThroughSource = function(obj) {
+    static lookThroughSource(obj) {
         ASNImport.competencyCount = 0;
         ASNImport.relationCount = 0;
         for (var key in (obj)) {
@@ -106,7 +103,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
      *  @method analyzeFile
      *  @static
      */
-    constructor.analyzeFile = function(file, success, failure) {
+    static analyzeFile(file, success, failure) {
         if (file == null) {
             failure("No file to analyze");
             return;
@@ -155,7 +152,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
      *  @method importCompetencies
      *  @static
      */
-    constructor.importCompetencies = function(serverUrl, owner, createFramework, success, failure, incremental, repo) {
+    static importCompetencies(serverUrl, owner, createFramework, success, failure, incremental, repo) {
         ASNImport.competencies = {};
         if (createFramework) {
             ASNImport.importedFramework = new EcFramework();
@@ -199,7 +196,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
      *  @private
      *  @static
      */
-    constructor.createCompetencies = function(serverUrl, owner, success, failure, incremental, repo) {
+    static createCompetencies(serverUrl, owner, success, failure, incremental, repo) {
         ASNImport.savedCompetencies = 0;
         for (var key in ASNImport.jsonCompetencies) {
             var comp = new EcCompetency();
@@ -225,7 +222,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
             ASNImport.saveCompetency(success, failure, incremental, comp, repo);
         }
     };
-    constructor.saveCompetency = function(success, failure, incremental, comp, repo) {
+    static saveCompetency(success, failure, incremental, comp, repo) {
         Task.asyncImmediate(function(o) {
             var keepGoing = o;
             comp.save(function(p1) {
@@ -272,7 +269,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
      *  @private
      *  @static
      */
-    constructor.createRelationships = function(serverUrl, owner, node, nodeId, success, failure, incremental, repo) {
+    static createRelationships(serverUrl, owner, node, nodeId, success, failure, incremental, repo) {
         ASNImport.savedRelations = 0;
         if (ASNImport.relationCount == 0) {
             success();
@@ -300,7 +297,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
                 ASNImport.createRelationships(serverUrl, owner, ASNImport.jsonCompetencies[(children[j])["value"]], (children[j])["value"], success, failure, incremental, repo);
             }
     };
-    constructor.saveRelation = function(success, failure, incremental, relation, repo) {
+    static saveRelation(success, failure, incremental, relation, repo) {
         Task.asyncImmediate(function(o) {
             var keepGoing = o;
             relation.save(function(p1) {
@@ -337,7 +334,7 @@ ASNImport = stjs.extend(ASNImport, Importer, [], function(constructor, prototype
      *  @private
      *  @static
      */
-    constructor.createFramework = function(serverUrl, owner, success, failure, repo) {
+    static createFramework(serverUrl, owner, success, failure, repo) {
         ASNImport.importedFramework.name = (((ASNImport.jsonFramework)["http://purl.org/dc/elements/1.1/title"])["0"])["value"];
         ASNImport.importedFramework.description = (((ASNImport.jsonFramework)["http://purl.org/dc/terms/description"])["0"])["value"];
         ASNImport.importedFramework.id = ASNImport.frameworkUrl;

@@ -25,7 +25,7 @@ DataFeedItem = stjs.extend(DataFeedItem, Intangible, [], function(constructor, p
      *  @property dateModified
      *  @type DateTime
      */
-    prototype.dateModified = null;
+    dateModified = null;
     /**
      *  Schema.org/dateDeleted
      *  The datetime the item was removed from the DataFeed.
@@ -33,7 +33,7 @@ DataFeedItem = stjs.extend(DataFeedItem, Intangible, [], function(constructor, p
      *  @property dateDeleted
      *  @type DateTime
      */
-    prototype.dateDeleted = null;
+    dateDeleted = null;
     /**
      *  Schema.org/dateCreated
      *  The date on which the CreativeWork was created or the item was added to a DataFeed.
@@ -41,7 +41,7 @@ DataFeedItem = stjs.extend(DataFeedItem, Intangible, [], function(constructor, p
      *  @property dateCreated
      *  @type Date
      */
-    prototype.dateCreated = null;
+    dateCreated = null;
     /**
      *  Schema.org/item
      *  An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists')’.
@@ -49,5 +49,5 @@ DataFeedItem = stjs.extend(DataFeedItem, Intangible, [], function(constructor, p
      *  @property item
      *  @type Thing
      */
-    prototype.item = null;
+    item = null;
 }, {item: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -1,13 +1,10 @@
-var EcQuestion = function() {
-    Question.call(this);
-};
-EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototype) {
-    constructor.MULTIPLE_CHOICE = "Multiple Choice";
-    constructor.MULTIPLE_SELECT = "Multiple Select";
-    constructor.SHORT_ANSWER = "Short Answer";
-    constructor.FILL_IN_THE_BLANK = "Fill in the Blank";
-    constructor.ESSAY_OR_SHORT_ANSWER = "Essay or Short Answer";
-    constructor.HAND_GRADED_ESSAY = "Hand-graded Essay";
+module.exports = class EcQuestion extends Question{
+    static MULTIPLE_CHOICE = "Multiple Choice";
+    static MULTIPLE_SELECT = "Multiple Select";
+    static SHORT_ANSWER = "Short Answer";
+    static FILL_IN_THE_BLANK = "Fill in the Blank";
+    static ESSAY_OR_SHORT_ANSWER = "Essay or Short Answer";
+    static HAND_GRADED_ESSAY = "Hand-graded Essay";
     /**
      *  Searches a repository for questions that match the search query
      * 
@@ -21,7 +18,7 @@ EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototy
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcQuestion();
         }, success, failure, paramObj);
@@ -31,7 +28,7 @@ EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototy
      * 
      *  @return
      */
-    prototype.getQuestionType = function() {
+    getQuestionType() {
         var acceptedAnswers = this.acceptedAnswers();
         if (acceptedAnswers == null) {
             if (this.canEdit(EcIdentityManager.ids[0].ppk.toPk())) {
@@ -65,7 +62,7 @@ EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototy
         }
         return "Not sure.";
     };
-    prototype.cementAnswerId = function(id) {
+    cementAnswerId(id) {
         if (this.acceptedAnswer != null) {
             if (!EcArray.isArray(this.acceptedAnswer)) {
                  throw new RuntimeException("Accepted Answer is not Array");
@@ -89,19 +86,19 @@ EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototy
             }
         }
     };
-    prototype.acceptedAnswers = function() {
+    acceptedAnswers() {
         if (this.acceptedAnswer == null) {
             return new Array();
         }
         return this.acceptedAnswer;
     };
-    prototype.suggestedAnswers = function() {
+    suggestedAnswers() {
         if (this.suggestedAnswer == null) {
             return new Array();
         }
         return this.suggestedAnswer;
     };
-    prototype.addAcceptedAnswer = function(answer) {
+    addAcceptedAnswer(answer) {
         if (this.acceptedAnswer == null) {
             (this)["acceptedAnswer"] = new Array();
         }
@@ -111,7 +108,7 @@ EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototy
         var ary = this.acceptedAnswer;
         ary.push(answer.id);
     };
-    prototype.addSuggestedAnswer = function(answer) {
+    addSuggestedAnswer(answer) {
         if (this.suggestedAnswer == null) {
             (this)["suggestedAnswer"] = new Array();
         }
@@ -121,7 +118,7 @@ EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototy
         var ary = this.suggestedAnswer;
         ary.push(answer.id);
     };
-    prototype.removeSuggestedAnswerById = function(id) {
+    removeSuggestedAnswerById(id) {
         if (this.suggestedAnswer == null) {
             return;
         }
@@ -135,7 +132,7 @@ EcQuestion = stjs.extend(EcQuestion, Question, [], function(constructor, prototy
             }
         }
     };
-    prototype.removeAcceptedAnswerById = function(id) {
+    removeAcceptedAnswerById(id) {
         if (this.acceptedAnswer == null) {
             return;
         }

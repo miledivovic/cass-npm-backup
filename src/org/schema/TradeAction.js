@@ -25,7 +25,7 @@ TradeAction = stjs.extend(TradeAction, Action, [], function(constructor, prototy
      *  @property priceSpecification
      *  @type PriceSpecification
      */
-    prototype.priceSpecification = null;
+    priceSpecification = null;
     /**
      *  Schema.org/price
      *  The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\n\nUsage guidelines:\n\n* Use the [[priceCurrency]] property (with [ISO 4217 codes](http://en.wikipedia.org/wiki/ISO_4217#Active_codes) e.g. "USD") instead of
@@ -34,5 +34,5 @@ TradeAction = stjs.extend(TradeAction, Action, [], function(constructor, prototy
      *  @property price
      *  @type Number
      */
-    prototype.price = null;
+    price = null;
 }, {priceSpecification: "PriceSpecification", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

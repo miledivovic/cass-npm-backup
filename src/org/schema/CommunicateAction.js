@@ -25,7 +25,7 @@ CommunicateAction = stjs.extend(CommunicateAction, InteractAction, [], function(
      *  @property about
      *  @type Thing
      */
-    prototype.about = null;
+    about = null;
     /**
      *  Schema.org/recipient
      *  A sub property of participant. The participant who is at the receiving end of the action.
@@ -33,7 +33,7 @@ CommunicateAction = stjs.extend(CommunicateAction, InteractAction, [], function(
      *  @property recipient
      *  @type Organization
      */
-    prototype.recipient = null;
+    recipient = null;
     /**
      *  Schema.org/inLanguage
      *  The language of the content or performance or used in an action. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[availableLanguage]].
@@ -41,7 +41,7 @@ CommunicateAction = stjs.extend(CommunicateAction, InteractAction, [], function(
      *  @property inLanguage
      *  @type Language
      */
-    prototype.inLanguage = null;
+    inLanguage = null;
     /**
      *  Schema.org/language
      *  A sub property of instrument. The language used on this action.
@@ -49,5 +49,5 @@ CommunicateAction = stjs.extend(CommunicateAction, InteractAction, [], function(
      *  @property language
      *  @type Language
      */
-    prototype.language = null;
+    language = null;
 }, {about: "Thing", recipient: "Organization", inLanguage: "Language", language: "Language", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

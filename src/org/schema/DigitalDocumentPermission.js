@@ -25,7 +25,7 @@ DigitalDocumentPermission = stjs.extend(DigitalDocumentPermission, Intangible, [
      *  @property grantee
      *  @type ContactPoint
      */
-    prototype.grantee = null;
+    grantee = null;
     /**
      *  Schema.org/permissionType
      *  The type of permission granted the person, organization, or audience.
@@ -33,5 +33,5 @@ DigitalDocumentPermission = stjs.extend(DigitalDocumentPermission, Intangible, [
      *  @property permissionType
      *  @type DigitalDocumentPermissionType
      */
-    prototype.permissionType = null;
+    permissionType = null;
 }, {grantee: "ContactPoint", permissionType: "DigitalDocumentPermissionType", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

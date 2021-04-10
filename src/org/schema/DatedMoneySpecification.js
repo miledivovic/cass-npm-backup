@@ -25,7 +25,7 @@ DatedMoneySpecification = stjs.extend(DatedMoneySpecification, StructuredValue, 
      *  @property endDate
      *  @type DateTime
      */
-    prototype.endDate = null;
+    endDate = null;
     /**
      *  Schema.org/amount
      *  The amount of money.
@@ -33,7 +33,7 @@ DatedMoneySpecification = stjs.extend(DatedMoneySpecification, StructuredValue, 
      *  @property amount
      *  @type Number
      */
-    prototype.amount = null;
+    amount = null;
     /**
      *  Schema.org/startDate
      *  The start date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)).
@@ -41,7 +41,7 @@ DatedMoneySpecification = stjs.extend(DatedMoneySpecification, StructuredValue, 
      *  @property startDate
      *  @type Date
      */
-    prototype.startDate = null;
+    startDate = null;
     /**
      *  Schema.org/currency
      *  The currency in which the monetary amount is expressed (in 3-letter [ISO 4217](http://en.wikipedia.org/wiki/ISO_4217) format).
@@ -49,5 +49,5 @@ DatedMoneySpecification = stjs.extend(DatedMoneySpecification, StructuredValue, 
      *  @property currency
      *  @type Text
      */
-    prototype.currency = null;
+    currency = null;
 }, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

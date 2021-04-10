@@ -25,7 +25,7 @@ Audience = stjs.extend(Audience, Intangible, [], function(constructor, prototype
      *  @property audienceType
      *  @type Text
      */
-    prototype.audienceType = null;
+    audienceType = null;
     /**
      *  Schema.org/geographicArea
      *  The geographic area associated with the audience.
@@ -33,5 +33,5 @@ Audience = stjs.extend(Audience, Intangible, [], function(constructor, prototype
      *  @property geographicArea
      *  @type AdministrativeArea
      */
-    prototype.geographicArea = null;
+    geographicArea = null;
 }, {geographicArea: "AdministrativeArea", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

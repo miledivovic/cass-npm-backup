@@ -17,7 +17,7 @@ module.exports = class EcRsaOaepAsync{
      *  @method encrypt
      *  @static
      */
-    constructor.encrypt = function(pk, plainText, success, failure) {
+    static encrypt(pk, plainText, success, failure) {
         if (EcRemote.async == false) {
             success(EcRsaOaep.encrypt(pk, plainText));
             return;
@@ -56,7 +56,7 @@ module.exports = class EcRsaOaepAsync{
      *  @method decrypt
      *  @static
      */
-    constructor.decrypt = function(ppk, cipherText, success, failure) {
+    static decrypt(ppk, cipherText, success, failure) {
         if (EcCrypto.caching) {
             var cacheGet = null;
             cacheGet = (EcCrypto.decryptionCache)[ppk.toPem() + cipherText];
@@ -121,7 +121,7 @@ module.exports = class EcRsaOaepAsync{
      *  @method sign
      *  @static
      */
-    constructor.sign = function(ppk, text, success, failure) {
+    static sign(ppk, text, success, failure) {
         if (EcRemote.async == false) {
             success(EcRsaOaep.sign(ppk, text));
             return;
@@ -165,7 +165,7 @@ module.exports = class EcRsaOaepAsync{
      *  @method signSha256
      *  @static
      */
-    constructor.signSha256 = function(ppk, text, success, failure) {
+    static signSha256 = function(ppk, text, success, failure) {
         if (EcRemote.async == false) {
             success(EcRsaOaep.signSha256(ppk, text));
             return;
@@ -205,7 +205,7 @@ module.exports = class EcRsaOaepAsync{
      *  @method verify
      *  @static
      */
-    constructor.verify = function(pk, text, signature, success, failure) {
+    static verify(pk, text, signature, success, failure) {
         if (EcRemote.async == false) {
             success(EcRsaOaep.verify(pk, text, signature));
             return;
@@ -231,4 +231,4 @@ module.exports = class EcRsaOaepAsync{
                 success(p1);
             }, failure);
     };
-}, {}, {});
+};

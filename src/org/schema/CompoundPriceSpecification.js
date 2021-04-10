@@ -25,5 +25,5 @@ CompoundPriceSpecification = stjs.extend(CompoundPriceSpecification, PriceSpecif
      *  @property priceComponent
      *  @type UnitPriceSpecification
      */
-    prototype.priceComponent = null;
+    priceComponent = null;
 }, {priceComponent: "UnitPriceSpecification", eligibleTransactionVolume: "PriceSpecification", eligibleQuantity: "QuantitativeValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

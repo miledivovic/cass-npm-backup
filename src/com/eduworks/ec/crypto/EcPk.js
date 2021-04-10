@@ -6,12 +6,12 @@
  *  @module com.eduworks.ec
  */
 module.exports = class EcPk{
-    constructor.cache = null;
-    prototype.pk = null;
-    prototype.defaultPem = null;
-    prototype.jwk = null;
-    prototype.key = null;
-    prototype.signKey = null;
+    static cache = {};
+    pk = null;
+    defaultPem = null;
+    jwk = null;
+    key = null;
+    signKey = null;
     /**
      *  Decodes a PEM encoded SubjectPublicKeyInfo (PKCS#8) or RSAPublicKey (PKCS#1) formatted RSA Public Key.
      *  (In case you were curious.)
@@ -21,7 +21,7 @@ module.exports = class EcPk{
      *  @method fromPem
      *  @static
      */
-    constructor.fromPem = function(pem) {
+    static fromPem(pem) {
         var pk = (EcPk.cache)[pem];
         if (pk != null) 
             return pk;
@@ -41,10 +41,10 @@ module.exports = class EcPk{
      *  @return {boolean} True if the keys match.
      *  @method equals
      */
-    prototype.equals = function(obj) {
+    equals(obj) {
         if (stjs.isInstanceOf(obj.constructor, EcPk)) 
             return this.toPem().equals((obj).toPem());
-        return Object.prototype.equals.call(this, obj);
+        return Object.equals.call(this, obj);
     };
     /**
      *  Encodes the public key into a PEM encoded SubjectPublicKeyInfo (PKCS#8) formatted RSA Public Key.
@@ -53,7 +53,7 @@ module.exports = class EcPk{
      *  @return {string} PEM encoded public key without whitespace.
      *  @method toPem
      */
-    prototype.toPem = function() {
+    toPem() {
         if (this.defaultPem == null) 
             this.defaultPem = forge.pki.publicKeyToPem(this.pk).replaceAll("\r", "").replaceAll("\n", "");
         return this.defaultPem;
@@ -65,7 +65,7 @@ module.exports = class EcPk{
      *  @return {string} PEM encoded public key without whitespace.
      *  @method toPkcs1Pem
      */
-    prototype.toPkcs1Pem = function() {
+    toPkcs1Pem = function() {
         return forge.pki.publicKeyToRSAPublicKeyPem(this.pk).replaceAll("\r", "").replaceAll("\n", "");
     };
     /**
@@ -75,10 +75,10 @@ module.exports = class EcPk{
      *  @return {string} PEM encoded public key without whitespace.
      *  @method toPkcs8Pem
      */
-    prototype.toPkcs8Pem = function() {
+    toPkcs8Pem = function() {
         return forge.pki.publicKeyToPem(this.pk).replaceAll("\r", "").replaceAll("\n", "");
     };
-    prototype.toJwk = function() {
+    toJwk() {
         if (this.jwk == null) 
             this.jwk = pemJwk.pem2jwk(forge.pki.publicKeyToPem(this.pk));
         return this.jwk;
@@ -89,16 +89,12 @@ module.exports = class EcPk{
      *  @return {string} Public key fingerprint.
      *  @method fingerprint
      */
-    prototype.fingerprint = function() {
+    fingerprint() {
         var o = new Object();
         (o)["encoding"] = "hex";
         return forge.ssh.getPublicKeyFingerprint(this.pk, o);
     };
-    prototype.verify = function(bytes, decode64) {
+    verify(bytes, decode64) {
         return this.pk.verify(bytes, decode64);
     };
-}, {cache: "Object", pk: "forge.pk", jwk: "Object", key: "CryptoKey", signKey: "CryptoKey"}, {});
-(function() {
-    if (EcPk.cache == null) 
-        EcPk.cache = new Object();
-})();
+};

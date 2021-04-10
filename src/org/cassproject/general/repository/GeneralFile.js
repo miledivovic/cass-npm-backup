@@ -11,9 +11,9 @@ var GeneralFile = function() {
     EcRemoteLinkedData.call(this, General.context, GeneralFile.myType);
 };
 GeneralFile = stjs.extend(GeneralFile, EcRemoteLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/general/0.1/file";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/general/0.2/file";
-    constructor.myType = GeneralFile.TYPE_0_2;
+    static TYPE_0_1 = "http://schema.eduworks.com/general/0.1/file";
+    static TYPE_0_2 = "http://schema.eduworks.com/general/0.2/file";
+    static myType = GeneralFile.TYPE_0_2;
     /**
      *  Optional checksum of the file, used to verify if the file has been
      *  transmitted correctly.
@@ -21,40 +21,40 @@ GeneralFile = stjs.extend(GeneralFile, EcRemoteLinkedData, [], function(construc
      *  @property checksum
      *  @type String
      */
-    prototype.checksum = null;
+    checksum = null;
     /**
      *  Mime type of the file.
      * 
      *  @property mimeType
      *  @type String
      */
-    prototype.mimeType = null;
+    mimeType = null;
     /**
      *  Base-64 encoded version of the bytestream of a file.
      * 
      *  @property data
      *  @type String
      */
-    prototype.data = null;
+    data = null;
     /**
      *  Name of the file, used to distinguish it
      * 
      *  @property name
      *  @type String
      */
-    prototype.name = null;
+    name = null;
     /**
      *  Helper method to force the browser to download the file.
      * 
      *  @memberOf GeneralFile
      *  @method download
      */
-    prototype.download = function() {
+    download() {
         var blob = base64ToBlob(this.data, this.mimeType);
         saveAs(blob, this.name);
     };
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (GeneralFile.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -62,7 +62,7 @@ GeneralFile = stjs.extend(GeneralFile, EcRemoteLinkedData, [], function(construc
             this.setContextAndType(General.context_0_2, GeneralFile.TYPE_0_2);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(GeneralFile.TYPE_0_2);
         a.push(GeneralFile.TYPE_0_1);

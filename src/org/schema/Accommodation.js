@@ -29,7 +29,7 @@ Accommodation = stjs.extend(Accommodation, Place, [], function(constructor, prot
      *  @property floorSize
      *  @type QuantitativeValue
      */
-    prototype.floorSize = null;
+    floorSize = null;
     /**
      *  Schema.org/petsAllowed
      *  Indicates whether pets are allowed to enter the accommodation or lodging business. More detailed information can be put in a text value.
@@ -37,7 +37,7 @@ Accommodation = stjs.extend(Accommodation, Place, [], function(constructor, prot
      *  @property petsAllowed
      *  @type Boolean
      */
-    prototype.petsAllowed = null;
+    petsAllowed = null;
     /**
      *  Schema.org/amenityFeature
      *  An amenity feature (e.g. a characteristic or service) of the Accommodation. This generic property does not make a statement about whether the feature is included in an offer for the main accommodation or available at extra costs.
@@ -45,7 +45,7 @@ Accommodation = stjs.extend(Accommodation, Place, [], function(constructor, prot
      *  @property amenityFeature
      *  @type LocationFeatureSpecification
      */
-    prototype.amenityFeature = null;
+    amenityFeature = null;
     /**
      *  Schema.org/numberOfRooms
      *  The number of rooms (excluding bathrooms and closets) of the acccommodation or lodging business.
@@ -54,7 +54,7 @@ Accommodation = stjs.extend(Accommodation, Place, [], function(constructor, prot
      *  @property numberOfRooms
      *  @type Number
      */
-    prototype.numberOfRooms = null;
+    numberOfRooms = null;
     /**
      *  Schema.org/permittedUsage
      *  Indications regarding the permitted usage of the accommodation.
@@ -62,5 +62,5 @@ Accommodation = stjs.extend(Accommodation, Place, [], function(constructor, prot
      *  @property permittedUsage
      *  @type Text
      */
-    prototype.permittedUsage = null;
+    permittedUsage = null;
 }, {floorSize: "QuantitativeValue", amenityFeature: "LocationFeatureSpecification", photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

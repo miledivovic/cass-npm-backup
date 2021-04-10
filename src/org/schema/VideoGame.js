@@ -25,7 +25,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property gamePlatform
      *  @type Text
      */
-    prototype.gamePlatform = null;
+    gamePlatform = null;
     /**
      *  Schema.org/gameServer
      *  The server on which  it is possible to play the game.
@@ -33,7 +33,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property gameServer
      *  @type GameServer
      */
-    prototype.gameServer = null;
+    gameServer = null;
     /**
      *  Schema.org/actor
      *  An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip.
@@ -41,7 +41,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property actor
      *  @type Person
      */
-    prototype.actor = null;
+    actor = null;
     /**
      *  Schema.org/trailer
      *  The trailer of a movie or tv/radio series, season, episode, etc.
@@ -49,7 +49,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property trailer
      *  @type VideoObject
      */
-    prototype.trailer = null;
+    trailer = null;
     /**
      *  Schema.org/cheatCode
      *  Cheat codes to the game.
@@ -57,7 +57,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property cheatCode
      *  @type CreativeWork
      */
-    prototype.cheatCode = null;
+    cheatCode = null;
     /**
      *  Schema.org/gameTip
      *  Links to tips, tactics, etc.
@@ -65,7 +65,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property gameTip
      *  @type CreativeWork
      */
-    prototype.gameTip = null;
+    gameTip = null;
     /**
      *  Schema.org/musicBy
      *  The composer of the soundtrack.
@@ -73,7 +73,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property musicBy
      *  @type Person
      */
-    prototype.musicBy = null;
+    musicBy = null;
     /**
      *  Schema.org/directors
      *  A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.
@@ -81,7 +81,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property directors
      *  @type Person
      */
-    prototype.directors = null;
+    directors = null;
     /**
      *  Schema.org/playMode
      *  Indicates whether this game is multi-player, co-op or single-player.  The game can be marked as multi-player, co-op and single-player at the same time.
@@ -89,7 +89,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property playMode
      *  @type GamePlayMode
      */
-    prototype.playMode = null;
+    playMode = null;
     /**
      *  Schema.org/director
      *  A director of e.g. tv, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip.
@@ -97,7 +97,7 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property director
      *  @type Person
      */
-    prototype.director = null;
+    director = null;
     /**
      *  Schema.org/actors
      *  An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.
@@ -105,5 +105,5 @@ VideoGame = stjs.extend(VideoGame, SoftwareApplication, [], function(constructor
      *  @property actors
      *  @type Person
      */
-    prototype.actors = null;
+    actors = null;
 }, {gameServer: "GameServer", actor: "Person", trailer: "VideoObject", cheatCode: "CreativeWork", gameTip: "CreativeWork", musicBy: "Person", directors: "Person", playMode: "GamePlayMode", director: "Person", actors: "Person", softwareHelp: "CreativeWork", softwareAddOn: "SoftwareApplication", supportingData: "DataFeed", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

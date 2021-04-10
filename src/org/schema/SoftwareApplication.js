@@ -25,7 +25,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property downloadUrl
      *  @type URL
      */
-    prototype.downloadUrl = null;
+    downloadUrl = null;
     /**
      *  Schema.org/softwareRequirements
      *  Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime).
@@ -33,7 +33,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property softwareRequirements
      *  @type Text
      */
-    prototype.softwareRequirements = null;
+    softwareRequirements = null;
     /**
      *  Schema.org/permissions
      *  Permission(s) required to run the app (for example, a mobile app may require full internet access or may run only on wifi).
@@ -41,7 +41,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property permissions
      *  @type Text
      */
-    prototype.permissions = null;
+    permissions = null;
     /**
      *  Schema.org/processorRequirements
      *  Processor architecture required to run the application (e.g. IA64).
@@ -49,7 +49,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property processorRequirements
      *  @type Text
      */
-    prototype.processorRequirements = null;
+    processorRequirements = null;
     /**
      *  Schema.org/availableOnDevice
      *  Device required to run the application. Used in cases where a specific make/model is required to run the application.
@@ -57,7 +57,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property availableOnDevice
      *  @type Text
      */
-    prototype.availableOnDevice = null;
+    availableOnDevice = null;
     /**
      *  Schema.org/featureList
      *  Features or modules provided by this application (and possibly required by other applications).
@@ -65,7 +65,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property featureList
      *  @type URL
      */
-    prototype.featureList = null;
+    featureList = null;
     /**
      *  Schema.org/applicationSubCategory
      *  Subcategory of the application, e.g. 'Arcade Game'.
@@ -73,7 +73,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property applicationSubCategory
      *  @type URL
      */
-    prototype.applicationSubCategory = null;
+    applicationSubCategory = null;
     /**
      *  Schema.org/requirements
      *  Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime).
@@ -81,7 +81,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property requirements
      *  @type Text
      */
-    prototype.requirements = null;
+    requirements = null;
     /**
      *  Schema.org/device
      *  Device required to run the application. Used in cases where a specific make/model is required to run the application.
@@ -89,7 +89,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property device
      *  @type Text
      */
-    prototype.device = null;
+    device = null;
     /**
      *  Schema.org/applicationCategory
      *  Type of software application, e.g. 'Game, Multimedia'.
@@ -97,7 +97,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property applicationCategory
      *  @type Text
      */
-    prototype.applicationCategory = null;
+    applicationCategory = null;
     /**
      *  Schema.org/softwareVersion
      *  Version of the software instance.
@@ -105,7 +105,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property softwareVersion
      *  @type Text
      */
-    prototype.softwareVersion = null;
+    softwareVersion = null;
     /**
      *  Schema.org/storageRequirements
      *  Storage requirements (free space required).
@@ -113,7 +113,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property storageRequirements
      *  @type Text
      */
-    prototype.storageRequirements = null;
+    storageRequirements = null;
     /**
      *  Schema.org/applicationSuite
      *  The name of the application suite to which the application belongs (e.g. Excel belongs to Office).
@@ -121,7 +121,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property applicationSuite
      *  @type Text
      */
-    prototype.applicationSuite = null;
+    applicationSuite = null;
     /**
      *  Schema.org/memoryRequirements
      *  Minimum memory requirements.
@@ -129,7 +129,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property memoryRequirements
      *  @type Text
      */
-    prototype.memoryRequirements = null;
+    memoryRequirements = null;
     /**
      *  Schema.org/screenshot
      *  A link to a screenshot image of the app.
@@ -137,7 +137,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property screenshot
      *  @type URL
      */
-    prototype.screenshot = null;
+    screenshot = null;
     /**
      *  Schema.org/countriesSupported
      *  Countries for which the application is supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
@@ -145,7 +145,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property countriesSupported
      *  @type Text
      */
-    prototype.countriesSupported = null;
+    countriesSupported = null;
     /**
      *  Schema.org/softwareHelp
      *  Software application help.
@@ -153,7 +153,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property softwareHelp
      *  @type CreativeWork
      */
-    prototype.softwareHelp = null;
+    softwareHelp = null;
     /**
      *  Schema.org/softwareAddOn
      *  Additional content for a software application.
@@ -161,7 +161,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property softwareAddOn
      *  @type SoftwareApplication
      */
-    prototype.softwareAddOn = null;
+    softwareAddOn = null;
     /**
      *  Schema.org/releaseNotes
      *  Description of what changed in this version.
@@ -169,7 +169,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property releaseNotes
      *  @type Text
      */
-    prototype.releaseNotes = null;
+    releaseNotes = null;
     /**
      *  Schema.org/supportingData
      *  Supporting data for a SoftwareApplication.
@@ -177,7 +177,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property supportingData
      *  @type DataFeed
      */
-    prototype.supportingData = null;
+    supportingData = null;
     /**
      *  Schema.org/countriesNotSupported
      *  Countries for which the application is not supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.
@@ -185,7 +185,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property countriesNotSupported
      *  @type Text
      */
-    prototype.countriesNotSupported = null;
+    countriesNotSupported = null;
     /**
      *  Schema.org/operatingSystem
      *  Operating systems supported (Windows 7, OSX 10.6, Android 1.6).
@@ -193,7 +193,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property operatingSystem
      *  @type Text
      */
-    prototype.operatingSystem = null;
+    operatingSystem = null;
     /**
      *  Schema.org/fileSize
      *  Size of the application / package (e.g. 18MB). In the absence of a unit (MB, KB etc.), KB will be assumed.
@@ -201,7 +201,7 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property fileSize
      *  @type Text
      */
-    prototype.fileSize = null;
+    fileSize = null;
     /**
      *  Schema.org/installUrl
      *  URL at which the app may be installed, if different from the URL of the item.
@@ -209,5 +209,5 @@ SoftwareApplication = stjs.extend(SoftwareApplication, CreativeWork, [], functio
      *  @property installUrl
      *  @type URL
      */
-    prototype.installUrl = null;
+    installUrl = null;
 }, {softwareHelp: "CreativeWork", softwareAddOn: "SoftwareApplication", supportingData: "DataFeed", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

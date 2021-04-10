@@ -7,30 +7,30 @@
  *  @class EbacCredentialRequest
  *  @module org.cassproject
  */
-var EbacCredentialRequest = function() {
-    EcLinkedData.call(this, Ebac.context, EbacCredentialRequest.TYPE_0_4);
-};
-EbacCredentialRequest = stjs.extend(EbacCredentialRequest, EcLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/credentialRequest";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/credentialRequest";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/CredentialRequest";
-    constructor.TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/CredentialRequest";
+module.exports = class EbacCredentialRequest extends EcLinkedData{
+    constructor(){
+        super(Ebac.context, EbacCredentialRequest.TYPE_0_4);
+    }
+    static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/credentialRequest";
+    static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/credentialRequest";
+    static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/CredentialRequest";
+    static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/CredentialRequest";
     /**
      *  Hashed username.
      * 
      *  @property username
      *  @type string
      */
-    prototype.username = null;
+    username = null;
     /**
      *  Hashed password to authorize request.
      * 
      *  @property password
      *  @type string
      */
-    prototype.password = null;
-    prototype.upgrade = function() {
-        EcLinkedData.prototype.upgrade.call(this);
+    password = null;
+    upgrade() {
+        EcLinkedData.upgrade.call(this);
         if (EbacCredentialRequest.TYPE_0_1 == this.type) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -44,7 +44,7 @@ EbacCredentialRequest = stjs.extend(EbacCredentialRequest, EcLinkedData, [], fun
             this.setContextAndType(Ebac.context_0_4, EbacCredentialRequest.TYPE_0_4);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(EbacCredentialRequest.TYPE_0_4);
         a.push(EbacCredentialRequest.TYPE_0_3);
@@ -52,4 +52,4 @@ EbacCredentialRequest = stjs.extend(EbacCredentialRequest, EcLinkedData, [], fun
         a.push(EbacCredentialRequest.TYPE_0_1);
         return a;
     };
-}, {atProperties: {name: "Array", arguments: [null]}}, {});
+};

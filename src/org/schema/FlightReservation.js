@@ -25,7 +25,7 @@ FlightReservation = stjs.extend(FlightReservation, Reservation, [], function(con
      *  @property passengerSequenceNumber
      *  @type Text
      */
-    prototype.passengerSequenceNumber = null;
+    passengerSequenceNumber = null;
     /**
      *  Schema.org/securityScreening
      *  The type of security screening the passenger is subject to.
@@ -33,7 +33,7 @@ FlightReservation = stjs.extend(FlightReservation, Reservation, [], function(con
      *  @property securityScreening
      *  @type Text
      */
-    prototype.securityScreening = null;
+    securityScreening = null;
     /**
      *  Schema.org/passengerPriorityStatus
      *  The priority status assigned to a passenger for security or boarding (e.g. FastTrack or Priority).
@@ -41,7 +41,7 @@ FlightReservation = stjs.extend(FlightReservation, Reservation, [], function(con
      *  @property passengerPriorityStatus
      *  @type QualitativeValue
      */
-    prototype.passengerPriorityStatus = null;
+    passengerPriorityStatus = null;
     /**
      *  Schema.org/boardingGroup
      *  The airline-specific indicator of boarding order / preference.
@@ -49,5 +49,5 @@ FlightReservation = stjs.extend(FlightReservation, Reservation, [], function(con
      *  @property boardingGroup
      *  @type Text
      */
-    prototype.boardingGroup = null;
+    boardingGroup = null;
 }, {passengerPriorityStatus: "QualitativeValue", provider: "Person", programMembershipUsed: "ProgramMembership", reservationStatus: "ReservationStatusType", underName: "Organization", bookingAgent: "Organization", reservationFor: "Thing", broker: "Person", reservedTicket: "Ticket", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

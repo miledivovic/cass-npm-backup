@@ -2,7 +2,7 @@
  *  Manages identities and contacts, provides hooks to respond to identity and
  *  contact events, and builds signatures and signature sheets for authorizing
  *  movement of data. Also provides helper functions for identity management and
- *  reads the users contacts on application start with a static constructor that
+ *  reads the users contacts on application start with a static static that
  *  pulls them out of any temporary storage
  * 
  *  @author fritz.ray@eduworks.com
@@ -18,7 +18,7 @@ module.exports = class EcIdentityManager{
      *  @type EcIdentity[]
      *  @static
      */
-    constructor.ids = new Array();
+    static ids = new Array();
     /**
      *  Contacts (Keys that we do not own)
      * 
@@ -26,7 +26,7 @@ module.exports = class EcIdentityManager{
      *  @type EcContact[]
      *  @static
      */
-    constructor.contacts = new Array();
+    static contacts = new Array();
     /**
      *  Identity change hook.
      * 
@@ -34,7 +34,7 @@ module.exports = class EcIdentityManager{
      *  @type Callback1<EcIdentity>
      *  @static
      */
-    constructor.onIdentityChanged = null;
+    static onIdentityChanged = null;
     /**
      *  Contacts change hook.
      * 
@@ -42,11 +42,11 @@ module.exports = class EcIdentityManager{
      *  @type Callback1<EcIdentity>
      *  @static
      */
-    constructor.onContactChanged = null;
-    constructor.signatureSheetCaching = false;
-    constructor.signatureSheetCache = new Object();
-    constructor.async = true;
-    constructor.main = function(args) {
+    static onContactChanged = null;
+    static signatureSheetCaching = false;
+    static signatureSheetCache = new Object();
+    static async = true;
+    static main(args) {
         EcIdentityManager.readContacts();
     };
     /**
@@ -57,7 +57,7 @@ module.exports = class EcIdentityManager{
      *  @method identityChanged
      *  @static
      */
-    constructor.identityChanged = function(identity) {
+    static identityChanged(identity) {
         if (EcIdentityManager.onIdentityChanged != null) {
             EcIdentityManager.onIdentityChanged(identity);
         }
@@ -70,7 +70,7 @@ module.exports = class EcIdentityManager{
      *  @method contactChanged
      *  @static
      */
-    constructor.contactChanged = function(contact) {
+    static contactChanged(contact) {
         if (EcIdentityManager.onContactChanged != null) {
             EcIdentityManager.onContactChanged(contact);
         }
@@ -83,7 +83,7 @@ module.exports = class EcIdentityManager{
      *  @method readContacts
      *  @static
      */
-    constructor.readContacts = function() {
+    static readContacts() {
         var localStore = localStorage["contacts"];
         if (localStore == null) {
             return;
@@ -115,7 +115,7 @@ module.exports = class EcIdentityManager{
      *  @method saveContacts
      *  @static
      */
-    constructor.saveContacts = function() {
+    static saveContacts() {
         var c = new Array();
         for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
             var o = new Object();
@@ -135,7 +135,7 @@ module.exports = class EcIdentityManager{
      *  @method readIdentities
      *  @static
      */
-    constructor.readIdentities = function() {
+    static readIdentities() {
         var localStore = localStorage["identities"];
         if (localStore == null) {
             return;
@@ -167,7 +167,7 @@ module.exports = class EcIdentityManager{
      *  @method saveIdentities
      *  @static
      */
-    constructor.saveIdentities = function() {
+    static saveIdentities() {
         var c = new Array();
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             var o = new Object();
@@ -187,7 +187,7 @@ module.exports = class EcIdentityManager{
      *  @method clearContacts
      *  @static
      */
-    constructor.clearContacts = function() {
+    static clearContacts() {
         delete localStorage["contacts"];
         EcIdentityManager.contacts = new Array();
     };
@@ -198,7 +198,7 @@ module.exports = class EcIdentityManager{
      *  @method clearIdentities
      *  @static
      */
-    constructor.clearIdentities = function() {
+    static clearIdentities() {
         delete localStorage["identities"];
         EcIdentityManager.ids = new Array();
     };
@@ -211,7 +211,7 @@ module.exports = class EcIdentityManager{
      *  @method addIdentity
      *  @static
      */
-    constructor.addIdentity = function(identity) {
+    static addIdentity(identity) {
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             if (EcIdentityManager.ids[i].equals(identity)) {
                 return;
@@ -229,7 +229,7 @@ module.exports = class EcIdentityManager{
      *  @method addIdentityQuietly
      *  @static
      */
-    constructor.addIdentityQuietly = function(identity) {
+    static addIdentityQuietly(identity) {
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             if (EcIdentityManager.ids[i].equals(identity)) {
                 return;
@@ -246,7 +246,7 @@ module.exports = class EcIdentityManager{
      *  @method addContact
      *  @static
      */
-    constructor.addContact = function(contact) {
+    static addContact(contact) {
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             if (EcIdentityManager.ids[i].ppk.toPk().toPem().equals(contact.pk.toPem())) {
                 EcIdentityManager.ids[i].displayName = contact.displayName;
@@ -276,7 +276,7 @@ module.exports = class EcIdentityManager{
      *  @method addContactQuietly
      *  @static
      */
-    constructor.addContactQuietly = function(contact) {
+    static addContactQuietly(contact) {
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             if (EcIdentityManager.ids[i].ppk.toPk().toPem().equals(contact.pk.toPem())) {
                 EcIdentityManager.ids[i].displayName = contact.displayName;
@@ -308,7 +308,7 @@ module.exports = class EcIdentityManager{
      *  @method signatureSheetFor
      *  @static
      */
-    constructor.signatureSheetFor = function(identityPksinPem, duration, server) {
+    static signatureSheetFor(identityPksinPem, duration, server) {
         var signatures = new Array();
         for (var j = 0; j < EcIdentityManager.ids.length; j++) {
             var ppk = EcIdentityManager.ids[j].ppk;
@@ -339,7 +339,7 @@ module.exports = class EcIdentityManager{
      *  @method signatureSheetForAsync
      *  @static
      */
-    constructor.signatureSheetForAsync = function(identityPksinPem, duration, server, success, failure) {
+    static signatureSheetForAsync(identityPksinPem, duration, server, success, failure) {
         var signatures = new Array();
         new EcAsyncHelper().each(EcIdentityManager.ids, function(p1, incrementalSuccess) {
             var ppk = p1.ppk;
@@ -376,7 +376,7 @@ module.exports = class EcIdentityManager{
      *  @method signatureSheet
      *  @static
      */
-    constructor.signatureSheet = function(duration, server) {
+    static signatureSheet(duration, server) {
         var cache = null;
         if (EcIdentityManager.signatureSheetCaching) {
             cache = (EcIdentityManager.signatureSheetCache)[server];
@@ -413,7 +413,7 @@ module.exports = class EcIdentityManager{
      *  @method signatureSheetAsync
      *  @static
      */
-    constructor.signatureSheetAsync = function(duration, server, success, failure) {
+    static signatureSheetAsync(duration, server, success, failure) {
         if (!EcIdentityManager.async) {
             var sheet = EcIdentityManager.signatureSheet(duration, server);
             if (success != null) 
@@ -467,7 +467,7 @@ module.exports = class EcIdentityManager{
      *  @method createSignature
      *  @static
      */
-    constructor.createSignature = function(duration, server, ppk) {
+    static createSignature(duration, server, ppk) {
         var s = new EbacSignature();
         s.expiry = new Date().getTime() + duration;
         s.server = server;
@@ -488,7 +488,7 @@ module.exports = class EcIdentityManager{
      *  @method createSignatureAsync
      *  @static
      */
-    constructor.createSignatureAsync = function(duration, server, ppk, success, failure) {
+    static createSignatureAsync(duration, server, ppk, success, failure) {
         var s = new EbacSignature();
         (s)["@owner"] = ppk.toPk().toPem();
         s.expiry = new Date().getTime() + duration;
@@ -507,7 +507,7 @@ module.exports = class EcIdentityManager{
      *  @method getPpk
      *  @static
      */
-    constructor.getPpk = function(fromPem) {
+    static getPpk(fromPem) {
         var pem = fromPem.toPem();
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             if (pem.equals(EcIdentityManager.ids[i].ppk.toPk().toPem())) {
@@ -525,7 +525,7 @@ module.exports = class EcIdentityManager{
      *  @method getContact
      *  @static
      */
-    constructor.getContact = function(pk) {
+    static getContact(pk) {
         for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
             if (pk.equals(EcIdentityManager.contacts[i].pk)) {
                 return EcIdentityManager.contacts[i];
@@ -542,7 +542,7 @@ module.exports = class EcIdentityManager{
      *  @method getIdentity
      *  @static
      */
-    constructor.getIdentity = function(pk) {
+    static getIdentity(pk) {
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             if (pk.equals(EcIdentityManager.ids[i].ppk.toPk())) {
                 return EcIdentityManager.ids[i];
@@ -558,7 +558,7 @@ module.exports = class EcIdentityManager{
      *  @method sign
      *  @static
      */
-    constructor.sign = function(d) {
+    static sign(d) {
         if (d.signature != null) {
             for (var i = 0; i < d.signature.length; ) {
                 var works = false;
@@ -594,7 +594,7 @@ module.exports = class EcIdentityManager{
             delete (d)["signature"];
         }
     };
-    constructor.myIdentitiesSearchString = function() {
+    static myIdentitiesSearchString() {
         var searchString = "";
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             if (i > 0) {
@@ -606,7 +606,7 @@ module.exports = class EcIdentityManager{
         }
         return searchString;
     };
-    constructor.getMyPks = function() {
+    static getMyPks() {
         var pks = new Array();
         if (EcIdentityManager.ids == null) 
             return pks;

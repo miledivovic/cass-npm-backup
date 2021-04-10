@@ -23,7 +23,7 @@ module.exports = class TabStructuredImport{
      *  @method importCompetencies
      *  @static
      */
-    constructor.importCompetencies = function(text, serverUrl, owner, success, failure, incremental, repo, hashNameForId) {
+    static importCompetencies(text, serverUrl, owner, success, failure, incremental, repo, hashNameForId) {
         var lines = text.split("\n");
         var competencies = new Array();
         var alignments = new Array();
@@ -31,7 +31,7 @@ module.exports = class TabStructuredImport{
             TabStructuredImport.parseLinesIntoHierarchy(lines, competencies, alignments, i, serverUrl, hashNameForId, repo);
         success(competencies, alignments);
     };
-    constructor.parseLinesIntoHierarchy = function(lines, competencies, alignments, index, serverUrl, hashNameForId, repo) {
+    static parseLinesIntoHierarchy(lines, competencies, alignments, index, serverUrl, hashNameForId, repo) {
         var parentI = -1;
         for (var i = index - 1; i >= 0; i--) {
             if (TabStructuredImport.tabs(lines[i]) < TabStructuredImport.tabs(lines[index])) {
@@ -78,7 +78,7 @@ module.exports = class TabStructuredImport{
             }
         }
     };
-    constructor.tabs = function(line) {
+    static tabs(line) {
         var tabs = 0;
         for (var i = 0; i < line.length; i++) {
             var c = line.charAt(i);
@@ -89,4 +89,4 @@ module.exports = class TabStructuredImport{
         }
         return tabs;
     };
-}, {}, {});
+};

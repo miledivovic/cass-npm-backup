@@ -25,7 +25,7 @@ PropertyValue = stjs.extend(PropertyValue, StructuredValue, [], function(constru
      *  @property unitCode
      *  @type Text
      */
-    prototype.unitCode = null;
+    unitCode = null;
     /**
      *  Schema.org/minValue
      *  The lower value of some characteristic or property.
@@ -33,7 +33,7 @@ PropertyValue = stjs.extend(PropertyValue, StructuredValue, [], function(constru
      *  @property minValue
      *  @type Number
      */
-    prototype.minValue = null;
+    minValue = null;
     /**
      *  Schema.org/propertyID
      *  A commonly used identifier for the characteristic represented by the property, e.g. a manufacturer or a standard code for a property. propertyID can be
@@ -44,7 +44,7 @@ PropertyValue = stjs.extend(PropertyValue, StructuredValue, [], function(constru
      *  @property propertyID
      *  @type Text
      */
-    prototype.propertyID = null;
+    propertyID = null;
     /**
      *  Schema.org/value
      *  The value of the quantitative value or property value node.\n\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\n* For [[PropertyValue]], it can be 'Text;', 'Number', 'Boolean', or 'StructuredValue'.
@@ -52,7 +52,7 @@ PropertyValue = stjs.extend(PropertyValue, StructuredValue, [], function(constru
      *  @property value
      *  @type StructuredValue
      */
-    prototype.value = null;
+    value = null;
     /**
      *  Schema.org/valueReference
      *  A pointer to a secondary value that provides additional information on the original value, e.g. a reference temperature.
@@ -60,7 +60,7 @@ PropertyValue = stjs.extend(PropertyValue, StructuredValue, [], function(constru
      *  @property valueReference
      *  @type StructuredValue
      */
-    prototype.valueReference = null;
+    valueReference = null;
     /**
      *  Schema.org/maxValue
      *  The upper value of some characteristic or property.
@@ -68,7 +68,7 @@ PropertyValue = stjs.extend(PropertyValue, StructuredValue, [], function(constru
      *  @property maxValue
      *  @type Number
      */
-    prototype.maxValue = null;
+    maxValue = null;
     /**
      *  Schema.org/unitText
      *  A string or text indicating the unit of measurement. Useful if you cannot provide a standard unit code for
@@ -77,5 +77,5 @@ PropertyValue = stjs.extend(PropertyValue, StructuredValue, [], function(constru
      *  @property unitText
      *  @type Text
      */
-    prototype.unitText = null;
+    unitText = null;
 }, {value: "StructuredValue", valueReference: "StructuredValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

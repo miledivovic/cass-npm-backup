@@ -25,7 +25,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property course
      *  @type Place
      */
-    prototype.course = null;
+    course = null;
     /**
      *  Schema.org/sportsTeam
      *  A sub property of participant. The sports team that participated on this action.
@@ -33,7 +33,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property sportsTeam
      *  @type SportsTeam
      */
-    prototype.sportsTeam = null;
+    sportsTeam = null;
     /**
      *  Schema.org/sportsEvent
      *  A sub property of location. The sports event where this action occurred.
@@ -41,7 +41,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property sportsEvent
      *  @type SportsEvent
      */
-    prototype.sportsEvent = null;
+    sportsEvent = null;
     /**
      *  Schema.org/distance
      *  The distance travelled, e.g. exercising or travelling.
@@ -49,7 +49,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property distance
      *  @type Distance
      */
-    prototype.distance = null;
+    distance = null;
     /**
      *  Schema.org/opponent
      *  A sub property of participant. The opponent on this action.
@@ -57,7 +57,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property opponent
      *  @type Person
      */
-    prototype.opponent = null;
+    opponent = null;
     /**
      *  Schema.org/sportsActivityLocation
      *  A sub property of location. The sports activity location where this action occurred.
@@ -65,7 +65,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property sportsActivityLocation
      *  @type SportsActivityLocation
      */
-    prototype.sportsActivityLocation = null;
+    sportsActivityLocation = null;
     /**
      *  Schema.org/toLocation
      *  A sub property of location. The final location of the object or the agent after the action.
@@ -73,7 +73,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property toLocation
      *  @type Place
      */
-    prototype.toLocation = null;
+    toLocation = null;
     /**
      *  Schema.org/fromLocation
      *  A sub property of location. The original location of the object or the agent before the action.
@@ -81,7 +81,7 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property fromLocation
      *  @type Place
      */
-    prototype.fromLocation = null;
+    fromLocation = null;
     /**
      *  Schema.org/exerciseCourse
      *  A sub property of location. The course where this action was taken.
@@ -89,5 +89,5 @@ ExerciseAction = stjs.extend(ExerciseAction, PlayAction, [], function(constructo
      *  @property exerciseCourse
      *  @type Place
      */
-    prototype.exerciseCourse = null;
+    exerciseCourse = null;
 }, {course: "Place", sportsTeam: "SportsTeam", sportsEvent: "SportsEvent", distance: "Distance", opponent: "Person", sportsActivityLocation: "SportsActivityLocation", toLocation: "Place", fromLocation: "Place", exerciseCourse: "Place", audience: "Audience", event: "SchemaEvent", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

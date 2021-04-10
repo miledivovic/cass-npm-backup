@@ -25,7 +25,7 @@ DeliveryChargeSpecification = stjs.extend(DeliveryChargeSpecification, PriceSpec
      *  @property ineligibleRegion
      *  @type GeoShape
      */
-    prototype.ineligibleRegion = null;
+    ineligibleRegion = null;
     /**
      *  Schema.org/appliesToDeliveryMethod
      *  The delivery method(s) to which the delivery charge or payment charge specification applies.
@@ -33,7 +33,7 @@ DeliveryChargeSpecification = stjs.extend(DeliveryChargeSpecification, PriceSpec
      *  @property appliesToDeliveryMethod
      *  @type DeliveryMethod
      */
-    prototype.appliesToDeliveryMethod = null;
+    appliesToDeliveryMethod = null;
     /**
      *  Schema.org/areaServed
      *  The geographic area where a service or offered item is provided.
@@ -41,7 +41,7 @@ DeliveryChargeSpecification = stjs.extend(DeliveryChargeSpecification, PriceSpec
      *  @property areaServed
      *  @type Place
      */
-    prototype.areaServed = null;
+    areaServed = null;
     /**
      *  Schema.org/eligibleRegion
      *  The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is valid.\n\nSee also [[ineligibleRegion]].
@@ -49,5 +49,5 @@ DeliveryChargeSpecification = stjs.extend(DeliveryChargeSpecification, PriceSpec
      *  @property eligibleRegion
      *  @type Text
      */
-    prototype.eligibleRegion = null;
+    eligibleRegion = null;
 }, {ineligibleRegion: "GeoShape", appliesToDeliveryMethod: "DeliveryMethod", areaServed: "Place", eligibleTransactionVolume: "PriceSpecification", eligibleQuantity: "QuantitativeValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

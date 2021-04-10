@@ -25,7 +25,7 @@ SellAction = stjs.extend(SellAction, TradeAction, [], function(constructor, prot
      *  @property buyer
      *  @type Person
      */
-    prototype.buyer = null;
+    buyer = null;
     /**
      *  Schema.org/warrantyPromise
      *  The warranty promise(s) included in the offer.
@@ -33,5 +33,5 @@ SellAction = stjs.extend(SellAction, TradeAction, [], function(constructor, prot
      *  @property warrantyPromise
      *  @type WarrantyPromise
      */
-    prototype.warrantyPromise = null;
+    warrantyPromise = null;
 }, {buyer: "Person", warrantyPromise: "WarrantyPromise", priceSpecification: "PriceSpecification", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

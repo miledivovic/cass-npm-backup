@@ -1,7 +1,4 @@
-var EcCreativeWork = function() {
-    CreativeWork.call(this);
-};
-EcCreativeWork = stjs.extend(EcCreativeWork, CreativeWork, [], function(constructor, prototype) {
+module.exports = class EcCreativeWork extends CreativeWork{
     /**
      *  Retrieves a creative work from it's server asynchronously
      * 
@@ -16,7 +13,7 @@ EcCreativeWork = stjs.extend(EcCreativeWork, CreativeWork, [], function(construc
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcCreativeWork(), success, failure);
     };
     /**
@@ -31,7 +28,7 @@ EcCreativeWork = stjs.extend(EcCreativeWork, CreativeWork, [], function(construc
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcCreativeWork());
     };
     /**
@@ -51,7 +48,7 @@ EcCreativeWork = stjs.extend(EcCreativeWork, CreativeWork, [], function(construc
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcCreativeWork();
         }, success, failure, paramObj);

@@ -25,7 +25,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property actor
      *  @type Person
      */
-    prototype.actor = null;
+    actor = null;
     /**
      *  Schema.org/partOfSeries
      *  The series to which this episode or season belongs.
@@ -33,7 +33,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property partOfSeries
      *  @type CreativeWorkSeries
      */
-    prototype.partOfSeries = null;
+    partOfSeries = null;
     /**
      *  Schema.org/trailer
      *  The trailer of a movie or tv/radio series, season, episode, etc.
@@ -41,7 +41,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property trailer
      *  @type VideoObject
      */
-    prototype.trailer = null;
+    trailer = null;
     /**
      *  Schema.org/partOfSeason
      *  The season to which this episode belongs.
@@ -49,7 +49,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property partOfSeason
      *  @type CreativeWorkSeason
      */
-    prototype.partOfSeason = null;
+    partOfSeason = null;
     /**
      *  Schema.org/musicBy
      *  The composer of the soundtrack.
@@ -57,7 +57,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property musicBy
      *  @type Person
      */
-    prototype.musicBy = null;
+    musicBy = null;
     /**
      *  Schema.org/directors
      *  A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.
@@ -65,7 +65,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property directors
      *  @type Person
      */
-    prototype.directors = null;
+    directors = null;
     /**
      *  Schema.org/episodeNumber
      *  Position of the episode within an ordered group of episodes.
@@ -73,7 +73,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property episodeNumber
      *  @type Integer
      */
-    prototype.episodeNumber = null;
+    episodeNumber = null;
     /**
      *  Schema.org/director
      *  A director of e.g. tv, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip.
@@ -81,7 +81,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property director
      *  @type Person
      */
-    prototype.director = null;
+    director = null;
     /**
      *  Schema.org/productionCompany
      *  The production company or studio responsible for the item e.g. series, video game, episode etc.
@@ -89,7 +89,7 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property productionCompany
      *  @type Organization
      */
-    prototype.productionCompany = null;
+    productionCompany = null;
     /**
      *  Schema.org/actors
      *  An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.
@@ -97,5 +97,5 @@ Episode = stjs.extend(Episode, CreativeWork, [], function(constructor, prototype
      *  @property actors
      *  @type Person
      */
-    prototype.actors = null;
+    actors = null;
 }, {actor: "Person", partOfSeries: "CreativeWorkSeries", trailer: "VideoObject", partOfSeason: "CreativeWorkSeason", musicBy: "Person", directors: "Person", director: "Person", productionCompany: "Organization", actors: "Person", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

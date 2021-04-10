@@ -25,7 +25,7 @@ Seat = stjs.extend(Seat, Intangible, [], function(constructor, prototype) {
      *  @property seatingType
      *  @type Text
      */
-    prototype.seatingType = null;
+    seatingType = null;
     /**
      *  Schema.org/seatSection
      *  The section location of the reserved seat (e.g. Orchestra).
@@ -33,7 +33,7 @@ Seat = stjs.extend(Seat, Intangible, [], function(constructor, prototype) {
      *  @property seatSection
      *  @type Text
      */
-    prototype.seatSection = null;
+    seatSection = null;
     /**
      *  Schema.org/seatRow
      *  The row location of the reserved seat (e.g., B).
@@ -41,7 +41,7 @@ Seat = stjs.extend(Seat, Intangible, [], function(constructor, prototype) {
      *  @property seatRow
      *  @type Text
      */
-    prototype.seatRow = null;
+    seatRow = null;
     /**
      *  Schema.org/seatNumber
      *  The location of the reserved seat (e.g., 27).
@@ -49,5 +49,5 @@ Seat = stjs.extend(Seat, Intangible, [], function(constructor, prototype) {
      *  @property seatNumber
      *  @type Text
      */
-    prototype.seatNumber = null;
+    seatNumber = null;
 }, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

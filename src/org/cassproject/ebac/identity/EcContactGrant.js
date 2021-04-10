@@ -8,17 +8,14 @@
  *  @extends EbacContactGrant
  *  @constructor
  */
-var EcContactGrant = function() {
-    EbacContactGrant.call(this);
-};
-EcContactGrant = stjs.extend(EcContactGrant, EbacContactGrant, [], function(constructor, prototype) {
+module.exports = class EcContactGrant extends EbacContactGrant{
     /**
      *  Verifies that the contact grant is valid
      * 
      *  @return {boolean}
      *  true if valid, false if not
      */
-    prototype.valid = function() {
+    valid() {
         if (!this.verify()) 
             return false;
         if (this.invalid()) 

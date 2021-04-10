@@ -25,7 +25,7 @@ ChooseAction = stjs.extend(ChooseAction, AssessAction, [], function(constructor,
      *  @property actionOption
      *  @type Text
      */
-    prototype.actionOption = null;
+    actionOption = null;
     /**
      *  Schema.org/option
      *  A sub property of object. The options subject to this action.
@@ -33,5 +33,5 @@ ChooseAction = stjs.extend(ChooseAction, AssessAction, [], function(constructor,
      *  @property option
      *  @type Text
      */
-    prototype.option = null;
+    option = null;
 }, {result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

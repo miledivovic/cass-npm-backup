@@ -25,7 +25,7 @@ BedDetails = stjs.extend(BedDetails, Intangible, [], function(constructor, proto
      *  @property numberOfBeds
      *  @type Number
      */
-    prototype.numberOfBeds = null;
+    numberOfBeds = null;
     /**
      *  Schema.org/typeOfBed
      *  The type of bed to which the BedDetail refers, i.e. the type of bed available in the quantity indicated by quantity.
@@ -33,5 +33,5 @@ BedDetails = stjs.extend(BedDetails, Intangible, [], function(constructor, proto
      *  @property typeOfBed
      *  @type Text
      */
-    prototype.typeOfBed = null;
+    typeOfBed = null;
 }, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

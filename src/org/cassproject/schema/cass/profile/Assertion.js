@@ -11,35 +11,35 @@ var Assertion = function() {
     this.setContextAndType(Cass.context, Assertion.myType);
 };
 Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/assertion";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/assertion";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/0.2/Assertion";
-    constructor.TYPE_0_4 = "http://schema.cassproject.org/0.3/Assertion";
-    constructor.TYPE_0_5 = "https://schema.cassproject.org/0.3/Assertion";
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/Assertion";
-    constructor.myType = Assertion.TYPE_0_6;
-    constructor.codebooks = null;
+    static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/assertion";
+    static TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/assertion";
+    static TYPE_0_3 = "http://schema.cassproject.org/0.2/Assertion";
+    static TYPE_0_4 = "http://schema.cassproject.org/0.3/Assertion";
+    static TYPE_0_5 = "https://schema.cassproject.org/0.3/Assertion";
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/Assertion";
+    static myType = Assertion.TYPE_0_6;
+    static codebooks = null;
     /**
      *  URL of the competency.
      * 
      *  @property competency
      *  @type string(URL)
      */
-    prototype.competency = null;
+    competency = null;
     /**
      *  URL of the framework within which the assertion is restricted.
      * 
      *  @property framework
      *  @type string(URL)
      */
-    prototype.framework = null;
+    framework = null;
     /**
      *  URL of the level, or null if 'held with no performance expectations'.
      * 
      *  @property level
      *  @type string
      */
-    prototype.level = null;
+    level = null;
     /**
      *  Confidence with which the assertion was made.
      *  Confidence has many interpretations, one possibility is the probability that the individual could demonstrate the competency again.
@@ -47,57 +47,57 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
      *  @property confidence
      *  @type float [0,1]
      */
-    prototype.confidence = null;
+    confidence = null;
     /**
      *  Public Key in PEM format of the recipient of the assertion.
      * 
      *  @property subject
      *  @type EcEncryptedValue<Public Key PEM>
      */
-    prototype.subject = null;
+    subject = null;
     /**
      *  Public Key in PEM format of the identity making the assertion.
      * 
      *  @property agent
      *  @type EcEncryptedValue<Public Key PEM>
      */
-    prototype.agent = null;
+    agent = null;
     /**
      *  Encrypted evidence. May be a string, URL or schema.org/Thing.
      * 
      *  @property evidence
      *  @type EcEncryptedValue<string | URL | Thing>[]
      */
-    prototype.evidence = null;
+    evidence = null;
     /**
      *  Time that the assertion was made in milliseconds since the Unix Epoch.
      * 
      *  @property assertionDate
      *  @type EcEncryptedValue<long>
      */
-    prototype.assertionDate = null;
+    assertionDate = null;
     /**
      *  Time that the assertion expires, specified in milliseconds since the Unix Epoch.
      * 
      *  @property expirationDate
      *  @type EcEncryptedValue<long>
      */
-    prototype.expirationDate = null;
+    expirationDate = null;
     /**
      *  Describes the slope of the line from the initial confidence at the assertion date and the expiration date. t is a number between [0,1] representing the percentage of time that has elapsed. Examples include t^2 and ln(t).
      * 
      *  @property decayFunction
      *  @type EcEncryptedValue<string>
      */
-    prototype.decayFunction = null;
+    decayFunction = null;
     /**
      *  True if the assertion is a claim that the subject cannot demonstrate the competency.
      * 
      *  @property negative
      *  @type EcEncryptedValue<boolean>
      */
-    prototype.negative = null;
-    prototype.getSubject = function() {
+    negative = null;
+    getSubject() {
         return EcPk.fromPem(this.subject);
     };
     /**
@@ -107,7 +107,7 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
      * 
      *  @param pk
      */
-    prototype.setSubject = function(pk) {
+    setSubject(pk) {
         var owners = new Array();
         var readers = this.reader;
         if (readers == null) 
@@ -123,19 +123,19 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
         readers.push(pk.toPem());
         this.subject = pk.toPem();
     };
-    prototype.getSubjectAsync = function(success, failure) {
+    getSubjectAsync(success, failure) {
         success(EcPk.fromPem(this.subject));
     };
-    prototype.getAgent = function() {
+    getAgent() {
         return EcPk.fromPem(this.agent);
     };
-    prototype.setAgent = function(pk) {
+    setAgent(pk) {
         this.agent = pk.toPem();
     };
-    prototype.getAgentAsync = function(success, failure) {
+    getAgentAsync(success, failure) {
         success(EcPk.fromPem(this.agent));
     };
-    prototype.getSubjectName = function() {
+    getSubjectName() {
         if (this.subject == null) 
             return "Nobody";
         var subjectPk = this.getSubject();
@@ -147,7 +147,7 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
             return "Unknown Subject";
         return contact.displayName;
     };
-    prototype.getSubjectNameAsync = function(success, failure) {
+    getSubjectNameAsync(success, failure) {
         if (this.subject == null) {
             success("Nobody");
             return;
@@ -166,7 +166,7 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
             success(contact.displayName);
         }, failure);
     };
-    prototype.getAgentName = function() {
+    getAgentName() {
         if (this.agent == null) 
             return "Nobody";
         var agentPk = this.getAgent();
@@ -178,7 +178,7 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
             return "Unknown Agent";
         return contact.displayName;
     };
-    prototype.getAgentNameAsync = function(success, failure) {
+    getAgentNameAsync(success, failure) {
         if (this.subject == null) {
             success("Nobody");
             return;
@@ -197,67 +197,67 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
             success(contact.displayName);
         }, failure);
     };
-    prototype.getAssertionDate = function() {
+    getAssertionDate() {
         return this.assertionDate;
     };
-    prototype.setAssertionDate = function(assertionDateMs) {
+    setAssertionDate(assertionDateMs) {
         this.assertionDate = assertionDateMs;
     };
-    prototype.getAssertionDateAsync = function(success, failure) {
+    getAssertionDateAsync(success, failure) {
         success(this.assertionDate);
     };
-    prototype.getExpirationDate = function() {
+    getExpirationDate() {
         return this.expirationDate;
     };
-    prototype.setExpirationDate = function(expirationDateMs) {
+    setExpirationDate(expirationDateMs) {
         this.expirationDate = expirationDateMs;
     };
-    prototype.getExpirationDateAsync = function(success, failure) {
+    getExpirationDateAsync(success, failure) {
         success(this.expirationDate);
     };
-    prototype.getEvidenceCount = function() {
+    getEvidenceCount() {
         if (this.evidence == null) 
             return 0;
         return this.evidence.length;
     };
-    prototype.getEvidence = function(index) {
+    getEvidence(index) {
         return this.evidence[index];
     };
-    prototype.getEvidenceAsync = function(index, success, failure) {
+    getEvidenceAsync(index, success, failure) {
         success(this.evidence[index]);
     };
-    prototype.getDecayFunction = function() {
+    getDecayFunction() {
         return this.decayFunction;
     };
-    prototype.setDecayFunction = function(decayFunctionText) {
+    setDecayFunction(decayFunctionText) {
         this.decayFunction = decayFunctionText;
     };
-    prototype.getDecayFunctionAsync = function(success, failure) {
+    getDecayFunctionAsync(success, failure) {
         success(this.decayFunction);
     };
-    prototype.getNegative = function() {
+    getNegative() {
         return "true".equals(this.negative);
     };
-    prototype.setNegative = function(negativeB) {
+    setNegative(negativeB) {
         this.negative = negativeB;
     };
-    prototype.getNegativeAsync = function(success, failure) {
+    getNegativeAsync(success, failure) {
         success("true".equals(this.negative));
     };
-    prototype.setCompetency = function(competencyUrl) {
+    setCompetency(competencyUrl) {
         this.competency = competencyUrl;
     };
-    prototype.setLevel = function(levelUrl) {
+    setLevel(levelUrl) {
         this.level = levelUrl;
     };
-    prototype.setConfidence = function(confidenceZeroToOne) {
+    setConfidence(confidenceZeroToOne) {
         this.confidence = confidenceZeroToOne;
     };
-    prototype.setEvidence = function(evidences) {
+    setEvidence(evidences) {
         this.evidence = evidences;
     };
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (Assertion.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -287,7 +287,7 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
                 this.evidence[i] = EcEncryptedValue.revive(this.evidence[i]);
             }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(Assertion.TYPE_0_6);
         a.push(Assertion.TYPE_0_5);
@@ -297,7 +297,7 @@ Assertion = stjs.extend(Assertion, CreativeWork, [], function(constructor, proto
         a.push(Assertion.TYPE_0_1);
         return a;
     };
-    constructor.getCodebook = function(assertion) {
+    static getCodebook(assertion) {
         if (Assertion.codebooks == null) 
             Assertion.codebooks = new Object();
         return (Assertion.codebooks)[assertion.id];

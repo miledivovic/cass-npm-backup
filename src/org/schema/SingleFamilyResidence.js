@@ -26,7 +26,7 @@ SingleFamilyResidence = stjs.extend(SingleFamilyResidence, House, [], function(c
      *  @property occupancy
      *  @type QuantitativeValue
      */
-    prototype.occupancy = null;
+    occupancy = null;
     /**
      *  Schema.org/numberOfRooms
      *  The number of rooms (excluding bathrooms and closets) of the acccommodation or lodging business.
@@ -35,5 +35,5 @@ SingleFamilyResidence = stjs.extend(SingleFamilyResidence, House, [], function(c
      *  @property numberOfRooms
      *  @type Number
      */
-    prototype.numberOfRooms = null;
+    numberOfRooms = null;
 }, {occupancy: "QuantitativeValue", floorSize: "QuantitativeValue", amenityFeature: "LocationFeatureSpecification", photo: "ImageObject", address: "PostalAddress", openingHoursSpecification: "OpeningHoursSpecification", containedInPlace: "Place", reviews: "Review", aggregateRating: "AggregateRating", photos: "Photograph", hasMap: "SchemaMap", additionalProperty: "PropertyValue", events: "SchemaEvent", specialOpeningHoursSpecification: "OpeningHoursSpecification", amenityFeature: "LocationFeatureSpecification", logo: "ImageObject", geo: "GeoCoordinates", review: "Review", event: "SchemaEvent", containsPlace: "Place", containedIn: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

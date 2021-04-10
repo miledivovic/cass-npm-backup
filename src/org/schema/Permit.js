@@ -25,7 +25,7 @@ Permit = stjs.extend(Permit, Intangible, [], function(constructor, prototype) {
      *  @property validFor
      *  @type Duration
      */
-    prototype.validFor = null;
+    validFor = null;
     /**
      *  Schema.org/validUntil
      *  The date when the item is no longer valid.
@@ -33,7 +33,7 @@ Permit = stjs.extend(Permit, Intangible, [], function(constructor, prototype) {
      *  @property validUntil
      *  @type Date
      */
-    prototype.validUntil = null;
+    validUntil = null;
     /**
      *  Schema.org/validFrom
      *  The date when the item becomes valid.
@@ -41,7 +41,7 @@ Permit = stjs.extend(Permit, Intangible, [], function(constructor, prototype) {
      *  @property validFrom
      *  @type DateTime
      */
-    prototype.validFrom = null;
+    validFrom = null;
     /**
      *  Schema.org/issuedBy
      *  The organization issuing the ticket or permit.
@@ -49,7 +49,7 @@ Permit = stjs.extend(Permit, Intangible, [], function(constructor, prototype) {
      *  @property issuedBy
      *  @type Organization
      */
-    prototype.issuedBy = null;
+    issuedBy = null;
     /**
      *  Schema.org/issuedThrough
      *  The service through with the permit was granted.
@@ -57,7 +57,7 @@ Permit = stjs.extend(Permit, Intangible, [], function(constructor, prototype) {
      *  @property issuedThrough
      *  @type Service
      */
-    prototype.issuedThrough = null;
+    issuedThrough = null;
     /**
      *  Schema.org/permitAudience
      *  The target audience for this permit.
@@ -65,7 +65,7 @@ Permit = stjs.extend(Permit, Intangible, [], function(constructor, prototype) {
      *  @property permitAudience
      *  @type Audience
      */
-    prototype.permitAudience = null;
+    permitAudience = null;
     /**
      *  Schema.org/validIn
      *  The geographic area where the permit is valid.
@@ -73,5 +73,5 @@ Permit = stjs.extend(Permit, Intangible, [], function(constructor, prototype) {
      *  @property validIn
      *  @type AdministrativeArea
      */
-    prototype.validIn = null;
+    validIn = null;
 }, {validFor: "Duration", issuedBy: "Organization", issuedThrough: "Service", permitAudience: "Audience", validIn: "AdministrativeArea", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

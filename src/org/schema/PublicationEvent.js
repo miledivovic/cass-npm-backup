@@ -25,7 +25,7 @@ PublicationEvent = stjs.extend(PublicationEvent, SchemaEvent, [], function(const
      *  @property publishedOn
      *  @type BroadcastService
      */
-    prototype.publishedOn = null;
+    publishedOn = null;
     /**
      *  Schema.org/free
      *  A flag to signal that the publication or event is accessible for free.
@@ -33,7 +33,7 @@ PublicationEvent = stjs.extend(PublicationEvent, SchemaEvent, [], function(const
      *  @property free
      *  @type Boolean
      */
-    prototype.free = null;
+    free = null;
     /**
      *  Schema.org/isAccessibleForFree
      *  A flag to signal that the publication is accessible for free.
@@ -41,5 +41,5 @@ PublicationEvent = stjs.extend(PublicationEvent, SchemaEvent, [], function(const
      *  @property isAccessibleForFree
      *  @type Boolean
      */
-    prototype.isAccessibleForFree = null;
+    isAccessibleForFree = null;
 }, {publishedOn: "BroadcastService", about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

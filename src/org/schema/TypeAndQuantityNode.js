@@ -25,7 +25,7 @@ TypeAndQuantityNode = stjs.extend(TypeAndQuantityNode, StructuredValue, [], func
      *  @property unitCode
      *  @type Text
      */
-    prototype.unitCode = null;
+    unitCode = null;
     /**
      *  Schema.org/typeOfGood
      *  The product that this structured value is referring to.
@@ -33,7 +33,7 @@ TypeAndQuantityNode = stjs.extend(TypeAndQuantityNode, StructuredValue, [], func
      *  @property typeOfGood
      *  @type Service
      */
-    prototype.typeOfGood = null;
+    typeOfGood = null;
     /**
      *  Schema.org/amountOfThisGood
      *  The quantity of the goods included in the offer.
@@ -41,7 +41,7 @@ TypeAndQuantityNode = stjs.extend(TypeAndQuantityNode, StructuredValue, [], func
      *  @property amountOfThisGood
      *  @type Number
      */
-    prototype.amountOfThisGood = null;
+    amountOfThisGood = null;
     /**
      *  Schema.org/unitText
      *  A string or text indicating the unit of measurement. Useful if you cannot provide a standard unit code for
@@ -50,7 +50,7 @@ TypeAndQuantityNode = stjs.extend(TypeAndQuantityNode, StructuredValue, [], func
      *  @property unitText
      *  @type Text
      */
-    prototype.unitText = null;
+    unitText = null;
     /**
      *  Schema.org/businessFunction
      *  The business function (e.g. sell, lease, repair, dispose) of the offer or component of a bundle (TypeAndQuantityNode). The default is http://purl.org/goodrelations/v1#Sell.
@@ -58,5 +58,5 @@ TypeAndQuantityNode = stjs.extend(TypeAndQuantityNode, StructuredValue, [], func
      *  @property businessFunction
      *  @type BusinessFunction
      */
-    prototype.businessFunction = null;
+    businessFunction = null;
 }, {typeOfGood: "Service", businessFunction: "BusinessFunction", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

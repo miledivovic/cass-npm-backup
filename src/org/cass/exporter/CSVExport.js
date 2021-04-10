@@ -9,23 +9,20 @@
  *  @static
  *  @extends Exporter
  */
-var CSVExport = function() {
-    Exporter.call(this);
-};
-CSVExport = stjs.extend(CSVExport, Exporter, [], function(constructor, prototype) {
-    constructor.frameworkCompetencies = null;
-    constructor.frameworkRelations = null;
-    constructor.exportObjects = function(objects, fileName, piped) {
+module.exports = class CSVExport extends Exporter{
+    static frameworkCompetencies = null;
+    static frameworkRelations = null;
+    static exportObjects(objects, fileName, piped) {
         var compExport = new CSVExport.CSVExportProcess();
         compExport.buildExport(objects, piped);
         compExport.downloadCSV(fileName);
     };
-    constructor.exportCTDLASN = function(json, name) {
+    static exportCTDLASN(json, name) {
         var objects = [];
         CSVExport.findGraphs(json, objects);
         CSVExport.exportObjects(objects, name + ".csv", true);
     };
-    constructor.findGraphs = function(json, objects) {
+    static findGraphs(json, objects) {
         var jsonArray;
         if (!EcArray.isArray(json)) {
             jsonArray = [json];
@@ -60,7 +57,7 @@ CSVExport = stjs.extend(CSVExport, Exporter, [], function(constructor, prototype
      *  @method export
      *  @static
      */
-    constructor.exportFramework = function(frameworkId, success, failure) {
+    static exportFramework(frameworkId, success, failure) {
         if (frameworkId == null) {
             failure("Framework not selected.");
             return;
@@ -116,12 +113,12 @@ CSVExport = stjs.extend(CSVExport, Exporter, [], function(constructor, prototype
             }
         }, failure);
     };
-    constructor.CSVExportProcess = function() {
+    static CSVExportProcess() {
         this.csvOutput = [];
     };
-    constructor.CSVExportProcess = stjs.extend(constructor.CSVExportProcess, null, [], function(constructor, prototype) {
-        prototype.csvOutput = null;
-        prototype.flattenObject = function(flattenedObject, object, prefix, piped) {
+    static CSVExportProcess = stjs.extend(static CSVExportProcess, null, [], function(constructor, prototype) {
+        csvOutput = null;
+        flattenObject(flattenedObject, object, prefix, piped) {
             var data = new EcRemoteLinkedData((object)["@context"], (object)["@type"]);
             data.copyFrom(object);
             var tempObj = JSON.parse(data.toJson());
@@ -148,7 +145,7 @@ CSVExport = stjs.extend(CSVExport, Exporter, [], function(constructor, prototype
                 }
             }
         };
-        prototype.addCSVRow = function(object, piped) {
+        addCSVRow(object, piped) {
             var flattenedObject = new EcRemoteLinkedData(object.context, object.type);
             this.flattenObject(flattenedObject, object, null, piped);
             this.csvOutput.push(JSON.parse(flattenedObject.toJson()));
@@ -164,14 +161,14 @@ CSVExport = stjs.extend(CSVExport, Exporter, [], function(constructor, prototype
                 }
             }
         };
-        prototype.buildExport = function(objects, piped) {
+        buildExport(objects, piped) {
             for (var i = 0; i < objects.length; i++) 
                 if (objects[i] != null) {
                     var object = objects[i];
                     this.addCSVRow(object, piped);
                 }
         };
-        prototype.downloadCSV = function(name) {
+        downloadCSV(name) {
             var csv = Papa.unparse(this.csvOutput);
             var pom = window.document.createElement("a");
             pom.setAttribute("href", "data:text/csv;charset=utf-8," + encodeURIComponent(csv));

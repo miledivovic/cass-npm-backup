@@ -25,7 +25,7 @@ AggregateRating = stjs.extend(AggregateRating, Rating, [], function(constructor,
      *  @property itemReviewed
      *  @type Thing
      */
-    prototype.itemReviewed = null;
+    itemReviewed = null;
     /**
      *  Schema.org/reviewCount
      *  The count of total number of reviews.
@@ -33,7 +33,7 @@ AggregateRating = stjs.extend(AggregateRating, Rating, [], function(constructor,
      *  @property reviewCount
      *  @type Integer
      */
-    prototype.reviewCount = null;
+    reviewCount = null;
     /**
      *  Schema.org/ratingCount
      *  The count of total number of ratings.
@@ -41,5 +41,5 @@ AggregateRating = stjs.extend(AggregateRating, Rating, [], function(constructor,
      *  @property ratingCount
      *  @type Integer
      */
-    prototype.ratingCount = null;
+    ratingCount = null;
 }, {itemReviewed: "Thing", author: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

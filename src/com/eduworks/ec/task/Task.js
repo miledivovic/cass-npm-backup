@@ -5,22 +5,26 @@
  * 
  *  @class Task
  */
-module.exports = class Task{
-    constructor.desiredFps = 2;
-    constructor.lastFrame = null;
-    constructor.tasks = new Array();
-    constructor.delayedFunctions = 0;
-    constructor.immediateFunctions = 0;
-    constructor.calledFunctions = 0;
-    constructor.asyncImmediateFunctions = 0;
-    constructor.runningAsyncFunctions = 0;
-    constructor.updateFrameHandle = null;
+let Task = null;
+module.exports = Task = class Task{
+    static constructor(){
+        Task.updateFrame();
+    }
+    static desiredFps = 2;
+    static lastFrame = null;
+    static tasks = new Array();
+    static delayedFunctions = 0;
+    static immediateFunctions = 0;
+    static calledFunctions = 0;
+    static asyncImmediateFunctions = 0;
+    static runningAsyncFunctions = 0;
+    static updateFrameHandle = null;
     /**
      *  Updates the framerate timer/counter.
      *  @method updateFrame
      *  @static
      */
-    constructor.updateFrame = function() {
+    static updateFrame() {
         Task.updateFrameHandle = setTimeout(function() {
             Task.lastFrame = Date.now();
             if (Task.calledFunctions - Task.delayedFunctions - Task.immediateFunctions == 0) {
@@ -34,7 +38,7 @@ module.exports = class Task{
      *  @param {function()} c Method to invoke
      *  @return Timeout Handler, can use clearTimeout on it if needed.
      */
-    constructor.immediate = function(c) {
+    static immediate(c) {
         var currentMs = Date.now();
         var nextFrameMs = stjs.trunc(1000 / Task.desiredFps);
         Task.calledFunctions++;
@@ -56,7 +60,7 @@ module.exports = class Task{
      *  @param {function()} c Method to invoke
      *  @return Timeout Handler, can use clearTimeout on it if needed.
      */
-    constructor.asyncImmediate = function(c) {
+    static asyncImmediate(c) {
         Task.tasks.push(c);
         Task.asyncImmediateFunctions++;
         if (Task.runningAsyncFunctions < 20) {
@@ -67,7 +71,7 @@ module.exports = class Task{
         }
         return null;
     };
-    constructor.asyncContinue = function() {
+    static asyncContinue() {
         var keepGoing = function() {
             Task.asyncContinue();
         };
@@ -77,7 +81,4 @@ module.exports = class Task{
         } else 
             Task.runningAsyncFunctions--;
     };
-}, {tasks: {name: "Array", arguments: ["CallbackOrFunction"]}, updateFrameHandle: "Object"}, {});
-(function() {
-    Task.updateFrame();
-})();
+}

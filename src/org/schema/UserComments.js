@@ -25,7 +25,7 @@ UserComments = stjs.extend(UserComments, UserInteraction, [], function(construct
      *  @property discusses
      *  @type CreativeWork
      */
-    prototype.discusses = null;
+    discusses = null;
     /**
      *  Schema.org/commentText
      *  The text of the UserComment.
@@ -33,7 +33,7 @@ UserComments = stjs.extend(UserComments, UserInteraction, [], function(construct
      *  @property commentText
      *  @type Text
      */
-    prototype.commentText = null;
+    commentText = null;
     /**
      *  Schema.org/commentTime
      *  The time at which the UserComment was made.
@@ -41,7 +41,7 @@ UserComments = stjs.extend(UserComments, UserInteraction, [], function(construct
      *  @property commentTime
      *  @type Date
      */
-    prototype.commentTime = null;
+    commentTime = null;
     /**
      *  Schema.org/creator
      *  The creator/author of this CreativeWork. This is the same as the Author property for CreativeWork.
@@ -49,7 +49,7 @@ UserComments = stjs.extend(UserComments, UserInteraction, [], function(construct
      *  @property creator
      *  @type Person
      */
-    prototype.creator = null;
+    creator = null;
     /**
      *  Schema.org/replyToUrl
      *  The URL at which a reply may be posted to the specified UserComment.
@@ -57,5 +57,5 @@ UserComments = stjs.extend(UserComments, UserInteraction, [], function(construct
      *  @property replyToUrl
      *  @type URL
      */
-    prototype.replyToUrl = null;
+    replyToUrl = null;
 }, {discusses: "CreativeWork", creator: "Person", about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

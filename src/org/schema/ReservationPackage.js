@@ -25,5 +25,5 @@ ReservationPackage = stjs.extend(ReservationPackage, Reservation, [], function(c
      *  @property subReservation
      *  @type Reservation
      */
-    prototype.subReservation = null;
+    subReservation = null;
 }, {subReservation: "Reservation", provider: "Person", programMembershipUsed: "ProgramMembership", reservationStatus: "ReservationStatusType", underName: "Organization", bookingAgent: "Organization", reservationFor: "Thing", broker: "Person", reservedTicket: "Ticket", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

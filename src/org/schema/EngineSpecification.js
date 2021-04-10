@@ -25,5 +25,5 @@ EngineSpecification = stjs.extend(EngineSpecification, StructuredValue, [], func
      *  @property fuelType
      *  @type Text
      */
-    prototype.fuelType = null;
+    fuelType = null;
 }, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

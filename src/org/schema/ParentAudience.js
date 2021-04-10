@@ -25,7 +25,7 @@ ParentAudience = stjs.extend(ParentAudience, PeopleAudience, [], function(constr
      *  @property childMaxAge
      *  @type Number
      */
-    prototype.childMaxAge = null;
+    childMaxAge = null;
     /**
      *  Schema.org/childMinAge
      *  Minimal age of the child.
@@ -33,5 +33,5 @@ ParentAudience = stjs.extend(ParentAudience, PeopleAudience, [], function(constr
      *  @property childMinAge
      *  @type Number
      */
-    prototype.childMinAge = null;
+    childMinAge = null;
 }, {geographicArea: "AdministrativeArea", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

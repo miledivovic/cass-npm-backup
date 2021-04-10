@@ -22,7 +22,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property name
      *  @type Text
      */
-    prototype.name = null;
+    name = null;
     /**
      *  Schema.org/identifier
      *  The identifier property represents any kind of identifier for any kind of [[Thing]], such as ISBNs, GTIN codes, UUIDs etc. Schema.org provides dedicated properties for representing many of these, either as textual strings or as URL (URI) links. See [background notes](/docs/datamodel.html#identifierBg) for more details.
@@ -30,7 +30,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property identifier
      *  @type schema, URL | schema,Text | schema,PropertyValue
      */
-    prototype.identifier = null;
+    identifier = null;
     /**
      *  Schema.org/url
      *  URL of the item.
@@ -38,7 +38,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property url
      *  @type URL
      */
-    prototype.url = null;
+    url = null;
     /**
      *  Schema.org/image
      *  An image of the item. This can be a [[URL]] or a fully described [[ImageObject]].
@@ -46,7 +46,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property image
      *  @type schema, URL | schema,ImageObject
      */
-    prototype.image = null;
+    image = null;
     /**
      *  Schema.org/description
      *  A description of the item.
@@ -54,7 +54,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property description
      *  @type Text
      */
-    prototype.description = null;
+    description = null;
     /**
      *  Schema.org/disambiguatingDescription
      *  A sub property of description. A short description of the item used to disambiguate from other, similar items. Information from other properties (in particular, name) may be necessary for the description to be useful for disambiguation.
@@ -62,7 +62,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property disambiguatingDescription
      *  @type Text
      */
-    prototype.disambiguatingDescription = null;
+    disambiguatingDescription = null;
     /**
      *  Schema.org/alternateName
      *  An alias for the item.
@@ -70,7 +70,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property alternateName
      *  @type Text
      */
-    prototype.alternateName = null;
+    alternateName = null;
     /**
      *  Schema.org/sameAs
      *  URL of a reference Web page that unambiguously indicates the item's identity. E.g. the URL of the item's Wikipedia page, Wikidata entry, or official website.
@@ -78,7 +78,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property sameAs
      *  @type URL
      */
-    prototype.sameAs = null;
+    sameAs = null;
     /**
      *  Schema.org/additionalType
      *  An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax. This is a relationship between something and a class that the thing is in. In RDFa syntax, it is better to use the native RDFa syntax - the 'typeof' attribute - for multiple types. Schema.org tools may have only weaker understanding of extra types, in particular those defined externally.
@@ -86,7 +86,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property additionalType
      *  @type URL
      */
-    prototype.additionalType = null;
+    additionalType = null;
     /**
      *  Schema.org/potentialAction
      *  Indicates a potential Action, which describes an idealized action in which this thing would play an 'object' role.
@@ -94,7 +94,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property potentialAction
      *  @type Action
      */
-    prototype.potentialAction = null;
+    potentialAction = null;
     /**
      *  Schema.org/mainEntityOfPage
      *  Indicates a page (or other CreativeWork) for which this thing is the main entity being described. See [background notes](/docs/datamodel.html#mainEntityBackground) for details.
@@ -102,7 +102,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @property mainEntityOfPage
      *  @type schema, URL | schema,CreativeWork
      */
-    prototype.mainEntityOfPage = null;
+    mainEntityOfPage = null;
     /**
      *  Returns the name of the thing
      * 
@@ -110,7 +110,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @memberOf Thing
      *  @method getName
      */
-    prototype.getName = function() {
+    getName() {
         var n = this.name;
         return Thing.getDisplayStringFrom(n);
     };
@@ -122,7 +122,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @memberOf Thing
      *  @method setName
      */
-    prototype.setName = function(name) {
+    setName(name) {
         if (this.name != null && EcObject.isObject(this.name) && (this.name).hasOwnProperty("@value")) {
             var obj = (this)["name"];
             (obj)["@value"] = name;
@@ -138,11 +138,11 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @memberOf Thing
      *  @method getDescription
      */
-    prototype.getDescription = function() {
+    getDescription() {
         var n = this.description;
         return Thing.getDisplayStringFrom(n);
     };
-    constructor.getDisplayStringFrom = function(n) {
+    static getDisplayStringFrom(n) {
         if (n != null && EcArray.isArray(n)) {
             if ((n).length > 0) 
                 n = (n)[0];
@@ -160,7 +160,7 @@ Thing = stjs.extend(Thing, EcRemoteLinkedData, [], function(constructor, prototy
      *  @memberOf Thing
      *  @method setDescription
      */
-    prototype.setDescription = function(description) {
+    setDescription(description) {
         if (this.description != null && EcObject.isObject(this.description) && (this.description).hasOwnProperty("@value")) {
             var obj = (this)["description"];
             (obj)["@value"] = description;

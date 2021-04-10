@@ -11,22 +11,22 @@ var Competency = function() {
     this.setContextAndType(Cass.context, Competency.myType);
 };
 Competency = stjs.extend(Competency, CreativeWork, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/competency";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/competency";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/0.2/Competency";
-    constructor.TYPE_0_4 = "http://schema.cassproject.org/0.3/Competency";
-    constructor.TYPE_0_5 = "https://schema.cassproject.org/0.3/Competency";
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/Competency";
-    constructor.myType = Competency.TYPE_0_6;
+    static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/competency";
+    static TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/competency";
+    static TYPE_0_3 = "http://schema.cassproject.org/0.2/Competency";
+    static TYPE_0_4 = "http://schema.cassproject.org/0.3/Competency";
+    static TYPE_0_5 = "https://schema.cassproject.org/0.3/Competency";
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/Competency";
+    static myType = Competency.TYPE_0_6;
     /**
      *  Scope in which the competency may be applied. e.g. Underwater.
      * 
      *  @property scope
      *  @type string
      */
-    prototype.scope = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    scope = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (Competency.TYPE_0_1.equals(this.type)) {
             if (this.url != null && this.sameAs == null) {
                 this.sameAs = this.url;
@@ -50,7 +50,7 @@ Competency = stjs.extend(Competency, CreativeWork, [], function(constructor, pro
             this.setContextAndType(Cass.context_0_6, Competency.TYPE_0_6);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(Competency.TYPE_0_6);
         a.push(Competency.TYPE_0_5);

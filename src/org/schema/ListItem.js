@@ -25,7 +25,7 @@ ListItem = stjs.extend(ListItem, Intangible, [], function(constructor, prototype
      *  @property nextItem
      *  @type ListItem
      */
-    prototype.nextItem = null;
+    nextItem = null;
     /**
      *  Schema.org/position
      *  The position of an item in a series or sequence of items.
@@ -33,7 +33,7 @@ ListItem = stjs.extend(ListItem, Intangible, [], function(constructor, prototype
      *  @property position
      *  @type Integer
      */
-    prototype.position = null;
+    position = null;
     /**
      *  Schema.org/previousItem
      *  A link to the ListItem that preceeds the current one.
@@ -41,7 +41,7 @@ ListItem = stjs.extend(ListItem, Intangible, [], function(constructor, prototype
      *  @property previousItem
      *  @type ListItem
      */
-    prototype.previousItem = null;
+    previousItem = null;
     /**
      *  Schema.org/item
      *  An entity represented by an entry in a list or data feed (e.g. an 'artist' in a list of 'artists')’.
@@ -49,5 +49,5 @@ ListItem = stjs.extend(ListItem, Intangible, [], function(constructor, prototype
      *  @property item
      *  @type Thing
      */
-    prototype.item = null;
+    item = null;
 }, {nextItem: "ListItem", previousItem: "ListItem", item: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

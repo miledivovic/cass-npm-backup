@@ -6,10 +6,10 @@
  *  @module org.cassproject
  */
 module.exports = class Ebac{
-    constructor.context_0_1 = "http://schema.eduworks.com/ebac/0.1";
-    constructor.context_0_2 = "http://schema.eduworks.com/ebac/0.2";
-    constructor.context_0_3 = "http://schema.cassproject.org/kbac/0.2";
-    constructor.context_0_4 = "https://schema.cassproject.org/kbac/0.4";
+    static context_0_1 = "http://schema.eduworks.com/ebac/0.1";
+    static context_0_2 = "http://schema.eduworks.com/ebac/0.2";
+    static context_0_3 = "http://schema.cassproject.org/kbac/0.2";
+    static context_0_4 = "https://schema.cassproject.org/kbac/0.4";
     /**
      *  Current version of KBAC.
      * 
@@ -17,5 +17,5 @@ module.exports = class Ebac{
      *  @static
      *  @type string (URL)
      */
-    constructor.context = Ebac.context_0_4;
-}, {}, {});
+    static context = Ebac.context_0_4;
+};

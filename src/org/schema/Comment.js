@@ -25,7 +25,7 @@ Comment = stjs.extend(Comment, CreativeWork, [], function(constructor, prototype
      *  @property parentItem
      *  @type Question
      */
-    prototype.parentItem = null;
+    parentItem = null;
     /**
      *  Schema.org/upvoteCount
      *  The number of upvotes this question, answer or comment has received from the community.
@@ -33,7 +33,7 @@ Comment = stjs.extend(Comment, CreativeWork, [], function(constructor, prototype
      *  @property upvoteCount
      *  @type Integer
      */
-    prototype.upvoteCount = null;
+    upvoteCount = null;
     /**
      *  Schema.org/downvoteCount
      *  The number of downvotes this question, answer or comment has received from the community.
@@ -41,5 +41,5 @@ Comment = stjs.extend(Comment, CreativeWork, [], function(constructor, prototype
      *  @property downvoteCount
      *  @type Integer
      */
-    prototype.downvoteCount = null;
+    downvoteCount = null;
 }, {parentItem: "Question", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

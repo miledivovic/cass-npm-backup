@@ -25,7 +25,7 @@ OrderItem = stjs.extend(OrderItem, Intangible, [], function(constructor, prototy
      *  @property orderItemStatus
      *  @type OrderStatus
      */
-    prototype.orderItemStatus = null;
+    orderItemStatus = null;
     /**
      *  Schema.org/orderQuantity
      *  The number of the item ordered. If the property is not set, assume the quantity is one.
@@ -33,7 +33,7 @@ OrderItem = stjs.extend(OrderItem, Intangible, [], function(constructor, prototy
      *  @property orderQuantity
      *  @type Number
      */
-    prototype.orderQuantity = null;
+    orderQuantity = null;
     /**
      *  Schema.org/orderedItem
      *  The item ordered.
@@ -41,7 +41,7 @@ OrderItem = stjs.extend(OrderItem, Intangible, [], function(constructor, prototy
      *  @property orderedItem
      *  @type Product
      */
-    prototype.orderedItem = null;
+    orderedItem = null;
     /**
      *  Schema.org/orderDelivery
      *  The delivery of the parcel related to this order or order item.
@@ -49,7 +49,7 @@ OrderItem = stjs.extend(OrderItem, Intangible, [], function(constructor, prototy
      *  @property orderDelivery
      *  @type ParcelDelivery
      */
-    prototype.orderDelivery = null;
+    orderDelivery = null;
     /**
      *  Schema.org/orderItemNumber
      *  The identifier of the order item.
@@ -57,5 +57,5 @@ OrderItem = stjs.extend(OrderItem, Intangible, [], function(constructor, prototy
      *  @property orderItemNumber
      *  @type Text
      */
-    prototype.orderItemNumber = null;
+    orderItemNumber = null;
 }, {orderItemStatus: "OrderStatus", orderedItem: "Product", orderDelivery: "ParcelDelivery", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

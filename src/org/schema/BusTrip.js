@@ -25,7 +25,7 @@ BusTrip = stjs.extend(BusTrip, Intangible, [], function(constructor, prototype) 
      *  @property provider
      *  @type Person
      */
-    prototype.provider = null;
+    provider = null;
     /**
      *  Schema.org/busName
      *  The name of the bus (e.g. Bolt Express).
@@ -33,7 +33,7 @@ BusTrip = stjs.extend(BusTrip, Intangible, [], function(constructor, prototype) 
      *  @property busName
      *  @type Text
      */
-    prototype.busName = null;
+    busName = null;
     /**
      *  Schema.org/departureBusStop
      *  The stop or station from which the bus departs.
@@ -41,7 +41,7 @@ BusTrip = stjs.extend(BusTrip, Intangible, [], function(constructor, prototype) 
      *  @property departureBusStop
      *  @type BusStop
      */
-    prototype.departureBusStop = null;
+    departureBusStop = null;
     /**
      *  Schema.org/arrivalBusStop
      *  The stop or station from which the bus arrives.
@@ -49,7 +49,7 @@ BusTrip = stjs.extend(BusTrip, Intangible, [], function(constructor, prototype) 
      *  @property arrivalBusStop
      *  @type BusStation
      */
-    prototype.arrivalBusStop = null;
+    arrivalBusStop = null;
     /**
      *  Schema.org/arrivalTime
      *  The expected arrival time.
@@ -57,7 +57,7 @@ BusTrip = stjs.extend(BusTrip, Intangible, [], function(constructor, prototype) 
      *  @property arrivalTime
      *  @type DateTime
      */
-    prototype.arrivalTime = null;
+    arrivalTime = null;
     /**
      *  Schema.org/busNumber
      *  The unique identifier for the bus.
@@ -65,7 +65,7 @@ BusTrip = stjs.extend(BusTrip, Intangible, [], function(constructor, prototype) 
      *  @property busNumber
      *  @type Text
      */
-    prototype.busNumber = null;
+    busNumber = null;
     /**
      *  Schema.org/departureTime
      *  The expected departure time.
@@ -73,5 +73,5 @@ BusTrip = stjs.extend(BusTrip, Intangible, [], function(constructor, prototype) 
      *  @property departureTime
      *  @type DateTime
      */
-    prototype.departureTime = null;
+    departureTime = null;
 }, {provider: "Person", departureBusStop: "BusStop", arrivalBusStop: "BusStation", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -13,7 +13,7 @@ var EcConcept = function() {
     }
 };
 EcConcept = stjs.extend(EcConcept, Concept, [], function(constructor, prototype) {
-    constructor.template = null;
+    static template = null;
     /**
      *  Retrieves a concept from it's server asynchronously
      * 
@@ -28,7 +28,7 @@ EcConcept = stjs.extend(EcConcept, Concept, [], function(constructor, prototype)
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcConcept(), success, failure);
     };
     /**
@@ -43,7 +43,7 @@ EcConcept = stjs.extend(EcConcept, Concept, [], function(constructor, prototype)
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcConcept());
     };
     /**
@@ -63,7 +63,7 @@ EcConcept = stjs.extend(EcConcept, Concept, [], function(constructor, prototype)
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcConcept();
         }, success, failure, paramObj);

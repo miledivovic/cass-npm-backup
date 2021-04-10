@@ -1,27 +1,27 @@
-var EcAsyncTaskWorker = function() {
-    this.assignedList = [];
-    var that = this;
-    this.intervalHandler = setInterval(function() {
-        that.run();
-    }, this.checkWorkInterval);
-};
-EcAsyncTaskWorker = stjs.extend(EcAsyncTaskWorker, null, [], function(constructor, prototype) {
-    prototype.checkWorkInterval = 100;
-    prototype.intervalHandler = null;
-    prototype.taskHandler = null;
-    prototype.currentTask = null;
-    prototype.assignedList = null;
-    prototype.getAssignedCount = function() {
+module.exports = class EcAsyncTaskWorker{
+    constructor(){        
+        this.assignedList = [];
+        var that = this;
+        this.intervalHandler = setInterval(function() {
+            that.run();
+        }, this.checkWorkInterval);
+    }
+    checkWorkInterval = 100;
+    intervalHandler = null;
+    taskHandler = null;
+    currentTask = null;
+    assignedList = null;
+    getAssignedCount() {
         return this.assignedList.length;
     };
-    prototype.assign = function(task) {
+    assign(task) {
         if (this.currentTask == null || this.currentTask == undefined || this.currentTask.getIsComplete()) {
             this.currentTask = task;
         } else {
             this.assignedList.push(task);
         }
     };
-    prototype.invoke = function() {
+    invoke() {
         if (!this.currentTask.getIsComplete()) {
             var args = this.currentTask.getArguments();
             if (args == null || args == undefined || args.length == 0) {
@@ -37,7 +37,7 @@ EcAsyncTaskWorker = stjs.extend(EcAsyncTaskWorker, null, [], function(constructo
             }
         }
     };
-    prototype.run = function() {
+    run() {
         var that = this;
         this.taskHandler = Task.immediate(function() {
             if (that.currentTask != undefined && that.currentTask != null && !that.currentTask.getIsStarted()) {
@@ -48,4 +48,4 @@ EcAsyncTaskWorker = stjs.extend(EcAsyncTaskWorker, null, [], function(constructo
             }
         });
     };
-}, {intervalHandler: "TimeoutHandler", taskHandler: "TimeoutHandler", currentTask: "EcAsyncTask", assignedList: {name: "Array", arguments: ["EcAsyncTask"]}}, {});
+};

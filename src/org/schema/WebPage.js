@@ -25,7 +25,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property lastReviewed
      *  @type Date
      */
-    prototype.lastReviewed = null;
+    lastReviewed = null;
     /**
      *  Schema.org/breadcrumb
      *  A set of links that can help a user understand and navigate a website hierarchy.
@@ -33,7 +33,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property breadcrumb
      *  @type Text
      */
-    prototype.breadcrumb = null;
+    breadcrumb = null;
     /**
      *  Schema.org/significantLink
      *  One of the more significant URLs on the page. Typically, these are the non-navigation links that are clicked on the most.
@@ -41,7 +41,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property significantLink
      *  @type URL
      */
-    prototype.significantLink = null;
+    significantLink = null;
     /**
      *  Schema.org/relatedLink
      *  A link related to this web page, for example to other related web pages.
@@ -49,7 +49,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property relatedLink
      *  @type URL
      */
-    prototype.relatedLink = null;
+    relatedLink = null;
     /**
      *  Schema.org/mainContentOfPage
      *  Indicates if this web page element is the main subject of the page.
@@ -57,7 +57,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property mainContentOfPage
      *  @type WebPageElement
      */
-    prototype.mainContentOfPage = null;
+    mainContentOfPage = null;
     /**
      *  Schema.org/reviewedBy
      *  People or organizations that have reviewed the content on this web page for accuracy and/or completeness.
@@ -65,7 +65,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property reviewedBy
      *  @type Organization
      */
-    prototype.reviewedBy = null;
+    reviewedBy = null;
     /**
      *  Schema.org/primaryImageOfPage
      *  Indicates the main image on the page.
@@ -73,7 +73,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property primaryImageOfPage
      *  @type ImageObject
      */
-    prototype.primaryImageOfPage = null;
+    primaryImageOfPage = null;
     /**
      *  Schema.org/significantLinks
      *  The most significant URLs on the page. Typically, these are the non-navigation links that are clicked on the most.
@@ -81,7 +81,7 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property significantLinks
      *  @type URL
      */
-    prototype.significantLinks = null;
+    significantLinks = null;
     /**
      *  Schema.org/specialty
      *  One of the domain specialities to which this web page's content applies.
@@ -89,5 +89,5 @@ WebPage = stjs.extend(WebPage, CreativeWork, [], function(constructor, prototype
      *  @property specialty
      *  @type Specialty
      */
-    prototype.specialty = null;
+    specialty = null;
 }, {mainContentOfPage: "WebPageElement", reviewedBy: "Organization", primaryImageOfPage: "ImageObject", specialty: "Specialty", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

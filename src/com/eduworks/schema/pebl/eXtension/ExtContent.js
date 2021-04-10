@@ -12,7 +12,7 @@ function() {
     this.type = "Content";
 };
 ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, prototype) {
-    prototype.legacyId = null;
+    legacyId = null;
     /**
      *  Retrieves the content specified with the ID from the server
      * 
@@ -27,7 +27,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.get(id, function(p1) {
             if (stjs.isInstanceOf(p1.constructor, ExtContent)) 
                 if (success != null) {
@@ -69,7 +69,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (stjs.isInstanceOf(p1.constructor, ExtContent)) 
             return p1;
@@ -112,7 +112,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         var queryAdd = new ExtContent().getSearchStringByType();
         if (query == null || query == "") 
             query = queryAdd;
@@ -141,7 +141,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @memberOf ExtContent
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
@@ -204,7 +204,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {String}
      *  ID of content
      */
-    prototype.getId = function() {
+    getId() {
         return this.id;
     };
     /**
@@ -213,7 +213,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {String} id
      *                  ID of the content
      */
-    prototype.setId = function(id) {
+    setId(id) {
         this.id = id;
     };
     /**
@@ -222,7 +222,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {String}
      *  legacyId of content
      */
-    prototype.getLegacyId = function() {
+    getLegacyId() {
         return this.legacyId;
     };
     /**
@@ -231,7 +231,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {String} id
      *                  legacyId of the content
      */
-    prototype.setLegacyId = function(id) {
+    setLegacyId(id) {
         this.legacyId = id;
     };
     /**
@@ -240,7 +240,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {Person}
      *  author of content
      */
-    prototype.getAuthor = function() {
+    getAuthor() {
         return this.author;
     };
     /**
@@ -248,7 +248,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      * 
      *  @param {Person} creator
      */
-    prototype.setAuthor = function(creator) {
+    setAuthor(creator) {
         this.author = creator;
     };
     /**
@@ -257,7 +257,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {String}
      *  title of content
      */
-    prototype.getTitle = function() {
+    getTitle() {
         return this.name;
     };
     /**
@@ -266,7 +266,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {String} title
      *                  title of the content
      */
-    prototype.setTitle = function(title) {
+    setTitle(title) {
         this.name = title;
     };
     /**
@@ -275,7 +275,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {String}
      *  description of content
      */
-    prototype.getDescription = function() {
+    getDescription() {
         return this.description;
     };
     /**
@@ -284,7 +284,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {String} description
      *                  description of the content
      */
-    prototype.setDescription = function(description) {
+    setDescription(description) {
         this.description = description;
     };
     /**
@@ -293,7 +293,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {String}
      *  genre of content
      */
-    prototype.getCategory = function() {
+    getCategory() {
         return this.genre;
     };
     /**
@@ -302,7 +302,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {String} name
      *                  category of the content
      */
-    prototype.setCategory = function(name) {
+    setCategory(name) {
         this.genre = name;
     };
     /**
@@ -311,7 +311,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {Organization}
      *  publisher of content
      */
-    prototype.getInstitution = function() {
+    getInstitution() {
         return this.publisher;
     };
     /**
@@ -320,7 +320,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {Organization} institution
      *                        institution of the content
      */
-    prototype.setInstitution = function(institution) {
+    setInstitution(institution) {
         this.publisher = institution;
     };
     /**
@@ -329,7 +329,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {String}
      *  launch url of content
      */
-    prototype.getLaunchURL = function() {
+    getLaunchURL() {
         return this.sameAs;
     };
     /**
@@ -338,7 +338,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {String} page
      *                  Launch url of the content
      */
-    prototype.setLaunchURL = function(page) {
+    setLaunchURL(page) {
         this.sameAs = page;
     };
     /**
@@ -347,7 +347,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @return {String}
      *  url of content object
      */
-    prototype.getUrl = function() {
+    getUrl() {
         return this.url;
     };
     /**
@@ -356,7 +356,7 @@ ExtContent = stjs.extend(ExtContent, CreativeWork, [], function(constructor, pro
      *  @param {String} url
      *                  url of the content object
      */
-    prototype.setUrl = function(url) {
+    setUrl(url) {
         this.url = url;
     };
 }, {about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

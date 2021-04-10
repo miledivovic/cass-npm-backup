@@ -25,7 +25,7 @@ MenuItem = stjs.extend(MenuItem, Intangible, [], function(constructor, prototype
      *  @property nutrition
      *  @type NutritionInformation
      */
-    prototype.nutrition = null;
+    nutrition = null;
     /**
      *  Schema.org/offers
      *  An offer to provide this item&#x2014;for example, an offer to sell a product, rent the DVD of a movie, perform a service, or give away tickets to an event.
@@ -33,7 +33,7 @@ MenuItem = stjs.extend(MenuItem, Intangible, [], function(constructor, prototype
      *  @property offers
      *  @type Offer
      */
-    prototype.offers = null;
+    offers = null;
     /**
      *  Schema.org/suitableForDiet
      *  Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc.
@@ -41,5 +41,5 @@ MenuItem = stjs.extend(MenuItem, Intangible, [], function(constructor, prototype
      *  @property suitableForDiet
      *  @type RestrictedDiet
      */
-    prototype.suitableForDiet = null;
+    suitableForDiet = null;
 }, {nutrition: "NutritionInformation", offers: "Offer", suitableForDiet: "RestrictedDiet", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

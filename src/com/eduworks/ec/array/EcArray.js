@@ -16,7 +16,7 @@ module.exports = class EcArray{
      *  @memberOf EcArray
      */
     static isArray = function(o) {
-        return Object.prototype.toString.call(o) == "[object Array]";
+        return Object.toString.call(o) == "[object Array]";
     };
     /**
      *  Removes values IFF the values == one another.

@@ -1,9 +1,6 @@
-var CfdFramework = function() {
-    EcFramework.call(this);
-};
-CfdFramework = stjs.extend(CfdFramework, EcFramework, [], function(constructor, prototype) {
-    constructor.toRemove = null;
-    constructor.removed = null;
+module.exports = class CfdFramework extends EcFramework{
+    static toRemove = null;
+    static removed = null;
     /**
      *  Retrieves a framework from the server, specified by the ID
      * 
@@ -18,7 +15,7 @@ CfdFramework = stjs.extend(CfdFramework, EcFramework, [], function(constructor, 
      *  @method get
      *  @static
      */
-    constructor.cfdGet = function(id, success, failure) {
+    static cfdGet(id, success, failure) {
         EcRepository.get(id, function(p1) {
             var framework = new CfdFramework();
             if (p1.isA(EcEncryptedValue.myType)) {
@@ -57,7 +54,7 @@ CfdFramework = stjs.extend(CfdFramework, EcFramework, [], function(constructor, 
      *  @method getBlocking
      *  @static
      */
-    constructor.cfdGetBlocking = function(id) {
+    static cfdGetBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (p1 == null) 
             return null;
@@ -95,7 +92,7 @@ CfdFramework = stjs.extend(CfdFramework, EcFramework, [], function(constructor, 
      *  @method search
      *  @static
      */
-    constructor.cfdSearch = function(repo, query, success, failure, paramObj) {
+    static cfdSearch(repo, query, success, failure, paramObj) {
         var queryAdd = "";
         queryAdd = new EcFramework().getSearchStringByType();
         if (query == null || query == "") 

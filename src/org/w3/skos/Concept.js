@@ -13,26 +13,26 @@ function() {
     EcRemoteLinkedData.call(this, "https://schema.cassproject.org/0.4/skos/", "Concept");
 };
 Concept = stjs.extend(Concept, EcRemoteLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.cassproject.org/0.3/skos/Concept";
-    constructor.TYPE_0_2 = "https://schema.cassproject.org/0.3/skos/Concept";
-    constructor.TYPE_0_3 = "https://schema.cassproject.org/0.4/skos/Concept";
-    constructor.myType = Concept.TYPE_0_3;
+    static TYPE_0_1 = "http://schema.cassproject.org/0.3/skos/Concept";
+    static TYPE_0_2 = "https://schema.cassproject.org/0.3/skos/Concept";
+    static TYPE_0_3 = "https://schema.cassproject.org/0.4/skos/Concept";
+    static myType = Concept.TYPE_0_3;
     /**
      *  www.w3.org/2004/02/skos/core/topConceptOf
      *  Relates a concept to the concept scheme that it is a top level concept of.
      *  @property topConceptOf
      *  @type ConceptScheme
      */
-    prototype.topConceptOf = null;
+    topConceptOf = null;
     /**
      *  www.w3.org/2004/02/skos/core/semanticRelation
      *  Links a concept to a concept related by meaning.
      *  @property semanticRelation
      *  @type Concept
      */
-    prototype.semanticRelation = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    semanticRelation = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (Concept.TYPE_0_1.equals(this.getFullType())) {
             this.setContextAndType("https://schema.cassproject.org/0.3/skos", Concept.TYPE_0_2);
         }
@@ -40,7 +40,7 @@ Concept = stjs.extend(Concept, EcRemoteLinkedData, [], function(constructor, pro
             this.setContextAndType("https://schema.cassproject.org/0.4/skos", Concept.TYPE_0_3);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(Concept.TYPE_0_3);
         a.push(Concept.TYPE_0_2);

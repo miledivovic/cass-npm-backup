@@ -25,7 +25,7 @@ BroadcastService = stjs.extend(BroadcastService, Service, [], function(construct
      *  @property broadcastTimezone
      *  @type Text
      */
-    prototype.broadcastTimezone = null;
+    broadcastTimezone = null;
     /**
      *  Schema.org/videoFormat
      *  The type of screening or video broadcast used (e.g. IMAX, 3D, SD, HD, etc.).
@@ -33,7 +33,7 @@ BroadcastService = stjs.extend(BroadcastService, Service, [], function(construct
      *  @property videoFormat
      *  @type Text
      */
-    prototype.videoFormat = null;
+    videoFormat = null;
     /**
      *  Schema.org/broadcastAffiliateOf
      *  The media network(s) whose content is broadcast on this station.
@@ -41,7 +41,7 @@ BroadcastService = stjs.extend(BroadcastService, Service, [], function(construct
      *  @property broadcastAffiliateOf
      *  @type Organization
      */
-    prototype.broadcastAffiliateOf = null;
+    broadcastAffiliateOf = null;
     /**
      *  Schema.org/parentService
      *  A broadcast service to which the broadcast service may belong to such as regional variations of a national channel.
@@ -49,7 +49,7 @@ BroadcastService = stjs.extend(BroadcastService, Service, [], function(construct
      *  @property parentService
      *  @type BroadcastService
      */
-    prototype.parentService = null;
+    parentService = null;
     /**
      *  Schema.org/broadcastDisplayName
      *  The name displayed in the channel guide. For many US affiliates, it is the network name.
@@ -57,7 +57,7 @@ BroadcastService = stjs.extend(BroadcastService, Service, [], function(construct
      *  @property broadcastDisplayName
      *  @type Text
      */
-    prototype.broadcastDisplayName = null;
+    broadcastDisplayName = null;
     /**
      *  Schema.org/area
      *  The area within which users can expect to reach the broadcast service.
@@ -65,7 +65,7 @@ BroadcastService = stjs.extend(BroadcastService, Service, [], function(construct
      *  @property area
      *  @type Place
      */
-    prototype.area = null;
+    area = null;
     /**
      *  Schema.org/broadcaster
      *  The organization owning or operating the broadcast service.
@@ -73,5 +73,5 @@ BroadcastService = stjs.extend(BroadcastService, Service, [], function(construct
      *  @property broadcaster
      *  @type Organization
      */
-    prototype.broadcaster = null;
+    broadcaster = null;
 }, {broadcastAffiliateOf: "Organization", parentService: "BroadcastService", area: "Place", broadcaster: "Organization", serviceAudience: "Audience", serviceArea: "GeoShape", provider: "Person", audience: "Audience", hasOfferCatalog: "OfferCatalog", hoursAvailable: "OpeningHoursSpecification", aggregateRating: "AggregateRating", offers: "Offer", broker: "Person", serviceOutput: "Thing", logo: "ImageObject", isSimilarTo: "Product", isRelatedTo: "Product", availableChannel: "ServiceChannel", review: "Review", produces: "Thing", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

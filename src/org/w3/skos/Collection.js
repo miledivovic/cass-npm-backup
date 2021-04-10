@@ -20,5 +20,5 @@ Collection = stjs.extend(Collection, EcRemoteLinkedData, [], function(constructo
      *  @property member
      *  @type N0e403dc85fe548d1b3d2f3d1ded36d20
      */
-    prototype.member = null;
+    member = null;
 }, {member: {name: "Array", arguments: ["Object"]}, owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

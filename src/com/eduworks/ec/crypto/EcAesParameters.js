@@ -1,7 +1,8 @@
 
 module.exports = class EcAesParameters{
+    iv;
     constructor(iv)
     {
-        iv = forge.util.decode64(iv);
+        this.iv = forge.util.decode64(iv);
     }
 }

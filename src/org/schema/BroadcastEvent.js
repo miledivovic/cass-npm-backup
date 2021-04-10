@@ -25,7 +25,7 @@ BroadcastEvent = stjs.extend(BroadcastEvent, PublicationEvent, [], function(cons
      *  @property videoFormat
      *  @type Text
      */
-    prototype.videoFormat = null;
+    videoFormat = null;
     /**
      *  Schema.org/isLiveBroadcast
      *  True is the broadcast is of a live event.
@@ -33,7 +33,7 @@ BroadcastEvent = stjs.extend(BroadcastEvent, PublicationEvent, [], function(cons
      *  @property isLiveBroadcast
      *  @type Boolean
      */
-    prototype.isLiveBroadcast = null;
+    isLiveBroadcast = null;
     /**
      *  Schema.org/broadcastOfEvent
      *  The event being broadcast such as a sporting event or awards ceremony.
@@ -41,5 +41,5 @@ BroadcastEvent = stjs.extend(BroadcastEvent, PublicationEvent, [], function(cons
      *  @property broadcastOfEvent
      *  @type SchemaEvent
      */
-    prototype.broadcastOfEvent = null;
+    broadcastOfEvent = null;
 }, {broadcastOfEvent: "SchemaEvent", publishedOn: "BroadcastService", about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -25,7 +25,7 @@ FinancialProduct = stjs.extend(FinancialProduct, Service, [], function(construct
      *  @property annualPercentageRate
      *  @type Number
      */
-    prototype.annualPercentageRate = null;
+    annualPercentageRate = null;
     /**
      *  Schema.org/interestRate
      *  The interest rate, charged or paid, applicable to the financial product. Note: This is different from the calculated annualPercentageRate.
@@ -33,7 +33,7 @@ FinancialProduct = stjs.extend(FinancialProduct, Service, [], function(construct
      *  @property interestRate
      *  @type Number
      */
-    prototype.interestRate = null;
+    interestRate = null;
     /**
      *  Schema.org/feesAndCommissionsSpecification
      *  Description of fees, commissions, and other terms applied either to a class of financial product, or by a financial service organization.
@@ -41,5 +41,5 @@ FinancialProduct = stjs.extend(FinancialProduct, Service, [], function(construct
      *  @property feesAndCommissionsSpecification
      *  @type Text
      */
-    prototype.feesAndCommissionsSpecification = null;
+    feesAndCommissionsSpecification = null;
 }, {serviceAudience: "Audience", serviceArea: "GeoShape", provider: "Person", audience: "Audience", hasOfferCatalog: "OfferCatalog", hoursAvailable: "OpeningHoursSpecification", aggregateRating: "AggregateRating", offers: "Offer", broker: "Person", serviceOutput: "Thing", logo: "ImageObject", isSimilarTo: "Product", isRelatedTo: "Product", availableChannel: "ServiceChannel", review: "Review", produces: "Thing", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

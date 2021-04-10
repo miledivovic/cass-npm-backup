@@ -21,10 +21,10 @@ var EcFramework = function() {
     }
 };
 EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prototype) {
-    constructor.relDone = {};
-    constructor.levelDone = {};
-    constructor.template = null;
-    prototype.equals = function(obj) {
+    static relDone = {};
+    static levelDone = {};
+    static template = null;
+    equals(obj) {
         return this.isId((obj).id);
     };
     /**
@@ -41,7 +41,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcFramework(), success, failure);
     };
     /**
@@ -58,7 +58,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcFramework());
     };
     /**
@@ -79,7 +79,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcFramework();
         }, success, failure, paramObj);
@@ -92,7 +92,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method addCompetency
      */
-    prototype.addCompetency = function(id) {
+    addCompetency(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.competency == null) 
             this.competency = new Array();
@@ -116,7 +116,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method removeCompetency
      */
-    prototype.removeCompetency = function(id, success, failure) {
+    removeCompetency(id, success, failure) {
         var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.competency == null) 
             this.competency = new Array();
@@ -170,7 +170,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @method removeRelationshipsThatInclude
      *  @private
      */
-    prototype.removeRelationshipsThatInclude = function(id, i, success, failure) {
+    removeRelationshipsThatInclude(id, i, success, failure) {
         var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
         var me = this;
         if (i >= this.relation.length && success != null) 
@@ -201,7 +201,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @method removeLevelsThatInclude
      *  @private
      */
-    prototype.removeLevelsThatInclude = function(id, i, success, failure) {
+    removeLevelsThatInclude(id, i, success, failure) {
         var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
         var me = this;
         if (i >= this.level.length && success != null) 
@@ -225,7 +225,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method addRelation
      */
-    prototype.addRelation = function(id) {
+    addRelation(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.relation == null) 
             this.relation = new Array();
@@ -242,7 +242,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method removeCompetency
      */
-    prototype.removeRelation = function(id) {
+    removeRelation(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.relation == null) 
             this.relation = new Array();
@@ -258,7 +258,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method addLevel
      */
-    prototype.addLevel = function(id) {
+    addLevel(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.level == null) 
             this.level = new Array();
@@ -275,7 +275,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method removeLevel
      */
-    prototype.removeLevel = function(id) {
+    removeLevel(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.level == null) 
             this.level = new Array();
@@ -291,7 +291,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method addRollupRule
      */
-    prototype.addRollupRule = function(id) {
+    addRollupRule(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.rollupRule == null) 
             this.rollupRule = new Array();
@@ -308,7 +308,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method removeRollupRule
      */
-    prototype.removeRollupRule = function(id) {
+    removeRollupRule(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.rollupRule == null) 
             this.rollupRule = new Array();
@@ -326,7 +326,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
      *  @memberOf EcFramework
      *  @method save
      */
-    prototype.save = function(success, failure, repo) {
+    save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Framework Name Cannot be Empty";
             if (failure != null) 
@@ -353,7 +353,7 @@ EcFramework = stjs.extend(EcFramework, Framework, [], function(constructor, prot
     prototype._delete = function(success, failure) {
         EcRepository.DELETE(this, success, failure);
     };
-    prototype.asAsnJson = function(success, failure, fallbackServerUrl) {
+    asAsnJson(success, failure, fallbackServerUrl) {
         var id = this.id;
         var server = this.getServerBaseUrl();
         if (server != null && server != undefined && !server.endsWith("/")) {

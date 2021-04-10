@@ -27,7 +27,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @property owner
      *  @type string[] (PEM)
      */
-    prototype.owner = null;
+    owner = null;
     /**
      *  Signatures of the object. The signing method is as follows: Remove the
      *  signature field. Encode the object and its fields in ascii-sort order
@@ -37,15 +37,15 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @property signature
      *  @type string[] (Base64)
      */
-    prototype.signature = null;
+    signature = null;
     /**
      *  URL/URI used to retrieve, store and identify the object.
      * 
      *  @property id
      *  @type string (URL)
      */
-    prototype.id = null;
-    prototype.equals = function(obj) {
+    id = null;
+    equals(obj) {
         return this.isId((obj).id);
     };
     /**
@@ -56,7 +56,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @property reader
      *  @type string[] (PEM)
      */
-    prototype.reader = null;
+    reader = null;
     /**
      *  Removes the version information from an identifier.
      *  Warning: Will remove identifier if the identifier is composed solely of digits!!!
@@ -66,7 +66,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @method trimVersionFromUrl
      *  @static
      */
-    constructor.trimVersionFromUrl = function(id) {
+    static trimVersionFromUrl(id) {
         if (id == null) 
             return null;
         if (id.indexOf("/api/data/") == -1 && id.indexOf("/api/custom/data/") == -1) 
@@ -85,7 +85,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {string} server Base URL of the server's repository functionality.
      *  @method generateId
      */
-    prototype.generateId = function(server) {
+    generateId(server) {
         this.id = server;
         if (!this.id.endsWith("/") && !this.id.endsWith("ce-")) 
             this.id += "/";
@@ -103,13 +103,13 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {string} server Base URL of the server's repository functionality.
      *  @method generateShortId
      */
-    prototype.generateShortId = function(server) {
+    generateShortId(server) {
         this.id = server;
         if (!this.id.endsWith("/") && !this.id.endsWith("ce-")) 
             this.id += "/";
         this.id += generateUUID();
     };
-    prototype.getDottedType = function() {
+    getDottedType() {
         return this.getFullType().replace("http://", "").replace("https://", "").replaceAll("/", ".");
     };
     /**
@@ -120,7 +120,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {string} uniqueIdentifier Canonical identifier. Must contain a letter or symbol.
      *  @method assignId
      */
-    prototype.assignId = function(server, uniqueIdentifier) {
+    assignId(server, uniqueIdentifier) {
         this.id = server;
         if (!this.id.endsWith("/")) 
             this.id += "/";
@@ -139,7 +139,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {string} uniqueIdentifier Canonical identifier. Must contain a letter or symbol.
      *  @method assignId
      */
-    constructor.veryShortId = function(server, uniqueIdentifier) {
+    static veryShortId(server, uniqueIdentifier) {
         var id;
         id = server;
         if (!id.endsWith("/")) 
@@ -156,7 +156,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {string} uniqueIdentifier Canonical identifier. Must contain a letter or symbol.
      *  @method assignId
      */
-    prototype.assignIdAndVersion = function(server, uniqueIdentifier, version) {
+    assignIdAndVersion(server, uniqueIdentifier, version) {
         this.id = server;
         if (!this.id.endsWith("/")) 
             this.id += "/";
@@ -176,7 +176,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {boolean} True if owner is represented by the PK, false otherwise.
      *  @method hasOwner
      */
-    prototype.hasOwner = function(pk) {
+    hasOwner(pk) {
         if (this.owner == null) 
             return false;
         var pkPem = pk.toPem();
@@ -194,7 +194,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {boolean} True if owner is represented by the PK, false otherwise.
      *  @method hasOwner
      */
-    prototype.hasReader = function(pk) {
+    hasReader(pk) {
         if (this.reader == null) 
             return false;
         var pkPem = pk.toPem();
@@ -212,7 +212,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {boolean} True if owner is represented by the PK, false otherwise.
      *  @method canEdit
      */
-    prototype.canEdit = function(pk) {
+    canEdit(pk) {
         if (this.owner == null || this.owner.length == 0) 
             return true;
         return this.hasOwner(pk);
@@ -226,7 +226,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {boolean} True if owner is represented by the PK, false otherwise.
      *  @method canEdit
      */
-    prototype.canEditAny = function(ids) {
+    canEditAny(ids) {
         if (this.owner == null || this.owner.length == 0) 
             return true;
         if (ids == null) 
@@ -243,7 +243,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return ASCII-sort order encoded space-free and tab-free JSON-LD.
      *  @method toSignableJson
      */
-    prototype.toSignableJson = function() {
+    toSignableJson() {
         var d = JSON.parse(this.toJson());
         if (this.type.indexOf("http://schema.eduworks.com/") != -1 && this.type.indexOf("/0.1/") != -1) {
             delete (d)["signature"];
@@ -269,7 +269,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {EcPpk} ppk Public private keypair.
      *  @method signWith
      */
-    prototype.signWith = function(ppk) {
+    signWith(ppk) {
         var signableJson = this.toSignableJson();
         var signed = EcRsaOaep.sign(ppk, signableJson);
         if (this.signature != null) {
@@ -287,7 +287,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {boolean} true if all of the signatures could be verified, false if they could not
      *  @method verify
      */
-    prototype.verify = function() {
+    verify() {
         if (this.signature != null) {
             for (var i = 0; i < this.signature.length; ) {
                 var works = false;
@@ -324,7 +324,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {EcPk} newOwner PK of the new owner.
      *  @method addOwner
      */
-    prototype.addOwner = function(newOwner) {
+    addOwner(newOwner) {
         var pem = newOwner.toPem();
         if (this.owner == null) 
             this.owner = new Array();
@@ -341,7 +341,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {EcPk} oldOwner PK to remove.
      *  @method removeOwner
      */
-    prototype.removeOwner = function(oldOwner) {
+    removeOwner(oldOwner) {
         var pem = oldOwner.toPem();
         if (this.owner == null) 
             this.owner = new Array();
@@ -357,7 +357,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {EcPk} newReader PK of the new reader.
      *  @method addReader
      */
-    prototype.addReader = function(newReader) {
+    addReader(newReader) {
         var pem = newReader.toPem();
         if (this.reader == null) 
             this.reader = new Array();
@@ -371,7 +371,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @param {EcPk} oldReader PK of the old reader.
      *  @method removeReader
      */
-    prototype.removeReader = function(oldReader) {
+    removeReader(oldReader) {
         var pem = oldReader.toPem();
         if (this.reader == null) 
             this.reader = new Array();
@@ -384,7 +384,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {boolean} True if the object is NOT VALID for storage, false otherwise.
      *  @method invalid
      */
-    prototype.invalid = function() {
+    invalid() {
         if (this.id == null) 
             return true;
         if (this.context == null) 
@@ -400,7 +400,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      * 
      *  @method updateTimestamp
      */
-    prototype.updateTimestamp = function() {
+    updateTimestamp() {
         if (this.getTimestamp() == null) 
             return;
         var rawId = this.id.substring(0, this.id.lastIndexOf("/"));
@@ -414,7 +414,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      * 
      *  @method getTimestamp
      */
-    prototype.getTimestamp = function() {
+    getTimestamp() {
         var timestamp = this.id.substring(this.id.lastIndexOf("/") + 1);
         if (timestamp.matches("[0-9]+")) {
             return Integer.parseInt(timestamp);
@@ -430,7 +430,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {boolean} True if the provided ID represents this object.
      *  @method isId
      */
-    prototype.isId = function(id) {
+    isId(id) {
         return EcRemoteLinkedData.trimVersionFromUrl(this.id) == EcRemoteLinkedData.trimVersionFromUrl(id);
     };
     /**
@@ -440,7 +440,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {string} ID of the latest version of this object.
      *  @method shortId
      */
-    prototype.shortId = function() {
+    shortId() {
         return EcRemoteLinkedData.trimVersionFromUrl(this.id);
     };
     /**
@@ -449,7 +449,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {string} Guid of the linked data object.
      *  @method getGuid
      */
-    prototype.getGuid = function() {
+    getGuid() {
         var shortId = EcRemoteLinkedData.trimVersionFromUrl(this.id);
         var parts = shortId.split("/");
         return parts[parts.length - 1];
@@ -460,7 +460,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {string} Server Base URL of the linked data object.
      *  @method getServerBaseUrl
      */
-    prototype.getServerBaseUrl = function() {
+    getServerBaseUrl() {
         var shortId = EcRemoteLinkedData.trimVersionFromUrl(this.id);
         var parts = shortId.split("/");
         return parts.slice(0, parts.indexOf("data")).join("/");
@@ -471,7 +471,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      *  @return {string} ElasticSearch compatible search string.
      *  @method getSearchStringByType
      */
-    prototype.getSearchStringByType = function() {
+    getSearchStringByType() {
         var types = this.getTypes();
         var result = "";
         for (var i = 0; i < types.length; i++) {
@@ -490,7 +490,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
         }
         return "(" + result + ")";
     };
-    prototype.asRdfXml = function(success, failure, signatureSheet) {
+    asRdfXml(success, failure, signatureSheet) {
         var fd = new FormData();
         var id = this.id;
         if (signatureSheet != null || signatureSheet != undefined) 
@@ -499,7 +499,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
         headers["Accept"] = "application/rdf+xml";
         EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
     };
-    prototype.asNQuads = function(success, failure, signatureSheet) {
+    asNQuads(success, failure, signatureSheet) {
         var fd = new FormData();
         var id = this.id;
         if (signatureSheet != null || signatureSheet != undefined) 
@@ -508,7 +508,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
         headers["Accept"] = "text/n4";
         EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
     };
-    prototype.asTurtle = function(success, failure, signatureSheet) {
+    asTurtle(success, failure, signatureSheet) {
         var fd = new FormData();
         var id = this.id;
         if (signatureSheet != null || signatureSheet != undefined) 
@@ -522,7 +522,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
      * 
      *  @method upgrade
      */
-    prototype.upgrade = function() {
+    upgrade() {
         var me = (this);
         if (me["@owner"] != null) {
             me["owner"] = me["@owner"];
@@ -541,8 +541,8 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
         }
         this.handleForwarding();
     };
-    constructor.forwardingTable = new Object();
-    prototype.handleForwarding = function() {
+    static forwardingTable = new Object();
+    handleForwarding() {
         var me = (this);
         if (this.owner != null) {
             for (var i = 0; i < this.owner.length; i++) {
@@ -567,7 +567,7 @@ EcRemoteLinkedData = stjs.extend(EcRemoteLinkedData, EcLinkedData, [], function(
             }
         }
     };
-    constructor.forwardKey = function(oldKey, newKey) {
+    static forwardKey(oldKey, newKey) {
         (EcRemoteLinkedData.forwardingTable)[oldKey] = newKey;
     };
 }, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

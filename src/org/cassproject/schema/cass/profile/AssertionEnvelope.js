@@ -11,24 +11,24 @@ var AssertionEnvelope = function() {
     this.setContextAndType(Cass.context, AssertionEnvelope.myType);
 };
 AssertionEnvelope = stjs.extend(AssertionEnvelope, CreativeWork, [], function(constructor, prototype) {
-    constructor.TYPE_0_5 = "http://schema.cassproject.org/0.4/AssertionEnvelope";
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/AssertionEnvelope";
-    constructor.myType = AssertionEnvelope.TYPE_0_6;
+    static TYPE_0_5 = "http://schema.cassproject.org/0.4/AssertionEnvelope";
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/AssertionEnvelope";
+    static myType = AssertionEnvelope.TYPE_0_6;
     /**
      *  List of assertions to pack in the envelope.
      * 
      *  @property assertion
      *  @type Assertion[]
      */
-    prototype.assertion = null;
+    assertion = null;
     /**
      *  List of secrets found in assertions to the objects necessary to decrypt the assertion data.
      * 
      *  @property codebook
      *  @type AssertionCodebook[]
      */
-    prototype.codebook = null;
-    prototype.length = function() {
+    codebook = null;
+    length() {
         if (this.assertion != null) 
             return this.assertion.length;
         return 0;
@@ -38,7 +38,7 @@ AssertionEnvelope = stjs.extend(AssertionEnvelope, CreativeWork, [], function(co
      *  @param assertionShortIdToRemove
      *  @method removeAssertionByShortId
      */
-    prototype.removeAssertionByShortId = function(assertionShortIdToRemove) {
+    removeAssertionByShortId(assertionShortIdToRemove) {
         if (this.assertion != null) {
             for (var i = 0; i < this.assertion.length; i++) {
                 if (this.getAssertion(i).shortId().equals(assertionShortIdToRemove)) {
@@ -62,7 +62,7 @@ AssertionEnvelope = stjs.extend(AssertionEnvelope, CreativeWork, [], function(co
      *  @method getAssertion
      *  @return
      */
-    prototype.getAssertion = function(index) {
+    getAssertion(index) {
         if (this.assertion != null) 
             if (index < this.assertion.length) {
                 if (Assertion.codebooks == null) 
@@ -79,7 +79,7 @@ AssertionEnvelope = stjs.extend(AssertionEnvelope, CreativeWork, [], function(co
      *  @param a Assertion to add.
      *  @method addAssertion
      */
-    prototype.addAssertion = function(a) {
+    addAssertion(a) {
         var me = this;
         var ac = new AssertionCodebook();
         if (this.assertion == null) 
@@ -117,7 +117,7 @@ AssertionEnvelope = stjs.extend(AssertionEnvelope, CreativeWork, [], function(co
      *  @param failure Event to call when failure occurs.
      *  @method addAssertionAsync
      */
-    prototype.addAssertionAsync = function(a, success, failure) {
+    addAssertionAsync(a, success, failure) {
         var me = this;
         var ac = new AssertionCodebook();
         if (this.assertion == null) 
@@ -198,7 +198,7 @@ AssertionEnvelope = stjs.extend(AssertionEnvelope, CreativeWork, [], function(co
      *  @return True IFF assertions are authentic.
      *  @method validate
      */
-    prototype.validate = function() {
+    validate() {
         if (this.assertion != null) 
             for (var i = 0; i < this.assertion.length; i++) 
                 if (this.assertion[i].invalid()) 

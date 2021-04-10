@@ -14,8 +14,8 @@ var CfdAssessment = function() {
     this.educationalUse = CfdAssessment.edUse;
 };
 CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructor, prototype) {
-    constructor.myType = "http://schema.org/CreativeWork";
-    constructor.edUse = "Assessment";
+    static myType = "http://schema.org/CreativeWork";
+    static edUse = "Assessment";
     /**
      *  Retrieves the alignment specified with the ID from the server
      * 
@@ -30,7 +30,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.get(id, function(p1) {
             if (stjs.isInstanceOf(p1.constructor, CfdAssessment)) 
                 if (success != null) {
@@ -72,7 +72,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (stjs.isInstanceOf(p1.constructor, CfdAssessment)) 
             return p1;
@@ -115,7 +115,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         var queryAdd = new CfdAssessment().getSearchStringByType();
         if (query == null || query == "") 
             query = queryAdd;
@@ -161,7 +161,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @method search
      *  @static
      */
-    constructor.searchWithFramework = function(repo, framework, success, failure, paramObj) {
+    static searchWithFramework(repo, framework, success, failure, paramObj) {
         var query = new CfdAssessment().getSearchStringByType();
         query = "(" + query + ") AND educationalUse:\"" + CfdAssessment.edUse + "\" AND educationalAlignment.educationalFramework:\"" + framework + "\"";
         repo.searchWithParams(query, paramObj, null, function(p1) {
@@ -191,7 +191,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @return {String}
      *  name of assessment
      */
-    prototype.getName = function() {
+    getName() {
         return this.name;
     };
     /**
@@ -200,7 +200,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @param {String} name
      *                  name of the assessment
      */
-    prototype.setName = function(name) {
+    setName(name) {
         this.name = name;
     };
     /**
@@ -209,7 +209,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @return {CfdAlignment}
      *  Educational Alignment for reference
      */
-    prototype.getEducationalAlignment = function() {
+    getEducationalAlignment() {
         return this.educationalAlignment;
     };
     /**
@@ -218,7 +218,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @param {CfdAlignment} alignment
      *                        Educational alignment for reference
      */
-    prototype.setEducationalAlignment = function(alignment) {
+    setEducationalAlignment(alignment) {
         this.educationalAlignment = alignment;
     };
     /**
@@ -227,7 +227,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *  @return {CfdAlignment}
      *  Educational Alignment for reference
      */
-    prototype.getEducationalUse = function() {
+    getEducationalUse() {
         return CfdAssessment.edUse;
     };
     /**
@@ -239,7 +239,7 @@ CfdAssessment = stjs.extend(CfdAssessment, CreativeWork, [], function(constructo
      *                             Callback triggered if error while saving alignment
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.name == null || this.name == "") {
             var msg = "Name cannot be missing";
             if (failure != null) 

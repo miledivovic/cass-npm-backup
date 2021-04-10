@@ -10,17 +10,17 @@ var EbacSignature = function() {
     EcLinkedData.call(this, Ebac.context, EbacSignature.TYPE_0_4);
 };
 EbacSignature = stjs.extend(EbacSignature, EcLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/timeLimitedSignature";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/timeLimitedSignature";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/TimeLimitedSignature";
-    constructor.TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/TimeLimitedSignature";
+    static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/timeLimitedSignature";
+    static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/timeLimitedSignature";
+    static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/TimeLimitedSignature";
+    static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/TimeLimitedSignature";
     /**
      *  The public key of the authorizing party in PEM format.
      * 
      *  @property owner
      *  @type string
      */
-    prototype.owner = null;
+    owner = null;
     /**
      *  The time in number of milliseconds since midnight of January 1, 1970
      *  00:00:00 UTC that this signature is authorized to move data.
@@ -28,7 +28,7 @@ EbacSignature = stjs.extend(EbacSignature, EcLinkedData, [], function(constructo
      *  @property expiry
      *  @type long
      */
-    prototype.expiry = null;
+    expiry = null;
     /**
      *  The signature of this object, having signed the object, having been
      *  encoded in JSON with no space or tabs in ASCII sort order, having no
@@ -37,7 +37,7 @@ EbacSignature = stjs.extend(EbacSignature, EcLinkedData, [], function(constructo
      *  @property signature
      *  @type string
      */
-    prototype.signature = null;
+    signature = null;
     /**
      *  The server authorized to move data. If this is empty, the signature may
      *  be used by a server to ask for data from other servers.
@@ -45,11 +45,11 @@ EbacSignature = stjs.extend(EbacSignature, EcLinkedData, [], function(constructo
      *  @property server
      *  @type string
      */
-    prototype.server = null;
-    prototype.upgrade = function() {
-        EcLinkedData.prototype.upgrade.call(this);
+    server = null;
+    upgrade() {
+        EcLinkedData.upgrade.call(this);
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(EbacSignature.TYPE_0_4);
         a.push(EbacSignature.TYPE_0_3);

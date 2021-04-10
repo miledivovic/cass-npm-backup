@@ -25,7 +25,7 @@ LodgingReservation = stjs.extend(LodgingReservation, Reservation, [], function(c
      *  @property checkinTime
      *  @type DateTime
      */
-    prototype.checkinTime = null;
+    checkinTime = null;
     /**
      *  Schema.org/numChildren
      *  The number of children staying in the unit.
@@ -33,7 +33,7 @@ LodgingReservation = stjs.extend(LodgingReservation, Reservation, [], function(c
      *  @property numChildren
      *  @type Integer
      */
-    prototype.numChildren = null;
+    numChildren = null;
     /**
      *  Schema.org/lodgingUnitDescription
      *  A full description of the lodging unit.
@@ -41,7 +41,7 @@ LodgingReservation = stjs.extend(LodgingReservation, Reservation, [], function(c
      *  @property lodgingUnitDescription
      *  @type Text
      */
-    prototype.lodgingUnitDescription = null;
+    lodgingUnitDescription = null;
     /**
      *  Schema.org/checkoutTime
      *  The latest someone may check out of a lodging establishment.
@@ -49,7 +49,7 @@ LodgingReservation = stjs.extend(LodgingReservation, Reservation, [], function(c
      *  @property checkoutTime
      *  @type DateTime
      */
-    prototype.checkoutTime = null;
+    checkoutTime = null;
     /**
      *  Schema.org/lodgingUnitType
      *  Textual description of the unit type (including suite vs. room, size of bed, etc.).
@@ -57,7 +57,7 @@ LodgingReservation = stjs.extend(LodgingReservation, Reservation, [], function(c
      *  @property lodgingUnitType
      *  @type Text
      */
-    prototype.lodgingUnitType = null;
+    lodgingUnitType = null;
     /**
      *  Schema.org/numAdults
      *  The number of adults staying in the unit.
@@ -65,5 +65,5 @@ LodgingReservation = stjs.extend(LodgingReservation, Reservation, [], function(c
      *  @property numAdults
      *  @type Integer
      */
-    prototype.numAdults = null;
+    numAdults = null;
 }, {provider: "Person", programMembershipUsed: "ProgramMembership", reservationStatus: "ReservationStatusType", underName: "Organization", bookingAgent: "Organization", reservationFor: "Thing", broker: "Person", reservedTicket: "Ticket", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

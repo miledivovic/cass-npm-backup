@@ -13,39 +13,39 @@ var EcDirectedGraph = function() {
     this.verticies = new Array();
 };
 EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(constructor, prototype) {
-    prototype.edges = null;
-    prototype.verticies = null;
-    prototype.getEdges = function() {
+    edges = null;
+    verticies = null;
+    getEdges() {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) 
             results[i] = this.edges[i].edge;
         return results;
     };
-    prototype.getVertices = function() {
+    getVertices() {
         var results = new Array();
         for (var i = 0; i < this.verticies.length; i++) 
             results[i] = this.verticies[i];
         return results;
     };
-    prototype.containsVertex = function(vertex) {
+    containsVertex(vertex) {
         for (var i = 0; i < this.verticies.length; i++) 
             if (vertex.equals(this.verticies[i])) 
                 return true;
         return false;
     };
-    prototype.containsEdge = function(edge) {
+    containsEdge(edge) {
         for (var i = 0; i < this.edges.length; i++) 
             if (edge.equals(this.edges[i].edge)) 
                 return true;
         return false;
     };
-    prototype.getEdgeCount = function() {
+    getEdgeCount() {
         return this.edges.length;
     };
-    prototype.getVertexCount = function() {
+    getVertexCount() {
         return this.verticies.length;
     };
-    prototype.getNeighbors = function(vertex) {
+    getNeighbors(vertex) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
@@ -56,7 +56,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         EcArray.removeDuplicates(results);
         return results;
     };
-    prototype.getIncidentEdges = function(vertex) {
+    getIncidentEdges(vertex) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
@@ -67,7 +67,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         EcArray.removeDuplicates(results);
         return results;
     };
-    prototype.getIncidentVertices = function(edge) {
+    getIncidentVertices(edge) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (edge.equals(this.edges[i].edge)) {
@@ -78,7 +78,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         EcArray.removeDuplicates(results);
         return results;
     };
-    prototype.findEdge = function(v1, v2) {
+    findEdge(v1, v2) {
         for (var i = 0; i < this.edges.length; i++) {
             if (v1.equals(this.edges[i].source) && v2.equals(this.edges[i].destination)) 
                 return this.edges[i].edge;
@@ -87,7 +87,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return null;
     };
-    prototype.findEdgeSet = function(v1, v2) {
+    findEdgeSet(v1, v2) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (v1.equals(this.edges[i].source) && v2.equals(this.edges[i].destination)) 
@@ -97,17 +97,17 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return results;
     };
-    prototype.addVertex = function(vertex) {
+    addVertex(vertex) {
         this.verticies.push(vertex);
         return true;
     };
-    prototype.addVertexSafely = function(vertex) {
+    addVertexSafely(vertex) {
         if (EcArray.has(this.verticies, vertex)) 
             return false;
         this.verticies.push(vertex);
         return true;
     };
-    prototype.removeVertex = function(vertex) {
+    removeVertex(vertex) {
         var indexOf = EcArray.indexOf(this.verticies, vertex);
         if (indexOf != -1) {
             for (var i = 0; i < this.edges.length; i++) {
@@ -121,7 +121,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return false;
     };
-    prototype.removeEdge = function(edge) {
+    removeEdge(edge) {
         var success = false;
         for (var i = 0; i < this.edges.length; i++) {
             if (this.edges[i].edge.equals(edge)) {
@@ -132,7 +132,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return success;
     };
-    prototype.isNeighbor = function(v1, v2) {
+    isNeighbor(v1, v2) {
         for (var i = 0; i < this.edges.length; i++) {
             if (v1.equals(this.edges[i].source) && v2.equals(this.edges[i].destination)) 
                 return true;
@@ -141,14 +141,14 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return false;
     };
-    prototype.isIncident = function(vertex, edge) {
+    isIncident(vertex, edge) {
         for (var i = 0; i < this.edges.length; i++) {
             if ((vertex.equals(this.edges[i].source) || vertex.equals(this.edges[i].destination)) && edge.equals(this.edges[i].edge)) 
                 return true;
         }
         return false;
     };
-    prototype.degree = function(vertex) {
+    degree(vertex) {
         var count = 0;
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source) || vertex.equals(this.edges[i].destination)) 
@@ -156,15 +156,15 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return count;
     };
-    prototype.getNeighborCount = function(vertex) {
+    getNeighborCount(vertex) {
         return this.getNeighbors(vertex).length;
     };
-    prototype.getIncidentCount = function(edge) {
+    getIncidentCount(edge) {
         return this.getIncidentVertices(edge).length;
     };
-    prototype.getEdgeType = function(edge) {};
-    prototype.getDefaultEdgeType = function() {};
-    prototype.getEdgesOfType = function(edge_type) {
+    getEdgeType(edge) {};
+    getDefaultEdgeType() {};
+    getEdgesOfType(edge_type) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (this.getEdgeType(this.edges[i].edge) == edge_type) 
@@ -172,10 +172,10 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return results;
     };
-    prototype.getEdgeCountOfType = function(edge_type) {
+    getEdgeCountOfType(edge_type) {
         return this.getEdgesOfType(edge_type).length;
     };
-    prototype.getInEdges = function(vertex) {
+    getInEdges(vertex) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].destination)) 
@@ -184,7 +184,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         EcArray.removeDuplicates(results);
         return results;
     };
-    prototype.getOutEdges = function(vertex) {
+    getOutEdges(vertex) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
@@ -193,27 +193,27 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         EcArray.removeDuplicates(results);
         return results;
     };
-    prototype.inDegree = function(vertex) {
+    inDegree(vertex) {
         return this.getInEdges(vertex).length;
     };
-    prototype.outDegree = function(vertex) {
+    outDegree(vertex) {
         return this.getOutEdges(vertex).length;
     };
-    prototype.getSource = function(directed_edge) {
+    getSource(directed_edge) {
         for (var i = 0; i < this.edges.length; i++) {
             if (directed_edge.equals(this.edges[i].edge)) 
                 return this.edges[i].source;
         }
         return null;
     };
-    prototype.getDest = function(directed_edge) {
+    getDest(directed_edge) {
         for (var i = 0; i < this.edges.length; i++) {
             if (directed_edge.equals(this.edges[i].edge)) 
                 return this.edges[i].destination;
         }
         return null;
     };
-    prototype.getPredecessors = function(vertex) {
+    getPredecessors(vertex) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].destination)) 
@@ -222,7 +222,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         EcArray.removeDuplicates(results);
         return results;
     };
-    prototype.getSuccessors = function(vertex) {
+    getSuccessors(vertex) {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
@@ -231,7 +231,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         EcArray.removeDuplicates(results);
         return results;
     };
-    prototype.isPredecessor = function(v1, v2) {
+    isPredecessor(v1, v2) {
         for (var i = 0; i < this.edges.length; i++) {
             if (v1.equals(this.edges[i].destination)) 
                 if (v2.equals(this.edges[i].source)) 
@@ -239,7 +239,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return false;
     };
-    prototype.isSuccessor = function(v1, v2) {
+    isSuccessor(v1, v2) {
         for (var i = 0; i < this.edges.length; i++) {
             if (v2.equals(this.edges[i].destination)) 
                 if (v1.equals(this.edges[i].source)) 
@@ -247,13 +247,13 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return false;
     };
-    prototype.getPredecessorCount = function(vertex) {
+    getPredecessorCount(vertex) {
         return this.getPredecessors(vertex).length;
     };
-    prototype.getSuccessorCount = function(vertex) {
+    getSuccessorCount(vertex) {
         return this.getSuccessors(vertex).length;
     };
-    prototype.isSource = function(vertex, edge) {
+    isSource(vertex, edge) {
         for (var i = 0; i < this.edges.length; i++) {
             if (edge.equals(this.edges[i].edge)) 
                 if (vertex.equals(this.edges[i].source)) 
@@ -261,7 +261,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return false;
     };
-    prototype.isDest = function(vertex, edge) {
+    isDest(vertex, edge) {
         for (var i = 0; i < this.edges.length; i++) {
             if (edge.equals(this.edges[i].edge)) 
                 if (vertex.equals(this.edges[i].destination)) 
@@ -269,7 +269,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return false;
     };
-    prototype.addEdge = function(e, v1, v2) {
+    addEdge(e, v1, v2) {
         this.addVertexSafely(v1);
         this.addVertexSafely(v2);
         var t = new Triple();
@@ -279,7 +279,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         this.edges.push(t);
         return true;
     };
-    prototype.addEdgeUnsafely = function(e, v1, v2) {
+    addEdgeUnsafely(e, v1, v2) {
         var t = new Triple();
         t.source = v1;
         t.destination = v2;
@@ -287,7 +287,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         this.edges.push(t);
         return true;
     };
-    prototype.addEdgeSafely = function(e, v1, v2) {
+    addEdgeSafely(e, v1, v2) {
         this.addVertexSafely(v1);
         this.addVertexSafely(v2);
         var t = new Triple();
@@ -299,7 +299,7 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         this.edges.push(t);
         return true;
     };
-    prototype.getOpposite = function(vertex, edge) {
+    getOpposite(vertex, edge) {
         for (var i = 0; i < this.edges.length; i++) {
             if (edge.equals(this.edges[i].edge)) 
                 if (vertex.equals(this.edges[i].destination)) 

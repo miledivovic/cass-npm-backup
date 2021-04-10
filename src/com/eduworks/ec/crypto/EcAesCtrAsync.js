@@ -18,7 +18,7 @@ module.exports = class EcAesCtrAsync{
      *  @method encrypt
      *  @static
      */
-    constructor.encrypt = function(plaintext, secret, iv, success, failure) {
+    static encrypt(plaintext, secret, iv, success, failure) {
         if (window == null || window.crypto == null || window.crypto.subtle == null) {
             EcAesCtrAsyncWorker.encrypt(plaintext, secret, iv, success, failure);
             return;
@@ -56,7 +56,7 @@ module.exports = class EcAesCtrAsync{
      *  @method decrypt
      *  @static
      */
-    constructor.decrypt = function(ciphertext, secret, iv, success, failure) {
+    static decrypt(ciphertext, secret, iv, success, failure) {
         if (EcCrypto.caching) {
             var cacheGet = (EcCrypto.decryptionCache)[secret + iv + ciphertext];
             if (cacheGet != null) {
@@ -87,4 +87,4 @@ module.exports = class EcAesCtrAsync{
             }, failure);
         }, failure);
     };
-}, {}, {});
+};

@@ -1,8 +1,5 @@
-var EcOrganization = function() {
-    Organization.call(this);
-};
-EcOrganization = stjs.extend(EcOrganization, Organization, [], function(constructor, prototype) {
-    constructor.ORG_PPK_SET_KEY = "https://schema.cassproject.org/0.3/ppkSet";
+module.exports = class EcOrganization extends Organization{
+    static ORG_PPK_SET_KEY = "https://schema.cassproject.org/0.3/ppkSet";
     /**
      *  Retrieves an organization from it's server asynchronously
      * 
@@ -17,7 +14,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcOrganization(), success, failure);
     };
     /**
@@ -32,7 +29,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcOrganization());
     };
     /**
@@ -48,7 +45,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcOrganization();
         }, success, failure, paramObj);
@@ -59,7 +56,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @param {EcPerson}          person Person to add to the Organization's employee list
      *  @method addEmployee
      */
-    prototype.addEmployee = function(person) {
+    addEmployee(person) {
         if (this.employee == null) 
             (this)["employee"] = new Array();
         if (!EcArray.isArray(this.employee)) 
@@ -78,7 +75,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @param {String}          id Person id to be removed from Organization's employee list
      *  @method removeEmployeeById
      */
-    prototype.removeEmployeeById = function(id) {
+    removeEmployeeById(id) {
         if (this.employee == null) 
             return;
         if (!EcArray.isArray(this.employee)) 
@@ -95,7 +92,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      * 
      *  @method movePersonMembersToEmployee
      */
-    prototype.movePersonMembersToEmployee = function() {
+    movePersonMembersToEmployee() {
         if (this.member == null) 
             return;
         if (this.employee == null) 
@@ -125,7 +122,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      * 
      *  @method ppkListToPemArrayString
      */
-    prototype.ppkListToPemArrayString = function(ppkList) {
+    ppkListToPemArrayString(ppkList) {
         if (ppkList == null) 
             return JSON.stringify(new Array());
          else {
@@ -143,7 +140,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @memberOf EcOrganization
      *  @method addOrgKey
      */
-    prototype.addOrgKey = function(newOrgPpk) {
+    addOrgKey(newOrgPpk) {
         var orgKeys = this.getOrgKeys();
         orgKeys.push(newOrgPpk);
         var newKeys = EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(orgKeys), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
@@ -159,7 +156,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @memberOf EcOrganization
      *  @method rekeyAndSave
      */
-    prototype.rekeyAndSave = function(success, failure, repo) {
+    rekeyAndSave(success, failure, repo) {
         if (repo == null) {
             var msg = "Repository cannot be null for a rekey operation";
             if (failure != null) 
@@ -193,7 +190,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @memberOf EcOrganization
      *  @method save
      */
-    prototype.save = function(success, failure, repo) {
+    save(success, failure, repo) {
         var newKeys = EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(this.getOrgKeys()), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
         (this)[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
         if (repo == null) 
@@ -209,7 +206,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @memberOf EcOrganization
      *  @method getCurrentOrgKey
      */
-    prototype.getCurrentOrgKey = function() {
+    getCurrentOrgKey() {
         var orgKeys = this.getOrgKeys();
         if (orgKeys.length >= 1) {
             return orgKeys[orgKeys.length - 1];
@@ -224,7 +221,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @memberOf EcOrganization
      *  @method getOrgKeys
      */
-    prototype.getOrgKeys = function() {
+    getOrgKeys() {
         var orgKeys = new Array();
         var o = (this)[EcOrganization.ORG_PPK_SET_KEY];
         if (o != null) {
@@ -242,7 +239,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      * 
      *  @method moveKeyField
      */
-    prototype.moveKeyField = function() {
+    moveKeyField() {
         var o = (this)["https://schema.cassproject.org/0.3/ppk"];
         if (o != null) {
             var ev = new EcEncryptedValue();
@@ -255,8 +252,8 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
             delete (this)["https://schema.cassproject.org/0.3/ppk"];
         }
     };
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         this.movePersonMembersToEmployee();
         this.moveKeyField();
     };
@@ -266,7 +263,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @return {String}
      *  @method getFingerprintFromId
      */
-    prototype.getFingerprintFromId = function() {
+    getFingerprintFromId() {
         return this.getGuid();
     };
     /**
@@ -275,7 +272,7 @@ EcOrganization = stjs.extend(EcOrganization, Organization, [], function(construc
      *  @return {String}
      *  @method getFingerprintFromId
      */
-    prototype.getFingerprint = function() {
+    getFingerprint() {
         return this.getGuid();
     };
 }, {serviceArea: "GeoShape", address: "PostalAddress", funder: "Person", memberOf: "Organization", subOrganization: "Organization", hasOfferCatalog: "OfferCatalog", reviews: "Review", members: "Organization", aggregateRating: "AggregateRating", makesOffer: "Offer", contactPoints: "ContactPoint", seeks: "Demand", member: "Organization", founders: "Person", alumni: "Person", events: "SchemaEvent", logo: "ImageObject", employees: "Person", department: "Organization", contactPoint: "ContactPoint", parentOrganization: "Organization", employee: "Person", numberOfEmployees: "QuantitativeValue", hasPOS: "Place", review: "Review", foundingLocation: "Place", owns: "OwnershipInfo", event: "SchemaEvent", founder: "Person", sponsor: "Organization", location: "PostalAddress", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

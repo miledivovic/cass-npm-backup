@@ -25,7 +25,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property actor
      *  @type Person
      */
-    prototype.actor = null;
+    actor = null;
     /**
      *  Schema.org/videoFrameSize
      *  The frame size of the video.
@@ -33,7 +33,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property videoFrameSize
      *  @type Text
      */
-    prototype.videoFrameSize = null;
+    videoFrameSize = null;
     /**
      *  Schema.org/musicBy
      *  The composer of the soundtrack.
@@ -41,7 +41,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property musicBy
      *  @type Person
      */
-    prototype.musicBy = null;
+    musicBy = null;
     /**
      *  Schema.org/directors
      *  A director of e.g. tv, radio, movie, video games etc. content. Directors can be associated with individual items or with a series, episode, clip.
@@ -49,7 +49,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property directors
      *  @type Person
      */
-    prototype.directors = null;
+    directors = null;
     /**
      *  Schema.org/director
      *  A director of e.g. tv, radio, movie, video gaming etc. content, or of an event. Directors can be associated with individual items or with a series, episode, clip.
@@ -57,7 +57,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property director
      *  @type Person
      */
-    prototype.director = null;
+    director = null;
     /**
      *  Schema.org/transcript
      *  If this MediaObject is an AudioObject or VideoObject, the transcript of that object.
@@ -65,7 +65,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property transcript
      *  @type Text
      */
-    prototype.transcript = null;
+    transcript = null;
     /**
      *  Schema.org/videoQuality
      *  The quality of the video.
@@ -73,7 +73,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property videoQuality
      *  @type Text
      */
-    prototype.videoQuality = null;
+    videoQuality = null;
     /**
      *  Schema.org/thumbnail
      *  Thumbnail image for an image or video.
@@ -81,7 +81,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property thumbnail
      *  @type ImageObject
      */
-    prototype.thumbnail = null;
+    thumbnail = null;
     /**
      *  Schema.org/caption
      *  The caption for this object.
@@ -89,7 +89,7 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property caption
      *  @type Text
      */
-    prototype.caption = null;
+    caption = null;
     /**
      *  Schema.org/actors
      *  An actor, e.g. in tv, radio, movie, video games etc. Actors can be associated with individual items or with a series, episode, clip.
@@ -97,5 +97,5 @@ VideoObject = stjs.extend(VideoObject, MediaObject, [], function(constructor, pr
      *  @property actors
      *  @type Person
      */
-    prototype.actors = null;
+    actors = null;
 }, {actor: "Person", musicBy: "Person", directors: "Person", director: "Person", thumbnail: "ImageObject", actors: "Person", height: "Distance", regionsAllowed: "Place", width: "Distance", associatedArticle: "NewsArticle", productionCompany: "Organization", duration: "Duration", encodesCreativeWork: "CreativeWork", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

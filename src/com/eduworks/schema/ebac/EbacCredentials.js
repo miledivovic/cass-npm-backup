@@ -10,40 +10,40 @@ var EbacCredentials = function() {
     EcLinkedData.call(this, Ebac.context, EbacCredentials.TYPE_0_4);
 };
 EbacCredentials = stjs.extend(EbacCredentials, EcLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/credentials";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/credentials";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/Credentials";
-    constructor.TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/Credentials";
+    static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/credentials";
+    static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/credentials";
+    static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/Credentials";
+    static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/Credentials";
     /**
      *  One time pad that may be used in password recovery. Base64 encoded.
      * 
      *  @property pad
      *  @type string
      */
-    prototype.pad = null;
+    pad = null;
     /**
      *  Token provided by server to use in commit actions.
      * 
      *  @property token
      *  @type string
      */
-    prototype.token = null;
+    token = null;
     /**
      *  Credential array.
      * 
      *  @property credentials
      *  @type EbacCredential[]
      */
-    prototype.credentials = null;
+    credentials = null;
     /**
      *  Contact array.
      * 
      *  @property contacts
      *  @type EbacContact[]
      */
-    prototype.contacts = null;
-    prototype.upgrade = function() {
-        EcLinkedData.prototype.upgrade.call(this);
+    contacts = null;
+    upgrade() {
+        EcLinkedData.upgrade.call(this);
         if (EbacCredentials.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -57,7 +57,7 @@ EbacCredentials = stjs.extend(EbacCredentials, EcLinkedData, [], function(constr
             this.setContextAndType(Ebac.context_0_4, EbacCredentials.TYPE_0_4);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(EbacCredentials.TYPE_0_4);
         a.push(EbacCredentials.TYPE_0_3);

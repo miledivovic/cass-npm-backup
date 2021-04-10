@@ -11,9 +11,9 @@ var MoodleConfig = function() {
     EcLinkedData.call(this, null, null);
 };
 MoodleConfig = stjs.extend(MoodleConfig, EcLinkedData, [], function(constructor, prototype) {
-    prototype.enabled = false;
-    prototype.moodleEndpoint = null;
-    prototype.moodleToken = null;
+    enabled = false;
+    moodleEndpoint = null;
+    moodleToken = null;
     /**
      *  Retrieves the Moodle adapter configuration values from the server
      * 
@@ -27,7 +27,7 @@ MoodleConfig = stjs.extend(MoodleConfig, EcLinkedData, [], function(constructor,
      *  @method get
      *  @static
      */
-    constructor.get = function(serverUrl, success, failure) {
+    static get(serverUrl, success, failure) {
         var fd = new FormData();
         var offset = EcRepository.setOffset(serverUrl);
         EcIdentityManager.signatureSheetAsync(60000 + offset, serverUrl, function(signatureSheet) {
@@ -48,7 +48,7 @@ MoodleConfig = stjs.extend(MoodleConfig, EcLinkedData, [], function(constructor,
      *  @method get
      *  @static
      */
-    constructor.getMoodleKey = function(serverUrl, success, failure) {
+    static getMoodleKey(serverUrl, success, failure) {
         var fd = new FormData();
         var offset = EcRepository.setOffset(serverUrl);
         EcIdentityManager.signatureSheetAsync(60000 + offset, serverUrl, function(signatureSheet) {
@@ -56,10 +56,10 @@ MoodleConfig = stjs.extend(MoodleConfig, EcLinkedData, [], function(constructor,
             EcRemote.postExpectingString(serverUrl, "adapter/moodle/config/key", fd, success, failure);
         }, failure);
     };
-    constructor.syncCassToMoodle = function(serverUrl, success, failure) {
+    static syncCassToMoodle(serverUrl, success, failure) {
         EcRemote.postExpectingString(serverUrl, "moodle/cassToMoodle", new FormData(), success, failure);
     };
-    constructor.syncMoodleToCass = function(serverUrl, success, failure) {
+    static syncMoodleToCass(serverUrl, success, failure) {
         EcRemote.postExpectingString(serverUrl, "moodle/moodleToCass", new FormData(), success, failure);
     };
     /**
@@ -74,7 +74,7 @@ MoodleConfig = stjs.extend(MoodleConfig, EcLinkedData, [], function(constructor,
      *  @memberOf MoodleConfig
      *  @method save
      */
-    prototype.save = function(serverUrl, success, failure) {
+    save(serverUrl, success, failure) {
         var fd = new FormData();
         fd.append("config", JSON.stringify(this));
         var offset = EcRepository.setOffset(serverUrl);

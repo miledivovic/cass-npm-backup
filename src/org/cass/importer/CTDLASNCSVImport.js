@@ -1,5 +1,5 @@
 module.exports = class CTDLASNCSVImport{
-    constructor.analyzeFile = function(file, success, failure) {
+    static analyzeFile(file, success, failure) {
         if (file == null) {
             failure("No file to analyze");
             return;
@@ -40,7 +40,7 @@ module.exports = class CTDLASNCSVImport{
             success(frameworkCounter, competencyCounter);
         }, error: failure});
     };
-    constructor.importFrameworksAndCompetencies = function(repo, file, success, failure, ceo, endpoint) {
+    static importFrameworksAndCompetencies(repo, file, success, failure, ceo, endpoint) {
         if (file == null) {
             failure("No file to analyze");
             return;
@@ -204,7 +204,7 @@ module.exports = class CTDLASNCSVImport{
             });
         }, error: failure});
     };
-    constructor.getIdFromCtid = function(ctid, endpoint, repo, context, type, key) {
+    static getIdFromCtid(ctid, endpoint, repo, context, type, key) {
         if (key != "id") {
             if (key == "ceasn:isPartOf" || key == "ceasn:isTopChildOf") {
                 if (type == "Competency") {
@@ -236,7 +236,7 @@ module.exports = class CTDLASNCSVImport{
             }
         }
     };
-    constructor.cleanUpTranslator = function(translator, endpoint, repo) {
+    static cleanUpTranslator(translator, endpoint, repo) {
         var context = null;
         var type = null;
         if ((translator)["type"] == "ceasn:CompetencyFramework") {
@@ -289,7 +289,7 @@ module.exports = class CTDLASNCSVImport{
             }
         }
     };
-    constructor.createRelations = function(e, field, type, repo, ceo, id, relations, relationById, frameworks, endpoint) {
+    static createRelations(e, field, type, repo, ceo, id, relations, relationById, frameworks, endpoint) {
         if (!EcArray.isArray((e)[field])) {
             var makeArray = Array((e)[field]);
             (e)[field] = makeArray;
@@ -298,7 +298,7 @@ module.exports = class CTDLASNCSVImport{
             CTDLASNCSVImport.createEachRelation(e, field, type, repo, ceo, id, relations, relationById, frameworks, i, endpoint);
         }
     };
-    constructor.createEachRelation = function(e, field, type, repo, ceo, id, relations, relationById, frameworks, i, endpoint) {
+    static createEachRelation(e, field, type, repo, ceo, id, relations, relationById, frameworks, i, endpoint) {
         var r = new EcAlignment();
         if (endpoint != null) {
             r.generateShortId(endpoint);
@@ -337,7 +337,7 @@ module.exports = class CTDLASNCSVImport{
         (relationById)[r.shortId()] = r;
         ((frameworks)[(e)["ceasn:isPartOf"]]).relation.push(r.shortId());
     };
-    constructor.setDateCreated = function(importObject, object) {
+    static setDateCreated(importObject, object) {
         if ((importObject)["ceasn:dateCreated"] == null && (importObject)["schema:dateCreated"] == null) {
             var timestamp = object.getTimestamp();
             var date;
@@ -349,4 +349,4 @@ module.exports = class CTDLASNCSVImport{
             (object)["schema:dateCreated"] = date;
         }
     };
-}, {}, {});
+};

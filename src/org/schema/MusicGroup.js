@@ -25,7 +25,7 @@ MusicGroup = stjs.extend(MusicGroup, PerformingGroup, [], function(constructor, 
      *  @property albums
      *  @type MusicAlbum
      */
-    prototype.albums = null;
+    albums = null;
     /**
      *  Schema.org/track
      *  A music recording (track)&#x2014;usually a single song. If an ItemList is given, the list should contain items of type MusicRecording.
@@ -33,7 +33,7 @@ MusicGroup = stjs.extend(MusicGroup, PerformingGroup, [], function(constructor, 
      *  @property track
      *  @type MusicRecording
      */
-    prototype.track = null;
+    track = null;
     /**
      *  Schema.org/genre
      *  Genre of the creative work, broadcast channel or group.
@@ -41,7 +41,7 @@ MusicGroup = stjs.extend(MusicGroup, PerformingGroup, [], function(constructor, 
      *  @property genre
      *  @type URL
      */
-    prototype.genre = null;
+    genre = null;
     /**
      *  Schema.org/tracks
      *  A music recording (track)&#x2014;usually a single song.
@@ -49,7 +49,7 @@ MusicGroup = stjs.extend(MusicGroup, PerformingGroup, [], function(constructor, 
      *  @property tracks
      *  @type MusicRecording
      */
-    prototype.tracks = null;
+    tracks = null;
     /**
      *  Schema.org/musicGroupMember
      *  A member of a music group&#x2014;for example, John, Paul, George, or Ringo.
@@ -57,7 +57,7 @@ MusicGroup = stjs.extend(MusicGroup, PerformingGroup, [], function(constructor, 
      *  @property musicGroupMember
      *  @type Person
      */
-    prototype.musicGroupMember = null;
+    musicGroupMember = null;
     /**
      *  Schema.org/album
      *  A music album.
@@ -65,5 +65,5 @@ MusicGroup = stjs.extend(MusicGroup, PerformingGroup, [], function(constructor, 
      *  @property album
      *  @type MusicAlbum
      */
-    prototype.album = null;
+    album = null;
 }, {albums: "MusicAlbum", track: "MusicRecording", tracks: "MusicRecording", musicGroupMember: "Person", album: "MusicAlbum", serviceArea: "GeoShape", address: "PostalAddress", funder: "Person", memberOf: "Organization", subOrganization: "Organization", hasOfferCatalog: "OfferCatalog", reviews: "Review", members: "Organization", aggregateRating: "AggregateRating", makesOffer: "Offer", contactPoints: "ContactPoint", seeks: "Demand", member: "Organization", founders: "Person", alumni: "Person", events: "SchemaEvent", logo: "ImageObject", employees: "Person", department: "Organization", contactPoint: "ContactPoint", parentOrganization: "Organization", employee: "Person", numberOfEmployees: "QuantitativeValue", hasPOS: "Place", review: "Review", foundingLocation: "Place", owns: "OwnershipInfo", event: "SchemaEvent", founder: "Person", sponsor: "Organization", location: "PostalAddress", brand: "Organization", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

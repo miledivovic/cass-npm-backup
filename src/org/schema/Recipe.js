@@ -25,7 +25,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property recipeYield
      *  @type Text
      */
-    prototype.recipeYield = null;
+    recipeYield = null;
     /**
      *  Schema.org/recipeCategory
      *  The category of the recipe—for example, appetizer, entree, etc.
@@ -33,7 +33,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property recipeCategory
      *  @type Text
      */
-    prototype.recipeCategory = null;
+    recipeCategory = null;
     /**
      *  Schema.org/prepTime
      *  The length of time it takes to prepare the recipe, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
@@ -41,7 +41,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property prepTime
      *  @type Duration
      */
-    prototype.prepTime = null;
+    prepTime = null;
     /**
      *  Schema.org/recipeIngredient
      *  A single ingredient used in the recipe, e.g. sugar, flour or garlic.
@@ -49,7 +49,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property recipeIngredient
      *  @type Text
      */
-    prototype.recipeIngredient = null;
+    recipeIngredient = null;
     /**
      *  Schema.org/recipeInstructions
      *  A step or instruction involved in making the recipe.
@@ -57,7 +57,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property recipeInstructions
      *  @type ItemList
      */
-    prototype.recipeInstructions = null;
+    recipeInstructions = null;
     /**
      *  Schema.org/nutrition
      *  Nutrition information about the recipe or menu item.
@@ -65,7 +65,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property nutrition
      *  @type NutritionInformation
      */
-    prototype.nutrition = null;
+    nutrition = null;
     /**
      *  Schema.org/suitableForDiet
      *  Indicates a dietary restriction or guideline for which this recipe or menu item is suitable, e.g. diabetic, halal etc.
@@ -73,7 +73,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property suitableForDiet
      *  @type RestrictedDiet
      */
-    prototype.suitableForDiet = null;
+    suitableForDiet = null;
     /**
      *  Schema.org/recipeCuisine
      *  The cuisine of the recipe (for example, French or Ethiopian).
@@ -81,7 +81,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property recipeCuisine
      *  @type Text
      */
-    prototype.recipeCuisine = null;
+    recipeCuisine = null;
     /**
      *  Schema.org/cookTime
      *  The time it takes to actually cook the dish, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
@@ -89,7 +89,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property cookTime
      *  @type Duration
      */
-    prototype.cookTime = null;
+    cookTime = null;
     /**
      *  Schema.org/totalTime
      *  The total time it takes to prepare and cook the recipe, in [ISO 8601 duration format](http://en.wikipedia.org/wiki/ISO_8601).
@@ -97,7 +97,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property totalTime
      *  @type Duration
      */
-    prototype.totalTime = null;
+    totalTime = null;
     /**
      *  Schema.org/cookingMethod
      *  The method of cooking, such as Frying, Steaming, ...
@@ -105,7 +105,7 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property cookingMethod
      *  @type Text
      */
-    prototype.cookingMethod = null;
+    cookingMethod = null;
     /**
      *  Schema.org/ingredients
      *  A single ingredient used in the recipe, e.g. sugar, flour or garlic.
@@ -113,5 +113,5 @@ Recipe = stjs.extend(Recipe, CreativeWork, [], function(constructor, prototype) 
      *  @property ingredients
      *  @type Text
      */
-    prototype.ingredients = null;
+    ingredients = null;
 }, {prepTime: "Duration", recipeInstructions: "ItemList", nutrition: "NutritionInformation", suitableForDiet: "RestrictedDiet", cookTime: "Duration", totalTime: "Duration", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

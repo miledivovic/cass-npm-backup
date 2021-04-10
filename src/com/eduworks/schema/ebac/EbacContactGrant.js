@@ -12,38 +12,38 @@ var EbacContactGrant = function() {
     EcRemoteLinkedData.call(this, Ebac.context, EbacContactGrant.TYPE_0_4);
 };
 EbacContactGrant = stjs.extend(EbacContactGrant, EcRemoteLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/contactGrant";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/contactGrant";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/ContactGrant";
-    constructor.TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/ContactGrant";
+    static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/contactGrant";
+    static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/contactGrant";
+    static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/ContactGrant";
+    static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/ContactGrant";
     /**
      *  Public key being granted to the owner of this message.
      * 
      *  @property pk
      *  @type string(pem)
      */
-    prototype.pk = null;
+    pk = null;
     /**
      *  Display name of the contact.
      * 
      *  @property displayName
      *  @type string
      */
-    prototype.displayName = null;
+    displayName = null;
     /**
      *  Source server of the contact.
      * 
      *  @property source
      *  @type string
      */
-    prototype.source = null;
+    source = null;
     /**
      *  Response token used to validate that this grant is in response to a contact request you sent.
      * 
      *  @property responseToken
      *  @type string
      */
-    prototype.responseToken = null;
+    responseToken = null;
     /**
      *  Signature (Base64 encoded) of the response token to verify against your own public key
      *  to ensure that this grant is in response to a contact request you sent.
@@ -51,9 +51,9 @@ EbacContactGrant = stjs.extend(EbacContactGrant, EcRemoteLinkedData, [], functio
      *  @property responseSignature
      *  @type string
      */
-    prototype.responseSignature = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    responseSignature = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (EbacContactGrant.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -67,7 +67,7 @@ EbacContactGrant = stjs.extend(EbacContactGrant, EcRemoteLinkedData, [], functio
             this.setContextAndType(Ebac.context_0_4, EbacContactGrant.TYPE_0_4);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(EbacContactGrant.TYPE_0_4);
         a.push(EbacContactGrant.TYPE_0_3);

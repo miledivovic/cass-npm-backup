@@ -25,7 +25,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property sku
      *  @type Text
      */
-    prototype.sku = null;
+    sku = null;
     /**
      *  Schema.org/availabilityStarts
      *  The beginning of the availability of the product or service included in the offer.
@@ -33,7 +33,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property availabilityStarts
      *  @type DateTime
      */
-    prototype.availabilityStarts = null;
+    availabilityStarts = null;
     /**
      *  Schema.org/availableDeliveryMethod
      *  The delivery method(s) available for this offer.
@@ -41,7 +41,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property availableDeliveryMethod
      *  @type DeliveryMethod
      */
-    prototype.availableDeliveryMethod = null;
+    availableDeliveryMethod = null;
     /**
      *  Schema.org/mpn
      *  The Manufacturer Part Number (MPN) of the product, or the product to which the offer refers.
@@ -49,7 +49,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property mpn
      *  @type Text
      */
-    prototype.mpn = null;
+    mpn = null;
     /**
      *  Schema.org/serialNumber
      *  The serial number or any alphanumeric identifier of a particular product. When attached to an offer, it is a shortcut for the serial number of the product included in the offer.
@@ -57,7 +57,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property serialNumber
      *  @type Text
      */
-    prototype.serialNumber = null;
+    serialNumber = null;
     /**
      *  Schema.org/ineligibleRegion
      *  The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is not valid, e.g. a region where the transaction is not allowed.\n\nSee also [[eligibleRegion]].
@@ -65,7 +65,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property ineligibleRegion
      *  @type GeoShape
      */
-    prototype.ineligibleRegion = null;
+    ineligibleRegion = null;
     /**
      *  Schema.org/gtin8
      *  The [GTIN-8](http://apps.gs1.org/GDD/glossary/Pages/GTIN-8.aspx) code of the product, or the product to which the offer refers. This code is also known as EAN/UCC-8 or 8-digit EAN. See [GS1 GTIN Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
@@ -73,7 +73,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property gtin8
      *  @type Text
      */
-    prototype.gtin8 = null;
+    gtin8 = null;
     /**
      *  Schema.org/availability
      *  The availability of this item&#x2014;for example In stock, Out of stock, Pre-order, etc.
@@ -81,7 +81,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property availability
      *  @type ItemAvailability
      */
-    prototype.availability = null;
+    availability = null;
     /**
      *  Schema.org/priceSpecification
      *  One or more detailed price specifications, indicating the unit price and delivery or payment charges.
@@ -89,7 +89,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property priceSpecification
      *  @type PriceSpecification
      */
-    prototype.priceSpecification = null;
+    priceSpecification = null;
     /**
      *  Schema.org/inventoryLevel
      *  The current approximate inventory level for the item or items.
@@ -97,7 +97,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property inventoryLevel
      *  @type QuantitativeValue
      */
-    prototype.inventoryLevel = null;
+    inventoryLevel = null;
     /**
      *  Schema.org/eligibleTransactionVolume
      *  The transaction volume, in a monetary unit, for which the offer or price specification is valid, e.g. for indicating a minimal purchasing volume, to express free shipping above a certain order volume, or to limit the acceptance of credit cards to purchases to a certain minimal amount.
@@ -105,7 +105,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property eligibleTransactionVolume
      *  @type PriceSpecification
      */
-    prototype.eligibleTransactionVolume = null;
+    eligibleTransactionVolume = null;
     /**
      *  Schema.org/availableAtOrFrom
      *  The place(s) from which the offer can be obtained (e.g. store locations).
@@ -113,7 +113,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property availableAtOrFrom
      *  @type Place
      */
-    prototype.availableAtOrFrom = null;
+    availableAtOrFrom = null;
     /**
      *  Schema.org/warranty
      *  The warranty promise(s) included in the offer.
@@ -121,7 +121,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property warranty
      *  @type WarrantyPromise
      */
-    prototype.warranty = null;
+    warranty = null;
     /**
      *  Schema.org/includesObject
      *  This links to a node or nodes indicating the exact quantity of the products included in the offer.
@@ -129,7 +129,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property includesObject
      *  @type TypeAndQuantityNode
      */
-    prototype.includesObject = null;
+    includesObject = null;
     /**
      *  Schema.org/eligibleQuantity
      *  The interval and unit of measurement of ordering quantities for which the offer or price specification is valid. This allows e.g. specifying that a certain freight charge is valid only for a certain quantity.
@@ -137,7 +137,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property eligibleQuantity
      *  @type QuantitativeValue
      */
-    prototype.eligibleQuantity = null;
+    eligibleQuantity = null;
     /**
      *  Schema.org/validFrom
      *  The date when the item becomes valid.
@@ -145,7 +145,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property validFrom
      *  @type DateTime
      */
-    prototype.validFrom = null;
+    validFrom = null;
     /**
      *  Schema.org/validThrough
      *  The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.
@@ -153,7 +153,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property validThrough
      *  @type DateTime
      */
-    prototype.validThrough = null;
+    validThrough = null;
     /**
      *  Schema.org/gtin14
      *  The [GTIN-14](http://apps.gs1.org/GDD/glossary/Pages/GTIN-14.aspx) code of the product, or the product to which the offer refers. See [GS1 GTIN Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
@@ -161,7 +161,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property gtin14
      *  @type Text
      */
-    prototype.gtin14 = null;
+    gtin14 = null;
     /**
      *  Schema.org/gtin13
      *  The [GTIN-13](http://apps.gs1.org/GDD/glossary/Pages/GTIN-13.aspx) code of the product, or the product to which the offer refers. This is equivalent to 13-digit ISBN codes and EAN UCC-13. Former 12-digit UPC codes can be converted into a GTIN-13 code by simply adding a preceeding zero. See [GS1 GTIN Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
@@ -169,7 +169,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property gtin13
      *  @type Text
      */
-    prototype.gtin13 = null;
+    gtin13 = null;
     /**
      *  Schema.org/gtin12
      *  The [GTIN-12](http://apps.gs1.org/GDD/glossary/Pages/GTIN-12.aspx) code of the product, or the product to which the offer refers. The GTIN-12 is the 12-digit GS1 Identification Key composed of a U.P.C. Company Prefix, Item Reference, and Check Digit used to identify trade items. See [GS1 GTIN Summary](http://www.gs1.org/barcodes/technical/idkeys/gtin) for more details.
@@ -177,7 +177,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property gtin12
      *  @type Text
      */
-    prototype.gtin12 = null;
+    gtin12 = null;
     /**
      *  Schema.org/seller
      *  An entity which offers (sells / leases / lends / loans) the services / goods.  A seller may also be a provider.
@@ -185,7 +185,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property seller
      *  @type Person
      */
-    prototype.seller = null;
+    seller = null;
     /**
      *  Schema.org/deliveryLeadTime
      *  The typical delay between the receipt of the order and the goods either leaving the warehouse or being prepared for pickup, in case the delivery method is on site pickup.
@@ -193,7 +193,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property deliveryLeadTime
      *  @type QuantitativeValue
      */
-    prototype.deliveryLeadTime = null;
+    deliveryLeadTime = null;
     /**
      *  Schema.org/availabilityEnds
      *  The end of the availability of the product or service included in the offer.
@@ -201,7 +201,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property availabilityEnds
      *  @type DateTime
      */
-    prototype.availabilityEnds = null;
+    availabilityEnds = null;
     /**
      *  Schema.org/eligibleCustomerType
      *  The type(s) of customers for which the given offer is valid.
@@ -209,7 +209,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property eligibleCustomerType
      *  @type BusinessEntityType
      */
-    prototype.eligibleCustomerType = null;
+    eligibleCustomerType = null;
     /**
      *  Schema.org/itemCondition
      *  A predefined value from OfferItemCondition or a textual description of the condition of the product or service, or the products or services included in the offer.
@@ -217,7 +217,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property itemCondition
      *  @type OfferItemCondition
      */
-    prototype.itemCondition = null;
+    itemCondition = null;
     /**
      *  Schema.org/itemOffered
      *  The item being offered.
@@ -225,7 +225,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property itemOffered
      *  @type Service
      */
-    prototype.itemOffered = null;
+    itemOffered = null;
     /**
      *  Schema.org/eligibleDuration
      *  The duration for which the given offer is valid.
@@ -233,7 +233,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property eligibleDuration
      *  @type QuantitativeValue
      */
-    prototype.eligibleDuration = null;
+    eligibleDuration = null;
     /**
      *  Schema.org/acceptedPaymentMethod
      *  The payment method(s) accepted by seller for this offer.
@@ -241,7 +241,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property acceptedPaymentMethod
      *  @type LoanOrCredit
      */
-    prototype.acceptedPaymentMethod = null;
+    acceptedPaymentMethod = null;
     /**
      *  Schema.org/areaServed
      *  The geographic area where a service or offered item is provided.
@@ -249,7 +249,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property areaServed
      *  @type Place
      */
-    prototype.areaServed = null;
+    areaServed = null;
     /**
      *  Schema.org/businessFunction
      *  The business function (e.g. sell, lease, repair, dispose) of the offer or component of a bundle (TypeAndQuantityNode). The default is http://purl.org/goodrelations/v1#Sell.
@@ -257,7 +257,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property businessFunction
      *  @type BusinessFunction
      */
-    prototype.businessFunction = null;
+    businessFunction = null;
     /**
      *  Schema.org/eligibleRegion
      *  The ISO 3166-1 (ISO 3166-1 alpha-2) or ISO 3166-2 code, the place, or the GeoShape for the geo-political region(s) for which the offer or delivery charge specification is valid.\n\nSee also [[ineligibleRegion]].
@@ -265,7 +265,7 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property eligibleRegion
      *  @type Text
      */
-    prototype.eligibleRegion = null;
+    eligibleRegion = null;
     /**
      *  Schema.org/advanceBookingRequirement
      *  The amount of time that is required between accepting the offer and the actual usage of the resource or service.
@@ -273,5 +273,5 @@ Demand = stjs.extend(Demand, Intangible, [], function(constructor, prototype) {
      *  @property advanceBookingRequirement
      *  @type QuantitativeValue
      */
-    prototype.advanceBookingRequirement = null;
+    advanceBookingRequirement = null;
 }, {availableDeliveryMethod: "DeliveryMethod", ineligibleRegion: "GeoShape", availability: "ItemAvailability", priceSpecification: "PriceSpecification", inventoryLevel: "QuantitativeValue", eligibleTransactionVolume: "PriceSpecification", availableAtOrFrom: "Place", warranty: "WarrantyPromise", includesObject: "TypeAndQuantityNode", eligibleQuantity: "QuantitativeValue", seller: "Person", deliveryLeadTime: "QuantitativeValue", eligibleCustomerType: "BusinessEntityType", itemCondition: "OfferItemCondition", itemOffered: "Service", eligibleDuration: "QuantitativeValue", acceptedPaymentMethod: "LoanOrCredit", areaServed: "Place", businessFunction: "BusinessFunction", advanceBookingRequirement: "QuantitativeValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

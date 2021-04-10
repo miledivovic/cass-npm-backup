@@ -12,21 +12,21 @@ module.exports = class Triple{
      *  @property source
      *  @type any
      */
-    prototype.source = null;
+    source = null;
     /**
      *  Destination vertex.
      * 
      *  @property destination
      *  @type any
      */
-    prototype.destination = null;
+    destination = null;
     /**
      *  Object to hold in the edge.
      * 
      *  @property edge
      *  @type any
      */
-    prototype.edge = null;
+    edge = null;
     /**
      *  Returns true IFF sources, destinations, and edges match.
      * 
@@ -34,8 +34,8 @@ module.exports = class Triple{
      *  @return {boolean} true IFF <see method definition>
      *  @method equals
      */
-    prototype.equals = function(obj) {
-        if (Object.prototype.equals.call(this, obj)) 
+    equals(obj) {
+        if (Object.equals.call(this, obj)) 
             return true;
         if (stjs.isInstanceOf(obj.constructor, Triple)) {
             var t = obj;
@@ -44,4 +44,4 @@ module.exports = class Triple{
         }
         return false;
     };
-}, {}, {});
+};

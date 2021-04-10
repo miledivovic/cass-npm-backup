@@ -25,7 +25,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property provider
      *  @type Person
      */
-    prototype.provider = null;
+    provider = null;
     /**
      *  Schema.org/trackingUrl
      *  Tracking url for the parcel delivery.
@@ -33,7 +33,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property trackingUrl
      *  @type URL
      */
-    prototype.trackingUrl = null;
+    trackingUrl = null;
     /**
      *  Schema.org/deliveryAddress
      *  Destination address.
@@ -41,7 +41,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property deliveryAddress
      *  @type PostalAddress
      */
-    prototype.deliveryAddress = null;
+    deliveryAddress = null;
     /**
      *  Schema.org/trackingNumber
      *  Shipper tracking number.
@@ -49,7 +49,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property trackingNumber
      *  @type Text
      */
-    prototype.trackingNumber = null;
+    trackingNumber = null;
     /**
      *  Schema.org/hasDeliveryMethod
      *  Method used for delivery or shipping.
@@ -57,7 +57,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property hasDeliveryMethod
      *  @type DeliveryMethod
      */
-    prototype.hasDeliveryMethod = null;
+    hasDeliveryMethod = null;
     /**
      *  Schema.org/deliveryStatus
      *  New entry added as the package passes through each leg of its journey (from shipment to final delivery).
@@ -65,7 +65,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property deliveryStatus
      *  @type DeliveryEvent
      */
-    prototype.deliveryStatus = null;
+    deliveryStatus = null;
     /**
      *  Schema.org/carrier
      *  'carrier' is an out-dated term indicating the 'provider' for parcel delivery and flights.
@@ -73,7 +73,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property carrier
      *  @type Organization
      */
-    prototype.carrier = null;
+    carrier = null;
     /**
      *  Schema.org/originAddress
      *  Shipper's address.
@@ -81,7 +81,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property originAddress
      *  @type PostalAddress
      */
-    prototype.originAddress = null;
+    originAddress = null;
     /**
      *  Schema.org/itemShipped
      *  Item(s) being shipped.
@@ -89,7 +89,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property itemShipped
      *  @type Product
      */
-    prototype.itemShipped = null;
+    itemShipped = null;
     /**
      *  Schema.org/partOfOrder
      *  The overall order the items in this delivery were included in.
@@ -97,7 +97,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property partOfOrder
      *  @type Order
      */
-    prototype.partOfOrder = null;
+    partOfOrder = null;
     /**
      *  Schema.org/expectedArrivalFrom
      *  The earliest date the package may arrive.
@@ -105,7 +105,7 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property expectedArrivalFrom
      *  @type DateTime
      */
-    prototype.expectedArrivalFrom = null;
+    expectedArrivalFrom = null;
     /**
      *  Schema.org/expectedArrivalUntil
      *  The latest date the package may arrive.
@@ -113,5 +113,5 @@ ParcelDelivery = stjs.extend(ParcelDelivery, Intangible, [], function(constructo
      *  @property expectedArrivalUntil
      *  @type DateTime
      */
-    prototype.expectedArrivalUntil = null;
+    expectedArrivalUntil = null;
 }, {provider: "Person", deliveryAddress: "PostalAddress", hasDeliveryMethod: "DeliveryMethod", deliveryStatus: "DeliveryEvent", carrier: "Organization", originAddress: "PostalAddress", itemShipped: "Product", partOfOrder: "Order", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -25,7 +25,7 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property providesService
      *  @type Service
      */
-    prototype.providesService = null;
+    providesService = null;
     /**
      *  Schema.org/serviceLocation
      *  The location (e.g. civic structure, local business, etc.) where a person can go to access the service.
@@ -33,7 +33,7 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property serviceLocation
      *  @type Place
      */
-    prototype.serviceLocation = null;
+    serviceLocation = null;
     /**
      *  Schema.org/servicePostalAddress
      *  The address for accessing the service by mail.
@@ -41,7 +41,7 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property servicePostalAddress
      *  @type PostalAddress
      */
-    prototype.servicePostalAddress = null;
+    servicePostalAddress = null;
     /**
      *  Schema.org/availableLanguage
      *  A language someone may use with the item. Please use one of the language codes from the [IETF BCP 47 standard](http://tools.ietf.org/html/bcp47). See also [[inLanguage]]
@@ -49,7 +49,7 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property availableLanguage
      *  @type Language
      */
-    prototype.availableLanguage = null;
+    availableLanguage = null;
     /**
      *  Schema.org/serviceSmsNumber
      *  The number to access the service by text message.
@@ -57,7 +57,7 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property serviceSmsNumber
      *  @type ContactPoint
      */
-    prototype.serviceSmsNumber = null;
+    serviceSmsNumber = null;
     /**
      *  Schema.org/serviceUrl
      *  The website to access the service.
@@ -65,7 +65,7 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property serviceUrl
      *  @type URL
      */
-    prototype.serviceUrl = null;
+    serviceUrl = null;
     /**
      *  Schema.org/servicePhone
      *  The phone number to use to access the service.
@@ -73,7 +73,7 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property servicePhone
      *  @type ContactPoint
      */
-    prototype.servicePhone = null;
+    servicePhone = null;
     /**
      *  Schema.org/processingTime
      *  Estimated processing time for the service using this channel.
@@ -81,5 +81,5 @@ ServiceChannel = stjs.extend(ServiceChannel, Intangible, [], function(constructo
      *  @property processingTime
      *  @type Duration
      */
-    prototype.processingTime = null;
+    processingTime = null;
 }, {providesService: "Service", serviceLocation: "Place", servicePostalAddress: "PostalAddress", availableLanguage: "Language", serviceSmsNumber: "ContactPoint", servicePhone: "ContactPoint", processingTime: "Duration", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

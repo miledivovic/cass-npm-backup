@@ -25,7 +25,7 @@ PeopleAudience = stjs.extend(PeopleAudience, Audience, [], function(constructor,
      *  @property suggestedMaxAge
      *  @type Number
      */
-    prototype.suggestedMaxAge = null;
+    suggestedMaxAge = null;
     /**
      *  Schema.org/requiredMinAge
      *  Audiences defined by a person's minimum age.
@@ -33,7 +33,7 @@ PeopleAudience = stjs.extend(PeopleAudience, Audience, [], function(constructor,
      *  @property requiredMinAge
      *  @type Integer
      */
-    prototype.requiredMinAge = null;
+    requiredMinAge = null;
     /**
      *  Schema.org/requiredGender
      *  Audiences defined by a person's gender.
@@ -41,7 +41,7 @@ PeopleAudience = stjs.extend(PeopleAudience, Audience, [], function(constructor,
      *  @property requiredGender
      *  @type Text
      */
-    prototype.requiredGender = null;
+    requiredGender = null;
     /**
      *  Schema.org/suggestedGender
      *  The gender of the person or audience.
@@ -49,7 +49,7 @@ PeopleAudience = stjs.extend(PeopleAudience, Audience, [], function(constructor,
      *  @property suggestedGender
      *  @type Text
      */
-    prototype.suggestedGender = null;
+    suggestedGender = null;
     /**
      *  Schema.org/requiredMaxAge
      *  Audiences defined by a person's maximum age.
@@ -57,7 +57,7 @@ PeopleAudience = stjs.extend(PeopleAudience, Audience, [], function(constructor,
      *  @property requiredMaxAge
      *  @type Integer
      */
-    prototype.requiredMaxAge = null;
+    requiredMaxAge = null;
     /**
      *  Schema.org/suggestedMinAge
      *  Minimal age recommended for viewing content.
@@ -65,5 +65,5 @@ PeopleAudience = stjs.extend(PeopleAudience, Audience, [], function(constructor,
      *  @property suggestedMinAge
      *  @type Number
      */
-    prototype.suggestedMinAge = null;
+    suggestedMinAge = null;
 }, {geographicArea: "AdministrativeArea", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

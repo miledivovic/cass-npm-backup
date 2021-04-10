@@ -12,9 +12,9 @@ function() {
     this.type = "Institution";
 };
 ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(constructor, prototype) {
-    constructor.EMPLOYEE_TYPE_ADMINISTRATOR = "administrator";
-    constructor.EMPLOYEE_TYPE_ASSISTANT = "assistant";
-    constructor.EMPLOYEE_TYPE_IT = "IT";
+    static EMPLOYEE_TYPE_ADMINISTRATOR = "administrator";
+    static EMPLOYEE_TYPE_ASSISTANT = "assistant";
+    static EMPLOYEE_TYPE_IT = "IT";
     /**
      *  ExtInstitution objects use the following elements from schema.org/Organization:
      *  - id
@@ -33,10 +33,10 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  - contactPoint (for IT poc)
      *  - logo
      */
-    prototype.legacyId = null;
-    prototype.locationState = null;
-    prototype.memberCount = null;
-    prototype.communityLink = null;
+    legacyId = null;
+    locationState = null;
+    memberCount = null;
+    communityLink = null;
     /**
      *  Retrieves the institution specified with the ID from the server
      * 
@@ -51,7 +51,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.get(id, function(p1) {
             if (stjs.isInstanceOf(p1.constructor, ExtInstitution)) 
                 if (success != null) {
@@ -93,7 +93,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (stjs.isInstanceOf(p1.constructor, ExtInstitution)) 
             return p1;
@@ -136,7 +136,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         var queryAdd = new ExtInstitution().getSearchStringByType();
         if (query == null || query == "") 
             query = queryAdd;
@@ -165,7 +165,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @memberOf ExtInstitution
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
@@ -212,7 +212,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  ID of institution
      */
-    prototype.getId = function() {
+    getId() {
         return this.id;
     };
     /**
@@ -221,7 +221,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} id
      *                  ID of the Institution
      */
-    prototype.setId = function(id) {
+    setId(id) {
         this.id = id;
     };
     /**
@@ -230,7 +230,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  legacyId of institution
      */
-    prototype.getLegacyId = function() {
+    getLegacyId() {
         return this.legacyId;
     };
     /**
@@ -239,7 +239,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} id
      *                  legacyId of the Institution
      */
-    prototype.setLegacyId = function(id) {
+    setLegacyId(id) {
         this.legacyId = id;
     };
     /**
@@ -248,7 +248,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  name of institution
      */
-    prototype.getName = function() {
+    getName() {
         return this.name;
     };
     /**
@@ -257,7 +257,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} name
      *                  first name of the Institution
      */
-    prototype.setName = function(name) {
+    setName(name) {
         this.name = name;
     };
     /**
@@ -266,7 +266,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  alternate name of institution
      */
-    prototype.getAlternateName = function() {
+    getAlternateName() {
         return this.alternateName;
     };
     /**
@@ -275,7 +275,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} name
      *                  alternate name of the Institution
      */
-    prototype.setAlternateName = function(name) {
+    setAlternateName(name) {
         this.alternateName = name;
     };
     /**
@@ -284,7 +284,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  telephone of institution
      */
-    prototype.getPhone = function() {
+    getPhone() {
         return this.telephone;
     };
     /**
@@ -293,7 +293,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} phone
      *                  telephone of the Institution
      */
-    prototype.setPhone = function(phone) {
+    setPhone(phone) {
         this.telephone = phone;
     };
     /**
@@ -302,7 +302,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  fax of institution
      */
-    prototype.getFax = function() {
+    getFax() {
         return this.faxNumber;
     };
     /**
@@ -311,7 +311,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} fax
      *                  fax of the Institution
      */
-    prototype.setFax = function(fax) {
+    setFax(fax) {
         this.faxNumber = fax;
     };
     /**
@@ -320,7 +320,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  description of institution
      */
-    prototype.getDescription = function() {
+    getDescription() {
         return this.description;
     };
     /**
@@ -329,7 +329,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} desc
      *                  description of the Institution
      */
-    prototype.setDescription = function(desc) {
+    setDescription(desc) {
         this.description = desc;
     };
     /**
@@ -338,7 +338,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  web page url of institution
      */
-    prototype.getWebPage = function() {
+    getWebPage() {
         return this.sameAs;
     };
     /**
@@ -347,7 +347,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} page
      *                  web page url of the Institution
      */
-    prototype.setWebPage = function(page) {
+    setWebPage(page) {
         this.sameAs = page;
     };
     /**
@@ -356,7 +356,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  people community link of institution
      */
-    prototype.getCommunityLink = function() {
+    getCommunityLink() {
         return this.communityLink;
     };
     /**
@@ -365,7 +365,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} page
      *                  people community link of the Institution
      */
-    prototype.setCommunityLink = function(page) {
+    setCommunityLink(page) {
         this.communityLink = page;
     };
     /**
@@ -374,7 +374,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  url of institution object
      */
-    prototype.getUrl = function() {
+    getUrl() {
         return this.url;
     };
     /**
@@ -383,7 +383,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} url
      *                  url of the Institution object
      */
-    prototype.setUrl = function(url) {
+    setUrl(url) {
         this.url = url;
     };
     /**
@@ -392,7 +392,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  location state of institution
      */
-    prototype.getLocationState = function() {
+    getLocationState() {
         return this.locationState;
     };
     /**
@@ -401,7 +401,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} state
      *                  location state of the Institution
      */
-    prototype.setLocationState = function(state) {
+    setLocationState(state) {
         this.locationState = state;
     };
     /**
@@ -410,7 +410,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {ImageObject}
      *  image url of institution
      */
-    prototype.getImage = function() {
+    getImage() {
         return this.logo;
     };
     /**
@@ -419,7 +419,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {ImageObject} image
      *                       image object of the institution
      */
-    prototype.setImage = function(image) {
+    setImage(image) {
         this.logo = image;
     };
     /**
@@ -428,7 +428,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {String}
      *  region of institution
      */
-    prototype.getRegion = function() {
+    getRegion() {
         return this.areaServed.toString();
     };
     /**
@@ -437,7 +437,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} region
      *                  region of the Institution
      */
-    prototype.setRegion = function(region) {
+    setRegion(region) {
         this.areaServed = region;
     };
     /**
@@ -446,7 +446,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {}
      *  number of members at institution
      */
-    prototype.getMemberCount = function() {
+    getMemberCount() {
         return this.memberCount;
     };
     /**
@@ -455,7 +455,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} count
      *                  member count at the Institution
      */
-    prototype.setMemberCount = function(count) {
+    setMemberCount(count) {
         this.memberCount = count;
     };
     /**
@@ -464,7 +464,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {Person}
      *  assistant poc of institution
      */
-    prototype.getAssistantPOC = function() {
+    getAssistantPOC() {
         return this.employee;
     };
     /**
@@ -473,7 +473,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {Person} poc
      *                  assistant POC at the Institution
      */
-    prototype.setAssistantPOC = function(poc) {
+    setAssistantPOC(poc) {
         this.employee = poc;
     };
     /**
@@ -482,7 +482,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {Organization}
      *  administrative poc of institution
      */
-    prototype.getAdminPOC = function() {
+    getAdminPOC() {
         return this.member;
     };
     /**
@@ -491,7 +491,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {Organization} poc
      *                  administrativePOC at the Institution
      */
-    prototype.setAdminPOC = function(poc) {
+    setAdminPOC(poc) {
         this.member = poc;
     };
     /**
@@ -500,7 +500,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @return {ContactPoint}
      *  IT poc of institution
      */
-    prototype.getITPOC = function() {
+    getITPOC() {
         return this.contactPoint;
     };
     /**
@@ -509,7 +509,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {ContactPoint} poc
      *                        IT POC at the Institution
      */
-    prototype.setITPOC = function(poc) {
+    setITPOC(poc) {
         this.contactPoint = poc;
     };
     /**
@@ -526,7 +526,7 @@ ExtInstitution = stjs.extend(ExtInstitution, Organization, [], function(construc
      *  @param {String} addrCityState
      *  @param {String} addrZip
      */
-    prototype.addPOC = function(type, name, title, email, phone, fax, addr1, addr2, addr3, addrCityState, addrZip) {
+    addPOC(type, name, title, email, phone, fax, addr1, addr2, addr3, addrCityState, addrZip) {
         var addr = new PostalAddress();
         if (addr1 != null && addr1 != "" && addr2 != null && addr2 != "" && addr3 != null && addr3 != "") {
             addr.name = addr1.trim();

@@ -11,27 +11,27 @@ var Level = function() {
     this.setContextAndType(Cass.context, Level.myType);
 };
 Level = stjs.extend(Level, CreativeWork, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/level";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/level";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/0.2/Level";
-    constructor.TYPE_0_4 = "http://schema.cassproject.org/0.3/Level";
-    constructor.TYPE_0_5 = "https://schema.cassproject.org/0.3/Level";
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/Level";
-    constructor.myType = Level.TYPE_0_6;
+    static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/level";
+    static TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/level";
+    static TYPE_0_3 = "http://schema.cassproject.org/0.2/Level";
+    static TYPE_0_4 = "http://schema.cassproject.org/0.3/Level";
+    static TYPE_0_5 = "https://schema.cassproject.org/0.3/Level";
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/Level";
+    static myType = Level.TYPE_0_6;
     /**
      *  Specifies the URL of the competency this level relates to.
      * 
      *  @property competency
      *  @type string(URL)
      */
-    prototype.competency = null;
+    competency = null;
     /**
      *  The title that one who holds this performance level may assume.
      * 
      *  @property title
      *  @type string
      */
-    prototype.title = null;
+    title = null;
     /**
      *  The performance characteristics required by this level in text form.
      *  FR - Represented by description.
@@ -39,9 +39,9 @@ Level = stjs.extend(Level, CreativeWork, [], function(constructor, prototype) {
      *  @property performance
      *  @type string
      */
-    prototype.performance = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    performance = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (Level.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -61,7 +61,7 @@ Level = stjs.extend(Level, CreativeWork, [], function(constructor, prototype) {
             this.setContextAndType(Cass.context_0_6, Level.TYPE_0_6);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(Level.TYPE_0_6);
         a.push(Level.TYPE_0_5);

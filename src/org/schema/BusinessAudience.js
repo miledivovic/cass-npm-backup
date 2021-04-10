@@ -25,7 +25,7 @@ BusinessAudience = stjs.extend(BusinessAudience, Audience, [], function(construc
      *  @property yearsInOperation
      *  @type QuantitativeValue
      */
-    prototype.yearsInOperation = null;
+    yearsInOperation = null;
     /**
      *  Schema.org/yearlyRevenue
      *  The size of the business in annual revenue.
@@ -33,7 +33,7 @@ BusinessAudience = stjs.extend(BusinessAudience, Audience, [], function(construc
      *  @property yearlyRevenue
      *  @type QuantitativeValue
      */
-    prototype.yearlyRevenue = null;
+    yearlyRevenue = null;
     /**
      *  Schema.org/numberOfEmployees
      *  The number of employees in an organization e.g. business.
@@ -41,5 +41,5 @@ BusinessAudience = stjs.extend(BusinessAudience, Audience, [], function(construc
      *  @property numberOfEmployees
      *  @type QuantitativeValue
      */
-    prototype.numberOfEmployees = null;
+    numberOfEmployees = null;
 }, {yearsInOperation: "QuantitativeValue", yearlyRevenue: "QuantitativeValue", numberOfEmployees: "QuantitativeValue", geographicArea: "AdministrativeArea", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -6,33 +6,33 @@
  *  @author fritz.ray@eduworks.com
  *  @module org.json.ld
  *  @class EcLinkedData
- */
-var EcLinkedData = /**
+ *//**
  *  Create a linked data object.
  * 
  *  @param {string} context JSON-LD Context.
  *  @param {string} type JSON-LD Type.
  *  @constructor
  */
-function(context, type) {
-    this.setContextAndType(context, type);
-};
-EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototype) {
-    constructor.atProperties = ["id", "type", "schema", "context", "graph"];
+    
+module.exports = class EcLinkedData{
+    constructor(context,type){
+        this.setContextAndType(context, type);
+    }
+    static atProperties = ["id", "type", "schema", "context", "graph"];
     /**
      *  JSON-LD @type field.
      * 
      *  @property type
      *  @type string
      */
-    prototype.type = null;
+    type = null;
     /**
      *  JSON-LD @context field.
      * 
      *  @property context
      *  @type string
      */
-    prototype.context = null;
+    context = null;
     /**
      *  Determines which fields to serialize into @fields.
      * 
@@ -42,7 +42,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @static
      *  @method isAtProperty
      */
-    constructor.isAtProperty = function(key) {
+    static isAtProperty(key) {
         for (var i = 0; i < EcLinkedData.atProperties.length; i++) 
             if (EcLinkedData.atProperties[i].equals(key)) 
                 return true;
@@ -57,7 +57,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @method isProbablyJson
      *  @static
      */
-    constructor.isProbablyJson = function(probableJson) {
+    static isProbablyJson(probableJson) {
         return probableJson.trim().startsWith("{") && probableJson.trim().endsWith("}");
     };
     /**
@@ -67,7 +67,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @param {string} type JSON-LD Type.
      *  @method setContextAndType
      */
-    prototype.setContextAndType = function(context, type) {
+    setContextAndType(context, type) {
         this.context = context;
         this.type = type;
         if (type != null) {
@@ -82,7 +82,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @return {string} JSON formatted object (with JSON-LD fields).
      *  @method toJson
      */
-    prototype.toJson = function() {
+    toJson() {
         var o = this.atIfy();
         return JSON.stringify(o);
     };
@@ -95,10 +95,10 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @internal
      *  @method atIfy
      */
-    prototype.atIfy = function() {
+    atIfy() {
         return this.atIfyObject(this);
     };
-    prototype.atIfyArray = function(o) {
+    atIfyArray(o) {
         var a = new Array();
         for (var i = 0; i < o.length; i++) {
             if (EcObject.isObject(o[i])) {
@@ -114,7 +114,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
         }
         return a;
     };
-    prototype.atIfyObject = function(o) {
+    atIfyObject(o) {
         var keys = new Array();
         var me = (o);
         for (var key in me) {
@@ -152,7 +152,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @return {boolean} True if match, False if not.
      *  @method isA
      */
-    prototype.isA = function(type) {
+    isA(type) {
         var computedType = this.getFullType();
         return computedType.equals(type) || this.type.equals(type);
     };
@@ -164,7 +164,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @return {boolean} True if match, False if not.
      *  @method isAny
      */
-    prototype.isAny = function(type) {
+    isAny(type) {
         var computedType = this.getFullType();
         if (type.length == 0) 
             return true;
@@ -180,7 +180,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @return {string} Fully qualified type name.
      *  @method getFullType
      */
-    prototype.getFullType = function() {
+    getFullType() {
         if (this.context == null) 
             return this.type;
         if (this.type.indexOf("http") != -1) 
@@ -212,7 +212,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @param that The freshly deserialized object, or the object to upcast into this object.
      *  @method copyFrom
      */
-    prototype.copyFrom = function(that) {
+    copyFrom(that) {
         var me = (this);
         for (var key in me) {
             if ((typeof me[key]) != "function") 
@@ -259,7 +259,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
         if (!this.isAny(this.getTypes())) 
              throw new RuntimeException("Incompatible type: " + this.getFullType());
     };
-    prototype.recast = function(translationContext, targetContext, success, failure) {
+    recast(translationContext, targetContext, success, failure) {
         var me = this;
         var json = JSON.parse(this.toJson());
         if (targetContext == null) 
@@ -287,7 +287,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      * 
      *  @method upgrade
      */
-    prototype.upgrade = function() {};
+    upgrade() {};
     /**
      *  Removes the @ symbol from properties in order to make them more
      *  accessible in Javascript.
@@ -296,7 +296,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @method deAtify
      *  @internal
      */
-    prototype.deAtify = function() {
+    deAtify() {
         var me = (this);
         var typeFound = false;
         if (me["@type"] != null) 
@@ -326,7 +326,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
      *  @return {string[]} Array of URIs.
      *  @method getTypes
      */
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         if (this.context != null && this.type != null) {
             if (!EcObject.isObject(this.context)) {
@@ -339,7 +339,7 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
         }
         return a;
     };
-    prototype.compact = function(remoteContextUrl, success, failure) {
+    compact(remoteContextUrl, success, failure) {
         var me = this;
         jsonld.compact(this.toJson(), remoteContextUrl, new Object(), function(err, compacted, context) {
             if (err != null) {
@@ -350,4 +350,4 @@ EcLinkedData = stjs.extend(EcLinkedData, null, [], function(constructor, prototy
             success(this);
         });
     };
-}, {atProperties: {name: "Array", arguments: [null]}}, {});
+};

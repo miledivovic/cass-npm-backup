@@ -4,9 +4,9 @@ var EcQuiz = function() {
     this.context = "http://schema.eduworks.com/0.1/";
 };
 EcQuiz = stjs.extend(EcQuiz, CreativeWork, [], function(constructor, prototype) {
-    constructor.myType = "http://schema.eduworks.com/0.1/Quiz";
-    prototype.duration = null;
-    prototype.question = null;
+    static myType = "http://schema.eduworks.com/0.1/Quiz";
+    duration = null;
+    question = null;
     /**
      *  Searches a repository for quizzes that match the search query
      * 
@@ -22,7 +22,7 @@ EcQuiz = stjs.extend(EcQuiz, CreativeWork, [], function(constructor, prototype) 
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcQuiz();
         }, success, failure, paramObj);

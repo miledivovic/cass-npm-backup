@@ -17,7 +17,7 @@ module.exports = class EcRsaOaep{
      *  @method encrypt
      *  @static
      */
-    constructor.encrypt = function(pk, plaintext) {
+    static encrypt(pk, plaintext) {
         if ((typeof httpStatus) != "undefined") {
             return rsaEncrypt(plaintext, pk.toPem());
         }
@@ -33,7 +33,7 @@ module.exports = class EcRsaOaep{
      *  @method decrypt
      *  @static
      */
-    constructor.decrypt = function(ppk, ciphertext) {
+    static decrypt(ppk, ciphertext) {
         if (EcCrypto.caching) {
             var cacheGet = null;
             cacheGet = (EcCrypto.decryptionCache)[ppk.toPem() + ciphertext];
@@ -63,7 +63,7 @@ module.exports = class EcRsaOaep{
      *  @method sign
      *  @static
      */
-    constructor.sign = function(ppk, text) {
+    static sign(ppk, text) {
         if ((typeof httpStatus) != "undefined") {
             return rsaSign(text, ppk.toPem());
         }
@@ -82,7 +82,7 @@ module.exports = class EcRsaOaep{
      *  @method signSha256
      *  @static
      */
-    constructor.signSha256 = function(ppk, text) {
+    static signSha256 = function(ppk, text) {
         var s = forge.md.sha256.create();
         s.update(forge.util.encodeUtf8(text), "utf8");
         return forge.util.encode64(ppk.ppk.sign(s));
@@ -98,7 +98,7 @@ module.exports = class EcRsaOaep{
      *  @static
      *  @method verify
      */
-    constructor.verify = function(pk, text, signature) {
+    static verify(pk, text, signature) {
         if ((typeof httpStatus) != "undefined") {
             return rsaVerify(signature, pk.toPem(), text);
         }
@@ -121,7 +121,7 @@ module.exports = class EcRsaOaep{
      *  @static
      *  @method verify
      */
-    constructor.verifySha256 = function(pk, text, signature) {
+    static verifySha256 = function(pk, text, signature) {
         if ((typeof httpStatus) != "undefined") {
             return rsaVerifySha256(signature, pk.toPem(), text);
         }
@@ -133,4 +133,4 @@ module.exports = class EcRsaOaep{
             return false;
         }
     };
-}, {}, {});
+}

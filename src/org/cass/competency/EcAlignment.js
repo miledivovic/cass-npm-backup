@@ -11,11 +11,8 @@
  *  @constructor
  *  @extends Relation
  */
-var EcAlignment = function() {
-    Relation.call(this);
-};
-EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, prototype) {
-    prototype.equals = function(obj) {
+module.exports = class EcAlignment extends Relation{
+    equals(obj) {
         if ((obj).id == null) 
             return ((obj).source == this.source && (obj).target == this.target && (obj).relationType == this.relationType);
         return this.isId((obj).id);
@@ -34,7 +31,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcAlignment(), success, failure);
     };
     /**
@@ -49,7 +46,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcAlignment());
     };
     /**
@@ -69,7 +66,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcAlignment();
         }, success, failure, paramObj);
@@ -91,7 +88,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @method searchBySource
      *  @static
      */
-    constructor.searchBySource = function(repo, sourceId, success, failure, paramObj) {
+    static searchBySource(repo, sourceId, success, failure, paramObj) {
         var query = "";
         var noVersion = EcRemoteLinkedData.trimVersionFromUrl(sourceId);
         if (noVersion == sourceId) {
@@ -118,7 +115,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @method searchBySource
      *  @static
      */
-    constructor.searchBySources = function(repo, sourceIds, success, failure, paramObj) {
+    static searchBySources(repo, sourceIds, success, failure, paramObj) {
         var query = "";
         query = "(source:";
         var noVersions = [];
@@ -154,7 +151,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @method searchByCompetency
      *  @static
      */
-    constructor.searchByCompetency = function(repo, competencyId, success, failure, paramObj) {
+    static searchByCompetency(repo, competencyId, success, failure, paramObj) {
         var query = "";
         var noVersion = EcRemoteLinkedData.trimVersionFromUrl(competencyId);
         if (noVersion == competencyId) {
@@ -172,7 +169,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @memberOf EcAlignment
      *  @method setName
      */
-    prototype.setName = function(name) {
+    setName(name) {
         this.name = name;
     };
     /**
@@ -183,7 +180,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @memberOf EcAlignment
      *  @method setDescription
      */
-    prototype.setDescription = function(description) {
+    setDescription(description) {
         this.description = description;
     };
     /**
@@ -196,7 +193,7 @@ EcAlignment = stjs.extend(EcAlignment, Relation, [], function(constructor, proto
      *  @memberOf EcAlignment
      *  @method save
      */
-    prototype.save = function(success, failure, repo) {
+    save(success, failure, repo) {
         if (this.source == null || this.source == "") {
             var msg = "Source Competency cannot be missing";
             if (failure != null) 

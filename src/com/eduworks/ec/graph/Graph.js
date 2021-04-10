@@ -39,8 +39,7 @@
  *  @module com.eduworks.ec
  *  @extends Hypergraph
  */
-var Graph = function() {};
-Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) {
+module.exports = class Graph extends Hypergraph{
     /**
      *  Returns a <code>Collection</code> view of the incoming edges incident to <code>vertex</code>
      *  in this graph.
@@ -50,7 +49,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  to <code>vertex</code> in this graph
      *  @method getInEdges
      */
-    prototype.getInEdges = function(vertex) {};
+    getInEdges(vertex) {};
     /**
      *  Returns a <code>Collection</code> view of the outgoing edges incident to <code>vertex</code>
      *  in this graph.
@@ -60,7 +59,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  to <code>vertex</code> in this graph
      *  @method getOutEdges
      */
-    prototype.getOutEdges = function(vertex) {};
+    getOutEdges(vertex) {};
     /**
      *  Returns a <code>Collection</code> view of the predecessors of <code>vertex</code>
      *  in this graph.  A predecessor of <code>vertex</code> is defined as a vertex <code>v</code>
@@ -73,7 +72,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  <code>vertex</code> in this graph
      *  @method getPredecessors
      */
-    prototype.getPredecessors = function(vertex) {};
+    getPredecessors(vertex) {};
     /**
      *  Returns a <code>Collection</code> view of the successors of <code>vertex</code>
      *  in this graph.  A successor of <code>vertex</code> is defined as a vertex <code>v</code>
@@ -86,7 +85,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  <code>vertex</code> in this graph
      *  @method getSuccessors
      */
-    prototype.getSuccessors = function(vertex) {};
+    getSuccessors(vertex) {};
     /**
      *  Returns the number of incoming edges incident to <code>vertex</code>.
      *  Equivalent to <code>getInEdges(vertex).size()</code>.
@@ -95,7 +94,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return the number of incoming edges incident to <code>vertex</code>
      *  @method inDegree
      */
-    prototype.inDegree = function(vertex) {};
+    inDegree(vertex) {};
     /**
      *  Returns the number of outgoing edges incident to <code>vertex</code>.
      *  Equivalent to <code>getOutEdges(vertex).size()</code>.
@@ -104,7 +103,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return the number of outgoing edges incident to <code>vertex</code>
      *  @method outDegree
      */
-    prototype.outDegree = function(vertex) {};
+    outDegree(vertex) {};
     /**
      *  Returns <code>true</code> if <code>v1</code> is a predecessor of <code>v2</code> in this graph.
      *  Equivalent to <code>v1.getPredecessors().contains(v2)</code>.
@@ -114,7 +113,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return <code>true</code> if <code>v1</code> is a predecessor of <code>v2</code>, and false otherwise.
      *  @method isPredecessor
      */
-    prototype.isPredecessor = function(v1, v2) {};
+    isPredecessor(v1, v2) {};
     /**
      *  Returns <code>true</code> if <code>v1</code> is a successor of <code>v2</code> in this graph.
      *  Equivalent to <code>v1.getSuccessors().contains(v2)</code>.
@@ -124,7 +123,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return <code>true</code> if <code>v1</code> is a successor of <code>v2</code>, and false otherwise.
      *  @method isSuccessor
      */
-    prototype.isSuccessor = function(v1, v2) {};
+    isSuccessor(v1, v2) {};
     /**
      *  Returns the number of predecessors that <code>vertex</code> has in this graph.
      *  Equivalent to <code>vertex.getPredecessors().size()</code>.
@@ -133,7 +132,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return the number of predecessors that <code>vertex</code> has in this graph
      *  @method getPredecessorCount
      */
-    prototype.getPredecessorCount = function(vertex) {};
+    getPredecessorCount(vertex) {};
     /**
      *  Returns the number of successors that <code>vertex</code> has in this graph.
      *  Equivalent to <code>vertex.getSuccessors().size()</code>.
@@ -142,7 +141,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return the number of successors that <code>vertex</code> has in this graph
      *  @method getSuccessorCount
      */
-    prototype.getSuccessorCount = function(vertex) {};
+    getSuccessorCount(vertex) {};
     /**
      *  If <code>directed_edge</code> is a directed edge in this graph, returns the source;
      *  otherwise returns <code>null</code>.
@@ -155,7 +154,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return the source of <code>directed_edge</code> if it is a directed edge in this graph, or <code>null</code> otherwise
      *  @method getSource
      */
-    prototype.getSource = function(directed_edge) {};
+    getSource(directed_edge) {};
     /**
      *  If <code>directed_edge</code> is a directed edge in this graph, returns the destination;
      *  otherwise returns <code>null</code>.
@@ -169,7 +168,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return the destination of <code>directed_edge</code> if it is a directed edge in this graph, or <code>null</code> otherwise
      *  @method getDest
      */
-    prototype.getDest = function(directed_edge) {};
+    getDest(directed_edge) {};
     /**
      *  Returns <code>true</code> if <code>vertex</code> is the source of <code>edge</code>.
      *  Equivalent to <code>getSource(edge).equals(vertex)</code>.
@@ -179,7 +178,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return <code>true</code> iff <code>vertex</code> is the source of <code>edge</code>
      *  @method isSource
      */
-    prototype.isSource = function(vertex, edge) {};
+    isSource(vertex, edge) {};
     /**
      *  Returns <code>true</code> if <code>vertex</code> is the destination of <code>edge</code>.
      *  Equivalent to <code>getDest(edge).equals(vertex)</code>.
@@ -188,7 +187,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @param edge   the edge to be queried
      *  @return <code>true</code> iff <code>vertex</code> is the destination of <code>edge</code>
      */
-    prototype.isDest = function(vertex, edge) {};
+    isDest(vertex, edge) {};
     /**
      *  Adds edge <code>e</code> to this graph such that it connects
      *  vertex <code>v1</code> to <code>v2</code>.
@@ -209,7 +208,7 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @see Hypergraph#addEdge(Object, Collection)
      *  @see #addEdge(Object, Object, Object, EdgeType)
      */
-    prototype.addEdge = function(e, v1, v2) {};
+    addEdge(e, v1, v2) {};
     /**
      *  Returns the vertex at the other end of <code>edge</code> from <code>vertex</code>.
      *  (That is, returns the vertex incident to <code>edge</code> which is not <code>vertex</code>.)
@@ -219,5 +218,5 @@ Graph = stjs.extend(Graph, null, [Hypergraph], function(constructor, prototype) 
      *  @return the vertex at the other end of <code>edge</code> from <code>vertex</code>
      *  @method getOpposite
      */
-    prototype.getOpposite = function(vertex, edge) {};
-}, {}, {});
+    getOpposite(vertex, edge) {};
+};

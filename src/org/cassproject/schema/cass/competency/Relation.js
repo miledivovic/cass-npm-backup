@@ -19,7 +19,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @static
      *  @type string
      */
-    constructor.IS_ENABLED_BY = "isEnabledBy";
+    static IS_ENABLED_BY = "isEnabledBy";
     /**
      *  Relation type when one object requires another.
      *  Requiring relations are strict.
@@ -28,7 +28,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @static
      *  @type string
      */
-    constructor.REQUIRES = "requires";
+    static REQUIRES = "requires";
     /**
      *  Relation type when one object desires another.
      *  Desire relations improve the range of applicability or improve performance of the source.
@@ -37,7 +37,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @static
      *  @type string
      */
-    constructor.DESIRES = "desires";
+    static DESIRES = "desires";
     /**
      *  Relation type when one object is a subset of another.
      *  Narrows relations are strict, and represent a super/sub relation.
@@ -46,7 +46,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @static
      *  @type string
      */
-    constructor.NARROWS = "narrows";
+    static NARROWS = "narrows";
     /**
      *  Relation type when one object is related to another.
      *  Related relations provide linkages that do not necessarily carry information.
@@ -56,7 +56,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @static
      *  @type string
      */
-    constructor.IS_RELATED_TO = "isRelatedTo";
+    static IS_RELATED_TO = "isRelatedTo";
     /**
      *  Relation type when one object is equivalent to another.
      *  Equivalent relations define two objects that are effectively equivalent.
@@ -66,14 +66,14 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @static
      *  @type string
      */
-    constructor.IS_EQUIVALENT_TO = "isEquivalentTo";
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/relation";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/relation";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/0.2/Relation";
-    constructor.TYPE_0_4 = "http://schema.cassproject.org/0.3/Relation";
-    constructor.TYPE_0_5 = "https://schema.cassproject.org/0.3/Relation";
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/Relation";
-    constructor.myType = Relation.TYPE_0_6;
+    static IS_EQUIVALENT_TO = "isEquivalentTo";
+    static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/relation";
+    static TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/relation";
+    static TYPE_0_3 = "http://schema.cassproject.org/0.2/Relation";
+    static TYPE_0_4 = "http://schema.cassproject.org/0.3/Relation";
+    static TYPE_0_5 = "https://schema.cassproject.org/0.3/Relation";
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/Relation";
+    static myType = Relation.TYPE_0_6;
     /**
      *  URL of the object at the beginning of the relation.
      *  A <relation> B, this is A.
@@ -81,7 +81,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @property source
      *  @type string(url)
      */
-    prototype.source = null;
+    source = null;
     /**
      *  URL of the object at the end of the relation.
      *  A <relation> B, this is B.
@@ -89,7 +89,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @property target
      *  @type string(url)
      */
-    prototype.target = null;
+    target = null;
     /**
      *  URL or controlled vocabulary of the relation.
      *  A <relation> B, this is <relation>.
@@ -97,23 +97,23 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
      *  @property relationType
      *  @type string | URL
      */
-    prototype.relationType = null;
+    relationType = null;
     /**
      *  Date time in ISO 8601 format at which the relation may be observed.
      * 
      *  @property validFrom
      *  @type string
      */
-    prototype.validFrom = null;
+    validFrom = null;
     /**
      *  Date time in ISO 8601 format at which the relation may no longer be observed.
      * 
      *  @property validThrough
      *  @type string
      */
-    prototype.validThrough = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    validThrough = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if ("isEquivalenTo" == this.relationType) 
             this.relationType = Relation.IS_EQUIVALENT_TO;
         if (Relation.TYPE_0_1 == this.type) {
@@ -135,7 +135,7 @@ Relation = stjs.extend(Relation, CreativeWork, [], function(constructor, prototy
             this.setContextAndType(Cass.context_0_6, Relation.TYPE_0_6);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(Relation.TYPE_0_6);
         a.push(Relation.TYPE_0_5);

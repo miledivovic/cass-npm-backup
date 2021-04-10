@@ -12,15 +12,15 @@ function() {
     this.type = "Person";
 };
 ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) {
-    constructor.positionLabelsMap = {};
-    constructor.positionUrlsMap = {};
-    prototype.legacyId = null;
-    prototype.agreementStatus = null;
-    prototype.addressRegion = null;
-    prototype.addressLocality = null;
-    prototype.lastActiveAt = null;
-    prototype.communities = null;
-    prototype.dateCreated = null;
+    static positionLabelsMap = {};
+    static positionUrlsMap = {};
+    legacyId = null;
+    agreementStatus = null;
+    addressRegion = null;
+    addressLocality = null;
+    lastActiveAt = null;
+    communities = null;
+    dateCreated = null;
     /**
      *  Retrieves the person specified with the ID from the server
      * 
@@ -35,7 +35,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.get(id, function(p1) {
             if (stjs.isInstanceOf(p1.constructor, ExtPerson)) 
                 if (success != null) {
@@ -77,7 +77,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (stjs.isInstanceOf(p1.constructor, ExtPerson)) 
             return p1;
@@ -120,7 +120,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         var queryAdd = new ExtPerson().getSearchStringByType();
         if (query == null || query == "") 
             query = queryAdd;
@@ -149,7 +149,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @memberOf ExtPerson
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
@@ -212,7 +212,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  ID of person
      */
-    prototype.getId = function() {
+    getId() {
         return this.id;
     };
     /**
@@ -221,7 +221,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} id
      *                  ID of the Person
      */
-    prototype.setId = function(id) {
+    setId(id) {
         this.id = id;
     };
     /**
@@ -230,7 +230,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  legacyId of person
      */
-    prototype.getLegacyId = function() {
+    getLegacyId() {
         return this.legacyId;
     };
     /**
@@ -239,7 +239,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} id
      *                  legacyId of the Person
      */
-    prototype.setLegacyId = function(id) {
+    setLegacyId(id) {
         this.legacyId = id;
     };
     /**
@@ -248,7 +248,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  first name of person
      */
-    prototype.getFirstName = function() {
+    getFirstName() {
         return this.givenName;
     };
     /**
@@ -257,7 +257,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} name
      *                  first name of the Person
      */
-    prototype.setFirstName = function(name) {
+    setFirstName(name) {
         this.givenName = name;
     };
     /**
@@ -266,7 +266,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  last name of person
      */
-    prototype.getLastName = function() {
+    getLastName() {
         return this.familyName;
     };
     /**
@@ -275,7 +275,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} name
      *                  last name of the Person
      */
-    prototype.setLastName = function(name) {
+    setLastName(name) {
         this.familyName = name;
     };
     /**
@@ -284,7 +284,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  combined name of person
      */
-    prototype.getName = function() {
+    getName() {
         return this.name;
     };
     /**
@@ -293,7 +293,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} name
      *                  combined name of the Person
      */
-    prototype.setName = function(name) {
+    setName(name) {
         this.name = name;
     };
     /**
@@ -302,7 +302,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  username of person
      */
-    prototype.getUserName = function() {
+    getUserName() {
         return this.alternateName;
     };
     /**
@@ -311,7 +311,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} name
      *                  username of the Person
      */
-    prototype.setUserName = function(name) {
+    setUserName(name) {
         this.alternateName = name;
     };
     /**
@@ -320,7 +320,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  job title of person
      */
-    prototype.getJobTitle = function() {
+    getJobTitle() {
         return this.jobTitle;
     };
     /**
@@ -329,7 +329,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} title
      *                  job title of the Person
      */
-    prototype.setJobTitle = function(title) {
+    setJobTitle(title) {
         this.jobTitle = title;
     };
     /**
@@ -338,7 +338,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  email of person
      */
-    prototype.getEmail = function() {
+    getEmail() {
         return this.email;
     };
     /**
@@ -347,7 +347,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} email
      *                  email of the Person
      */
-    prototype.setEmail = function(email) {
+    setEmail(email) {
         this.email = email;
     };
     /**
@@ -356,7 +356,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  telephone of person
      */
-    prototype.getPhone = function() {
+    getPhone() {
         return this.telephone;
     };
     /**
@@ -365,7 +365,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} phone
      *                  telephone of the Person
      */
-    prototype.setPhone = function(phone) {
+    setPhone(phone) {
         this.telephone = phone;
     };
     /**
@@ -374,7 +374,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  bio of person
      */
-    prototype.getBio = function() {
+    getBio() {
         return this.description;
     };
     /**
@@ -383,7 +383,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} bio
      *                  bio of the Person
      */
-    prototype.setBio = function(bio) {
+    setBio(bio) {
         this.description = bio;
     };
     /**
@@ -392,7 +392,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  awards of person
      */
-    prototype.getAwards = function() {
+    getAwards() {
         return this.award;
     };
     /**
@@ -401,7 +401,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} awards
      *                  awards of the Person
      */
-    prototype.setAwards = function(awards) {
+    setAwards(awards) {
         this.award = awards;
     };
     /**
@@ -410,7 +410,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {Organization}
      *  affiliation of person
      */
-    prototype.getInstitution = function() {
+    getInstitution() {
         return this.affiliation;
     };
     /**
@@ -419,7 +419,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {Organization} affiliation
      *                        affiliation of the Person
      */
-    prototype.setInstitution = function(affiliation) {
+    setInstitution(affiliation) {
         this.affiliation = affiliation;
     };
     /**
@@ -428,7 +428,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  location state of person
      */
-    prototype.getLocationState = function() {
+    getLocationState() {
         return this.addressRegion;
     };
     /**
@@ -437,7 +437,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} state
      *                  location state of the Person
      */
-    prototype.setLocationState = function(state) {
+    setLocationState(state) {
         this.addressRegion = state;
     };
     /**
@@ -446,7 +446,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  location county of person
      */
-    prototype.getLocationCounty = function() {
+    getLocationCounty() {
         return this.addressLocality;
     };
     /**
@@ -455,7 +455,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} county
      *                  location county of the Person
      */
-    prototype.setLocationCounty = function(county) {
+    setLocationCounty(county) {
         this.addressLocality = county;
     };
     /**
@@ -464,7 +464,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  agreement status of person
      */
-    prototype.getAgreementStatus = function() {
+    getAgreementStatus() {
         return this.agreementStatus;
     };
     /**
@@ -473,7 +473,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} status
      *                  agreement status of the Person
      */
-    prototype.setAgreementStatus = function(status) {
+    setAgreementStatus(status) {
         this.agreementStatus = status;
     };
     /**
@@ -482,7 +482,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  account created of person
      */
-    prototype.getAccountCreated = function() {
+    getAccountCreated() {
         return this.dateCreated;
     };
     /**
@@ -491,7 +491,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} created
      *                  account created of the Person
      */
-    prototype.setAccountCreated = function(created) {
+    setAccountCreated(created) {
         this.dateCreated = created;
     };
     /**
@@ -500,7 +500,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  last active groups of person
      */
-    prototype.getLastActiveAt = function() {
+    getLastActiveAt() {
         return this.lastActiveAt;
     };
     /**
@@ -509,7 +509,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} lastGroups
      *                  last active groups of the Person
      */
-    prototype.setLastActiveAt = function(lastGroups) {
+    setLastActiveAt(lastGroups) {
         this.lastActiveAt = lastGroups;
     };
     /**
@@ -518,7 +518,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  communities of person
      */
-    prototype.getCommunities = function() {
+    getCommunities() {
         return this.communities;
     };
     /**
@@ -527,7 +527,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} communities
      *                  communities of the Person
      */
-    prototype.setCommunities = function(communities) {
+    setCommunities(communities) {
         this.communities = communities;
     };
     /**
@@ -536,7 +536,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {ImageObject}
      *  image url of person
      */
-    prototype.getImage = function() {
+    getImage() {
         return this.image;
     };
     /**
@@ -545,7 +545,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {ImageObject} image
      *                       image object of the Person
      */
-    prototype.setImage = function(image) {
+    setImage(image) {
         this.image = image;
     };
     /**
@@ -554,7 +554,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  web page url of person
      */
-    prototype.getWebPage = function() {
+    getWebPage() {
         return this.sameAs;
     };
     /**
@@ -563,7 +563,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} page
      *                  web page url of the Person
      */
-    prototype.setWebPage = function(page) {
+    setWebPage(page) {
         this.sameAs = page;
     };
     /**
@@ -572,7 +572,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  url of person object
      */
-    prototype.getUrl = function() {
+    getUrl() {
         return this.url;
     };
     /**
@@ -581,7 +581,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} url
      *                  url of the Person object
      */
-    prototype.setUrl = function(url) {
+    setUrl(url) {
         this.url = url;
     };
     /**
@@ -590,7 +590,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @return {String}
      *  URL of person's position
      */
-    prototype.getPosition = function() {
+    getPosition() {
         return this.additionalType;
     };
     /**
@@ -600,7 +600,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param {String} url
      *                  url of the Person object
      */
-    prototype.setPosition = function(url) {
+    setPosition(url) {
         this.initPositions();
         if (url.indexOf("http") > 0) 
             this.additionalType = url;
@@ -615,7 +615,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param url URL of the person's position
      *  @return {String}
      */
-    prototype.getPositionLabel = function(url) {
+    getPositionLabel(url) {
         this.initPositions();
         if (url != null && url.length > 0) {
             if (ExtPerson.positionUrlsMap[url] != null) 
@@ -631,7 +631,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @param type type label of the person's position
      *  @return {String}
      */
-    prototype.getPositionUrl = function(type) {
+    getPositionUrl(type) {
         this.initPositions();
         if (type != null && type.length > 0) {
             if (ExtPerson.positionLabelsMap[type] != null) 
@@ -644,7 +644,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
     /**
      *  Initializes positions arrays so that it can translate legacy position types to JSONLD format
      */
-    prototype.initPositions = function() {
+    initPositions() {
         if (ExtPerson.positionLabelsMap["Administrator"] == null) {
             ExtPerson.positionLabelsMap = {};
             ExtPerson.positionLabelsMap["Administrative assistant"] = "http://schema.eduworks.com/pebleXtension/0.1/positionType/Administrative Assistant";

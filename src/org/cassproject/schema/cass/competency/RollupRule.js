@@ -11,28 +11,28 @@ var RollupRule = function() {
     this.setContextAndType(Cass.context, RollupRule.myType);
 };
 RollupRule = stjs.extend(RollupRule, CreativeWork, [], function(constructor, prototype) {
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/rollupRule";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/0.2/RollupRule";
-    constructor.TYPE_0_4 = "http://schema.cassproject.org/0.3/RollupRule";
-    constructor.TYPE_0_5 = "https://schema.cassproject.org/0.3/RollupRule";
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/RollupRule";
-    constructor.myType = RollupRule.TYPE_0_6;
+    static TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/rollupRule";
+    static TYPE_0_3 = "http://schema.cassproject.org/0.2/RollupRule";
+    static TYPE_0_4 = "http://schema.cassproject.org/0.3/RollupRule";
+    static TYPE_0_5 = "https://schema.cassproject.org/0.3/RollupRule";
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/RollupRule";
+    static myType = RollupRule.TYPE_0_6;
     /**
      *  The rollup rule encoded as source code that is understandable to the assertion processor.
      * 
      *  @property rule
      *  @type string
      */
-    prototype.rule = null;
+    rule = null;
     /**
      *  Specifies the URL of the competency that the rollup rule pertains to.
      * 
      *  @property competency
      *  @type string
      */
-    prototype.competency = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    competency = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (RollupRule.TYPE_0_2.equals(this.getFullType())) {
             this.setContextAndType(Cass.context_0_3, RollupRule.TYPE_0_3);
         }
@@ -46,7 +46,7 @@ RollupRule = stjs.extend(RollupRule, CreativeWork, [], function(constructor, pro
             this.setContextAndType(Cass.context_0_6, RollupRule.TYPE_0_6);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(RollupRule.TYPE_0_6);
         a.push(RollupRule.TYPE_0_5);

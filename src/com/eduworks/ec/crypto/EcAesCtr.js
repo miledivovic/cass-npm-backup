@@ -19,7 +19,7 @@ module.exports = class EcAesCtr{
      *  @method encrypt
      *  @static
      */
-    constructor.encrypt = function(plaintext, secret, iv) {
+    static encrypt(plaintext, secret, iv) {
         if ((typeof httpStatus) != "undefined" && forge.util.decode64(secret).length == 16 && forge.util.decode64(iv).length == 16) 
             return aesEncrypt(plaintext, iv, secret);
         var c = forge.cipher.createCipher("AES-CTR", forge.util.decode64(secret));
@@ -41,7 +41,7 @@ module.exports = class EcAesCtr{
      *  @method decrypt
      *  @static
      */
-    constructor.decrypt = function(ciphertext, secret, iv) {
+    static decrypt(ciphertext, secret, iv) {
         if (EcCrypto.caching) {
             var cacheGet = (EcCrypto.decryptionCache)[secret + iv + ciphertext];
             if (cacheGet != null) 
@@ -62,4 +62,4 @@ module.exports = class EcAesCtr{
             (EcCrypto.decryptionCache)[secret + iv + ciphertext] = forge.util.decodeUtf8(decrypted.data);
         return forge.util.decodeUtf8(decrypted.data);
     };
-}, {}, {});
+};

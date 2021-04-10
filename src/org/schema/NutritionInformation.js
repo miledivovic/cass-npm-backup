@@ -25,7 +25,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property saturatedFatContent
      *  @type Mass
      */
-    prototype.saturatedFatContent = null;
+    saturatedFatContent = null;
     /**
      *  Schema.org/fatContent
      *  The number of grams of fat.
@@ -33,7 +33,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property fatContent
      *  @type Mass
      */
-    prototype.fatContent = null;
+    fatContent = null;
     /**
      *  Schema.org/unsaturatedFatContent
      *  The number of grams of unsaturated fat.
@@ -41,7 +41,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property unsaturatedFatContent
      *  @type Mass
      */
-    prototype.unsaturatedFatContent = null;
+    unsaturatedFatContent = null;
     /**
      *  Schema.org/sugarContent
      *  The number of grams of sugar.
@@ -49,7 +49,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property sugarContent
      *  @type Mass
      */
-    prototype.sugarContent = null;
+    sugarContent = null;
     /**
      *  Schema.org/cholesterolContent
      *  The number of milligrams of cholesterol.
@@ -57,7 +57,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property cholesterolContent
      *  @type Mass
      */
-    prototype.cholesterolContent = null;
+    cholesterolContent = null;
     /**
      *  Schema.org/carbohydrateContent
      *  The number of grams of carbohydrates.
@@ -65,7 +65,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property carbohydrateContent
      *  @type Mass
      */
-    prototype.carbohydrateContent = null;
+    carbohydrateContent = null;
     /**
      *  Schema.org/proteinContent
      *  The number of grams of protein.
@@ -73,7 +73,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property proteinContent
      *  @type Mass
      */
-    prototype.proteinContent = null;
+    proteinContent = null;
     /**
      *  Schema.org/sodiumContent
      *  The number of milligrams of sodium.
@@ -81,7 +81,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property sodiumContent
      *  @type Mass
      */
-    prototype.sodiumContent = null;
+    sodiumContent = null;
     /**
      *  Schema.org/transFatContent
      *  The number of grams of trans fat.
@@ -89,7 +89,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property transFatContent
      *  @type Mass
      */
-    prototype.transFatContent = null;
+    transFatContent = null;
     /**
      *  Schema.org/fiberContent
      *  The number of grams of fiber.
@@ -97,7 +97,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property fiberContent
      *  @type Mass
      */
-    prototype.fiberContent = null;
+    fiberContent = null;
     /**
      *  Schema.org/calories
      *  The number of calories.
@@ -105,7 +105,7 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property calories
      *  @type Energy
      */
-    prototype.calories = null;
+    calories = null;
     /**
      *  Schema.org/servingSize
      *  The serving size, in terms of the number of volume or mass.
@@ -113,5 +113,5 @@ NutritionInformation = stjs.extend(NutritionInformation, StructuredValue, [], fu
      *  @property servingSize
      *  @type Text
      */
-    prototype.servingSize = null;
+    servingSize = null;
 }, {saturatedFatContent: "Mass", fatContent: "Mass", unsaturatedFatContent: "Mass", sugarContent: "Mass", cholesterolContent: "Mass", carbohydrateContent: "Mass", proteinContent: "Mass", sodiumContent: "Mass", transFatContent: "Mass", fiberContent: "Mass", calories: "Energy", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

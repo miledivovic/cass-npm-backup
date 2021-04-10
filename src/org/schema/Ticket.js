@@ -25,7 +25,7 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property underName
      *  @type Organization
      */
-    prototype.underName = null;
+    underName = null;
     /**
      *  Schema.org/totalPrice
      *  The total price for the reservation or ticket, including applicable taxes, shipping, etc.
@@ -33,7 +33,7 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property totalPrice
      *  @type Number
      */
-    prototype.totalPrice = null;
+    totalPrice = null;
     /**
      *  Schema.org/priceCurrency
      *  The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to [[PriceSpecification]] and its subtypes.
@@ -41,7 +41,7 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property priceCurrency
      *  @type Text
      */
-    prototype.priceCurrency = null;
+    priceCurrency = null;
     /**
      *  Schema.org/ticketNumber
      *  The unique identifier for the ticket.
@@ -49,7 +49,7 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property ticketNumber
      *  @type Text
      */
-    prototype.ticketNumber = null;
+    ticketNumber = null;
     /**
      *  Schema.org/issuedBy
      *  The organization issuing the ticket or permit.
@@ -57,7 +57,7 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property issuedBy
      *  @type Organization
      */
-    prototype.issuedBy = null;
+    issuedBy = null;
     /**
      *  Schema.org/ticketToken
      *  Reference to an asset (e.g., Barcode, QR code image or PDF) usable for entrance.
@@ -65,7 +65,7 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property ticketToken
      *  @type URL
      */
-    prototype.ticketToken = null;
+    ticketToken = null;
     /**
      *  Schema.org/ticketedSeat
      *  The seat associated with the ticket.
@@ -73,7 +73,7 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property ticketedSeat
      *  @type Seat
      */
-    prototype.ticketedSeat = null;
+    ticketedSeat = null;
     /**
      *  Schema.org/dateIssued
      *  The date the ticket was issued.
@@ -81,5 +81,5 @@ Ticket = stjs.extend(Ticket, Intangible, [], function(constructor, prototype) {
      *  @property dateIssued
      *  @type DateTime
      */
-    prototype.dateIssued = null;
+    dateIssued = null;
 }, {underName: "Organization", issuedBy: "Organization", ticketedSeat: "Seat", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

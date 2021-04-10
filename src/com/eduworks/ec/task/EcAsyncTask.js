@@ -1,4 +1,6 @@
-var EcAsyncTask = function(job, param1, param2, param3, param4) {
+module.exports = class EcAsyncTask{
+    constructor(job, param1, param2, param3, param4){
+        
     this.creationTime = new Date();
     this.job = job;
     this.args = [];
@@ -11,52 +13,51 @@ var EcAsyncTask = function(job, param1, param2, param3, param4) {
         this.args.push(param3);
     if (param4 != null && param4 != undefined) 
         this.args.push(param4);
-};
-EcAsyncTask = stjs.extend(EcAsyncTask, null, [], function(constructor, prototype) {
-    prototype.job = null;
-    prototype.args = null;
-    prototype.timeoutSec = 0;
-    prototype.creationTime = null;
-    prototype.isComplete = false;
-    prototype.isStarted = false;
-    prototype.start = null;
-    prototype.stop = null;
-    prototype.error = null;
-    prototype.setJob = function(job) {
+    }
+    job = null;
+    args = null;
+    timeoutSec = 0;
+    creationTime = null;
+    isComplete = false;
+    isStarted = false;
+    start = null;
+    stop = null;
+    error = null;
+    setJob(job) {
         this.job = job;
     };
-    prototype.getArguments = function() {
+    getArguments() {
         return this.args;
     };
-    prototype.setArguments = function(_arguments) {
+    setArguments(_arguments) {
         this.args = [];
         for (var i = 0; i < arguments.length; i++) {
             this.args[i] = arguments[i];
         }
     };
-    prototype.getTimeout = function() {
+    getTimeout() {
         return this.timeoutSec;
     };
-    prototype.setTimeout = function(timeout) {
+    setTimeout(timeout) {
         this.timeoutSec = timeout;
     };
-    prototype.getCreationTime = function() {
+    getCreationTime() {
         return this.creationTime;
     };
-    prototype.getIsComplete = function() {
+    getIsComplete() {
         return this.isComplete;
     };
-    prototype.setComplete = function() {
+    setComplete() {
         this.stop = new Date();
         this.isComplete = true;
     };
-    prototype.getIsStarted = function() {
+    getIsStarted() {
         return this.isStarted;
     };
-    prototype.getStart = function() {
+    getStart() {
         return this.start;
     };
-    prototype.doTask = function(_arguments) {
+    doTask(_arguments) {
         var ret = undefined;
         if (!this.isStarted) {
             this.start = new Date();
@@ -84,39 +85,39 @@ EcAsyncTask = stjs.extend(EcAsyncTask, null, [], function(constructor, prototype
         }
         return ret;
     };
-    prototype.invoke0 = function() {
+    invoke0 = function() {
         var that = this;
         var ret = (this.job).call(this, function() {
             that.setComplete();
         });
         return ret;
     };
-    prototype.invoke1 = function(arg1) {
+    invoke1 = function(arg1) {
         var that = this;
         var ret = (this.job).call(this, arg1, function() {
             that.setComplete();
         });
         return ret;
     };
-    prototype.invoke2 = function(arg1, arg2) {
+    invoke2 = function(arg1, arg2) {
         var that = this;
         var ret = (this.job).call(this, arg1, arg2, function() {
             that.setComplete();
         });
         return ret;
     };
-    prototype.invoke3 = function(arg1, arg2, arg3) {
+    invoke3 = function(arg1, arg2, arg3) {
         var that = this;
         var ret = (this.job).call(this, arg1, arg2, arg3, function() {
             that.setComplete();
         });
         return ret;
     };
-    prototype.invoke4 = function(arg1, arg2, arg3, arg4) {
+    invoke4 = function(arg1, arg2, arg3, arg4) {
         var that = this;
         var ret = (this.job).call(this, arg1, arg2, arg3, arg4, function() {
             that.setComplete();
         });
         return ret;
     };
-}, {job: "CallbackOrFunction", args: {name: "Array", arguments: ["Object"]}, creationTime: "Date", start: "Date", stop: "Date"}, {});
+};

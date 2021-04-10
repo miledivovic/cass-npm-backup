@@ -11,50 +11,50 @@ var Framework = function() {
     this.setContextAndType(Cass.context, Framework.myType);
 };
 Framework = stjs.extend(Framework, CreativeWork, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/framework";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/framework";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/0.2/Framework";
-    constructor.TYPE_0_4 = "http://schema.cassproject.org/0.3/Framework";
-    constructor.TYPE_0_5 = "https://schema.cassproject.org/0.3/Framework";
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/Framework";
-    constructor.myType = Framework.TYPE_0_6;
+    static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/framework";
+    static TYPE_0_2 = "http://schema.eduworks.com/cass/0.2/framework";
+    static TYPE_0_3 = "http://schema.cassproject.org/0.2/Framework";
+    static TYPE_0_4 = "http://schema.cassproject.org/0.3/Framework";
+    static TYPE_0_5 = "https://schema.cassproject.org/0.3/Framework";
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/Framework";
+    static myType = Framework.TYPE_0_6;
     /**
      *  URLs of competencies included in this framework.
      * 
      *  @property competency
      *  @type string[]
      */
-    prototype.competency = null;
+    competency = null;
     /**
      *  URLs of relations included in this framework.
      * 
      *  @property relation
      *  @type string[]
      */
-    prototype.relation = null;
+    relation = null;
     /**
      *  URLs of levels included in this framework.
      * 
      *  @property level
      *  @type string[]
      */
-    prototype.level = null;
+    level = null;
     /**
      *  URLs of RollupRules included in this framework.
      * 
      *  @property rollupRule
      *  @type string[]
      */
-    prototype.rollupRule = null;
+    rollupRule = null;
     /**
      *  URL of the directory this framework is in.
      * 
      *  @property rollupRule
      *  @type string[]
      */
-    prototype.directory = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    directory = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
         if (Framework.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -74,7 +74,7 @@ Framework = stjs.extend(Framework, CreativeWork, [], function(constructor, proto
             this.setContextAndType(Cass.context_0_6, Framework.TYPE_0_6);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(Framework.TYPE_0_6);
         a.push(Framework.TYPE_0_5);

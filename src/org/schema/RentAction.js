@@ -25,7 +25,7 @@ RentAction = stjs.extend(RentAction, TradeAction, [], function(constructor, prot
      *  @property landlord
      *  @type Organization
      */
-    prototype.landlord = null;
+    landlord = null;
     /**
      *  Schema.org/realEstateAgent
      *  A sub property of participant. The real estate agent involved in the action.
@@ -33,5 +33,5 @@ RentAction = stjs.extend(RentAction, TradeAction, [], function(constructor, prot
      *  @property realEstateAgent
      *  @type RealEstateAgent
      */
-    prototype.realEstateAgent = null;
+    realEstateAgent = null;
 }, {landlord: "Organization", realEstateAgent: "RealEstateAgent", priceSpecification: "PriceSpecification", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

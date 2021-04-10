@@ -25,7 +25,7 @@ Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype
      *  @property pagination
      *  @type Text
      */
-    prototype.pagination = null;
+    pagination = null;
     /**
      *  Schema.org/pageEnd
      *  The page on which the work ends; for example "138" or "xvi".
@@ -33,7 +33,7 @@ Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype
      *  @property pageEnd
      *  @type Integer
      */
-    prototype.pageEnd = null;
+    pageEnd = null;
     /**
      *  Schema.org/articleSection
      *  Articles may belong to one or more 'sections' in a magazine or newspaper, such as Sports, Lifestyle, etc.
@@ -41,7 +41,7 @@ Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype
      *  @property articleSection
      *  @type Text
      */
-    prototype.articleSection = null;
+    articleSection = null;
     /**
      *  Schema.org/articleBody
      *  The actual body of the article.
@@ -49,7 +49,7 @@ Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype
      *  @property articleBody
      *  @type Text
      */
-    prototype.articleBody = null;
+    articleBody = null;
     /**
      *  Schema.org/pageStart
      *  The page on which the work starts; for example "135" or "xiii".
@@ -57,7 +57,7 @@ Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype
      *  @property pageStart
      *  @type Integer
      */
-    prototype.pageStart = null;
+    pageStart = null;
     /**
      *  Schema.org/wordCount
      *  The number of words in the text of the Article.
@@ -65,5 +65,5 @@ Article = stjs.extend(Article, CreativeWork, [], function(constructor, prototype
      *  @property wordCount
      *  @type Integer
      */
-    prototype.wordCount = null;
+    wordCount = null;
 }, {about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

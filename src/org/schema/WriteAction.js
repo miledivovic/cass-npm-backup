@@ -25,7 +25,7 @@ WriteAction = stjs.extend(WriteAction, CreateAction, [], function(constructor, p
      *  @property inLanguage
      *  @type Language
      */
-    prototype.inLanguage = null;
+    inLanguage = null;
     /**
      *  Schema.org/language
      *  A sub property of instrument. The language used on this action.
@@ -33,5 +33,5 @@ WriteAction = stjs.extend(WriteAction, CreateAction, [], function(constructor, p
      *  @property language
      *  @type Language
      */
-    prototype.language = null;
+    language = null;
 }, {inLanguage: "Language", language: "Language", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

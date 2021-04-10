@@ -1,7 +1,4 @@
-var EcComment = function() {
-    Comment.call(this);
-};
-EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype) {
+module.exports = class EcComment extends Comment{
     /**
      *  Retrieves a comment from it's server asynchronously
      * 
@@ -16,7 +13,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcComment(), success, failure);
     };
     /**
@@ -31,7 +28,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcComment());
     };
     /**
@@ -47,7 +44,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcComment();
         }, success, failure, paramObj);
@@ -61,7 +58,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @param {EcRemoteLinkedData}  aboutObj Object which contains the id to set to the comment's about
      *  @method setSubject
      */
-    prototype.setSubject = function(framework, aboutObj) {
+    setSubject(framework, aboutObj) {
         if (framework != null) {
             (this)["isBasedOn"] = framework.shortId();
         }
@@ -78,7 +75,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @param {String}  aboutId Object ID to set to the comment's about
      *  @method setSubjectIds
      */
-    prototype.setSubjectIds = function(frameworkId, aboutId) {
+    setSubjectIds(frameworkId, aboutId) {
         if (frameworkId != null) {
             (this)["isBasedOn"] = frameworkId;
         }
@@ -91,7 +88,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @param {EcPerson}  person Person which contains the id to set to the comment's creator
      *  @method setCreator
      */
-    prototype.setCreator = function(creatorObj) {
+    setCreator(creatorObj) {
         if (creatorObj != null) {
             (this)["creator"] = creatorObj.shortId();
         }
@@ -101,7 +98,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @param {String}  creatorId ID of the person to set to the comment's creator
      *  @method setCreatorId
      */
-    prototype.setCreatorId = function(creatorId) {
+    setCreatorId(creatorId) {
         if (creatorId != null) {
             (this)["creator"] = creatorId;
         }
@@ -111,7 +108,7 @@ EcComment = stjs.extend(EcComment, Comment, [], function(constructor, prototype)
      *  @param {String}  longDateString The time in milliseconds to set to the comment's dateCreated
      *  @method setDateCreated
      */
-    prototype.setDateCreated = function(longDateString) {
+    setDateCreated(longDateString) {
         if (longDateString != null) {
             (this)["dateCreated"] = longDateString;
         }

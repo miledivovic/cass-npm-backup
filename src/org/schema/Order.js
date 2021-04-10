@@ -25,7 +25,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property orderDate
      *  @type DateTime
      */
-    prototype.orderDate = null;
+    orderDate = null;
     /**
      *  Schema.org/paymentDue
      *  The date that payment is due.
@@ -33,7 +33,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property paymentDue
      *  @type DateTime
      */
-    prototype.paymentDue = null;
+    paymentDue = null;
     /**
      *  Schema.org/orderNumber
      *  The identifier of the transaction.
@@ -41,7 +41,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property orderNumber
      *  @type Text
      */
-    prototype.orderNumber = null;
+    orderNumber = null;
     /**
      *  Schema.org/paymentUrl
      *  The URL for sending a payment.
@@ -49,7 +49,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property paymentUrl
      *  @type URL
      */
-    prototype.paymentUrl = null;
+    paymentUrl = null;
     /**
      *  Schema.org/orderStatus
      *  The current status of the order.
@@ -57,7 +57,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property orderStatus
      *  @type OrderStatus
      */
-    prototype.orderStatus = null;
+    orderStatus = null;
     /**
      *  Schema.org/billingAddress
      *  The billing address for the order.
@@ -65,7 +65,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property billingAddress
      *  @type PostalAddress
      */
-    prototype.billingAddress = null;
+    billingAddress = null;
     /**
      *  Schema.org/partOfInvoice
      *  The order is being paid as part of the referenced Invoice.
@@ -73,7 +73,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property partOfInvoice
      *  @type Invoice
      */
-    prototype.partOfInvoice = null;
+    partOfInvoice = null;
     /**
      *  Schema.org/confirmationNumber
      *  A number that confirms the given order or payment has been received.
@@ -81,7 +81,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property confirmationNumber
      *  @type Text
      */
-    prototype.confirmationNumber = null;
+    confirmationNumber = null;
     /**
      *  Schema.org/customer
      *  Party placing the order or paying the invoice.
@@ -89,7 +89,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property customer
      *  @type Organization
      */
-    prototype.customer = null;
+    customer = null;
     /**
      *  Schema.org/merchant
      *  'merchant' is an out-dated term for 'seller'.
@@ -97,7 +97,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property merchant
      *  @type Person
      */
-    prototype.merchant = null;
+    merchant = null;
     /**
      *  Schema.org/broker
      *  An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred.
@@ -105,7 +105,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property broker
      *  @type Person
      */
-    prototype.broker = null;
+    broker = null;
     /**
      *  Schema.org/orderedItem
      *  The item ordered.
@@ -113,7 +113,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property orderedItem
      *  @type Product
      */
-    prototype.orderedItem = null;
+    orderedItem = null;
     /**
      *  Schema.org/isGift
      *  Was the offer accepted as a gift for someone other than the buyer.
@@ -121,7 +121,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property isGift
      *  @type Boolean
      */
-    prototype.isGift = null;
+    isGift = null;
     /**
      *  Schema.org/paymentMethod
      *  The name of the credit card or other method of payment for the order.
@@ -129,7 +129,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property paymentMethod
      *  @type PaymentMethod
      */
-    prototype.paymentMethod = null;
+    paymentMethod = null;
     /**
      *  Schema.org/seller
      *  An entity which offers (sells / leases / lends / loans) the services / goods.  A seller may also be a provider.
@@ -137,7 +137,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property seller
      *  @type Person
      */
-    prototype.seller = null;
+    seller = null;
     /**
      *  Schema.org/paymentMethodId
      *  An identifier for the method of payment used (e.g. the last 4 digits of the credit card).
@@ -145,7 +145,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property paymentMethodId
      *  @type Text
      */
-    prototype.paymentMethodId = null;
+    paymentMethodId = null;
     /**
      *  Schema.org/discount
      *  Any discount applied (to an Order).
@@ -153,7 +153,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property discount
      *  @type Number
      */
-    prototype.discount = null;
+    discount = null;
     /**
      *  Schema.org/orderDelivery
      *  The delivery of the parcel related to this order or order item.
@@ -161,7 +161,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property orderDelivery
      *  @type ParcelDelivery
      */
-    prototype.orderDelivery = null;
+    orderDelivery = null;
     /**
      *  Schema.org/acceptedOffer
      *  The offer(s) -- e.g., product, quantity and price combinations -- included in the order.
@@ -169,7 +169,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property acceptedOffer
      *  @type Offer
      */
-    prototype.acceptedOffer = null;
+    acceptedOffer = null;
     /**
      *  Schema.org/discountCurrency
      *  The currency (in 3-letter ISO 4217 format) of the discount.
@@ -177,7 +177,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property discountCurrency
      *  @type Text
      */
-    prototype.discountCurrency = null;
+    discountCurrency = null;
     /**
      *  Schema.org/paymentDueDate
      *  The date that payment is due.
@@ -185,7 +185,7 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property paymentDueDate
      *  @type DateTime
      */
-    prototype.paymentDueDate = null;
+    paymentDueDate = null;
     /**
      *  Schema.org/discountCode
      *  Code used to redeem a discount.
@@ -193,5 +193,5 @@ Order = stjs.extend(Order, Intangible, [], function(constructor, prototype) {
      *  @property discountCode
      *  @type Text
      */
-    prototype.discountCode = null;
+    discountCode = null;
 }, {orderStatus: "OrderStatus", billingAddress: "PostalAddress", partOfInvoice: "Invoice", customer: "Organization", merchant: "Person", broker: "Person", orderedItem: "Product", paymentMethod: "PaymentMethod", seller: "Person", orderDelivery: "ParcelDelivery", acceptedOffer: "Offer", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

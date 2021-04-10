@@ -22,29 +22,29 @@
  */
 var EcRemoteIdentityManager = function() {};
 EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIdentityManagerInterface], function(constructor, prototype) {
-    prototype.server = null;
-    prototype.global = null;
-    prototype.usernameWithSalt = null;
-    prototype.passwordWithSalt = null;
-    prototype.secretWithSalt = null;
-    prototype.pad = null;
-    prototype.token = null;
-    prototype.usernameSalt = null;
-    prototype.usernameIterations = 0;
-    prototype.usernameWidth = 0;
-    prototype.passwordSalt = null;
-    prototype.passwordIterations = 0;
-    prototype.passwordWidth = 0;
-    prototype.secretSalt = null;
-    prototype.secretIterations = 0;
-    prototype.configured = false;
+    server = null;
+    global = null;
+    usernameWithSalt = null;
+    passwordWithSalt = null;
+    secretWithSalt = null;
+    pad = null;
+    token = null;
+    usernameSalt = null;
+    usernameIterations = 0;
+    usernameWidth = 0;
+    passwordSalt = null;
+    passwordIterations = 0;
+    passwordWidth = 0;
+    secretSalt = null;
+    secretIterations = 0;
+    configured = false;
     /**
      *  Returns true if the identity manager is global. Returns false if the identity manager is local to the server.
      * 
      *  @return {Boolean} true if the identity manager is global.
      *  @memberOf EcRemoteIdentityManager
      */
-    prototype.isGlobal = function() {
+    isGlobal() {
         if (this.global == null) 
             return false;
         return this.global;
@@ -71,7 +71,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method configure
      */
-    prototype.configure = function(usernameSalt, usernameIterations, usernameWidth, passwordSalt, passwordIterations, passwordWidth, secretSalt, secretIterations) {
+    configure(usernameSalt, usernameIterations, usernameWidth, passwordSalt, passwordIterations, passwordWidth, secretSalt, secretIterations) {
         this.usernameSalt = usernameSalt;
         this.usernameIterations = usernameIterations;
         this.usernameWidth = usernameWidth;
@@ -92,7 +92,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method configureFromServer
      */
-    prototype.configureFromServer = function(success, failure) {
+    configureFromServer(success, failure) {
         var me = this;
         EcRemote.getExpectingObject(this.server, "sky/id/salts", function(p1) {
             me.usernameSalt = (p1)["usernameSalt"];
@@ -152,7 +152,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method clear
      */
-    prototype.clear = function() {
+    clear() {
         this.usernameWithSalt = null;
         this.passwordWithSalt = null;
         this.secretWithSalt = null;
@@ -167,7 +167,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method setDefaultIdentityManagementServer
      */
-    prototype.setDefaultIdentityManagementServer = function(server) {
+    setDefaultIdentityManagementServer(server) {
         this.server = server;
     };
     /**
@@ -183,7 +183,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method startLogin
      */
-    prototype.startLogin = function(username, password) {
+    startLogin(username, password) {
         if (!this.configured) {
              throw new RuntimeException("Remote Identity not configured.");
         }
@@ -210,7 +210,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method changePassword
      */
-    prototype.changePassword = function(username, oldPassword, newPassword) {
+    changePassword(username, oldPassword, newPassword) {
         var usernameHash = forge.util.encode64(forge.pkcs5.pbkdf2(username, this.usernameSalt, this.usernameIterations, this.usernameWidth));
         if (this.usernameWithSalt != usernameHash) {
              throw new RuntimeException("Username does not match. Aborting password change.");
@@ -239,7 +239,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method fetch
      */
-    prototype.fetch = function(success, failure) {
+    fetch(success, failure) {
         if (!this.configured) {
             failure("Remote Identity not configured.");
             return;
@@ -285,7 +285,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method commit
      */
-    prototype.commit = function(success, failure) {
+    commit(success, failure) {
         var service = "sky/id/commit";
         this.sendCredentials(success, failure, service);
     };
@@ -306,7 +306,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method create
      */
-    prototype.create = function(success, failure) {
+    create(success, failure) {
         var service = "sky/id/create";
         this.sendCredentials(success, failure, service);
     };
@@ -321,7 +321,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method sendCredentials
      */
-    prototype.sendCredentials = function(success, failure, service) {
+    sendCredentials(success, failure, service) {
         if (!this.configured) 
              throw new RuntimeException("Remote Identity not configured.");
         if (this.usernameWithSalt == null || this.passwordWithSalt == null || this.secretWithSalt == null) {
@@ -373,7 +373,7 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
      *  @memberOf EcRemoteIdentityManager
      *  @method splicePasswords
      */
-    prototype.splicePasswords = function(passwords) {
+    splicePasswords(passwords) {
         var passwordSplice = "";
         for (var charIndex = 0; charIndex > 0; charIndex++) {
             var foundAny = false;
@@ -388,4 +388,4 @@ EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIden
         }
         return passwordSplice;
     };
-}, {}, {});
+};

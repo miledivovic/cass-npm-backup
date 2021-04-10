@@ -25,7 +25,7 @@ ReplaceAction = stjs.extend(ReplaceAction, UpdateAction, [], function(constructo
      *  @property replacee
      *  @type Thing
      */
-    prototype.replacee = null;
+    replacee = null;
     /**
      *  Schema.org/replacer
      *  A sub property of object. The object that replaces.
@@ -33,5 +33,5 @@ ReplaceAction = stjs.extend(ReplaceAction, UpdateAction, [], function(constructo
      *  @property replacer
      *  @type Thing
      */
-    prototype.replacer = null;
+    replacer = null;
 }, {replacee: "Thing", replacer: "Thing", collection: "Thing", targetCollection: "Thing", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

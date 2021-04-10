@@ -1,8 +1,5 @@
-var CfdAlignment = function() {
-    AlignmentObject.call(this);
-};
-CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(constructor, prototype) {
-    constructor.myType = "http://schema.org/AlignmentObject";
+module.exports = class CfdAlignment extends AlignmentObject{
+    static myType = "http://schema.org/AlignmentObject";
     /**
      *  Retrieves the alignment specified with the ID from the server
      * 
@@ -17,7 +14,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.get(id, function(p1) {
             if (stjs.isInstanceOf(p1.constructor, CfdAlignment)) 
                 if (success != null) {
@@ -59,7 +56,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (stjs.isInstanceOf(p1.constructor, CfdAlignment)) 
             return p1;
@@ -102,7 +99,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         var queryAdd = new CfdAlignment().getSearchStringByType();
         if (query == null || query == "") 
             query = queryAdd;
@@ -135,7 +132,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @param {String} frameworkId
      *                  ID of framework this Alignment is related to
      */
-    prototype.getEducationalFramework = function() {
+    getEducationalFramework() {
         return this.educationalFramework;
     };
     /**
@@ -144,7 +141,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @param {String} frameworkId
      *                  ID of framework this Alignment is related to
      */
-    prototype.setEducationalFramework = function(frameworkId) {
+    setEducationalFramework(frameworkId) {
         this.educationalFramework = frameworkId;
     };
     /**
@@ -153,7 +150,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @return {String}
      *  ID of the competency aligned with
      */
-    prototype.getTargetUrl = function() {
+    getTargetUrl() {
         return this.targetUrl;
     };
     /**
@@ -162,7 +159,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @param {String} targetId
      *                  ID of competency this Alignment is related to
      */
-    prototype.setTargetUrl = function(targetId) {
+    setTargetUrl(targetId) {
         this.targetUrl = targetId;
     };
     /**
@@ -171,7 +168,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @param {String} type
      *                  Alignment type for alignment. Recommended values include: 'assesses', 'teaches', 'requires', 'textComplexity', 'readingLevel', 'educationalSubject', and 'educationalLevel'.
      */
-    prototype.setAlignmentType = function(type) {
+    setAlignmentType(type) {
         this.alignmentType = type;
     };
     /**
@@ -184,7 +181,7 @@ CfdAlignment = stjs.extend(CfdAlignment, AlignmentObject, [], function(construct
      *  @memberOf CfdAlignment
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.targetUrl == null || this.targetUrl == "") {
             var msg = "Target Competency cannot be missing";
             if (failure != null) 

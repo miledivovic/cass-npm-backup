@@ -9,12 +9,12 @@
  *  @extends Importer
  */
 module.exports = class FrameworkImport{
-    constructor.savedComp = 0;
-    constructor.savedRel = 0;
-    constructor.targetUsable = null;
-    constructor.competencies = null;
-    constructor.relations = null;
-    constructor.compMap = null;
+    static savedComp = 0;
+    static savedRel = 0;
+    static targetUsable = null;
+    static competencies = null;
+    static relations = null;
+    static compMap = null;
     /**
      *  Copies or links competencies that exist in one framework in a CASS instance,
      *  to another different framework in the same CASS instance.
@@ -38,7 +38,7 @@ module.exports = class FrameworkImport{
      *  @method importCompetencies
      *  @static
      */
-    constructor.importCompetencies = function(source, target, copy, serverUrl, owner, success, failure, repo) {
+    static importCompetencies(source, target, copy, serverUrl, owner, success, failure, repo) {
         if (source == null) {
             failure("Source Framework not set");
             return;

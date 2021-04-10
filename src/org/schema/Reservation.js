@@ -25,7 +25,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property provider
      *  @type Person
      */
-    prototype.provider = null;
+    provider = null;
     /**
      *  Schema.org/programMembershipUsed
      *  Any membership in a frequent flyer, hotel loyalty program, etc. being applied to the reservation.
@@ -33,7 +33,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property programMembershipUsed
      *  @type ProgramMembership
      */
-    prototype.programMembershipUsed = null;
+    programMembershipUsed = null;
     /**
      *  Schema.org/reservationStatus
      *  The current status of the reservation.
@@ -41,7 +41,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property reservationStatus
      *  @type ReservationStatusType
      */
-    prototype.reservationStatus = null;
+    reservationStatus = null;
     /**
      *  Schema.org/underName
      *  The person or organization the reservation or ticket is for.
@@ -49,7 +49,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property underName
      *  @type Organization
      */
-    prototype.underName = null;
+    underName = null;
     /**
      *  Schema.org/bookingAgent
      *  'bookingAgent' is an out-dated term indicating a 'broker' that serves as a booking agent.
@@ -57,7 +57,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property bookingAgent
      *  @type Organization
      */
-    prototype.bookingAgent = null;
+    bookingAgent = null;
     /**
      *  Schema.org/totalPrice
      *  The total price for the reservation or ticket, including applicable taxes, shipping, etc.
@@ -65,7 +65,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property totalPrice
      *  @type Number
      */
-    prototype.totalPrice = null;
+    totalPrice = null;
     /**
      *  Schema.org/reservationFor
      *  The thing -- flight, event, restaurant,etc. being reserved.
@@ -73,7 +73,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property reservationFor
      *  @type Thing
      */
-    prototype.reservationFor = null;
+    reservationFor = null;
     /**
      *  Schema.org/priceCurrency
      *  The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to [[PriceSpecification]] and its subtypes.
@@ -81,7 +81,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property priceCurrency
      *  @type Text
      */
-    prototype.priceCurrency = null;
+    priceCurrency = null;
     /**
      *  Schema.org/broker
      *  An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred.
@@ -89,7 +89,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property broker
      *  @type Person
      */
-    prototype.broker = null;
+    broker = null;
     /**
      *  Schema.org/modifiedTime
      *  The date and time the reservation was modified.
@@ -97,7 +97,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property modifiedTime
      *  @type DateTime
      */
-    prototype.modifiedTime = null;
+    modifiedTime = null;
     /**
      *  Schema.org/bookingTime
      *  The date and time the reservation was booked.
@@ -105,7 +105,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property bookingTime
      *  @type DateTime
      */
-    prototype.bookingTime = null;
+    bookingTime = null;
     /**
      *  Schema.org/reservationId
      *  A unique identifier for the reservation.
@@ -113,7 +113,7 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property reservationId
      *  @type Text
      */
-    prototype.reservationId = null;
+    reservationId = null;
     /**
      *  Schema.org/reservedTicket
      *  A ticket associated with the reservation.
@@ -121,5 +121,5 @@ Reservation = stjs.extend(Reservation, Intangible, [], function(constructor, pro
      *  @property reservedTicket
      *  @type Ticket
      */
-    prototype.reservedTicket = null;
+    reservedTicket = null;
 }, {provider: "Person", programMembershipUsed: "ProgramMembership", reservationStatus: "ReservationStatusType", underName: "Organization", bookingAgent: "Organization", reservationFor: "Thing", broker: "Person", reservedTicket: "Ticket", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

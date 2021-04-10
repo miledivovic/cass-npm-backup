@@ -9,14 +9,11 @@
  *  @static
  *  @extends Importer
  */
-var MedbiqImport = function() {
-    Importer.call(this);
-};
-MedbiqImport = stjs.extend(MedbiqImport, Importer, [], function(constructor, prototype) {
-    constructor.INCREMENTAL_STEP = 5;
-    constructor.medbiqXmlCompetencies = null;
-    constructor.progressObject = null;
-    constructor.saved = 0;
+module.exports = class MedbiqImport extends Importer{
+    static INCREMENTAL_STEP = 5;
+    static medbiqXmlCompetencies = null;
+    static progressObject = null;
+    static saved = 0;
     /**
      *  Does the legwork of looking for competencies in the XML
      * 
@@ -27,7 +24,7 @@ MedbiqImport = stjs.extend(MedbiqImport, Importer, [], function(constructor, pro
      *  @private
      *  @static
      */
-    constructor.medbiqXmlLookForCompetencyObject = function(obj) {
+    static medbiqXmlLookForCompetencyObject(obj) {
         if (Importer.isObject(obj) || Importer.isArray(obj)) 
             for (var key in (obj)) {
                 if (key == "CompetencyObject") 
@@ -46,7 +43,7 @@ MedbiqImport = stjs.extend(MedbiqImport, Importer, [], function(constructor, pro
      *  @private
      *  @static
      */
-    constructor.medbiqXmlParseCompetencyObject = function(obj) {
+    static medbiqXmlParseCompetencyObject(obj) {
         if (Importer.isArray(obj)) {
             for (var key in (obj)) {
                 MedbiqImport.medbiqXmlParseCompetencyObject((obj)[key]);
@@ -79,7 +76,7 @@ MedbiqImport = stjs.extend(MedbiqImport, Importer, [], function(constructor, pro
      *  @method analyzeFile
      *  @static
      */
-    constructor.analyzeFile = function(file, success, failure) {
+    static analyzeFile(file, success, failure) {
         if (file == null) {
             failure("No file to analyze");
             return;
@@ -123,7 +120,7 @@ MedbiqImport = stjs.extend(MedbiqImport, Importer, [], function(constructor, pro
      *  @method importCompetencies
      *  @static
      */
-    constructor.importCompetencies = function(serverUrl, owner, success, failure, incremental, repo) {
+    static importCompetencies(serverUrl, owner, success, failure, incremental, repo) {
         MedbiqImport.progressObject = null;
         MedbiqImport.saved = 0;
         for (var i = 0; i < MedbiqImport.medbiqXmlCompetencies.length; i++) {
@@ -137,7 +134,7 @@ MedbiqImport = stjs.extend(MedbiqImport, Importer, [], function(constructor, pro
             MedbiqImport.saveCompetency(success, failure, incremental, comp, repo);
         }
     };
-    constructor.saveCompetency = function(success, failure, incremental, comp, repo) {
+    static saveCompetency(success, failure, incremental, comp, repo) {
         Task.asyncImmediate(function(o) {
             var keepGoing = o;
             var scs = function(p1) {

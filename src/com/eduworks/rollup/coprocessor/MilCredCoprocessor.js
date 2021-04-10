@@ -1,14 +1,11 @@
 /**
  *  Created by fray on 5/30/17.
  */
-var MilCredCoprocessor = function() {
-    AssertionCoprocessor.call(this);
-};
-MilCredCoprocessor = stjs.extend(MilCredCoprocessor, AssertionCoprocessor, [], function(constructor, prototype) {
-    prototype.assertedBy = null;
-    prototype.assertions = null;
-    prototype.nextSearch = null;
-    prototype.collectAssertions = function(ip, listOfCompetencies, success) {
+module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
+    assertedBy = null;
+    assertions = null;
+    nextSearch = null;
+    collectAssertions(ip, listOfCompetencies, success) {
         this.assertedBy = new Object();
         this.assertions = new Object();
         var me = this;
@@ -18,14 +15,14 @@ MilCredCoprocessor = stjs.extend(MilCredCoprocessor, AssertionCoprocessor, [], f
             });
         });
     };
-    prototype.getAssertedByCount = function() {
+    getAssertedByCount() {
         var count = 0;
         var keys = EcObject.keys(this.assertedBy);
         for (var i = 0; i < keys.length; i++) 
             count += ((this.assertedBy)[keys[i]]).length;
         return count;
     };
-    prototype.generateAssertions = function(ip, listOfCompetencies, success) {
+    generateAssertions(ip, listOfCompetencies, success) {
         var assertions = new Array();
         for (var i = 0; i < listOfCompetencies.length; i++) {
             var evidences = new Array();
@@ -44,7 +41,7 @@ MilCredCoprocessor = stjs.extend(MilCredCoprocessor, AssertionCoprocessor, [], f
         }
         success(assertions);
     };
-    prototype.addEvidenceOfDependenciesToArray = function(s, evidences) {
+    addEvidenceOfDependenciesToArray(s, evidences) {
         if ((this.assertions)[s] != null) {
             for (var i = 0; i < ((this.assertions)[s]).length; i++) 
                 evidences.push(((this.assertions)[s])[i].shortId());
@@ -54,7 +51,7 @@ MilCredCoprocessor = stjs.extend(MilCredCoprocessor, AssertionCoprocessor, [], f
                 this.addEvidenceOfDependenciesToArray(((this.assertedBy)[s])[i], evidences);
         }
     };
-    prototype.findAssertions = function(ip, success) {
+    findAssertions(ip, success) {
         var me = this;
         me.assertionProcessor.log(ip, "Querying repositories for AchieveActions");
         var evidence = new Array();
@@ -91,7 +88,7 @@ MilCredCoprocessor = stjs.extend(MilCredCoprocessor, AssertionCoprocessor, [], f
             success();
         });
     };
-    prototype.rabbitHole = function(level, ip, listOfThingies, success) {
+    rabbitHole(level, ip, listOfThingies, success) {
         var me = this;
         this.nextSearch = new Array();
         var eah = new EcAsyncHelper();
@@ -126,7 +123,7 @@ MilCredCoprocessor = stjs.extend(MilCredCoprocessor, AssertionCoprocessor, [], f
                 success();
         });
     };
-    prototype.buildRelationsSearchQuery = function(ip, competencies) {
+    buildRelationsSearchQuery(ip, competencies) {
         var result = null;
         if (InquiryPacket.IPType.ROLLUPRULE == ip.type) {
             ip.failure("NOT SUPPOSED TO BE HERE.");
@@ -144,7 +141,7 @@ MilCredCoprocessor = stjs.extend(MilCredCoprocessor, AssertionCoprocessor, [], f
             return result;
          throw new RuntimeException("Trying to build a coprocessor rabbit hole search query on an unsupported type: " + ip.type);
     };
-    prototype.buildAssertionSearchQuery = function(ip, competencies) {
+    buildAssertionSearchQuery(ip, competencies) {
         var result = null;
         if (InquiryPacket.IPType.ROLLUPRULE == ip.type) {
             ip.failure("NOT SUPPOSED TO BE HERE.");

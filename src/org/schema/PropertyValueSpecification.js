@@ -25,7 +25,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property defaultValue
      *  @type Thing
      */
-    prototype.defaultValue = null;
+    defaultValue = null;
     /**
      *  Schema.org/minValue
      *  The lower value of some characteristic or property.
@@ -33,7 +33,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property minValue
      *  @type Number
      */
-    prototype.minValue = null;
+    minValue = null;
     /**
      *  Schema.org/valuePattern
      *  Specifies a regular expression for testing literal values according to the HTML spec.
@@ -41,7 +41,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property valuePattern
      *  @type Text
      */
-    prototype.valuePattern = null;
+    valuePattern = null;
     /**
      *  Schema.org/stepValue
      *  The stepValue attribute indicates the granularity that is expected (and required) of the value in a PropertyValueSpecification.
@@ -49,7 +49,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property stepValue
      *  @type Number
      */
-    prototype.stepValue = null;
+    stepValue = null;
     /**
      *  Schema.org/valueMaxLength
      *  Specifies the allowed range for number of characters in a literal value.
@@ -57,7 +57,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property valueMaxLength
      *  @type Number
      */
-    prototype.valueMaxLength = null;
+    valueMaxLength = null;
     /**
      *  Schema.org/readonlyValue
      *  Whether or not a property is mutable.  Default is false. Specifying this for a property that also has a value makes it act similar to a "hidden" input in an HTML form.
@@ -65,7 +65,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property readonlyValue
      *  @type Boolean
      */
-    prototype.readonlyValue = null;
+    readonlyValue = null;
     /**
      *  Schema.org/valueMinLength
      *  Specifies the minimum allowed range for number of characters in a literal value.
@@ -73,7 +73,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property valueMinLength
      *  @type Number
      */
-    prototype.valueMinLength = null;
+    valueMinLength = null;
     /**
      *  Schema.org/maxValue
      *  The upper value of some characteristic or property.
@@ -81,7 +81,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property maxValue
      *  @type Number
      */
-    prototype.maxValue = null;
+    maxValue = null;
     /**
      *  Schema.org/valueName
      *  Indicates the name of the PropertyValueSpecification to be used in URL templates and form encoding in a manner analogous to HTML's input@name.
@@ -89,7 +89,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property valueName
      *  @type Text
      */
-    prototype.valueName = null;
+    valueName = null;
     /**
      *  Schema.org/multipleValues
      *  Whether multiple values are allowed for the property.  Default is false.
@@ -97,7 +97,7 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property multipleValues
      *  @type Boolean
      */
-    prototype.multipleValues = null;
+    multipleValues = null;
     /**
      *  Schema.org/valueRequired
      *  Whether the property must be filled in to complete the action.  Default is false.
@@ -105,5 +105,5 @@ PropertyValueSpecification = stjs.extend(PropertyValueSpecification, Intangible,
      *  @property valueRequired
      *  @type Boolean
      */
-    prototype.valueRequired = null;
+    valueRequired = null;
 }, {defaultValue: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

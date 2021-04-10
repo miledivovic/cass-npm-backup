@@ -9,10 +9,10 @@ var EcAsyncTaskManager = function(workerCount) {
     }, this.taskCleanupInterval);
 };
 EcAsyncTaskManager = stjs.extend(EcAsyncTaskManager, null, [], function(constructor, prototype) {
-    prototype.taskMap = null;
-    prototype.workerList = null;
-    prototype.taskCleanupInterval = 2500;
-    prototype.addTasks = function(tasks) {
+    taskMap = null;
+    workerList = null;
+    taskCleanupInterval = 2500;
+    addTasks(tasks) {
         var retMap = {};
         if (tasks != undefined) {
             for (var i = 0; i < tasks.length; i++) {
@@ -23,7 +23,7 @@ EcAsyncTaskManager = stjs.extend(EcAsyncTaskManager, null, [], function(construc
         }
         return retMap;
     };
-    prototype.addTask = function(task) {
+    addTask(task) {
         if (this.taskMap == undefined || this.taskMap == null) {
             this.taskMap = {};
         }
@@ -36,7 +36,7 @@ EcAsyncTaskManager = stjs.extend(EcAsyncTaskManager, null, [], function(construc
         this.cleanupTasks();
         return key;
     };
-    prototype.cleanupTasks = function() {
+    cleanupTasks() {
         for (var key in this.taskMap) {
             var task = this.taskMap[key];
             if (task.getIsStarted()) {
@@ -50,7 +50,7 @@ EcAsyncTaskManager = stjs.extend(EcAsyncTaskManager, null, [], function(construc
             }
         }
     };
-    prototype.assignNewTask = function(task) {
+    assignNewTask(task) {
         var min = 10000;
         var theGuy = null;
         for (var i = 0; i < this.workerList.length; i++) {

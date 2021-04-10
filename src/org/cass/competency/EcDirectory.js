@@ -20,8 +20,8 @@ var EcDirectory = function() {
     }
 };
 EcDirectory = stjs.extend(EcDirectory, Directory, [], function(constructor, prototype) {
-    constructor.template = null;
-    prototype.equals = function(obj) {
+    static template = null;
+    equals(obj) {
         return this.isId((obj).id);
     };
     /**
@@ -38,7 +38,7 @@ EcDirectory = stjs.extend(EcDirectory, Directory, [], function(constructor, prot
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcDirectory(), success, failure);
     };
     /**
@@ -55,7 +55,7 @@ EcDirectory = stjs.extend(EcDirectory, Directory, [], function(constructor, prot
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcDirectory());
     };
     /**
@@ -76,7 +76,7 @@ EcDirectory = stjs.extend(EcDirectory, Directory, [], function(constructor, prot
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcDirectory();
         }, success, failure, paramObj);
@@ -93,7 +93,7 @@ EcDirectory = stjs.extend(EcDirectory, Directory, [], function(constructor, prot
      *  @memberOf EcDirectory
      *  @method save
      */
-    prototype.save = function(success, failure, repo) {
+    save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Directory Name Cannot be Empty";
             if (failure != null) 

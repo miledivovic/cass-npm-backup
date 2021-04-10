@@ -1,5 +1,5 @@
 module.exports = class EcLocalStorage{
-    constructor.removeItem = function(s, key) {
+    static removeItem(s, key) {
         ((s)["removeItem"])(key);
     };
-}, {}, {});
+};

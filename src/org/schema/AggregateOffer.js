@@ -25,7 +25,7 @@ AggregateOffer = stjs.extend(AggregateOffer, Offer, [], function(constructor, pr
      *  @property offers
      *  @type Offer
      */
-    prototype.offers = null;
+    offers = null;
     /**
      *  Schema.org/offerCount
      *  The number of offers for the product.
@@ -33,7 +33,7 @@ AggregateOffer = stjs.extend(AggregateOffer, Offer, [], function(constructor, pr
      *  @property offerCount
      *  @type Integer
      */
-    prototype.offerCount = null;
+    offerCount = null;
     /**
      *  Schema.org/lowPrice
      *  The lowest price of all offers available.
@@ -41,7 +41,7 @@ AggregateOffer = stjs.extend(AggregateOffer, Offer, [], function(constructor, pr
      *  @property lowPrice
      *  @type Text
      */
-    prototype.lowPrice = null;
+    lowPrice = null;
     /**
      *  Schema.org/highPrice
      *  The highest price of all offers available.
@@ -49,5 +49,5 @@ AggregateOffer = stjs.extend(AggregateOffer, Offer, [], function(constructor, pr
      *  @property highPrice
      *  @type Number
      */
-    prototype.highPrice = null;
+    highPrice = null;
 }, {offers: "Offer", availableDeliveryMethod: "DeliveryMethod", ineligibleRegion: "GeoShape", reviews: "Review", availability: "ItemAvailability", priceSpecification: "PriceSpecification", inventoryLevel: "QuantitativeValue", aggregateRating: "AggregateRating", eligibleTransactionVolume: "PriceSpecification", availableAtOrFrom: "Place", addOn: "Offer", warranty: "WarrantyPromise", includesObject: "TypeAndQuantityNode", eligibleQuantity: "QuantitativeValue", seller: "Person", deliveryLeadTime: "QuantitativeValue", review: "Review", eligibleCustomerType: "BusinessEntityType", itemCondition: "OfferItemCondition", itemOffered: "Service", offeredBy: "Organization", eligibleDuration: "QuantitativeValue", acceptedPaymentMethod: "LoanOrCredit", areaServed: "Place", businessFunction: "BusinessFunction", advanceBookingRequirement: "QuantitativeValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

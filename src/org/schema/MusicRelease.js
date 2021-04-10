@@ -25,7 +25,7 @@ MusicRelease = stjs.extend(MusicRelease, MusicPlaylist, [], function(constructor
      *  @property recordLabel
      *  @type Organization
      */
-    prototype.recordLabel = null;
+    recordLabel = null;
     /**
      *  Schema.org/catalogNumber
      *  The catalog number for the release.
@@ -33,7 +33,7 @@ MusicRelease = stjs.extend(MusicRelease, MusicPlaylist, [], function(constructor
      *  @property catalogNumber
      *  @type Text
      */
-    prototype.catalogNumber = null;
+    catalogNumber = null;
     /**
      *  Schema.org/creditedTo
      *  The group the release is credited to if different than the byArtist. For example, Red and Blue is credited to "Stefani Germanotta Band", but by Lady Gaga.
@@ -41,7 +41,7 @@ MusicRelease = stjs.extend(MusicRelease, MusicPlaylist, [], function(constructor
      *  @property creditedTo
      *  @type Organization
      */
-    prototype.creditedTo = null;
+    creditedTo = null;
     /**
      *  Schema.org/releaseOf
      *  The album this is a release of.
@@ -49,7 +49,7 @@ MusicRelease = stjs.extend(MusicRelease, MusicPlaylist, [], function(constructor
      *  @property releaseOf
      *  @type MusicAlbum
      */
-    prototype.releaseOf = null;
+    releaseOf = null;
     /**
      *  Schema.org/duration
      *  The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601).
@@ -57,7 +57,7 @@ MusicRelease = stjs.extend(MusicRelease, MusicPlaylist, [], function(constructor
      *  @property duration
      *  @type Duration
      */
-    prototype.duration = null;
+    duration = null;
     /**
      *  Schema.org/musicReleaseFormat
      *  Format of this release (the type of recording media used, ie. compact disc, digital media, LP, etc.).
@@ -65,5 +65,5 @@ MusicRelease = stjs.extend(MusicRelease, MusicPlaylist, [], function(constructor
      *  @property musicReleaseFormat
      *  @type MusicReleaseFormatType
      */
-    prototype.musicReleaseFormat = null;
+    musicReleaseFormat = null;
 }, {recordLabel: "Organization", creditedTo: "Organization", releaseOf: "MusicAlbum", duration: "Duration", musicReleaseFormat: "MusicReleaseFormatType", track: "MusicRecording", tracks: "MusicRecording", about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

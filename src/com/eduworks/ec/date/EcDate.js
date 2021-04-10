@@ -6,7 +6,7 @@ module.exports = class EcDate{
      *  @static
      *  @return
      */
-    constructor.toISOString = function(obj) {
+    static toISOString(obj) {
         return ((obj)["toISOString"])();
     };
-}, {}, {});
+}

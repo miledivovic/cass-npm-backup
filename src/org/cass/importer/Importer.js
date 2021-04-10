@@ -8,10 +8,10 @@
  *  @abstract
  */
 module.exports = class Importer{
-    constructor.isObject = function(obj) {
-        return Object.prototype.toString.call(obj) == "[object Object]";
+    static isObject(obj) {
+        return Object.toString.call(obj) == "[object Object]";
     };
-    constructor.isArray = function(obj) {
-        return Object.prototype.toString.call(obj) == "[object Array]";
+    static isArray(obj) {
+        return Object.toString.call(obj) == "[object Array]";
     };
-}, {}, {});
+};

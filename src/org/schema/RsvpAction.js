@@ -25,7 +25,7 @@ RsvpAction = stjs.extend(RsvpAction, InformAction, [], function(constructor, pro
      *  @property additionalNumberOfGuests
      *  @type Number
      */
-    prototype.additionalNumberOfGuests = null;
+    additionalNumberOfGuests = null;
     /**
      *  Schema.org/comment
      *  Comments, typically from users.
@@ -33,7 +33,7 @@ RsvpAction = stjs.extend(RsvpAction, InformAction, [], function(constructor, pro
      *  @property comment
      *  @type Comment
      */
-    prototype.comment = null;
+    comment = null;
     /**
      *  Schema.org/rsvpResponse
      *  The response (yes, no, maybe) to the RSVP.
@@ -41,5 +41,5 @@ RsvpAction = stjs.extend(RsvpAction, InformAction, [], function(constructor, pro
      *  @property rsvpResponse
      *  @type RsvpResponseType
      */
-    prototype.rsvpResponse = null;
+    rsvpResponse = null;
 }, {comment: "Comment", rsvpResponse: "RsvpResponseType", event: "SchemaEvent", about: "Thing", recipient: "Organization", inLanguage: "Language", language: "Language", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

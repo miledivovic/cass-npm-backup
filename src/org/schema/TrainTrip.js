@@ -25,7 +25,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property departureStation
      *  @type TrainStation
      */
-    prototype.departureStation = null;
+    departureStation = null;
     /**
      *  Schema.org/provider
      *  The service provider, service operator, or service performer; the goods producer. Another party (a seller) may offer those services or goods on behalf of the provider. A provider may also serve as the seller.
@@ -33,7 +33,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property provider
      *  @type Person
      */
-    prototype.provider = null;
+    provider = null;
     /**
      *  Schema.org/arrivalPlatform
      *  The platform where the train arrives.
@@ -41,7 +41,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property arrivalPlatform
      *  @type Text
      */
-    prototype.arrivalPlatform = null;
+    arrivalPlatform = null;
     /**
      *  Schema.org/departurePlatform
      *  The platform from which the train departs.
@@ -49,7 +49,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property departurePlatform
      *  @type Text
      */
-    prototype.departurePlatform = null;
+    departurePlatform = null;
     /**
      *  Schema.org/trainName
      *  The name of the train (e.g. The Orient Express).
@@ -57,7 +57,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property trainName
      *  @type Text
      */
-    prototype.trainName = null;
+    trainName = null;
     /**
      *  Schema.org/trainNumber
      *  The unique identifier for the train.
@@ -65,7 +65,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property trainNumber
      *  @type Text
      */
-    prototype.trainNumber = null;
+    trainNumber = null;
     /**
      *  Schema.org/arrivalStation
      *  The station where the train trip ends.
@@ -73,7 +73,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property arrivalStation
      *  @type TrainStation
      */
-    prototype.arrivalStation = null;
+    arrivalStation = null;
     /**
      *  Schema.org/arrivalTime
      *  The expected arrival time.
@@ -81,7 +81,7 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property arrivalTime
      *  @type DateTime
      */
-    prototype.arrivalTime = null;
+    arrivalTime = null;
     /**
      *  Schema.org/departureTime
      *  The expected departure time.
@@ -89,5 +89,5 @@ TrainTrip = stjs.extend(TrainTrip, Intangible, [], function(constructor, prototy
      *  @property departureTime
      *  @type DateTime
      */
-    prototype.departureTime = null;
+    departureTime = null;
 }, {departureStation: "TrainStation", provider: "Person", arrivalStation: "TrainStation", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

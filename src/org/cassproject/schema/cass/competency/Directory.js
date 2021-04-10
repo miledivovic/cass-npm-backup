@@ -11,13 +11,13 @@ var Directory = function() {
     this.setContextAndType(Cass.context, Directory.myType);
 };
 Directory = stjs.extend(Directory, CreativeWork, [], function(constructor, prototype) {
-    constructor.TYPE_0_6 = "https://schema.cassproject.org/0.4/Directory";
-    constructor.myType = Directory.TYPE_0_6;
-    prototype.parentDirectory = null;
-    prototype.upgrade = function() {
-        EcRemoteLinkedData.prototype.upgrade.call(this);
+    static TYPE_0_6 = "https://schema.cassproject.org/0.4/Directory";
+    static myType = Directory.TYPE_0_6;
+    parentDirectory = null;
+    upgrade() {
+        EcRemoteLinkedData.upgrade.call(this);
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(Directory.TYPE_0_6);
         return a;

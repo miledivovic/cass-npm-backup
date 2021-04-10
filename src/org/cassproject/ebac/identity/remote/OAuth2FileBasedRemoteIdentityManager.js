@@ -14,22 +14,22 @@ function(initialized) {
         try {
             me.configuration = JSON.parse(JSON.stringify(o));
             hello.init(o);
-            me.constructor.oauthEnabled = true;
+            me.static oauthEnabled = true;
             initialized();
         }catch (ex) {
-            me.constructor.oauthEnabled = false;
+            me.static oauthEnabled = false;
         }
     }, function(s) {
-        me.constructor.oauthEnabled = false;
+        me.static oauthEnabled = false;
     });
 };
 OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentityManager, null, [RemoteIdentityManagerInterface], function(constructor, prototype) {
-    constructor.oauthEnabled = false;
-    prototype.server = null;
-    prototype.configuration = null;
-    prototype.oauthLoginResponse = null;
-    prototype.network = null;
-    prototype.global = null;
+    static oauthEnabled = false;
+    server = null;
+    configuration = null;
+    oauthLoginResponse = null;
+    network = null;
+    global = null;
     /**
      *  Returns true if the identity manager is global. Returns false if the identity manager is local to the server.
      * 
@@ -37,13 +37,13 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
      *  @memberOf OAuth2FileBasedRemoteIdentityManager
      *  @method isGlobal
      */
-    prototype.isGlobal = function() {
+    isGlobal() {
         if (this.global == null) 
             return true;
         return this.global;
     };
-    prototype.configure = function(usernameSalt, usernameIterations, usernameWidth, passwordSalt, passwordIterations, passwordWidth, secretSalt, secretIterations) {};
-    prototype.configureFromServer = function(success, failure) {
+    configure(usernameSalt, usernameIterations, usernameWidth, passwordSalt, passwordIterations, passwordWidth, secretSalt, secretIterations) {};
+    configureFromServer(success, failure) {
         success(null);
     };
     /**
@@ -52,7 +52,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
      *  @memberOf OAuth2FileBasedRemoteIdentityManager
      *  @method clear
      */
-    prototype.clear = function() {
+    clear() {
         OAuth2FileBasedRemoteIdentityManager.oauthEnabled = false;
         if (this.server != null) 
             hello.logout(this.server, null);
@@ -65,11 +65,11 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
      *  @memberOf OAuth2FileBasedRemoteIdentityManager
      *  @method setDefaultIdentityManagementServer
      */
-    prototype.setDefaultIdentityManagementServer = function(server) {
+    setDefaultIdentityManagementServer(server) {
         this.server = server;
     };
-    prototype.startLogin = function(username, password) {};
-    prototype.changePassword = function(username, oldPassword, newPassword) {
+    startLogin(username, password) {};
+    changePassword(username, oldPassword, newPassword) {
         return false;
     };
     /**
@@ -85,7 +85,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
      *  @memberOf OAuth2FileBasedRemoteIdentityManager
      *  @method fetch
      */
-    prototype.fetch = function(success, failure) {
+    fetch(success, failure) {
         var o = new Object();
         (o)["scope"] = (this.configuration)[this.server + "Scope"];
         (o)["display"] = "page";
@@ -122,7 +122,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
         });
         hello.login(this.server, o).fail(failure);
     };
-    prototype.createContactFolder = function() {
+    createContactFolder() {
         var me = this;
         var o = new Object();
         (o)["name"] = "CASS Contacts";
@@ -130,7 +130,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
             me.hookIdentityManagerContacts((r)["id"]);
         });
     };
-    prototype.createIdentityFolder = function(success) {
+    createIdentityFolder(success) {
         var me = this;
         var o = new Object();
         (o)["name"] = "CASS Identities";
@@ -139,7 +139,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
             success(r);
         });
     };
-    prototype.writeIdentityFiles = function(folderId, success) {
+    writeIdentityFiles(folderId, success) {
         var me = this;
         var helper = new EcAsyncHelper();
         helper.each(EcIdentityManager.ids, function(identity, callback0) {
@@ -148,7 +148,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
             success(strings);
         });
     };
-    prototype.writeIdentityFile = function(folderId, identity, finished) {
+    writeIdentityFile(folderId, identity, finished) {
         var file = stringToFile(identity.ppk.toPem(), identity.displayName + ".pem", "text/plain");
         var o = new Object();
         (o)["id"] = (identity)["id"];
@@ -164,12 +164,12 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
                 finished();
         });
     };
-    prototype.writeContactFiles = function(folderId) {
+    writeContactFiles(folderId) {
         for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
             this.writeContactFile(folderId, EcIdentityManager.contacts[i]);
         }
     };
-    prototype.writeContactFile = function(folderId, contact) {
+    writeContactFile(folderId, contact) {
         var file = stringToFile(contact.pk.toPem(), contact.displayName + ".pem", "text/plain");
         var o = new Object();
         (o)["id"] = (contact)["id"];
@@ -183,7 +183,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
             (contact)["id"] = (r)["id"];
         });
     };
-    prototype.readIdentityFiles = function(folderId, success, failure) {
+    readIdentityFiles(folderId, success, failure) {
         var me = this;
         var o = new Object();
         (o)["parent"] = folderId;
@@ -208,7 +208,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
             });
         });
     };
-    prototype.readContactFiles = function(folderId, success, failure) {
+    readContactFiles(folderId, success, failure) {
         var me = this;
         var o = new Object();
         (o)["parent"] = folderId;
@@ -233,13 +233,13 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
             });
         });
     };
-    prototype.hookIdentityManagerIdentities = function(folderId) {
+    hookIdentityManagerIdentities(folderId) {
         var me = this;
         EcIdentityManager.onIdentityChanged = function(identity) {
             me.writeIdentityFile(folderId, identity, null);
         };
     };
-    prototype.hookIdentityManagerContacts = function(folderId) {
+    hookIdentityManagerContacts(folderId) {
         var me = this;
         EcIdentityManager.onContactChanged = function(contact) {
             me.writeContactFile(folderId, contact);
@@ -253,7 +253,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
      *  @memberOf OAuth2FileBasedRemoteIdentityManager
      *  @method commit
      */
-    prototype.commit = function(success, failure) {
+    commit(success, failure) {
         var me = this;
         var apio = new Object();
         (apio)["network"] = this.network;
@@ -275,7 +275,7 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
          else 
             failure("Please login again.");
     };
-    prototype.create = function(success, failure) {
+    create(success, failure) {
         var o = new Object();
         (o)["scope"] = (this.configuration)[this.server + "Scope"];
         var me = this;

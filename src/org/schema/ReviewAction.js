@@ -25,5 +25,5 @@ ReviewAction = stjs.extend(ReviewAction, AssessAction, [], function(constructor,
      *  @property resultReview
      *  @type Review
      */
-    prototype.resultReview = null;
+    resultReview = null;
 }, {resultReview: "Review", result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

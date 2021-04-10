@@ -25,7 +25,7 @@ PublicationIssue = stjs.extend(PublicationIssue, CreativeWork, [], function(cons
      *  @property pagination
      *  @type Text
      */
-    prototype.pagination = null;
+    pagination = null;
     /**
      *  Schema.org/issueNumber
      *  Identifies the issue of publication; for example, "iii" or "2".
@@ -33,7 +33,7 @@ PublicationIssue = stjs.extend(PublicationIssue, CreativeWork, [], function(cons
      *  @property issueNumber
      *  @type Text
      */
-    prototype.issueNumber = null;
+    issueNumber = null;
     /**
      *  Schema.org/pageEnd
      *  The page on which the work ends; for example "138" or "xvi".
@@ -41,7 +41,7 @@ PublicationIssue = stjs.extend(PublicationIssue, CreativeWork, [], function(cons
      *  @property pageEnd
      *  @type Integer
      */
-    prototype.pageEnd = null;
+    pageEnd = null;
     /**
      *  Schema.org/pageStart
      *  The page on which the work starts; for example "135" or "xiii".
@@ -49,5 +49,5 @@ PublicationIssue = stjs.extend(PublicationIssue, CreativeWork, [], function(cons
      *  @property pageStart
      *  @type Integer
      */
-    prototype.pageStart = null;
+    pageStart = null;
 }, {about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

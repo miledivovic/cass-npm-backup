@@ -25,7 +25,7 @@ EmployeeRole = stjs.extend(EmployeeRole, OrganizationRole, [], function(construc
      *  @property salaryCurrency
      *  @type Text
      */
-    prototype.salaryCurrency = null;
+    salaryCurrency = null;
     /**
      *  Schema.org/baseSalary
      *  The base salary of the job or of an employee in an EmployeeRole.
@@ -33,5 +33,5 @@ EmployeeRole = stjs.extend(EmployeeRole, OrganizationRole, [], function(construc
      *  @property baseSalary
      *  @type MonetaryAmount
      */
-    prototype.baseSalary = null;
+    baseSalary = null;
 }, {baseSalary: "MonetaryAmount", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

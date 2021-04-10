@@ -25,7 +25,7 @@ EntryPoint = stjs.extend(EntryPoint, Intangible, [], function(constructor, proto
      *  @property urlTemplate
      *  @type Text
      */
-    prototype.urlTemplate = null;
+    urlTemplate = null;
     /**
      *  Schema.org/actionApplication
      *  An application that can complete the request.
@@ -33,7 +33,7 @@ EntryPoint = stjs.extend(EntryPoint, Intangible, [], function(constructor, proto
      *  @property actionApplication
      *  @type SoftwareApplication
      */
-    prototype.actionApplication = null;
+    actionApplication = null;
     /**
      *  Schema.org/application
      *  An application that can complete the request.
@@ -41,7 +41,7 @@ EntryPoint = stjs.extend(EntryPoint, Intangible, [], function(constructor, proto
      *  @property application
      *  @type SoftwareApplication
      */
-    prototype.application = null;
+    application = null;
     /**
      *  Schema.org/actionPlatform
      *  The high level platform(s) where the Action can be performed for the given URL. To specify a specific application or operating system instance, use actionApplication.
@@ -49,7 +49,7 @@ EntryPoint = stjs.extend(EntryPoint, Intangible, [], function(constructor, proto
      *  @property actionPlatform
      *  @type Text
      */
-    prototype.actionPlatform = null;
+    actionPlatform = null;
     /**
      *  Schema.org/httpMethod
      *  An HTTP method that specifies the appropriate HTTP method for a request to an HTTP EntryPoint. Values are capitalized strings as used in HTTP.
@@ -57,7 +57,7 @@ EntryPoint = stjs.extend(EntryPoint, Intangible, [], function(constructor, proto
      *  @property httpMethod
      *  @type Text
      */
-    prototype.httpMethod = null;
+    httpMethod = null;
     /**
      *  Schema.org/encodingType
      *  The supported encoding type(s) for an EntryPoint request.
@@ -65,7 +65,7 @@ EntryPoint = stjs.extend(EntryPoint, Intangible, [], function(constructor, proto
      *  @property encodingType
      *  @type Text
      */
-    prototype.encodingType = null;
+    encodingType = null;
     /**
      *  Schema.org/contentType
      *  The supported content type(s) for an EntryPoint response.
@@ -73,5 +73,5 @@ EntryPoint = stjs.extend(EntryPoint, Intangible, [], function(constructor, proto
      *  @property contentType
      *  @type Text
      */
-    prototype.contentType = null;
+    contentType = null;
 }, {actionApplication: "SoftwareApplication", application: "SoftwareApplication", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

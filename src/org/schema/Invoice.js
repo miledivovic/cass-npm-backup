@@ -25,7 +25,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property provider
      *  @type Person
      */
-    prototype.provider = null;
+    provider = null;
     /**
      *  Schema.org/paymentDue
      *  The date that payment is due.
@@ -33,7 +33,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property paymentDue
      *  @type DateTime
      */
-    prototype.paymentDue = null;
+    paymentDue = null;
     /**
      *  Schema.org/billingPeriod
      *  The time interval used to compute the invoice.
@@ -41,7 +41,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property billingPeriod
      *  @type Duration
      */
-    prototype.billingPeriod = null;
+    billingPeriod = null;
     /**
      *  Schema.org/confirmationNumber
      *  A number that confirms the given order or payment has been received.
@@ -49,7 +49,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property confirmationNumber
      *  @type Text
      */
-    prototype.confirmationNumber = null;
+    confirmationNumber = null;
     /**
      *  Schema.org/scheduledPaymentDate
      *  The date the invoice is scheduled to be paid.
@@ -57,7 +57,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property scheduledPaymentDate
      *  @type Date
      */
-    prototype.scheduledPaymentDate = null;
+    scheduledPaymentDate = null;
     /**
      *  Schema.org/customer
      *  Party placing the order or paying the invoice.
@@ -65,7 +65,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property customer
      *  @type Organization
      */
-    prototype.customer = null;
+    customer = null;
     /**
      *  Schema.org/category
      *  A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy.
@@ -73,7 +73,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property category
      *  @type Text
      */
-    prototype.category = null;
+    category = null;
     /**
      *  Schema.org/paymentStatus
      *  The status of payment; whether the invoice has been paid or not.
@@ -81,7 +81,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property paymentStatus
      *  @type PaymentStatusType
      */
-    prototype.paymentStatus = null;
+    paymentStatus = null;
     /**
      *  Schema.org/broker
      *  An entity that arranges for an exchange between a buyer and a seller.  In most cases a broker never acquires or releases ownership of a product or service involved in an exchange.  If it is not clear whether an entity is a broker, seller, or buyer, the latter two terms are preferred.
@@ -89,7 +89,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property broker
      *  @type Person
      */
-    prototype.broker = null;
+    broker = null;
     /**
      *  Schema.org/paymentMethod
      *  The name of the credit card or other method of payment for the order.
@@ -97,7 +97,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property paymentMethod
      *  @type PaymentMethod
      */
-    prototype.paymentMethod = null;
+    paymentMethod = null;
     /**
      *  Schema.org/paymentMethodId
      *  An identifier for the method of payment used (e.g. the last 4 digits of the credit card).
@@ -105,7 +105,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property paymentMethodId
      *  @type Text
      */
-    prototype.paymentMethodId = null;
+    paymentMethodId = null;
     /**
      *  Schema.org/minimumPaymentDue
      *  The minimum payment required at this time.
@@ -113,7 +113,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property minimumPaymentDue
      *  @type MonetaryAmount
      */
-    prototype.minimumPaymentDue = null;
+    minimumPaymentDue = null;
     /**
      *  Schema.org/totalPaymentDue
      *  The total amount due.
@@ -121,7 +121,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property totalPaymentDue
      *  @type MonetaryAmount
      */
-    prototype.totalPaymentDue = null;
+    totalPaymentDue = null;
     /**
      *  Schema.org/accountId
      *  The identifier for the account the payment will be applied to.
@@ -129,7 +129,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property accountId
      *  @type Text
      */
-    prototype.accountId = null;
+    accountId = null;
     /**
      *  Schema.org/referencesOrder
      *  The Order(s) related to this Invoice. One or more Orders may be combined into a single Invoice.
@@ -137,7 +137,7 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property referencesOrder
      *  @type Order
      */
-    prototype.referencesOrder = null;
+    referencesOrder = null;
     /**
      *  Schema.org/paymentDueDate
      *  The date that payment is due.
@@ -145,5 +145,5 @@ Invoice = stjs.extend(Invoice, Intangible, [], function(constructor, prototype) 
      *  @property paymentDueDate
      *  @type DateTime
      */
-    prototype.paymentDueDate = null;
+    paymentDueDate = null;
 }, {provider: "Person", billingPeriod: "Duration", customer: "Organization", paymentStatus: "PaymentStatusType", broker: "Person", paymentMethod: "PaymentMethod", minimumPaymentDue: "MonetaryAmount", totalPaymentDue: "MonetaryAmount", referencesOrder: "Order", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

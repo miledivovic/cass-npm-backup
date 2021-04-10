@@ -14,8 +14,8 @@ var CfdReference = function() {
     this.educationalUse = CfdReference.edUse;
 };
 CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor, prototype) {
-    constructor.myType = "http://schema.org/CreativeWork";
-    constructor.edUse = "Reference";
+    static myType = "http://schema.org/CreativeWork";
+    static edUse = "Reference";
     /**
      *  Retrieves the alignment specified with the ID from the server
      * 
@@ -30,7 +30,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.get(id, function(p1) {
             if (stjs.isInstanceOf(p1.constructor, CfdReference)) 
                 if (success != null) {
@@ -72,7 +72,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (stjs.isInstanceOf(p1.constructor, CfdReference)) 
             return p1;
@@ -115,7 +115,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         var queryAdd = new CfdReference().getSearchStringByType();
         if (query == null || query == "") 
             query = queryAdd;
@@ -161,7 +161,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @method search
      *  @static
      */
-    constructor.searchWithFramework = function(repo, framework, success, failure, paramObj) {
+    static searchWithFramework(repo, framework, success, failure, paramObj) {
         var query = new CfdReference().getSearchStringByType();
         query = "(" + query + ") AND educationalUse:\"" + CfdReference.edUse + "\" AND educationalAlignment.educationalFramework:\"" + framework + "\"";
         repo.searchWithParams(query, paramObj, null, function(p1) {
@@ -191,7 +191,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @return {String}
      *  name of reference
      */
-    prototype.getName = function() {
+    getName() {
         return this.name;
     };
     /**
@@ -200,7 +200,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @param {String} name
      *                  name of the reference
      */
-    prototype.setName = function(name) {
+    setName(name) {
         this.name = name;
     };
     /**
@@ -209,7 +209,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @return {String}
      *  URL of reference
      */
-    prototype.getUrl = function() {
+    getUrl() {
         return this.url;
     };
     /**
@@ -218,7 +218,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @param {String} URL
      *                  URL the reference is pointing at
      */
-    prototype.setUrl = function(url) {
+    setUrl(url) {
         this.url = url;
     };
     /**
@@ -227,7 +227,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @return {CfdAlignment}
      *  Educational Alignment for reference
      */
-    prototype.getEducationalAlignment = function() {
+    getEducationalAlignment() {
         return this.educationalAlignment;
     };
     /**
@@ -236,7 +236,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @param {CfdAlignment} alignment
      *                        Educational alignment for reference
      */
-    prototype.setEducationalAlignment = function(alignment) {
+    setEducationalAlignment(alignment) {
         this.educationalAlignment = alignment;
     };
     /**
@@ -245,7 +245,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @return {String}
      *  educational use
      */
-    prototype.getEducationalUse = function() {
+    getEducationalUse() {
         return this.educationalUse;
     };
     /**
@@ -258,7 +258,7 @@ CfdReference = stjs.extend(CfdReference, CreativeWork, [], function(constructor,
      *  @memberOf CfdReference
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.name == null || this.name == "") {
             var msg = "Name cannot be missing";
             if (failure != null) 

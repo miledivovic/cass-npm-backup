@@ -25,7 +25,7 @@ Role = stjs.extend(Role, Intangible, [], function(constructor, prototype) {
      *  @property endDate
      *  @type DateTime
      */
-    prototype.endDate = null;
+    endDate = null;
     /**
      *  Schema.org/startDate
      *  The start date and time of the item (in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601)).
@@ -33,7 +33,7 @@ Role = stjs.extend(Role, Intangible, [], function(constructor, prototype) {
      *  @property startDate
      *  @type Date
      */
-    prototype.startDate = null;
+    startDate = null;
     /**
      *  Schema.org/namedPosition
      *  A position played, performed or filled by a person or organization, as part of an organization. For example, an athlete in a SportsTeam might play in the position named 'Quarterback'.
@@ -41,7 +41,7 @@ Role = stjs.extend(Role, Intangible, [], function(constructor, prototype) {
      *  @property namedPosition
      *  @type Text
      */
-    prototype.namedPosition = null;
+    namedPosition = null;
     /**
      *  Schema.org/roleName
      *  A role played, performed or filled by a person or organization. For example, the team of creators for a comic book might fill the roles named 'inker', 'penciller', and 'letterer'; or an athlete in a SportsTeam might play in the position named 'Quarterback'.
@@ -49,5 +49,5 @@ Role = stjs.extend(Role, Intangible, [], function(constructor, prototype) {
      *  @property roleName
      *  @type Text
      */
-    prototype.roleName = null;
+    roleName = null;
 }, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

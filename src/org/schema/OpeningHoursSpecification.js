@@ -26,7 +26,7 @@ OpeningHoursSpecification = stjs.extend(OpeningHoursSpecification, StructuredVal
      *  @property validFrom
      *  @type DateTime
      */
-    prototype.validFrom = null;
+    validFrom = null;
     /**
      *  Schema.org/validThrough
      *  The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.
@@ -34,7 +34,7 @@ OpeningHoursSpecification = stjs.extend(OpeningHoursSpecification, StructuredVal
      *  @property validThrough
      *  @type DateTime
      */
-    prototype.validThrough = null;
+    validThrough = null;
     /**
      *  Schema.org/opens
      *  The opening hour of the place or service on the given day(s) of the week.
@@ -42,7 +42,7 @@ OpeningHoursSpecification = stjs.extend(OpeningHoursSpecification, StructuredVal
      *  @property opens
      *  @type Time
      */
-    prototype.opens = null;
+    opens = null;
     /**
      *  Schema.org/closes
      *  The closing hour of the place or service on the given day(s) of the week.
@@ -50,7 +50,7 @@ OpeningHoursSpecification = stjs.extend(OpeningHoursSpecification, StructuredVal
      *  @property closes
      *  @type Time
      */
-    prototype.closes = null;
+    closes = null;
     /**
      *  Schema.org/dayOfWeek
      *  The day of the week for which these opening hours are valid.
@@ -58,5 +58,5 @@ OpeningHoursSpecification = stjs.extend(OpeningHoursSpecification, StructuredVal
      *  @property dayOfWeek
      *  @type DayOfWeek
      */
-    prototype.dayOfWeek = null;
+    dayOfWeek = null;
 }, {dayOfWeek: "DayOfWeek", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

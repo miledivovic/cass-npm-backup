@@ -7,10 +7,7 @@
  *  @extends GeneralFile
  *  @constructor
  */
-var EcFile = function() {
-    GeneralFile.call(this);
-};
-EcFile = stjs.extend(EcFile, GeneralFile, [], function(constructor, prototype) {
+module.exports = class EcFile extends GeneralFile{
     /**
      *  Factory method for creating a file with certain values
      * 
@@ -26,7 +23,7 @@ EcFile = stjs.extend(EcFile, GeneralFile, [], function(constructor, prototype) {
      *  @method create
      *  @static
      */
-    constructor.create = function(name, base64Data, mimeType) {
+    static create(name, base64Data, mimeType) {
         var f = new EcFile();
         f.data = base64Data;
         f.name = name;
@@ -47,10 +44,10 @@ EcFile = stjs.extend(EcFile, GeneralFile, [], function(constructor, prototype) {
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcFile(), success, failure);
     };
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcFile());
     };
     /**
@@ -71,7 +68,7 @@ EcFile = stjs.extend(EcFile, GeneralFile, [], function(constructor, prototype) {
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcFile();
         }, success, failure, paramObj);
@@ -86,7 +83,7 @@ EcFile = stjs.extend(EcFile, GeneralFile, [], function(constructor, prototype) {
      *  @memberOf EcFile
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.name == null || this.name == "") {
             var msg = "File Name can not be empty";
             if (failure != null) 
@@ -108,6 +105,6 @@ EcFile = stjs.extend(EcFile, GeneralFile, [], function(constructor, prototype) {
      *  @method _delete
      */
     prototype._delete = function(repo, success, failure) {
-        repo.constructor.DELETE(this, success, failure);
+        repo.static DELETE(this, success, failure);
     };
 }, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

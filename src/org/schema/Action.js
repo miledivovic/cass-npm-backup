@@ -25,7 +25,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property result
      *  @type Thing
      */
-    prototype.result = null;
+    result = null;
     /**
      *  Schema.org/actionStatus
      *  Indicates the current disposition of the Action.
@@ -33,7 +33,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property actionStatus
      *  @type ActionStatusType
      */
-    prototype.actionStatus = null;
+    actionStatus = null;
     /**
      *  Schema.org/target
      *  Indicates a target EntryPoint for an Action.
@@ -41,7 +41,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property target
      *  @type EntryPoint
      */
-    prototype.target = null;
+    target = null;
     /**
      *  Schema.org/agent
      *  The direct performer or driver of the action (animate or inanimate). e.g. *John* wrote a book.
@@ -49,7 +49,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property agent
      *  @type Person
      */
-    prototype.agent = null;
+    agent = null;
     /**
      *  Schema.org/startTime
      *  The startTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to start. For actions that span a period of time, when the action was performed. e.g. John wrote a book from *January* to December.\n\nNote that SchemaEvent uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.
@@ -57,7 +57,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property startTime
      *  @type DateTime
      */
-    prototype.startTime = null;
+    startTime = null;
     /**
      *  Schema.org/endTime
      *  The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*.\n\nNote that SchemaEvent uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.
@@ -65,7 +65,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property endTime
      *  @type DateTime
      */
-    prototype.endTime = null;
+    endTime = null;
     /**
      *  Schema.org/participant
      *  Other co-agents that participated in the action indirectly. e.g. John wrote a book with *Steve*.
@@ -73,7 +73,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property participant
      *  @type Person
      */
-    prototype.participant = null;
+    participant = null;
     /**
      *  Schema.org/instrument
      *  The object that helped the agent perform the action. e.g. John wrote a book with *a pen*.
@@ -81,7 +81,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property instrument
      *  @type Thing
      */
-    prototype.instrument = null;
+    instrument = null;
     /**
      *  Schema.org/object
      *  The object upon which the action is carried out, whose state is kept intact or changed. Also known as the semantic roles patient, affected or undergoer (which change their state) or theme (which doesn't). e.g. John read *a book*.
@@ -89,7 +89,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property object
      *  @type Thing
      */
-    prototype.object = null;
+    object = null;
     /**
      *  Schema.org/error
      *  For failed actions, more information on the cause of the failure.
@@ -97,7 +97,7 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property error
      *  @type Thing
      */
-    prototype.error = null;
+    error = null;
     /**
      *  Schema.org/location
      *  The location of for example where the event is happening, an organization is located, or where an action takes place.
@@ -105,5 +105,5 @@ Action = stjs.extend(Action, Thing, [], function(constructor, prototype) {
      *  @property location
      *  @type PostalAddress
      */
-    prototype.location = null;
+    location = null;
 }, {result: "Thing", actionStatus: "ActionStatusType", target: "EntryPoint", agent: "Person", participant: "Person", instrument: "Thing", object: "Thing", error: "Thing", location: "PostalAddress", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

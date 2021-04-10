@@ -16,17 +16,17 @@ var EbacEncryptedSecret = function() {
     EcLinkedData.call(this, Ebac.context, EbacEncryptedSecret.TYPE_0_4);
 };
 EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], function(constructor, prototype) {
-    constructor.TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/encryptedSecret";
-    constructor.TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/encryptedSecret";
-    constructor.TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/EncryptedSecret";
-    constructor.TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/EncryptedSecret";
+    static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/encryptedSecret";
+    static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/encryptedSecret";
+    static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/EncryptedSecret";
+    static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/EncryptedSecret";
     /**
      *  IV used to encrypt/decrypt payload. Base64 encoded.
      * 
      *  @property iv
      *  @type string
      */
-    prototype.iv = null;
+    iv = null;
     /**
      *  Hashed and Base64 encoded ID of the parent (if any) object.
      *  Used to verify the data has not been copied from elsewhere.
@@ -34,14 +34,14 @@ EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], functio
      *  @property id
      *  @type string
      */
-    prototype.id = null;
+    id = null;
     /**
      *  Secret used to encrypt/decrypt payload.
      * 
      *  @property secret
      *  @type string
      */
-    prototype.secret = null;
+    secret = null;
     /**
      *  Dot and Bracket notated index of the field in the parent-most object (if
      *  any). Used to verify the field has not been copied from elsewhere.
@@ -49,7 +49,7 @@ EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], functio
      *  @property field
      *  @type string
      */
-    prototype.field = null;
+    field = null;
     /**
      *  Deserializes the field from a compact form used in RSA encryption.
      * 
@@ -58,7 +58,7 @@ EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], functio
      *  @method fromEncryptableJson
      *  @static
      */
-    constructor.fromEncryptableJson = function(obj) {
+    static fromEncryptableJson(obj) {
         var secret = new EbacEncryptedSecret();
         var o = (obj);
         secret.iv = o["v"];
@@ -75,7 +75,7 @@ EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], functio
      *  @return {string} string
      *  @method toEncryptableJson
      */
-    prototype.toEncryptableJson = function() {
+    toEncryptableJson() {
         var o = (new Object());
         o["v"] = this.iv;
         if (this.id != null) 
@@ -85,8 +85,8 @@ EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], functio
             o["f"] = this.field;
         return JSON.stringify(o);
     };
-    prototype.upgrade = function() {
-        EcLinkedData.prototype.upgrade.call(this);
+    upgrade() {
+        EcLinkedData.upgrade.call(this);
         if (EbacEncryptedSecret.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -100,7 +100,7 @@ EbacEncryptedSecret = stjs.extend(EbacEncryptedSecret, EcLinkedData, [], functio
             this.setContextAndType(Ebac.context_0_4, EbacEncryptedSecret.TYPE_0_4);
         }
     };
-    prototype.getTypes = function() {
+    getTypes() {
         var a = new Array();
         a.push(EbacEncryptedSecret.TYPE_0_4);
         a.push(EbacEncryptedSecret.TYPE_0_3);

@@ -48,7 +48,7 @@ module.exports = class Hypergraph{
      *  @return a <code>Array</code> view of all edges in this graph
      *  @method getEdges
      */
-    prototype.getEdges = function() {};
+    getEdges() {};
     /**
      *  Returns a view of all vertices in this graph. In general, this obeys the
      *  <code>Array</code> contract, and therefore makes no guarantees about the
@@ -57,7 +57,7 @@ module.exports = class Hypergraph{
      *  @return a <code>Array</code> view of all vertices in this graph
      *  @method getVerticies
      */
-    prototype.getVertices = function() {};
+    getVertices() {};
     /**
      *  Returns true if this graph's vertex collection contains
      *  <code>vertex</code>. Equivalent to
@@ -67,7 +67,7 @@ module.exports = class Hypergraph{
      *  @return true iff this graph contains a vertex <code>vertex</code>
      *  @method containsVertex
      */
-    prototype.containsVertex = function(vertex) {};
+    containsVertex(vertex) {};
     /**
      *  Returns true if this graph's edge collection contains <code>edge</code>.
      *  Equivalent to <code>getEdges().contains(edge)</code>.
@@ -76,21 +76,21 @@ module.exports = class Hypergraph{
      *  @return true iff this graph contains an edge <code>edge</code>
      *  @method containsEdge
      */
-    prototype.containsEdge = function(edge) {};
+    containsEdge(edge) {};
     /**
      *  Returns the number of edges in this graph.
      * 
      *  @return the number of edges in this graph
      *  @method getEdgeCount
      */
-    prototype.getEdgeCount = function() {};
+    getEdgeCount() {};
     /**
      *  Returns the number of vertices in this graph.
      * 
      *  @return the number of vertices in this graph
      *  @method getVertexCount
      */
-    prototype.getVertexCount = function() {};
+    getVertexCount() {};
     /**
      *  Returns the collection of vertices which are connected to
      *  <code>vertex</code> via any edges in this graph. If <code>vertex</code>
@@ -103,7 +103,7 @@ module.exports = class Hypergraph{
      *  is not present
      *  @method getNeighbors
      */
-    prototype.getNeighbors = function(vertex) {};
+    getNeighbors(vertex) {};
     /**
      *  Returns the collection of edges in this graph which are connected to
      *  <code>vertex</code>.
@@ -114,7 +114,7 @@ module.exports = class Hypergraph{
      *  is not present
      *  @method getIncidentEdges
      */
-    prototype.getIncidentEdges = function(vertex) {};
+    getIncidentEdges(vertex) {};
     /**
      *  Returns the collection of vertices in this graph which are connected to
      *  <code>edge</code>. Note that for some graph types there are guarantees
@@ -129,7 +129,7 @@ module.exports = class Hypergraph{
      *  not present
      *  @method getIncidentVertices
      */
-    prototype.getIncidentVertices = function(edge) {};
+    getIncidentVertices(edge) {};
     /**
      *  Returns an edge that connects this vertex to <code>v</code>. If this edge
      *  is not uniquely defined (that is, if the graph contains more than one
@@ -158,7 +158,7 @@ module.exports = class Hypergraph{
      *  @method findEdge
      *  @see Hypergraph#findEdgeSet(Object, Object)
      */
-    prototype.findEdge = function(v1, v2) {};
+    findEdge(v1, v2) {};
     /**
      *  Returns all edges that connects this vertex to <code>v</code>. If this
      *  edge is not uniquely defined (that is, if the graph contains more than
@@ -186,7 +186,7 @@ module.exports = class Hypergraph{
      *  @method findEdgeSet
      *  @see Hypergraph#findEdge(Object, Object)
      */
-    prototype.findEdgeSet = function(v1, v2) {};
+    findEdgeSet(v1, v2) {};
     /**
      *  Adds <code>vertex</code> to this graph. Fails if <code>vertex</code> is
      *  null or already in the graph.
@@ -197,7 +197,7 @@ module.exports = class Hypergraph{
      *  @throws IllegalArgumentException if <code>vertex</code> is <code>null</code>
      *  @method addVertex
      */
-    prototype.addVertex = function(vertex) {};
+    addVertex(vertex) {};
     /**
      *  Adds <code>edge</code> to this graph. Fails under the following
      *  circumstances:
@@ -221,7 +221,7 @@ module.exports = class Hypergraph{
      *                                   legal vertex set for <code>edge</code>
      *  @method addHyperEdge
      */
-    prototype.addHyperEdge = function(edge, vertices) {};
+    addHyperEdge(edge, vertices) {};
     /**
      *  Removes <code>vertex</code> from this graph. As a side effect, removes
      *  any edges <code>e</code> incident to <code>vertex</code> if the removal
@@ -242,7 +242,7 @@ module.exports = class Hypergraph{
      *  <code>false</code> otherwise
      *  @method removeVertex
      */
-    prototype.removeVertex = function(vertex) {};
+    removeVertex(vertex) {};
     /**
      *  Removes <code>edge</code> from this graph. Fails if <code>edge</code> is
      *  null, or is otherwise not an element of this graph.
@@ -252,7 +252,7 @@ module.exports = class Hypergraph{
      *  <code>false</code> otherwise
      *  @method removeEdge
      */
-    prototype.removeEdge = function(edge) {};
+    removeEdge(edge) {};
     /**
      *  Returns <code>true</code> if <code>v1</code> and <code>v2</code> share an
      *  incident edge. Equivalent to <code>getNeighbors(v1).contains(v2)</code>.
@@ -263,7 +263,7 @@ module.exports = class Hypergraph{
      *  incident edge
      *  @method isNeighbor
      */
-    prototype.isNeighbor = function(v1, v2) {};
+    isNeighbor(v1, v2) {};
     /**
      *  Returns <code>true</code> if <code>vertex</code> and <code>edge</code>
      *  are incident to each other. Equivalent to
@@ -276,7 +276,7 @@ module.exports = class Hypergraph{
      *  are incident to each other
      *  @method isIncident
      */
-    prototype.isIncident = function(vertex, edge) {};
+    isIncident(vertex, edge) {};
     /**
      *  Returns the number of edges incident to <code>vertex</code>. Special
      *  cases of interest:
@@ -300,7 +300,7 @@ module.exports = class Hypergraph{
      *  @method degree
      *  @see Hypergraph#getNeighborCount(Object)
      */
-    prototype.degree = function(vertex) {};
+    degree(vertex) {};
     /**
      *  Returns the number of vertices that are adjacent to <code>vertex</code>
      *  (that is, the number of vertices that are incident to edges in
@@ -313,7 +313,7 @@ module.exports = class Hypergraph{
      *  @return the number of neighboring vertices
      *  @method getNeighborCount
      */
-    prototype.getNeighborCount = function(vertex) {};
+    getNeighborCount(vertex) {};
     /**
      *  Returns the number of vertices that are incident to <code>edge</code>.
      *  For hyperedges, this can be any nonnegative integer; for edges this must
@@ -326,7 +326,7 @@ module.exports = class Hypergraph{
      *  @return the number of vertices that are incident to <code>edge</code>.
      *  @method getIncidentCount
      */
-    prototype.getIncidentCount = function(edge) {};
+    getIncidentCount(edge) {};
     /**
      *  Returns the edge type of <code>edge</code> in this graph.
      * 
@@ -335,14 +335,14 @@ module.exports = class Hypergraph{
      *  <code>null</code> if <code>edge</code> has no defined type
      *  @method getEdgeType
      */
-    prototype.getEdgeType = function(edge) {};
+    getEdgeType(edge) {};
     /**
      *  Returns the default edge type for this graph.
      * 
      *  @return the default edge type for this graph
      *  @method getDefaultEdgeType
      */
-    prototype.getDefaultEdgeType = function() {};
+    getDefaultEdgeType() {};
     /**
      *  Returns the collection of edges in this graph which are of type
      *  <code>edge_type</code>.
@@ -354,7 +354,7 @@ module.exports = class Hypergraph{
      *  @method getEdgesOfType
      *  @see EdgeType
      */
-    prototype.getEdgesOfType = function(edge_type) {};
+    getEdgesOfType(edge_type) {};
     /**
      *  Returns the number of edges of type <code>edge_type</code> in this graph.
      * 
@@ -362,7 +362,7 @@ module.exports = class Hypergraph{
      *  @return the number of edges of type <code>edge_type</code> in this graph
      *  @method getEdgeCountOfType
      */
-    prototype.getEdgeCountOfType = function(edge_type) {};
+    getEdgeCountOfType(edge_type) {};
     /**
      *  Returns a <code>Array</code> view of the incoming edges incident to
      *  <code>vertex</code> in this graph.
@@ -372,7 +372,7 @@ module.exports = class Hypergraph{
      *  <code>vertex</code> in this graph
      *  @method getInEdges
      */
-    prototype.getInEdges = function(vertex) {};
+    getInEdges(vertex) {};
     /**
      *  Returns a <code>Array</code> view of the outgoing edges incident to
      *  <code>vertex</code> in this graph.
@@ -382,7 +382,7 @@ module.exports = class Hypergraph{
      *  <code>vertex</code> in this graph
      *  @method getOutEdges
      */
-    prototype.getOutEdges = function(vertex) {};
+    getOutEdges(vertex) {};
     /**
      *  Returns the number of incoming edges incident to <code>vertex</code>.
      *  Equivalent to <code>getInEdges(vertex).size()</code>.
@@ -391,7 +391,7 @@ module.exports = class Hypergraph{
      *  @return the number of incoming edges incident to <code>vertex</code>
      *  @method inDegree
      */
-    prototype.inDegree = function(vertex) {};
+    inDegree(vertex) {};
     /**
      *  Returns the number of outgoing edges incident to <code>vertex</code>.
      *  Equivalent to <code>getOutEdges(vertex).size()</code>.
@@ -400,7 +400,7 @@ module.exports = class Hypergraph{
      *  @return the number of outgoing edges incident to <code>vertex</code>
      *  @method outDegree
      */
-    prototype.outDegree = function(vertex) {};
+    outDegree(vertex) {};
     /**
      *  If <code>directed_edge</code> is a directed edge in this graph, returns
      *  the source; otherwise returns <code>null</code>. The source of a directed
@@ -413,7 +413,7 @@ module.exports = class Hypergraph{
      *  in this graph, or <code>null</code> otherwise
      *  @method getSource
      */
-    prototype.getSource = function(directed_edge) {};
+    getSource(directed_edge) {};
     /**
      *  If <code>directed_edge</code> is a directed edge in this graph, returns
      *  the destination; otherwise returns <code>null</code>. The destination of
@@ -427,7 +427,7 @@ module.exports = class Hypergraph{
      *  edge in this graph, or <code>null</code> otherwise
      *  @method getDest
      */
-    prototype.getDest = function(directed_edge) {};
+    getDest(directed_edge) {};
     /**
      *  Returns a <code>Array</code> view of the predecessors of
      *  <code>vertex</code> in this graph. A predecessor of <code>vertex</code>
@@ -441,7 +441,7 @@ module.exports = class Hypergraph{
      *  <code>vertex</code> in this graph
      *  @method getPredecessors
      */
-    prototype.getPredecessors = function(vertex) {};
+    getPredecessors(vertex) {};
     /**
      *  Returns a <code>Array</code> view of the successors of
      *  <code>vertex</code> in this graph. A successor of <code>vertex</code> is
@@ -455,5 +455,5 @@ module.exports = class Hypergraph{
      *  <code>vertex</code> in this graph
      *  @method getSuccessors
      */
-    prototype.getSuccessors = function(vertex) {};
-}, {}, {});
+    getSuccessors(vertex) {};
+};

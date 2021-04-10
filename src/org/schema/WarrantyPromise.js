@@ -25,7 +25,7 @@ WarrantyPromise = stjs.extend(WarrantyPromise, StructuredValue, [], function(con
      *  @property durationOfWarranty
      *  @type QuantitativeValue
      */
-    prototype.durationOfWarranty = null;
+    durationOfWarranty = null;
     /**
      *  Schema.org/warrantyScope
      *  The scope of the warranty promise.
@@ -33,5 +33,5 @@ WarrantyPromise = stjs.extend(WarrantyPromise, StructuredValue, [], function(con
      *  @property warrantyScope
      *  @type WarrantyScope
      */
-    prototype.warrantyScope = null;
+    warrantyScope = null;
 }, {durationOfWarranty: "QuantitativeValue", warrantyScope: "WarrantyScope", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

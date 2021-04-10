@@ -25,7 +25,7 @@ DeliveryEvent = stjs.extend(DeliveryEvent, SchemaEvent, [], function(constructor
      *  @property hasDeliveryMethod
      *  @type DeliveryMethod
      */
-    prototype.hasDeliveryMethod = null;
+    hasDeliveryMethod = null;
     /**
      *  Schema.org/availableThrough
      *  After this date, the item will no longer be available for pickup.
@@ -33,7 +33,7 @@ DeliveryEvent = stjs.extend(DeliveryEvent, SchemaEvent, [], function(constructor
      *  @property availableThrough
      *  @type DateTime
      */
-    prototype.availableThrough = null;
+    availableThrough = null;
     /**
      *  Schema.org/availableFrom
      *  When the item is available for pickup from the store, locker, etc.
@@ -41,7 +41,7 @@ DeliveryEvent = stjs.extend(DeliveryEvent, SchemaEvent, [], function(constructor
      *  @property availableFrom
      *  @type DateTime
      */
-    prototype.availableFrom = null;
+    availableFrom = null;
     /**
      *  Schema.org/accessCode
      *  Password, PIN, or access code needed for delivery (e.g. from a locker).
@@ -49,5 +49,5 @@ DeliveryEvent = stjs.extend(DeliveryEvent, SchemaEvent, [], function(constructor
      *  @property accessCode
      *  @type Text
      */
-    prototype.accessCode = null;
+    accessCode = null;
 }, {hasDeliveryMethod: "DeliveryMethod", about: "Thing", funder: "Person", workFeatured: "CreativeWork", audience: "Audience", actor: "Person", performers: "Organization", contributor: "Organization", organizer: "Person", attendees: "Person", aggregateRating: "AggregateRating", subEvent: "SchemaEvent", subEvents: "SchemaEvent", offers: "Offer", attendee: "Organization", workPerformed: "CreativeWork", eventStatus: "EventStatusType", director: "Person", superEvent: "SchemaEvent", duration: "Duration", translator: "Person", inLanguage: "Language", review: "Review", sponsor: "Organization", location: "PostalAddress", recordedIn: "CreativeWork", composer: "Organization", performer: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

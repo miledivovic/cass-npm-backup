@@ -21,10 +21,10 @@ var EcCompetency = function() {
     }
 };
 EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, prototype) {
-    constructor.relDone = {};
-    constructor.levelDone = {};
-    constructor.template = null;
-    prototype.equals = function(obj) {
+    static relDone = {};
+    static levelDone = {};
+    static template = null;
+    equals(obj) {
         return this.isId((obj).id);
     };
     /**
@@ -41,7 +41,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcCompetency(), success, failure);
     };
     /**
@@ -56,7 +56,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcCompetency());
     };
     /**
@@ -76,7 +76,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcCompetency();
         }, success, failure, paramObj);
@@ -102,7 +102,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method addAlignment
      */
-    prototype.addAlignment = function(target, alignmentType, owner, serverUrl, success, failure, repo) {
+    addAlignment(target, alignmentType, owner, serverUrl, success, failure, repo) {
         var a = new EcAlignment();
         if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
             a.generateId(serverUrl);
@@ -129,7 +129,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method relations
      */
-    prototype.relations = function(repo, eachSuccess, failure, successAll) {
+    relations(repo, eachSuccess, failure, successAll) {
         this.relationships(repo, eachSuccess, failure, successAll);
     };
     /**
@@ -147,7 +147,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @method relations
      *  @deprecated
      */
-    prototype.relationships = function(repo, eachSuccess, failure, successAll) {
+    relationships(repo, eachSuccess, failure, successAll) {
         EcAlignment.search(repo, "source:\"" + this.id + "\" OR target:\"" + this.id + "\" OR source:\"" + this.shortId() + "\" OR target:\"" + this.shortId() + "\"", function(results) {
             for (var i = 0; i < results.length; i++) 
                 eachSuccess(results[i]);
@@ -174,7 +174,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method addLevel
      */
-    prototype.addLevel = function(name, description, owner, serverUrl, success, failure, repo) {
+    addLevel(name, description, owner, serverUrl, success, failure, repo) {
         var l = new EcLevel();
         if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
             l.generateId(serverUrl);
@@ -201,7 +201,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method levels
      */
-    prototype.levels = function(repo, eachSuccess, failure, successAll) {
+    levels(repo, eachSuccess, failure, successAll) {
         var query = "competency:\"" + this.id + "\" OR competency:\"" + this.shortId() + "\"";
         EcLevel.search(repo, query, function(results) {
             for (var i = 0; i < results.length; i++) 
@@ -229,7 +229,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method addRollupRule
      */
-    prototype.addRollupRule = function(name, description, owner, serverUrl, success, failure, repo) {
+    addRollupRule(name, description, owner, serverUrl, success, failure, repo) {
         var r = new EcRollupRule();
         if (repo == null) 
             if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
@@ -257,7 +257,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method rollupRules
      */
-    prototype.rollupRules = function(repo, eachSuccess, failure, successAll) {
+    rollupRules(repo, eachSuccess, failure, successAll) {
         var query = "competency:\"" + this.id + "\" OR competency:\"" + this.shortId() + "\"";
         EcRollupRule.search(repo, query, function(results) {
             for (var i = 0; i < results.length; i++) 
@@ -273,7 +273,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method setScope
      */
-    prototype.setScope = function(scope) {
+    setScope(scope) {
         this.scope = scope;
     };
     /**
@@ -286,7 +286,7 @@ EcCompetency = stjs.extend(EcCompetency, Competency, [], function(constructor, p
      *  @memberOf EcCompetency
      *  @method save
      */
-    prototype.save = function(success, failure, repo) {
+    save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Competency Name can not be empty";
             if (failure != null) 

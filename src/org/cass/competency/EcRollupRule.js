@@ -9,10 +9,7 @@
  *  @constructor
  *  @extends RollupRule
  */
-var EcRollupRule = function() {
-    RollupRule.call(this);
-};
-EcRollupRule = stjs.extend(EcRollupRule, RollupRule, [], function(constructor, prototype) {
+module.exports = class EcRollupRule extends RollupRule{
     /**
      *  Retrieves a rollup rule from the server
      * 
@@ -27,10 +24,10 @@ EcRollupRule = stjs.extend(EcRollupRule, RollupRule, [], function(constructor, p
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.getAs(id, new EcRollupRule(), success, failure);
     };
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         return EcRepository.getBlockingAs(id, new EcRollupRule());
     };
     /**
@@ -50,7 +47,7 @@ EcRollupRule = stjs.extend(EcRollupRule, RollupRule, [], function(constructor, p
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         EcRepository.searchAs(repo, query, function() {
             return new EcRollupRule();
         }, success, failure, paramObj);
@@ -62,7 +59,7 @@ EcRollupRule = stjs.extend(EcRollupRule, RollupRule, [], function(constructor, p
      *  @memberOf EcRollupRule
      *  @method setName
      */
-    prototype.setName = function(name) {
+    setName(name) {
         this.name = name;
     };
     /**
@@ -72,7 +69,7 @@ EcRollupRule = stjs.extend(EcRollupRule, RollupRule, [], function(constructor, p
      *  @memberOf EcRollupRule
      *  @method setDescription
      */
-    prototype.setDescription = function(description) {
+    setDescription(description) {
         this.description = description;
     };
     /**
@@ -85,7 +82,7 @@ EcRollupRule = stjs.extend(EcRollupRule, RollupRule, [], function(constructor, p
      *  @memberOf EcRollupRule
      *  @method save
      */
-    prototype.save = function(success, failure, repo) {
+    save(success, failure, repo) {
         if (this.rule == null || this.rule == "") {
             var msg = "RollupRule Rule cannot be empty";
             if (failure != null) 

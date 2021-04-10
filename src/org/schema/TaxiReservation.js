@@ -25,7 +25,7 @@ TaxiReservation = stjs.extend(TaxiReservation, Reservation, [], function(constru
      *  @property pickupTime
      *  @type DateTime
      */
-    prototype.pickupTime = null;
+    pickupTime = null;
     /**
      *  Schema.org/partySize
      *  Number of people the reservation should accommodate.
@@ -33,7 +33,7 @@ TaxiReservation = stjs.extend(TaxiReservation, Reservation, [], function(constru
      *  @property partySize
      *  @type Integer
      */
-    prototype.partySize = null;
+    partySize = null;
     /**
      *  Schema.org/pickupLocation
      *  Where a taxi will pick up a passenger or a rental car can be picked up.
@@ -41,5 +41,5 @@ TaxiReservation = stjs.extend(TaxiReservation, Reservation, [], function(constru
      *  @property pickupLocation
      *  @type Place
      */
-    prototype.pickupLocation = null;
+    pickupLocation = null;
 }, {pickupLocation: "Place", provider: "Person", programMembershipUsed: "ProgramMembership", reservationStatus: "ReservationStatusType", underName: "Organization", bookingAgent: "Organization", reservationFor: "Thing", broker: "Person", reservedTicket: "Ticket", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

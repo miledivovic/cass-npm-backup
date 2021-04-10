@@ -25,7 +25,7 @@ Rating = stjs.extend(Rating, Intangible, [], function(constructor, prototype) {
      *  @property ratingValue
      *  @type Number
      */
-    prototype.ratingValue = null;
+    ratingValue = null;
     /**
      *  Schema.org/bestRating
      *  The highest value allowed in this rating system. If bestRating is omitted, 5 is assumed.
@@ -33,7 +33,7 @@ Rating = stjs.extend(Rating, Intangible, [], function(constructor, prototype) {
      *  @property bestRating
      *  @type Number
      */
-    prototype.bestRating = null;
+    bestRating = null;
     /**
      *  Schema.org/author
      *  The author of this content or rating. Please note that author is special in that HTML 5 provides a special mechanism for indicating authorship via the rel tag. That is equivalent to this and may be used interchangeably.
@@ -41,7 +41,7 @@ Rating = stjs.extend(Rating, Intangible, [], function(constructor, prototype) {
      *  @property author
      *  @type Person
      */
-    prototype.author = null;
+    author = null;
     /**
      *  Schema.org/worstRating
      *  The lowest value allowed in this rating system. If worstRating is omitted, 1 is assumed.
@@ -49,5 +49,5 @@ Rating = stjs.extend(Rating, Intangible, [], function(constructor, prototype) {
      *  @property worstRating
      *  @type Text
      */
-    prototype.worstRating = null;
+    worstRating = null;
 }, {author: "Person", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

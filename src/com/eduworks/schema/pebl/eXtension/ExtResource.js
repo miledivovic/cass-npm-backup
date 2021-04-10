@@ -12,7 +12,7 @@ function() {
     this.type = "Resource";
 };
 ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, prototype) {
-    prototype.legacyId = null;
+    legacyId = null;
     /**
      *  Retrieves the resource specified with the ID from the server
      * 
@@ -27,7 +27,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @method get
      *  @static
      */
-    constructor.get = function(id, success, failure) {
+    static get(id, success, failure) {
         EcRepository.get(id, function(p1) {
             if (stjs.isInstanceOf(p1.constructor, ExtResource)) 
                 if (success != null) {
@@ -69,7 +69,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @method getBlocking
      *  @static
      */
-    constructor.getBlocking = function(id) {
+    static getBlocking(id) {
         var p1 = EcRepository.getBlocking(id);
         if (stjs.isInstanceOf(p1.constructor, ExtResource)) 
             return p1;
@@ -112,7 +112,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @method search
      *  @static
      */
-    constructor.search = function(repo, query, success, failure, paramObj) {
+    static search(repo, query, success, failure, paramObj) {
         var queryAdd = new ExtResource().getSearchStringByType();
         if (query == null || query == "") 
             query = queryAdd;
@@ -141,7 +141,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @memberOf ExtResource
      *  @method save
      */
-    prototype.save = function(success, failure) {
+    save(success, failure) {
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
@@ -188,7 +188,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  ID of resource
      */
-    prototype.getId = function() {
+    getId() {
         return this.id;
     };
     /**
@@ -197,7 +197,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} id
      *                  ID of the resource
      */
-    prototype.setId = function(id) {
+    setId(id) {
         this.id = id;
     };
     /**
@@ -206,7 +206,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  legacyId of resource
      */
-    prototype.getLegacyId = function() {
+    getLegacyId() {
         return this.legacyId;
     };
     /**
@@ -215,7 +215,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} id
      *                  legacyId of the resource
      */
-    prototype.setLegacyId = function(id) {
+    setLegacyId(id) {
         this.legacyId = id;
     };
     /**
@@ -224,7 +224,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {Person}
      *  author of resource
      */
-    prototype.getAuthor = function() {
+    getAuthor() {
         return this.author;
     };
     /**
@@ -232,7 +232,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      * 
      *  @param {Person} creator
      */
-    prototype.setAuthor = function(creator) {
+    setAuthor(creator) {
         this.author = creator;
     };
     /**
@@ -241,7 +241,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  title of resource
      */
-    prototype.getTitle = function() {
+    getTitle() {
         return this.name;
     };
     /**
@@ -250,7 +250,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} title
      *                  title of the resource
      */
-    prototype.setTitle = function(title) {
+    setTitle(title) {
         this.name = title;
     };
     /**
@@ -259,7 +259,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  description of resource
      */
-    prototype.getDescription = function() {
+    getDescription() {
         return this.description;
     };
     /**
@@ -268,7 +268,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} description
      *                  description of the resource
      */
-    prototype.setDescription = function(description) {
+    setDescription(description) {
         this.description = description;
     };
     /**
@@ -277,7 +277,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  text of resource
      */
-    prototype.getText = function() {
+    getText() {
         return this.text;
     };
     /**
@@ -286,7 +286,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} text
      *                  text of the resource
      */
-    prototype.setText = function(text) {
+    setText(text) {
         this.text = text;
     };
     /**
@@ -295,7 +295,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  genre of resource
      */
-    prototype.getCategory = function() {
+    getCategory() {
         return this.genre;
     };
     /**
@@ -304,7 +304,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} name
      *                  category of the resource
      */
-    prototype.setCategory = function(name) {
+    setCategory(name) {
         this.genre = name;
     };
     /**
@@ -313,7 +313,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  additionalType of resource
      */
-    prototype.getAdditionalType = function() {
+    getAdditionalType() {
         return this.additionalType;
     };
     /**
@@ -322,7 +322,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} name
      *                  additionalType of the resource
      */
-    prototype.setAdditionalType = function(name) {
+    setAdditionalType(name) {
         this.additionalType = name;
     };
     /**
@@ -331,7 +331,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  keywords of resource
      */
-    prototype.getKeywords = function() {
+    getKeywords() {
         return this.keywords;
     };
     /**
@@ -340,7 +340,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} name
      *                  keywords of the resource
      */
-    prototype.setKeywords = function(name) {
+    setKeywords(name) {
         this.keywords = name;
     };
     /**
@@ -349,7 +349,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {Person}
      *  publisher of resource
      */
-    prototype.getInstitution = function() {
+    getInstitution() {
         return this.publisher;
     };
     /**
@@ -358,7 +358,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {Organization} institution
      *                        institution of the resource
      */
-    prototype.setInstitution = function(institution) {
+    setInstitution(institution) {
         this.publisher = institution;
     };
     /**
@@ -367,7 +367,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {Organization}
      *  community of resource
      */
-    prototype.getCommunity = function() {
+    getCommunity() {
         return this.sourceOrganization;
     };
     /**
@@ -376,7 +376,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {Organization} community
      *                        community of the resource
      */
-    prototype.setCommunity = function(community) {
+    setCommunity(community) {
         this.sourceOrganization = community;
     };
     /**
@@ -385,7 +385,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  launch url of resource
      */
-    prototype.getLaunchURL = function() {
+    getLaunchURL() {
         return this.sameAs;
     };
     /**
@@ -394,7 +394,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} page
      *                  Launch url of the resource
      */
-    prototype.setLaunchURL = function(page) {
+    setLaunchURL(page) {
         this.sameAs = page;
     };
     /**
@@ -403,7 +403,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *   @return {Product}
      *   authoring url of resource
      */
-    prototype.getAuthoringURL = function() {
+    getAuthoringURL() {
         return this.isBasedOn;
     };
     /**
@@ -412,7 +412,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *   @param {String} page
      *                   Authoring url of the resource
      */
-    prototype.setAuthoringURL = function(page) {
+    setAuthoringURL(page) {
         this.isBasedOn = page;
     };
     /**
@@ -421,7 +421,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @return {String}
      *  url of resource object
      */
-    prototype.getUrl = function() {
+    getUrl() {
         return this.url;
     };
     /**
@@ -430,7 +430,7 @@ ExtResource = stjs.extend(ExtResource, CreativeWork, [], function(constructor, p
      *  @param {String} url
      *                  url of the resource object
      */
-    prototype.setUrl = function(url) {
+    setUrl(url) {
         this.url = url;
     };
 }, {about: "Thing", educationalAlignment: "AlignmentObject", associatedMedia: "MediaObject", funder: "Person", audio: "AudioObject", workExample: "CreativeWork", provider: "Person", encoding: "MediaObject", character: "Person", audience: "Audience", sourceOrganization: "Organization", isPartOf: "CreativeWork", video: "VideoObject", publication: "PublicationEvent", contributor: "Organization", reviews: "Review", hasPart: "CreativeWork", releasedEvent: "PublicationEvent", contentLocation: "Place", aggregateRating: "AggregateRating", locationCreated: "Place", accountablePerson: "Person", spatialCoverage: "Place", offers: "Offer", editor: "Person", copyrightHolder: "Person", recordedAt: "SchemaEvent", publisher: "Person", interactionStatistic: "InteractionCounter", exampleOfWork: "CreativeWork", mainEntity: "Thing", author: "Person", timeRequired: "Duration", translator: "Person", comment: "Comment", inLanguage: "Language", review: "Review", license: "CreativeWork", encodings: "MediaObject", isBasedOn: "Product", creator: "Person", sponsor: "Organization", producer: "Person", mentions: "Thing", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

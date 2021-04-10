@@ -25,7 +25,7 @@ QuantitativeValue = stjs.extend(QuantitativeValue, StructuredValue, [], function
      *  @property unitCode
      *  @type Text
      */
-    prototype.unitCode = null;
+    unitCode = null;
     /**
      *  Schema.org/minValue
      *  The lower value of some characteristic or property.
@@ -33,7 +33,7 @@ QuantitativeValue = stjs.extend(QuantitativeValue, StructuredValue, [], function
      *  @property minValue
      *  @type Number
      */
-    prototype.minValue = null;
+    minValue = null;
     /**
      *  Schema.org/value
      *  The value of the quantitative value or property value node.\n\n* For [[QuantitativeValue]] and [[MonetaryAmount]], the recommended type for values is 'Number'.\n* For [[PropertyValue]], it can be 'Text;', 'Number', 'Boolean', or 'StructuredValue'.
@@ -41,7 +41,7 @@ QuantitativeValue = stjs.extend(QuantitativeValue, StructuredValue, [], function
      *  @property value
      *  @type StructuredValue
      */
-    prototype.value = null;
+    value = null;
     /**
      *  Schema.org/additionalProperty
      *  A property-value pair representing an additional characteristics of the entitity, e.g. a product feature or another characteristic for which there is no matching property in schema.org.\n\nNote: Publishers should be aware that applications designed to use specific schema.org properties (e.g. schema:width, schema:color, schema:gtin13, ...) will typically expect such data to be provided using those properties, rather than using the generic property/value mechanism.
@@ -49,7 +49,7 @@ QuantitativeValue = stjs.extend(QuantitativeValue, StructuredValue, [], function
      *  @property additionalProperty
      *  @type PropertyValue
      */
-    prototype.additionalProperty = null;
+    additionalProperty = null;
     /**
      *  Schema.org/valueReference
      *  A pointer to a secondary value that provides additional information on the original value, e.g. a reference temperature.
@@ -57,7 +57,7 @@ QuantitativeValue = stjs.extend(QuantitativeValue, StructuredValue, [], function
      *  @property valueReference
      *  @type StructuredValue
      */
-    prototype.valueReference = null;
+    valueReference = null;
     /**
      *  Schema.org/maxValue
      *  The upper value of some characteristic or property.
@@ -65,7 +65,7 @@ QuantitativeValue = stjs.extend(QuantitativeValue, StructuredValue, [], function
      *  @property maxValue
      *  @type Number
      */
-    prototype.maxValue = null;
+    maxValue = null;
     /**
      *  Schema.org/unitText
      *  A string or text indicating the unit of measurement. Useful if you cannot provide a standard unit code for
@@ -74,5 +74,5 @@ QuantitativeValue = stjs.extend(QuantitativeValue, StructuredValue, [], function
      *  @property unitText
      *  @type Text
      */
-    prototype.unitText = null;
+    unitText = null;
 }, {value: "StructuredValue", additionalProperty: "PropertyValue", valueReference: "StructuredValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

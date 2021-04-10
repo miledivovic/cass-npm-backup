@@ -25,7 +25,7 @@ PaymentChargeSpecification = stjs.extend(PaymentChargeSpecification, PriceSpecif
      *  @property appliesToPaymentMethod
      *  @type PaymentMethod
      */
-    prototype.appliesToPaymentMethod = null;
+    appliesToPaymentMethod = null;
     /**
      *  Schema.org/appliesToDeliveryMethod
      *  The delivery method(s) to which the delivery charge or payment charge specification applies.
@@ -33,5 +33,5 @@ PaymentChargeSpecification = stjs.extend(PaymentChargeSpecification, PriceSpecif
      *  @property appliesToDeliveryMethod
      *  @type DeliveryMethod
      */
-    prototype.appliesToDeliveryMethod = null;
+    appliesToDeliveryMethod = null;
 }, {appliesToPaymentMethod: "PaymentMethod", appliesToDeliveryMethod: "DeliveryMethod", eligibleTransactionVolume: "PriceSpecification", eligibleQuantity: "QuantitativeValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

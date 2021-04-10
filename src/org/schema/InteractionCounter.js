@@ -25,7 +25,7 @@ InteractionCounter = stjs.extend(InteractionCounter, StructuredValue, [], functi
      *  @property interactionService
      *  @type SoftwareApplication
      */
-    prototype.interactionService = null;
+    interactionService = null;
     /**
      *  Schema.org/userInteractionCount
      *  The number of interactions for the CreativeWork using the WebSite or SoftwareApplication.
@@ -33,7 +33,7 @@ InteractionCounter = stjs.extend(InteractionCounter, StructuredValue, [], functi
      *  @property userInteractionCount
      *  @type Integer
      */
-    prototype.userInteractionCount = null;
+    userInteractionCount = null;
     /**
      *  Schema.org/interactionType
      *  The Action representing the type of interaction. For up votes, +1s, etc. use [[LikeAction]]. For down votes use [[DislikeAction]]. Otherwise, use the most specific Action.
@@ -41,5 +41,5 @@ InteractionCounter = stjs.extend(InteractionCounter, StructuredValue, [], functi
      *  @property interactionType
      *  @type Action
      */
-    prototype.interactionType = null;
+    interactionType = null;
 }, {interactionService: "SoftwareApplication", interactionType: "Action", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

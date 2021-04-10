@@ -9,8 +9,8 @@
  *  @class EcAsyncHelper
  */
 module.exports = class EcAsyncHelper{
-    constructor.scriptPath = null;
-    constructor.setNull = function(set) {
+    static scriptPath = null;
+    static setNull(set) {
         return function(s) {
             set(null);
         };
@@ -21,7 +21,7 @@ module.exports = class EcAsyncHelper{
      *  @property counter
      *  @type integer
      */
-    prototype.counter = null;
+    counter = null;
     /**
      *  "Each" method. See class description.
      * 
@@ -31,7 +31,7 @@ module.exports = class EcAsyncHelper{
      *  @method each
      *  @memberOf EcAsyncHelper
      */
-    prototype.each = function(array, each, after) {
+    each(array, each, after) {
         var me = this;
         this.counter = array.length;
         if (array.length == 0) 
@@ -50,7 +50,7 @@ module.exports = class EcAsyncHelper{
      *  @method each
      *  @memberOf EcAsyncHelper
      */
-    prototype.eachSet = function(array, each, after) {
+    eachSet(array, each, after) {
         var me = this;
         this.counter = array.length;
         if (array.length == 0) 
@@ -60,7 +60,7 @@ module.exports = class EcAsyncHelper{
                 this.executeSet(array, each, after, me, i);
         }
     };
-    prototype.execute = function(array, each, after, me, i) {
+    execute(array, each, after, me, i) {
         Task.immediate(function() {
             each(array[i], function() {
                 me.counter--;
@@ -69,7 +69,7 @@ module.exports = class EcAsyncHelper{
             });
         });
     };
-    prototype.executeSet = function(array, each, after, me, i) {
+    executeSet(array, each, after, me, i) {
         Task.immediate(function() {
             each(array[i], function(result) {
                 array[i] = result;
@@ -84,7 +84,7 @@ module.exports = class EcAsyncHelper{
             });
         });
     };
-    prototype.failWithCallback = function(failure, callback) {
+    failWithCallback(failure, callback) {
         return function(s) {
             callback();
             failure(s);
@@ -96,7 +96,7 @@ module.exports = class EcAsyncHelper{
      *  @method stop
      *  @memberOf EcAsyncHelper
      */
-    prototype.stop = function() {
+    stop() {
         this.counter = -1;
     };
     /**
@@ -105,7 +105,7 @@ module.exports = class EcAsyncHelper{
      *  @method stop
      *  @memberOf EcAsyncHelper
      */
-    prototype.finish = function() {
+    finish() {
         this.counter = 1;
     };
     /**
@@ -115,7 +115,7 @@ module.exports = class EcAsyncHelper{
      *  @method isStopped
      *  @memberOf EcAsyncHelper
      */
-    prototype.isStopped = function() {
+    isStopped() {
         return this.counter <= -1;
     };
-}, {}, {});
+};

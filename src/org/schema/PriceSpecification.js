@@ -25,7 +25,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property minPrice
      *  @type Number
      */
-    prototype.minPrice = null;
+    minPrice = null;
     /**
      *  Schema.org/eligibleTransactionVolume
      *  The transaction volume, in a monetary unit, for which the offer or price specification is valid, e.g. for indicating a minimal purchasing volume, to express free shipping above a certain order volume, or to limit the acceptance of credit cards to purchases to a certain minimal amount.
@@ -33,7 +33,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property eligibleTransactionVolume
      *  @type PriceSpecification
      */
-    prototype.eligibleTransactionVolume = null;
+    eligibleTransactionVolume = null;
     /**
      *  Schema.org/maxPrice
      *  The highest price if the price is a range.
@@ -41,7 +41,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property maxPrice
      *  @type Number
      */
-    prototype.maxPrice = null;
+    maxPrice = null;
     /**
      *  Schema.org/priceCurrency
      *  The currency (in 3-letter ISO 4217 format) of the price or a price component, when attached to [[PriceSpecification]] and its subtypes.
@@ -49,7 +49,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property priceCurrency
      *  @type Text
      */
-    prototype.priceCurrency = null;
+    priceCurrency = null;
     /**
      *  Schema.org/eligibleQuantity
      *  The interval and unit of measurement of ordering quantities for which the offer or price specification is valid. This allows e.g. specifying that a certain freight charge is valid only for a certain quantity.
@@ -57,7 +57,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property eligibleQuantity
      *  @type QuantitativeValue
      */
-    prototype.eligibleQuantity = null;
+    eligibleQuantity = null;
     /**
      *  Schema.org/validFrom
      *  The date when the item becomes valid.
@@ -65,7 +65,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property validFrom
      *  @type DateTime
      */
-    prototype.validFrom = null;
+    validFrom = null;
     /**
      *  Schema.org/validThrough
      *  The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.
@@ -73,7 +73,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property validThrough
      *  @type DateTime
      */
-    prototype.validThrough = null;
+    validThrough = null;
     /**
      *  Schema.org/price
      *  The offer price of a product, or of a price component when attached to PriceSpecification and its subtypes.\n\nUsage guidelines:\n\n* Use the [[priceCurrency]] property (with [ISO 4217 codes](http://en.wikipedia.org/wiki/ISO_4217#Active_codes) e.g. "USD") instead of
@@ -82,7 +82,7 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property price
      *  @type Number
      */
-    prototype.price = null;
+    price = null;
     /**
      *  Schema.org/valueAddedTaxIncluded
      *  Specifies whether the applicable value-added tax (VAT) is included in the price specification or not.
@@ -90,5 +90,5 @@ PriceSpecification = stjs.extend(PriceSpecification, StructuredValue, [], functi
      *  @property valueAddedTaxIncluded
      *  @type Boolean
      */
-    prototype.valueAddedTaxIncluded = null;
+    valueAddedTaxIncluded = null;
 }, {eligibleTransactionVolume: "PriceSpecification", eligibleQuantity: "QuantitativeValue", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

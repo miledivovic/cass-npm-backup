@@ -25,7 +25,7 @@ GameServer = stjs.extend(GameServer, Intangible, [], function(constructor, proto
      *  @property game
      *  @type VideoGame
      */
-    prototype.game = null;
+    game = null;
     /**
      *  Schema.org/playersOnline
      *  Number of players on the server.
@@ -33,7 +33,7 @@ GameServer = stjs.extend(GameServer, Intangible, [], function(constructor, proto
      *  @property playersOnline
      *  @type Integer
      */
-    prototype.playersOnline = null;
+    playersOnline = null;
     /**
      *  Schema.org/serverStatus
      *  Status of a game server.
@@ -41,5 +41,5 @@ GameServer = stjs.extend(GameServer, Intangible, [], function(constructor, proto
      *  @property serverStatus
      *  @type GameServerStatus
      */
-    prototype.serverStatus = null;
+    serverStatus = null;
 }, {game: "VideoGame", serverStatus: "GameServerStatus", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

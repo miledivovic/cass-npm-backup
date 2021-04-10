@@ -17,21 +17,21 @@ module.exports = class EcContact{
      *  @property pk
      *  @type EcPk
      */
-    prototype.pk = null;
+    pk = null;
     /**
      *  Display Name of the contact
      * 
      *  @property displayName
      *  @type String
      */
-    prototype.displayName = null;
+    displayName = null;
     /**
      *  URL to the home server of the contact
      * 
      *  @property source
      *  @type String
      */
-    prototype.source = null;
+    source = null;
     /**
      *  Helper function to decrypt an encrypted contact (storable version of an contact)
      *  into an contact
@@ -49,7 +49,7 @@ module.exports = class EcContact{
      *  @method fromEncryptedContact
      *  @static
      */
-    constructor.fromEncryptedContact = function(contact, secret, source) {
+    static fromEncryptedContact(contact, secret, source) {
         var i = new EcContact();
         i.pk = EcPk.fromPem(EcAesCtr.decrypt(contact.pk, secret, contact.iv));
         i.source = source;
@@ -67,7 +67,7 @@ module.exports = class EcContact{
      *  @memberOf EcContact
      *  @method equals
      */
-    prototype.equals = function(obj) {
+    equals(obj) {
         if (stjs.isInstanceOf(obj.constructor, EcContact)) {
             if (this.pk == null) 
                 return false;
@@ -75,7 +75,7 @@ module.exports = class EcContact{
                 return false;
             return this.pk.toPem().equals((obj).pk.toPem());
         }
-        return Object.prototype.equals.call(this, obj);
+        return Object.equals.call(this, obj);
     };
     /**
      *  Returns the URL to generic image that should be displayed for the contact
@@ -85,7 +85,7 @@ module.exports = class EcContact{
      *  @memberOf EcContact
      *  @method getImageUrl
      */
-    prototype.getImageUrl = function() {
+    getImageUrl() {
         return "https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/48px-User_icon_2.svg.png";
     };
     /**
@@ -99,7 +99,7 @@ module.exports = class EcContact{
      *  @memberOf EcContact
      *  @method toEncryptedContact
      */
-    prototype.toEncryptedContact = function(secret) {
+    toEncryptedContact(secret) {
         var c = new EbacContact();
         c.iv = EcAes.newIv(16);
         c.pk = EcAesCtr.encrypt(this.pk.toPem(), secret, c.iv);

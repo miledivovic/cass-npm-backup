@@ -25,7 +25,7 @@ FoodEstablishmentReservation = stjs.extend(FoodEstablishmentReservation, Reserva
      *  @property startTime
      *  @type DateTime
      */
-    prototype.startTime = null;
+    startTime = null;
     /**
      *  Schema.org/endTime
      *  The endTime of something. For a reserved event or service (e.g. FoodEstablishmentReservation), the time that it is expected to end. For actions that span a period of time, when the action was performed. e.g. John wrote a book from January to *December*.\n\nNote that SchemaEvent uses startDate/endDate instead of startTime/endTime, even when describing dates with times. This situation may be clarified in future revisions.
@@ -33,7 +33,7 @@ FoodEstablishmentReservation = stjs.extend(FoodEstablishmentReservation, Reserva
      *  @property endTime
      *  @type DateTime
      */
-    prototype.endTime = null;
+    endTime = null;
     /**
      *  Schema.org/partySize
      *  Number of people the reservation should accommodate.
@@ -41,5 +41,5 @@ FoodEstablishmentReservation = stjs.extend(FoodEstablishmentReservation, Reserva
      *  @property partySize
      *  @type Integer
      */
-    prototype.partySize = null;
+    partySize = null;
 }, {provider: "Person", programMembershipUsed: "ProgramMembership", reservationStatus: "ReservationStatusType", underName: "Organization", bookingAgent: "Organization", reservationFor: "Thing", broker: "Person", reservedTicket: "Ticket", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

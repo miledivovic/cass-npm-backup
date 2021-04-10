@@ -8,12 +8,9 @@
  *  @class EcEncryptedValue
  *  @extends EbacEncryptedValue
  */
-var EcEncryptedValue = function() {
-    EbacEncryptedValue.call(this);
-};
-EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], function(constructor, prototype) {
-    constructor.encryptOnSaveMap = null;
-    constructor.revive = function(partiallyRehydratedObject) {
+module.exports = class EcEncryptedValue extends EbacEncryptedValue{
+    static encryptOnSaveMap = null;
+    static revive(partiallyRehydratedObject) {
         if (partiallyRehydratedObject == null) 
             return null;
         var v = new EcEncryptedValue();
@@ -28,7 +25,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @static
      *  @method fromEncryptedValue
      */
-    constructor.fromEncryptedValue = function(d) {
+    static fromEncryptedValue(d) {
         if (!d.isAny(new EcEncryptedValue().getTypes())) 
             return d;
         var eev = new EcEncryptedValue();
@@ -48,7 +45,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @static
      *  @method fromEncryptedValue
      */
-    constructor.fromEncryptedValueAsync = function(d, success, failure) {
+    static fromEncryptedValueAsync(d, success, failure) {
         if (!d.isAny(new EcEncryptedValue().getTypes())) 
             success(d);
          else {
@@ -66,7 +63,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @return {string} Fully qualified type name.
      *  @method getEncryptedFullType
      */
-    prototype.getEncryptedFullType = function() {
+    getEncryptedFullType() {
         if (this.encryptedContext == null) 
             return this.encryptedType;
         if (this.encryptedType.indexOf("http") != -1) 
@@ -88,7 +85,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
         computedType += this.encryptedType;
         return computedType;
     };
-    prototype.getEncryptedDottedType = function() {
+    getEncryptedDottedType() {
         return this.getEncryptedFullType().replace("http://", "").replace("https://", "").replaceAll("/", ".");
     };
     /**
@@ -102,7 +99,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @method toEncryptedValue
      *  @static
      */
-    constructor.toEncryptedValue = function(d, hideType) {
+    static toEncryptedValue(d, hideType) {
         d.updateTimestamp();
         var v = new EcEncryptedValue();
         if (hideType == null || !hideType) {
@@ -165,7 +162,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @method toEncryptedValueAsync
      *  @static
      */
-    constructor.toEncryptedValueAsync = function(d, hideType, success, failure) {
+    static toEncryptedValueAsync(d, hideType, success, failure) {
         d.updateTimestamp();
         var v = new EcEncryptedValue();
         if (hideType == null || !hideType) {
@@ -197,7 +194,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
             }
         }, failure);
     };
-    constructor.insertSecret = function(pk, success, newIv, newSecret, v, failure) {
+    static insertSecret(pk, success, newIv, newSecret, v, failure) {
         var eSecret = new EbacEncryptedSecret();
         eSecret.iv = newIv;
         eSecret.secret = newSecret;
@@ -221,7 +218,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @static
      *  @deprecated
      */
-    constructor.encryptValueOld = function(text, id, owner) {
+    static encryptValueOld(text, id, owner) {
         var v = new EcEncryptedValue();
         var newIv = EcAes.newIv(16);
         var newSecret = EcAes.newIv(16);
@@ -251,7 +248,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @method encryptValue
      *  @static
      */
-    constructor.encryptValue = function(text, id, owners, readers) {
+    static encryptValue(text, id, owners, readers) {
         var v = new EcEncryptedValue();
         var newIv = EcAes.newIv(16);
         var newSecret = EcAes.newIv(16);
@@ -306,7 +303,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @method encryptValue
      *  @static
      */
-    constructor.encryptValueAsync = function(text, id, owners, readers, success, failure) {
+    static encryptValueAsync(text, id, owners, readers, success, failure) {
         var v = new EcEncryptedValue();
         var newIv = EcAes.newIv(16);
         var newSecret = EcAes.newIv(16);
@@ -358,7 +355,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @method encryptValueUsingIvAndSecret
      *  @static
      */
-    constructor.encryptValueUsingIvAndSecret = function(iv, secret, text, id, owners, readers) {
+    static encryptValueUsingIvAndSecret(iv, secret, text, id, owners, readers) {
         var v = new EcEncryptedValue();
         v.payload = EcAesCtr.encrypt(text, secret, iv);
         if (owners != null) {
@@ -401,7 +398,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @method encryptOnSave
      *  @static
      */
-    constructor.encryptOnSave = function(id, val) {
+    static encryptOnSave(id, val) {
         if (EcEncryptedValue.encryptOnSaveMap == null) {
             EcEncryptedValue.encryptOnSaveMap = {};
         }
@@ -423,7 +420,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoObject
      */
-    prototype.decryptIntoObject = function() {
+    decryptIntoObject() {
         var decryptRaw = this.decryptIntoString();
         if (decryptRaw == null) {
             return null;
@@ -447,7 +444,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoObjectAsync
      */
-    prototype.decryptIntoObjectAsync = function(success, failure) {
+    decryptIntoObjectAsync(success, failure) {
         var id = this.id;
         this.decryptIntoStringAsync(function(decryptRaw) {
             if (decryptRaw == null) {
@@ -476,7 +473,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoObjectUsingIvAndSecretAsync
      */
-    prototype.decryptIntoObjectUsingIvAndSecretAsync = function(iv, secret, success, failure) {
+    decryptIntoObjectUsingIvAndSecretAsync(iv, secret, success, failure) {
         this.decryptIntoStringUsingIvAndSecretAsync(iv, secret, function(decryptRaw) {
             if (decryptRaw == null) {
                 failure("Could not decrypt data.");
@@ -497,7 +494,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoString
      */
-    prototype.decryptIntoString = function() {
+    decryptIntoString() {
         var decryptSecret = this.decryptSecret();
         if (decryptSecret != null) {
             return EcAesCtr.decrypt(this.payload, decryptSecret.secret, decryptSecret.iv);
@@ -511,7 +508,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoString
      */
-    prototype.decryptIntoStringUsingSecret = function(decryptSecret) {
+    decryptIntoStringUsingSecret(decryptSecret) {
         if (decryptSecret != null) {
             return EcAesCtr.decrypt(this.payload, decryptSecret.secret, decryptSecret.iv);
         }
@@ -527,7 +524,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoStringAsync
      */
-    prototype.decryptIntoStringAsync = function(success, failure) {
+    decryptIntoStringAsync(success, failure) {
         var me = this;
         this.decryptSecretAsync(function(decryptSecret) {
             if (decryptSecret != null) {
@@ -549,7 +546,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoStringAsync
      */
-    prototype.decryptIntoStringUsingSecretAsync = function(decryptSecret, success, failure) {
+    decryptIntoStringUsingSecretAsync(decryptSecret, success, failure) {
         var me = this;
         if (decryptSecret != null) {
             if (me.context == Ebac.context_0_2 || me.context == Ebac.context_0_3) {
@@ -572,7 +569,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptIntoStringUsingIvAndSecretAsync
      */
-    prototype.decryptIntoStringUsingIvAndSecretAsync = function(iv, secret, success, failure) {
+    decryptIntoStringUsingIvAndSecretAsync(iv, secret, success, failure) {
         if (this.context == Ebac.context_0_2 || this.context == Ebac.context_0_3) {
             if (base64.decode(iv).byteLength == 32) 
                 iv = base64.encode(base64.decode(iv).slice(0, 16));
@@ -587,7 +584,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptSecret
      */
-    prototype.decryptSecret = function() {
+    decryptSecret() {
         var candidateIndex = 0;
         if (this.owner != null) {
             for (var i = 0; i < this.owner.length; i++) {
@@ -632,7 +629,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptSecretByKey
      */
-    prototype.decryptSecretByKey = function(decryptionKey, tryThisIndexFirst) {
+    decryptSecretByKey(decryptionKey, tryThisIndexFirst) {
         var encryptedSecret = null;
         if (this.secret != null) {
             if (tryThisIndexFirst >= 0) 
@@ -663,7 +660,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptSecretAsync
      */
-    prototype.decryptSecretAsync = function(success, failure) {
+    decryptSecretAsync(success, failure) {
         var ppks = new Array();
         var estimatedIndices = new Array();
         if (this.owner != null) {
@@ -710,7 +707,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
             failure("Could not decrypt secret.");
         });
     };
-    prototype.tryDecryptSecretByKeyAndIndex = function(decryptionKey, j) {
+    tryDecryptSecretByKeyAndIndex(decryptionKey, j) {
         var decryptedSecret = null;
         decryptedSecret = EcRsaOaep.decrypt(decryptionKey, this.secret[j]);
         if (EcLinkedData.isProbablyJson(decryptedSecret)) {
@@ -730,7 +727,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method decryptSecretByKeyAsync
      */
-    prototype.decryptSecretByKeyAsync = function(decryptionKey, estimatedIndex, success, failure) {
+    decryptSecretByKeyAsync(decryptionKey, estimatedIndex, success, failure) {
         var encryptedSecret = null;
         var me = this;
         if (this.secret != null) {
@@ -750,7 +747,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
         } else 
             failure("Secret field is empty.");
     };
-    prototype.decryptSecretsByKeyAsync = function(decryptionKey, success, failure) {
+    decryptSecretsByKeyAsync(decryptionKey, success, failure) {
         var helper = new EcAsyncHelper();
         helper.each(this.secret, function(decryptionSecret, decrement) {
             EcRsaOaepAsync.decrypt(decryptionKey, decryptionSecret, function(decryptedSecret) {
@@ -780,7 +777,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method isAnEncrypted
      */
-    prototype.isAnEncrypted = function(type) {
+    isAnEncrypted(type) {
         if (this.encryptedType == null) {
             return false;
         }
@@ -794,7 +791,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method addReader
      */
-    prototype.addReader = function(newReader) {
+    addReader(newReader) {
         this.addReaderBasic(newReader);
         var payloadSecret = this.decryptSecret();
         if (payloadSecret == null) {
@@ -810,7 +807,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method addReader
      */
-    prototype.addReaderBasic = function(newReader) {
+    addReaderBasic(newReader) {
         var pem = newReader.toPem();
         if (this.reader == null) {
             this.reader = new Array();
@@ -829,7 +826,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method removeReader
      */
-    prototype.removeReader = function(oldReader) {
+    removeReader(oldReader) {
         var payloadSecret = this.decryptSecret();
         var pem = oldReader.toPem();
         if (this.reader != null) {
@@ -856,7 +853,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method addReaderAsync
      */
-    prototype.addReaderAsync = function(newReader, success, failure) {
+    addReaderAsync(newReader, success, failure) {
         var me = this;
         this.decryptSecretAsync(function(payloadSecret) {
             EcRsaOaepAsync.encrypt(newReader, payloadSecret.toEncryptableJson(), function(s) {
@@ -885,7 +882,7 @@ EcEncryptedValue = stjs.extend(EcEncryptedValue, EbacEncryptedValue, [], functio
      *  @memberOf EcEncryptedValue
      *  @method removeReaderAsync
      */
-    prototype.removeReaderAsync = function(oldReader, success, failure) {
+    removeReaderAsync(oldReader, success, failure) {
         var me = this;
         this.decryptSecretAsync(function(payloadSecret) {
             var pem = oldReader.toPem();

@@ -25,7 +25,7 @@ AlignmentObject = stjs.extend(AlignmentObject, Intangible, [], function(construc
      *  @property targetDescription
      *  @type Text
      */
-    prototype.targetDescription = null;
+    targetDescription = null;
     /**
      *  Schema.org/alignmentType
      *  A category of alignment between the learning resource and the framework node. Recommended values include: 'assesses', 'teaches', 'requires', 'textComplexity', 'readingLevel', 'educationalSubject', and 'educationalLevel'.
@@ -33,7 +33,7 @@ AlignmentObject = stjs.extend(AlignmentObject, Intangible, [], function(construc
      *  @property alignmentType
      *  @type Text
      */
-    prototype.alignmentType = null;
+    alignmentType = null;
     /**
      *  Schema.org/targetUrl
      *  The URL of a node in an established educational framework.
@@ -41,7 +41,7 @@ AlignmentObject = stjs.extend(AlignmentObject, Intangible, [], function(construc
      *  @property targetUrl
      *  @type URL
      */
-    prototype.targetUrl = null;
+    targetUrl = null;
     /**
      *  Schema.org/targetName
      *  The name of a node in an established educational framework.
@@ -49,7 +49,7 @@ AlignmentObject = stjs.extend(AlignmentObject, Intangible, [], function(construc
      *  @property targetName
      *  @type Text
      */
-    prototype.targetName = null;
+    targetName = null;
     /**
      *  Schema.org/educationalFramework
      *  The framework to which the resource being described is aligned.
@@ -57,5 +57,5 @@ AlignmentObject = stjs.extend(AlignmentObject, Intangible, [], function(construc
      *  @property educationalFramework
      *  @type Text
      */
-    prototype.educationalFramework = null;
+    educationalFramework = null;
 }, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -25,7 +25,7 @@ ItemList = stjs.extend(ItemList, Intangible, [], function(constructor, prototype
      *  @property itemListElement
      *  @type ListItem
      */
-    prototype.itemListElement = null;
+    itemListElement = null;
     /**
      *  Schema.org/itemListOrder
      *  Type of ordering (e.g. Ascending, Descending, Unordered).
@@ -33,7 +33,7 @@ ItemList = stjs.extend(ItemList, Intangible, [], function(constructor, prototype
      *  @property itemListOrder
      *  @type Text
      */
-    prototype.itemListOrder = null;
+    itemListOrder = null;
     /**
      *  Schema.org/numberOfItems
      *  The number of items in an ItemList. Note that some descriptions might not fully describe all items in a list (e.g., multi-page pagination); in such cases, the numberOfItems would be for the entire list.
@@ -41,5 +41,5 @@ ItemList = stjs.extend(ItemList, Intangible, [], function(constructor, prototype
      *  @property numberOfItems
      *  @type Integer
      */
-    prototype.numberOfItems = null;
+    numberOfItems = null;
 }, {itemListElement: "ListItem", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

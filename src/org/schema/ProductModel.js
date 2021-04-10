@@ -25,7 +25,7 @@ ProductModel = stjs.extend(ProductModel, Product, [], function(constructor, prot
      *  @property predecessorOf
      *  @type ProductModel
      */
-    prototype.predecessorOf = null;
+    predecessorOf = null;
     /**
      *  Schema.org/successorOf
      *  A pointer from a newer variant of a product  to its previous, often discontinued predecessor.
@@ -33,7 +33,7 @@ ProductModel = stjs.extend(ProductModel, Product, [], function(constructor, prot
      *  @property successorOf
      *  @type ProductModel
      */
-    prototype.successorOf = null;
+    successorOf = null;
     /**
      *  Schema.org/isVariantOf
      *  A pointer to a base product from which this product is a variant. It is safe to infer that the variant inherits all product features from the base model, unless defined locally. This is not transitive.
@@ -41,5 +41,5 @@ ProductModel = stjs.extend(ProductModel, Product, [], function(constructor, prot
      *  @property isVariantOf
      *  @type ProductModel
      */
-    prototype.isVariantOf = null;
+    isVariantOf = null;
 }, {predecessorOf: "ProductModel", successorOf: "ProductModel", isVariantOf: "ProductModel", manufacturer: "Organization", audience: "Audience", height: "Distance", reviews: "Review", aggregateRating: "AggregateRating", isConsumableFor: "Product", offers: "Offer", width: "Distance", additionalProperty: "PropertyValue", isAccessoryOrSparePartFor: "Product", logo: "ImageObject", weight: "QuantitativeValue", depth: "Distance", isSimilarTo: "Product", isRelatedTo: "Product", review: "Review", itemCondition: "OfferItemCondition", brand: "Organization", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

@@ -25,7 +25,7 @@ PostalAddress = stjs.extend(PostalAddress, ContactPoint, [], function(constructo
      *  @property postOfficeBoxNumber
      *  @type Text
      */
-    prototype.postOfficeBoxNumber = null;
+    postOfficeBoxNumber = null;
     /**
      *  Schema.org/streetAddress
      *  The street address. For example, 1600 Amphitheatre Pkwy.
@@ -33,7 +33,7 @@ PostalAddress = stjs.extend(PostalAddress, ContactPoint, [], function(constructo
      *  @property streetAddress
      *  @type Text
      */
-    prototype.streetAddress = null;
+    streetAddress = null;
     /**
      *  Schema.org/addressCountry
      *  The country. For example, USA. You can also provide the two-letter [ISO 3166-1 alpha-2 country code](http://en.wikipedia.org/wiki/ISO_3166-1).
@@ -41,7 +41,7 @@ PostalAddress = stjs.extend(PostalAddress, ContactPoint, [], function(constructo
      *  @property addressCountry
      *  @type Text
      */
-    prototype.addressCountry = null;
+    addressCountry = null;
     /**
      *  Schema.org/addressRegion
      *  The region. For example, CA.
@@ -49,7 +49,7 @@ PostalAddress = stjs.extend(PostalAddress, ContactPoint, [], function(constructo
      *  @property addressRegion
      *  @type Text
      */
-    prototype.addressRegion = null;
+    addressRegion = null;
     /**
      *  Schema.org/postalCode
      *  The postal code. For example, 94043.
@@ -57,7 +57,7 @@ PostalAddress = stjs.extend(PostalAddress, ContactPoint, [], function(constructo
      *  @property postalCode
      *  @type Text
      */
-    prototype.postalCode = null;
+    postalCode = null;
     /**
      *  Schema.org/addressLocality
      *  The locality. For example, Mountain View.
@@ -65,5 +65,5 @@ PostalAddress = stjs.extend(PostalAddress, ContactPoint, [], function(constructo
      *  @property addressLocality
      *  @type Text
      */
-    prototype.addressLocality = null;
+    addressLocality = null;
 }, {serviceArea: "GeoShape", hoursAvailable: "OpeningHoursSpecification", contactOption: "ContactPointOption", availableLanguage: "Language", areaServed: "Place", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});

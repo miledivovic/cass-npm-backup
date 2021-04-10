@@ -3,8 +3,7 @@
  *  Falls back to EcRsaOaepAsyncWorker, if window.crypto is not available.
  *  @class EcRsaOaepAsync
  */
-var EcRsaOaepAsync = function() {};
-EcRsaOaepAsync = stjs.extend(EcRsaOaepAsync, null, [], function(constructor, prototype) {
+module.exports = class EcRsaOaepAsync{
     /**
      *  Asynchronous form of {{#crossLink
      *  "EcRsaOaep/encrypt:method"}}EcRsaOaep.encrypt{{/crossLink}}

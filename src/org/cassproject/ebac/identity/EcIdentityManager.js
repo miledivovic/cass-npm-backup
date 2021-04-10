@@ -10,8 +10,7 @@
  *  @class EcIdentityManager
  *  @static
  */
-var EcIdentityManager = function() {};
-EcIdentityManager = stjs.extend(EcIdentityManager, null, [], function(constructor, prototype) {
+module.exports = class EcIdentityManager{
     /**
      *  The current user's owned identities (keys+displayName)
      * 

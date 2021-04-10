@@ -39,8 +39,7 @@
  *  @class Hypergraph
  *  @module com.eduworks.ec
  */
-var Hypergraph = function() {};
-Hypergraph = stjs.extend(Hypergraph, null, [], function(constructor, prototype) {
+module.exports = class Hypergraph{
     /**
      *  Returns a view of all edges in this graph. In general, this obeys the
      *  <code>Array</code> contract, and therefore makes no guarantees about the

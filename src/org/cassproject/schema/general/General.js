@@ -5,8 +5,7 @@
  *  @class General
  *  @module com.eduworks.ec
  */
-var General = function() {};
-General = stjs.extend(General, null, [], function(constructor, prototype) {
+module.exports = class General{
     constructor.context_0_2 = "http://schema.eduworks.com/general/0.2";
     constructor.context_0_1 = "http://schema.eduworks.com/general/0.1";
     /**

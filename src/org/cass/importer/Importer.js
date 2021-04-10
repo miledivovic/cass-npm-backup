@@ -7,8 +7,7 @@
  *  @class Importer
  *  @abstract
  */
-var Importer = function() {};
-Importer = stjs.extend(Importer, null, [], function(constructor, prototype) {
+module.exports = class Importer{
     constructor.isObject = function(obj) {
         return Object.prototype.toString.call(obj) == "[object Object]";
     };

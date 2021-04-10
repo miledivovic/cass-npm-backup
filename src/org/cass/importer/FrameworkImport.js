@@ -8,8 +8,7 @@
  *  @static
  *  @extends Importer
  */
-var FrameworkImport = function() {};
-FrameworkImport = stjs.extend(FrameworkImport, null, [], function(constructor, prototype) {
+module.exports = class FrameworkImport{
     constructor.savedComp = 0;
     constructor.savedRel = 0;
     constructor.targetUsable = null;

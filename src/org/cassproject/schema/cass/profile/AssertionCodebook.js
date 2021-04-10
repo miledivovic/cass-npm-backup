@@ -1,5 +1,4 @@
-var AssertionCodebook = function() {};
-AssertionCodebook = stjs.extend(AssertionCodebook, null, [], function(constructor, prototype) {
+module.exports = class AssertionCodebook{
     prototype.agent = null;
     prototype.subject = null;
     prototype.assertionDate = null;

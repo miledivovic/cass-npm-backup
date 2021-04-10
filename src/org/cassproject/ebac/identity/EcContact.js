@@ -10,8 +10,7 @@
  *  @class EcContact
  *  @constructor
  */
-var EcContact = function() {};
-EcContact = stjs.extend(EcContact, null, [], function(constructor, prototype) {
+module.exports = class EcContact{
     /**
      *  Public Key of the contact
      * 

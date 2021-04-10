@@ -1,5 +1,4 @@
-var RemoteIdentityManagerInterface = function() {};
-RemoteIdentityManagerInterface = stjs.extend(RemoteIdentityManagerInterface, null, [], function(constructor, prototype) {
+module.exports = class RemoteIdentityManagerInterface{
     prototype.configure = function(usernameSalt, usernameIterations, usernameWidth, passwordSalt, passwordIterations, passwordWidth, secretSalt, secretIterations) {};
     prototype.configureFromServer = function(success, failure) {};
     prototype.isGlobal = function() {};

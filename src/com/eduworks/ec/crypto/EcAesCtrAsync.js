@@ -3,8 +3,7 @@
  *  Falls back to EcAesCtrAsyncWorker, if window.crypto is not available.
  *  @class EcAesCtrAsync
  */
-var EcAesCtrAsync = function() {};
-EcAesCtrAsync = stjs.extend(EcAesCtrAsync, null, [], function(constructor, prototype) {
+module.exports = class EcAesCtrAsync{
     /**
      *  Asynchronous form of {{#crossLink
      *  "EcAesCtr/encrypt:method"}}EcAesCtr.encrypt{{/crossLink}}

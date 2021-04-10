@@ -5,8 +5,7 @@
  * 
  *  @class Task
  */
-var Task = function() {};
-Task = stjs.extend(Task, null, [], function(constructor, prototype) {
+module.exports = class Task{
     constructor.desiredFps = 2;
     constructor.lastFrame = null;
     constructor.tasks = new Array();

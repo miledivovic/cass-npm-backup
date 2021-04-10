@@ -5,8 +5,7 @@
  *  @class Triple
  *  @module com.eduworks.ec
  */
-var Triple = function() {};
-Triple = stjs.extend(Triple, null, [], function(constructor, prototype) {
+module.exports = class Triple{
     /**
      *  Source vertex.
      * 

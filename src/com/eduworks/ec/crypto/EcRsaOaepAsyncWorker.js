@@ -6,8 +6,7 @@
  *  @class EcRsaOaepAsyncWorker
  *  @module com.eduworks.ec
  */
-var EcRsaOaepAsyncWorker = function() {};
-EcRsaOaepAsyncWorker = stjs.extend(EcRsaOaepAsyncWorker, null, [], function(constructor, prototype) {
+module.exports = class EcRsaOaepAsyncWorker{
     constructor.rotator = 0;
     constructor.w = null;
     constructor.q1 = null;

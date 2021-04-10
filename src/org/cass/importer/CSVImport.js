@@ -9,8 +9,7 @@
  *  @static
  *  @extends Importer
  */
-var CSVImport = function() {};
-CSVImport = stjs.extend(CSVImport, null, [], function(constructor, prototype) {
+module.exports = class CSVImport{
     constructor.INCREMENTAL_STEP = 5;
     constructor.importCsvLookup = null;
     constructor.saved = 0;

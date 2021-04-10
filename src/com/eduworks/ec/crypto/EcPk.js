@@ -5,8 +5,7 @@
  *  @class EcPk
  *  @module com.eduworks.ec
  */
-var EcPk = function() {};
-EcPk = stjs.extend(EcPk, null, [], function(constructor, prototype) {
+module.exports = class EcPk{
     constructor.cache = null;
     prototype.pk = null;
     prototype.defaultPem = null;

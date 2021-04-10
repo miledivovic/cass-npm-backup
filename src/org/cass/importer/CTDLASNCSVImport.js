@@ -1,5 +1,4 @@
-var CTDLASNCSVImport = function() {};
-CTDLASNCSVImport = stjs.extend(CTDLASNCSVImport, null, [], function(constructor, prototype) {
+module.exports = class CTDLASNCSVImport{
     constructor.analyzeFile = function(file, success, failure) {
         if (file == null) {
             failure("No file to analyze");

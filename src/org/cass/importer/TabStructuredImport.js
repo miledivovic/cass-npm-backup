@@ -1,5 +1,4 @@
-var TabStructuredImport = function() {};
-TabStructuredImport = stjs.extend(TabStructuredImport, null, [], function(constructor, prototype) {
+module.exports = class TabStructuredImport{
     /**
      *  Method to create competencies (and relationships if the parameters are passed in)
      *  based on a CSV file and references to which columns correspond to which pieces

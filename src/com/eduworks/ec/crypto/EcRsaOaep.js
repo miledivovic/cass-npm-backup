@@ -7,8 +7,7 @@
  *  @module com.eduworks.ec
  *  @class EcRsaOaep
  */
-var EcRsaOaep = function() {};
-EcRsaOaep = stjs.extend(EcRsaOaep, null, [], function(constructor, prototype) {
+module.exports = class EcRsaOaep{
     /**
      *  Encrypts a block of plaintext (no more than 256 bytes) with a public key
      *  using RSA OAEP encryption. Returns a base64 encoded ciphertext.

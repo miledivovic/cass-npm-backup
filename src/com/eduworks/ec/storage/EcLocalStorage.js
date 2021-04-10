@@ -1,5 +1,4 @@
-var EcLocalStorage = function() {};
-EcLocalStorage = stjs.extend(EcLocalStorage, null, [], function(constructor, prototype) {
+module.exports = class EcLocalStorage{
     constructor.removeItem = function(s, key) {
         ((s)["removeItem"])(key);
     };

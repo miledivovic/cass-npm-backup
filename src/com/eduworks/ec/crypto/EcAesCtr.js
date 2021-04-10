@@ -6,8 +6,7 @@
  *  @module com.eduworks.ec
  *  @class EcAesCtr
  */
-var EcAesCtr = function() {};
-EcAesCtr = stjs.extend(EcAesCtr, null, [], function(constructor, prototype) {
+module.exports = class EcAesCtr{
     /**
      *  Encrypts plaintext using AES-256-CTR.
      *  Plaintext is treated as as a sequence of bytes, does not perform UTF8 decoding.

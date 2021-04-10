@@ -8,8 +8,7 @@
  *  @module com.eduworks.ec
  *  @class EcAsyncHelper
  */
-var EcAsyncHelper = function() {};
-EcAsyncHelper = stjs.extend(EcAsyncHelper, null, [], function(constructor, prototype) {
+module.exports = class EcAsyncHelper{
     constructor.scriptPath = null;
     constructor.setNull = function(set) {
         return function(s) {

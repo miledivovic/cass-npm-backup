@@ -5,8 +5,7 @@
  *  @class Ebac
  *  @module org.cassproject
  */
-var Ebac = function() {};
-Ebac = stjs.extend(Ebac, null, [], function(constructor, prototype) {
+module.exports = class Ebac{
     constructor.context_0_1 = "http://schema.eduworks.com/ebac/0.1";
     constructor.context_0_2 = "http://schema.eduworks.com/ebac/0.2";
     constructor.context_0_3 = "http://schema.cassproject.org/kbac/0.2";

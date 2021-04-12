@@ -12,7 +12,7 @@ endorsement rating is particularly useful in the absence of numeric scales as it
  * @class EndorsementRating
  * @module org.schema
  */
-public class EndorsementRating extends EcRemoteLinkedData {
+module.exports = class EndorsementRating extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

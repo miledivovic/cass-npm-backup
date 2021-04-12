@@ -6,7 +6,7 @@
  * @class Casino
  * @module org.schema
  */
-public class Casino extends EcRemoteLinkedData {
+module.exports = class Casino extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

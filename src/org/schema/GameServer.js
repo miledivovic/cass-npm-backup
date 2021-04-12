@@ -6,7 +6,7 @@
  * @class GameServer
  * @module org.schema
  */
-public class GameServer extends EcRemoteLinkedData {
+module.exports = class GameServer extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

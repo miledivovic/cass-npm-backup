@@ -6,7 +6,7 @@
  * @class InvestmentOrDeposit
  * @module org.schema
  */
-public class InvestmentOrDeposit extends EcRemoteLinkedData {
+module.exports = class InvestmentOrDeposit extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

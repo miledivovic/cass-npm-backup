@@ -6,7 +6,7 @@
  * @class CookAction
  * @module org.schema
  */
-public class CookAction extends EcRemoteLinkedData {
+module.exports = class CookAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

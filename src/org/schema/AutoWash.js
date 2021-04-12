@@ -6,7 +6,7 @@
  * @class AutoWash
  * @module org.schema
  */
-public class AutoWash extends EcRemoteLinkedData {
+module.exports = class AutoWash extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

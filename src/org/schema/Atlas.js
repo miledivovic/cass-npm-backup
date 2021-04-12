@@ -6,7 +6,7 @@
  * @class Atlas
  * @module org.schema
  */
-public class Atlas extends EcRemoteLinkedData {
+module.exports = class Atlas extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

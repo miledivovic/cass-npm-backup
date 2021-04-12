@@ -7,7 +7,7 @@ case of a single file published after Zip compression, the convention of appendi
  * @class 3DModel
  * @module org.schema
  */
-public class 3DModel extends EcRemoteLinkedData {
+module.exports = class 3DModel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

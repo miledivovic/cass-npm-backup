@@ -6,7 +6,7 @@
  * @class XPathType
  * @module org.schema
  */
-public class XPathType extends EcRemoteLinkedData {
+module.exports = class XPathType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

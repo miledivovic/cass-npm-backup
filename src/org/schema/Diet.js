@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CreativeWork
  */
-public class Diet extends schema.CreativeWork {
+module.exports = class Diet extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Conversation
  * @module org.schema
  */
-public class Conversation extends EcRemoteLinkedData {
+module.exports = class Conversation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

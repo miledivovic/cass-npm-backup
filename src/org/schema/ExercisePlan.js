@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CreativeWork
  */
-public class ExercisePlan extends schema.CreativeWork {
+module.exports = class ExercisePlan extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

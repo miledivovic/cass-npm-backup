@@ -6,7 +6,7 @@
  * @class ScheduleAction
  * @module org.schema
  */
-public class ScheduleAction extends EcRemoteLinkedData {
+module.exports = class ScheduleAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

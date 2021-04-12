@@ -6,7 +6,7 @@
  * @class CivicStructure
  * @module org.schema
  */
-public class CivicStructure extends EcRemoteLinkedData {
+module.exports = class CivicStructure extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class DrugCostCategory
  * @module org.schema
  */
-public class DrugCostCategory extends EcRemoteLinkedData {
+module.exports = class DrugCostCategory extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

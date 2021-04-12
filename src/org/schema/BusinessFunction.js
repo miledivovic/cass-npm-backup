@@ -7,7 +7,7 @@
  * @class BusinessFunction
  * @module org.schema
  */
-public class BusinessFunction extends EcRemoteLinkedData {
+module.exports = class BusinessFunction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

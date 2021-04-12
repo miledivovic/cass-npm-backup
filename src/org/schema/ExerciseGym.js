@@ -6,7 +6,7 @@
  * @class ExerciseGym
  * @module org.schema
  */
-public class ExerciseGym extends EcRemoteLinkedData {
+module.exports = class ExerciseGym extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

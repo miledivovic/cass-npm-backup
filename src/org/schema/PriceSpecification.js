@@ -6,7 +6,7 @@
  * @class PriceSpecification
  * @module org.schema
  */
-public class PriceSpecification extends EcRemoteLinkedData {
+module.exports = class PriceSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

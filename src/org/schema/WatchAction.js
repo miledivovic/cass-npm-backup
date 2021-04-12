@@ -6,7 +6,7 @@
  * @class WatchAction
  * @module org.schema
  */
-public class WatchAction extends EcRemoteLinkedData {
+module.exports = class WatchAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

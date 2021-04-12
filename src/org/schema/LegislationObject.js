@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends MediaObject
  */
-public class LegislationObject extends schema.MediaObject {
+module.exports = class LegislationObject extends schema.MediaObject {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class OnDemandEvent
  * @module org.schema
  */
-public class OnDemandEvent extends EcRemoteLinkedData {
+module.exports = class OnDemandEvent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

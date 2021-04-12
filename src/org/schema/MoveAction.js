@@ -6,7 +6,7 @@
  * @class MoveAction
  * @module org.schema
  */
-public class MoveAction extends EcRemoteLinkedData {
+module.exports = class MoveAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

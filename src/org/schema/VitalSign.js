@@ -6,7 +6,7 @@
  * @class VitalSign
  * @module org.schema
  */
-public class VitalSign extends EcRemoteLinkedData {
+module.exports = class VitalSign extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

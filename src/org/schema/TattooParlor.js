@@ -6,7 +6,7 @@
  * @class TattooParlor
  * @module org.schema
  */
-public class TattooParlor extends EcRemoteLinkedData {
+module.exports = class TattooParlor extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

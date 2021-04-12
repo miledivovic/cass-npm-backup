@@ -6,7 +6,7 @@
  * @class WebContent
  * @module org.schema
  */
-public class WebContent extends EcRemoteLinkedData {
+module.exports = class WebContent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

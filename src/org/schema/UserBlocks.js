@@ -6,7 +6,7 @@
  * @class UserBlocks
  * @module org.schema
  */
-public class UserBlocks extends EcRemoteLinkedData {
+module.exports = class UserBlocks extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

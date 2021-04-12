@@ -6,7 +6,7 @@
  * @class ReplaceAction
  * @module org.schema
  */
-public class ReplaceAction extends EcRemoteLinkedData {
+module.exports = class ReplaceAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class GatedResidenceCommunity
  * @module org.schema
  */
-public class GatedResidenceCommunity extends EcRemoteLinkedData {
+module.exports = class GatedResidenceCommunity extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

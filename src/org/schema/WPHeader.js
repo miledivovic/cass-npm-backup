@@ -6,7 +6,7 @@
  * @class WPHeader
  * @module org.schema
  */
-public class WPHeader extends EcRemoteLinkedData {
+module.exports = class WPHeader extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

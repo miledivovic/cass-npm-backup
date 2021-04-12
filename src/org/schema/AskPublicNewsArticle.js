@@ -6,7 +6,7 @@
  * @class AskPublicNewsArticle
  * @module org.schema
  */
-public class AskPublicNewsArticle extends EcRemoteLinkedData {
+module.exports = class AskPublicNewsArticle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

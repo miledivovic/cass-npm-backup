@@ -6,7 +6,7 @@
  * @class DefenceEstablishment
  * @module org.schema
  */
-public class DefenceEstablishment extends EcRemoteLinkedData {
+module.exports = class DefenceEstablishment extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

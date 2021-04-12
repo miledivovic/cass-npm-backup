@@ -6,7 +6,7 @@
  * @class LegalForceStatus
  * @module org.schema
  */
-public class LegalForceStatus extends EcRemoteLinkedData {
+module.exports = class LegalForceStatus extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

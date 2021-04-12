@@ -6,7 +6,7 @@
  * @class Newspaper
  * @module org.schema
  */
-public class Newspaper extends EcRemoteLinkedData {
+module.exports = class Newspaper extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

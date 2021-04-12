@@ -6,7 +6,7 @@
  * @class Aquarium
  * @module org.schema
  */
-public class Aquarium extends EcRemoteLinkedData {
+module.exports = class Aquarium extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

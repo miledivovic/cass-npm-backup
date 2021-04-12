@@ -6,7 +6,7 @@
  * @class Volcano
  * @module org.schema
  */
-public class Volcano extends EcRemoteLinkedData {
+module.exports = class Volcano extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

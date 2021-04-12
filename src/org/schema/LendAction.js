@@ -6,7 +6,7 @@
  * @class LendAction
  * @module org.schema
  */
-public class LendAction extends EcRemoteLinkedData {
+module.exports = class LendAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

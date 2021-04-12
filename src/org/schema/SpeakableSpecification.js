@@ -6,7 +6,7 @@
  * @class SpeakableSpecification
  * @module org.schema
  */
-public class SpeakableSpecification extends EcRemoteLinkedData {
+module.exports = class SpeakableSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

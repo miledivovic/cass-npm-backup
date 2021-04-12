@@ -6,7 +6,7 @@
  * @class ArchiveOrganization
  * @module org.schema
  */
-public class ArchiveOrganization extends EcRemoteLinkedData {
+module.exports = class ArchiveOrganization extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

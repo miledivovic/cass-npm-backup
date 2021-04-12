@@ -6,7 +6,7 @@
  * @class WPFooter
  * @module org.schema
  */
-public class WPFooter extends EcRemoteLinkedData {
+module.exports = class WPFooter extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

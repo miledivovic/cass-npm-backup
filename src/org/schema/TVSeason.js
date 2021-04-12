@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CreativeWork
  */
-public class TVSeason extends schema.CreativeWork {
+module.exports = class TVSeason extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

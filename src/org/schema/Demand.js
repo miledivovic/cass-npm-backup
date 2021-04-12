@@ -6,7 +6,7 @@
  * @class Demand
  * @module org.schema
  */
-public class Demand extends EcRemoteLinkedData {
+module.exports = class Demand extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

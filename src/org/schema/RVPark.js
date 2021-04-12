@@ -6,7 +6,7 @@
  * @class RVPark
  * @module org.schema
  */
-public class RVPark extends EcRemoteLinkedData {
+module.exports = class RVPark extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

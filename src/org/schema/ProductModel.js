@@ -6,7 +6,7 @@
  * @class ProductModel
  * @module org.schema
  */
-public class ProductModel extends EcRemoteLinkedData {
+module.exports = class ProductModel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

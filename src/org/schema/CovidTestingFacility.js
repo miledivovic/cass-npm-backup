@@ -10,7 +10,7 @@
  * @class CovidTestingFacility
  * @module org.schema
  */
-public class CovidTestingFacility extends EcRemoteLinkedData {
+module.exports = class CovidTestingFacility extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

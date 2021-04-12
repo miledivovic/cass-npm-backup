@@ -6,7 +6,7 @@
  * @class MaximumDoseSchedule
  * @module org.schema
  */
-public class MaximumDoseSchedule extends EcRemoteLinkedData {
+module.exports = class MaximumDoseSchedule extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

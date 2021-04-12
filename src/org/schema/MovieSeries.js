@@ -6,7 +6,7 @@
  * @class MovieSeries
  * @module org.schema
  */
-public class MovieSeries extends EcRemoteLinkedData {
+module.exports = class MovieSeries extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

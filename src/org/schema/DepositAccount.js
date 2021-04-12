@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends BankAccount
  */
-public class DepositAccount extends schema.BankAccount {
+module.exports = class DepositAccount extends schema.BankAccount {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

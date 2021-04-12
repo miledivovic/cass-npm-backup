@@ -6,7 +6,7 @@
  * @class Continent
  * @module org.schema
  */
-public class Continent extends EcRemoteLinkedData {
+module.exports = class Continent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

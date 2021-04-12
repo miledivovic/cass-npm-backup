@@ -6,7 +6,7 @@
  * @class CarUsageType
  * @module org.schema
  */
-public class CarUsageType extends EcRemoteLinkedData {
+module.exports = class CarUsageType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

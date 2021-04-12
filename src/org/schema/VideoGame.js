@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends SoftwareApplication
  */
-public class VideoGame extends schema.SoftwareApplication {
+module.exports = class VideoGame extends schema.SoftwareApplication {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

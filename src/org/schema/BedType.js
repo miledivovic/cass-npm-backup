@@ -6,7 +6,7 @@
  * @class BedType
  * @module org.schema
  */
-public class BedType extends EcRemoteLinkedData {
+module.exports = class BedType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

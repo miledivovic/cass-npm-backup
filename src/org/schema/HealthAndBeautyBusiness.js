@@ -6,7 +6,7 @@
  * @class HealthAndBeautyBusiness
  * @module org.schema
  */
-public class HealthAndBeautyBusiness extends EcRemoteLinkedData {
+module.exports = class HealthAndBeautyBusiness extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

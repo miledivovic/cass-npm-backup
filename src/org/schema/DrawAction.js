@@ -6,7 +6,7 @@
  * @class DrawAction
  * @module org.schema
  */
-public class DrawAction extends EcRemoteLinkedData {
+module.exports = class DrawAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

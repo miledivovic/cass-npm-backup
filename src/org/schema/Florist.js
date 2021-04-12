@@ -6,7 +6,7 @@
  * @class Florist
  * @module org.schema
  */
-public class Florist extends EcRemoteLinkedData {
+module.exports = class Florist extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

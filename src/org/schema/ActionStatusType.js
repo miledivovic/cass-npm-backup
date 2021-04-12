@@ -6,7 +6,7 @@
  * @class ActionStatusType
  * @module org.schema
  */
-public class ActionStatusType extends EcRemoteLinkedData {
+module.exports = class ActionStatusType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

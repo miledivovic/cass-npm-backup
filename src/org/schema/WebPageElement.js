@@ -6,7 +6,7 @@
  * @class WebPageElement
  * @module org.schema
  */
-public class WebPageElement extends EcRemoteLinkedData {
+module.exports = class WebPageElement extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

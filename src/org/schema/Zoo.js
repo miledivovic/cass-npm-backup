@@ -6,7 +6,7 @@
  * @class Zoo
  * @module org.schema
  */
-public class Zoo extends EcRemoteLinkedData {
+module.exports = class Zoo extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

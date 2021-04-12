@@ -6,7 +6,7 @@
  * @class CableOrSatelliteService
  * @module org.schema
  */
-public class CableOrSatelliteService extends EcRemoteLinkedData {
+module.exports = class CableOrSatelliteService extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

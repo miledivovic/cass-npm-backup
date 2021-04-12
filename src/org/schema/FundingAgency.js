@@ -11,7 +11,7 @@ Examples of funding agencies include ERC, REA, NIH, Bill and Melinda Gates Found
  * @class FundingAgency
  * @module org.schema
  */
-public class FundingAgency extends EcRemoteLinkedData {
+module.exports = class FundingAgency extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

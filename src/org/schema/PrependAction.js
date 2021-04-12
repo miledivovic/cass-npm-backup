@@ -6,7 +6,7 @@
  * @class PrependAction
  * @module org.schema
  */
-public class PrependAction extends EcRemoteLinkedData {
+module.exports = class PrependAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

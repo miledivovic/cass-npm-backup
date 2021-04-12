@@ -6,7 +6,7 @@
  * @class SocialMediaPosting
  * @module org.schema
  */
-public class SocialMediaPosting extends EcRemoteLinkedData {
+module.exports = class SocialMediaPosting extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

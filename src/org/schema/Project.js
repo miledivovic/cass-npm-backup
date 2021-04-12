@@ -8,7 +8,7 @@ Use properties from [[Organization]], [[subOrganization]]/[[parentOrganization]]
  * @class Project
  * @module org.schema
  */
-public class Project extends EcRemoteLinkedData {
+module.exports = class Project extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

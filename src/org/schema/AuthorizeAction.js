@@ -6,7 +6,7 @@
  * @class AuthorizeAction
  * @module org.schema
  */
-public class AuthorizeAction extends EcRemoteLinkedData {
+module.exports = class AuthorizeAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

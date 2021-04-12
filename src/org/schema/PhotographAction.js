@@ -6,7 +6,7 @@
  * @class PhotographAction
  * @module org.schema
  */
-public class PhotographAction extends EcRemoteLinkedData {
+module.exports = class PhotographAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

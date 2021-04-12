@@ -6,7 +6,7 @@
  * @class AutoBodyShop
  * @module org.schema
  */
-public class AutoBodyShop extends EcRemoteLinkedData {
+module.exports = class AutoBodyShop extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

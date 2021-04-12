@@ -6,7 +6,7 @@
  * @class SizeGroupEnumeration
  * @module org.schema
  */
-public class SizeGroupEnumeration extends EcRemoteLinkedData {
+module.exports = class SizeGroupEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class UserPageVisits
  * @module org.schema
  */
-public class UserPageVisits extends EcRemoteLinkedData {
+module.exports = class UserPageVisits extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

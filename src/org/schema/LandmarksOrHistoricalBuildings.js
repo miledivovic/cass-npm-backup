@@ -6,7 +6,7 @@
  * @class LandmarksOrHistoricalBuildings
  * @module org.schema
  */
-public class LandmarksOrHistoricalBuildings extends EcRemoteLinkedData {
+module.exports = class LandmarksOrHistoricalBuildings extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

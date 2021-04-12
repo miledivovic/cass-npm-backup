@@ -6,7 +6,7 @@
  * @class Notary
  * @module org.schema
  */
-public class Notary extends EcRemoteLinkedData {
+module.exports = class Notary extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

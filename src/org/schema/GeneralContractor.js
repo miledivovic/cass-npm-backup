@@ -6,7 +6,7 @@
  * @class GeneralContractor
  * @module org.schema
  */
-public class GeneralContractor extends EcRemoteLinkedData {
+module.exports = class GeneralContractor extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class PerformingGroup
  * @module org.schema
  */
-public class PerformingGroup extends EcRemoteLinkedData {
+module.exports = class PerformingGroup extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

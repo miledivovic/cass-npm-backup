@@ -6,7 +6,7 @@
  * @class SteeringPositionValue
  * @module org.schema
  */
-public class SteeringPositionValue extends EcRemoteLinkedData {
+module.exports = class SteeringPositionValue extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

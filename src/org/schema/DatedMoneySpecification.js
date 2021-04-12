@@ -6,7 +6,7 @@
  * @class DatedMoneySpecification
  * @module org.schema
  */
-public class DatedMoneySpecification extends EcRemoteLinkedData {
+module.exports = class DatedMoneySpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

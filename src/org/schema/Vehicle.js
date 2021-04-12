@@ -6,7 +6,7 @@
  * @class Vehicle
  * @module org.schema
  */
-public class Vehicle extends EcRemoteLinkedData {
+module.exports = class Vehicle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

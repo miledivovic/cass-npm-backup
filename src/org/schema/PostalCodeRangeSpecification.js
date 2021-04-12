@@ -6,7 +6,7 @@
  * @class PostalCodeRangeSpecification
  * @module org.schema
  */
-public class PostalCodeRangeSpecification extends EcRemoteLinkedData {
+module.exports = class PostalCodeRangeSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

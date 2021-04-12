@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CreativeWork
  */
-public class HowToDirection extends schema.CreativeWork {
+module.exports = class HowToDirection extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

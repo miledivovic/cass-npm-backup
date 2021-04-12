@@ -6,7 +6,7 @@
  * @class BrainStructure
  * @module org.schema
  */
-public class BrainStructure extends EcRemoteLinkedData {
+module.exports = class BrainStructure extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

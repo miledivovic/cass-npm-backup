@@ -6,7 +6,7 @@
  * @class UserInteraction
  * @module org.schema
  */
-public class UserInteraction extends EcRemoteLinkedData {
+module.exports = class UserInteraction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class PublicToilet
  * @module org.schema
  */
-public class PublicToilet extends EcRemoteLinkedData {
+module.exports = class PublicToilet extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

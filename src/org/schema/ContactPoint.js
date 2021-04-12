@@ -6,7 +6,7 @@
  * @class ContactPoint
  * @module org.schema
  */
-public class ContactPoint extends EcRemoteLinkedData {
+module.exports = class ContactPoint extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

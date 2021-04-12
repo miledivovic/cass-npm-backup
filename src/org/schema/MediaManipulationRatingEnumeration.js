@@ -6,7 +6,7 @@
  * @class MediaManipulationRatingEnumeration
  * @module org.schema
  */
-public class MediaManipulationRatingEnumeration extends EcRemoteLinkedData {
+module.exports = class MediaManipulationRatingEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

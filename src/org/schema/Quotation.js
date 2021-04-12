@@ -6,7 +6,7 @@
  * @class Quotation
  * @module org.schema
  */
-public class Quotation extends EcRemoteLinkedData {
+module.exports = class Quotation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Substance
  * @module org.schema
  */
-public class Substance extends EcRemoteLinkedData {
+module.exports = class Substance extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

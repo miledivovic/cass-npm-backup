@@ -6,7 +6,7 @@
  * @class ChildrensEvent
  * @module org.schema
  */
-public class ChildrensEvent extends EcRemoteLinkedData {
+module.exports = class ChildrensEvent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

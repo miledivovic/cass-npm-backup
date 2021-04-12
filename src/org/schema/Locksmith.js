@@ -6,7 +6,7 @@
  * @class Locksmith
  * @module org.schema
  */
-public class Locksmith extends EcRemoteLinkedData {
+module.exports = class Locksmith extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

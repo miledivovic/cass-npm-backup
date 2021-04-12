@@ -6,7 +6,7 @@
  * @class UserCheckins
  * @module org.schema
  */
-public class UserCheckins extends EcRemoteLinkedData {
+module.exports = class UserCheckins extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

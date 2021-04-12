@@ -6,7 +6,7 @@
  * @class EducationalOccupationalCredential
  * @module org.schema
  */
-public class EducationalOccupationalCredential extends EcRemoteLinkedData {
+module.exports = class EducationalOccupationalCredential extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

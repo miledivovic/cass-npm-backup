@@ -6,7 +6,7 @@
  * @class Cemetery
  * @module org.schema
  */
-public class Cemetery extends EcRemoteLinkedData {
+module.exports = class Cemetery extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

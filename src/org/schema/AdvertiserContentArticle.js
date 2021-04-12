@@ -6,7 +6,7 @@
  * @class AdvertiserContentArticle
  * @module org.schema
  */
-public class AdvertiserContentArticle extends EcRemoteLinkedData {
+module.exports = class AdvertiserContentArticle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

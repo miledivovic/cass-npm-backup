@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends LearningResource
  */
-public class Course extends schema.LearningResource {
+module.exports = class Course extends schema.LearningResource {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

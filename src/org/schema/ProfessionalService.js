@@ -8,7 +8,7 @@
  * @class ProfessionalService
  * @module org.schema
  */
-public class ProfessionalService extends EcRemoteLinkedData {
+module.exports = class ProfessionalService extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

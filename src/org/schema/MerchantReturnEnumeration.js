@@ -6,7 +6,7 @@
  * @class MerchantReturnEnumeration
  * @module org.schema
  */
-public class MerchantReturnEnumeration extends EcRemoteLinkedData {
+module.exports = class MerchantReturnEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

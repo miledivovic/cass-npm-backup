@@ -6,7 +6,7 @@
  * @class DeleteAction
  * @module org.schema
  */
-public class DeleteAction extends EcRemoteLinkedData {
+module.exports = class DeleteAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

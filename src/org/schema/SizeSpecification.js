@@ -6,7 +6,7 @@
  * @class SizeSpecification
  * @module org.schema
  */
-public class SizeSpecification extends EcRemoteLinkedData {
+module.exports = class SizeSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

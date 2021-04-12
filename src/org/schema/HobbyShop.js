@@ -6,7 +6,7 @@
  * @class HobbyShop
  * @module org.schema
  */
-public class HobbyShop extends EcRemoteLinkedData {
+module.exports = class HobbyShop extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

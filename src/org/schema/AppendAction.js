@@ -6,7 +6,7 @@
  * @class AppendAction
  * @module org.schema
  */
-public class AppendAction extends EcRemoteLinkedData {
+module.exports = class AppendAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

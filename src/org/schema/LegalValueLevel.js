@@ -6,7 +6,7 @@
  * @class LegalValueLevel
  * @module org.schema
  */
-public class LegalValueLevel extends EcRemoteLinkedData {
+module.exports = class LegalValueLevel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class PerformingArtsTheater
  * @module org.schema
  */
-public class PerformingArtsTheater extends EcRemoteLinkedData {
+module.exports = class PerformingArtsTheater extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class RegisterAction
  * @module org.schema
  */
-public class RegisterAction extends EcRemoteLinkedData {
+module.exports = class RegisterAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

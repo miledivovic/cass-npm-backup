@@ -6,7 +6,7 @@
  * @class SelfStorage
  * @module org.schema
  */
-public class SelfStorage extends EcRemoteLinkedData {
+module.exports = class SelfStorage extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

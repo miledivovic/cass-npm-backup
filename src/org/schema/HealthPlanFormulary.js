@@ -6,7 +6,7 @@
  * @class HealthPlanFormulary
  * @module org.schema
  */
-public class HealthPlanFormulary extends EcRemoteLinkedData {
+module.exports = class HealthPlanFormulary extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

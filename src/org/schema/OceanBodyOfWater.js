@@ -6,7 +6,7 @@
  * @class OceanBodyOfWater
  * @module org.schema
  */
-public class OceanBodyOfWater extends EcRemoteLinkedData {
+module.exports = class OceanBodyOfWater extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

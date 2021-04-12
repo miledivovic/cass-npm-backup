@@ -6,7 +6,7 @@
  * @class BeautySalon
  * @module org.schema
  */
-public class BeautySalon extends EcRemoteLinkedData {
+module.exports = class BeautySalon extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -8,7 +8,7 @@
  * @class FundingScheme
  * @module org.schema
  */
-public class FundingScheme extends EcRemoteLinkedData {
+module.exports = class FundingScheme extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

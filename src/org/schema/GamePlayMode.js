@@ -6,7 +6,7 @@
  * @class GamePlayMode
  * @module org.schema
  */
-public class GamePlayMode extends EcRemoteLinkedData {
+module.exports = class GamePlayMode extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

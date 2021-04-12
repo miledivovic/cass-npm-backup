@@ -6,7 +6,7 @@
  * @class PriceComponentTypeEnumeration
  * @module org.schema
  */
-public class PriceComponentTypeEnumeration extends EcRemoteLinkedData {
+module.exports = class PriceComponentTypeEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

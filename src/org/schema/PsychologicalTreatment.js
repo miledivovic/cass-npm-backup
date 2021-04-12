@@ -6,7 +6,7 @@
  * @class PsychologicalTreatment
  * @module org.schema
  */
-public class PsychologicalTreatment extends EcRemoteLinkedData {
+module.exports = class PsychologicalTreatment extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

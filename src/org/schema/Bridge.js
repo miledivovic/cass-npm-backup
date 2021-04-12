@@ -6,7 +6,7 @@
  * @class Bridge
  * @module org.schema
  */
-public class Bridge extends EcRemoteLinkedData {
+module.exports = class Bridge extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

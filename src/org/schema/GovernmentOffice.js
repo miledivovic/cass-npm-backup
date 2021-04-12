@@ -6,7 +6,7 @@
  * @class GovernmentOffice
  * @module org.schema
  */
-public class GovernmentOffice extends EcRemoteLinkedData {
+module.exports = class GovernmentOffice extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends Place
  */
-public class LocalBusiness extends schema.Place {
+module.exports = class LocalBusiness extends schema.Place {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

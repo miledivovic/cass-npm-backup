@@ -6,7 +6,7 @@
  * @class GenderType
  * @module org.schema
  */
-public class GenderType extends EcRemoteLinkedData {
+module.exports = class GenderType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

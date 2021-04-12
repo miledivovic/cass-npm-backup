@@ -6,7 +6,7 @@
  * @class WorkBasedProgram
  * @module org.schema
  */
-public class WorkBasedProgram extends EcRemoteLinkedData {
+module.exports = class WorkBasedProgram extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

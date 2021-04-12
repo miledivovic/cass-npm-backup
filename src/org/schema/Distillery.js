@@ -6,7 +6,7 @@
  * @class Distillery
  * @module org.schema
  */
-public class Distillery extends EcRemoteLinkedData {
+module.exports = class Distillery extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

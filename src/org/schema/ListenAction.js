@@ -6,7 +6,7 @@
  * @class ListenAction
  * @module org.schema
  */
-public class ListenAction extends EcRemoteLinkedData {
+module.exports = class ListenAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

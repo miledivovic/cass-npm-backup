@@ -6,7 +6,7 @@
  * @class HousePainter
  * @module org.schema
  */
-public class HousePainter extends EcRemoteLinkedData {
+module.exports = class HousePainter extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

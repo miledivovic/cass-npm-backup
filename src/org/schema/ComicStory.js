@@ -8,7 +8,7 @@
  * @class ComicStory
  * @module org.schema
  */
-public class ComicStory extends EcRemoteLinkedData {
+module.exports = class ComicStory extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

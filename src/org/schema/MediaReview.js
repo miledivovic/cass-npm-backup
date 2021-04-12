@@ -9,7 +9,7 @@
  * @class MediaReview
  * @module org.schema
  */
-public class MediaReview extends EcRemoteLinkedData {
+module.exports = class MediaReview extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

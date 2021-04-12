@@ -54,7 +54,7 @@ function codeGenerate(graph, node) {
     if (node["rdfs:subClassOf"] != null)
         text += " * @extends " + node["rdfs:subClassOf"]["@id"].split(":")[1] + "\n";
     text += " */\n";
-    text += "public class " + className;
+    text += "module.exports = class " + className;
     if (node["rdfs:subClassOf"] != null)
         text += " extends schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " {\n";
     else

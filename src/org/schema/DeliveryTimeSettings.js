@@ -6,7 +6,7 @@
  * @class DeliveryTimeSettings
  * @module org.schema
  */
-public class DeliveryTimeSettings extends EcRemoteLinkedData {
+module.exports = class DeliveryTimeSettings extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

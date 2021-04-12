@@ -6,7 +6,7 @@
  * @class TieAction
  * @module org.schema
  */
-public class TieAction extends EcRemoteLinkedData {
+module.exports = class TieAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

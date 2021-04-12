@@ -6,7 +6,7 @@
  * @class RsvpResponseType
  * @module org.schema
  */
-public class RsvpResponseType extends EcRemoteLinkedData {
+module.exports = class RsvpResponseType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

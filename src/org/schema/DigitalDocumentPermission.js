@@ -6,7 +6,7 @@
  * @class DigitalDocumentPermission
  * @module org.schema
  */
-public class DigitalDocumentPermission extends EcRemoteLinkedData {
+module.exports = class DigitalDocumentPermission extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

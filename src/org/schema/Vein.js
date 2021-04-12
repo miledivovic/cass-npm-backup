@@ -6,7 +6,7 @@
  * @class Vein
  * @module org.schema
  */
-public class Vein extends EcRemoteLinkedData {
+module.exports = class Vein extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

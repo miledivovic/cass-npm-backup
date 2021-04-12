@@ -6,7 +6,7 @@
  * @class Quiz
  * @module org.schema
  */
-public class Quiz extends EcRemoteLinkedData {
+module.exports = class Quiz extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

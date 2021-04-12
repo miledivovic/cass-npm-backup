@@ -6,7 +6,7 @@
  * @class ItemPage
  * @module org.schema
  */
-public class ItemPage extends EcRemoteLinkedData {
+module.exports = class ItemPage extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

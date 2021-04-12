@@ -6,7 +6,7 @@
  * @class TaxiService
  * @module org.schema
  */
-public class TaxiService extends EcRemoteLinkedData {
+module.exports = class TaxiService extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

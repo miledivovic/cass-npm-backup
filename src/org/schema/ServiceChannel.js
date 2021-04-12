@@ -6,7 +6,7 @@
  * @class ServiceChannel
  * @module org.schema
  */
-public class ServiceChannel extends EcRemoteLinkedData {
+module.exports = class ServiceChannel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

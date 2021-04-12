@@ -6,7 +6,7 @@
  * @class AnatomicalSystem
  * @module org.schema
  */
-public class AnatomicalSystem extends EcRemoteLinkedData {
+module.exports = class AnatomicalSystem extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

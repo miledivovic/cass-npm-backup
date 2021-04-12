@@ -6,7 +6,7 @@
  * @class ItemListOrderType
  * @module org.schema
  */
-public class ItemListOrderType extends EcRemoteLinkedData {
+module.exports = class ItemListOrderType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

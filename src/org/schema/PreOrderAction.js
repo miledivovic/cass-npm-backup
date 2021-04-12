@@ -6,7 +6,7 @@
  * @class PreOrderAction
  * @module org.schema
  */
-public class PreOrderAction extends EcRemoteLinkedData {
+module.exports = class PreOrderAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

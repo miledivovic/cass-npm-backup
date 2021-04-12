@@ -6,7 +6,7 @@
  * @class Ligament
  * @module org.schema
  */
-public class Ligament extends EcRemoteLinkedData {
+module.exports = class Ligament extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Periodical
  * @module org.schema
  */
-public class Periodical extends EcRemoteLinkedData {
+module.exports = class Periodical extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

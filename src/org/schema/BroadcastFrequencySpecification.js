@@ -6,7 +6,7 @@
  * @class BroadcastFrequencySpecification
  * @module org.schema
  */
-public class BroadcastFrequencySpecification extends EcRemoteLinkedData {
+module.exports = class BroadcastFrequencySpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

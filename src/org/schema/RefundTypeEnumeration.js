@@ -6,7 +6,7 @@
  * @class RefundTypeEnumeration
  * @module org.schema
  */
-public class RefundTypeEnumeration extends EcRemoteLinkedData {
+module.exports = class RefundTypeEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

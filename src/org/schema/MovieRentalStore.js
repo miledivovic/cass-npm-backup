@@ -6,7 +6,7 @@
  * @class MovieRentalStore
  * @module org.schema
  */
-public class MovieRentalStore extends EcRemoteLinkedData {
+module.exports = class MovieRentalStore extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

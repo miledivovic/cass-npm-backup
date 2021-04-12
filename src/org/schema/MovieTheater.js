@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CivicStructure
  */
-public class MovieTheater extends schema.CivicStructure {
+module.exports = class MovieTheater extends schema.CivicStructure {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

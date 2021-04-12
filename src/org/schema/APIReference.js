@@ -6,7 +6,7 @@
  * @class APIReference
  * @module org.schema
  */
-public class APIReference extends EcRemoteLinkedData {
+module.exports = class APIReference extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

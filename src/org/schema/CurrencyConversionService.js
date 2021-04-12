@@ -6,7 +6,7 @@
  * @class CurrencyConversionService
  * @module org.schema
  */
-public class CurrencyConversionService extends EcRemoteLinkedData {
+module.exports = class CurrencyConversionService extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

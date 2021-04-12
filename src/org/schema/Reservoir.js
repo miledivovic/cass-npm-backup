@@ -6,7 +6,7 @@
  * @class Reservoir
  * @module org.schema
  */
-public class Reservoir extends EcRemoteLinkedData {
+module.exports = class Reservoir extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

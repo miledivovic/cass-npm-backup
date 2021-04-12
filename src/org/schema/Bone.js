@@ -6,7 +6,7 @@
  * @class Bone
  * @module org.schema
  */
-public class Bone extends EcRemoteLinkedData {
+module.exports = class Bone extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

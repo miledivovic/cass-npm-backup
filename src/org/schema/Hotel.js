@@ -9,7 +9,7 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
  * @class Hotel
  * @module org.schema
  */
-public class Hotel extends EcRemoteLinkedData {
+module.exports = class Hotel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

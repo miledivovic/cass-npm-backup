@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends MedicalTherapy
  */
-public class PalliativeProcedure extends schema.MedicalTherapy {
+module.exports = class PalliativeProcedure extends schema.MedicalTherapy {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

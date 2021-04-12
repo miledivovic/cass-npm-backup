@@ -6,7 +6,7 @@
  * @class AdministrativeArea
  * @module org.schema
  */
-public class AdministrativeArea extends EcRemoteLinkedData {
+module.exports = class AdministrativeArea extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

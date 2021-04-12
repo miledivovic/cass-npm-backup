@@ -6,7 +6,7 @@
  * @class Table
  * @module org.schema
  */
-public class Table extends EcRemoteLinkedData {
+module.exports = class Table extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

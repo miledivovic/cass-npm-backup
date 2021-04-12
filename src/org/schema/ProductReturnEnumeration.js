@@ -6,7 +6,7 @@
  * @class ProductReturnEnumeration
  * @module org.schema
  */
-public class ProductReturnEnumeration extends EcRemoteLinkedData {
+module.exports = class ProductReturnEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

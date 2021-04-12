@@ -6,7 +6,7 @@
  * @class FloorPlan
  * @module org.schema
  */
-public class FloorPlan extends EcRemoteLinkedData {
+module.exports = class FloorPlan extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

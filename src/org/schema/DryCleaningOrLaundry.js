@@ -6,7 +6,7 @@
  * @class DryCleaningOrLaundry
  * @module org.schema
  */
-public class DryCleaningOrLaundry extends EcRemoteLinkedData {
+module.exports = class DryCleaningOrLaundry extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

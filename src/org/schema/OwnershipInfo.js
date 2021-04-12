@@ -6,7 +6,7 @@
  * @class OwnershipInfo
  * @module org.schema
  */
-public class OwnershipInfo extends EcRemoteLinkedData {
+module.exports = class OwnershipInfo extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

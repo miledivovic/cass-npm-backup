@@ -6,7 +6,7 @@
  * @class RadioClip
  * @module org.schema
  */
-public class RadioClip extends EcRemoteLinkedData {
+module.exports = class RadioClip extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Intangible
  * @module org.schema
  */
-public class Intangible extends EcRemoteLinkedData {
+module.exports = class Intangible extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

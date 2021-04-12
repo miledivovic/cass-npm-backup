@@ -6,7 +6,7 @@
  * @class HealthPlanCostSharingSpecification
  * @module org.schema
  */
-public class HealthPlanCostSharingSpecification extends EcRemoteLinkedData {
+module.exports = class HealthPlanCostSharingSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

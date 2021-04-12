@@ -6,7 +6,7 @@
  * @class CatholicChurch
  * @module org.schema
  */
-public class CatholicChurch extends EcRemoteLinkedData {
+module.exports = class CatholicChurch extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

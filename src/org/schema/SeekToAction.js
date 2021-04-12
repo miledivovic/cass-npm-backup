@@ -6,7 +6,7 @@
  * @class SeekToAction
  * @module org.schema
  */
-public class SeekToAction extends EcRemoteLinkedData {
+module.exports = class SeekToAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

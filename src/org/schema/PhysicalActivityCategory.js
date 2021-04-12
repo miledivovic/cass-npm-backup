@@ -6,7 +6,7 @@
  * @class PhysicalActivityCategory
  * @module org.schema
  */
-public class PhysicalActivityCategory extends EcRemoteLinkedData {
+module.exports = class PhysicalActivityCategory extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

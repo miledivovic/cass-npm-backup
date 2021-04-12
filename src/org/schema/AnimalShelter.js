@@ -6,7 +6,7 @@
  * @class AnimalShelter
  * @module org.schema
  */
-public class AnimalShelter extends EcRemoteLinkedData {
+module.exports = class AnimalShelter extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

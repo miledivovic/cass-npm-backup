@@ -6,7 +6,7 @@
  * @class Beach
  * @module org.schema
  */
-public class Beach extends EcRemoteLinkedData {
+module.exports = class Beach extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

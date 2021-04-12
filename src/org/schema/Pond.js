@@ -6,7 +6,7 @@
  * @class Pond
  * @module org.schema
  */
-public class Pond extends EcRemoteLinkedData {
+module.exports = class Pond extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

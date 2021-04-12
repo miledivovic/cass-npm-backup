@@ -6,7 +6,7 @@
  * @class TipAction
  * @module org.schema
  */
-public class TipAction extends EcRemoteLinkedData {
+module.exports = class TipAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

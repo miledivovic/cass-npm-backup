@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends ComicStory
  */
-public class ComicCoverArt extends schema.ComicStory {
+module.exports = class ComicCoverArt extends schema.ComicStory {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class InviteAction
  * @module org.schema
  */
-public class InviteAction extends EcRemoteLinkedData {
+module.exports = class InviteAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

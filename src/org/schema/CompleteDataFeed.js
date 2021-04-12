@@ -8,7 +8,7 @@ This is the equivalent of Atom's element as defined in Feed Paging and Archiving
  * @class CompleteDataFeed
  * @module org.schema
  */
-public class CompleteDataFeed extends EcRemoteLinkedData {
+module.exports = class CompleteDataFeed extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

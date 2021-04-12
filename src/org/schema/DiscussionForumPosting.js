@@ -6,7 +6,7 @@
  * @class DiscussionForumPosting
  * @module org.schema
  */
-public class DiscussionForumPosting extends EcRemoteLinkedData {
+module.exports = class DiscussionForumPosting extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

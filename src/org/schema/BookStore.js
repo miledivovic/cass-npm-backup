@@ -6,7 +6,7 @@
  * @class BookStore
  * @module org.schema
  */
-public class BookStore extends EcRemoteLinkedData {
+module.exports = class BookStore extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

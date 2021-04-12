@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CriticReview
  */
-public class ReviewNewsArticle extends schema.CriticReview {
+module.exports = class ReviewNewsArticle extends schema.CriticReview {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

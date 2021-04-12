@@ -6,7 +6,7 @@
  * @class AutoDealer
  * @module org.schema
  */
-public class AutoDealer extends EcRemoteLinkedData {
+module.exports = class AutoDealer extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

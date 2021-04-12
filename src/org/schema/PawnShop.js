@@ -6,7 +6,7 @@
  * @class PawnShop
  * @module org.schema
  */
-public class PawnShop extends EcRemoteLinkedData {
+module.exports = class PawnShop extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

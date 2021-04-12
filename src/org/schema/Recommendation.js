@@ -6,7 +6,7 @@
  * @class Recommendation
  * @module org.schema
  */
-public class Recommendation extends EcRemoteLinkedData {
+module.exports = class Recommendation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

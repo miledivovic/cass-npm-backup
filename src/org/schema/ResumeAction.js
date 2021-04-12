@@ -6,7 +6,7 @@
  * @class ResumeAction
  * @module org.schema
  */
-public class ResumeAction extends EcRemoteLinkedData {
+module.exports = class ResumeAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

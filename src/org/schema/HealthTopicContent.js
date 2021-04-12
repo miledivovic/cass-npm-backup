@@ -7,7 +7,7 @@
  * @class HealthTopicContent
  * @module org.schema
  */
-public class HealthTopicContent extends EcRemoteLinkedData {
+module.exports = class HealthTopicContent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

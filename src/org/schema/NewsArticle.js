@@ -9,7 +9,7 @@ A more detailed overview of [schema.org News markup](/docs/news.html) is also av
  * @class NewsArticle
  * @module org.schema
  */
-public class NewsArticle extends EcRemoteLinkedData {
+module.exports = class NewsArticle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

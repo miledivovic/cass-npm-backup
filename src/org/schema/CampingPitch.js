@@ -10,7 +10,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
  * @class CampingPitch
  * @module org.schema
  */
-public class CampingPitch extends EcRemoteLinkedData {
+module.exports = class CampingPitch extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

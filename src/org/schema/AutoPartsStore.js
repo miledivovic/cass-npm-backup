@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends AutomotiveBusiness
  */
-public class AutoPartsStore extends schema.AutomotiveBusiness {
+module.exports = class AutoPartsStore extends schema.AutomotiveBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

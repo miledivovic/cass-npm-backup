@@ -6,7 +6,7 @@
  * @class DisagreeAction
  * @module org.schema
  */
-public class DisagreeAction extends EcRemoteLinkedData {
+module.exports = class DisagreeAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

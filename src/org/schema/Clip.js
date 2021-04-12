@@ -6,7 +6,7 @@
  * @class Clip
  * @module org.schema
  */
-public class Clip extends EcRemoteLinkedData {
+module.exports = class Clip extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

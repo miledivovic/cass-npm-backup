@@ -6,7 +6,7 @@
  * @class CoverArt
  * @module org.schema
  */
-public class CoverArt extends EcRemoteLinkedData {
+module.exports = class CoverArt extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

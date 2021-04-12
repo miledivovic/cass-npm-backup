@@ -6,7 +6,7 @@
  * @class EmployerAggregateRating
  * @module org.schema
  */
-public class EmployerAggregateRating extends EcRemoteLinkedData {
+module.exports = class EmployerAggregateRating extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

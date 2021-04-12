@@ -6,7 +6,7 @@
  * @class HinduTemple
  * @module org.schema
  */
-public class HinduTemple extends EcRemoteLinkedData {
+module.exports = class HinduTemple extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

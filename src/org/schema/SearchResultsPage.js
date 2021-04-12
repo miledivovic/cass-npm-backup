@@ -6,7 +6,7 @@
  * @class SearchResultsPage
  * @module org.schema
  */
-public class SearchResultsPage extends EcRemoteLinkedData {
+module.exports = class SearchResultsPage extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

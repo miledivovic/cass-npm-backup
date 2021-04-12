@@ -6,7 +6,7 @@
  * @class Duration
  * @module org.schema
  */
-public class Duration extends EcRemoteLinkedData {
+module.exports = class Duration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

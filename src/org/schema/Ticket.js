@@ -6,7 +6,7 @@
  * @class Ticket
  * @module org.schema
  */
-public class Ticket extends EcRemoteLinkedData {
+module.exports = class Ticket extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

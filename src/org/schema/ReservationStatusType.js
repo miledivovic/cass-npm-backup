@@ -6,7 +6,7 @@
  * @class ReservationStatusType
  * @module org.schema
  */
-public class ReservationStatusType extends EcRemoteLinkedData {
+module.exports = class ReservationStatusType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

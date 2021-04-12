@@ -6,7 +6,7 @@
  * @class LoseAction
  * @module org.schema
  */
-public class LoseAction extends EcRemoteLinkedData {
+module.exports = class LoseAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

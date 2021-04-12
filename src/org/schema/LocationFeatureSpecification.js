@@ -6,7 +6,7 @@
  * @class LocationFeatureSpecification
  * @module org.schema
  */
-public class LocationFeatureSpecification extends EcRemoteLinkedData {
+module.exports = class LocationFeatureSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

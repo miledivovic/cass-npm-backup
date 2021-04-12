@@ -6,7 +6,7 @@
  * @class MedicalContraindication
  * @module org.schema
  */
-public class MedicalContraindication extends EcRemoteLinkedData {
+module.exports = class MedicalContraindication extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

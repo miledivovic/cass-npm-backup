@@ -6,7 +6,7 @@
  * @class ArtGallery
  * @module org.schema
  */
-public class ArtGallery extends EcRemoteLinkedData {
+module.exports = class ArtGallery extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

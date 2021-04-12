@@ -6,7 +6,7 @@
  * @class Guide
  * @module org.schema
  */
-public class Guide extends EcRemoteLinkedData {
+module.exports = class Guide extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class EventStatusType
  * @module org.schema
  */
-public class EventStatusType extends EcRemoteLinkedData {
+module.exports = class EventStatusType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

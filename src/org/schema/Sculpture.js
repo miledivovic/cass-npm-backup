@@ -6,7 +6,7 @@
  * @class Sculpture
  * @module org.schema
  */
-public class Sculpture extends EcRemoteLinkedData {
+module.exports = class Sculpture extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

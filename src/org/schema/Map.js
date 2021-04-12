@@ -6,7 +6,7 @@
  * @class Map
  * @module org.schema
  */
-public class Map extends EcRemoteLinkedData {
+module.exports = class Map extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

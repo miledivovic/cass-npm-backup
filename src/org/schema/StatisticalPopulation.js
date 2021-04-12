@@ -9,7 +9,7 @@ population, and does not imply that the population consists of people. For examp
  * @class StatisticalPopulation
  * @module org.schema
  */
-public class StatisticalPopulation extends EcRemoteLinkedData {
+module.exports = class StatisticalPopulation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

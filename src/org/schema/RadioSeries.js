@@ -6,7 +6,7 @@
  * @class RadioSeries
  * @module org.schema
  */
-public class RadioSeries extends EcRemoteLinkedData {
+module.exports = class RadioSeries extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

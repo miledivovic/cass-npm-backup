@@ -6,7 +6,7 @@
  * @class ProgramMembership
  * @module org.schema
  */
-public class ProgramMembership extends EcRemoteLinkedData {
+module.exports = class ProgramMembership extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

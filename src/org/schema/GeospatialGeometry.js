@@ -6,7 +6,7 @@
  * @class GeospatialGeometry
  * @module org.schema
  */
-public class GeospatialGeometry extends EcRemoteLinkedData {
+module.exports = class GeospatialGeometry extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

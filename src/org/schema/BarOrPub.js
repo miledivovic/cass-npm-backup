@@ -6,7 +6,7 @@
  * @class BarOrPub
  * @module org.schema
  */
-public class BarOrPub extends EcRemoteLinkedData {
+module.exports = class BarOrPub extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends HealthAndBeautyBusiness
  */
-public class HealthClub extends schema.HealthAndBeautyBusiness {
+module.exports = class HealthClub extends schema.HealthAndBeautyBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

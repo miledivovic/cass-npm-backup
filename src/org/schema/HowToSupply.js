@@ -6,7 +6,7 @@
  * @class HowToSupply
  * @module org.schema
  */
-public class HowToSupply extends EcRemoteLinkedData {
+module.exports = class HowToSupply extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

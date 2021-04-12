@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends Resort
  */
-public class SkiResort extends schema.Resort {
+module.exports = class SkiResort extends schema.Resort {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

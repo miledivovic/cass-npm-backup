@@ -11,7 +11,7 @@
  * @class Claim
  * @module org.schema
  */
-public class Claim extends EcRemoteLinkedData {
+module.exports = class Claim extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

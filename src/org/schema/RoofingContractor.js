@@ -6,7 +6,7 @@
  * @class RoofingContractor
  * @module org.schema
  */
-public class RoofingContractor extends EcRemoteLinkedData {
+module.exports = class RoofingContractor extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

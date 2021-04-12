@@ -6,7 +6,7 @@
  * @class VirtualLocation
  * @module org.schema
  */
-public class VirtualLocation extends EcRemoteLinkedData {
+module.exports = class VirtualLocation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

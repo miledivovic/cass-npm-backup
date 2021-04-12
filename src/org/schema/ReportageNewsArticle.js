@@ -14,7 +14,7 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
  * @class ReportageNewsArticle
  * @module org.schema
  */
-public class ReportageNewsArticle extends EcRemoteLinkedData {
+module.exports = class ReportageNewsArticle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

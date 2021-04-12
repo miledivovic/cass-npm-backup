@@ -6,7 +6,7 @@
  * @class AutoRepair
  * @module org.schema
  */
-public class AutoRepair extends EcRemoteLinkedData {
+module.exports = class AutoRepair extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

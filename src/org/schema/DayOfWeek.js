@@ -9,7 +9,7 @@ Originally, URLs from [GoodRelations](http://purl.org/goodrelations/v1) were use
  * @class DayOfWeek
  * @module org.schema
  */
-public class DayOfWeek extends EcRemoteLinkedData {
+module.exports = class DayOfWeek extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

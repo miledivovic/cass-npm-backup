@@ -6,7 +6,7 @@
  * @class HairSalon
  * @module org.schema
  */
-public class HairSalon extends EcRemoteLinkedData {
+module.exports = class HairSalon extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class DiagnosticProcedure
  * @module org.schema
  */
-public class DiagnosticProcedure extends EcRemoteLinkedData {
+module.exports = class DiagnosticProcedure extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

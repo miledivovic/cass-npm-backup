@@ -6,7 +6,7 @@
  * @class InteractionCounter
  * @module org.schema
  */
-public class InteractionCounter extends EcRemoteLinkedData {
+module.exports = class InteractionCounter extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class JobPosting
  * @module org.schema
  */
-public class JobPosting extends EcRemoteLinkedData {
+module.exports = class JobPosting extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

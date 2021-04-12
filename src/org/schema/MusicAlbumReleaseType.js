@@ -6,7 +6,7 @@
  * @class MusicAlbumReleaseType
  * @module org.schema
  */
-public class MusicAlbumReleaseType extends EcRemoteLinkedData {
+module.exports = class MusicAlbumReleaseType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

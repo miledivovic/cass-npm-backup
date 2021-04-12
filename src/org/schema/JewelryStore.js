@@ -6,7 +6,7 @@
  * @class JewelryStore
  * @module org.schema
  */
-public class JewelryStore extends EcRemoteLinkedData {
+module.exports = class JewelryStore extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

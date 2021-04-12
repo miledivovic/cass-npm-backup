@@ -6,7 +6,7 @@
  * @class SuspendAction
  * @module org.schema
  */
-public class SuspendAction extends EcRemoteLinkedData {
+module.exports = class SuspendAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

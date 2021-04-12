@@ -6,7 +6,7 @@
  * @class LifestyleModification
  * @module org.schema
  */
-public class LifestyleModification extends EcRemoteLinkedData {
+module.exports = class LifestyleModification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

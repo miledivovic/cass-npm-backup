@@ -6,7 +6,7 @@
  * @class EmploymentAgency
  * @module org.schema
  */
-public class EmploymentAgency extends EcRemoteLinkedData {
+module.exports = class EmploymentAgency extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

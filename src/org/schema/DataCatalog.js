@@ -6,7 +6,7 @@
  * @class DataCatalog
  * @module org.schema
  */
-public class DataCatalog extends EcRemoteLinkedData {
+module.exports = class DataCatalog extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class CreativeWork
  * @module org.schema
  */
-public class CreativeWork extends EcRemoteLinkedData {
+module.exports = class CreativeWork extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

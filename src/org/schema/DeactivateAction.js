@@ -6,7 +6,7 @@
  * @class DeactivateAction
  * @module org.schema
  */
-public class DeactivateAction extends EcRemoteLinkedData {
+module.exports = class DeactivateAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -7,7 +7,7 @@
  * @class BreadcrumbList
  * @module org.schema
  */
-public class BreadcrumbList extends EcRemoteLinkedData {
+module.exports = class BreadcrumbList extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

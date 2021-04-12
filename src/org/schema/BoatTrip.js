@@ -6,7 +6,7 @@
  * @class BoatTrip
  * @module org.schema
  */
-public class BoatTrip extends EcRemoteLinkedData {
+module.exports = class BoatTrip extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

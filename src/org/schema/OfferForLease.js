@@ -9,7 +9,7 @@
  * @class OfferForLease
  * @module org.schema
  */
-public class OfferForLease extends EcRemoteLinkedData {
+module.exports = class OfferForLease extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class RecyclingCenter
  * @module org.schema
  */
-public class RecyclingCenter extends EcRemoteLinkedData {
+module.exports = class RecyclingCenter extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

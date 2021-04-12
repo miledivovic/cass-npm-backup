@@ -6,7 +6,7 @@
  * @class Bakery
  * @module org.schema
  */
-public class Bakery extends EcRemoteLinkedData {
+module.exports = class Bakery extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

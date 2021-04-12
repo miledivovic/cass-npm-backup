@@ -6,7 +6,7 @@
  * @class BroadcastService
  * @module org.schema
  */
-public class BroadcastService extends EcRemoteLinkedData {
+module.exports = class BroadcastService extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

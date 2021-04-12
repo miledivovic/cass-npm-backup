@@ -6,7 +6,7 @@
  * @class PayAction
  * @module org.schema
  */
-public class PayAction extends EcRemoteLinkedData {
+module.exports = class PayAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

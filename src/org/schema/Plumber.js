@@ -6,7 +6,7 @@
  * @class Plumber
  * @module org.schema
  */
-public class Plumber extends EcRemoteLinkedData {
+module.exports = class Plumber extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

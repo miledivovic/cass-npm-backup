@@ -6,7 +6,7 @@
  * @class PreventionIndication
  * @module org.schema
  */
-public class PreventionIndication extends EcRemoteLinkedData {
+module.exports = class PreventionIndication extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

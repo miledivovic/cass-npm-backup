@@ -6,7 +6,7 @@
  * @class LiveBlogPosting
  * @module org.schema
  */
-public class LiveBlogPosting extends EcRemoteLinkedData {
+module.exports = class LiveBlogPosting extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends EmergencyService
  */
-public class FireStation extends schema.EmergencyService {
+module.exports = class FireStation extends schema.EmergencyService {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

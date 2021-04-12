@@ -6,7 +6,7 @@
  * @class MarryAction
  * @module org.schema
  */
-public class MarryAction extends EcRemoteLinkedData {
+module.exports = class MarryAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

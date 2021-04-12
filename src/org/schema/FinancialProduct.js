@@ -6,7 +6,7 @@
  * @class FinancialProduct
  * @module org.schema
  */
-public class FinancialProduct extends EcRemoteLinkedData {
+module.exports = class FinancialProduct extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

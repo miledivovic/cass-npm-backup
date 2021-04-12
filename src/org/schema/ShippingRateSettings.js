@@ -6,7 +6,7 @@
  * @class ShippingRateSettings
  * @module org.schema
  */
-public class ShippingRateSettings extends EcRemoteLinkedData {
+module.exports = class ShippingRateSettings extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

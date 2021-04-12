@@ -6,7 +6,7 @@
  * @class RecommendedDoseSchedule
  * @module org.schema
  */
-public class RecommendedDoseSchedule extends EcRemoteLinkedData {
+module.exports = class RecommendedDoseSchedule extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

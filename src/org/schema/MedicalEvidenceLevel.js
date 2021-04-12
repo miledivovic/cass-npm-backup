@@ -6,7 +6,7 @@
  * @class MedicalEvidenceLevel
  * @module org.schema
  */
-public class MedicalEvidenceLevel extends EcRemoteLinkedData {
+module.exports = class MedicalEvidenceLevel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

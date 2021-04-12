@@ -20,7 +20,7 @@ it may also sometimes prove useful to describe a longer-term series as an Event.
  * @module org.schema
  * @extends Event
  */
-public class EventSeries extends schema.Event {
+module.exports = class EventSeries extends schema.Event {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

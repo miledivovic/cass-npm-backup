@@ -6,7 +6,7 @@
  * @class LinkRole
  * @module org.schema
  */
-public class LinkRole extends EcRemoteLinkedData {
+module.exports = class LinkRole extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

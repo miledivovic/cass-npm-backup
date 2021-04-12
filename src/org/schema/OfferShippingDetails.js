@@ -17,7 +17,7 @@ or Fast and expensive: $15 in 1-2 days.
  * @class OfferShippingDetails
  * @module org.schema
  */
-public class OfferShippingDetails extends EcRemoteLinkedData {
+module.exports = class OfferShippingDetails extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

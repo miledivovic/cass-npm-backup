@@ -6,7 +6,7 @@
  * @class HealthInsurancePlan
  * @module org.schema
  */
-public class HealthInsurancePlan extends EcRemoteLinkedData {
+module.exports = class HealthInsurancePlan extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

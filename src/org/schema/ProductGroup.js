@@ -8,7 +8,7 @@ While a ProductGroup itself is not directly offered for sale, the various varyin
  * @class ProductGroup
  * @module org.schema
  */
-public class ProductGroup extends EcRemoteLinkedData {
+module.exports = class ProductGroup extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

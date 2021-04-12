@@ -6,7 +6,7 @@
  * @class Attorney
  * @module org.schema
  */
-public class Attorney extends EcRemoteLinkedData {
+module.exports = class Attorney extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

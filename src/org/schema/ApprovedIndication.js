@@ -6,7 +6,7 @@
  * @class ApprovedIndication
  * @module org.schema
  */
-public class ApprovedIndication extends EcRemoteLinkedData {
+module.exports = class ApprovedIndication extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

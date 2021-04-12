@@ -6,7 +6,7 @@
  * @class CafeOrCoffeeShop
  * @module org.schema
  */
-public class CafeOrCoffeeShop extends EcRemoteLinkedData {
+module.exports = class CafeOrCoffeeShop extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

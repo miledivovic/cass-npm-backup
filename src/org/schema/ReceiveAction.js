@@ -6,7 +6,7 @@
  * @class ReceiveAction
  * @module org.schema
  */
-public class ReceiveAction extends EcRemoteLinkedData {
+module.exports = class ReceiveAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

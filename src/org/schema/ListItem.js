@@ -6,7 +6,7 @@
  * @class ListItem
  * @module org.schema
  */
-public class ListItem extends EcRemoteLinkedData {
+module.exports = class ListItem extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

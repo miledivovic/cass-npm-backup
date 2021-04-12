@@ -6,7 +6,7 @@
  * @class BoardingPolicyType
  * @module org.schema
  */
-public class BoardingPolicyType extends EcRemoteLinkedData {
+module.exports = class BoardingPolicyType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

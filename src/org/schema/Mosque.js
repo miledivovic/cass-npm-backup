@@ -6,7 +6,7 @@
  * @class Mosque
  * @module org.schema
  */
-public class Mosque extends EcRemoteLinkedData {
+module.exports = class Mosque extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

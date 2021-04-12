@@ -6,7 +6,7 @@
  * @class RadiationTherapy
  * @module org.schema
  */
-public class RadiationTherapy extends EcRemoteLinkedData {
+module.exports = class RadiationTherapy extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

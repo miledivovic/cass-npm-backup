@@ -6,7 +6,7 @@
  * @class Quantity
  * @module org.schema
  */
-public class Quantity extends EcRemoteLinkedData {
+module.exports = class Quantity extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

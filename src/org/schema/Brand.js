@@ -6,7 +6,7 @@
  * @class Brand
  * @module org.schema
  */
-public class Brand extends EcRemoteLinkedData {
+module.exports = class Brand extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

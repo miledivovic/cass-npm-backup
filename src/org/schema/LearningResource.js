@@ -10,7 +10,7 @@
  * @class LearningResource
  * @module org.schema
  */
-public class LearningResource extends EcRemoteLinkedData {
+module.exports = class LearningResource extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

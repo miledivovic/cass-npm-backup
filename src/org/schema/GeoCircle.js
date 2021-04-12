@@ -9,7 +9,7 @@
  * @class GeoCircle
  * @module org.schema
  */
-public class GeoCircle extends EcRemoteLinkedData {
+module.exports = class GeoCircle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

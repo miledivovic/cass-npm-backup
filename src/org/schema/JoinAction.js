@@ -6,7 +6,7 @@
  * @class JoinAction
  * @module org.schema
  */
-public class JoinAction extends EcRemoteLinkedData {
+module.exports = class JoinAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class ReturnFeesEnumeration
  * @module org.schema
  */
-public class ReturnFeesEnumeration extends EcRemoteLinkedData {
+module.exports = class ReturnFeesEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

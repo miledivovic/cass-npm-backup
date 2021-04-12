@@ -6,7 +6,7 @@
  * @class BefriendAction
  * @module org.schema
  */
-public class BefriendAction extends EcRemoteLinkedData {
+module.exports = class BefriendAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

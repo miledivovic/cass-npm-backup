@@ -6,7 +6,7 @@
  * @class NutritionInformation
  * @module org.schema
  */
-public class NutritionInformation extends EcRemoteLinkedData {
+module.exports = class NutritionInformation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

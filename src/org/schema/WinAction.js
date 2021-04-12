@@ -6,7 +6,7 @@
  * @class WinAction
  * @module org.schema
  */
-public class WinAction extends EcRemoteLinkedData {
+module.exports = class WinAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class ReactAction
  * @module org.schema
  */
-public class ReactAction extends EcRemoteLinkedData {
+module.exports = class ReactAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class ClaimReview
  * @module org.schema
  */
-public class ClaimReview extends EcRemoteLinkedData {
+module.exports = class ClaimReview extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

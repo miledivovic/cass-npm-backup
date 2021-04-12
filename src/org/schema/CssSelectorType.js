@@ -6,7 +6,7 @@
  * @class CssSelectorType
  * @module org.schema
  */
-public class CssSelectorType extends EcRemoteLinkedData {
+module.exports = class CssSelectorType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

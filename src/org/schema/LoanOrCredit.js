@@ -6,7 +6,7 @@
  * @class LoanOrCredit
  * @module org.schema
  */
-public class LoanOrCredit extends EcRemoteLinkedData {
+module.exports = class LoanOrCredit extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

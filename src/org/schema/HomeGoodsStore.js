@@ -6,7 +6,7 @@
  * @class HomeGoodsStore
  * @module org.schema
  */
-public class HomeGoodsStore extends EcRemoteLinkedData {
+module.exports = class HomeGoodsStore extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

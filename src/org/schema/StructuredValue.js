@@ -6,7 +6,7 @@
  * @class StructuredValue
  * @module org.schema
  */
-public class StructuredValue extends EcRemoteLinkedData {
+module.exports = class StructuredValue extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

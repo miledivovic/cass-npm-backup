@@ -6,7 +6,7 @@
  * @class PropertyValueSpecification
  * @module org.schema
  */
-public class PropertyValueSpecification extends EcRemoteLinkedData {
+module.exports = class PropertyValueSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

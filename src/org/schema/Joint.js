@@ -6,7 +6,7 @@
  * @class Joint
  * @module org.schema
  */
-public class Joint extends EcRemoteLinkedData {
+module.exports = class Joint extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

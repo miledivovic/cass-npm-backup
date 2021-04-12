@@ -6,7 +6,7 @@
  * @class CriticReview
  * @module org.schema
  */
-public class CriticReview extends EcRemoteLinkedData {
+module.exports = class CriticReview extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

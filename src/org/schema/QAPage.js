@@ -6,7 +6,7 @@
  * @class QAPage
  * @module org.schema
  */
-public class QAPage extends EcRemoteLinkedData {
+module.exports = class QAPage extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

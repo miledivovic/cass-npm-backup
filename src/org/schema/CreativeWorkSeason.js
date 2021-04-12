@@ -6,7 +6,7 @@
  * @class CreativeWorkSeason
  * @module org.schema
  */
-public class CreativeWorkSeason extends EcRemoteLinkedData {
+module.exports = class CreativeWorkSeason extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

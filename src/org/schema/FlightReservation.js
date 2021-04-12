@@ -6,7 +6,7 @@
  * @class FlightReservation
  * @module org.schema
  */
-public class FlightReservation extends EcRemoteLinkedData {
+module.exports = class FlightReservation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

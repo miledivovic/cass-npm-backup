@@ -6,7 +6,7 @@
  * @class TradeAction
  * @module org.schema
  */
-public class TradeAction extends EcRemoteLinkedData {
+module.exports = class TradeAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

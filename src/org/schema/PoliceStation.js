@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CivicStructure
  */
-public class PoliceStation extends schema.CivicStructure {
+module.exports = class PoliceStation extends schema.CivicStructure {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

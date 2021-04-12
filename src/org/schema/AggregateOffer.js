@@ -6,7 +6,7 @@
  * @class AggregateOffer
  * @module org.schema
  */
-public class AggregateOffer extends EcRemoteLinkedData {
+module.exports = class AggregateOffer extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

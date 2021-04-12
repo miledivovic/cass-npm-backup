@@ -6,7 +6,7 @@
  * @class TelevisionStation
  * @module org.schema
  */
-public class TelevisionStation extends EcRemoteLinkedData {
+module.exports = class TelevisionStation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

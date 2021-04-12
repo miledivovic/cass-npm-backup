@@ -6,7 +6,7 @@
  * @class ExchangeRateSpecification
  * @module org.schema
  */
-public class ExchangeRateSpecification extends EcRemoteLinkedData {
+module.exports = class ExchangeRateSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

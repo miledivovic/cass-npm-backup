@@ -6,7 +6,7 @@
  * @class BookFormatType
  * @module org.schema
  */
-public class BookFormatType extends EcRemoteLinkedData {
+module.exports = class BookFormatType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class WebAPI
  * @module org.schema
  */
-public class WebAPI extends EcRemoteLinkedData {
+module.exports = class WebAPI extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

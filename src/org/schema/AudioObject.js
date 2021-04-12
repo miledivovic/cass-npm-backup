@@ -6,7 +6,7 @@
  * @class AudioObject
  * @module org.schema
  */
-public class AudioObject extends EcRemoteLinkedData {
+module.exports = class AudioObject extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class DiscoverAction
  * @module org.schema
  */
-public class DiscoverAction extends EcRemoteLinkedData {
+module.exports = class DiscoverAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

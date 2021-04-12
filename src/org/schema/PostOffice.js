@@ -6,7 +6,7 @@
  * @class PostOffice
  * @module org.schema
  */
-public class PostOffice extends EcRemoteLinkedData {
+module.exports = class PostOffice extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

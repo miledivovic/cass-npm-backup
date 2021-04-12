@@ -6,7 +6,7 @@
  * @class HVACBusiness
  * @module org.schema
  */
-public class HVACBusiness extends EcRemoteLinkedData {
+module.exports = class HVACBusiness extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class SubscribeAction
  * @module org.schema
  */
-public class SubscribeAction extends EcRemoteLinkedData {
+module.exports = class SubscribeAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

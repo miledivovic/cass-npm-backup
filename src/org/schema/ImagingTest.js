@@ -6,7 +6,7 @@
  * @class ImagingTest
  * @module org.schema
  */
-public class ImagingTest extends EcRemoteLinkedData {
+module.exports = class ImagingTest extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

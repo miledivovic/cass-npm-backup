@@ -6,7 +6,7 @@
  * @class GeoCoordinates
  * @module org.schema
  */
-public class GeoCoordinates extends EcRemoteLinkedData {
+module.exports = class GeoCoordinates extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

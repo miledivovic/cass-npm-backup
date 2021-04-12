@@ -6,7 +6,7 @@
  * @class Recipe
  * @module org.schema
  */
-public class Recipe extends EcRemoteLinkedData {
+module.exports = class Recipe extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

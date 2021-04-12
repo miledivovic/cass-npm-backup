@@ -6,7 +6,7 @@
  * @class MedicalGuidelineRecommendation
  * @module org.schema
  */
-public class MedicalGuidelineRecommendation extends EcRemoteLinkedData {
+module.exports = class MedicalGuidelineRecommendation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

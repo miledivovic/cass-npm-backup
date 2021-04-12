@@ -6,7 +6,7 @@
  * @class MotorcycleRepair
  * @module org.schema
  */
-public class MotorcycleRepair extends EcRemoteLinkedData {
+module.exports = class MotorcycleRepair extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

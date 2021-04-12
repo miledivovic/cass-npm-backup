@@ -6,7 +6,7 @@
  * @class SolveMathAction
  * @module org.schema
  */
-public class SolveMathAction extends EcRemoteLinkedData {
+module.exports = class SolveMathAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

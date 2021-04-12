@@ -6,7 +6,7 @@
  * @class Menu
  * @module org.schema
  */
-public class Menu extends EcRemoteLinkedData {
+module.exports = class Menu extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

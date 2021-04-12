@@ -6,7 +6,7 @@
  * @class NonprofitType
  * @module org.schema
  */
-public class NonprofitType extends EcRemoteLinkedData {
+module.exports = class NonprofitType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class PaintAction
  * @module org.schema
  */
-public class PaintAction extends EcRemoteLinkedData {
+module.exports = class PaintAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

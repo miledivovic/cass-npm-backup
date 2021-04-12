@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CreativeWork
  */
-public class HowToStep extends schema.CreativeWork {
+module.exports = class HowToStep extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

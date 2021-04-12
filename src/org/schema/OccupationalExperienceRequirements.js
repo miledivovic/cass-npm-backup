@@ -6,7 +6,7 @@
  * @class OccupationalExperienceRequirements
  * @module org.schema
  */
-public class OccupationalExperienceRequirements extends EcRemoteLinkedData {
+module.exports = class OccupationalExperienceRequirements extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

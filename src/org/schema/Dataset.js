@@ -6,7 +6,7 @@
  * @class Dataset
  * @module org.schema
  */
-public class Dataset extends EcRemoteLinkedData {
+module.exports = class Dataset extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

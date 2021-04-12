@@ -6,7 +6,7 @@
  * @class WPAdBlock
  * @module org.schema
  */
-public class WPAdBlock extends EcRemoteLinkedData {
+module.exports = class WPAdBlock extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

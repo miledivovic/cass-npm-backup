@@ -6,7 +6,7 @@
  * @class EmailMessage
  * @module org.schema
  */
-public class EmailMessage extends EcRemoteLinkedData {
+module.exports = class EmailMessage extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

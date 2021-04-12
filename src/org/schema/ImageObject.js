@@ -6,7 +6,7 @@
  * @class ImageObject
  * @module org.schema
  */
-public class ImageObject extends EcRemoteLinkedData {
+module.exports = class ImageObject extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

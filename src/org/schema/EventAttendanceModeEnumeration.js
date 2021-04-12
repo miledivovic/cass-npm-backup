@@ -6,7 +6,7 @@
  * @class EventAttendanceModeEnumeration
  * @module org.schema
  */
-public class EventAttendanceModeEnumeration extends EcRemoteLinkedData {
+module.exports = class EventAttendanceModeEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

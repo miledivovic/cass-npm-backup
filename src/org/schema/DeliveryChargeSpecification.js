@@ -6,7 +6,7 @@
  * @class DeliveryChargeSpecification
  * @module org.schema
  */
-public class DeliveryChargeSpecification extends EcRemoteLinkedData {
+module.exports = class DeliveryChargeSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

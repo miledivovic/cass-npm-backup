@@ -6,7 +6,7 @@
  * @class BowlingAlley
  * @module org.schema
  */
-public class BowlingAlley extends EcRemoteLinkedData {
+module.exports = class BowlingAlley extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Artery
  * @module org.schema
  */
-public class Artery extends EcRemoteLinkedData {
+module.exports = class Artery extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

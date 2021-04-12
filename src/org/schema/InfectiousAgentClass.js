@@ -6,7 +6,7 @@
  * @class InfectiousAgentClass
  * @module org.schema
  */
-public class InfectiousAgentClass extends EcRemoteLinkedData {
+module.exports = class InfectiousAgentClass extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class MathSolver
  * @module org.schema
  */
-public class MathSolver extends EcRemoteLinkedData {
+module.exports = class MathSolver extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends AudioObject
  */
-public class Audiobook extends schema.AudioObject {
+module.exports = class Audiobook extends schema.AudioObject {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class ViewAction
  * @module org.schema
  */
-public class ViewAction extends EcRemoteLinkedData {
+module.exports = class ViewAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

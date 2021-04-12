@@ -6,7 +6,7 @@
  * @class PlaceOfWorship
  * @module org.schema
  */
-public class PlaceOfWorship extends EcRemoteLinkedData {
+module.exports = class PlaceOfWorship extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Museum
  * @module org.schema
  */
-public class Museum extends EcRemoteLinkedData {
+module.exports = class Museum extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class RealEstateAgent
  * @module org.schema
  */
-public class RealEstateAgent extends EcRemoteLinkedData {
+module.exports = class RealEstateAgent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

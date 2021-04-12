@@ -6,7 +6,7 @@
  * @class ParcelDelivery
  * @module org.schema
  */
-public class ParcelDelivery extends EcRemoteLinkedData {
+module.exports = class ParcelDelivery extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

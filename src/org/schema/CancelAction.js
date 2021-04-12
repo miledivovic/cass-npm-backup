@@ -6,7 +6,7 @@
  * @class CancelAction
  * @module org.schema
  */
-public class CancelAction extends EcRemoteLinkedData {
+module.exports = class CancelAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

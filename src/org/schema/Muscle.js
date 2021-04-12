@@ -6,7 +6,7 @@
  * @class Muscle
  * @module org.schema
  */
-public class Muscle extends EcRemoteLinkedData {
+module.exports = class Muscle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

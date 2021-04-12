@@ -6,7 +6,7 @@
  * @class CityHall
  * @module org.schema
  */
-public class CityHall extends EcRemoteLinkedData {
+module.exports = class CityHall extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

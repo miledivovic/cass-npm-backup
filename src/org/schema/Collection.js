@@ -6,7 +6,7 @@
  * @class Collection
  * @module org.schema
  */
-public class Collection extends EcRemoteLinkedData {
+module.exports = class Collection extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class PronounceableText
  * @module org.schema
  */
-public class PronounceableText extends EcRemoteLinkedData {
+module.exports = class PronounceableText extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

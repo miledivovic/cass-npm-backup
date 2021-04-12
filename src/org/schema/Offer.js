@@ -6,7 +6,7 @@
  * @class Offer
  * @module org.schema
  */
-public class Offer extends EcRemoteLinkedData {
+module.exports = class Offer extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

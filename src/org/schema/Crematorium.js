@@ -6,7 +6,7 @@
  * @class Crematorium
  * @module org.schema
  */
-public class Crematorium extends EcRemoteLinkedData {
+module.exports = class Crematorium extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

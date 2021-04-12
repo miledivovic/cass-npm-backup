@@ -6,7 +6,7 @@
  * @class PublicSwimmingPool
  * @module org.schema
  */
-public class PublicSwimmingPool extends EcRemoteLinkedData {
+module.exports = class PublicSwimmingPool extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

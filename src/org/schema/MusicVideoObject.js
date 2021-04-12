@@ -6,7 +6,7 @@
  * @class MusicVideoObject
  * @module org.schema
  */
-public class MusicVideoObject extends EcRemoteLinkedData {
+module.exports = class MusicVideoObject extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

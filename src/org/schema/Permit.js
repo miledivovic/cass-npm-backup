@@ -6,7 +6,7 @@
  * @class Permit
  * @module org.schema
  */
-public class Permit extends EcRemoteLinkedData {
+module.exports = class Permit extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

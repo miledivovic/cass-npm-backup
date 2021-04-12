@@ -6,7 +6,7 @@
  * @class Nerve
  * @module org.schema
  */
-public class Nerve extends EcRemoteLinkedData {
+module.exports = class Nerve extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

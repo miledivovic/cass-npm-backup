@@ -6,7 +6,7 @@
  * @class SuperficialAnatomy
  * @module org.schema
  */
-public class SuperficialAnatomy extends EcRemoteLinkedData {
+module.exports = class SuperficialAnatomy extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class EngineSpecification
  * @module org.schema
  */
-public class EngineSpecification extends EcRemoteLinkedData {
+module.exports = class EngineSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

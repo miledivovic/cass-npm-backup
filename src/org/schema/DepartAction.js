@@ -6,7 +6,7 @@
  * @class DepartAction
  * @module org.schema
  */
-public class DepartAction extends EcRemoteLinkedData {
+module.exports = class DepartAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

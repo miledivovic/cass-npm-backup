@@ -6,7 +6,7 @@
  * @class AutoRental
  * @module org.schema
  */
-public class AutoRental extends EcRemoteLinkedData {
+module.exports = class AutoRental extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

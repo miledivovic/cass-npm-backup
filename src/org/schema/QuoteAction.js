@@ -6,7 +6,7 @@
  * @class QuoteAction
  * @module org.schema
  */
-public class QuoteAction extends EcRemoteLinkedData {
+module.exports = class QuoteAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

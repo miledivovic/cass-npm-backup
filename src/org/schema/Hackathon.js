@@ -6,7 +6,7 @@
  * @class Hackathon
  * @module org.schema
  */
-public class Hackathon extends EcRemoteLinkedData {
+module.exports = class Hackathon extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

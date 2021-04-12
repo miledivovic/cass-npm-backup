@@ -6,7 +6,7 @@
  * @class SatiricalArticle
  * @module org.schema
  */
-public class SatiricalArticle extends EcRemoteLinkedData {
+module.exports = class SatiricalArticle extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

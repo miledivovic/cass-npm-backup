@@ -6,7 +6,7 @@
  * @class LymphaticVessel
  * @module org.schema
  */
-public class LymphaticVessel extends EcRemoteLinkedData {
+module.exports = class LymphaticVessel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends Specialty
  */
-public class MedicalSpecialty extends schema.Specialty {
+module.exports = class MedicalSpecialty extends schema.Specialty {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class EndorseAction
  * @module org.schema
  */
-public class EndorseAction extends EcRemoteLinkedData {
+module.exports = class EndorseAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

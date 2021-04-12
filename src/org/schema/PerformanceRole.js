@@ -6,7 +6,7 @@
  * @class PerformanceRole
  * @module org.schema
  */
-public class PerformanceRole extends EcRemoteLinkedData {
+module.exports = class PerformanceRole extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

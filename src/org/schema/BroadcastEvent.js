@@ -6,7 +6,7 @@
  * @class BroadcastEvent
  * @module org.schema
  */
-public class BroadcastEvent extends EcRemoteLinkedData {
+module.exports = class BroadcastEvent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

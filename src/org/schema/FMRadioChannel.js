@@ -6,7 +6,7 @@
  * @class FMRadioChannel
  * @module org.schema
  */
-public class FMRadioChannel extends EcRemoteLinkedData {
+module.exports = class FMRadioChannel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

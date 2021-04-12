@@ -6,7 +6,7 @@
  * @class VoteAction
  * @module org.schema
  */
-public class VoteAction extends EcRemoteLinkedData {
+module.exports = class VoteAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

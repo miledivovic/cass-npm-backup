@@ -6,7 +6,7 @@
  * @class RsvpAction
  * @module org.schema
  */
-public class RsvpAction extends EcRemoteLinkedData {
+module.exports = class RsvpAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

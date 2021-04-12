@@ -6,7 +6,7 @@
  * @class HyperToc
  * @module org.schema
  */
-public class HyperToc extends EcRemoteLinkedData {
+module.exports = class HyperToc extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

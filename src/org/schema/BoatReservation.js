@@ -8,7 +8,7 @@ Note: This type is for information about actual reservations, e.g. in confirmati
  * @class BoatReservation
  * @module org.schema
  */
-public class BoatReservation extends EcRemoteLinkedData {
+module.exports = class BoatReservation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

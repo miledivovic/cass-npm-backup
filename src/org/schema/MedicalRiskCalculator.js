@@ -6,7 +6,7 @@
  * @class MedicalRiskCalculator
  * @module org.schema
  */
-public class MedicalRiskCalculator extends EcRemoteLinkedData {
+module.exports = class MedicalRiskCalculator extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

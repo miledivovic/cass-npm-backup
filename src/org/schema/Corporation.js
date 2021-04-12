@@ -6,7 +6,7 @@
  * @class Corporation
  * @module org.schema
  */
-public class Corporation extends EcRemoteLinkedData {
+module.exports = class Corporation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

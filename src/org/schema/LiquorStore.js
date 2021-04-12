@@ -6,7 +6,7 @@
  * @class LiquorStore
  * @module org.schema
  */
-public class LiquorStore extends EcRemoteLinkedData {
+module.exports = class LiquorStore extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

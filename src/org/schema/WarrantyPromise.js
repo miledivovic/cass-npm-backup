@@ -6,7 +6,7 @@
  * @class WarrantyPromise
  * @module org.schema
  */
-public class WarrantyPromise extends EcRemoteLinkedData {
+module.exports = class WarrantyPromise extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

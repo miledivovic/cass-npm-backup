@@ -6,7 +6,7 @@
  * @class OccupationalTherapy
  * @module org.schema
  */
-public class OccupationalTherapy extends EcRemoteLinkedData {
+module.exports = class OccupationalTherapy extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

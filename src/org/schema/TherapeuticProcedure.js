@@ -6,7 +6,7 @@
  * @class TherapeuticProcedure
  * @module org.schema
  */
-public class TherapeuticProcedure extends EcRemoteLinkedData {
+module.exports = class TherapeuticProcedure extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

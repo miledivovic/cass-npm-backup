@@ -6,7 +6,7 @@
  * @class VisualArtwork
  * @module org.schema
  */
-public class VisualArtwork extends EcRemoteLinkedData {
+module.exports = class VisualArtwork extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

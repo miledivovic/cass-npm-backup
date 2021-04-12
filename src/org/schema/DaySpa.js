@@ -6,7 +6,7 @@
  * @class DaySpa
  * @module org.schema
  */
-public class DaySpa extends EcRemoteLinkedData {
+module.exports = class DaySpa extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Flight
  * @module org.schema
  */
-public class Flight extends EcRemoteLinkedData {
+module.exports = class Flight extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

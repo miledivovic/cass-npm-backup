@@ -6,7 +6,7 @@
  * @class Seat
  * @module org.schema
  */
-public class Seat extends EcRemoteLinkedData {
+module.exports = class Seat extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

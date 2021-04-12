@@ -6,7 +6,7 @@
  * @class DataFeedItem
  * @module org.schema
  */
-public class DataFeedItem extends EcRemoteLinkedData {
+module.exports = class DataFeedItem extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

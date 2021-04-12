@@ -6,7 +6,7 @@
  * @class Embassy
  * @module org.schema
  */
-public class Embassy extends EcRemoteLinkedData {
+module.exports = class Embassy extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

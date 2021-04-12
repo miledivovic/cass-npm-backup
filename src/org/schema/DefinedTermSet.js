@@ -6,7 +6,7 @@
  * @class DefinedTermSet
  * @module org.schema
  */
-public class DefinedTermSet extends EcRemoteLinkedData {
+module.exports = class DefinedTermSet extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

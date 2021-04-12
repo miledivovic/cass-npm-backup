@@ -6,7 +6,7 @@
  * @class Waterfall
  * @module org.schema
  */
-public class Waterfall extends EcRemoteLinkedData {
+module.exports = class Waterfall extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

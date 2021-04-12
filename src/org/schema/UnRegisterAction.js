@@ -6,7 +6,7 @@
  * @class UnRegisterAction
  * @module org.schema
  */
-public class UnRegisterAction extends EcRemoteLinkedData {
+module.exports = class UnRegisterAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

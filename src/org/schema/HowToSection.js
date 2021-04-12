@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends ItemList
  */
-public class HowToSection extends schema.ItemList {
+module.exports = class HowToSection extends schema.ItemList {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

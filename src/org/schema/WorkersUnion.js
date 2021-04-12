@@ -6,7 +6,7 @@
  * @class WorkersUnion
  * @module org.schema
  */
-public class WorkersUnion extends EcRemoteLinkedData {
+module.exports = class WorkersUnion extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

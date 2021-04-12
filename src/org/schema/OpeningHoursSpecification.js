@@ -8,7 +8,7 @@ The place is __open__ if the [[opens]] property is specified, and __closed__ oth
  * @class OpeningHoursSpecification
  * @module org.schema
  */
-public class OpeningHoursSpecification extends EcRemoteLinkedData {
+module.exports = class OpeningHoursSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

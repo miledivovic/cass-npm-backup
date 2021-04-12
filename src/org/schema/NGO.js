@@ -6,7 +6,7 @@
  * @class NGO
  * @module org.schema
  */
-public class NGO extends EcRemoteLinkedData {
+module.exports = class NGO extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

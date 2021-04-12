@@ -6,7 +6,7 @@
  * @class Distance
  * @module org.schema
  */
-public class Distance extends EcRemoteLinkedData {
+module.exports = class Distance extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

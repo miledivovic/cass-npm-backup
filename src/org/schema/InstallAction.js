@@ -6,7 +6,7 @@
  * @class InstallAction
  * @module org.schema
  */
-public class InstallAction extends EcRemoteLinkedData {
+module.exports = class InstallAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Synagogue
  * @module org.schema
  */
-public class Synagogue extends EcRemoteLinkedData {
+module.exports = class Synagogue extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

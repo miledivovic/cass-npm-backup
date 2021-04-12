@@ -41,7 +41,7 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
  * @class SpecialAnnouncement
  * @module org.schema
  */
-public class SpecialAnnouncement extends EcRemoteLinkedData {
+module.exports = class SpecialAnnouncement extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

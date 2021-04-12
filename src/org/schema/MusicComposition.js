@@ -6,7 +6,7 @@
  * @class MusicComposition
  * @module org.schema
  */
-public class MusicComposition extends EcRemoteLinkedData {
+module.exports = class MusicComposition extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

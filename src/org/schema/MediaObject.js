@@ -6,7 +6,7 @@
  * @class MediaObject
  * @module org.schema
  */
-public class MediaObject extends EcRemoteLinkedData {
+module.exports = class MediaObject extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -19,7 +19,7 @@ Region = state, canton, prefecture, autonomous community...
  * @class DefinedRegion
  * @module org.schema
  */
-public class DefinedRegion extends EcRemoteLinkedData {
+module.exports = class DefinedRegion extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

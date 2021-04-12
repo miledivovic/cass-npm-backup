@@ -6,7 +6,7 @@
  * @class BodyMeasurementTypeEnumeration
  * @module org.schema
  */
-public class BodyMeasurementTypeEnumeration extends EcRemoteLinkedData {
+module.exports = class BodyMeasurementTypeEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

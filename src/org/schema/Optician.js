@@ -6,7 +6,7 @@
  * @class Optician
  * @module org.schema
  */
-public class Optician extends EcRemoteLinkedData {
+module.exports = class Optician extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

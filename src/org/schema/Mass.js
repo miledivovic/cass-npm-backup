@@ -6,7 +6,7 @@
  * @class Mass
  * @module org.schema
  */
-public class Mass extends EcRemoteLinkedData {
+module.exports = class Mass extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

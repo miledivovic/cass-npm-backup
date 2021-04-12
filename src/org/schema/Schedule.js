@@ -8,7 +8,7 @@
  * @class Schedule
  * @module org.schema
  */
-public class Schedule extends EcRemoteLinkedData {
+module.exports = class Schedule extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

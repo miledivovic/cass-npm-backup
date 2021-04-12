@@ -6,7 +6,7 @@
  * @class AmpStory
  * @module org.schema
  */
-public class AmpStory extends EcRemoteLinkedData {
+module.exports = class AmpStory extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

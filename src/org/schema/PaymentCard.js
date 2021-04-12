@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends FinancialProduct
  */
-public class PaymentCard extends schema.FinancialProduct {
+module.exports = class PaymentCard extends schema.FinancialProduct {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

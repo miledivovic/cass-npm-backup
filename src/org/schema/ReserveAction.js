@@ -6,7 +6,7 @@
  * @class ReserveAction
  * @module org.schema
  */
-public class ReserveAction extends EcRemoteLinkedData {
+module.exports = class ReserveAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

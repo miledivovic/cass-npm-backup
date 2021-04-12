@@ -6,7 +6,7 @@
  * @class WPSideBar
  * @module org.schema
  */
-public class WPSideBar extends EcRemoteLinkedData {
+module.exports = class WPSideBar extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

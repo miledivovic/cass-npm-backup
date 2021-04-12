@@ -6,7 +6,7 @@
  * @class TennisComplex
  * @module org.schema
  */
-public class TennisComplex extends EcRemoteLinkedData {
+module.exports = class TennisComplex extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

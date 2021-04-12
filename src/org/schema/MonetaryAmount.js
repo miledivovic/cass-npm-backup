@@ -6,7 +6,7 @@
  * @class MonetaryAmount
  * @module org.schema
  */
-public class MonetaryAmount extends EcRemoteLinkedData {
+module.exports = class MonetaryAmount extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

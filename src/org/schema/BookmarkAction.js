@@ -6,7 +6,7 @@
  * @class BookmarkAction
  * @module org.schema
  */
-public class BookmarkAction extends EcRemoteLinkedData {
+module.exports = class BookmarkAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

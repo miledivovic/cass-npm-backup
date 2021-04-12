@@ -6,7 +6,7 @@
  * @class BusStop
  * @module org.schema
  */
-public class BusStop extends EcRemoteLinkedData {
+module.exports = class BusStop extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

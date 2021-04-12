@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends Product
  */
-public class ProductCollection extends schema.Product {
+module.exports = class ProductCollection extends schema.Product {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

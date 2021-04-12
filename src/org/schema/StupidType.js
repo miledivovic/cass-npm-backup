@@ -6,7 +6,7 @@
  * @class StupidType
  * @module org.schema
  */
-public class StupidType extends EcRemoteLinkedData {
+module.exports = class StupidType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

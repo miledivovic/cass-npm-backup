@@ -6,7 +6,7 @@
  * @class Barcode
  * @module org.schema
  */
-public class Barcode extends EcRemoteLinkedData {
+module.exports = class Barcode extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

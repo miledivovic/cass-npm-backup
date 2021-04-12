@@ -6,7 +6,7 @@
  * @class CheckAction
  * @module org.schema
  */
-public class CheckAction extends EcRemoteLinkedData {
+module.exports = class CheckAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

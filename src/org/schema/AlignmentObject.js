@@ -8,7 +8,7 @@ Should not be used where the nature of the alignment can be described using a si
  * @class AlignmentObject
  * @module org.schema
  */
-public class AlignmentObject extends EcRemoteLinkedData {
+module.exports = class AlignmentObject extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

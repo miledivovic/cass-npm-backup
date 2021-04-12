@@ -6,7 +6,7 @@
  * @class Enumeration
  * @module org.schema
  */
-public class Enumeration extends EcRemoteLinkedData {
+module.exports = class Enumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

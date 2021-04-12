@@ -6,7 +6,7 @@
  * @class DrinkAction
  * @module org.schema
  */
-public class DrinkAction extends EcRemoteLinkedData {
+module.exports = class DrinkAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

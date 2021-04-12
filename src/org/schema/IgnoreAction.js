@@ -6,7 +6,7 @@
  * @class IgnoreAction
  * @module org.schema
  */
-public class IgnoreAction extends EcRemoteLinkedData {
+module.exports = class IgnoreAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

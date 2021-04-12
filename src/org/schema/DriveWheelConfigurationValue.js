@@ -6,7 +6,7 @@
  * @class DriveWheelConfigurationValue
  * @module org.schema
  */
-public class DriveWheelConfigurationValue extends EcRemoteLinkedData {
+module.exports = class DriveWheelConfigurationValue extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

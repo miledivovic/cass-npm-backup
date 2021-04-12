@@ -6,7 +6,7 @@
  * @class DDxElement
  * @module org.schema
  */
-public class DDxElement extends EcRemoteLinkedData {
+module.exports = class DDxElement extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

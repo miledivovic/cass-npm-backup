@@ -6,7 +6,7 @@
  * @class VideoGallery
  * @module org.schema
  */
-public class VideoGallery extends EcRemoteLinkedData {
+module.exports = class VideoGallery extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class EnergyStarEnergyEfficiencyEnumeration
  * @module org.schema
  */
-public class EnergyStarEnergyEfficiencyEnumeration extends EcRemoteLinkedData {
+module.exports = class EnergyStarEnergyEfficiencyEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

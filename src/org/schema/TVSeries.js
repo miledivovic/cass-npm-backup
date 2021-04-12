@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CreativeWorkSeries
  */
-public class TVSeries extends schema.CreativeWorkSeries {
+module.exports = class TVSeries extends schema.CreativeWorkSeries {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

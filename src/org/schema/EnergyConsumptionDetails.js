@@ -6,7 +6,7 @@
  * @class EnergyConsumptionDetails
  * @module org.schema
  */
-public class EnergyConsumptionDetails extends EcRemoteLinkedData {
+module.exports = class EnergyConsumptionDetails extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

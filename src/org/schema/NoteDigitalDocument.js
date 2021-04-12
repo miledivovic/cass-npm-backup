@@ -6,7 +6,7 @@
  * @class NoteDigitalDocument
  * @module org.schema
  */
-public class NoteDigitalDocument extends EcRemoteLinkedData {
+module.exports = class NoteDigitalDocument extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

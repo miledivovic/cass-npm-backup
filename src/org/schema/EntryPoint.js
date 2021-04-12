@@ -6,7 +6,7 @@
  * @class EntryPoint
  * @module org.schema
  */
-public class EntryPoint extends EcRemoteLinkedData {
+module.exports = class EntryPoint extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

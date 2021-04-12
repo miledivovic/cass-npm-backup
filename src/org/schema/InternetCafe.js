@@ -6,7 +6,7 @@
  * @class InternetCafe
  * @module org.schema
  */
-public class InternetCafe extends EcRemoteLinkedData {
+module.exports = class InternetCafe extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

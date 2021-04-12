@@ -6,7 +6,7 @@
  * @class NightClub
  * @module org.schema
  */
-public class NightClub extends EcRemoteLinkedData {
+module.exports = class NightClub extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

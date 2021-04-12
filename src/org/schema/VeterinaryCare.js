@@ -6,7 +6,7 @@
  * @class VeterinaryCare
  * @module org.schema
  */
-public class VeterinaryCare extends EcRemoteLinkedData {
+module.exports = class VeterinaryCare extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

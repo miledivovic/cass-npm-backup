@@ -6,7 +6,7 @@
  * @class SiteNavigationElement
  * @module org.schema
  */
-public class SiteNavigationElement extends EcRemoteLinkedData {
+module.exports = class SiteNavigationElement extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

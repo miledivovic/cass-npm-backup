@@ -6,7 +6,7 @@
  * @class ArchiveComponent
  * @module org.schema
  */
-public class ArchiveComponent extends EcRemoteLinkedData {
+module.exports = class ArchiveComponent extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

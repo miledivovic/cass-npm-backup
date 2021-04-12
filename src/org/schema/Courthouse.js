@@ -6,7 +6,7 @@
  * @class Courthouse
  * @module org.schema
  */
-public class Courthouse extends EcRemoteLinkedData {
+module.exports = class Courthouse extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

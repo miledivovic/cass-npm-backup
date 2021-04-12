@@ -6,7 +6,7 @@
  * @class ConfirmAction
  * @module org.schema
  */
-public class ConfirmAction extends EcRemoteLinkedData {
+module.exports = class ConfirmAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class DefinedTerm
  * @module org.schema
  */
-public class DefinedTerm extends EcRemoteLinkedData {
+module.exports = class DefinedTerm extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

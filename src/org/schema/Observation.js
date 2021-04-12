@@ -8,7 +8,7 @@ See also [[StatisticalPopulation]], and the [data and datasets](/docs/data-and-d
  * @class Observation
  * @module org.schema
  */
-public class Observation extends EcRemoteLinkedData {
+module.exports = class Observation extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

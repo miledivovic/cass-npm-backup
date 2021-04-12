@@ -7,7 +7,7 @@
  * @module org.schema
  * @extends CategoryCode
  */
-public class MedicalCode extends schema.CategoryCode {
+module.exports = class MedicalCode extends schema.CategoryCode {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

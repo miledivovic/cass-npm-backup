@@ -6,7 +6,7 @@
  * @class Vessel
  * @module org.schema
  */
-public class Vessel extends EcRemoteLinkedData {
+module.exports = class Vessel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

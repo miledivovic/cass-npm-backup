@@ -6,7 +6,7 @@
  * @class SportsOrganization
  * @module org.schema
  */
-public class SportsOrganization extends EcRemoteLinkedData {
+module.exports = class SportsOrganization extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

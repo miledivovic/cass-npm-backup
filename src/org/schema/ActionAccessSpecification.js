@@ -6,7 +6,7 @@
  * @class ActionAccessSpecification
  * @module org.schema
  */
-public class ActionAccessSpecification extends EcRemoteLinkedData {
+module.exports = class ActionAccessSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

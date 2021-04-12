@@ -6,7 +6,7 @@
  * @class ComputerLanguage
  * @module org.schema
  */
-public class ComputerLanguage extends EcRemoteLinkedData {
+module.exports = class ComputerLanguage extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

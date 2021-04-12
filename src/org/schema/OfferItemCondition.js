@@ -6,7 +6,7 @@
  * @class OfferItemCondition
  * @module org.schema
  */
-public class OfferItemCondition extends EcRemoteLinkedData {
+module.exports = class OfferItemCondition extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

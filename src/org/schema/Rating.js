@@ -6,7 +6,7 @@
  * @class Rating
  * @module org.schema
  */
-public class Rating extends EcRemoteLinkedData {
+module.exports = class Rating extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

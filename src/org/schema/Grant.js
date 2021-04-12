@@ -12,7 +12,7 @@ The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]
  * @class Grant
  * @module org.schema
  */
-public class Grant extends EcRemoteLinkedData {
+module.exports = class Grant extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

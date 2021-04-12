@@ -6,7 +6,7 @@
  * @class SoftwareApplication
  * @module org.schema
  */
-public class SoftwareApplication extends EcRemoteLinkedData {
+module.exports = class SoftwareApplication extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

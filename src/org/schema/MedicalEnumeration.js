@@ -6,7 +6,7 @@
  * @class MedicalEnumeration
  * @module org.schema
  */
-public class MedicalEnumeration extends EcRemoteLinkedData {
+module.exports = class MedicalEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

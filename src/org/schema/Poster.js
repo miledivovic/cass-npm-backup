@@ -6,7 +6,7 @@
  * @class Poster
  * @module org.schema
  */
-public class Poster extends EcRemoteLinkedData {
+module.exports = class Poster extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -7,7 +7,7 @@
  * @class BusinessEntityType
  * @module org.schema
  */
-public class BusinessEntityType extends EcRemoteLinkedData {
+module.exports = class BusinessEntityType extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

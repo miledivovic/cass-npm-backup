@@ -6,7 +6,7 @@
  * @class MedicalObservationalStudyDesign
  * @module org.schema
  */
-public class MedicalObservationalStudyDesign extends EcRemoteLinkedData {
+module.exports = class MedicalObservationalStudyDesign extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class RepaymentSpecification
  * @module org.schema
  */
-public class RepaymentSpecification extends EcRemoteLinkedData {
+module.exports = class RepaymentSpecification extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

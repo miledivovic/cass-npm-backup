@@ -6,7 +6,7 @@
  * @class TextDigitalDocument
  * @module org.schema
  */
-public class TextDigitalDocument extends EcRemoteLinkedData {
+module.exports = class TextDigitalDocument extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

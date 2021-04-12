@@ -6,7 +6,7 @@
  * @class ReservationPackage
  * @module org.schema
  */
-public class ReservationPackage extends EcRemoteLinkedData {
+module.exports = class ReservationPackage extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

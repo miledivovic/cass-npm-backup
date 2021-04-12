@@ -6,7 +6,7 @@
  * @class VideoGameClip
  * @module org.schema
  */
-public class VideoGameClip extends EcRemoteLinkedData {
+module.exports = class VideoGameClip extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

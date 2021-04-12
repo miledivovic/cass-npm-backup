@@ -6,7 +6,7 @@
  * @class WearableMeasurementTypeEnumeration
  * @module org.schema
  */
-public class WearableMeasurementTypeEnumeration extends EcRemoteLinkedData {
+module.exports = class WearableMeasurementTypeEnumeration extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class ReplyAction
  * @module org.schema
  */
-public class ReplyAction extends EcRemoteLinkedData {
+module.exports = class ReplyAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

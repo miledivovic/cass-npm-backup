@@ -6,7 +6,7 @@
  * @class QuantitativeValueDistribution
  * @module org.schema
  */
-public class QuantitativeValueDistribution extends EcRemoteLinkedData {
+module.exports = class QuantitativeValueDistribution extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Consortium
  * @module org.schema
  */
-public class Consortium extends EcRemoteLinkedData {
+module.exports = class Consortium extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

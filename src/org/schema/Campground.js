@@ -11,7 +11,7 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
  * @module org.schema
  * @extends CivicStructure
  */
-public class Campground extends schema.CivicStructure {
+module.exports = class Campground extends schema.CivicStructure {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

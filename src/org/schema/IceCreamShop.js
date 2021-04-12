@@ -6,7 +6,7 @@
  * @class IceCreamShop
  * @module org.schema
  */
-public class IceCreamShop extends EcRemoteLinkedData {
+module.exports = class IceCreamShop extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -9,7 +9,7 @@
  * @class CDCPMDRecord
  * @module org.schema
  */
-public class CDCPMDRecord extends EcRemoteLinkedData {
+module.exports = class CDCPMDRecord extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

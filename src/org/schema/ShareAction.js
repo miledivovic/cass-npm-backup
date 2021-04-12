@@ -6,7 +6,7 @@
  * @class ShareAction
  * @module org.schema
  */
-public class ShareAction extends EcRemoteLinkedData {
+module.exports = class ShareAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

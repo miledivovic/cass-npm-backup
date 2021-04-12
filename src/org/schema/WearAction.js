@@ -6,7 +6,7 @@
  * @class WearAction
  * @module org.schema
  */
-public class WearAction extends EcRemoteLinkedData {
+module.exports = class WearAction extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

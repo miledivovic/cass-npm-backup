@@ -6,7 +6,7 @@
  * @class AutomatedTeller
  * @module org.schema
  */
-public class AutomatedTeller extends EcRemoteLinkedData {
+module.exports = class AutomatedTeller extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

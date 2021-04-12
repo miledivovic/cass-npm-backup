@@ -6,7 +6,7 @@
  * @class ApartmentComplex
  * @module org.schema
  */
-public class ApartmentComplex extends EcRemoteLinkedData {
+module.exports = class ApartmentComplex extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

@@ -6,7 +6,7 @@
  * @class Invoice
  * @module org.schema
  */
-public class Invoice extends EcRemoteLinkedData {
+module.exports = class Invoice extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

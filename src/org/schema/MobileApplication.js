@@ -6,7 +6,7 @@
  * @class MobileApplication
  * @module org.schema
  */
-public class MobileApplication extends EcRemoteLinkedData {
+module.exports = class MobileApplication extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *

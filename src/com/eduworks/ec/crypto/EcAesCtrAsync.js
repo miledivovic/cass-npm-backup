@@ -20,12 +20,7 @@ module.exports = class EcAesCtrAsync{
      */
     static encrypt(plaintext, secret, iv, success, failure) {
         if (crypto == null || crypto.subtle == null) {
-            EcAesCtrAsyncWorker.encrypt(plaintext, secret, iv, success, failure);
-            return;
-        }
-        if (EcRemote.async == false) {
-            success(EcAesCtr.encrypt(plaintext, secret, iv));
-            return;
+            return EcAesCtrAsyncWorker.encrypt(plaintext, secret, iv, success, failure);
         }
         var keyUsages = new Array();
         keyUsages.push("encrypt", "decrypt");
@@ -35,12 +30,11 @@ module.exports = class EcAesCtrAsync{
         algorithm.length = 128;
         var data;
         data = str2ab(plaintext);
-        window.crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
-            var p = window.crypto.subtle.encrypt(algorithm, key, data);
-            p.then(function(p1) {
-                success(base64.encode(p1));
-            }, failure);
-        }, failure);
+        return cassPromisify(window.crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
+            return window.crypto.subtle.encrypt(algorithm, key, data).then(function(p1) {
+                return base64.encode(p1);
+            });
+        }),success,failure);
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -60,31 +54,25 @@ module.exports = class EcAesCtrAsync{
         if (EcCrypto.caching) {
             var cacheGet = (EcCrypto.decryptionCache)[secret + iv + ciphertext];
             if (cacheGet != null) {
-                success(cacheGet);
-                return;
+                return cassReturnAsPromise(cacheGet,success,failure);
             }
         }
         if (crypto == null || crypto.subtle == null) {
             EcAesCtrAsyncWorker.decrypt(ciphertext, secret, iv, success, failure);
             return;
         }
-        if (EcRemote.async == false) {
-            success(EcAesCtr.decrypt(ciphertext, secret, iv));
-        }
-        var keyUsages = new Array();
-        keyUsages.push("encrypt", "decrypt");
-        var algorithm = new Object();
+        var keyUsages = ["encrypt", "decrypt"];
+        var algorithm = {};
         algorithm.name = "AES-CTR";
         algorithm.counter = base64.decode(iv);
         algorithm.length = 128;
         var data;
         data = base64.decode(ciphertext);
-        window.crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
-            var p = window.crypto.subtle.decrypt(algorithm, key, data);
-            p.then(function(p1) {
+        return cassPromisify(window.crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
+            return window.crypto.subtle.decrypt(algorithm, key, data).then(function(p1) {
                 (EcCrypto.decryptionCache)[secret + iv + ciphertext] = ab2str(p1);
-                success(ab2str(p1));
-            }, failure);
-        }, failure);
+                return ab2str(p1);
+            });
+        }),success,failure);
     };
 };

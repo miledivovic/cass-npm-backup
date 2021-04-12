@@ -9,12 +9,22 @@ const { default: axios } = require("axios");
  *  @module com.eduworks.ec
  */
 module.exports = class EcRemote{
+
+    static set async(value)
+    {
+        console.trace("DISCONTINUED: Instead of setting EcRemote.async, please use await.");
+    }
+    static get async()
+    {
+        console.trace("DISCONTINUED: Don't rely on async.");
+    }
+
     /**
      *  Timeout for AJAX requests
      * 
-     *  @property async
+     *  @property timeout
      *  @static
-     *  @type boolean
+     *  @type integer
      */
     static timeout = 60 * 1000 * 5;
 
@@ -34,7 +44,7 @@ module.exports = class EcRemote{
      *  @static
      */
     static postExpectingObject(server, service, fd, success, failure) {
-        EcRemote.postInner(server, service, fd, null, EcRemote.getSuccessJSONCallback(success, failure), failure);
+        return EcRemote.postInner(server, service, fd, null, EcRemote.getSuccessJSONCallback(success, failure), failure);
     };
     /**
      *  POSTs a request to a remote endpoint. Composed of a server endpoint (root
@@ -52,7 +62,7 @@ module.exports = class EcRemote{
      *  @static
      */
     static postExpectingString(server, service, fd, success, failure) {
-        EcRemote.postInner(server, service, fd, null, success, failure);
+        return EcRemote.postInner(server, service, fd, null, success, failure);
     };
     /**
      *  POSTs a request to a remote endpoint. Composed of a server endpoint (root
@@ -71,9 +81,9 @@ module.exports = class EcRemote{
      *  @static
      */
     static postWithHeadersExpectingString(server, service, fd, headers, success, failure) {
-        EcRemote.postInner(server, service, fd, headers, success, failure);
+        return EcRemote.postInner(server, service, fd, headers, success, failure);
     };
-    static async postInner(server, service, fd, headers, successCallback, failureCallback) {
+    static postInner(server, service, fd, headers, successCallback, failureCallback) {
         var url = server;
         if (!url.endsWith("/") && service != null && !"".equals(service)) {
             url += "/";
@@ -83,17 +93,10 @@ module.exports = class EcRemote{
         }
         url = EcRemote.upgradeHttpToHttps(url);
         headers = JSON.parse(JSON.stringify(headers));
-        let ret = axios.post(fd,url,{
+        let p = axios.post(url,fd,{
             headers: headers
         });
-        console.log(url);
-        if (successCallback !== undefined && successCallback != null)
-            ret.then(successCallback);
-        if (successCallback !== undefined && failureCallback != null)
-            ret.catch(failureCallback);
-        if (EcRemote.async)
-            ret = await ret;
-        return ret;
+        return cassPromisify(p,successCallback,failureCallback);
     };
     /**
      *  GETs something from a remote endpoint. Composed of a server endpoint
@@ -109,7 +112,7 @@ module.exports = class EcRemote{
      *  @static
      */
     static getExpectingObject(server, service, success, failure) {
-        EcRemote.getExpectingString(server, service, EcRemote.getSuccessJSONCallback(success, failure), failure);
+        return EcRemote.getExpectingString(server, service, EcRemote.getSuccessJSONCallback(success, failure), failure);
     };
     /**
      *  GETs something from a remote endpoint. Composed of a server endpoint
@@ -127,49 +130,10 @@ module.exports = class EcRemote{
     static getExpectingString(server, service, success, failure) {
         var url = EcRemote.urlAppend(server, service);
         url = EcRemote.upgradeHttpToHttps(url);
-        var xhr = null;
-        if ((typeof httpStatus) == "undefined") {
-            xhr = new XMLHttpRequest();
-            xhr.open("GET", url, EcRemote.async);
-            var xhrx = xhr;
-            xhr.onreadystatechange = function() {
-                if (xhrx.readyState == 4 && xhrx.status == 200) 
-                    if (success != null) 
-                        success(xhrx.responseText);
-                     else if (xhrx.readyState == 4) 
-                        if (failure != null) 
-                            failure(xhrx.responseText);
-            };
-            xhr.onerror = function(e) {
-                if (failure != null) {
-                    failure(null);
-                }
-            };
-        }
-        if ((typeof isNodeJs) != "undefined" && EcRemote.async) {
-            var requestObject = new Object();
-            (requestObject)["method"] = "GET";
-            (requestObject)["url"] = url;
-            request(requestObject, function(error, response, body) {
-                if (failure != null && error != null) 
-                    failure(error);
-                 else if (failure != null && (response)["statusCode"] != 200) 
-                    failure(body);
-                 else if (success != null) 
-                    success(body);
-            });
-            return;
-        }
-        if (xhr != null) {
-            if (EcRemote.async) 
-                (xhr)["timeout"] = EcRemote.timeout;
-        }
-        if ((typeof httpStatus) != "undefined") {
-            if (success != null) 
-                success(JSON.stringify(httpGet(url)));
-        } else {
-            xhr.send();
-        }
+        let p = axios.get(url,{
+            headers: headers
+        });
+        return cassPromisify(p,success,failure);
     };
     static urlAppend(server, service) {
         var url = server;
@@ -196,54 +160,13 @@ module.exports = class EcRemote{
      */
     static _delete(url, signatureSheet, success, failure) {
         url = EcRemote.upgradeHttpToHttps(url);
-        var xhr = null;
-        if ((typeof httpStatus) == "undefined") {
-            xhr = new XMLHttpRequest();
-            xhr.open("DELETE", url, EcRemote.async);
-            var xhrx = xhr;
-            xhr.onreadystatechange = function() {
-                if (xhrx.readyState == 4 && xhrx.status == 200) {
-                    if (success != null) 
-                        success(xhrx.responseText);
-                } else if (xhrx.readyState == 4) {
-                    if (failure != null) 
-                        failure(xhrx.responseText);
-                }
-            };
-        }
-        if ((typeof isNodeJs) != "undefined" && EcRemote.async) {
-            var sso = new Object();
-            (sso)["signatureSheet"] = signatureSheet;
-            var requestObject = new Object();
-            (requestObject)["method"] = "DELETE";
-            (requestObject)["url"] = url;
-            (requestObject)["headers"] = sso;
-            request(requestObject, function(error, response, body) {
-                if (failure != null && error != null) 
-                    failure(error);
-                 else if (failure != null && (response)["statusCode"] != 200) 
-                    failure(body);
-                 else if (success != null) 
-                    success(body);
-            });
-            return;
-        }
-        if (xhr != null) {
-            if (EcRemote.async) 
-                (xhr)["timeout"] = EcRemote.timeout;
-            xhr.setRequestHeader("signatureSheet", signatureSheet);
-        }
-        if ((typeof httpStatus) != "undefined") {
-            if (success != null) {
-                var sso = new Object();
-                (sso)["signatureSheet"] = signatureSheet;
-                success(httpDelete(url, null, null, null, sso));
-            }
-        } else {
-            xhr.send();
-        }
+        let p = axios.delete(url,{
+            headers: {signatureSheet:signatureSheet}
+        });
+        return cassPromisify(p,success,failure);
     };
     static upgradeHttpToHttps(url) {
+        if (typeof window !== "undefined")
         if (window != null) {
             if (window.location != null) {
                 if (url.indexOf(window.location.protocol) == -1) {

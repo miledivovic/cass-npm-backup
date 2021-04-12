@@ -9,6 +9,7 @@ module.exports = class EcCrypto {
      *  @type boolean
      */
     static caching = false;
+    static testMode = false;
     static decryptionCache = new Object();
     /**
      *  Calculate MD5 hash of a string.

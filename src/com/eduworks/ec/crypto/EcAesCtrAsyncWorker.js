@@ -15,9 +15,6 @@ module.exports = class EcAesCtrAsyncWorker{
         if (typeof Worker === "undefined" || Worker == undefined || Worker == null) {
             return;
         }
-        if (!EcRemote.async) {
-            return;
-        }
         if (EcAesCtrAsyncWorker.w != null) {
             return;
         }

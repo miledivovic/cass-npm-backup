@@ -11,6 +11,24 @@ global.generateUUID = function(){
     return uuid;
 }
 
+global.cassPromisify = function(p,success,failure){
+    if (success !== undefined && success != null)
+        p.then(success);
+    if (failure !== undefined && failure != null)
+        p.catch(failure);
+    return p;
+}
+global.cassReturnAsPromise = function(o,success,failure){
+    let p = new Promise((resolve,reject)=>{
+        resolve(o);
+    });
+    if (success !== undefined && success != null)
+        p.then(success);
+    if (failure !== undefined && failure != null)
+        p.catch(failure);
+    return p;
+}
+
 global.crypto = null;
 if (crypto === undefined)
 try {

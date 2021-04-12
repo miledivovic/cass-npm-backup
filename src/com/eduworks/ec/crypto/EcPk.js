@@ -42,7 +42,7 @@ module.exports = class EcPk{
      *  @method equals
      */
     equals(obj) {
-        if (stjs.isInstanceOf(obj.constructor, EcPk)) 
+        if (obj instanceof EcPk)
             return this.toPem().equals((obj).toPem());
         return Object.equals.call(this, obj);
     };

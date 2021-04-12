@@ -40,7 +40,7 @@ module.exports = Task = class Task{
      */
     static immediate(c) {
         var currentMs = Date.now();
-        var nextFrameMs = stjs.trunc(1000 / Task.desiredFps);
+        var nextFrameMs = Math.trunc(1000 / Task.desiredFps);
         Task.calledFunctions++;
         if (EcRemote.async == true && (Task.lastFrame == null || currentMs > Task.lastFrame + nextFrameMs)) {
             if (Task.updateFrameHandle == null) 

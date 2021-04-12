@@ -27,7 +27,7 @@ module.exports = class EcRepository {
     cassDockerEndpoint = null;
     init = function(selectedServer, success, failure) {
         this.selectedServer = selectedServer;
-        this.negotiateTimeOffset(success, failure);
+        return this.negotiateTimeOffset(success, failure);
     };
     negotiateTimeOffset = function(success, failure) {
         var oldTimeout = EcRemote.timeout;
@@ -38,27 +38,22 @@ module.exports = class EcRepository {
                 if ((p1)["ping"] == "pong") {
                     if ((p1)["time"] != null) 
                         me.timeOffset = (new Date().getTime()) - ((p1)["time"]);
-                    me.buildKeyForwardingTable(success, failure);
+                    return me.buildKeyForwardingTable(success, failure);
                 }
             }
         };
         var failureCheck = function(p1) {
             if (p1 != null) {
                 if (p1 != "") {
-                    try {
-                        if (p1.indexOf("pong") != -1) 
-                            if ((p1)["time"] != null) 
-                                me.timeOffset = (new Date().getTime()) - ((p1)["time"]);
-                        me.buildKeyForwardingTable(success, failure);
-                    }catch (ex) {
-                        if (failure != null) 
-                            failure(ex);
-                    }
+                    if (p1.indexOf("pong") != -1) 
+                        if ((p1)["time"] != null) 
+                            me.timeOffset = (new Date().getTime()) - ((p1)["time"]);
+                    return me.buildKeyForwardingTable(success, failure);
                 }
             }
         };
         try {
-            EcRemote.getExpectingObject(this.selectedServer, "ping", successCheck, failureCheck);
+            return EcRemote.getExpectingObject(this.selectedServer, "ping", successCheck, failureCheck);
         }catch (ex) {
             if (failure != null) 
                 failure(ex.toString());
@@ -68,7 +63,7 @@ module.exports = class EcRepository {
     buildKeyForwardingTable = function(success, failure) {
         var params = new Object();
         (params)["size"] = 10000;
-        EcRepository.searchAs(this, "*", function() {
+        return EcRepository.searchAs(this, "*", function() {
             return new EcRekeyRequest();
         }, function(array) {
             var rekeyRequests = array;
@@ -103,71 +98,38 @@ module.exports = class EcRepository {
             return;
         }
         var originalUrl = url;
-        if (EcRemote.async == false) {
-            var result = EcRepository.getBlocking(url);
-            if (result == null) {
-                if (failure != null) 
-                    failure("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.");
-            } else if (success != null) 
-                success(result);
-            return;
-        }
         if (EcRepository.caching) {
-            if ((EcRepository.cache)[url] != null) {
-                if (EcRemote.async) {
-                    Task.immediate(function() {
-                        success((EcRepository.cache)[originalUrl]);
-                    });
-                } else {
-                    success((EcRepository.cache)[url]);
-                }
-                return;
-            }
-            if (EcRemote.async) {
-                if ((EcRepository.fetching)[url] != null) {
-                    if ((EcRepository.fetching)[url] > new Date().getTime()) {
-                        setTimeout(function() {
-                            EcRepository.get(originalUrl, success, failure);
-                        }, 100);
-                        return;
-                    }
-                }
-                (EcRepository.fetching)[url] = new Date().getTime() + 60000;
+            if ((EcRepository.cache)[url] !== undefined) {
+                return cassReturnAsPromise((EcRepository.cache)[originalUrl],success,failure);
             }
         }
+
         if (!EcRepository.shouldTryUrl(url)) {
             if (EcRepository.repos.length == 1) {
                 if (!url.startsWith(EcRepository.repos[0].selectedServer)) 
                     url = EcRemoteLinkedData.veryShortId(EcRepository.repos[0].selectedServer, EcCrypto.md5(url));
             } else {
-                EcRepository.find(url, "Could not locate object. May be due to EcRepository.alwaysTryUrl flag.", new Object(), 0, success, failure);
-                return;
+                return EcRepository.find(url, "Could not locate object. May be due to EcRepository.alwaysTryUrl flag.", new Object(), 0, success, failure);
             }
         }
-        var fd = new FormData();
+
         var finalUrl = url;
+        let p = null;
         if (EcRepository.unsigned) {
-            EcRemote.getExpectingObject(finalUrl, null, function(p1) {
-                EcRepository.getHandleData(p1, originalUrl, success, failure, finalUrl);
-            }, function(p1) {
-                EcRepository.find(originalUrl, p1, new Object(), 0, success, failure);
+            p = EcRemote.getExpectingObject(finalUrl);
+        } else {            
+            p = EcIdentityManager.signatureSheetAsync(60000 + offset, url)
+            .then((signatureSheet)=>{
+                var fd = new FormData();
+                fd.append("signatureSheet", signatureSheet);
+                return EcRemote.postExpectingObject(finalUrl, null, fd);
             });
-        } else {
-            var offset = EcRepository.setOffset(url);
-            EcIdentityManager.signatureSheetAsync(60000 + offset, url, function(p1) {
-                if ((EcRepository.cache)[originalUrl] != null) {
-                    delete (EcRepository.fetching)[originalUrl];
-                    success((EcRepository.cache)[originalUrl]);
-                    return;
-                }
-                fd.append("signatureSheet", p1);
-                EcRemote.postExpectingObject(finalUrl, null, fd, function(p1) {
-                    EcRepository.getHandleData(p1, originalUrl, success, failure, finalUrl);
-                }, function(p1) {
-                    EcRepository.find(originalUrl, p1, new Object(), 0, success, failure);
-                });
-            }, failure);
         }
+        p = p.then((data) => {
+            return EcRepository.getHandleData(data, originalUrl, success, failure, finalUrl);
+        }).catch((error)=>{
+            return EcRepository.find(originalUrl, error, new Object(), 0, success, failure);
+        })
     };
     static setOffset = function(url) {
         var offset = 0;
@@ -179,7 +141,6 @@ module.exports = class EcRepository {
         return offset;
     };
     static getHandleData = function(p1, originalUrl, success, failure, finalUrl) {
-        delete (EcRepository.fetching)[originalUrl];
         var d = new EcRemoteLinkedData("", "");
         d.copyFrom(p1);
         if (d.getFullType() == null) {
@@ -568,7 +529,8 @@ module.exports = class EcRepository {
             failure("Data is malformed.");
             return;
         }
-        if (EcRepository.alwaysTryUrl || repo == null || repo.shouldTryUrl(data.id) || (repo != null && data.id.indexOf(repo.selectedServer) != -1)) 
+        console.log(repo)
+        if (EcRepository.alwaysTryUrl || repo == null || EcRepository.shouldTryUrl(data.id) || (repo != null && data.id.indexOf(repo.selectedServer) != -1)) 
             data.updateTimestamp();
         var fd = new FormData();
         fd.append("data", data.toJson());
@@ -580,7 +542,7 @@ module.exports = class EcRepository {
                         EcRemote.postExpectingString(data.id, "", fd, success, failure);
                         return;
                     }
-                    if (!repo.shouldTryUrl(data.id) || data.id.indexOf(repo.selectedServer) == -1) {
+                    if (!EcRepository.shouldTryUrl(data.id) || data.id.indexOf(repo.selectedServer) == -1) {
                         EcRemote.postExpectingString(EcRemote.urlAppend(repo.selectedServer, "data/" + data.getDottedType() + "/" + EcCrypto.md5(data.shortId())), "", fd, success, failure);
                         return;
                     }
@@ -660,7 +622,7 @@ module.exports = class EcRepository {
                             }
                         }
                         if (failure != null) 
-                            failure("Cannot delete object without a signature. If deleting from a server, use the non-static _delete");
+                            failure("Cannot delete object without a signature. If deleting from a server, use the non-static deleteRegistered");
                     } else 
                         EcRemote._delete(targetUrl, signatureSheet, success, failure);
                 }, failure);
@@ -674,7 +636,7 @@ module.exports = class EcRepository {
                         }
                     }
                     if (failure != null) 
-                        failure("Cannot delete object without a signature. If deleting from a server, use the non-static _delete");
+                        failure("Cannot delete object without a signature. If deleting from a server, use the non-static deleteRegistered");
                 } else 
                     EcRemote._delete(targetUrl, signatureSheet, success, failure);
             }
@@ -911,20 +873,6 @@ module.exports = class EcRepository {
      *  @method searchWithParams
      */
     searchWithParams = function(originalQuery, originalParamObj, eachSuccess, success, failure) {
-        if (EcRemote.async == false) {
-            var result = this.searchWithParamsBlocking(originalQuery, originalParamObj);
-            if (result == null) {
-                if (failure != null) 
-                    failure("Search failed.");
-            } else {
-                for (var i = 0; i < result.length; i++) 
-                    if (eachSuccess != null) 
-                        eachSuccess(result[i]);
-                if (success != null) 
-                    success(result);
-            }
-            return;
-        }
         var query = originalQuery;
         var paramObj = originalParamObj;
         if (paramObj == null) {
@@ -1130,6 +1078,7 @@ module.exports = class EcRepository {
      */
     autoDetectRepositoryAsync = function(success, failure) {
         var protocols = new Array();
+        if (typeof window !== "undefined")
         if (window != null) {
             if (window.location != null) {
                 if (window.location.protocol == "https:") {
@@ -1137,6 +1086,7 @@ module.exports = class EcRepository {
                 }
             }
         }
+        if (typeof window !== "undefined")
         if (window != null) {
             if (window.location != null) {
                 if (window.location.protocol == "http:") {
@@ -1205,6 +1155,7 @@ module.exports = class EcRepository {
     autoDetectRepository = function() {
         EcRemote.async = false;
         var protocols = new Array();
+        if (typeof window !== "undefined")
         if (window != null) {
             if (window.location != null) {
                 if (window.location.protocol == "https:") {
@@ -1212,6 +1163,7 @@ module.exports = class EcRepository {
                 }
             }
         }
+        if (typeof window !== "undefined")
         if (window != null) {
             if (window.location != null) {
                 if (window.location.protocol == "http:") {
@@ -1241,6 +1193,7 @@ module.exports = class EcRepository {
                 hostnames.push(window.location.hostname, window.location.hostname.replace(".", ".service."), window.location.hostname + ":8080", window.location.hostname.replace(".", ".service.") + ":8080");
             }
         }
+        if (typeof window !== "undefined")
         if (window != null) {
             if (window.location != null) {
                 servicePrefixes.push("/" + window.location.pathname.split("/")[1] + "/api/");

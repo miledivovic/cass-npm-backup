@@ -421,7 +421,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
     getTimestamp() {
         var timestamp = this.id.substring(this.id.lastIndexOf("/") + 1);
         if (timestamp.matches("[0-9]+")) {
-            return Integer.parseInt(timestamp);
+            return parseInt(timestamp);
         } else {
             return null;
         }

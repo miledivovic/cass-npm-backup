@@ -46,6 +46,7 @@
 		"jsonld": "^1.8.1",
 		"node-forge": "^0.6.47",
 		"pem-jwk": "^1.5.1",
+		"promise-worker": "^2.0.1",
 		"pure-uuid": "^1.6.2",
 		"request": "^2.88.2",
 		"text-encoding": "^0.7.0",

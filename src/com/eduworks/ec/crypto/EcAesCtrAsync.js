@@ -1,3 +1,4 @@
+var base64 = require('base64-arraybuffer');
 /**
  *  Async version of EcAesCtr that uses browser extensions (window.crypto) to accomplish cryptography much faster.
  *  Falls back to EcAesCtrAsyncWorker, if window.crypto is not available.
@@ -29,9 +30,9 @@ module.exports = class EcAesCtrAsync{
         algorithm.counter = base64.decode(iv);
         algorithm.length = 128;
         var data;
-        data = str2ab(plaintext);
-        return cassPromisify(window.crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
-            return window.crypto.subtle.encrypt(algorithm, key, data).then(function(p1) {
+        data = EcCrypto.str2ab(plaintext);
+        return cassPromisify(crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
+            return crypto.subtle.encrypt(algorithm, key, data).then(function(p1) {
                 return base64.encode(p1);
             });
         }),success,failure);
@@ -68,10 +69,10 @@ module.exports = class EcAesCtrAsync{
         algorithm.length = 128;
         var data;
         data = base64.decode(ciphertext);
-        return cassPromisify(window.crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
-            return window.crypto.subtle.decrypt(algorithm, key, data).then(function(p1) {
-                (EcCrypto.decryptionCache)[secret + iv + ciphertext] = ab2str(p1);
-                return ab2str(p1);
+        return cassPromisify(crypto.subtle.importKey("raw", base64.decode(secret), algorithm, false, keyUsages).then(function(key) {
+            return crypto.subtle.decrypt(algorithm, key, data).then(function(p1) {
+                (EcCrypto.decryptionCache)[secret + iv + ciphertext] = EcCrypto.ab2str(p1);
+                return EcCrypto.ab2str(p1);
             });
         }),success,failure);
     };

@@ -184,7 +184,7 @@ class EcRsaTest {
         let randomString = "\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
         console.log("Generated string: " + randomString);
         let ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
-         let encrypted = await EcRsaOaepAsync.encrypt(ppk.toPk(), randomString);
+        let encrypted = await EcRsaOaepAsync.encrypt(ppk.toPk(), randomString);
         console.log("Encrypted string: " + encrypted);
         let decrypted = await EcRsaOaepAsync.decrypt(ppk, encrypted);
         console.log("Decrypted string: " + decrypted);
@@ -207,10 +207,21 @@ class EcRsaTest {
         console.log("Generated string: " + randomString);
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         let encrypted = await EcRsaOaepAsyncWorker.encrypt(ppk.toPk(), randomString);
-        console.log("Encrypted string: " + JSON.stringify(encrypted));
+        console.log("Encrypted string: " + encrypted);
         let decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
         console.log("Decrypted string: " + decrypted);
         Assert.assertTrue(decrypted.equals(randomString));
+        decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
+        console.log("Decrypted string (cached): " + decrypted);
+        Assert.assertTrue(decrypted.equals(randomString));
+        console.log("Sign: " + randomString);
+        var signature = await EcRsaOaepAsyncWorker.sign(ppk,randomString);
+        console.log("Verify: " + randomString);
+        Assert.assertTrue(await EcRsaOaepAsyncWorker.verify(ppk.toPk(),randomString,signature));
+        console.log("Sign SHA 256: " + randomString);
+        var signature = await EcRsaOaepAsyncWorker.signSha256(ppk,randomString);
+        console.log("Verify SHA 256: " + randomString);
+        Assert.assertTrue(await EcRsaOaepAsyncWorker.verifySha256(ppk.toPk(),randomString,signature));
     };
     rsaUtf8OaepAsyncNativeTestWorker = async function() {
         console.log("-----rsaUtf8OaepAsyncNativeTestWorker-----");
@@ -222,6 +233,17 @@ class EcRsaTest {
         let decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
         console.log("Decrypted string: " + decrypted);
         Assert.assertTrue(decrypted.equals(randomString));
+        decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
+        console.log("Decrypted string (cached): " + decrypted);
+        Assert.assertTrue(decrypted.equals(randomString));
+        console.log("Sign: " + randomString);
+        var signature = await EcRsaOaepAsyncWorker.sign(ppk,randomString);
+        console.log("Verify: " + randomString);
+        Assert.assertTrue(await EcRsaOaepAsyncWorker.verify(ppk.toPk(),randomString,signature));
+        console.log("Sign SHA 256: " + randomString);
+        var signature = await EcRsaOaepAsyncWorker.signSha256(ppk,randomString);
+        console.log("Verify SHA 256: " + randomString);
+        Assert.assertTrue(await EcRsaOaepAsyncWorker.verifySha256(ppk.toPk(),randomString,signature));
     };
 };
 class EcAesTest {
@@ -255,7 +277,7 @@ class EcAesTest {
     };
 };
 class EcAesAsyncTest {
-    aesTest = function() {
+    aesTest = async function() {
         console.log("-----aesTest-----");
         var randomString = "foo is bar";
         console.log("Random string: " + randomString);
@@ -263,18 +285,12 @@ class EcAesAsyncTest {
         console.log("Random secret: " + secret);
         var iv = EcAes.newIv(16);
         console.log("Random iv:" + iv);
-        EcAesCtrAsync.encrypt(randomString, secret, iv, function(encrypted) {
-            console.log("Encrypted String: " + encrypted);
-            console.log("Encrypted String (Proper): " + EcAesCtr.encrypt(randomString, secret, iv));
-            EcAesCtrAsync.decrypt(encrypted, secret, iv, function(decrypted) {
-                console.log("Decrypted String: " + decrypted);
-                Assert.assertEquals("EcAesAsyncTest:aesTest", randomString, decrypted);
-            }, function(p1) {
-                Assert.assertTrue(false);
-            });
-        }, function(p1) {
-            Assert.assertTrue("EcAesAsyncTest:aesTest" + p1, false);
-        });
+        var encrypted = await EcAesCtrAsync.encrypt(randomString, secret, iv);
+        console.log("Encrypted String: " + encrypted);
+        console.log("Encrypted String (Proper): " + EcAesCtr.encrypt(randomString, secret, iv));
+        Assert.assertTrue(encrypted == EcAesCtr.encrypt(randomString, secret, iv));
+        var decrypted = await EcAesCtrAsync.decrypt(encrypted, secret, iv);
+        Assert.assertTrue(decrypted == randomString);        
     };
     aesCrossTest1 = function() {
         console.log("-----aesCrossTest1-----");
@@ -327,7 +343,7 @@ class EcAesAsyncTest {
             Assert.assertTrue("EcAesAsyncTest:aesCrossTest2Utf8", false);
         });
     };
-    aesTestWorker = function() {
+    aesTestWorker = async function() {
         console.log("-----aesTestWorker-----");
         var randomString = "foo is bar";
         console.log("Random string: " + randomString);
@@ -335,18 +351,27 @@ class EcAesAsyncTest {
         console.log("Random secret: " + secret);
         var iv = EcAes.newIv(16);
         console.log("Random iv:" + iv);
-        EcAesCtrAsyncWorker.encrypt(randomString, secret, iv, function(encrypted) {
-            console.log("Encrypted String: " + encrypted);
-            console.log("Encrypted String (Proper): " + EcAesCtr.encrypt(randomString, secret, iv));
-            EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv, function(decrypted) {
-                console.log("Decrypted String: " + decrypted);
-                Assert.assertEquals("EcAesAsyncTest:aesTestWorker", randomString, decrypted);
-            }, function(p1) {
-                Assert.assertTrue(false);
-            });
-        }, function(p1) {
-            Assert.assertTrue("EcAesAsyncTest:aesTestWorker", false);
-        });
+        let encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
+        console.log("Encrypted String: " + encrypted);
+        console.log("Encrypted String (Proper): " + EcAesCtr.encrypt(randomString, secret, iv));
+        let decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
+        console.log("Decrypted String: " + decrypted);
+        Assert.assertEquals("EcAesAsyncTest:aesTestWorker", randomString, decrypted);
+    };
+    aesTestAsync = async function() {
+        console.log("-----aesTestWorker-----");
+        var randomString = "foo is bar";
+        console.log("Random string: " + randomString);
+        var secret = EcAes.newIv(16);
+        console.log("Random secret: " + secret);
+        var iv = EcAes.newIv(16);
+        console.log("Random iv:" + iv);
+        let encrypted = await EcAesCtrAsync.encrypt(randomString, secret, iv);
+        console.log("Encrypted String: " + encrypted);
+        console.log("Encrypted String (Proper): " + EcAesCtr.encrypt(randomString, secret, iv));
+        let decrypted = await EcAesCtrAsync.decrypt(encrypted, secret, iv);
+        console.log("Decrypted String: " + decrypted);
+        Assert.assertEquals("EcAesAsyncTest:aesTestWorker", randomString, decrypted);
     };
     aesCrossTest1Worker = function() {
         console.log("-----aesCrossTest1Worker-----");
@@ -4414,59 +4439,55 @@ await obj.rsaOaepAsyncNativeTest();
 await obj.rsaUtf8OaepAsyncNativeTest();
 await obj.rsaOaepAsyncNativeTestWorker();
 await obj.rsaUtf8OaepAsyncNativeTestWorker();
-// EcRepository.repos = [];
-// obj = new EcAesTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.aesTest();
-// obj.aesUtf8Test();
-// EcRepository.repos = [];
-// obj = new EcAesAsyncTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.aesTest();
-// obj.aesCrossTest1();
-// obj.aesCrossTest1Utf8();
-// obj.aesCrossTest2Utf8();
-// obj.aesTestWorker();
-// obj.aesCrossTest1Worker();
-// obj.aesCrossTest1Utf8Worker();
-// obj.aesCrossTest2Utf8Worker();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcPpkTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.ppkPkKeyTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcTaskTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.createTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcRemoteLinkedDataTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.signableDataTest();
-// obj.signAndVerifyTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcContactTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.encryptContactTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcRepositoryTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.createPublicObjectTest();
-// obj.createPublicRegisteredObjectTest();
-// obj.createAndDeleteSingleOwnedObjectTest();
-// obj.createAndDeleteTwoOwnerObjectTest();
-// obj.searchForSomethingThatCantExist();
+EcRepository.repos = [];
+obj = new EcAesTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.aesTest();
+obj.aesUtf8Test();
+EcRepository.repos = [];
+obj = new EcAesAsyncTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.aesTest();
+obj.aesCrossTest1();
+obj.aesCrossTest1Utf8();
+obj.aesCrossTest2Utf8();
+await obj.aesTestWorker();
+await obj.aesCrossTest1Worker();
+await obj.aesCrossTest1Utf8Worker();
+await obj.aesCrossTest2Utf8Worker();
+await obj.aesTestAsync();
+EcRepository.repos = [];
+obj = new EcPpkTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.ppkPkKeyTest();
+EcRepository.repos = [];
+obj = new EcTaskTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.createTest();
+EcRepository.repos = [];
+obj = new EcRemoteLinkedDataTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.signableDataTest();
+obj.signAndVerifyTest();
+EcRepository.repos = [];
+obj = new EcContactTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.encryptContactTest();
+EcRepository.repos = [];
+obj = new EcRepositoryTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.createPublicObjectTest();
+obj.createPublicRegisteredObjectTest();
+obj.createAndDeleteSingleOwnedObjectTest();
+obj.createAndDeleteTwoOwnerObjectTest();
+obj.searchForSomethingThatCantExist();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new EcEncryptedValueTest();

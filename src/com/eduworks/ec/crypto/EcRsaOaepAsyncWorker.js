@@ -203,4 +203,36 @@ module.exports = class EcRsaOaepAsyncWorker{
         let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
         return cassPromisify(p,success,failure);
     };
+    /**
+     *  Asynchronous form of {{#crossLink
+     *  "EcRsaOaep/verify:method"}}EcRsaOaep.verify{{/crossLink}}
+     * 
+     *  @param {EcPk}              pk Public key to use to verify message.
+     *  @param {string}            text Text to use in verification.
+     *  @param {string}            signature Signature to use in verification.
+     *  @param {function(boolean)} success Success method, result is whether
+     *                             signature is valid.
+     *  @param {function(string)}  failure Failure method, parameter is error
+     *                             message.
+     *  @method verify
+     *  @static
+     */
+    static verifySha256(pk, text, signature, success, failure) {
+        EcRsaOaepAsyncWorker.initWorker();
+        if (EcRsaOaepAsyncWorker.w == null) {
+            let p = new Promise((resolve,reject)=>{
+                resolve(EcRsaOaep.verify(pk, text, signature));
+            });
+            return cassPromisify(p,success,failure);
+        }
+        var worker = EcRsaOaepAsyncWorker.rotator++;
+        EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
+        var o = new Object();
+        (o)["pk"] = pk.toPem();
+        (o)["text"] = forge.util.encodeUtf8(text);
+        (o)["signature"] = signature;
+        (o)["cmd"] = "verifyRsaOaepSha256";
+        let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+        return cassPromisify(p,success,failure);
+    };
 };

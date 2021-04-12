@@ -7,52 +7,6 @@
  *  @module com.eduworks.ec
  */
 module.exports = class EcAesCtrAsyncWorker{
-    static rotator = 0;
-    static w = null;
-    static q1 = null;
-    static q2 = null;
-    static initWorker() {
-        if (typeof Worker === "undefined" || Worker == undefined || Worker == null) {
-            return;
-        }
-        if (EcAesCtrAsyncWorker.w != null) {
-            return;
-        }
-        EcAesCtrAsyncWorker.rotator = 0;
-        EcAesCtrAsyncWorker.q1 = new Array();
-        EcAesCtrAsyncWorker.q2 = new Array();
-        EcAesCtrAsyncWorker.w = new Array();
-        for (var index = 0; index < 8; index++) {
-            EcAesCtrAsyncWorker.createWorker(index);
-        }
-    };
-    static createWorker(index) {
-        EcAesCtrAsyncWorker.q1.push(new Array());
-        EcAesCtrAsyncWorker.q2.push(new Array());
-        var wkr;
-        if ((window)["scriptPath"] != null) 
-            EcAesCtrAsyncWorker.w.push(wkr = new Worker((window)["scriptPath"] + "forgeAsync.js"));
-         else 
-            EcAesCtrAsyncWorker.w.push(wkr = new Worker("forgeAsync.js"));
-        wkr.onmessage = function(p1) {
-            var o = p1.data;
-            var success = EcAesCtrAsyncWorker.q1[index].shift();
-            var failure = EcAesCtrAsyncWorker.q2[index].shift();
-            if ((o)["error"] != null) {
-                if (failure != null) 
-                    failure((o)["error"]);
-            } else if (success != null) {
-                success((o)["result"]);
-            }
-        };
-        wkr.onerror = function(p1) {
-            var success = EcAesCtrAsyncWorker.q1[index].shift();
-            var failure = EcAesCtrAsyncWorker.q2[index].shift();
-            if (failure != null) {
-                failure(p1.toString());
-            }
-        };
-    };
     /**
      *  Asynchronous form of {{#crossLink
      *  "EcAesCtr/encrypt:method"}}EcAesCtr.encrypt{{/crossLink}}
@@ -68,21 +22,19 @@ module.exports = class EcAesCtrAsyncWorker{
      *  @static
      */
     static encrypt(plaintext, secret, iv, success, failure) {
-        EcAesCtrAsyncWorker.initWorker();
-        if (!EcRemote.async || EcAesCtrAsyncWorker.w == null) {
-            success(EcAesCtr.encrypt(plaintext, secret, iv));
-        } else {
-            var worker = EcAesCtrAsyncWorker.rotator++;
-            EcAesCtrAsyncWorker.rotator = EcAesCtrAsyncWorker.rotator % 8;
-            var o = new Object();
-            (o)["secret"] = secret;
-            (o)["iv"] = iv;
-            (o)["text"] = forge.util.encodeUtf8(plaintext);
-            (o)["cmd"] = "encryptAesCtr";
-            EcAesCtrAsyncWorker.q1[worker].push(success);
-            EcAesCtrAsyncWorker.q2[worker].push(failure);
-            EcAesCtrAsyncWorker.w[worker].postMessage(o);
+        EcRsaOaepAsyncWorker.initWorker();
+        if (!EcAesCtrAsyncWorker.w == null) {
+            return cassReturnAsPromise(EcAesCtr.encrypt(plaintext, secret, iv),success,failure);
         }
+        var worker = EcRsaOaepAsyncWorker.rotator++;
+        EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
+        var o = new Object();
+        (o)["secret"] = secret;
+        (o)["iv"] = iv;
+        (o)["text"] = forge.util.encodeUtf8(plaintext);
+        (o)["cmd"] = "encryptAesCtr";
+        return EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+        
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -107,29 +59,23 @@ module.exports = class EcAesCtrAsyncWorker{
                 return;
             }
         }
-        EcAesCtrAsyncWorker.initWorker();
-        if (!EcRemote.async || EcAesCtrAsyncWorker.w == null) {
-            success(EcAesCtr.decrypt(ciphertext, secret, iv));
-        } else {
-            var worker = EcAesCtrAsyncWorker.rotator++;
-            EcAesCtrAsyncWorker.rotator = EcAesCtrAsyncWorker.rotator % 8;
+        EcRsaOaepAsyncWorker.initWorker();
+        if (!EcRsaOaepAsyncWorker.w == null) {
+            return cassReturnAsPromise(EcAesCtr.decrypt(ciphertext, secret, iv),success,failure);
+        }
+            var worker = EcRsaOaepAsyncWorker.rotator++;
+            EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
             var o = new Object();
             (o)["secret"] = secret;
             (o)["iv"] = iv;
             (o)["text"] = ciphertext;
             (o)["cmd"] = "decryptAesCtr";
-            if (EcCrypto.caching) {
-                EcAesCtrAsyncWorker.q1[worker].push(function(p1) {
-                    (EcCrypto.decryptionCache)[secret + iv + ciphertext] = forge.util.decodeUtf8(p1);
-                    success(forge.util.decodeUtf8(p1));
-                });
-            } else {
-                EcAesCtrAsyncWorker.q1[worker].push(function(p1) {
-                    success(forge.util.decodeUtf8(p1));
-                });
-            }
-            EcAesCtrAsyncWorker.q2[worker].push(failure);
-            EcAesCtrAsyncWorker.w[worker].postMessage(o);
-        }
+            let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+            p = p.then((decrypted)=>{return forge.util.decodeUtf8(decrypted)});
+            if (EcCrypto.caching)
+            p = p.then((decrypted)=>{
+                return (EcCrypto.decryptionCache)[secret + iv + ciphertext] = decrypted;
+            })
+            return cassPromisify(p,success,failure);
     };
 };

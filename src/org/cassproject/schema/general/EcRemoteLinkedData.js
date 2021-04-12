@@ -17,7 +17,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
     *  @param {string} type JSON-LD Type.
     *  @constructor
     */
-    constructor(){
+    constructor(context,type){
         super(context, type);
     }
     /**

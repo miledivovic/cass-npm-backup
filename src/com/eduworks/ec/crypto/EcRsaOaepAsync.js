@@ -22,7 +22,7 @@ module.exports = class EcRsaOaepAsync{
             success(EcRsaOaep.encrypt(pk, plainText));
             return;
         }
-        if (EcBrowserDetection.isIeOrEdge() || window == null || window.crypto == null || window.crypto.subtle == null) {
+        if (typeof window === "undefined" || window == null || window.crypto == null || window.crypto.subtle == null) {
             EcRsaOaepAsyncWorker.encrypt(pk, plainText, success, failure);
             return;
         }
@@ -69,7 +69,7 @@ module.exports = class EcRsaOaepAsync{
             success(EcRsaOaep.decrypt(ppk, cipherText));
             return;
         }
-        if (EcBrowserDetection.isIeOrEdge() || window == null || window.crypto == null || window.crypto.subtle == null) {
+        if (typeof window === "undefined" || window == null || window.crypto == null || window.crypto.subtle == null) {
             EcRsaOaepAsyncWorker.decrypt(ppk, cipherText, success, failure);
             return;
         }

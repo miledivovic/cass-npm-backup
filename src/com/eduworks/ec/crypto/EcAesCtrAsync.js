@@ -19,7 +19,7 @@ module.exports = class EcAesCtrAsync{
      *  @static
      */
     static encrypt(plaintext, secret, iv, success, failure) {
-        if (window == null || window.crypto == null || window.crypto.subtle == null) {
+        if (crypto == null || crypto.subtle == null) {
             EcAesCtrAsyncWorker.encrypt(plaintext, secret, iv, success, failure);
             return;
         }
@@ -64,7 +64,7 @@ module.exports = class EcAesCtrAsync{
                 return;
             }
         }
-        if (window.crypto == null || window.crypto.subtle == null) {
+        if (crypto == null || crypto.subtle == null) {
             EcAesCtrAsyncWorker.decrypt(ciphertext, secret, iv, success, failure);
             return;
         }

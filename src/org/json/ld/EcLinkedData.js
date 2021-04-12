@@ -131,7 +131,7 @@ module.exports = class EcLinkedData{
             var key = keys[i];
             var value = me[key.replace("@", "")];
             if (value != null) 
-                if (stjs.isInstanceOf(value.constructor, EcLinkedData)) 
+                if (value instanceof EcLinkedData) 
                     value = (value).atIfy();
                  else if (EcArray.isArray(value)) 
                     value = this.atIfyArray(value);

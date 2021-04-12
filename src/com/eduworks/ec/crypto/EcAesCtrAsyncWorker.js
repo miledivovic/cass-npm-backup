@@ -12,7 +12,7 @@ module.exports = class EcAesCtrAsyncWorker{
     static q1 = null;
     static q2 = null;
     static initWorker() {
-        if (window == null && ((typeof self).equals("undefined")) || Worker == undefined || Worker == null) {
+        if (typeof Worker === "undefined" || Worker == undefined || Worker == null) {
             return;
         }
         if (!EcRemote.async) {

@@ -452,4 +452,4 @@ module.exports = class CSVImport{
                 repo.saveTo(data, scs, err);
         });
     };
-}, {importCsvLookup: "Object", progressObject: "Object"}, {});
+};

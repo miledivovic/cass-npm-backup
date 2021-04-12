@@ -7,7 +7,7 @@
  * @module org.credentialengine
  * @extends CreativeWork
  */
-module.exports = class Credential extends ce.org.schema.CreativeWork
+module.exports = class Credential extends schema.CreativeWork
 {
 	/**
 	 * Constructor, automatically sets @context and @type.

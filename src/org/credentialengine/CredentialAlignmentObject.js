@@ -6,7 +6,7 @@
  * @module org.credentialengine
  * @extends AlignmentObject
  */
-module.exports = class CredentialAlignmentObject extends ce.org.schema.AlignmentObject
+module.exports = class CredentialAlignmentObject extends schema.AlignmentObject
 {
 	/**
 	 * Constructor, automatically sets @context and @type.

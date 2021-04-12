@@ -7,7 +7,7 @@
  * @module org.credentialengine
  * @extends Intangible
  */
-module.exports = class VerificationServiceProfile extends ce.org.schema.Intangible
+module.exports = class VerificationServiceProfile extends schema.Intangible
 {
 	/**
 	 * Constructor, automatically sets @context and @type.

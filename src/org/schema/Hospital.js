@@ -1,3 +1,4 @@
+schema.MedicalOrganization = require("./MedicalOrganization");
 /**
  * Schema.org/Hospital
  * A hospital.

@@ -7,10 +7,8 @@
  *  @class MoodleConfig
  *  @constructor
  */
-var MoodleConfig = function() {
-    EcLinkedData.call(this, null, null);
-};
-MoodleConfig = stjs.extend(MoodleConfig, EcLinkedData, [], function(constructor, prototype) {
+
+module.exports = class MoodleConfig extends EcLinkedData{
     enabled = false;
     moodleEndpoint = null;
     moodleToken = null;
@@ -83,4 +81,4 @@ MoodleConfig = stjs.extend(MoodleConfig, EcLinkedData, [], function(constructor,
             EcRemote.postExpectingObject(serverUrl, "adapter/moodle/config/set", fd, success, failure);
         }, failure);
     };
-}, {atProperties: {name: "Array", arguments: [null]}}, {});
+};

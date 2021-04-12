@@ -6,7 +6,7 @@
  * @module org.credentialengine
  * @extends QuantitativeValue
  */
-module.exports = class ValueProfile extends ce.org.schema.QuantitativeValue
+module.exports = class ValueProfile extends schema.QuantitativeValue
 {
 	/**
 	 * Constructor, automatically sets @context and @type.

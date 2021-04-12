@@ -1,17 +1,17 @@
 /**
  *  @author debbie.brown@eduworks.com
- */
-var ExtPerson = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    Person.call(this);
-    this.context = "http://schema.eduworks.com/pebleXtension/0.1/";
-    this.type = "Person";
-};
-ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) {
+ */ 
+module.exports = class ExtPerson extends schema.Person{
+
+    /**
+     *  Constructor, automatically sets @context and @type.
+     * 
+     *  @constructor
+     */
+    constructor(){
+        this.context = "http://schema.eduworks.com/pebleXtension/0.1/";
+        this.type = "Person";
+    }
     static positionLabelsMap = {};
     static positionUrlsMap = {};
     legacyId = null;
@@ -203,7 +203,7 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
      *  @memberOf ExtPerson
      *  @method _delete
      */
-    prototype._delete = function(success, failure) {
+    _delete = function(success, failure) {
         EcRepository.DELETE(this, success, failure);
     };
     /**
@@ -678,4 +678,4 @@ ExtPerson = stjs.extend(ExtPerson, Person, [], function(constructor, prototype) 
             ExtPerson.positionUrlsMap["http://schema.eduworks.com/pebleXtension/0.1/positionType/Volunteer"] = "Volunteer";
         }
     };
-}, {positionLabelsMap: {name: "Map", arguments: [null, null]}, positionUrlsMap: {name: "Map", arguments: [null, null]}, address: "PostalAddress", spouse: "Person", funder: "Person", colleagues: "Person", memberOf: "Organization", height: "Distance", workLocation: "ContactPoint", netWorth: "PriceSpecification", children: "Person", hasOfferCatalog: "OfferCatalog", deathPlace: "Place", birthPlace: "Place", parents: "Person", alumniOf: "EducationalOrganization", homeLocation: "ContactPoint", makesOffer: "Offer", contactPoints: "ContactPoint", seeks: "Demand", sibling: "Person", performerIn: "SchemaEvent", siblings: "Person", weight: "QuantitativeValue", contactPoint: "ContactPoint", hasPOS: "Place", parent: "Person", owns: "OwnershipInfo", affiliation: "Organization", sponsor: "Organization", brand: "Organization", nationality: "Country", relatedTo: "Person", follows: "Person", knows: "Person", worksFor: "Organization", identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

@@ -1,29 +1,31 @@
 /**
  *  Created by fray on 5/9/17.
  */
-var OAuth2FileBasedRemoteIdentityManager = /**
- *  Reads the remote OAuth2 endpoint file.
- * 
- *  @param {Callback0} Method to call when initialization is complete.
- *  @memberOf OAuth2FileBasedRemoteIdentityManager
- *  @constructor
- */
-function(initialized) {
-    var me = this;
-    EcRemote.getExpectingObject("", "hello.json", function(o) {
-        try {
-            me.configuration = JSON.parse(JSON.stringify(o));
-            hello.init(o);
-            me.static oauthEnabled = true;
-            initialized();
-        }catch (ex) {
-            me.static oauthEnabled = false;
-        }
-    }, function(s) {
-        me.static oauthEnabled = false;
-    });
-};
-OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentityManager, null, [RemoteIdentityManagerInterface], function(constructor, prototype) {
+
+module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdentityManagerInterface{
+    /**
+     *  Reads the remote OAuth2 endpoint file.
+     * 
+     *  @param {Callback0} Method to call when initialization is complete.
+     *  @memberOf OAuth2FileBasedRemoteIdentityManager
+     *  @constructor
+     */
+    constructor()
+    {
+        var me = this;
+        EcRemote.getExpectingObject("", "hello.json", function(o) {
+            try {
+                me.configuration = JSON.parse(JSON.stringify(o));
+                hello.init(o);
+                me.oauthEnabled = true;
+                initialized();
+            }catch (ex) {
+                me.oauthEnabled = false;
+            }
+        }, function(s) {
+            me.oauthEnabled = false;
+        });
+    }
     static oauthEnabled = false;
     server = null;
     configuration = null;
@@ -311,4 +313,4 @@ OAuth2FileBasedRemoteIdentityManager = stjs.extend(OAuth2FileBasedRemoteIdentity
         });
         hello.login(this.server, o).fail(failure);
     };
-}, {configuration: "Object", oauthLoginResponse: "Object"}, {});
+};

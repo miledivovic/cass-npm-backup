@@ -10,10 +10,10 @@ var Collection = /**
  *  Constructor, automatically sets @context and @type.
  *  @constructor
  */
-function() {
-    EcRemoteLinkedData.call(this, "https://schema.cassproject.org/0.4/skos/", "Collection");
-};
-Collection = stjs.extend(Collection, EcRemoteLinkedData, [], function(constructor, prototype) {
+module.exports = class Collection extends EcRemoteLinkedData {
+    constructor(){
+        super("https://schema.cassproject.org/0.4/skos/", "Collection")
+    }
     /**
      *  www.w3.org/2004/02/skos/core/member
      *  Relates a collection to one of its members.
@@ -21,4 +21,4 @@ Collection = stjs.extend(Collection, EcRemoteLinkedData, [], function(constructo
      *  @type N0e403dc85fe548d1b3d2f3d1ded36d20
      */
     member = null;
-}, {member: {name: "Array", arguments: ["Object"]}, owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

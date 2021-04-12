@@ -1,3 +1,4 @@
+global.schema.MedicalBusiness = require("./MedicalBusiness.js");
 /**
  * Schema.org/Dentist
  * A dentist.

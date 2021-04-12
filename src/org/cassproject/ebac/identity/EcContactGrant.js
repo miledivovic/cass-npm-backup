@@ -27,4 +27,4 @@ module.exports = class EcContactGrant extends EbacContactGrant{
         }
         return found;
     };
-}, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

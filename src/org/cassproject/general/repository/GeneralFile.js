@@ -7,10 +7,10 @@
  *  @extends EcRemoteLinkedData
  *  @constructor
  */
-var GeneralFile = function() {
-    EcRemoteLinkedData.call(this, General.context, GeneralFile.myType);
-};
-GeneralFile = stjs.extend(GeneralFile, EcRemoteLinkedData, [], function(constructor, prototype) {
+module.exports = class GeneralFile extends EcRemoteLinkedData{
+    constructor(){
+        super(General.context, GeneralFile.myType);
+    }
     static TYPE_0_1 = "http://schema.eduworks.com/general/0.1/file";
     static TYPE_0_2 = "http://schema.eduworks.com/general/0.2/file";
     static myType = GeneralFile.TYPE_0_2;
@@ -68,4 +68,4 @@ GeneralFile = stjs.extend(GeneralFile, EcRemoteLinkedData, [], function(construc
         a.push(GeneralFile.TYPE_0_1);
         return a;
     };
-}, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

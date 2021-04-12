@@ -7,10 +7,7 @@
  *  @class XapiConfig
  *  @constructor
  */
-var XapiConfig = function() {
-    EcLinkedData.call(this, null, null);
-};
-XapiConfig = stjs.extend(XapiConfig, EcLinkedData, [], function(constructor, prototype) {
+module.exports = class XapiConfig extends EcLinkedData{
     enabled = false;
     xapiAuth = null;
     xapiEndpoint = null;
@@ -51,4 +48,4 @@ XapiConfig = stjs.extend(XapiConfig, EcLinkedData, [], function(constructor, pro
             EcRemote.postExpectingObject(serverUrl, "adapter/xapi/config/set", fd, success, failure);
         }, failure);
     };
-}, {atProperties: {name: "Array", arguments: [null]}}, {});
+};

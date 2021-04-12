@@ -1,4 +1,4 @@
-module.exports = class CfdAlignment extends AlignmentObject{
+module.exports = class CfdAlignment extends schema.AlignmentObject{
     static myType = "http://schema.org/AlignmentObject";
     /**
      *  Retrieves the alignment specified with the ID from the server
@@ -210,7 +210,7 @@ module.exports = class CfdAlignment extends AlignmentObject{
      *  @memberOf CfdAlignment
      *  @method _delete
      */
-    prototype._delete = function(success, failure) {
+    _delete = function(success, failure) {
         EcRepository.DELETE(this, success, failure);
     };
-}, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

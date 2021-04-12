@@ -11,6 +11,9 @@
  *  @static
  */
 module.exports = class EcIdentityManager{
+    static constructor(){
+        EcIdentityManager.main();
+    }
     /**
      *  The current user's owned identities (keys+displayName)
      * 
@@ -614,6 +617,5 @@ module.exports = class EcIdentityManager{
             pks.push(EcIdentityManager.ids[i].ppk.toPk());
         return pks;
     };
-}, {ids: {name: "Array", arguments: ["EcIdentity"]}, contacts: {name: "Array", arguments: ["EcContact"]}, onIdentityChanged: {name: "Callback1", arguments: ["EcIdentity"]}, onContactChanged: {name: "Callback1", arguments: ["EcContact"]}, signatureSheetCache: "Object"}, {});
-if (!stjs.mainCallDisabled) 
-    EcIdentityManager.main();
+};
+

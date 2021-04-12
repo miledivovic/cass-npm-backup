@@ -104,7 +104,7 @@ module.exports = class EcFile extends GeneralFile{
      *  @memberOf EcFile
      *  @method _delete
      */
-    prototype._delete = function(repo, success, failure) {
-        repo.static DELETE(this, success, failure);
+    _delete = function(repo, success, failure) {
+        repo.DELETE(this, success, failure);
     };
-}, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

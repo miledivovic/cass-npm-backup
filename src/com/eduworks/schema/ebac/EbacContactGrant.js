@@ -8,10 +8,10 @@
  *  @class EbacContactGrant
  *  @module org.cassproject
  */
-var EbacContactGrant = function() {
-    EcRemoteLinkedData.call(this, Ebac.context, EbacContactGrant.TYPE_0_4);
-};
-EbacContactGrant = stjs.extend(EbacContactGrant, EcRemoteLinkedData, [], function(constructor, prototype) {
+module.exports = class EbacContactGrant extends EcRemoteLinkedData{
+    constructor(){
+        super(Ebac.context, EbacContactGrant.TYPE_0_4);
+    }
     static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/contactGrant";
     static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/contactGrant";
     static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/ContactGrant";
@@ -75,4 +75,4 @@ EbacContactGrant = stjs.extend(EbacContactGrant, EcRemoteLinkedData, [], functio
         a.push(EbacContactGrant.TYPE_0_1);
         return a;
     };
-}, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

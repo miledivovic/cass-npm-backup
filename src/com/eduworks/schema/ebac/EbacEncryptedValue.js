@@ -5,10 +5,10 @@
  *  @class EbacEncryptedValue
  *  @module org.cassproject
  */
-var EbacEncryptedValue = function() {
-    EcRemoteLinkedData.call(this, Ebac.context, EbacEncryptedValue.myType);
-};
-EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], function(constructor, prototype) {
+module.exports = class EbacEncryptedValue extends EcRemoteLinkedData{
+    constructor(){
+        super(Ebac.context, EbacEncryptedValue.myType);
+    }
     static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/encryptedValue";
     static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/encryptedValue";
     static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/EncryptedValue";
@@ -89,4 +89,4 @@ EbacEncryptedValue = stjs.extend(EbacEncryptedValue, EcRemoteLinkedData, [], fun
         a.push(EbacEncryptedValue.TYPE_0_1);
         return a;
     };
-}, {secret: {name: "Array", arguments: [null]}, owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

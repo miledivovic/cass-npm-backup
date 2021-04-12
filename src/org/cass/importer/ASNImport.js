@@ -357,4 +357,4 @@ module.exports = class ASNImport extends Importer{
             failure("Failed to save framework");
         }, repo);
     };
-}, {jsonFramework: "Object", jsonCompetencies: {name: "Map", arguments: [null, "Object"]}, importedFramework: "EcFramework", competencies: {name: "Map", arguments: [null, "EcCompetency"]}, progressObject: "Object"}, {});
+};

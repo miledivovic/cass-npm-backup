@@ -1,14 +1,15 @@
-var EcAsyncTaskManager = function(workerCount) {
-    this.workerList = [];
-    for (var i = 0; i < workerCount; i++) {
-        this.workerList.push(new EcAsyncTaskWorker());
+module.exports = class EcAsyncTaskManager{
+    constructor(workerCount){
+        this.workerList = [];
+        for (var i = 0; i < workerCount; i++) {
+            this.workerList.push(new EcAsyncTaskWorker());
+        }
+        var that = this;
+        setInterval(function() {
+            that.cleanupTasks();
+        }, this.taskCleanupInterval);
     }
-    var that = this;
-    setInterval(function() {
-        that.cleanupTasks();
-    }, this.taskCleanupInterval);
-};
-EcAsyncTaskManager = stjs.extend(EcAsyncTaskManager, null, [], function(constructor, prototype) {
+
     taskMap = null;
     workerList = null;
     taskCleanupInterval = 2500;
@@ -62,4 +63,4 @@ EcAsyncTaskManager = stjs.extend(EcAsyncTaskManager, null, [], function(construc
         if (theGuy != null) 
             theGuy.assign(task);
     };
-}, {taskMap: {name: "Map", arguments: [null, "EcAsyncTask"]}, workerList: {name: "Array", arguments: ["EcAsyncTaskWorker"]}}, {});
+};

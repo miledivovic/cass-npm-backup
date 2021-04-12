@@ -20,8 +20,7 @@
  *  @module com.eduworks.ec
  *  @class EcRemoteIdentityManager
  */
-var EcRemoteIdentityManager = function() {};
-EcRemoteIdentityManager = stjs.extend(EcRemoteIdentityManager, null, [RemoteIdentityManagerInterface], function(constructor, prototype) {
+module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInterface{
     server = null;
     global = null;
     usernameWithSalt = null;

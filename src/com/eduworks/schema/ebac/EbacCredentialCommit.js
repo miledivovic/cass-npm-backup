@@ -8,11 +8,11 @@
  *  @class EbacCredentialCommit
  *  @module org.cassproject
  */
-var EbacCredentialCommit = function() {
-    EcLinkedData.call(this, Ebac.context, EbacCredentialCommit.TYPE_0_4);
-    this.credentials = new EbacCredentials();
-};
-EbacCredentialCommit = stjs.extend(EbacCredentialCommit, EcLinkedData, [], function(constructor, prototype) {
+module.exports = class EbacCredentialCommit extends EcLinkedData{
+    constructor(){
+        super(Ebac.context, EbacCredentialCommit.TYPE_0_4);
+        this.credentials = new EbacCredentials();
+    }
     static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/credentialCommit";
     static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/credentialCommit";
     static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/CredentialCommit";
@@ -69,4 +69,4 @@ EbacCredentialCommit = stjs.extend(EbacCredentialCommit, EcLinkedData, [], funct
         a.push(EbacCredentialCommit.TYPE_0_1);
         return a;
     };
-}, {credentials: "EbacCredentials", atProperties: {name: "Array", arguments: [null]}}, {});
+};

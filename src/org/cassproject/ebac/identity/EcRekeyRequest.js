@@ -1,15 +1,15 @@
 /**
  *  The record used to request a rekey of a given public key
  */
-var EcRekeyRequest = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    EcRemoteLinkedData.call(this, "https://schema.cassproject.org/0.4/kbac", "RekeyRequest");
-};
-EcRekeyRequest = stjs.extend(EcRekeyRequest, EcRemoteLinkedData, [], function(constructor, prototype) {
+module.exports = class EcRekeyRequest extends EcRemoteLinkedData{
+    /**
+     *  Constructor, automatically sets @context and @type.
+     * 
+     *  @constructor
+     */
+    constructor(){        
+     super("https://schema.cassproject.org/0.4/kbac", "RekeyRequest");
+    }
     static REKEY_ID_PREFIX = "rekey_";
     /**
      *  PEM encoded public key of the replacement (new) key
@@ -87,4 +87,4 @@ EcRekeyRequest = stjs.extend(EcRekeyRequest, EcRemoteLinkedData, [], function(co
         if (this.owner != null) 
             EcRemoteLinkedData.forwardKey(this.rekeyPk, this.owner[0]);
     };
-}, {owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

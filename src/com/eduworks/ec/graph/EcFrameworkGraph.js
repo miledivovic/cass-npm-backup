@@ -5,16 +5,15 @@
  *  @author tom.buskirk@eduworks.com
  *  @class EcFrameworkGraph
  */
-var EcFrameworkGraph = function() {
-    EcDirectedGraph.call(this);
-    this.metaVerticies = new Object();
-    this.metaEdges = new Object();
-    this.competencyMap = new Object();
-    this.edgeMap = new Object();
-    this.dontTryAnyMore = new Object();
-    this.frameworks = new Array();
-};
-EcFrameworkGraph = stjs.extend(EcFrameworkGraph, EcDirectedGraph, [], function(constructor, prototype) {
+module.exports = class EcFrameworkGraph extends EcDirectedGraph{
+    constructor(){
+        this.metaVerticies = new Object();
+        this.metaEdges = new Object();
+        this.competencyMap = new Object();
+        this.edgeMap = new Object();
+        this.dontTryAnyMore = new Object();
+        this.frameworks = new Array();
+    }
     metaVerticies = null;
     metaEdges = null;
     competencyMap = null;
@@ -259,4 +258,4 @@ EcFrameworkGraph = stjs.extend(EcFrameworkGraph, EcDirectedGraph, [], function(c
     getDefaultEdgeType() {
         return EcAlignment.NARROWS;
     };
-}, {metaVerticies: {name: "Map", arguments: [null, "Object"]}, metaEdges: {name: "Map", arguments: [null, "Object"]}, competencyMap: "Object", edgeMap: "Object", dontTryAnyMore: "Object", frameworks: {name: "Array", arguments: ["EcFramework"]}, addFrameworkSuccessCallback: "Callback0", addFrameworkFailureCallback: {name: "Callback1", arguments: [null]}, repo: "EcRepository", edges: {name: "Array", arguments: [{name: "Triple", arguments: ["V", "V", "E"]}]}, verticies: {name: "Array", arguments: ["V"]}}, {});
+};

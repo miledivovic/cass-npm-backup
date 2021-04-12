@@ -173,4 +173,4 @@ module.exports = class FrameworkImport{
             }
         }
     };
-}, {targetUsable: "EcFramework", competencies: {name: "Array", arguments: ["EcCompetency"]}, relations: {name: "Array", arguments: ["EcAlignment"]}, compMap: {name: "Map", arguments: [null, null]}}, {});
+};

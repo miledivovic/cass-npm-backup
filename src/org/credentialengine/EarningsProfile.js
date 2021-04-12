@@ -1,3 +1,4 @@
+ce.AggregateDataProfile = require("./AggregateDataProfile.js");
 /**
  * credentialengine.org/EarningsProfile
  * Entity that describes earning and related statistical information for a given credential.

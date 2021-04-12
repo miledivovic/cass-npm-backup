@@ -6,7 +6,7 @@
  * @module org.credentialengine
  * @extends StructuredValue
  */
-module.exports = class GeoCoordinates extends ce.org.schema.StructuredValue
+module.exports = class GeoCoordinates extends schema.StructuredValue
 {
 	/**
 	 * Constructor, automatically sets @context and @type.

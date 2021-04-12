@@ -116,7 +116,7 @@ module.exports = class CSVExport extends Exporter{
     static CSVExportProcess() {
         this.csvOutput = [];
     };
-    static CSVExportProcess = stjs.extend(static CSVExportProcess, null, [], function(constructor, prototype) {
+    static CSVExportProcess = class CSVExportProcess{
         csvOutput = null;
         flattenObject(flattenedObject, object, prefix, piped) {
             var data = new EcRemoteLinkedData((object)["@context"], (object)["@type"]);
@@ -181,5 +181,5 @@ module.exports = class CSVExport extends Exporter{
                 ((pom)["click"]).call(pom);
             }
         };
-    }, {csvOutput: {name: "Array", arguments: ["Object"]}}, {});
-}, {frameworkCompetencies: {name: "Array", arguments: ["EcRemoteLinkedData"]}, frameworkRelations: {name: "Array", arguments: ["EcRemoteLinkedData"]}}, {});
+    };
+};

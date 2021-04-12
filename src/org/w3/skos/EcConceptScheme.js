@@ -1,8 +1,9 @@
 /**
  *  Created by fray on 11/29/17.
  */
-var EcConceptScheme = function() {
-    ConceptScheme.call(this);
+module.exports = class EcConceptScheme extends ConceptScheme{
+    constructor(){
+        
     var me = (this);
     if (EcConceptScheme.template != null) {
         var you = (EcConceptScheme.template);
@@ -11,8 +12,7 @@ var EcConceptScheme = function() {
                 me[key.replace("@", "")] = you[key];
         }
     }
-};
-EcConceptScheme = stjs.extend(EcConceptScheme, ConceptScheme, [], function(constructor, prototype) {
+    }
     static template = null;
     /**
      *  Retrieves a concept scheme from the server, specified by the ID
@@ -71,4 +71,4 @@ EcConceptScheme = stjs.extend(EcConceptScheme, ConceptScheme, [], function(const
             return new EcConceptScheme();
         }, success, failure, paramObj);
     };
-}, {template: "Object", hasTopConcept: "Concept", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

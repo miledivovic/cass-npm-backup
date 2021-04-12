@@ -6,14 +6,14 @@
  *  @class ConceptScheme
  *  @module org.w3.skos
  */
-var ConceptScheme = /**
- *  Constructor, automatically sets @context and @type.
- *  @constructor
- */
-function() {
-    EcRemoteLinkedData.call(this, "https://schema.cassproject.org/0.4/skos/", "ConceptScheme");
-};
-ConceptScheme = stjs.extend(ConceptScheme, EcRemoteLinkedData, [], function(constructor, prototype) {
+module.exports = class ConceptScheme extends EcRemoteLinkedData{
+    /**
+     *  Constructor, automatically sets @context and @type.
+     *  @constructor
+     */
+    constructor(){
+        super("https://schema.cassproject.org/0.4/skos/", "ConceptScheme");
+    }
     static TYPE_0_1 = "http://schema.cassproject.org/0.3/skos/ConceptScheme";
     static TYPE_0_2 = "https://schema.cassproject.org/0.3/skos/ConceptScheme";
     static TYPE_0_3 = "https://schema.cassproject.org/0.4/skos/ConceptScheme";
@@ -41,4 +41,4 @@ ConceptScheme = stjs.extend(ConceptScheme, EcRemoteLinkedData, [], function(cons
         a.push(ConceptScheme.TYPE_0_1);
         return a;
     };
-}, {hasTopConcept: "Concept", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

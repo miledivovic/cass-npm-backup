@@ -7,7 +7,7 @@
  * @module org.credentialengine
  * @extends Action
  */
-module.exports = class CredentialingAction extends ce.org.schema.Action
+module.exports = class CredentialingAction extends schema.Action
 {
 	/**
 	 * Constructor, automatically sets @context and @type.

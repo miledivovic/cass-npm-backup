@@ -1,18 +1,17 @@
 /**
  *  Created by fray on 11/29/17.
  */
-var EcConcept = function() {
-    Concept.call(this);
-    var me = (this);
-    if (EcConcept.template != null) {
-        var you = (EcConcept.template);
-        for (var key in you) {
-            if ((typeof you[key]) != "function") 
-                me[key.replace("@", "")] = you[key];
+module.exports = class EcConcept extends Concept{
+    constructor(){        
+        var me = (this);
+        if (EcConcept.template != null) {
+            var you = (EcConcept.template);
+            for (var key in you) {
+                if ((typeof you[key]) != "function") 
+                    me[key.replace("@", "")] = you[key];
+            }
         }
     }
-};
-EcConcept = stjs.extend(EcConcept, Concept, [], function(constructor, prototype) {
     static template = null;
     /**
      *  Retrieves a concept from it's server asynchronously
@@ -68,4 +67,4 @@ EcConcept = stjs.extend(EcConcept, Concept, [], function(constructor, prototype)
             return new EcConcept();
         }, success, failure, paramObj);
     };
-}, {template: "Object", topConceptOf: "ConceptScheme", semanticRelation: "Concept", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+};

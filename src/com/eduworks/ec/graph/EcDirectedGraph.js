@@ -8,13 +8,9 @@
  *  @module com.eduworks.ec
  *  @extends Graph
  */
-var EcDirectedGraph = function() {
-    this.edges = new Array();
-    this.verticies = new Array();
-};
-EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(constructor, prototype) {
-    edges = null;
-    verticies = null;
+module.exports = class EcDirectedGraph extends Graph{
+    edges = [];
+    verticies = [];
     getEdges() {
         var results = new Array();
         for (var i = 0; i < this.edges.length; i++) 
@@ -309,4 +305,4 @@ EcDirectedGraph = stjs.extend(EcDirectedGraph, null, [Graph], function(construct
         }
         return null;
     };
-}, {edges: {name: "Array", arguments: [{name: "Triple", arguments: ["V", "V", "E"]}]}, verticies: {name: "Array", arguments: ["V"]}}, {});
+};

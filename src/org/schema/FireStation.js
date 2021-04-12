@@ -1,3 +1,4 @@
+schema.EmergencyService = require("./EmergencyService");
 /**
  * Schema.org/FireStation
  * A fire station. With firemen.

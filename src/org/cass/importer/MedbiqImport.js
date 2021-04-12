@@ -161,4 +161,4 @@ module.exports = class MedbiqImport extends Importer{
             comp.save(scs, err, repo);
         });
     };
-}, {medbiqXmlCompetencies: {name: "Array", arguments: ["EcCompetency"]}, progressObject: "Object"}, {});
+};

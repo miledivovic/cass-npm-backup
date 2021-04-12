@@ -10,7 +10,7 @@
  *  @class EcIdentity
  *  @constructor
  */
-class EcIdentity{
+module.exports = class EcIdentity{
     constructor(){
         this.displayName = "Alias " + EcIdentity.identityCounter++;
     }

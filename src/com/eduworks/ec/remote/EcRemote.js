@@ -8,7 +8,7 @@ const { default: axios } = require("axios");
  *  @class EcRemote
  *  @module com.eduworks.ec
  */
-class EcRemote{
+module.exports = class EcRemote{
     /**
      *  Timeout for AJAX requests
      * 

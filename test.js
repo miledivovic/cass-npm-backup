@@ -107,15 +107,14 @@ var failure = function(val){
 var repo = new EcRepository();
 repo.selectedServer = "https://dev.cassproject.org/api/";
 repo.search("@type:Framework", console.log, console.error);
-var EcRandomTest = function() {};
-EcRandomTest = stjs.extend(EcRandomTest, null, [], function(constructor, prototype) {
-    prototype.testLength = function() {
+
+class EcRandomTest {
+    testLength = function() {
         Assert.assertTrue(generateUUID().length == "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".length);
     };
-}, {}, {});
-var EcRsaTest = function() {};
-EcRsaTest = stjs.extend(EcRsaTest, null, [], function(constructor, prototype) {
-    prototype.rsaOaepTest = function() {
+};
+class EcRsaTest {
+    rsaOaepTest = function() {
         console.log("-----rsaOaepTest-----");
         var randomString = EcAes.newIv(32);
         console.log("Generated string: " + randomString);
@@ -126,7 +125,7 @@ EcRsaTest = stjs.extend(EcRsaTest, null, [], function(constructor, prototype) {
         console.log("Decrypted string: " + decrypted);
         Assert.assertTrue(decrypted.equals(randomString));
     };
-    prototype.rsaUtf8OaepTest = function() {
+    rsaUtf8OaepTest = function() {
         console.log("-----rsaUtf8OaepTest-----");
         var randomString = "\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
         console.log("Generated string: " + randomString);
@@ -137,7 +136,7 @@ EcRsaTest = stjs.extend(EcRsaTest, null, [], function(constructor, prototype) {
         console.log("Decrypted string: " + decrypted);
         Assert.assertTrue(decrypted.equals(randomString));
     };
-    prototype.rsaOaepAsyncNativeTest = function() {
+    rsaOaepAsyncNativeTest = function() {
         console.log("-----rsaOaepAsyncNativeTest-----");
         require("pem-jwk");
         var log = function(o) {
@@ -152,7 +151,7 @@ EcRsaTest = stjs.extend(EcRsaTest, null, [], function(constructor, prototype) {
         }, log);
         Assert.assertTrue(true);
     };
-    prototype.rsaUtf8OaepAsyncNativeTest = function() {
+    rsaUtf8OaepAsyncNativeTest = function() {
         console.log("-----rsaUtf8OaepAsyncNativeTest-----");
         require("pem-jwk");
         var log = function(o) {
@@ -167,7 +166,7 @@ EcRsaTest = stjs.extend(EcRsaTest, null, [], function(constructor, prototype) {
         }, log);
         Assert.assertTrue(true);
     };
-    prototype.rsaOaepAsyncNativeTestWorker = function() {
+    rsaOaepAsyncNativeTestWorker = function() {
         console.log("-----rsaOaepAsyncNativeTestWorker-----");
         require("pem-jwk");
         var log = function(o) {
@@ -182,7 +181,7 @@ EcRsaTest = stjs.extend(EcRsaTest, null, [], function(constructor, prototype) {
         }, log);
         Assert.assertTrue(true);
     };
-    prototype.rsaUtf8OaepAsyncNativeTestWorker = function() {
+    rsaUtf8OaepAsyncNativeTestWorker = function() {
         console.log("-----rsaUtf8OaepAsyncNativeTestWorker-----");
         require("pem-jwk");
         var log = function(o) {
@@ -197,10 +196,9 @@ EcRsaTest = stjs.extend(EcRsaTest, null, [], function(constructor, prototype) {
         }, log);
         Assert.assertTrue(true);
     };
-}, {}, {});
-var EcAesTest = function() {};
-EcAesTest = stjs.extend(EcAesTest, null, [], function(constructor, prototype) {
-    prototype.aesTest = function() {
+};
+class EcAesTest {
+    aesTest = function() {
         console.log("-----aesTest-----");
         var randomString = EcAes.newIv(1024);
         console.log("Random string: " + randomString);
@@ -214,7 +212,7 @@ EcAesTest = stjs.extend(EcAesTest, null, [], function(constructor, prototype) {
         console.log("Decrypted String: " + decrypted);
         Assert.assertTrue(randomString.equals(decrypted));
     };
-    prototype.aesUtf8Test = function() {
+    aesUtf8Test = function() {
         console.log("-----aesUtf8Test-----");
         var randomString = "abc\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
         console.log("Random string: " + randomString);
@@ -228,10 +226,9 @@ EcAesTest = stjs.extend(EcAesTest, null, [], function(constructor, prototype) {
         console.log("Decrypted String: " + decrypted);
         Assert.assertTrue(randomString.equals(decrypted));
     };
-}, {}, {});
-var EcAesAsyncTest = function() {};
-EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, prototype) {
-    prototype.aesTest = function() {
+};
+class EcAesAsyncTest {
+    aesTest = function() {
         console.log("-----aesTest-----");
         var randomString = "foo is bar";
         console.log("Random string: " + randomString);
@@ -252,7 +249,7 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesTest" + p1, false);
         });
     };
-    prototype.aesCrossTest1 = function() {
+    aesCrossTest1 = function() {
         console.log("-----aesCrossTest1-----");
         var randomString = EcAes.newIv(1024);
         console.log("Random string: " + randomString);
@@ -269,7 +266,7 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesCrossTest1", false);
         });
     };
-    prototype.aesCrossTest1Utf8 = function() {
+    aesCrossTest1Utf8 = function() {
         console.log("-----aesCrossTest1Utf8-----");
         var randomString = "\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
         console.log("Random string: " + randomString);
@@ -286,7 +283,7 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesCrossTest1Utf8", false);
         });
     };
-    prototype.aesCrossTest2Utf8 = function() {
+    aesCrossTest2Utf8 = function() {
         console.log("-----aesCrossTest2Utf8-----");
         var randomString = "\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
         console.log("Random string: " + randomString);
@@ -303,7 +300,7 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesCrossTest2Utf8", false);
         });
     };
-    prototype.aesTestWorker = function() {
+    aesTestWorker = function() {
         console.log("-----aesTestWorker-----");
         var randomString = "foo is bar";
         console.log("Random string: " + randomString);
@@ -324,7 +321,7 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesTestWorker", false);
         });
     };
-    prototype.aesCrossTest1Worker = function() {
+    aesCrossTest1Worker = function() {
         console.log("-----aesCrossTest1Worker-----");
         var randomString = EcAes.newIv(1024);
         console.log("Random string: " + randomString);
@@ -341,7 +338,7 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesCrossTest1Worker", false);
         });
     };
-    prototype.aesCrossTest1Utf8Worker = function() {
+    aesCrossTest1Utf8Worker = function() {
         console.log("-----aesCrossTest1Utf8Worker-----");
         var randomString = "\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
         console.log("Random string: " + randomString);
@@ -358,7 +355,7 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesCrossTest1Utf8Worker", false);
         });
     };
-    prototype.aesCrossTest2Utf8Worker = function() {
+    aesCrossTest2Utf8Worker = function() {
         console.log("-----aesCrossTest2Utf8Worker-----");
         var randomString = "\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
         console.log("Random string: " + randomString);
@@ -375,10 +372,9 @@ EcAesAsyncTest = stjs.extend(EcAesAsyncTest, null, [], function(constructor, pro
             Assert.assertTrue("EcAesAsyncTest:aesCrossTest2Utf8Worker", false);
         });
     };
-}, {}, {});
-var EcPpkTest = function() {};
-EcPpkTest = stjs.extend(EcPpkTest, null, [], function(constructor, prototype) {
-    prototype.ppkPkKeyTest = function() {
+};
+class EcPpkTest {
+    ppkPkKeyTest = function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         Assert.assertTrue("PPK != null", ppk.ppk != null);
         Assert.assertTrue("PPK.N != 0", ppk.ppk.n != 0);
@@ -405,10 +401,9 @@ EcPpkTest = stjs.extend(EcPpkTest, null, [], function(constructor, prototype) {
         Assert.assertTrue("PPK.toPk().toPem().fromPem().n == PPK.n", ("" + pkToFromPem.pk.n) == ("" + ppk.ppk.n));
         Assert.assertTrue("PPK.toPk().toPem().fromPem().e == PPK.e", ("" + pkToFromPem.pk.e) == ("" + ppk.ppk.e));
     };
-}, {}, {});
-var EcTaskTest = function() {};
-EcTaskTest = stjs.extend(EcTaskTest, null, [], function(constructor, prototype) {
-    prototype.createTest = function() {
+};
+class EcTaskTest {
+    createTest = function() {
         var task = new EcAsyncTask(function(p1) {
             return "Hello " + p1;
         }, null, null, null, null);
@@ -419,10 +414,9 @@ EcTaskTest = stjs.extend(EcTaskTest, null, [], function(constructor, prototype) 
             Assert.assertTrue(ret == "Hello " + val);
         }, 200);
     };
-}, {}, {});
-var EcRemoteLinkedDataTest = function() {};
-EcRemoteLinkedDataTest = stjs.extend(EcRemoteLinkedDataTest, null, [], function(constructor, prototype) {
-    prototype.signableDataTest = function() {
+};
+class EcRemoteLinkedDataTest {
+    signableDataTest = function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var f = new EcRemoteLinkedData(General.context, "testType");
         (f)["name"] = "My_File.txt";
@@ -441,7 +435,7 @@ EcRemoteLinkedDataTest = stjs.extend(EcRemoteLinkedDataTest, null, [], function(
         Assert.assertTrue("Data before MimeType", signableJson.indexOf("\"data\"") < signableJson.indexOf("\"mimeType\""));
         Assert.assertTrue("MimeType before Name", signableJson.indexOf("\"mimeType\"") < signableJson.indexOf("\"name\""));
     };
-    prototype.signAndVerifyTest = function() {
+    signAndVerifyTest = function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
         var f = new EcRemoteLinkedData(General.context, "testType");
@@ -466,10 +460,9 @@ EcRemoteLinkedDataTest = stjs.extend(EcRemoteLinkedDataTest, null, [], function(
         console.log("Tampered Signature: " + f.signature[0]);
         Assert.assertTrue("Tampered Signature Verification", !f.verify());
     };
-}, {}, {});
-var EcContactTest = function() {};
-EcContactTest = stjs.extend(EcContactTest, null, [], function(constructor, prototype) {
-    prototype.encryptContactTest = function() {
+};
+class EcContactTest {
+    encryptContactTest = function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var contact = new EcContact();
         contact.pk = ppk.toPk();
@@ -485,14 +478,13 @@ EcContactTest = stjs.extend(EcContactTest, null, [], function(constructor, proto
         Assert.assertTrue(contact.pk.toPem().equals(decryptedContact.pk.toPem()));
         Assert.assertTrue(contact.displayName.equals(decryptedContact.displayName));
     };
-}, {}, {});
-var EcRepositoryTest = function() {};
-EcRepositoryTest = stjs.extend(EcRepositoryTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    prototype.begin = function() {
+};
+class EcRepositoryTest {
+    static server = "http://localhost/api/";
+    begin = function() {
         EcRemote.async = false;
     };
-    prototype.createPublicObjectTest = function() {
+    createPublicObjectTest = function() {
         EcRemote.async = false;
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
@@ -553,14 +545,14 @@ EcRepositoryTest = stjs.extend(EcRepositoryTest, null, [], function(constructor,
             Assert.fail("Failed to retrieve public object after update.");
         });
         console.log("Trying to Delete...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             console.log("Good, Can Delete Public Object.");
             console.log(p1);
         }, function(p1) {
             Assert.fail("Could not delete public object. This is now allowed (10/26/2016).");
         });
     };
-    prototype.createPublicRegisteredObjectTest = function() {
+    createPublicRegisteredObjectTest = function() {
         EcRemote.async = false;
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
@@ -628,7 +620,7 @@ EcRepositoryTest = stjs.extend(EcRepositoryTest, null, [], function(constructor,
             Assert.fail("Could not delete public Registered object. This is now allowed (10/26/2016).");
         });
     };
-    prototype.createAndDeleteSingleOwnedObjectTest = function() {
+    createAndDeleteSingleOwnedObjectTest = function() {
         EcRemote.async = false;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
@@ -677,7 +669,7 @@ EcRepositoryTest = stjs.extend(EcRepositoryTest, null, [], function(constructor,
             Assert.fail("Failed to search for object after save.");
         });
         console.log("Trying to delete as public...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object as public");
         }, function(p1) {
             console.log(p1);
@@ -708,14 +700,14 @@ EcRepositoryTest = stjs.extend(EcRepositoryTest, null, [], function(constructor,
             Assert.fail("Failed to retrieve public object after save.");
         });
         console.log("Deleting...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             console.log("Deleted the Owned Object.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository");
         });
     };
-    prototype.createAndDeleteTwoOwnerObjectTest = function() {
+    createAndDeleteTwoOwnerObjectTest = function() {
         EcRemote.async = false;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----");
@@ -793,14 +785,14 @@ EcRepositoryTest = stjs.extend(EcRepositoryTest, null, [], function(constructor,
             Assert.fail("Failed to retrieve public object after save.");
         });
         console.log("Deleting...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             console.log("Deleted the Owned Object.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository");
         });
     };
-    prototype.searchForSomethingThatCantExist = function() {
+    searchForSomethingThatCantExist = function() {
         EcRemote.async = false;
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
@@ -826,11 +818,10 @@ EcRepositoryTest = stjs.extend(EcRepositoryTest, null, [], function(constructor,
             Assert.fail("Failed to search for object that doesn't have an existing type in the database (using a signature).");
         });
     };
-}, {}, {});
-var EcEncryptedValueTest = function() {};
-EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    prototype.begin = function() {
+};
+class EcEncryptedValueTest {
+    static server = "http://localhost/api/";
+    begin = function() {
         EcRemote.async = false;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
@@ -843,13 +834,13 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
         EcIdentityManager.addIdentity(newId1);
         EcIdentityManager.addIdentity(newId2);
         r.search("\"" + ppk.toPk().toPem() + "\"", function(ecRemoteLinkedData) {
-            r.constructor._delete(ecRemoteLinkedData, null, null);
+            r._delete(ecRemoteLinkedData, null, null);
         }, function(p1) {}, function(p1) {
             console.log("Could not find objects to delete");
         });
         EcIdentityManager.clearIdentities();
     };
-    prototype.encryptDecryptTest = function() {
+    encryptDecryptTest = function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
         var f = new GeneralFile();
@@ -881,7 +872,7 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
         EcIdentityManager.addIdentity(newId2);
         Assert.assertTrue("Reader Decryption:", v2.decryptIntoString() == f.name);
     };
-    prototype.encryptObjectUploadDownloadDecryptTest = function() {
+    encryptObjectUploadDownloadDecryptTest = function() {
         EcRemote.async = false;
         console.log("Encrypted Object Upload Download then Decrypt Test.");
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
@@ -922,11 +913,11 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
         });
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        r.constructor._delete(f, function(p1) {}, function(p1) {
+        r._delete(f, function(p1) {}, function(p1) {
             Assert.fail("Failed to delete object. " + p1);
         });
     };
-    prototype.encryptValueUploadDownloadDecryptTest = function() {
+    encryptValueUploadDownloadDecryptTest = function() {
         EcRemote.async = false;
         console.log("Encrypted Value Upload Download then Decrypt Test.");
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
@@ -968,11 +959,11 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
         });
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        r.constructor._delete(f, function(p1) {}, function(p1) {
+        r._delete(f, function(p1) {}, function(p1) {
             Assert.fail("Failed to delete object. " + p1);
         });
     };
-    prototype.encryptValueWithReaderUploadSearchByPkWithSignatureTest = function() {
+    encryptValueWithReaderUploadSearchByPkWithSignatureTest = function() {
         EcRemote.async = false;
         console.log("encryptValueWithReaderUploadSearchByPkWithSignatureTest Test.");
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
@@ -1066,12 +1057,12 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
         } finally {
             EcIdentityManager.ids = new Array();
             EcIdentityManager.addIdentity(newId1);
-            r.constructor._delete(f, function(p1) {}, function(p1) {
+            r._delete(f, function(p1) {}, function(p1) {
                 Assert.fail("Failed to delete object. " + p1);
             });
         }
     };
-    prototype.encryptedValueOneOwnerTest = function() {
+    encryptedValueOneOwnerTest = function() {
         EcRemote.async = false;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
@@ -1141,7 +1132,7 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete the Owned Object.");
@@ -1179,14 +1170,14 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
             Assert.fail("Failed to retrieve updated object");
         });
         console.log("Deleting...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             console.log("Deleted the Owned Object.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository");
         });
     };
-    prototype.encryptedValueTwoOwnerTest = function() {
+    encryptedValueTwoOwnerTest = function() {
         EcRemote.async = false;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----");
@@ -1293,7 +1284,7 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete the Owned Object.");
@@ -1326,14 +1317,14 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
             Assert.fail("Failed to retrieve object as owner 2");
         });
         console.log("Deleting as owner 2...");
-        r.constructor._delete(thing, function(p1) {
+        r._delete(thing, function(p1) {
             console.log("Deleted the Owned Object as owner 2.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository as owner 2");
         });
     };
-    prototype.encryptedValueOwnerReaderTest = function() {
+    encryptedValueOwnerReaderTest = function() {
         EcRemote.async = false;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----");
@@ -1461,7 +1452,7 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        r.constructor._delete(encThingWithReader, function(p1) {
+        r._delete(encThingWithReader, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete Owned Object as public.");
@@ -1469,7 +1460,7 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
         });
         EcIdentityManager.addIdentity(newId2);
         console.log("Deleting as reader...");
-        r.constructor._delete(encThingWithReader, function(p1) {
+        r._delete(encThingWithReader, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as reader");
         }, function(p1) {
             console.log("Failed to Delete the Object as reader.");
@@ -1501,21 +1492,20 @@ EcEncryptedValueTest = stjs.extend(EcEncryptedValueTest, null, [], function(cons
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId1);
         console.log("Deleting...");
-        r.constructor._delete(encThingNoReader, function(p1) {
+        r._delete(encThingNoReader, function(p1) {
             console.log("Deleted the Owned Object as owner.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository as owner");
         });
     };
-}, {}, {});
-var EcVersioningTest = function() {};
-EcVersioningTest = stjs.extend(EcVersioningTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    prototype.begin = function() {
+};
+class EcVersioningTest {
+    static server = "http://localhost/api/";
+    begin = function() {
         EcRemote.async = false;
     };
-    prototype.testSaveTwoVersionsBothExist = function() {
+    testSaveTwoVersionsBothExist = function() {
         EcRemote.async = false;
         var r = new EcRepository();
         r.selectedServer = EcVersioningTest.server;
@@ -1557,7 +1547,7 @@ EcVersioningTest = stjs.extend(EcVersioningTest, null, [], function(constructor,
         }, function(p1) {
             Assert.fail("Couldn't retrieve the old version.");
         });
-        r.constructor._delete(t, function(p1) {
+        r._delete(t, function(p1) {
             console.log("Deleted the thing.");
             EcRepository.get(t.shortId(), function(p1) {
                 Assert.fail("Could find the thing that was supposed to be gone.");
@@ -1590,20 +1580,19 @@ EcVersioningTest = stjs.extend(EcVersioningTest, null, [], function(constructor,
             Assert.fail("Couldn't retrieve the old version 2.");
         });
     };
-}, {}, {});
-var EcRekeyTest = function() {};
-EcRekeyTest = stjs.extend(EcRekeyTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    prototype.begin = function() {
+};
+class EcRekeyTest {
+    static server = "http://localhost/api/";
+    begin = function() {
         EcRemote.async = false;
         EcRekeyTest.oldKey = EcPpk.generateKey().toPem();
         EcRekeyTest.newerKey = EcPpk.generateKey().toPem();
         EcRekeyTest.newestKey = EcPpk.generateKey().toPem();
     };
-    constructor.oldKey = null;
-    constructor.newerKey = null;
-    constructor.newestKey = null;
-    prototype.basicInMemoryForwardingTest = function() {
+    static oldKey = null;
+    static newerKey = null;
+    static newestKey = null;
+    basicInMemoryForwardingTest = function() {
         EcRemote.async = false;
         EcRemoteLinkedData.forwardingTable = new Object();
         var rld = new EcRemoteLinkedData("https://cass.test", "TestObject");
@@ -1618,7 +1607,7 @@ EcRekeyTest = stjs.extend(EcRekeyTest, null, [], function(constructor, prototype
         rld.copyFrom(JSON.parse(oldestData));
         Assert.assertEquals(rld.owner[0], EcPpk.fromPem(EcRekeyTest.newestKey).toPk().toPem());
     };
-    prototype.basicRekeyRecordForwardingTest = function() {
+    basicRekeyRecordForwardingTest = function() {
         EcIdentityManager.ids[0] = new EcIdentity();
         EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemote.async = false;
@@ -1639,7 +1628,7 @@ EcRekeyTest = stjs.extend(EcRekeyTest, null, [], function(constructor, prototype
             Assert.fail("Could not save EcRekeyRequest to server. " + s);
         });
     };
-    prototype.basicRekeyRecordClientTest = function() {
+    basicRekeyRecordClientTest = function() {
         EcIdentityManager.ids[0] = new EcIdentity();
         EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemote.async = false;
@@ -1668,7 +1657,7 @@ EcRekeyTest = stjs.extend(EcRekeyTest, null, [], function(constructor, prototype
             Assert.fail("Could not save EcRekeyRequest to server. " + s);
         });
     };
-    prototype.basicRekeyRecordServerTest = function() {
+    basicRekeyRecordServerTest = function() {
         EcIdentityManager.ids[0] = new EcIdentity();
         EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemote.async = false;
@@ -1709,29 +1698,27 @@ EcRekeyTest = stjs.extend(EcRekeyTest, null, [], function(constructor, prototype
             Assert.fail("Could not save EcRekeyRequest to server. " + s);
         });
     };
-}, {}, {});
-var OrganizationTest = function() {};
-OrganizationTest = stjs.extend(OrganizationTest, null, [], function(constructor, prototype) {
-    constructor.CASS_SERVER = "";
-    constructor.PPK_PEM = "";
-    constructor.ORG_ID = "";
-    constructor.newId1 = new EcIdentity();
-    constructor.repo = new EcRepository();
-    prototype.setup = function() {};
-    prototype.basicOrganizationUpgradeTest = function() {
+};
+class OrganizationTest {
+    static CASS_SERVER = "";
+    static PPK_PEM = "";
+    static ORG_ID = "";
+    static newId1 = new EcIdentity();
+    static repo = new EcRepository();
+    setup = function() {};
+    basicOrganizationUpgradeTest = function() {
         Assert.assertTrue(true);
     };
-}, {newId1: "EcIdentity", repo: "EcRepository"}, {});
-var EcAlignmentTest = function() {};
-EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    constructor.ppk = null;
-    constructor.newId1 = new EcIdentity();
-    constructor.repo = new EcRepository();
-    constructor.sourceComp = null;
-    constructor.targetComp = null;
-    constructor.relation = null;
-    prototype.setup = function() {
+};
+class EcAlignmentTest {
+    static server = "http://localhost/api/";
+    static ppk = null;
+    static newId1 = new EcIdentity();
+    static repo = new EcRepository();
+    static sourceComp = null;
+    static targetComp = null;
+    static relation = null;
+    setup = function() {
         console.log("setup");
         EcRemote.async = false;
         EcAlignmentTest.repo.selectedServer = EcAlignmentTest.server;
@@ -1768,7 +1755,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Failed to create Relation");
         }, null);
     };
-    prototype.breakdown = function() {
+    breakdown = function() {
         EcAlignmentTest.relation._delete(null, function(p1) {
             Assert.fail("failed to delete relation");
         });
@@ -1779,7 +1766,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("failed to delete target competency");
         }, null);
     };
-    prototype.createAlignmentTest = function() {
+    createAlignmentTest = function() {
         var paramObj = new Object();
         (paramObj)["size"] = 1000;
         EcAlignmentTest.repo.searchWithParams(new Relation().getSearchStringByType(), paramObj, null, function(p1) {
@@ -1794,7 +1781,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Failed to Search for relation after save");
         });
     };
-    prototype.createNoSourceAlignmentTest = function() {
+    createNoSourceAlignmentTest = function() {
         var noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.target = EcAlignmentTest.targetComp.shortId();
@@ -1804,7 +1791,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Relation Saved without source competency, shouldn't happen");
         }, null, null);
     };
-    prototype.createNoTargetAlignmentTest = function() {
+    createNoTargetAlignmentTest = function() {
         var noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.source = EcAlignmentTest.sourceComp.shortId();
@@ -1814,7 +1801,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Relation Saved without target competency, shouldn't happen");
         }, null, null);
     };
-    prototype.createNoTypeAlignmentTest = function() {
+    createNoTypeAlignmentTest = function() {
         var noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.source = EcAlignmentTest.sourceComp.shortId();
@@ -1824,7 +1811,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Relation Saved without relationType field, shouldn't happen");
         }, null, null);
     };
-    prototype.viewAlignmentTest = function() {
+    viewAlignmentTest = function() {
         EcRepository.get(EcAlignmentTest.relation.id, function(p1) {
             var r = new EcAlignment();
             r.copyFrom(p1);
@@ -1839,7 +1826,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Failed to Get relation");
         });
     };
-    prototype.updateAlignmentInfo = function() {
+    updateAlignmentInfo = function() {
         EcAlignmentTest.relation.name = "changed relation name";
         EcAlignmentTest.relation.description = "changed description";
         EcAlignmentTest.relation.relationType = "required By";
@@ -1866,21 +1853,21 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Failed to Get relation after update");
         });
     };
-    prototype.updateAlignmentRemoveSource = function() {
+    updateAlignmentRemoveSource = function() {
         EcAlignmentTest.relation.source = null;
         EcAlignmentTest.relation.target = EcAlignmentTest.targetComp.shortId();
         EcAlignmentTest.relation.save(function(p1) {
             Assert.fail("Saved Relation without source, shouldn't be allowed");
         }, null, null);
     };
-    prototype.updateAlignmentRemoveTarget = function() {
+    updateAlignmentRemoveTarget = function() {
         EcAlignmentTest.relation.source = EcAlignmentTest.sourceComp.shortId();
         EcAlignmentTest.relation.target = null;
         EcAlignmentTest.relation.save(function(p1) {
             Assert.fail("Saved Relation without target, shouldn't be allowed");
         }, null, null);
     };
-    prototype.updateAlignmentRemoveType = function() {
+    updateAlignmentRemoveType = function() {
         EcAlignmentTest.relation.source = EcAlignmentTest.sourceComp.shortId();
         EcAlignmentTest.relation.target = EcAlignmentTest.targetComp.shortId();
         EcAlignmentTest.relation.relationType = null;
@@ -1888,7 +1875,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Saved Relation without relation Type, shouldn't be allowed");
         }, null, null);
     };
-    prototype.deleteAlignmentTest = function() {
+    deleteAlignmentTest = function() {
         var toDelete = new EcAlignment();
         toDelete.generateId(EcAlignmentTest.server);
         toDelete.name = "Relation To Delete";
@@ -1904,7 +1891,7 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Failed to delete relation");
         });
         console.log("searching for deleted relation...");
-        EcAlignmentTest.repo.search("@type:\"" + toDelete.constructor.myType + "\"", null, function(p1) {
+        EcAlignmentTest.repo.search("@type:\"" + toDelete.myType + "\"", null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == toDelete.id) {
@@ -1915,15 +1902,14 @@ EcAlignmentTest = stjs.extend(EcAlignmentTest, null, [], function(constructor, p
             Assert.fail("Failed to Search for relation after delete");
         });
     };
-}, {ppk: "EcPpk", newId1: "EcIdentity", repo: "EcRepository", sourceComp: "EcCompetency", targetComp: "EcCompetency", relation: "EcAlignment"}, {});
-var EcCompetencyTest = function() {};
-EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    constructor.ppk = null;
-    constructor.newId1 = new EcIdentity();
-    constructor.repo = new EcRepository();
-    constructor.comp = null;
-    prototype.setup = function() {
+};
+class EcCompetencyTest {
+    static server = "http://localhost/api/";
+    static ppk = null;
+    static newId1 = new EcIdentity();
+    static repo = new EcRepository();
+    static comp = null;
+    setup = function() {
         console.log("setup");
         EcRemote.async = false;
         EcCompetencyTest.repo.selectedServer = EcCompetencyTest.server;
@@ -1942,12 +1928,12 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Unable to save Competency");
         }, null);
     };
-    prototype.breakdown = function() {
+    breakdown = function() {
         EcCompetencyTest.comp._delete(null, function(p1) {
             Assert.fail("Unable to delete Competency");
         }, null);
     };
-    prototype.createCompetencyTest = function() {
+    createCompetencyTest = function() {
         var paramObj = new Object();
         (paramObj)["size"] = 5000;
         EcCompetencyTest.repo.searchWithParams(new EcCompetency().getSearchStringByType(), paramObj, null, function(p1) {
@@ -1962,7 +1948,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Failed to Search for Competency");
         });
     };
-    prototype.createNoNameCompetencyTest = function() {
+    createNoNameCompetencyTest = function() {
         var noName = new EcCompetency();
         noName.generateId(EcCompetencyTest.server);
         noName.addOwner(EcCompetencyTest.ppk.toPk());
@@ -1970,7 +1956,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Saved Competency with missing name, shouldn't happen");
         }, null, null);
     };
-    prototype.viewCompetencyTest = function() {
+    viewCompetencyTest = function() {
         EcRepository.get(EcCompetencyTest.comp.id, function(p1) {
             var c = new EcCompetency();
             c.copyFrom(p1);
@@ -1980,7 +1966,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Failed to Get Competency");
         });
     };
-    prototype.competencyAddRemoveRelationshipTest = function() {
+    competencyAddRemoveRelationshipTest = function() {
         var comp2 = new EcCompetency();
         comp2.name = "Relation Target Competency";
         comp2.addOwner(EcCompetencyTest.ppk.toPk());
@@ -2022,7 +2008,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("failed to delete target competency");
         }, null);
     };
-    prototype.competencyAddRemoveLevelTest = function() {
+    competencyAddRemoveLevelTest = function() {
         console.log("Creating Level...");
         var lev = EcCompetencyTest.comp.addLevel("Level Test", "Description of level Test", EcCompetencyTest.ppk, EcCompetencyTest.server, function(p1) {
             console.log("Level Created");
@@ -2055,7 +2041,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
                 Assert.fail("Returned a level after deleting it");
         });
     };
-    prototype.updateCompetencyInfo = function() {
+    updateCompetencyInfo = function() {
         EcCompetencyTest.comp.name = "Changed Name";
         EcCompetencyTest.comp.description = "Changed Description";
         EcCompetencyTest.comp.scope = "a scope is added!";
@@ -2077,7 +2063,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Failed to Retrieve Competency after Update");
         });
     };
-    prototype.deleteCompetencyTest = function() {
+    deleteCompetencyTest = function() {
         var toDelete = new EcCompetency();
         toDelete.generateId(EcCompetencyTest.server);
         toDelete.name = "Competency To Delete";
@@ -2091,7 +2077,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Failed to delete Competency");
         }, null);
         console.log("searching for deleted competency...");
-        EcCompetencyTest.repo.search("@type:\"" + toDelete.constructor.myType + "\"", null, function(p1) {
+        EcCompetencyTest.repo.search("@type:\"" + toDelete.myType + "\"", null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == toDelete.id) {
@@ -2102,7 +2088,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Failed to Search for Competency");
         });
     };
-    prototype.deleteCompetencyWithRelationshipTest = function() {
+    deleteCompetencyWithRelationshipTest = function() {
         var toDelete = new EcCompetency();
         toDelete.generateId(EcCompetencyTest.server);
         toDelete.name = "Competency To Delete";
@@ -2143,7 +2129,7 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Failed to delete target Competency");
         }, null);
     };
-    prototype.deleteCompetencyWithLevelTest = function() {
+    deleteCompetencyWithLevelTest = function() {
         var toDelete = new EcCompetency();
         toDelete.generateId(EcCompetencyTest.server);
         toDelete.name = "Competency To Delete";
@@ -2173,16 +2159,15 @@ EcCompetencyTest = stjs.extend(EcCompetencyTest, null, [], function(constructor,
             Assert.fail("Failed to delete Level Competency");
         }, EcCompetencyTest.repo);
     };
-}, {ppk: "EcPpk", newId1: "EcIdentity", repo: "EcRepository", comp: "EcCompetency"}, {});
-var EcLevelTest = function() {};
-EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    constructor.ppk = null;
-    constructor.newId1 = new EcIdentity();
-    constructor.repo = new EcRepository();
-    constructor.level = null;
-    constructor.comp = null;
-    prototype.setup = function() {
+};
+class EcLevelTest {
+    static server = "http://localhost/api/";
+    static ppk = null;
+    static newId1 = new EcIdentity();
+    static repo = new EcRepository();
+    static level = null;
+    static comp = null;
+    setup = function() {
         console.log("setup");
         EcRemote.async = false;
         EcLevelTest.repo.selectedServer = EcLevelTest.server;
@@ -2209,7 +2194,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Unable to save Level");
         }, null);
     };
-    prototype.breakdown = function() {
+    breakdown = function() {
         EcLevelTest.level._delete(null, function(p1) {
             Assert.fail("Unable to delete Level");
         });
@@ -2217,7 +2202,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Unable to delete Level Competency");
         }, null);
     };
-    prototype.createLevelTest = function() {
+    createLevelTest = function() {
         EcLevelTest.repo.search(new EcLevel().getSearchStringByType() + " AND name:\"Test Level Name\"", null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
@@ -2230,7 +2215,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Failed to Search for level");
         });
     };
-    prototype.createLevelNoNameTest = function() {
+    createLevelNoNameTest = function() {
         var noName = new EcLevel();
         noName.generateId(EcLevelTest.server);
         noName.competency = EcLevelTest.comp.shortId();
@@ -2238,7 +2223,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Level saved without name, should not happen");
         }, null, null);
     };
-    prototype.createLevelNoCompetencyTest = function() {
+    createLevelNoCompetencyTest = function() {
         var noComp = new EcLevel();
         noComp.generateId(EcLevelTest.server);
         noComp.name = "Test Level Name";
@@ -2246,7 +2231,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Level saved without competency, should not happen");
         }, null, null);
     };
-    prototype.viewLevelTest = function() {
+    viewLevelTest = function() {
         EcRepository.get(EcLevelTest.level.id, function(p1) {
             var l = new EcLevel();
             l.copyFrom(p1);
@@ -2259,7 +2244,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Failed to Get Competency");
         });
     };
-    prototype.updateLevelInfoTest = function() {
+    updateLevelInfoTest = function() {
         EcLevelTest.level.name = "Changed Name";
         EcLevelTest.level.description = "Changed Description";
         EcLevelTest.level.title = "Changed Title";
@@ -2283,7 +2268,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Failed to Retrieve Competency after Update");
         });
     };
-    prototype.updateLevelNoNameTest = function() {
+    updateLevelNoNameTest = function() {
         EcLevelTest.level.name = "";
         EcLevelTest.level.competency = EcLevelTest.comp.shortId();
         console.log("Updating Level without name...");
@@ -2293,7 +2278,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             console.log("Failed to update Level");
         }, null);
     };
-    prototype.updateLevelNoCompetencyTest = function() {
+    updateLevelNoCompetencyTest = function() {
         EcLevelTest.level.name = "updated name";
         EcLevelTest.level.competency = "";
         console.log("Updating Level without competency...");
@@ -2303,7 +2288,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             console.log("Failed to update Level");
         }, null);
     };
-    prototype.deleteLevelTest = function() {
+    deleteLevelTest = function() {
         var toDelete = new EcLevel();
         toDelete.generateId(EcLevelTest.server);
         toDelete.name = "Competency To Delete";
@@ -2318,7 +2303,7 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Failed to delete Level");
         });
         console.log("searching for deleted level...");
-        EcLevelTest.repo.search("@type:\"" + toDelete.constructor.myType + "\"", null, function(p1) {
+        EcLevelTest.repo.search("@type:\"" + toDelete.myType + "\"", null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == toDelete.id) {
@@ -2329,20 +2314,19 @@ EcLevelTest = stjs.extend(EcLevelTest, null, [], function(constructor, prototype
             Assert.fail("Failed to Search for level after delete");
         });
     };
-}, {ppk: "EcPpk", newId1: "EcIdentity", repo: "EcRepository", level: "EcLevel", comp: "EcCompetency"}, {});
-var EcAssertionTest = function() {};
-EcAssertionTest = stjs.extend(EcAssertionTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    constructor.ppk1 = null;
-    constructor.ppk2 = null;
-    constructor.ppk3 = null;
-    constructor.newId1 = new EcIdentity();
-    constructor.newId2 = new EcIdentity();
-    constructor.newId3 = new EcIdentity();
-    constructor.repo = new EcRepository();
-    constructor.comp = null;
-    constructor.assn = null;
-    prototype.setup = function() {
+};
+class EcAssertionTest {
+    static server = "http://localhost/api/";
+    static ppk1 = null;
+    static ppk2 = null;
+    static ppk3 = null;
+    static newId1 = new EcIdentity();
+    static newId2 = new EcIdentity();
+    static newId3 = new EcIdentity();
+    static repo = new EcRepository();
+    static comp = null;
+    static assn = null;
+    setup = function() {
         console.log("setup");
         EcRemote.async = false;
         EcAssertionTest.repo.selectedServer = EcAssertionTest.server;
@@ -2360,12 +2344,12 @@ EcAssertionTest = stjs.extend(EcAssertionTest, null, [], function(constructor, p
             Assert.fail("Failed to Save Competency");
         }, null);
     };
-    prototype.breakdown = function() {
+    breakdown = function() {
         EcAssertionTest.comp._delete(null, function(p1) {
             Assert.fail("Unable to delete Competency");
         }, null);
     };
-    prototype.assertionEncryptDecryptTest = function() {
+    assertionEncryptDecryptTest = function() {
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId1);
         var assn = new EcAssertion();
@@ -2427,20 +2411,19 @@ EcAssertionTest = stjs.extend(EcAssertionTest, null, [], function(constructor, p
         Assert.assertEquals("Negative readable by third party.", false, assn.getNegative());
         Assert.assertEquals("Decay Function readable by third party.", null, assn.getDecayFunction());
     };
-}, {ppk1: "EcPpk", ppk2: "EcPpk", ppk3: "EcPpk", newId1: "EcIdentity", newId2: "EcIdentity", newId3: "EcIdentity", repo: "EcRepository", comp: "EcCompetency", assn: "EcAssertion"}, {});
-var EcFrameworkTest = function() {};
-EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, prototype) {
-    constructor.server = "http://localhost/api/";
-    constructor.ppk = null;
-    constructor.newId1 = new EcIdentity();
-    constructor.repo = new EcRepository();
-    constructor.frameworkId = null;
-    constructor.framework = null;
-    constructor.comp = null;
-    constructor.comp2 = null;
-    constructor.level = null;
-    constructor.rel = null;
-    prototype.setup = function() {
+};
+class EcFrameworkTest {
+    static server = "http://localhost/api/";
+    static ppk = null;
+    static newId1 = new EcIdentity();
+    static repo = new EcRepository();
+    static frameworkId = null;
+    static framework = null;
+    static comp = null;
+    static comp2 = null;
+    static level = null;
+    static rel = null;
+    setup = function() {
         console.log("setup");
         EcRemote.async = false;
         EcFrameworkTest.frameworkId = EcFrameworkTest.server + "data/" + EcFramework.myType.replace("http://", "").replace("https://", "").replaceAll("/", ".") + "/testFramework/1";
@@ -2498,7 +2481,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Save Relation");
         });
     };
-    prototype.afterTest = function() {
+    afterTest = function() {
         EcFrameworkTest.framework._delete(null, function(p1) {
             Assert.fail("Failed to Delete Framework");
         });
@@ -2515,7 +2498,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Failed to Delete Level");
         });
     };
-    prototype.createFrameworkTest = function() {
+    createFrameworkTest = function() {
         var paramObj = new Object();
         (paramObj)["size"] = 1000;
         EcFrameworkTest.repo.searchWithParams(new EcFramework().getSearchStringByType(), paramObj, null, function(p1) {
@@ -2530,7 +2513,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Failed to Search for Framework");
         });
     };
-    prototype.createNoNameFrameworkTest = function() {
+    createNoNameFrameworkTest = function() {
         var noName = new EcFramework();
         noName.generateId(EcFrameworkTest.server);
         noName.save(function(p1) {
@@ -2539,7 +2522,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             console.log("Failed to save a Framework without a name");
         }, null);
     };
-    prototype.viewFrameworkTest = function() {
+    viewFrameworkTest = function() {
         EcRepository.get(EcFrameworkTest.framework.id, function(p1) {
             var f = p1;
             Assert.assertEquals("Name does not match saved name", EcFrameworkTest.framework.name, f.name);
@@ -2548,7 +2531,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework");
         });
     };
-    prototype.updateFrameworkInfoTest = function() {
+    updateFrameworkInfoTest = function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.name = "Updated Name";
@@ -2567,7 +2550,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.updateFrameworkNoNameTest = function() {
+    updateFrameworkNoNameTest = function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.name = "";
@@ -2585,7 +2568,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.updateFrameworkAddRemoveCompetencyTest = function() {
+    updateFrameworkAddRemoveCompetencyTest = function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addCompetency(EcFrameworkTest.comp.id);
@@ -2621,7 +2604,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.updateFrameworkRemoveNonCompetencyTest = function() {
+    updateFrameworkRemoveNonCompetencyTest = function() {
         var frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
         var compSize = EcFrameworkTest.framework.competency == null ? 0 : frameworkCompRemoved.competency.length;
@@ -2641,7 +2624,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.updateFrameworkAddRemoveLevelTest = function() {
+    updateFrameworkAddRemoveLevelTest = function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addLevel(EcFrameworkTest.level.id);
@@ -2677,7 +2660,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.updateFrameworkRemoveNonLevelTest = function() {
+    updateFrameworkRemoveNonLevelTest = function() {
         var frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
         var levelSize = EcFrameworkTest.framework.level == null ? 0 : frameworkCompRemoved.level.length;
@@ -2697,7 +2680,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.updateFrameworkAddRemoveRelationTest = function() {
+    updateFrameworkAddRemoveRelationTest = function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addRelation(EcFrameworkTest.rel.id);
@@ -2733,7 +2716,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.updateFrameworkRemoveNonRelationTest = function() {
+    updateFrameworkRemoveNonRelationTest = function() {
         var frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
         var relSize = EcFrameworkTest.framework.relation == null ? 0 : frameworkCompRemoved.relation.length;
@@ -2753,7 +2736,7 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    prototype.deleteFramework = function() {
+    deleteFramework = function() {
         var toDelete = new EcFramework();
         toDelete.generateId(EcFrameworkTest.server);
         toDelete.name = "Framework to Delete";
@@ -2775,41 +2758,39 @@ EcFrameworkTest = stjs.extend(EcFrameworkTest, null, [], function(constructor, p
                 Assert.fail("Shouldn't be able to Retreive Framework after delete");
         }, null);
     };
-}, {ppk: "EcPpk", newId1: "EcIdentity", repo: "EcRepository", framework: "EcFramework", comp: "EcCompetency", comp2: "EcCompetency", level: "EcLevel", rel: "EcAlignment"}, {});
-var ProfileProcessorTest = function() {};
-ProfileProcessorTest = stjs.extend(ProfileProcessorTest, null, [], function(constructor, prototype) {
-    constructor.SANDBOX_SERVER = "https://sandbox.cassproject.org/api/";
-    constructor.JILL_DABOSS_PPK_PEM = "xxx";
-    constructor.SAMANTHA_SMITH_PPK_PEM = "xxx";
-    constructor.SAMANTHA_SMITH_PK_PEM = "xxx";
-    constructor.SELECTED_SERVER = ProfileProcessorTest.SANDBOX_SERVER;
-    constructor.TEST_END_USER_PPK_PEM = ProfileProcessorTest.JILL_DABOSS_PPK_PEM;
-    constructor.CAP_DBS_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/fd992893-1d5a-432f-ba24-d88d20d44f50";
-    constructor.CAP_PL_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/6c297f8e-8e94-47e7-b298-1104b2652361";
-    constructor.FWK_GRPH_PERF_TEST_ID = ProfileProcessorTest.CAP_PL_FWK_ID;
-    prototype.capFrameworkGraphPerfTest = function() {
+};
+class ProfileProcessorTest {
+    static SANDBOX_SERVER = "https://sandbox.cassproject.org/api/";
+    static JILL_DABOSS_PPK_PEM = "xxx";
+    static SAMANTHA_SMITH_PPK_PEM = "xxx";
+    static SAMANTHA_SMITH_PK_PEM = "xxx";
+    static SELECTED_SERVER = ProfileProcessorTest.SANDBOX_SERVER;
+    static TEST_END_USER_PPK_PEM = ProfileProcessorTest.JILL_DABOSS_PPK_PEM;
+    static CAP_DBS_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/fd992893-1d5a-432f-ba24-d88d20d44f50";
+    static CAP_PL_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/6c297f8e-8e94-47e7-b298-1104b2652361";
+    static FWK_GRPH_PERF_TEST_ID = ProfileProcessorTest.CAP_PL_FWK_ID;
+    capFrameworkGraphPerfTest = function() {
         Assert.assertSame(true, true);
     };
-    prototype.samanthaSmithProfileTest = function() {
+    samanthaSmithProfileTest = function() {
         Assert.assertSame(true, true);
     };
-}, {}, {});
-var FrameworkCollapserTest = function() {};
-FrameworkCollapserTest = stjs.extend(FrameworkCollapserTest, null, [], function(constructor, prototype) {
-    constructor.SANDBOX_SERVER = "https://sandbox.cassproject.org/api/";
-    constructor.JILL_DABOSS_PPK_PEM = "xxx";
-    constructor.SELECTED_SERVER = FrameworkCollapserTest.SANDBOX_SERVER;
-    constructor.TEST_END_USER_PPK_PEM = FrameworkCollapserTest.JILL_DABOSS_PPK_PEM;
-    constructor.CAP_DBS_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/fd992893-1d5a-432f-ba24-d88d20d44f50";
-    constructor.CAP_PL_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/6c297f8e-8e94-47e7-b298-1104b2652361";
-    constructor.FWK_GRPH_PERF_TEST_ID = FrameworkCollapserTest.CAP_PL_FWK_ID;
-    prototype.FRAMEWORK_ID = "https://sandbox.service.cassproject.org/data/schema.cassproject.org.0.3.Framework/ef23be65-b99e-44c6-93e6-1fdeacf1bbe2";
-    prototype.repo = null;
-    prototype.urlArray = null;
-    prototype.capFrameworkCollapseTest = function() {
+};
+class FrameworkCollapserTest {
+    static SANDBOX_SERVER = "https://sandbox.cassproject.org/api/";
+    static JILL_DABOSS_PPK_PEM = "xxx";
+    static SELECTED_SERVER = FrameworkCollapserTest.SANDBOX_SERVER;
+    static TEST_END_USER_PPK_PEM = FrameworkCollapserTest.JILL_DABOSS_PPK_PEM;
+    static CAP_DBS_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/fd992893-1d5a-432f-ba24-d88d20d44f50";
+    static CAP_PL_FWK_ID = "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Framework/6c297f8e-8e94-47e7-b298-1104b2652361";
+    static FWK_GRPH_PERF_TEST_ID = FrameworkCollapserTest.CAP_PL_FWK_ID;
+    FRAMEWORK_ID = "https://sandbox.service.cassproject.org/data/schema.cassproject.org.0.3.Framework/ef23be65-b99e-44c6-93e6-1fdeacf1bbe2";
+    repo = null;
+    urlArray = null;
+    capFrameworkCollapseTest = function() {
         Assert.assertSame(true, true);
     };
-    prototype.basicFrameworkCollapseTest = function() {
+    basicFrameworkCollapseTest = function() {
         EcRemote.async = false;
         console.log("start basicFrameworkCollapseTest:");
         try {
@@ -2831,7 +2812,7 @@ FrameworkCollapserTest = stjs.extend(FrameworkCollapserTest, null, [], function(
         Assert.assertSame(true, true);
         console.log("end basicFrameworkCollapseTest");
     };
-    prototype.basicAssertionSearchTest = function() {
+    basicAssertionSearchTest = function() {
         EcRemote.async = false;
         console.log("start basicCollapseTest:");
         try {
@@ -2848,7 +2829,7 @@ FrameworkCollapserTest = stjs.extend(FrameworkCollapserTest, null, [], function(
         Assert.assertSame(true, true);
         console.log("end basicCollapseTest TEST");
     };
-    prototype.basicMultiGetTest = function() {
+    basicMultiGetTest = function() {
         EcRemote.async = false;
         console.log("start basicCollapseTest:");
         try {
@@ -2880,10 +2861,9 @@ FrameworkCollapserTest = stjs.extend(FrameworkCollapserTest, null, [], function(
         Assert.assertSame(true, true);
         console.log("end basicCollapseTest TEST");
     };
-}, {repo: "EcRepository", urlArray: {name: "Array", arguments: [null]}}, {});
-var CollapserTest = function() {};
-CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, prototype) {
-    prototype.basicCollapseTest = function() {
+};
+class CollapserTest {
+    basicCollapseTest = function() {
         console.log("start basicCollapseTest:");
         try {
             var graph1 = this.buildTest2();
@@ -2903,7 +2883,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         Assert.assertSame(true, true);
         console.log("end basicCollapseTest");
     };
-    prototype.buildTest0 = function() {
+    buildTest0 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -2917,7 +2897,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-    prototype.buildTest1 = function() {
+    buildTest1 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -2937,7 +2917,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-    prototype.buildTest2 = function() {
+    buildTest2 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -2963,7 +2943,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-    prototype.buildTest3 = function() {
+    buildTest3 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -2996,7 +2976,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-    prototype.buildTest4 = function() {
+    buildTest4 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -3030,7 +3010,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-    prototype.buildTest5 = function() {
+    buildTest5 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -3063,7 +3043,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-    prototype.buildTest6 = function() {
+    buildTest6 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -3096,7 +3076,7 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-    prototype.buildTest7 = function() {
+    buildTest7 = function() {
         var graph = new NodeGraph();
         var nodeA = new Node("A");
         var nodeB = new Node("B");
@@ -3120,15 +3100,14 @@ CollapserTest = stjs.extend(CollapserTest, null, [], function(constructor, proto
         graph.createImpliedRelations();
         return graph;
     };
-}, {}, {});
-var EvidenceProcessingTestBase = function() {};
-EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], function(constructor, prototype) {
-    prototype.ask = null;
-    prototype.repo = null;
-    prototype.failure = null;
-    prototype.logObject = null;
-    prototype.newId1 = null;
-    constructor.deleteById = function(id) {
+};
+class EvidenceProcessingTestBase {
+    ask = null;
+    repo = null;
+    failure = null;
+    logObject = null;
+    newId1 = null;
+    static deleteById = function(id) {
         EcRepository.get(id, function(p1) {
             EcRepository._delete(p1, null, function(p1) {
                 console.log(p1);
@@ -3137,7 +3116,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
             console.log(p1);
         });
     };
-    prototype.setup = function() {
+    setup = function() {
         EcRemote.async = false;
         this.failure = function(p1) {
             console.log(p1);
@@ -3157,7 +3136,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(this.newId1);
     };
-    prototype.newAssertion = function(competencyToAssert) {
+    newAssertion = function(competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
@@ -3172,7 +3151,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         a.save(null, this.failure, this.repo);
         return a;
     };
-    prototype.newFalseAssertion = function(competencyToAssert) {
+    newFalseAssertion = function(competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
@@ -3188,7 +3167,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         a.save(null, this.failure, this.repo);
         return a;
     };
-    prototype.newCompetency = function(competencyName) {
+    newCompetency = function(competencyName) {
         var competency = new EcCompetency();
         competency.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         competency.name = competencyName;
@@ -3196,7 +3175,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         competency.save(null, this.failure, this.repo);
         return competency;
     };
-    prototype.newRollupRule = function(competency, rule) {
+    newRollupRule = function(competency, rule) {
         var rr = new EcRollupRule();
         rr.competency = competency.shortId();
         rr.rule = rule;
@@ -3205,7 +3184,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         rr.save(null, this.failure, this.repo);
         return rr;
     };
-    prototype.newRelation = function(c, c2, relationType) {
+    newRelation = function(c, c2, relationType) {
         var r = new EcAlignment();
         r.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         r.generateId(this.repo.selectedServer);
@@ -3215,7 +3194,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         r.save(null, this.failure, this.repo);
         return r;
     };
-    prototype.performTest = function(context, target, isTest) {
+    performTest = function(context, target, isTest) {
         var ep = new PessimisticQuadnaryAssertionProcessor();
         ep.logFunction = this.logObject;
         ep.repositories.push(this.repo);
@@ -3224,7 +3203,7 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         var additionalSignatures = null;
         ep.has(subject, target, null, context, additionalSignatures, isTest, this.ask, this.failure);
     };
-    prototype.newFramework = function(frameworkName) {
+    newFramework = function(frameworkName) {
         var framework = new EcFramework();
         framework.name = frameworkName;
         framework.addOwner(EcIdentityManager.ids[0].ppk.toPk());
@@ -3232,12 +3211,9 @@ EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], f
         framework.save(null, this.failure, this.repo);
         return framework;
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var GraphEvidenceProcessingTest = function() {
-    EvidenceProcessingTestBase.call(this);
 };
-GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceProcessingTestBase, [], function(constructor, prototype) {
-    prototype.basicTrueTest = function() {
+class GraphEvidenceProcessingTest extends EvidenceProcessingTestBase{
+    basicTrueTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3256,7 +3232,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(c.shortId());
         EvidenceProcessingTestBase.deleteById(a.shortId());
     };
-    prototype.basicFalseTest = function() {
+    basicFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3275,7 +3251,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(c.shortId());
         EvidenceProcessingTestBase.deleteById(a.shortId());
     };
-    prototype.basicIndeterminantTest = function() {
+    basicIndeterminantTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3298,7 +3274,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(a2.shortId());
     };
-    prototype.basicUnknownTest = function() {
+    basicUnknownTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3315,7 +3291,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(f.shortId());
         EvidenceProcessingTestBase.deleteById(c.shortId());
     };
-    prototype.basicEquivalenceTest = function() {
+    basicEquivalenceTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3341,7 +3317,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceFalseTest = function() {
+    basicEquivalenceFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3367,7 +3343,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceIndeterminantTest = function() {
+    basicEquivalenceIndeterminantTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3398,7 +3374,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a2.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceUnknownTest = function() {
+    basicEquivalenceUnknownTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3423,7 +3399,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(c2.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceEquivalenceTest = function() {
+    basicEquivalenceEquivalenceTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3456,7 +3432,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(r.shortId());
         EvidenceProcessingTestBase.deleteById(r2.shortId());
     };
-    prototype.basicEquivalenceUnEquivalentTest = function() {
+    basicEquivalenceUnEquivalentTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3486,7 +3462,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicRequiresSatisfiedTest = function() {
+    basicRequiresSatisfiedTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3512,7 +3488,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicRequiresFalseTest = function() {
+    basicRequiresFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3538,7 +3514,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicNarrowsTrueTest = function() {
+    basicNarrowsTrueTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3564,7 +3540,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicNarrowsFalseTest = function() {
+    basicNarrowsFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3590,7 +3566,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicNarrowsNarrowsTrueTest = function() {
+    basicNarrowsNarrowsTrueTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3623,7 +3599,7 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(r.shortId());
         EvidenceProcessingTestBase.deleteById(r2.shortId());
     };
-    prototype.basicNarrowsNarrowsFalseTest = function() {
+    basicNarrowsNarrowsFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3656,13 +3632,10 @@ GraphEvidenceProcessingTest = stjs.extend(GraphEvidenceProcessingTest, EvidenceP
         EvidenceProcessingTestBase.deleteById(r.shortId());
         EvidenceProcessingTestBase.deleteById(r2.shortId());
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var RollupRuleInterfaceTest = function() {
-    EvidenceProcessingTestBase.call(this);
 };
-RollupRuleInterfaceTest = stjs.extend(RollupRuleInterfaceTest, EvidenceProcessingTestBase, [], function(constructor, prototype) {
-    prototype.input = "[competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/d885dcd8-f00b-4ccf-82d8-ee14d6c84ef0 AND confidence:>0.6] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/31971023-5d61-42c0-bc64-ae8e8b7f0d09 AND confidence:>0.6 ] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/625c9e61-2503-401a-8df7-c9f14133ce95 AND confidence:>0.6] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/0a2ea5e4-b5b4-461e-a19c-d17772da4d16 AND confidence:>0.6]";
-    prototype.basicTrueTest = function() {
+class RollupRuleInterfaceTest extends EvidenceProcessingTestBase{
+    input = "[competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/d885dcd8-f00b-4ccf-82d8-ee14d6c84ef0 AND confidence:>0.6] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/31971023-5d61-42c0-bc64-ae8e8b7f0d09 AND confidence:>0.6 ] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/625c9e61-2503-401a-8df7-c9f14133ce95 AND confidence:>0.6] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/0a2ea5e4-b5b4-461e-a19c-d17772da4d16 AND confidence:>0.6]";
+    basicTrueTest = function() {
         var f = this.newFramework("Woodworking");
         var cx = this.newCompetency("Basic Woodworking");
         var c = this.newCompetency("Lathing");
@@ -3712,7 +3685,7 @@ RollupRuleInterfaceTest = stjs.extend(RollupRuleInterfaceTest, EvidenceProcessin
         EvidenceProcessingTestBase.deleteById(a3.shortId());
         EvidenceProcessingTestBase.deleteById(rr.shortId());
     };
-    prototype.basicTest = function() {
+    basicTest = function() {
         var input = "[competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/d885dcd8-f00b-4ccf-82d8-ee14d6c84ef0 AND confidence:>0.6] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/31971023-5d61-42c0-bc64-ae8e8b7f0d09 AND confidence:>0.6 ] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/625c9e61-2503-401a-8df7-c9f14133ce95 AND confidence:>0.6] AND [competency:http://skyrepo.eduworks.com/service/data/schema.eduworks.com.cass.0.1.competency/0a2ea5e4-b5b4-461e-a19c-d17772da4d16 AND confidence:>0.6]";
         var ip = new InquiryPacket(null, null, null, null, null, null, null, null);
         var rrp = new RollupRuleProcessor(ip, null);
@@ -3743,15 +3716,12 @@ RollupRuleInterfaceTest = stjs.extend(RollupRuleInterfaceTest, EvidenceProcessin
         };
         rri.go();
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var PredictiveAssertionProcessorTest = function() {
-    EvidenceProcessingTestBase.call(this);
 };
-PredictiveAssertionProcessorTest = stjs.extend(PredictiveAssertionProcessorTest, EvidenceProcessingTestBase, [], function(constructor, prototype) {
-    constructor.SUBJECT_PEM = "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtKxQMxXdoogq+eNihcCcbgloNDk333Vt55kKf8Bjko+QqL4DLAnYB+TCS+7fQesaq69BIBDetIWudaS+pdAohzLz8PXJiMrBoNk23PrVwdhe6E6BXh1b33WnsbSwTvbwvo402cY9+RndnOCBRhIm7ehJKyt1x4erm3luXhyz4PISmwLJ+1FIP4rF5jNi6jyEPpyHuLB7jfr8WbOOkhlsTiRVc0KmfTycVyxQXZayGyIhABGZGFfewY9N2oL8btucebP06TDUX5fL1abNTnGUe6yDjfTKV7ndQ4RBBw1k0cIVJCandQ3P5hG4vOQSslpPMq5QXXI/XjyiBFD1VZWDEwIDAQAB-----END PUBLIC KEY-----";
-    constructor.ASSERTION_DATE = "1505322211793";
-    constructor.EXPIRATION_DATE = "1642527163582";
-    prototype.buildNodeArray = function() {
+class PredictiveAssertionProcessorTest extends EvidenceProcessingTestBase{
+    static SUBJECT_PEM = "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtKxQMxXdoogq+eNihcCcbgloNDk333Vt55kKf8Bjko+QqL4DLAnYB+TCS+7fQesaq69BIBDetIWudaS+pdAohzLz8PXJiMrBoNk23PrVwdhe6E6BXh1b33WnsbSwTvbwvo402cY9+RndnOCBRhIm7ehJKyt1x4erm3luXhyz4PISmwLJ+1FIP4rF5jNi6jyEPpyHuLB7jfr8WbOOkhlsTiRVc0KmfTycVyxQXZayGyIhABGZGFfewY9N2oL8btucebP06TDUX5fL1abNTnGUe6yDjfTKV7ndQ4RBBw1k0cIVJCandQ3P5hG4vOQSslpPMq5QXXI/XjyiBFD1VZWDEwIDAQAB-----END PUBLIC KEY-----";
+    static ASSERTION_DATE = "1505322211793";
+    static EXPIRATION_DATE = "1642527163582";
+    buildNodeArray = function() {
         var na = new Array();
         na.push("COMP-A");
         na.push("COMP-B");
@@ -3766,7 +3736,7 @@ PredictiveAssertionProcessorTest = stjs.extend(PredictiveAssertionProcessorTest,
         na.push("COMP-K");
         return na;
     };
-    prototype.buildEdgeArray = function() {
+    buildEdgeArray = function() {
         var ea = new Array();
         var ce;
         ce = new CgEdge("COMP-A", "COMP-B", "requires");
@@ -3787,7 +3757,7 @@ PredictiveAssertionProcessorTest = stjs.extend(PredictiveAssertionProcessorTest,
         ea.push(ce);
         return ea;
     };
-    prototype.buildPositiveAssertionArray = function() {
+    buildPositiveAssertionArray = function() {
         var paa = new Array();
         var sa;
         sa = new SimpleAssertion("pa-1", "COMP-A", 0.82);
@@ -3822,7 +3792,7 @@ PredictiveAssertionProcessorTest = stjs.extend(PredictiveAssertionProcessorTest,
         paa.push(sa);
         return paa;
     };
-    prototype.buildNegativeAssertionArray = function() {
+    buildNegativeAssertionArray = function() {
         var naa = new Array();
         var sa;
         sa = new SimpleAssertion("na-1", "COMP-D", 0.82);
@@ -3839,7 +3809,7 @@ PredictiveAssertionProcessorTest = stjs.extend(PredictiveAssertionProcessorTest,
         naa.push(sa);
         return naa;
     };
-    prototype.generateTestCompetencyGraph = function() {
+    generateTestCompetencyGraph = function() {
         var cg = new CompetencyGraph(true);
         cg.setNodes(this.buildNodeArray());
         cg.setEdges(this.buildEdgeArray());
@@ -3847,7 +3817,7 @@ PredictiveAssertionProcessorTest = stjs.extend(PredictiveAssertionProcessorTest,
         cg.setNegativeAssertions(this.buildNegativeAssertionArray());
         return cg;
     };
-    prototype.runPredictiveAssertionProcessorTest = function() {
+    runPredictiveAssertionProcessorTest = function() {
         var cg = this.generateTestCompetencyGraph();
         console.log("*******************************Input Competency Graph: ");
         console.log(cg.getJsonString());
@@ -3856,12 +3826,9 @@ PredictiveAssertionProcessorTest = stjs.extend(PredictiveAssertionProcessorTest,
         console.log("*******************************Prediction: ");
         console.log(pnp.getJsonString());
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var EvidenceProcessingTest = function() {
-    EvidenceProcessingTestBase.call(this);
 };
-EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingTestBase, [], function(constructor, prototype) {
-    prototype.basicTrueTest = function() {
+class EvidenceProcessingTest extends EvidenceProcessingTestBase{
+    basicTrueTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3876,7 +3843,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(c.shortId());
         EvidenceProcessingTestBase.deleteById(a.shortId());
     };
-    prototype.basicFalseTest = function() {
+    basicFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3891,7 +3858,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(c.shortId());
         EvidenceProcessingTestBase.deleteById(a.shortId());
     };
-    prototype.basicIndeterminantTest = function() {
+    basicIndeterminantTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3908,7 +3875,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(a2.shortId());
     };
-    prototype.basicUnknownTest = function() {
+    basicUnknownTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -3921,7 +3888,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(f.shortId());
         EvidenceProcessingTestBase.deleteById(c.shortId());
     };
-    prototype.basicEquivalenceTest = function() {
+    basicEquivalenceTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3942,7 +3909,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceFalseTest = function() {
+    basicEquivalenceFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3963,7 +3930,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceIndeterminantTest = function() {
+    basicEquivalenceIndeterminantTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -3986,7 +3953,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a2.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceUnknownTest = function() {
+    basicEquivalenceUnknownTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -4005,7 +3972,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(c2.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicEquivalenceEquivalenceTest = function() {
+    basicEquivalenceEquivalenceTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -4032,7 +3999,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(r.shortId());
         EvidenceProcessingTestBase.deleteById(r2.shortId());
     };
-    prototype.basicEquivalenceUnEquivalentTest = function() {
+    basicEquivalenceUnEquivalentTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -4057,7 +4024,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicRequiresSatisfiedTest = function() {
+    basicRequiresSatisfiedTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -4079,7 +4046,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicNarrowsSatisfiedTest = function() {
+    basicNarrowsSatisfiedTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Multiply");
@@ -4101,7 +4068,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicNarrowsUnsatisfiedTest = function() {
+    basicNarrowsUnsatisfiedTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Multiply");
@@ -4123,7 +4090,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicNarrowsPositiveNegativeTest = function() {
+    basicNarrowsPositiveNegativeTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Multiply");
@@ -4146,7 +4113,7 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    prototype.basicRequiresFalseTest = function() {
+    basicRequiresFalseTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         var c2 = this.newCompetency("Sum");
@@ -4168,17 +4135,14 @@ EvidenceProcessingTest = stjs.extend(EvidenceProcessingTest, EvidenceProcessingT
         EvidenceProcessingTestBase.deleteById(a.shortId());
         EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var GraphTest = function() {
-    EvidenceProcessingTestBase.call(this);
 };
-GraphTest = stjs.extend(GraphTest, EvidenceProcessingTestBase, [], function(constructor, prototype) {
-    constructor.REPOSITORY_URL = "https://dev.cassproject.org/api/";
-    constructor.FRAMREWORK_ID = "https://dev.cassproject.org/api/data/schema.cassproject.org.0.2.Framework/775965fc-6b50-4b78-b15e-cc60fbad66a0";
-    constructor.COMPETENCY_ID = "https://dev.cassproject.org/api/data/schema.cassproject.org.0.2.Competency/1f2126b3-cb90-4ab2-a646-40da40384c93";
-    constructor.CREATE_IMPLIED_EDGES = true;
-    constructor.ADD_ASSERTIONS = true;
-    prototype.buildAndConfigureGraphBuilder = function() {
+class GraphTest extends EvidenceProcessingTestBase{
+    static REPOSITORY_URL = "https://dev.cassproject.org/api/";
+    static FRAMREWORK_ID = "https://dev.cassproject.org/api/data/schema.cassproject.org.0.2.Framework/775965fc-6b50-4b78-b15e-cc60fbad66a0";
+    static COMPETENCY_ID = "https://dev.cassproject.org/api/data/schema.cassproject.org.0.2.Competency/1f2126b3-cb90-4ab2-a646-40da40384c93";
+    static CREATE_IMPLIED_EDGES = true;
+    static ADD_ASSERTIONS = true;
+    buildAndConfigureGraphBuilder = function() {
         var repo = new EcRepository();
         repo.selectedServer = GraphTest.REPOSITORY_URL;
         EcRepository.alwaysTryUrl = true;
@@ -4201,18 +4165,17 @@ GraphTest = stjs.extend(GraphTest, EvidenceProcessingTestBase, [], function(cons
         };
         return cgb;
     };
-    prototype.generateBasicGraphTest = function() {
+    generateBasicGraphTest = function() {
         console.log("Start generateBasicGraphTest");
         var cgb = this.buildAndConfigureGraphBuilder();
         cgb.buildCompetencyGraph(GraphTest.CREATE_IMPLIED_EDGES);
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var CtdlProcessingTest = function() {};
-CtdlProcessingTest = stjs.extend(CtdlProcessingTest, null, [], function(constructor, prototype) {
-    constructor.CREDENTIAL_LOCATOR = "https://army.cass.eduworks.us/api/custom/data/ce-C57948C2-6636-4ED3-9B51-BC5A9EC56D88";
-    constructor.RESOURCE_LOCATOR_URL = "https://army.cass.eduworks.us/api/data/";
-    constructor.STRIP_ID = true;
-    prototype.buildAndConfigureLocator = function() {
+};
+class CtdlProcessingTest {
+    static CREDENTIAL_LOCATOR = "https://army.cass.eduworks.us/api/custom/data/ce-C57948C2-6636-4ED3-9B51-BC5A9EC56D88";
+    static RESOURCE_LOCATOR_URL = "https://army.cass.eduworks.us/api/data/";
+    static STRIP_ID = true;
+    buildAndConfigureLocator = function() {
         EcRemote.async = false;
         var ccl = new CredentialCompetencyLocator();
         ccl.credentialLocator = CtdlProcessingTest.CREDENTIAL_LOCATOR;
@@ -4241,149 +4204,13 @@ CtdlProcessingTest = stjs.extend(CtdlProcessingTest, null, [], function(construc
         };
         return ccl;
     };
-    prototype.basicCtdlTest = function() {};
-}, {}, {});
-var EvidenceProcessingTestBase = function() {};
-EvidenceProcessingTestBase = stjs.extend(EvidenceProcessingTestBase, null, [], function(constructor, prototype) {
-    prototype.ask = null;
-    prototype.repo = null;
-    prototype.failure = null;
-    prototype.logObject = null;
-    prototype.newId1 = null;
-    constructor.deleteById = function(id) {
-        EcRepository.get(id, function(p1) {
-            EcRepository._delete(p1, null, function(p1) {
-                console.log(p1);
-            });
-        }, function(p1) {
-            console.log(p1);
-        });
-    };
-    prototype.setup = function() {
-        EcRemote.async = false;
-        this.failure = function(p1) {
-            console.log(p1);
-            Assert.fail();
-        };
-        this.logObject = function(p1) {
-            console.log(p1);
-        };
-        this.ask = function(param1) {
-            console.log(param1);
-            return null;
-        };
-        this.repo = new EcRepository();
-        this.repo.selectedServer = "http://localhost/api/";
-        this.newId1 = new EcIdentity();
-        this.newId1.ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
-        ;
-        EcIdentityManager.ids = new Array();
-        EcIdentityManager.addIdentity(this.newId1);
-    };
-    prototype.newAssertion = function(competencyToAssert) {
-        var a = new EcAssertion();
-        a.generateId(this.repo.selectedServer);
-        a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
-        a.setCompetency(competencyToAssert.shortId());
-        a.setConfidence(1.0);
-        a.setAssertionDate(stjs.trunc(new Date().getTime()));
-        a.setExpirationDate(stjs.trunc((new Date().getTime())) + 1000 * 60 * 60);
-        a.setDecayFunction("t");
-        a.save(null, this.failure, this.repo);
-        return a;
-    };
-    prototype.newFalseAssertion = function(competencyToAssert) {
-        var a = new EcAssertion();
-        a.generateId(this.repo.selectedServer);
-        a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
-        a.setCompetency(competencyToAssert.shortId());
-        a.setConfidence(1.0);
-        a.setNegative(true);
-        a.setAssertionDate(stjs.trunc(new Date().getTime()));
-        a.setExpirationDate(stjs.trunc((new Date().getTime())) + 1000 * 60 * 60);
-        a.setDecayFunction("t");
-        a.save(null, this.failure, this.repo);
-        return a;
-    };
-    prototype.newCompetency = function(competencyName) {
-        var competency = new EcCompetency();
-        competency.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        competency.name = competencyName;
-        competency.generateId(this.repo.selectedServer);
-        competency.save(null, this.failure, this.repo);
-        return competency;
-    };
-    prototype.newCredential = function(credentialName) {
-        var credential = new Credential();
-        credential.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        credential.name = credentialName;
-        credential.generateId(this.repo.selectedServer);
-        this.repo.saveTo(credential, null, this.failure);
-        return credential;
-    };
-    prototype.newAchieveAction = function(credential) {
-        var action = new AchieveAction();
-        action.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        action.object = credential.shortId();
-        action.agent = EcIdentityManager.ids[0].ppk.toPk().toPem();
-        action.generateId(this.repo.selectedServer);
-        this.repo.constructor.save(action, null, this.failure);
-        return action;
-    };
-    prototype.newRelation = function(c, c2, relationType) {
-        var r = new EcAlignment();
-        r.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        r.generateId(this.repo.selectedServer);
-        r.relationType = relationType;
-        r.source = c.shortId();
-        r.target = c2.shortId();
-        r.save(null, this.failure, this.repo);
-        return r;
-    };
-    prototype.newCreativeRelation = function(c, c2, alignmentType) {
-        var r = new CreativeWork();
-        r.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        r.generateId(this.repo.selectedServer);
-        r.educationalAlignment = new AlignmentObject();
-        r.url = c.shortId();
-        r.educationalAlignment.targetUrl = c2.shortId();
-        r.educationalAlignment.alignmentType = alignmentType;
-        this.repo.constructor.save(r, null, this.failure);
-        return r;
-    };
-    prototype.performTest = function(ep, context, target, isTest) {
-        var subject = new Array();
-        subject.push(EcIdentityManager.ids[0].ppk.toPk());
-        var additionalSignatures = null;
-        ep.has(subject, target, null, context, additionalSignatures, isTest, this.ask, this.failure);
-    };
-    prototype.getTestProcessor = function() {
-        var ep = new PessimisticQuadnaryAssertionProcessor();
-        ep.logFunction = this.logObject;
-        ep.repositories.push(this.repo);
-        return ep;
-    };
-    prototype.newFramework = function(frameworkName) {
-        var framework = new EcFramework();
-        framework.name = frameworkName;
-        framework.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        framework.generateId(this.repo.selectedServer);
-        framework.save(null, this.failure, this.repo);
-        return framework;
-    };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
+    basicCtdlTest = function() {};
+};
 /**
  *  Created by fray on 5/30/17.
  */
-var MilCredCoprocessorTest = function() {
-    EvidenceProcessingTestBase.call(this);
-};
-MilCredCoprocessorTest = stjs.extend(MilCredCoprocessorTest, EvidenceProcessingTestBase, [], function(constructor, prototype) {
-    prototype.basicTrueTest = function() {
+class MilCredCoprocessorTest extends EvidenceProcessingTestBase{
+    basicTrueTest = function() {
         var f = this.newFramework("Billy's Framework");
         var c = this.newCompetency("Add");
         f.addCompetency(c.shortId());
@@ -4409,19 +4236,18 @@ MilCredCoprocessorTest = stjs.extend(MilCredCoprocessorTest, EvidenceProcessingT
         // EvidenceProcessingTestBase.deleteById(c.shortId());
         // EvidenceProcessingTestBase.deleteById(a.shortId());
     };
-    prototype.basicUnknownTest = function() {
+    basicUnknownTest = function() {
         Assert.assertTrue(true);
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var ImportTestBase = function() {};
-ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, prototype) {
-    prototype.ask = null;
-    prototype.repo = null;
-    prototype.failure = null;
-    prototype.logString = null;
-    prototype.logObject = null;
-    prototype.newId1 = null;
-    constructor.deleteById = function(id) {
+};
+class ImportTestBase {
+    ask = null;
+    repo = null;
+    failure = null;
+    logString = null;
+    logObject = null;
+    newId1 = null;
+    static deleteById = function(id) {
         EcRepository.get(id, function(p1) {
             EcRepository._delete(p1, null, function(p1) {
                 console.log(p1);
@@ -4430,7 +4256,7 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
             console.log(p1);
         });
     };
-    prototype.setup = function() {
+    setup = function() {
         EcRemote.async = false;
         this.failure = function(p1) {
             console.log(p1);
@@ -4454,7 +4280,7 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(this.newId1);
     };
-    prototype.newAssertion = function(competencyToAssert) {
+    newAssertion = function(competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
@@ -4468,7 +4294,7 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
         a.save(null, this.failure, this.repo);
         return a;
     };
-    prototype.newFalseAssertion = function(competencyToAssert) {
+    newFalseAssertion = function(competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
@@ -4483,7 +4309,7 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
         a.save(null, this.failure, this.repo);
         return a;
     };
-    prototype.newCompetency = function(competencyName) {
+    newCompetency = function(competencyName) {
         var competency = new EcCompetency();
         competency.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         competency.name = competencyName;
@@ -4491,7 +4317,7 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
         competency.save(null, this.failure, this.repo);
         return competency;
     };
-    prototype.newRollupRule = function(competency, rule) {
+    newRollupRule = function(competency, rule) {
         var rr = new EcRollupRule();
         rr.competency = competency.shortId();
         rr.rule = rule;
@@ -4500,7 +4326,7 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
         rr.save(null, this.failure, this.repo);
         return rr;
     };
-    prototype.newRelation = function(c, c2, relationType) {
+    newRelation = function(c, c2, relationType) {
         var r = new EcAlignment();
         r.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         r.generateId(this.repo.selectedServer);
@@ -4510,7 +4336,7 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
         r.save(null, this.failure, this.repo);
         return r;
     };
-    prototype.newFramework = function(frameworkName) {
+    newFramework = function(frameworkName) {
         var framework = new EcFramework();
         framework.name = frameworkName;
         framework.addOwner(EcIdentityManager.ids[0].ppk.toPk());
@@ -4518,12 +4344,9 @@ ImportTestBase = stjs.extend(ImportTestBase, null, [], function(constructor, pro
         framework.save(null, this.failure, this.repo);
         return framework;
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logString: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
-var TabStructuredImportTest = function() {
-    ImportTestBase.call(this);
 };
-TabStructuredImportTest = stjs.extend(TabStructuredImportTest, ImportTestBase, [], function(constructor, prototype) {
-    prototype.basicTabStructuredImport = function() {
+class TabStructuredImportTest extends ImportTestBase{
+    basicTabStructuredImport = function() {
         var me = this;
         TabStructuredImport.importCompetencies("A\n\tA.1\n\t\tA.1.1\n\tA.2\n\t\tA.2.1\n\t\tA.2.2\n\t\t\tA.2.2.1\nB\n\tB.1\n\t\tB.1.1\n\tB.2\n\t\tB.2.1\n\t\tB.2.2\n\t\t\tB.2.2.1\nC\nD\n D.1\n D.2\n  D.2.1\n  D.2.2\n D.3\n  D.3.1\nE", this.repo.selectedServer, this.newId1, function(competencies, alignments) {
             var f = new EcFramework();
@@ -4547,7 +4370,7 @@ TabStructuredImportTest = stjs.extend(TabStructuredImportTest, ImportTestBase, [
             }, this.failure);
         }, this.failure, this.logObject, this.repo, false);
     };
-}, {ask: {name: "Function1", arguments: [null, null]}, repo: "EcRepository", failure: {name: "Callback1", arguments: [null]}, logString: {name: "Callback1", arguments: [null]}, logObject: {name: "Callback1", arguments: ["Object"]}, newId1: "EcIdentity"}, {});
+};
 obj = new EcRandomTest();
 if (obj.setup) obj.setup();
 if (obj.begin) obj.begin();

@@ -1,0 +1,20 @@
+/**
+ * Schema.org/DrugPrescriptionStatus
+ * Indicates whether this drug is available by prescription or over-the-counter.
+ *
+ * @author schema.org
+ * @class DrugPrescriptionStatus
+ * @module org.schema
+ */
+public class DrugPrescriptionStatus extends EcRemoteLinkedData {
+	/**
+	 * Constructor, automatically sets @context and @type.
+	 *
+	 * @constructor
+	 */
+	constructor() {
+		context = "http://schema.org/";
+		type = "DrugPrescriptionStatus";
+	}
+
+}

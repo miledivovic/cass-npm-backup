@@ -1,0 +1,20 @@
+/**
+ * Schema.org/PsychologicalTreatment
+ * A process of care relying upon counseling, dialogue and communication  aimed at improving a mental health condition without use of drugs.
+ *
+ * @author schema.org
+ * @class PsychologicalTreatment
+ * @module org.schema
+ */
+public class PsychologicalTreatment extends EcRemoteLinkedData {
+	/**
+	 * Constructor, automatically sets @context and @type.
+	 *
+	 * @constructor
+	 */
+	constructor() {
+		context = "http://schema.org/";
+		type = "PsychologicalTreatment";
+	}
+
+}

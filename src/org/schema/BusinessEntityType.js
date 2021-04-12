@@ -1,20 +1,21 @@
 /**
- *  Schema.org/BusinessEntityType
- *  A business entity type is a conceptual entity representing the legal form, the size, the main line of business, the position in the value chain, or any combination thereof, of an organization or business person.\n\nCommonly used values:\n\n* http://purl.org/goodrelations/v1#Business\n* http://purl.org/goodrelations/v1#Enduser\n* http://purl.org/goodrelations/v1#PublicInstitution\n* http://purl.org/goodrelations/v1#Reseller
- * 
- *  @author schema.org
- *  @class BusinessEntityType
- *  @module org.schema
- *  @extends Enumeration
+ * Schema.org/BusinessEntityType
+ * A business entity type is a conceptual entity representing the legal form, the size, the main line of business, the position in the value chain, or any combination thereof, of an organization or business person.\n\nCommonly used values:\n\n* http://purl.org/goodrelations/v1#Business\n* http://purl.org/goodrelations/v1#Enduser\n* http://purl.org/goodrelations/v1#PublicInstitution\n* http://purl.org/goodrelations/v1#Reseller
+	  
+ *
+ * @author schema.org
+ * @class BusinessEntityType
+ * @module org.schema
  */
-var BusinessEntityType = /**
- *  Constructor, automatically sets @context and @type.
- * 
- *  @constructor
- */
-function() {
-    Enumeration.call(this);
-    this.context = "http://schema.org/";
-    this.type = "BusinessEntityType";
-};
-BusinessEntityType = stjs.extend(BusinessEntityType, Enumeration, [], null, {identifier: "Object", image: "Object", potentialAction: "Action", mainEntityOfPage: "Object", owner: {name: "Array", arguments: [null]}, signature: {name: "Array", arguments: [null]}, reader: {name: "Array", arguments: [null]}, forwardingTable: "Object", atProperties: {name: "Array", arguments: [null]}}, {});
+public class BusinessEntityType extends EcRemoteLinkedData {
+	/**
+	 * Constructor, automatically sets @context and @type.
+	 *
+	 * @constructor
+	 */
+	constructor() {
+		context = "http://schema.org/";
+		type = "BusinessEntityType";
+	}
+
+}

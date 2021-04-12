@@ -4,7 +4,7 @@ var fs = require('fs');
 
 const https = require('https');
 
-https.get("https://www.w3.org/2012/pyRdfa/extract?uri=https%3A%2F%2Fraw.githubusercontent.com%2Fschemaorg%2Fschemaorg%2Fsdo-callisto%2Fdata%2Fschema.rdfa&format=json&rdfagraph=output&vocab_expansion=false&rdfa_lite=false&embedded_rdf=true&space_preserve=true&vocab_cache=true&vocab_cache_report=false&vocab_cache_refresh=false", (resp) => {
+https.get("https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/releases/12.0/schemaorg-all-https.jsonld", (resp) => {
     let data = '';
 
     resp.on('data', (chunk) => {
@@ -13,11 +13,11 @@ https.get("https://www.w3.org/2012/pyRdfa/extract?uri=https%3A%2F%2Fraw.githubus
     resp.on('end', () => {
         while (data != data.replace("http://www.w3.org/2000/01/rdf-schema#","rdfs:"))
             data = data.replace("http://www.w3.org/2000/01/rdf-schema#","rdfs:");
-        while (data != data.replace("http://schema.org/","schema:"))
-            data = data.replace("http://schema.org/","schema:");
+        while (data != data.replace("https://schema.org/","schema:"))
+            data = data.replace("https://schema.org/","schema:");
         while (data != data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:"))
             data = data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:");
-        var graph = JSON.parse(data);
+        var graph = JSON.parse(data)["@graph"];
         for (var i = 0; i < graph.length; i++) {
             var node = graph[i];
             var type = node["@type"];
@@ -27,7 +27,7 @@ https.get("https://www.w3.org/2012/pyRdfa/extract?uri=https%3A%2F%2Fraw.githubus
                 if (node["@id"] == "schema:Integer") continue;
                 if (node["@id"] == "schema:Float") continue;
                 if (node["@id"] == "schema:URL") continue;
-                fs.writeFile("src/main/java/org/schema/" + node["@id"].split(":")[1] + ".java", codeGenerate(graph, node));
+                fs.writeFileSync("src/org/schema/" + node["@id"].split(":")[1] + ".js", codeGenerate(graph, node));
             }
         }
     });
@@ -43,7 +43,7 @@ function codeGenerate(graph, node) {
     text += "";
     text += "/**\n";
     text += " * " + classId.replace("schema:", "Schema.org/") + "\n";
-    text += " * " + node["rdfs:comment"][0]["@value"] + "\n";
+    text += " * " + node["rdfs:comment"] + "\n";
     text += " *"+"\n";
     text += " * @author schema.org\n";
     text += " * @class " + className + "\n";

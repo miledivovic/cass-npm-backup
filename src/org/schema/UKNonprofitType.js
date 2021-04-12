@@ -1,0 +1,20 @@
+/**
+ * Schema.org/UKNonprofitType
+ * UKNonprofitType: Non-profit organization type originating from the United Kingdom.
+ *
+ * @author schema.org
+ * @class UKNonprofitType
+ * @module org.schema
+ */
+public class UKNonprofitType extends EcRemoteLinkedData {
+	/**
+	 * Constructor, automatically sets @context and @type.
+	 *
+	 * @constructor
+	 */
+	constructor() {
+		context = "http://schema.org/";
+		type = "UKNonprofitType";
+	}
+
+}

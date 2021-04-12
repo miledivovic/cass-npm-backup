@@ -1,0 +1,20 @@
+/**
+ * Schema.org/SizeGroupEnumeration
+ * Enumerates common size groups for various product categories.
+ *
+ * @author schema.org
+ * @class SizeGroupEnumeration
+ * @module org.schema
+ */
+public class SizeGroupEnumeration extends EcRemoteLinkedData {
+	/**
+	 * Constructor, automatically sets @context and @type.
+	 *
+	 * @constructor
+	 */
+	constructor() {
+		context = "http://schema.org/";
+		type = "SizeGroupEnumeration";
+	}
+
+}

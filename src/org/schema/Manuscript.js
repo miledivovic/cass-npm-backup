@@ -1,0 +1,20 @@
+/**
+ * Schema.org/Manuscript
+ * A book, document, or piece of music written by hand rather than typed or printed.
+ *
+ * @author schema.org
+ * @class Manuscript
+ * @module org.schema
+ */
+public class Manuscript extends EcRemoteLinkedData {
+	/**
+	 * Constructor, automatically sets @context and @type.
+	 *
+	 * @constructor
+	 */
+	constructor() {
+		context = "http://schema.org/";
+		type = "Manuscript";
+	}
+
+}

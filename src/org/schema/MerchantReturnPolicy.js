@@ -1,0 +1,20 @@
+/**
+ * Schema.org/MerchantReturnPolicy
+ * A MerchantReturnPolicy provides information about product return policies associated with an [[Organization]] or [[Product]].
+ *
+ * @author schema.org
+ * @class MerchantReturnPolicy
+ * @module org.schema
+ */
+public class MerchantReturnPolicy extends EcRemoteLinkedData {
+	/**
+	 * Constructor, automatically sets @context and @type.
+	 *
+	 * @constructor
+	 */
+	constructor() {
+		context = "http://schema.org/";
+		type = "MerchantReturnPolicy";
+	}
+
+}

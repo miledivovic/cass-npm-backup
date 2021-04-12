@@ -1,3 +1,4 @@
+var pemJwk = require('pem-jwk');
 /**
  *  Helper classes for dealing with RSA Private Keys.
  * 

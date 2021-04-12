@@ -1,3 +1,4 @@
+var pemJwk = require('pem-jwk');
 /**
  *  Helper classes for dealing with RSA Public Keys.
  * 
@@ -78,6 +79,7 @@ module.exports = class EcPk{
     toPkcs8Pem = function() {
         return forge.pki.publicKeyToPem(this.pk).replaceAll("\r", "").replaceAll("\n", "");
     };
+
     toJwk() {
         if (this.jwk == null) 
             this.jwk = pemJwk.pem2jwk(forge.pki.publicKeyToPem(this.pk));

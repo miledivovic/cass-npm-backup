@@ -1,3 +1,4 @@
+var Worker = require('web-worker');
 var PromiseWorker = require('promise-worker');
 /**
  *  Asynchronous implementation of {{#crossLink
@@ -11,27 +12,25 @@ module.exports = class EcRsaOaepAsyncWorker{
     static rotator = 0;
     static w = null;
     static initWorker() {
-        if (typeof window === "undefined" || window == null && ((typeof self).equals("undefined")) || Worker == undefined || Worker == null) {
-            return;
-        }
-        if (!EcRemote.async) {
+        if (Worker == undefined || Worker == null) {
             return;
         }
         if (EcRsaOaepAsyncWorker.w != null) {
             return;
         }
         EcRsaOaepAsyncWorker.rotator = 0;
-        EcRsaOaepAsyncWorker.w = new Array();
+        EcRsaOaepAsyncWorker.w = [];
         for (var index = 0; index < 8; index++) {
             EcRsaOaepAsyncWorker.createWorker(index);
         }
     };
     static createWorker(index) {
-        var wkr;
-        if ((window)["scriptPath"] != null) 
-            EcRsaOaepAsyncWorker.w.push(wkr = new PromiseWorker(new Worker((window)["scriptPath"] + "forgeAsync.js")));
-         else 
-            EcRsaOaepAsyncWorker.w.push(wkr = new PromiseWorker(new Worker("forgeAsync.js")));
+        let wkr = null;
+        if (typeof window !== "undefined" && (window)["scriptPath"] != null) 
+            EcRsaOaepAsyncWorker.w.push(new PromiseWorker(wkr = new Worker((window)["scriptPath"] + "lib/forgeAsync.js")));
+        else 
+            EcRsaOaepAsyncWorker.w.push(new PromiseWorker(wkr = new Worker("lib/forgeAsync.js")));
+           
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -48,22 +47,22 @@ module.exports = class EcRsaOaepAsyncWorker{
      */
     static encrypt(pk, plaintext, success, failure) {
         EcRsaOaepAsyncWorker.initWorker();
+        if (!EcCrypto.testMode)
         if (EcRsaOaepAsyncWorker.w == null) {
             let p = new Promise((resolve,reject)=>{
                 resolve(EcRsaOaep.encrypt(pk, plaintext));
             });
             return cassPromisify(p,success,failure);
-        } else {
-            var worker = EcRsaOaepAsyncWorker.rotator++;
-            EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-            var o = new Object();
-            (o)["pk"] = pk.toPem();
-            (o)["text"] = forge.util.encodeUtf8(plaintext);
-            (o)["cmd"] = "encryptRsaOaep";
-
-            let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
-            return cassPromisify(p,success,failure);
         }
+        var worker = EcRsaOaepAsyncWorker.rotator++;
+        EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
+        var o = new Object();
+        (o)["pk"] = pk.toPem();
+        (o)["text"] = forge.util.encodeUtf8(plaintext);
+        (o)["cmd"] = "encryptRsaOaep";
+
+        let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -87,25 +86,28 @@ module.exports = class EcRsaOaepAsyncWorker{
             }
         }
         EcRsaOaepAsyncWorker.initWorker();
+        if (!EcCrypto.testMode)
         if (EcRsaOaepAsyncWorker.w == null) {
             let p = new Promise((resolve,reject)=>{
                 resolve(EcRsaOaep.decrypt(ppk, ciphertext));
             });
             return cassPromisify(p,success,failure);
-        } else {
-            var worker = EcRsaOaepAsyncWorker.rotator++;
-            EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-            var o = new Object();
-            (o)["ppk"] = ppk.toPem();
-            (o)["text"] = ciphertext;
-            (o)["cmd"] = "decryptRsaOaep";
-            let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
-            if (EcCrypto.caching)
-                p.then(function(decrypted){
-                    (EcCrypto.decryptionCache)[ppk.toPem() + ciphertext] = forge.util.decodeUtf8(p1);
-                });
-            return cassPromisify(p,success,failure);
         }
+        var worker = EcRsaOaepAsyncWorker.rotator++;
+        EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
+        var o = new Object();
+        (o)["ppk"] = ppk.toPem();
+        (o)["text"] = ciphertext;
+        (o)["cmd"] = "decryptRsaOaep";
+        let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+        p = p.then(function(decrypted){
+            return forge.util.decodeUtf8(decrypted);
+        });
+        if (EcCrypto.caching)
+            p = p.then(function(decrypted){
+                return (EcCrypto.decryptionCache)[ppk.toPem() + ciphertext] = decrypted;
+            });
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -122,21 +124,21 @@ module.exports = class EcRsaOaepAsyncWorker{
      */
     static sign(ppk, text, success, failure) {
         EcRsaOaepAsyncWorker.initWorker();
+        if (!EcCrypto.testMode)
         if (EcRsaOaepAsyncWorker.w == null) {
             let p = new Promise((resolve,reject)=>{
                 resolve(EcRsaOaep.sign(ppk, text));
             });
             return cassPromisify(p,success,failure);
-        } else {
-            var worker = EcRsaOaepAsyncWorker.rotator++;
-            EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-            var o = new Object();
-            (o)["ppk"] = ppk.toPem();
-            (o)["text"] = forge.util.encodeUtf8(text);
-            (o)["cmd"] = "signRsaOaep";
-            let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
-            return cassPromisify(p,success,failure);
         }
+        var worker = EcRsaOaepAsyncWorker.rotator++;
+        EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
+        var o = new Object();
+        (o)["ppk"] = ppk.toPem();
+        (o)["text"] = forge.util.encodeUtf8(text);
+        (o)["cmd"] = "signRsaOaep";
+        let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -153,21 +155,21 @@ module.exports = class EcRsaOaepAsyncWorker{
      */
     static signSha256 = function(ppk, text, success, failure) {
         EcRsaOaepAsyncWorker.initWorker();
+        if (!EcCrypto.testMode)
         if (EcRsaOaepAsyncWorker.w == null) {
             let p = new Promise((resolve,reject)=>{
                 resolve(EcRsaOaep.signSha256(ppk, text));
             });
             return cassPromisify(p,success,failure);
-        } else {
-            var worker = EcRsaOaepAsyncWorker.rotator++;
-            EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-            var o = new Object();
-            (o)["ppk"] = ppk.toPem();
-            (o)["text"] = forge.util.encodeUtf8(text);
-            (o)["cmd"] = "signSha256RsaOaep";
-            let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
-            return cassPromisify(p,success,failure);
         }
+        var worker = EcRsaOaepAsyncWorker.rotator++;
+        EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
+        var o = new Object();
+        (o)["ppk"] = ppk.toPem();
+        (o)["text"] = forge.util.encodeUtf8(text);
+        (o)["cmd"] = "signSha256RsaOaep";
+        let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+        return cassPromisify(p,success,failure);        
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -190,16 +192,15 @@ module.exports = class EcRsaOaepAsyncWorker{
                 resolve(EcRsaOaep.verify(pk, text, signature));
             });
             return cassPromisify(p,success,failure);
-        } else {
-            var worker = EcRsaOaepAsyncWorker.rotator++;
-            EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-            var o = new Object();
-            (o)["pk"] = pk.toPem();
-            (o)["text"] = forge.util.encodeUtf8(text);
-            (o)["signature"] = signature;
-            (o)["cmd"] = "verifyRsaOaep";
-            let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
-            return cassPromisify(p,success,failure);
         }
+        var worker = EcRsaOaepAsyncWorker.rotator++;
+        EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
+        var o = new Object();
+        (o)["pk"] = pk.toPem();
+        (o)["text"] = forge.util.encodeUtf8(text);
+        (o)["signature"] = signature;
+        (o)["cmd"] = "verifyRsaOaep";
+        let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
+        return cassPromisify(p,success,failure);
     };
 };

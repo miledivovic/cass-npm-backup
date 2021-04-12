@@ -30,12 +30,10 @@ global.cassReturnAsPromise = function(o,success,failure){
 }
 
 global.crypto = null;
-if (crypto === undefined)
 try {
-  crypto = {subtle:require('crypto').webcrypto};
-  console.log(crypto);
+  crypto = require('crypto').webcrypto;
 } catch (err) {
-  crypto = {subtle:null};
+  console.log("Webcrypto not available.");
 }
 
 var bon = require('browser-or-node');

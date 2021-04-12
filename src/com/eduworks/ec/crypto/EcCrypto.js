@@ -35,4 +35,13 @@ module.exports = class EcCrypto {
         m.update(s, "utf8");
         return m.digest().toHex();
     };
+    
+    static ab2str(buf) {
+        return new TextDecoder("utf-8").decode(buf);
+    }
+    
+    static str2ab(str) {
+        return new TextEncoder("utf-8").encode(str).buffer;
+    }
+    
 }

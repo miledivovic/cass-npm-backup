@@ -1,3 +1,4 @@
+var base64 = require('base64-arraybuffer');
 /**
  *  Async version of EcRsaOaep that uses browser extensions (window.crypto) to accomplish cryptography much faster.
  *  Falls back to EcRsaOaepAsyncWorker, if window.crypto is not available.
@@ -27,21 +28,19 @@ module.exports = class EcRsaOaepAsync{
         var algorithm = new Object();
         algorithm.name = "RSA-OAEP";
         algorithm.hash = "SHA-1";
+        let p = null;
         if (pk.key == null)
         {
-            let p = crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages);
-            p.then(function(key) {
+            p = crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 pk.key = key;
-                return crypto.subtle.encrypt(algorithm, key, str2ab(forge.util.encodeUtf8(plainText)));
+                return crypto.subtle.encrypt(algorithm, key, EcCrypto.str2ab(forge.util.encodeUtf8(plainText)));
             });
-            p.then((result)=>{return base64.encode(result)});
-            return cassPromisify(p,success,failure);
         }
         else {
-            let p = crypto.subtle.encrypt(algorithm, pk.key, str2ab(forge.util.encodeUtf8(plainText)));
-            p.then((result)=>{return base64.encode(result)});
-            return cassPromisify(p,success,failure);
+            p = crypto.subtle.encrypt(algorithm, pk.key, EcCrypto.str2ab(forge.util.encodeUtf8(plainText)));
         }
+        p = p.then((result)=>{return base64.encode(result)});
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Asynchronous form of {{#crossLink
@@ -69,23 +68,22 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.decrypt(ppk, cipherText, success, failure);
         }
+        var algorithm = new Object();
+        algorithm.name = "RSA-OAEP";
+        algorithm.hash = "SHA-1";
         if (ppk.key == null)
         {
             var keyUsages = new Array();
             keyUsages.push("decrypt");
-            var algorithm = new Object();
-            algorithm.name = "RSA-OAEP";
-            algorithm.hash = "SHA-1";
-            let p = window.crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(
-                function(key) {
+            let p = crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 ppk.key = key;
-                return window.crypto.subtle.decrypt(algorithm, key, base64.decode(cipherText))
+                return crypto.subtle.decrypt(algorithm, key, base64.decode(cipherText))
             }).then(function(p1) {
                 try {
-                    var result = forge.util.decodeUtf8(ab2str(p1));
+                    var result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
                 }
                 catch (ex) {
-                    var result = ab2str(p1);
+                    var result = EcCrypto.ab2str(p1);
                 }
                 if (EcCrypto.caching) {
                     (EcCrypto.decryptionCache)[ppk.toPem() + cipherText] = result;
@@ -96,13 +94,14 @@ module.exports = class EcRsaOaepAsync{
         }
         else 
         {
-            let p = window.crypto.subtle.decrypt(algorithm, ppk.key, base64.decode(cipherText)).then(
+            let p = crypto.subtle.decrypt(algorithm, ppk.key, base64.decode(cipherText)).then(
                 function(p1) {
+                    console.log(p1);
                 try {
-                    var result = forge.util.decodeUtf8(ab2str(p1));
+                    var result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
                 }
                 catch (ex) {
-                    var result = ab2str(p1);
+                    var result = EcCrypto.ab2str(p1);
                 }
                 if (EcCrypto.caching) {
                     (EcCrypto.decryptionCache)[ppk.toPem() + cipherText] = result;
@@ -140,14 +139,14 @@ module.exports = class EcRsaOaepAsync{
         algorithm.name = "RSASSA-PKCS1-v1_5";
         algorithm.hash = "SHA-1";
         if (ppk.signKey == null) 
-            return cassPromisify(window.crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
+            return cassPromisify(crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 ppk.signKey = key;
-                return window.crypto.subtle.sign(algorithm, key, str2ab(forge.util.encodeUtf8(text))).then(function(p1) {
+                return crypto.subtle.sign(algorithm, key, EcCrypto.str2ab(forge.util.encodeUtf8(text))).then(function(p1) {
                     return base64.encode(p1);
                 });
             }),success,failure);
         else 
-            return cassPromisify(window.crypto.subtle.sign(algorithm, ppk.signKey, str2ab(forge.util.encodeUtf8(text))).then(function(p1) {
+            return cassPromisify(crypto.subtle.sign(algorithm, ppk.signKey, EcCrypto.str2ab(forge.util.encodeUtf8(text))).then(function(p1) {
                 return base64.encode(p1);
             }),success,failure);
     };
@@ -176,12 +175,12 @@ module.exports = class EcRsaOaepAsync{
         algorithm.hash = "SHA-256";
         let p = null;
         if (ppk.signKey == null) 
-            p = window.crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
+            p = crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 ppk.signKey = key;
-                return window.crypto.subtle.sign(algorithm, key, str2ab(forge.util.encodeUtf8(text)));
+                return crypto.subtle.sign(algorithm, key, EcCrypto.str2ab(forge.util.encodeUtf8(text)));
             });
         else 
-            p = window.crypto.subtle.sign(algorithm, ppk.signKey, str2ab(forge.util.encodeUtf8(text)));
+            p = crypto.subtle.sign(algorithm, ppk.signKey, EcCrypto.str2ab(forge.util.encodeUtf8(text)));
 
         p = p.then(function(p1) {
             return base64.encode(p1);
@@ -207,21 +206,21 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.verify(pk, text, signature, success, failure);
         }
+        var algorithm = new Object();
+        algorithm.name = "RSASSA-PKCS1-v1_5";
+        algorithm.hash = "SHA-1";
         if (pk.signKey == null)
         {
             var keyUsages = new Array();
             keyUsages.push("verify");
-            var algorithm = new Object();
-            algorithm.name = "RSASSA-PKCS1-v1_5";
-            algorithm.hash = "SHA-1";
-            return cassPromisify(window.crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
+            return cassPromisify(crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 pk.signKey = key;
-                return window.crypto.subtle.verify(algorithm, key, base64.decode(signature), str2ab(forge.util.encodeUtf8(text)));
+                return crypto.subtle.verify(algorithm, key, base64.decode(signature), EcCrypto.str2ab(forge.util.encodeUtf8(text)));
             }),success,failure);
         }
         else 
         {
-            return cassPromisify(window.crypto.subtle.verify(algorithm, pk.signKey, base64.decode(signature), str2ab(forge.util.encodeUtf8(text))),success,failure);
+            return cassPromisify(crypto.subtle.verify(algorithm, pk.signKey, base64.decode(signature), EcCrypto.str2ab(forge.util.encodeUtf8(text))),success,failure);
         }
     };
     /**
@@ -243,21 +242,21 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.verify(pk, text, signature, success, failure);
         }
+        var algorithm = new Object();
+        algorithm.name = "RSASSA-PKCS1-v1_5";
+        algorithm.hash = "SHA-256";
         if (pk.signKey == null)
         {
             var keyUsages = new Array();
             keyUsages.push("verify");
-            var algorithm = new Object();
-            algorithm.name = "RSASSA-PKCS1-v1_5";
-            algorithm.hash = "SHA-256";
-            return cassPromisify(window.crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
+            return cassPromisify(crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 pk.signKey = key;
-                return window.crypto.subtle.verify(algorithm, key, base64.decode(signature), str2ab(forge.util.encodeUtf8(text)));
+                return crypto.subtle.verify(algorithm, key, base64.decode(signature), EcCrypto.str2ab(forge.util.encodeUtf8(text)));
             }),success,failure);
         }
         else 
         {
-            return cassPromisify(window.crypto.subtle.verify(algorithm, pk.signKey, base64.decode(signature), str2ab(forge.util.encodeUtf8(text))),success,failure);
+            return cassPromisify(crypto.subtle.verify(algorithm, pk.signKey, base64.decode(signature), EcCrypto.str2ab(forge.util.encodeUtf8(text))),success,failure);
         }
     };
 };

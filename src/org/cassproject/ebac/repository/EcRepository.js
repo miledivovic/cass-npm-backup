@@ -9,7 +9,6 @@ let FormData = require("form-data");
  *  @class EcRepository
  */
 module.exports = class EcRepository {
-
     constructor(){
         EcRepository.repos.push(this);
     }
@@ -52,13 +51,8 @@ module.exports = class EcRepository {
                 }
             }
         };
-        try {
-            return EcRemote.getExpectingObject(this.selectedServer, "ping", successCheck, failureCheck);
-        }catch (ex) {
-            if (failure != null) 
-                failure(ex.toString());
-        }
         EcRemote.timeout = oldTimeout;
+        return EcRemote.getExpectingObject(this.selectedServer, "ping").then(successCheck).catch(failureCheck);
     };
     buildKeyForwardingTable = function(success, failure) {
         var params = new Object();
@@ -118,8 +112,7 @@ module.exports = class EcRepository {
         if (EcRepository.unsigned) {
             p = EcRemote.getExpectingObject(finalUrl);
         } else {            
-            p = EcIdentityManager.signatureSheetAsync(60000 + offset, url)
-            .then((signatureSheet)=>{
+            p = EcIdentityManager.signatureSheetAsync(60000 + offset, url).then((signatureSheet)=>{
                 var fd = new FormData();
                 fd.append("signatureSheet", signatureSheet);
                 return EcRemote.postExpectingObject(finalUrl, null, fd);
@@ -144,15 +137,14 @@ module.exports = class EcRepository {
         var d = new EcRemoteLinkedData("", "");
         d.copyFrom(p1);
         if (d.getFullType() == null) {
-            EcRepository.find(originalUrl, JSON.stringify(p1), new Object(), 0, success, failure);
-            return;
+            return EcRepository.find(originalUrl, JSON.stringify(p1), new Object(), 0, success, failure);
         }
         if (EcRepository.caching) {
             (EcRepository.cache)[finalUrl] = d;
             if (d.id != null) 
                 (EcRepository.cache)[d.id] = d;
         }
-        success(d);
+        return cassReturnAsPromise(d,success,failure);
     };
     static shouldTryUrl = function(url) {
         if (url == null) 
@@ -180,18 +172,17 @@ module.exports = class EcRepository {
         }
         var repo = EcRepository.repos[i];
         if (repo.selectedServer == null) {
-            EcRepository.find(url, error, history, i + 1, success, failure);
-            return;
+            return EcRepository.find(url, error, history, i + 1, success, failure);
         }
         if (((history)[repo.selectedServer]) == true) {
-            EcRepository.find(url, error, history, i + 1, success, failure);
-            return;
+            return EcRepository.find(url, error, history, i + 1, success, failure);
         }
         (history)[repo.selectedServer] = true;
-        repo.search("@id:\"" + url + "\"", null, function(strings) {
+        let p = repo.search("@id:\"" + url + "\"", null);
+        p = p.then(function(strings) {
             if (strings == null || strings.length == 0) 
                 EcRepository.find(url, error, history, i + 1, success, failure);
-             else {
+            else {
                 var done = false;
                 for (var i = 0; i < strings.length; i++) {
                     if (strings[i].id == url || strings[i].shortId() == url) {
@@ -202,112 +193,17 @@ module.exports = class EcRepository {
                         if (EcRepository.caching) {
                             (EcRepository.cache)[url] = strings[i];
                         }
-                        success(strings[i]);
+                        return strings[i];
                     }
                 }
-                if (done) 
-                    return;
-                EcRepository.find(url, error, history, i + 1, success, failure);
+                if (done)
+                    return null;
+                return EcRepository.find(url, error, history, i + 1, success, failure);
             }
-        }, function(s) {
-            EcRepository.find(url, s, history, i + 1, success, failure);
+        }).catch(function(s) {
+            return EcRepository.find(url, s, history, i + 1, success, failure);
         });
-    };
-    static findBlocking = function(url, error, history, i) {
-        if (i > EcRepository.repos.length || EcRepository.repos[i] == null) {
-            delete (EcRepository.fetching)[url];
-            return null;
-        }
-        var repo = EcRepository.repos[i];
-        if (repo.selectedServer == null) {
-            return EcRepository.findBlocking(url, error, history, i + 1);
-        }
-        if (((history)[repo.selectedServer]) == true) 
-            EcRepository.findBlocking(url, error, history, i + 1);
-        (history)[repo.selectedServer] = true;
-        var strings = repo.searchBlocking("@id:\"" + url + "\"");
-        if (strings == null || strings.length == 0) 
-            return EcRepository.findBlocking(url, error, history, i + 1);
-         else {
-            for (var j = 0; j < strings.length; j++) {
-                if (strings[j].id == url || strings[j].shortId() == url) {
-                    delete (EcRepository.fetching)[url];
-                    if (EcRepository.caching) {
-                        (EcRepository.cache)[url] = strings[j];
-                    }
-                    return strings[j];
-                }
-            }
-        }
-        return EcRepository.findBlocking(url, error, history, i + 1);
-    };
-    /**
-     *  Retrieves a piece of data synchronously from the server, blocking until
-     *  it is returned
-     * 
-     *  @param {String} url URL ID of the data to be retrieved
-     *  @return {EcRemoteLinkedData} Data retrieved, corresponding to the ID
-     *  @memberOf EcRepository
-     *  @method getBlocking
-     *  @static
-     */
-    static getBlocking = function(url) {
-        if (url.toLowerCase().indexOf("http") != 0) {
-            return null;
-        }
-        var originalUrl = url;
-        if (originalUrl == null) 
-            return null;
-        if (EcRepository.caching) {
-            if ((EcRepository.cache)[originalUrl] != null) {
-                return (EcRepository.cache)[originalUrl];
-            }
-        }
-        if (!EcRepository.shouldTryUrl(originalUrl)) {
-            if (EcRepository.repos.length == 1) {
-                if (!url.startsWith(EcRepository.repos[0].selectedServer)) {
-                    url = EcRemoteLinkedData.veryShortId(EcRepository.repos[0].selectedServer, EcCrypto.md5(url));
-                }
-            } else {
-                return EcRepository.findBlocking(originalUrl, "Could not locate object. May be due to EcRepository.alwaysTryUrl flag.", new Object(), 0);
-            }
-        }
-        var fd = new FormData();
-        var p1 = null;
-        if (EcRepository.unsigned == false) {
-            var offset = EcRepository.setOffset(url);
-            p1 = EcIdentityManager.signatureSheet(60000 + offset, originalUrl);
-            fd.append("signatureSheet", p1);
-        }
-        var oldAsync = EcRemote.async;
-        EcRemote.async = false;
-        var finalUrl = url;
-        EcRemote.postExpectingObject(finalUrl, null, fd, function(p1) {
-            var d = new EcRemoteLinkedData("", "");
-            d.copyFrom(p1);
-            if (d.getFullType() == null) {
-                EcRepository.findBlocking(originalUrl, JSON.stringify(p1), new Object(), 0);
-                return;
-            }
-            (EcRepository.cache)[originalUrl] = d;
-            if (d != null) {
-                if (d.id != null) 
-                    (EcRepository.cache)[d.id] = d;
-            }
-        }, function(s) {
-            var d = EcRepository.findBlocking(originalUrl, s, new Object(), 0);
-            (EcRepository.cache)[originalUrl] = d;
-            if (d != null) {
-                if (d.id != null) 
-                    (EcRepository.cache)[d.id] = d;
-            }
-        });
-        EcRemote.async = oldAsync;
-        var result = (EcRepository.cache)[originalUrl];
-        if (!EcRepository.caching) {
-            delete (EcRepository.cache)[originalUrl];
-        }
-        return result;
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Escapes a search query
@@ -359,7 +255,7 @@ module.exports = class EcRepository {
      *  @static
      */
     static save = function(data, success, failure) {
-        EcRepository._save(data, success, failure, null);
+        return EcRepository._save(data, success, failure, null);
     };
     /**
      *  Attempts to save a piece of data. If the @id of the data is not of this server, will register the data to the server.
@@ -376,7 +272,7 @@ module.exports = class EcRepository {
      *  @static
      */
     saveTo = function(data, success, failure) {
-        EcRepository._save(data, success, failure, this);
+        return EcRepository._save(data, success, failure, this);
     };
     /**
      *  Attempts to save a piece of data. Does some checks before saving to
@@ -396,12 +292,7 @@ module.exports = class EcRepository {
     static _save = function(data, success, failure, repo) {
         if (data.invalid()) {
             var msg = "Cannot save data. It is missing a vital component.";
-            if (failure != null) {
-                failure(msg);
-            } else {
-                console.error(msg);
-            }
-            return;
+            throw msg;
         }
         if (data.reader != null && data.reader.length == 0) {
             delete (data)["reader"];
@@ -412,10 +303,10 @@ module.exports = class EcRepository {
         if (EcEncryptedValue.encryptOnSave(data.id, null) && !data.isAny(new EcEncryptedValue().getTypes())) {
             var encrypted = EcEncryptedValue.toEncryptedValue(data, false);
             EcIdentityManager.sign(encrypted);
-            EcRepository._saveWithoutSigning(encrypted, success, failure, repo);
+            return EcRepository._saveWithoutSigning(encrypted, success, failure, repo);
         } else {
             EcIdentityManager.sign(data);
-            EcRepository._saveWithoutSigning(data, success, failure, repo);
+            return EcRepository._saveWithoutSigning(data, success, failure, repo);
         }
     };
     /**
@@ -442,9 +333,9 @@ module.exports = class EcRepository {
                 if (failure != null) {
                     failure(msg);
                 } else {
-                    console.error(msg);
+                    throw msg;
                 }
-                return;
+                return null;
             }
             if (d.reader != null && d.reader.length == 0) {
                 delete (d)["reader"];

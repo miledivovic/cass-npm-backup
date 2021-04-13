@@ -33,7 +33,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
             eev.copyFrom(d);
             EcEncryptedValue.encryptOnSave(d.id, true);
             EcEncryptedValue.encryptOnSave(d.shortId(), true);
-            return eev.decryptIntoObjectAsync(success, failure);
+            return eev.decryptIntoObject(success, failure);
         }
     };
     /**
@@ -178,7 +178,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
         var v = new EcEncryptedValue();
         var newIv = EcAes.newIv(16);
         var newSecret = EcAes.newIv(16);
-        return this.encryptValueActual(v,text,newIv,newSecret,id,owners,readers,null,null);
+        return this.encryptValueActual(v,text,newIv,newSecret,id,owners,readers,success,failure);
     };
 
     static encryptValueActual(v,text,iv,secret,id,owners,readers,success,failure)
@@ -388,21 +388,23 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
      *  @method removeReader
      */
     removeReader(oldReader) {
-        var payloadSecret = this.decryptSecret();
-        var pem = oldReader.toPem();
-        if (this.reader != null) {
-            EcArray.setRemove(this.reader, pem);
-        }
-        if (payloadSecret == null) {
-            console.error("Cannot remove a Reader if you don't know the secret");
-            return;
-        }
-        this.secret = new Array();
-        if (this.owner != null) 
-            for (var i = 0; i < this.owner.length; i++) 
-                EcArray.setAdd(this.secret, EcRsaOaep.encrypt(EcPk.fromPem(this.owner[i]), payloadSecret.toEncryptableJson()));
-        if (this.reader != null) 
-            for (var i = 0; i < this.reader.length; i++) 
-                EcArray.setAdd(this.secret, EcRsaOaep.encrypt(EcPk.fromPem(this.reader[i]), payloadSecret.toEncryptableJson()));
+        return this.decryptSecret().then(decryptedSecret => {
+            if (this.reader != null) {
+                EcArray.setRemove(this.reader, oldReader.toPem());
+            }
+            this.secret = [];
+            let insertSecret = (pk, newIv, newSecret) => {
+                var eSecret = new EbacEncryptedSecret();
+                eSecret.iv = newIv;
+                eSecret.secret = newSecret;
+                return EcRsaOaepAsync.encrypt(EcPk.fromPem(pk), eSecret.toEncryptableJson());
+            }
+            if (owners != null) 
+                promises = promises.concat(d.owner.map(pk => insertSecret(pk, iv, decryptedSecret)));
+            if (readers != null)
+                promises = promises.concat(d.reader.map(pk => insertSecret(pk, iv, decryptedSecret)));
+            let p = Promise.all(promises).then((secrets) => {this.secret = secrets;});
+            return p;
+        });
     };
 };

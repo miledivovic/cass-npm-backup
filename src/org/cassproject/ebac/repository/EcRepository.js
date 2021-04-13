@@ -301,98 +301,12 @@ module.exports = class EcRepository {
             delete (data)["owner"];
         }
         if (EcEncryptedValue.encryptOnSave(data.id, null) && !data.isAny(new EcEncryptedValue().getTypes())) {
-            var encrypted = EcEncryptedValue.toEncryptedValue(data, false);
-            EcIdentityManager.sign(encrypted);
-            return EcRepository._saveWithoutSigning(encrypted, success, failure, repo);
+            return EcEncryptedValue.toEncryptedValue(data, false).then(encryptedValue => {
+                return EcIdentityManager.sign(encryptedValue)}).then(signedEncryptedValue => {
+                    return EcRepository._saveWithoutSigning(signedEncryptedValue,success,failure,repo)});
         } else {
-            EcIdentityManager.sign(data);
-            return EcRepository._saveWithoutSigning(data, success, failure, repo);
-        }
-    };
-    /**
-     *  Attempts to save many pieces of data. Does some checks before saving to
-     *  ensure the data is valid. This version does not send a console warning,
-     *  <p>
-     *  Uses a signature sheet informed by the owner field of the data.
-     * 
-     *  @param {Array<EcRemoteLinkedData>} data Data to save to the location designated
-     *                                     by its id.
-     *  @param {Callback1<String>}         success Callback triggered on successful save
-     *  @param {Callback1<String>}         failure Callback triggered if error during
-     *                                     save
-     *  @memberOf EcRepository
-     *  @method multiput
-     *  @static
-     */
-    multiput = function(data, success, failure) {
-        var me = this;
-        for (var i = 0; i < data.length; i++) {
-            var d = data[i];
-            if (d.invalid()) {
-                var msg = "Cannot save data. It is missing a vital component.";
-                if (failure != null) {
-                    failure(msg);
-                } else {
-                    throw msg;
-                }
-                return null;
-            }
-            if (d.reader != null && d.reader.length == 0) {
-                delete (d)["reader"];
-            }
-            if (d.owner != null && d.owner.length == 0) {
-                delete (d)["owner"];
-            }
-        }
-        var allOwners = new Array();
-        var serialized = new Array();
-        for (var i = 0; i < data.length; i++) {
-            var d = data[i];
-            if (EcEncryptedValue.encryptOnSave(d.id, null) && !d.isAny(new EcEncryptedValue().getTypes())) {
-                var encrypted = EcEncryptedValue.toEncryptedValue(d, false);
-                EcIdentityManager.sign(encrypted);
-                data[i] = encrypted;
-                d = encrypted;
-            } else {
-                EcIdentityManager.sign(d);
-            }
-            if (EcRepository.caching) {
-                delete (EcRepository.cache)[d.id];
-                delete (EcRepository.cache)[d.shortId()];
-            }
-            if (d.invalid()) {
-                failure("Data is malformed.");
-                return;
-            }
-            if (EcRepository.alwaysTryUrl || this.shouldTryUrl(d.id) || d.id.indexOf(this.selectedServer) != -1) 
-                d.updateTimestamp();
-            if (d.owner != null) 
-                for (var j = 0; j < d.owner.length; j++) 
-                    EcArray.setAdd(allOwners, d.owner[j]);
-            serialized.push(JSON.parse(d.toJson()));
-        }
-        var fd = new FormData();
-        fd.append("data", JSON.stringify(serialized));
-        var afterSignatureSheet = function(signatureSheet) {
-            fd.append("signatureSheet", signatureSheet);
-            var server = me.selectedServer;
-            if (me.cassDockerEndpoint != null) {
-                server = me.cassDockerEndpoint;
-            }
-            EcRemote.postExpectingString(server, "sky/repo/multiPut", fd, success, failure);
-        };
-        if (EcRemote.async == false) {
-            var signatureSheet;
-            if (allOwners != null && allOwners.length > 0) {
-                signatureSheet = EcIdentityManager.signatureSheetFor(allOwners, 60000 + this.timeOffset, this.selectedServer);
-            } else {
-                signatureSheet = EcIdentityManager.signatureSheet(60000 + this.timeOffset, this.selectedServer);
-            }
-            afterSignatureSheet(signatureSheet);
-        } else if (allOwners != null && allOwners.length > 0) {
-            EcIdentityManager.signatureSheetForAsync(allOwners, 60000 + this.timeOffset, this.selectedServer, afterSignatureSheet, failure);
-        } else {
-            EcIdentityManager.signatureSheetAsync(60000 + this.timeOffset, this.selectedServer, afterSignatureSheet, failure);
+            return EcIdentityManager.sign(data).then(signedData => {
+                return EcRepository._saveWithoutSigning(signedData,success,failure,repo)});
         }
     };
     /**
@@ -417,49 +331,46 @@ module.exports = class EcRepository {
                 delete (EcRepository.cache)[EcRemoteLinkedData.veryShortId(repo.selectedServer, data.getGuid())];
         }
         if (data.invalid()) {
-            failure("Data is malformed.");
-            return;
+            if (failure != null)
+                failure("Data is malformed.");
+            else
+                throw "Data is malformed.";            
         }
-        console.log(repo)
+        //Update timestamp if it is an object that originated on a CaSS instance.
         if (EcRepository.alwaysTryUrl || repo == null || EcRepository.shouldTryUrl(data.id) || (repo != null && data.id.indexOf(repo.selectedServer) != -1)) 
             data.updateTimestamp();
-        var fd = new FormData();
-        fd.append("data", data.toJson());
-        var afterSignatureSheet = function(signatureSheet) {
-            fd.append("signatureSheet", signatureSheet);
-            if (!EcRepository.alwaysTryUrl) {
-                if (repo != null) {
-                    if (data.id.indexOf(repo.selectedServer) != -1) {
-                        EcRemote.postExpectingString(data.id, "", fd, success, failure);
-                        return;
-                    }
-                    if (!EcRepository.shouldTryUrl(data.id) || data.id.indexOf(repo.selectedServer) == -1) {
-                        EcRemote.postExpectingString(EcRemote.urlAppend(repo.selectedServer, "data/" + data.getDottedType() + "/" + EcCrypto.md5(data.shortId())), "", fd, success, failure);
-                        return;
-                    }
-                }
-            }
-            EcRemote.postExpectingString(data.id, "", fd, success, failure);
-        };
+
+        let p = null;
+
         var offset = 0;
         if (repo == null) {
             offset = EcRepository.setOffset(data.id);
         } else {
             offset = repo.timeOffset;
         }
-        if (EcRemote.async == false) {
-            var signatureSheet;
-            if (data.owner != null && data.owner.length > 0) {
-                signatureSheet = EcIdentityManager.signatureSheetFor(data.owner, 60000 + offset, data.id);
-            } else {
-                signatureSheet = EcIdentityManager.signatureSheet(60000 + offset, data.id);
-            }
-            afterSignatureSheet(signatureSheet);
-        } else if (data.owner != null && data.owner.length > 0) {
-            EcIdentityManager.signatureSheetForAsync(data.owner, 60000 + offset, data.id, afterSignatureSheet, failure);
+        if (data.owner != null && data.owner.length > 0) {
+            p = EcIdentityManager.signatureSheetForAsync(data.owner, 60000 + offset, data.id);
         } else {
-            EcIdentityManager.signatureSheetAsync(60000 + offset, data.id, afterSignatureSheet, failure);
+            p = EcIdentityManager.signatureSheetAsync(60000 + offset, data.id);
         }
+        p = p.then(signatureSheet => {
+            var fd = new FormData();
+            fd.append("data", data.toJson());
+            fd.append("signatureSheet", signatureSheet);
+
+            if (!EcRepository.alwaysTryUrl) {
+                if (repo != null) {
+                    if (data.id.indexOf(repo.selectedServer) != -1) {
+                        return EcRemote.postExpectingString(data.id, "", fd, success, failure);
+                    }
+                    if (!EcRepository.shouldTryUrl(data.id) || data.id.indexOf(repo.selectedServer) == -1) {
+                        return EcRemote.postExpectingString(EcRemote.urlAppend(repo.selectedServer, "data/" + data.getDottedType() + "/" + EcCrypto.md5(data.shortId())), "", fd, success, failure);
+                    }
+                }
+            }
+            return EcRemote.postExpectingString(data.id, "", fd, success, failure);
+        });
+        return p;
     };
     /**
      *  Attempts to delete a piece of data.
@@ -503,36 +414,11 @@ module.exports = class EcRepository {
         targetUrl = data.shortId();
         var offset = EcRepository.setOffset(data.id);
         if (data.owner != null && data.owner.length > 0) {
-            if (EcRemote.async) {
-                EcIdentityManager.signatureSheetForAsync(data.owner, 60000 + offset, data.id, function(signatureSheet) {
-                    if (signatureSheet.length == 2) {
-                        for (var i = 0; i < EcRepository.repos.length; i++) {
-                            if (data.id.indexOf(EcRepository.repos[i].selectedServer) != -1) {
-                                EcRepository.repos[i].deleteRegistered(data, success, failure);
-                                return;
-                            }
-                        }
-                        if (failure != null) 
-                            failure("Cannot delete object without a signature. If deleting from a server, use the non-static deleteRegistered");
-                    } else 
-                        EcRemote._delete(targetUrl, signatureSheet, success, failure);
-                }, failure);
-            } else {
-                var signatureSheet = EcIdentityManager.signatureSheetFor(data.owner, 60000 + offset, data.id);
-                if (signatureSheet.length == 2) {
-                    for (var i = 0; i < EcRepository.repos.length; i++) {
-                        if (data.id.indexOf(EcRepository.repos[i].selectedServer) != -1) {
-                            EcRepository.repos[i].deleteRegistered(data, success, failure);
-                            return;
-                        }
-                    }
-                    if (failure != null) 
-                        failure("Cannot delete object without a signature. If deleting from a server, use the non-static deleteRegistered");
-                } else 
-                    EcRemote._delete(targetUrl, signatureSheet, success, failure);
-            }
+            EcIdentityManager.signatureSheetForAsync(data.owner, 60000 + offset, data.id).then((signatureSheet) => {
+                return EcRemote._delete(targetUrl, signatureSheet, success, failure);
+            });            
         } else {
-            EcRemote._delete(targetUrl, "[]", success, failure);
+            return EcRemote._delete(targetUrl, [], success, failure);
         }
     };
     /**
@@ -555,34 +441,86 @@ module.exports = class EcRepository {
             delete (EcRepository.cache)[data.id];
             delete (EcRepository.cache)[data.shortId()];
             delete (EcRepository.cache)[EcRemoteLinkedData.veryShortId(this.selectedServer, data.getGuid())];
+            delete (EcRepository.cache)[EcRemoteLinkedData.veryShortId(this.selectedServer, EcCrypto.md5(data.shortId()))];
         }
         var targetUrl;
         if (EcRepository.shouldTryUrl(data.id) || data.id.indexOf(this.selectedServer) != -1) 
             targetUrl = EcRemote.urlAppend(this.selectedServer, "data/" + data.getDottedType() + "/" + data.getGuid());
          else 
             targetUrl = EcRemote.urlAppend(this.selectedServer, "data/" + data.getDottedType() + "/" + EcCrypto.md5(data.shortId()));
-        var me = this;
+        var offset = EcRepository.setOffset(data.id);
         if (data.owner != null && data.owner.length > 0) {
-            if (EcRemote.async) {
-                EcIdentityManager.signatureSheetForAsync(data.owner, 60000 + this.timeOffset, data.id, function(signatureSheet) {
-                    if (signatureSheet.length == 2 && me.adminKeys != null) {
-                        EcIdentityManager.signatureSheetForAsync(me.adminKeys, 60000 + me.timeOffset, data.id, function(signatureSheet) {
-                            EcRemote._delete(targetUrl, signatureSheet, success, failure);
-                        }, failure);
-                    } else 
-                        EcRemote._delete(targetUrl, signatureSheet, success, failure);
-                }, failure);
-            } else {
-                var signatureSheet = EcIdentityManager.signatureSheetFor(data.owner, 60000 + me.timeOffset, data.id);
-                if (signatureSheet.length == 2 && me.adminKeys != null) {
-                    signatureSheet = EcIdentityManager.signatureSheetFor(me.adminKeys, 60000 + me.timeOffset, data.id);
-                    EcRemote._delete(targetUrl, signatureSheet, success, failure);
-                } else 
-                    EcRemote._delete(targetUrl, signatureSheet, success, failure);
-            }
+            EcIdentityManager.signatureSheetForAsync(data.owner, 60000 + offset, data.id).then((signatureSheet) => {
+                return EcRemote._delete(targetUrl, signatureSheet, success, failure);
+            });            
         } else {
-            EcRemote._delete(targetUrl, "[]", success, failure);
+            return EcRemote._delete(targetUrl, [], success, failure);
         }
+    };
+    /**
+     *  Attempts to save many pieces of data. Does some checks before saving to
+     *  ensure the data is valid. This version does not send a console warning,
+     *  <p>
+     *  Uses a signature sheet informed by the owner field of the data.
+     * 
+     *  @param {Array<EcRemoteLinkedData>} data Data to save to the location designated
+     *                                     by its id.
+     *  @param {Callback1<String>}         success Callback triggered on successful save
+     *  @param {Callback1<String>}         failure Callback triggered if error during
+     *                                     save
+     *  @memberOf EcRepository
+     *  @method multiput
+     *  @static
+     */
+    multiput = function(data, success, failure) {        
+        var allOwners = new Array();
+        for (d of data)
+        {
+            if (d.invalid())
+                throw "Cannot save data. It is missing a vital component.";                
+            if (d.reader != null && d.reader.length == 0) {
+                delete (d)["reader"];
+            }
+            if (d.owner != null && d.owner.length == 0) {
+                delete (d)["owner"];
+            }
+            if (EcRepository.alwaysTryUrl || this.shouldTryUrl(d.id) || d.id.indexOf(this.selectedServer) != -1) 
+                d.updateTimestamp();
+            if (EcRepository.caching) {
+                delete (EcRepository.cache)[d.id];
+                delete (EcRepository.cache)[d.shortId()];
+            }
+            if (d.owner != null) 
+                for (var j = 0; j < d.owner.length; j++) 
+                    EcArray.setAdd(allOwners, d.owner[j]);
+        }
+        let encryptionAndSigningPromises = data.map(d => {
+            return cassReturnAsPromise(d).then(unencryptedUnsignedData => {
+                if (EcEncryptedValue.encryptOnSave(unencryptedUnsignedData.id, null) && !unencryptedUnsignedData.isAny(new EcEncryptedValue().getTypes())) 
+                    return EcEncryptedValue.toEncryptedValue(unencryptedUnsignedData, false);
+                return unencryptedUnsignedData;
+            }).then(unsignedData => {
+                return EcIdentityManager.sign(unsignedData);
+            }).then(unserializedData => JSON.parse(unserializedData.toJson()));
+        });
+        let preparedData = [];
+        return Promise.all(encryptionAndSigningPromises).then(readyToSendData => {
+            preparedData = readyToSendData;
+            if (allOwners != null && allOwners.length > 0) {
+                return EcIdentityManager.signatureSheetForAsync(allOwners, 60000 + this.timeOffset, this.selectedServer);
+            } else {
+                return EcIdentityManager.signatureSheetAsync(60000 + this.timeOffset, this.selectedServer);
+            }
+        }).then(signatureSheet => {
+            var fd = new FormData();
+            fd.append("data", JSON.stringify(preparedData));
+            fd.append("signatureSheet", signatureSheet);
+            var server = me.selectedServer;
+            if (me.cassDockerEndpoint != null) {
+                server = me.cassDockerEndpoint;
+            }
+            EcRemote.postExpectingString(server, "sky/repo/multiPut", fd, success, failure);
+        });
     };
     /**
      *  Retrieves data from the server and caches it for use later during the
@@ -822,7 +760,7 @@ module.exports = class EcRepository {
                 }
             });
         } else 
-            EcIdentityManager.signatureSheetAsync(60000 + this.timeOffset, this.selectedServer, function(signatureSheet) {
+            EcIdentityManager.signatureSheet(60000 + this.timeOffset, this.selectedServer, function(signatureSheet) {
                 fd.append("signatureSheet", signatureSheet);
                 EcRemote.postExpectingObject(me.selectedServer, "sky/repo/search", fd, function(p1) {
                     if (EcRepository.cachingSearch) {

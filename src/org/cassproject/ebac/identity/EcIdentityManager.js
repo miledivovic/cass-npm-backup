@@ -379,73 +379,21 @@ module.exports = class EcIdentityManager{
      *  @method signatureSheet
      *  @static
      */
-    static signatureSheet(duration, server) {
+    static signatureSheet(duration, server, success, failure) {
         var cache = null;
         if (EcIdentityManager.signatureSheetCaching) {
             cache = (EcIdentityManager.signatureSheetCache)[server];
             if (cache != null) {
                 if (cache[0] > new Date().getTime() + duration) {
-                    return cache[1];
-                }
-            }
-            duration += 20000;
-        }
-        var signatures = new Array();
-        for (var j = 0; j < EcIdentityManager.ids.length; j++) {
-            var ppk = EcIdentityManager.ids[j].ppk;
-            signatures.push(EcIdentityManager.createSignature(duration, server, ppk).atIfy());
-        }
-        var stringified = JSON.stringify(signatures);
-        if (EcIdentityManager.signatureSheetCaching) {
-            cache = new Array();
-            cache[0] = new Date().getTime() + duration;
-            cache[1] = stringified;
-            (EcIdentityManager.signatureSheetCache)[server] = cache;
-        }
-        return stringified;
-    };
-    /**
-     *  Asynchronous version of creating a signature sheet for all identities
-     * 
-     *  @param {long}             duration Length of time in milliseconds to authorize
-     *                            control.
-     *  @param {String}           server Server that we are authorizing.
-     *  @param {Callback<String>} success Callback triggered once the signature
-     *                            sheet has been created, returns the signature sheet
-     *  @memberOf EcIdentityManager
-     *  @method signatureSheetAsync
-     *  @static
-     */
-    static signatureSheetAsync(duration, server, success, failure) {
-        if (!EcIdentityManager.async) {
-            var sheet = EcIdentityManager.signatureSheet(duration, server);
-            if (success != null) 
-                success(sheet);
-            return;
-        }
-        var signatures = new Array();
-        var cache = null;
-        if (EcIdentityManager.signatureSheetCaching) {
-            cache = (EcIdentityManager.signatureSheetCache)[server];
-            if (cache != null) {
-                if (cache[0] > new Date().getTime() + duration) {
-                    success(cache[1]);
-                    return;
+                    return cassReturnAsPromise(cache[1],success,failure);
                 }
             }
             duration += 20000;
         }
         var finalDuration = duration;
-        new EcAsyncHelper().each(EcIdentityManager.ids, function(p1, incrementalSuccess) {
-            var ppk = p1.ppk;
-            EcIdentityManager.createSignatureAsync(finalDuration, server, ppk, function(p1) {
-                signatures.push(p1.atIfy());
-                incrementalSuccess();
-            }, function(s) {
-                failure(s);
-                incrementalSuccess();
-            });
-        }, function(pks) {
+        let promises = EcIdentityManager.ids.map(ident => EcIdentityManager.createSignature(finalDuration,server,ident.ppk));
+        let p = Promise.all(promises);
+        p = p.then(signatures => {  
             var cache = null;
             var stringified = JSON.stringify(signatures);
             if (EcIdentityManager.signatureSheetCaching) {
@@ -454,8 +402,9 @@ module.exports = class EcIdentityManager{
                 cache[1] = stringified;
                 (EcIdentityManager.signatureSheetCache)[server] = cache;
             }
-            success(stringified);
+            return stringified;
         });
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Create a signature for a specific identity, authorizing movement of data
@@ -475,31 +424,10 @@ module.exports = class EcIdentityManager{
         s.expiry = new Date().getTime() + duration;
         s.server = server;
         (s)["@owner"] = ppk.toPk().toPem();
-        (s)["@signature"] = EcRsaOaep.sign(ppk, s.toJson());
-        return s;
-    };
-    /**
-     *  Asynchronously create a signature for a specific identity
-     * 
-     *  @param {long}   duration Length of time in milliseconds to authorize
-     *                  control.
-     *  @param {String} server Server that we are authorizing.
-     *  @param {EcPpk}  ppk Key of the identity to create a signature for
-     *  @param success  Callback triggered once the signature sheet has been
-     *                  created, returns the signature
-     *  @memberOf EcIdentityManager
-     *  @method createSignatureAsync
-     *  @static
-     */
-    static createSignatureAsync(duration, server, ppk, success, failure) {
-        var s = new EbacSignature();
-        (s)["@owner"] = ppk.toPk().toPem();
-        s.expiry = new Date().getTime() + duration;
-        s.server = server;
-        EcRsaOaepAsync.sign(ppk, s.toJson(), function(p1) {
-            (s)["@signature"] = p1;
-            success(s);
-        }, failure);
+        return EcRsaOaepAsync.sign(ppk, s.toJson()).then(signature => {
+            (s)["@signature"] = signature;
+            return s;
+        });        
     };
     /**
      *  Get PPK from PK (if we have it)
@@ -562,40 +490,21 @@ module.exports = class EcIdentityManager{
      *  @static
      */
     static sign(d) {
-        if (d.signature != null) {
-            for (var i = 0; i < d.signature.length; ) {
-                var works = false;
-                var signature = d.signature[i];
-                if (d.owner != null) {
-                    for (var j = 0; j < d.owner.length; j++) {
-                        var owner = d.owner[j];
-                        var pk = EcPk.fromPem(owner);
-                        try {
-                            if (EcRsaOaep.verify(pk, d.toSignableJson(), signature)) {
-                                works = true;
-                                break;
-                            }
-                        }catch (ex) {}
-                    }
-                }
-                if (!works) {
-                    d.signature.splice(i, 1);
-                } else {
-                    i++;
-                }
-            }
-        }
+        let promises = [];
         if (d.owner != null) {
             for (var i = 0; i < d.owner.length; i++) {
                 var attempt = EcIdentityManager.getPpk(EcPk.fromPem(d.owner[i]));
                 if (attempt != null) {
-                    d.signWith(attempt);
+                    promises.push(d.signWith(attempt));
                 }
             }
         }
-        if (d.signature != null && d.signature.length == 0) {
-            delete (d)["signature"];
-        }
+        return Promise.all(promises).then((signatures)=>{
+            d.signature = signatures;
+            if (d.signature != null && d.signature.length == 0) {
+                delete (d)["signature"];
+            }
+        });
     };
     static myIdentitiesSearchString() {
         var searchString = "";

@@ -44,7 +44,7 @@ module.exports = class EcRemote{
      *  @static
      */
     static postExpectingObject(server, service, fd, success, failure) {
-        return EcRemote.postInner(server, service, fd, null, EcRemote.getSuccessJSONCallback(success, failure), failure);
+        return EcRemote.postInner(server, service, fd, null, success, failure);
     };
     /**
      *  POSTs a request to a remote endpoint. Composed of a server endpoint (root
@@ -92,10 +92,12 @@ module.exports = class EcRemote{
             url += service;
         }
         url = EcRemote.upgradeHttpToHttps(url);
-        headers = JSON.parse(JSON.stringify(headers));
+        let postHeaders = fd.getHeaders();
+        for (let header in headers)
+            postHeaders[header] = headers[header];
         let p = axios.post(url,fd,{
-            headers: headers
-        });
+            headers: postHeaders
+        }).then((response=>{return response.data})).catch(err => {throw err.response.data});
         return cassPromisify(p,successCallback,failureCallback);
     };
     /**
@@ -132,7 +134,7 @@ module.exports = class EcRemote{
         url = EcRemote.upgradeHttpToHttps(url);
         let p = axios.get(url,{
             headers: headers
-        });
+        }).then((response=>{return response.data})).catch(err => {throw err.response.data});
         return cassPromisify(p,success,failure);
     };
     static urlAppend(server, service) {
@@ -162,7 +164,7 @@ module.exports = class EcRemote{
         url = EcRemote.upgradeHttpToHttps(url);
         let p = axios.delete(url,{
             headers: {signatureSheet:signatureSheet}
-        });
+        }).then((response=>{return response.data})).catch(err => {throw err.response.data});
         return cassPromisify(p,success,failure);
     };
     static upgradeHttpToHttps(url) {
@@ -179,23 +181,5 @@ module.exports = class EcRemote{
             }
         }
         return url;
-    };
-    static getSuccessJSONCallback(success, failure) {
-        return function(s) {
-            var o;
-            try {
-                o = JSON.parse(s);
-            }catch (ex) {
-                if (failure != null)
-                {
-                    if (ex == null)
-                        failure("An unspecified error occurred during a network request.");
-                    else 
-                        failure(ex);
-                }
-                return;
-            }
-            success(o);
-        };
     };
 }

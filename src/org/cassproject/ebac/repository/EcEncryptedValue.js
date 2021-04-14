@@ -195,10 +195,11 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
                 eSecret.secret = newSecret;
                 return EcRsaOaepAsync.encrypt(EcPk.fromPem(pk), eSecret.toEncryptableJson());
             }
+            console.log(JSON.stringify(owners,null,2));
             if (owners != null) 
-                promises = promises.concat(d.owner.map(pk => insertSecret(pk, iv, secret)));
+                promises = promises.concat(owners.map(pk => insertSecret(pk, iv, secret)));
             if (readers != null)
-                promises = promises.concat(d.reader.map(pk => insertSecret(pk, iv, secret)));
+                promises = promises.concat(readers.map(pk => insertSecret(pk, iv, secret)));
             let p = Promise.all(promises).then((secrets) => {v.secret = secrets; return v;});
             return p;
         }),success,failure);
@@ -284,7 +285,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
      *  @method decryptIntoStringAsync
      */
     decryptIntoString(success, failure) {
-        return cassPromisify(decryptSecret().then((decryptSecret)=>{
+        return cassPromisify(this.decryptSecret().then((decryptSecret)=>{
             if (decryptSecret != null) {
                 if (me.context == Ebac.context_0_2 || me.context == Ebac.context_0_3) {
                     if (base64.decode(decryptSecret.iv).byteLength == 32) 

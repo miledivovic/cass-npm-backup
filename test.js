@@ -105,7 +105,6 @@ var failure = function(val){
 
 var repo = new EcRepository();
 repo.selectedServer = "https://dev.cassproject.org/api/";
-repo.search("@type:Framework", console.log, console.error);
 EcCrypto.testMode = true;
 
 class EcRandomTest {
@@ -546,9 +545,8 @@ class EcRepositoryTest {
         thing.id += thing.type.replace("http://", "").replace("https://", "").replaceAll("/", ".");
         thing.id += "/";
         thing.id += "test-public-object";
-        thing.id += "/";
         (thing)["name"] = "Test Public Object";
-        console.log("Saving Public Object...");
+        console.log("-----Saving Public Object...-----");
         await EcRepository.save(thing, function(p1) {
             console.log("Saved.");
         }, function(p1) {
@@ -556,8 +554,8 @@ class EcRepositoryTest {
             console.log(p1);
             Assert.fail("Failed to save object.");
         });
-        console.log("Retrieving Public Object...");
-        EcRepository.get(thing.shortId(), function(p1) {
+        console.log("-----Retrieving Public Object...-----");
+        thing = await EcRepository.get(thing.shortId(), function(p1) {
             var retrieved = p1;
             if (retrieved.owner != null) 
                 Assert.assertEquals("File is not Public, has an owner", retrieved.owner.length, 0);
@@ -569,20 +567,20 @@ class EcRepositoryTest {
             console.log(p1);
             Assert.fail("Failed to retrieve public object after save.");
         });
+        console.log("thing: " + thing);
         var thing2 = new EcRemoteLinkedData(General.context, General.context + "/test");
         thing2.copyFrom(thing);
-        ;
         (thing)["name"] = "Changed Public Object Name";
-        console.log("Updating Public Object...");
-        EcRepository.save(thing2, function(p1) {
+        console.log("-----Updating Public Object...-----");
+        await EcRepository.save(thing2, function(p1) {
             console.log("Updated.");
         }, function(p1) {
             console.log("Failed to update.");
             console.log(p1);
             Assert.fail("Failed to update object.");
         });
-        console.log("Retrieving After update...");
-        EcRepository.get(thing2.shortId(), function(p1) {
+        console.log("-----Retrieving After update...-----");
+        await EcRepository.get(thing2.shortId(), function(p1) {
             var retrieved = p1;
             if (retrieved.owner != null) 
                 Assert.assertEquals("File is not Public, has an owner", retrieved.owner.length, 0);
@@ -594,15 +592,15 @@ class EcRepositoryTest {
             console.log(p1);
             Assert.fail("Failed to retrieve public object after update.");
         });
-        console.log("Trying to Delete...");
-        EcRepository._delete(thing, function(p1) {
+        console.log("-----Trying to Delete...-----");
+        await EcRepository._delete(thing, function(p1) {
             console.log("Good, Can Delete Public Object.");
             console.log(p1);
         }, function(p1) {
             Assert.fail("Could not delete public object. This is now allowed (10/26/2016).");
         });
     };
-    createPublicRegisteredObjectTest = function() {
+    createPublicRegisteredObjectTest = async function() {
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
@@ -616,15 +614,15 @@ class EcRepositoryTest {
         thing.id += "/";
         (thing)["name"] = "Test Public Registered Object";
         console.log("Saving Public Registered Object...");
-        r.saveTo(thing, function(p1) {
+        await r.saveTo(thing, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
-            console.log(p1);
+            console.trace(p1);
             Assert.fail("Failed to save object.");
         });
         console.log("Retrieving Public Registered Object...");
-        EcRepository.get(thing.shortId(), function(p1) {
+        await EcRepository.get(thing.shortId(), function(p1) {
             var retrieved = p1;
             if (retrieved.owner != null) 
                 Assert.assertEquals("File is not Public, has an owner", retrieved.owner.length, 0);
@@ -633,7 +631,7 @@ class EcRepositoryTest {
             console.log("Retrieved Unchanged.");
         }, function(p1) {
             console.log("Failed to retrieve");
-            console.log(p1);
+            console.trace(p1);
             Assert.fail("Failed to retrieve public Registered object after save.");
         });
         var thing2 = new EcRemoteLinkedData(General.context, General.context + "/test");
@@ -641,7 +639,7 @@ class EcRepositoryTest {
         ;
         (thing)["name"] = "Changed Public Registered Object Name";
         console.log("Updating Public Registered Object...");
-        r.saveTo(thing2, function(p1) {
+        await r.saveTo(thing2, function(p1) {
             console.log("Updated.");
         }, function(p1) {
             console.log("Failed to update.");
@@ -649,7 +647,7 @@ class EcRepositoryTest {
             Assert.fail("Failed to update object.");
         });
         console.log("Retrieving After update...");
-        EcRepository.get(thing2.shortId(), function(p1) {
+        await EcRepository.get(thing2.shortId(), function(p1) {
             var retrieved = p1;
             if (retrieved.owner != null) 
                 Assert.assertEquals("File is not Public, has an owner", retrieved.owner.length, 0);
@@ -662,14 +660,14 @@ class EcRepositoryTest {
             Assert.fail("Failed to retrieve public Registered object after update.");
         });
         console.log("Trying to Delete...");
-        r.deleteRegistered(thing, function(p1) {
+        await r.deleteRegistered(thing, function(p1) {
             console.log("Good, Can Delete Public Registered Object.");
             console.log(p1);
         }, function(p1) {
             Assert.fail("Could not delete public Registered object. This is now allowed (10/26/2016).");
         });
     };
-    createAndDeleteSingleOwnedObjectTest = function() {
+    createAndDeleteSingleOwnedObjectTest = async function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
         thing.generateId(EcRepositoryTest.server);
@@ -683,7 +681,7 @@ class EcRepositoryTest {
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
         console.log("Saving...");
-        EcRepository.save(thing, function(p1) {
+        await EcRepository.save(thing, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
@@ -692,7 +690,7 @@ class EcRepositoryTest {
         });
         EcIdentityManager.ids = [];
         console.log("Retrieving...");
-        EcRepository.get(thing.shortId(), function(p1) {
+        await EcRepository.get(thing.shortId(), function(p1) {
             var retrieved = p1;
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
             Assert.assertEquals("Name Does Not Match Saved Object Name", (thing)["name"], retrieved.name);
@@ -704,7 +702,8 @@ class EcRepositoryTest {
             Assert.fail("Failed to retrieve object after save.");
         });
         console.log("Searching...");
-        r.search("@id:\"" + thing.id + "\"", null, function(p1) {
+        await r.search("@id:\"" + thing.id + "\"", null, function(p1) {
+            console.log("Searched.");
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
@@ -717,19 +716,19 @@ class EcRepositoryTest {
             Assert.fail("Failed to search for object after save.");
         });
         console.log("Trying to delete as public...");
-        EcRepository._delete(thing, function(p1) {
+        await EcRepository._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object as public");
         }, function(p1) {
             console.log(p1);
             console.log("Denied Access");
         });
+        console.log("After trying to delete...");
         EcIdentityManager.addIdentity(newId1);
         var thing2 = new EcRemoteLinkedData(General.context, General.context + "/test");
         thing2.copyFrom(thing);
-        ;
         (thing)["name"] = "Changed Object Name";
         console.log("Updating Owned Object...");
-        EcRepository.save(thing2, function(p1) {
+        await EcRepository.save(thing2, function(p1) {
             console.log("Updated.");
         }, function(p1) {
             console.log("Failed to update.");
@@ -737,7 +736,7 @@ class EcRepositoryTest {
             Assert.fail("Failed to update object.");
         });
         console.log("Retrieving Owned Object...");
-        EcRepository.get(thing2.shortId(), function(p1) {
+        await EcRepository.get(thing2.shortId(), function(p1) {
             var retrieved = p1;
             Assert.assertEquals("Name Does Not Match Saved Object Name", (thing2)["name"], retrieved.name);
             Assert.assertEquals("Id Does Not Match Saved Object Id", thing2.id, retrieved.id);
@@ -748,14 +747,14 @@ class EcRepositoryTest {
             Assert.fail("Failed to retrieve public object after save.");
         });
         console.log("Deleting...");
-        EcRepository._delete(thing, function(p1) {
+        await EcRepository._delete(thing, function(p1) {
             console.log("Deleted the Owned Object.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository");
         });
     };
-    createAndDeleteTwoOwnerObjectTest = function() {
+    createAndDeleteTwoOwnerObjectTest = async function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----");
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
@@ -771,7 +770,7 @@ class EcRepositoryTest {
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(newId1);
         console.log("Saving...");
-        EcRepository.save(thing, function(p1) {
+        await EcRepository.save(thing, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
@@ -780,7 +779,7 @@ class EcRepositoryTest {
         });
         EcIdentityManager.ids = [];
         console.log("Retrieving...");
-        EcRepository.get(thing.shortId(), function(p1) {
+        await EcRepository.get(thing.shortId(), function(p1) {
             var retrieved = p1;
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
             Assert.assertEquals("Name Does Not Match Saved Object Name", (thing)["name"], retrieved.name);
@@ -794,7 +793,7 @@ class EcRepositoryTest {
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
         console.log("Searching...");
-        r.search("@id:\"" + thing.id + "\"", null, function(p1) {
+        await r.search("@id:\"" + thing.id + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
@@ -813,7 +812,7 @@ class EcRepositoryTest {
         thing2.copyFrom(thing);
         (thing)["name"] = "Changed Object Name";
         console.log("Updating Owned Object as owner 2...");
-        EcRepository.save(thing2, function(p1) {
+        await EcRepository.save(thing2, function(p1) {
             console.log("Updated.");
         }, function(p1) {
             console.log("Failed to update.");
@@ -821,7 +820,7 @@ class EcRepositoryTest {
             Assert.fail("Failed to update object.");
         });
         console.log("Retrieving Owned Object as owner 2...");
-        EcRepository.get(thing2.shortId(), function(p1) {
+        await EcRepository.get(thing2.shortId(), function(p1) {
             var retrieved = p1;
             Assert.assertEquals("Name Does Not Match Saved Object Name", (thing2)["name"], retrieved.name);
             Assert.assertEquals("Id Does Not Match Saved Object Id", thing2.id, retrieved.id);
@@ -832,19 +831,20 @@ class EcRepositoryTest {
             Assert.fail("Failed to retrieve public object after save.");
         });
         console.log("Deleting...");
-        EcRepository._delete(thing, function(p1) {
+        await EcRepository._delete(thing, function(p1) {
             console.log("Deleted the Owned Object.");
         }, function(p1) {
-            console.log(p1);
+            console.trace(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository");
         });
     };
-    searchForSomethingThatCantExist = function() {
+    searchForSomethingThatCantExist = async function() {
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         console.log("Searching...");
-        r.search("@type:\"http://schema.eduworks.com/general/0.2/nonsense\"", null, function(p1) {
+        await r.search("@type:\"http://schema.eduworks.com/general/0.2/nonsense\"", null, function(p1) {
+            console.log(p1);
             Assert.assertTrue(true);
         }, function(p1) {
             console.log("Failed to search.");
@@ -856,7 +856,8 @@ class EcRepositoryTest {
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(newId1);
         console.log("Searching...");
-        r.search("@type:\"http://schema.eduworks.com/general/0.2/nonsense\"", null, function(p1) {
+        await r.search("@type:\"http://schema.eduworks.com/general/0.2/nonsense\"", null, function(p1) {
+            console.log(p1);
             Assert.assertTrue(true);
         }, function(p1) {
             console.log("Failed to search w/signature.");
@@ -867,7 +868,7 @@ class EcRepositoryTest {
 };
 class EcEncryptedValueTest {
     static server = "http://localhost/api/";
-    begin = function() {
+    begin = async function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
         var r = new EcRepository();
@@ -878,14 +879,14 @@ class EcEncryptedValueTest {
         newId2.ppk = ppk2;
         EcIdentityManager.addIdentity(newId1);
         EcIdentityManager.addIdentity(newId2);
-        r.search("\"" + ppk.toPk().toPem() + "\"", function(ecRemoteLinkedData) {
-            r._delete(ecRemoteLinkedData, null, null);
+        await r.search("\"" + ppk.toPk().toPem() + "\"", function(ecRemoteLinkedData) {
+            return r._delete(ecRemoteLinkedData, null, null);
         }, function(p1) {}, function(p1) {
             console.log("Could not find objects to delete");
         });
         EcIdentityManager.clearIdentities();
     };
-    encryptDecryptTest = function() {
+    encryptDecryptTest = async function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
         var f = new GeneralFile();
@@ -901,15 +902,15 @@ class EcEncryptedValueTest {
         EcIdentityManager.addIdentity(newId1);
         var v = null;
         console.log("Encrypting: " + f.name);
-        v = EcEncryptedValue.encryptValueOld(f.name, f.id, ppk.toPk());
+        v = await EcEncryptedValue.encryptValueOld(f.name, f.id, ppk.toPk().toPem());
         console.log("Encrypted object: " + v.toJson());
         Assert.assertTrue("Owner exists in encrypted object.", v.hasOwner(ppk.toPk()));
-        Assert.assertTrue("Owner can decrypt object.", v.decryptIntoString() == f.name);
+        Assert.assertTrue("Owner can decrypt object.", (await v.decryptIntoString()) == f.name);
         var readers = new Array();
         readers.push(ppk2.toPk().toPem());
         var v2 = null;
         console.log("Encrypting: " + f.name);
-        v2 = EcEncryptedValue.encryptValue(f.name, f.id, f.owner, readers);
+        v2 = await EcEncryptedValue.encryptValue(f.name, f.id, f.owner, readers);
         console.log("Encrypted object: " + v2.toJson());
         var newId2 = new EcIdentity();
         newId2.ppk = ppk2;
@@ -917,7 +918,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.addIdentity(newId2);
         Assert.assertTrue("Reader Decryption:", v2.decryptIntoString() == f.name);
     };
-    encryptObjectUploadDownloadDecryptTest = function() {
+    encryptObjectUploadDownloadDecryptTest = async function() {
         console.log("Encrypted Object Upload Download then Decrypt Test.");
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
@@ -934,17 +935,17 @@ class EcEncryptedValueTest {
         EcIdentityManager.addIdentity(newId1);
         var v = null;
         console.log("Encrypting: " + f.name);
-        v = EcEncryptedValue.toEncryptedValue(f, false);
+        v = await EcEncryptedValue.toEncryptedValue(f, false);
         console.log("Encrypted object: " + v.toJson());
         Assert.assertTrue("Owner exists in encrypted object.", v.hasOwner(ppk.toPk()));
-        EcRepository.save(v, function(p1) {
+        await EcRepository.save(v, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
             console.log(p1);
             Assert.fail("Failed to save object.");
         });
-        EcRepository.get(v.shortId(), function(p1) {
+        await EcRepository.get(v.shortId(), function(p1) {
             console.log("Read.");
             var val = new EcEncryptedValue();
             val.copyFrom(p1);
@@ -957,12 +958,11 @@ class EcEncryptedValueTest {
         });
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        r._delete(f, function(p1) {}, function(p1) {
+        await r._delete(f, function(p1) {}, function(p1) {
             Assert.fail("Failed to delete object. " + p1);
         });
     };
-    encryptValueUploadDownloadDecryptTest = function() {
-        EcRemote.async = false;
+    encryptValueUploadDownloadDecryptTest = async function() {
         console.log("Encrypted Value Upload Download then Decrypt Test.");
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
@@ -977,16 +977,16 @@ class EcEncryptedValueTest {
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.addIdentity(newId1);
-        (f)["encryptedName"] = EcEncryptedValue.encryptValue(f.name, f.shortId(), f.owner, null);
+        (f)["encryptedName"] = await EcEncryptedValue.encryptValue(f.name, f.shortId(), f.owner, null);
         console.log(f.toJson());
-        EcRepository.save(f, function(p1) {
+        await EcRepository.save(f, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
             console.log(p1);
             Assert.fail("Failed to save object.");
         });
-        EcRepository.get(f.shortId(), function(p1) {
+        await EcRepository.get(f.shortId(), function(p1) {
             console.log("Read.");
             var val = new GeneralFile();
             console.log(p1.toJson());
@@ -1003,12 +1003,11 @@ class EcEncryptedValueTest {
         });
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        r._delete(f, function(p1) {}, function(p1) {
+        await r._delete(f, function(p1) {}, function(p1) {
             Assert.fail("Failed to delete object. " + p1);
         });
     };
-    encryptValueWithReaderUploadSearchByPkWithSignatureTest = function() {
-        EcRemote.async = false;
+    encryptValueWithReaderUploadSearchByPkWithSignatureTest = async function() {
         console.log("encryptValueWithReaderUploadSearchByPkWithSignatureTest Test.");
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----");
@@ -1032,9 +1031,9 @@ class EcEncryptedValueTest {
         EcIdentityManager.addIdentity(newId1);
         var readers = new Array();
         readers.push(ppk2.toPk().toPem());
-        (f)["encryptedName"] = EcEncryptedValue.encryptValue(f.name, f.shortId(), f.owner, readers);
+        (f)["encryptedName"] = await EcEncryptedValue.encryptValue(f.name, f.shortId(), f.owner, readers);
         console.log(f.toJson());
-        EcRepository.save(f, function(p1) {
+        await EcRepository.save(f, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
@@ -1065,62 +1064,61 @@ class EcEncryptedValueTest {
             var o = new Object();
             (o)["size"] = 5000;
             console.log("ID Search, searching with signature 1.");
-            r.searchWithParams("@id:\"" + f.shortId() + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("@id:\"" + f.shortId() + "\"", o, eachCallback, success, failure);
             console.log("Owner Search, searching for signature 1 using signature 1 signatureSheet.");
-            r.searchWithParams("\\*owner:\"" + ppk.toPk().toPem() + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("\\*owner:\"" + ppk.toPk().toPem() + "\"", o, eachCallback, success, failure);
             console.log("Owner Search minus whitespace, searching for signature 1 using signature 1 signatureSheet.");
-            r.searchWithParams("\\*owner:\"" + ppk.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("\\*owner:\"" + ppk.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\"", o, eachCallback, success, failure);
             console.log("Reader Search, searching for signature 2 using signature 1 signatureSheet.");
-            r.searchWithParams("\\*reader:\"" + ppk2.toPk().toPem() + "\" OR \\*reader:\"" + ppk2.toPk().toPem() + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("\\*reader:\"" + ppk2.toPk().toPem() + "\" OR \\*reader:\"" + ppk2.toPk().toPem() + "\"", o, eachCallback, success, failure);
             console.log("Reader Search minus whitespace, searching for signature 2 using signature 1 signatureSheet.");
-            r.searchWithParams("\\*reader:\"" + ppk2.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\" OR \\*reader:\"" + ppk2.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("\\*reader:\"" + ppk2.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\" OR \\*reader:\"" + ppk2.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\"", o, eachCallback, success, failure);
             console.log("_all Search, searching for signature 1 using signature 1 signatureSheet.");
-            r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, success, failure);
             console.log("_all Search minus whitespace, searching for signature 1 using signature 1 signatureSheet.");
-            r.searchWithParams("\"" + ppk.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("\"" + ppk.toPk().toPem().replaceAll("\r", "").replaceAll("\n", "") + "\"", o, eachCallback, success, failure);
             EcIdentityManager.ids = new Array();
             EcIdentityManager.addIdentity(newId2);
             console.log("ID Search, searching with signature 2.");
-            r.searchWithParams("@id:\"" + f.shortId() + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("@id:\"" + f.shortId() + "\"", o, eachCallback, success, failure);
             console.log("_all Search, searching for signature 1 using signature 2 signatureSheet.");
-            r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, success, failure);
+            await r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, success, failure);
             EcIdentityManager.ids = new Array();
             EcIdentityManager.addIdentity(newId3);
             console.log("ID Search.");
-            r.searchWithParams("@id:\"" + f.shortId() + "\"", o, eachCallback, successInvert, failure);
+            await r.searchWithParams("@id:\"" + f.shortId() + "\"", o, eachCallback, successInvert, failure);
             console.log("_all Search, searching for signature 1.");
-            r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
+            await r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
             console.log("Owner Search, searching for signature 1");
-            r.searchWithParams("\\*owner:\"" + ppk.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
+            await r.searchWithParams("\\*owner:\"" + ppk.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
             console.log("(SHOULD NOT FIND) Reader Search, searching for signature 2.");
-            r.searchWithParams("\\*reader:\"" + ppk2.toPk().toPem() + "\" OR \\*reader:\"" + ppk2.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
+            await r.searchWithParams("\\*reader:\"" + ppk2.toPk().toPem() + "\" OR \\*reader:\"" + ppk2.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
             console.log("_all Search, searching for signature 1.");
-            r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
+            await r.searchWithParams("\"" + ppk.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
             console.log("(SHOULD NOT FIND) _all Search, searching for signature 2.");
-            r.searchWithParams("\"" + ppk2.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
+            await r.searchWithParams("\"" + ppk2.toPk().toPem() + "\"", o, eachCallback, successInvert, failure);
         } finally {
             EcIdentityManager.ids = new Array();
             EcIdentityManager.addIdentity(newId1);
-            r._delete(f, function(p1) {}, function(p1) {
+            await r._delete(f, function(p1) {}, function(p1) {
                 Assert.fail("Failed to delete object. " + p1);
             });
         }
     };
-    encryptedValueOneOwnerTest = function() {
-        EcRemote.async = false;
+    encryptedValueOneOwnerTest = async function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
         thing.generateId(EcEncryptedValueTest.server);
         (thing)["value"] = "Private Object Value";
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
-        var encThing = EcEncryptedValue.toEncryptedValue(thing, false);
+        var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(newId1);
         console.log("Saving...");
-        EcRepository.save(encThing, function(p1) {
+        await EcRepository.save(encThing, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
@@ -1128,7 +1126,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to save object.");
         });
         console.log("Retrieving...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertEquals("ID Does Not Match Saved Object", encThing.id, retrieved.id);
@@ -1143,7 +1141,7 @@ class EcEncryptedValueTest {
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == thing.shortId()) 
@@ -1157,7 +1155,7 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.ids = [];
         console.log("Trying to retrieve as public...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             console.log("Retrieved encrypted object as public");
             if (p1.type != null && p1.type != "") 
                 Assert.fail("Retrieved encrypted object as public");
@@ -1165,7 +1163,7 @@ class EcEncryptedValueTest {
             console.log("Access Denied");
         });
         console.log("Searching public...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == thing.shortId()) 
@@ -1176,16 +1174,16 @@ class EcEncryptedValueTest {
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        r._delete(thing, function(p1) {
+        await r._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete the Owned Object.");
             console.log(p1);
         });
         (thing)["value"] = "Changed Value";
-        var encThing2 = EcEncryptedValue.toEncryptedValue(thing, false);
+        var encThing2 = await EcEncryptedValue.toEncryptedValue(thing, false);
         console.log("Trying to Update as Public...");
-        EcRepository.save(encThing2, function(p1) {
+        await EcRepository.save(encThing2, function(p1) {
             console.log("Saved as public.");
         }, function(p1) {
             console.log("Failed to save as public.");
@@ -1193,7 +1191,7 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.addIdentity(newId1);
         console.log("Updating...");
-        EcRepository.save(encThing2, function(p1) {
+        await EcRepository.save(encThing2, function(p1) {
             console.log("Updated.");
         }, function(p1) {
             console.log("Failed to update.");
@@ -1201,7 +1199,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to update object.");
         });
         console.log("Retrieving after update...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertEquals("ID Does Not Match Saved Object Name", encThing2.id, retrieved.id);
@@ -1214,15 +1212,14 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to retrieve updated object");
         });
         console.log("Deleting...");
-        r._delete(thing, function(p1) {
+        await r._delete(thing, function(p1) {
             console.log("Deleted the Owned Object.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository");
         });
     };
-    encryptedValueTwoOwnerTest = function() {
-        EcRemote.async = false;
+    encryptedValueTwoOwnerTest = async function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----");
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
@@ -1232,13 +1229,13 @@ class EcEncryptedValueTest {
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
         thing.addOwner(EcPk.fromPem(ppk2.toPk().toPem()));
-        var encThing = EcEncryptedValue.toEncryptedValue(thing, false);
+        var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(newId1);
         console.log("Saving...");
-        EcRepository.save(encThing, function(p1) {
+        await EcRepository.save(encThing, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
@@ -1246,7 +1243,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to save object.");
         });
         console.log("Retrieving as owner 1...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
@@ -1263,7 +1260,7 @@ class EcEncryptedValueTest {
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching as owner 1...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await  r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == thing.shortId()) 
@@ -1280,7 +1277,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId2);
         console.log("Retrieving as owner 2...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
@@ -1295,7 +1292,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to retrieve object as owner 2");
         });
         console.log("Searching as owner 2...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == thing.shortId()) 
@@ -1309,7 +1306,7 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.ids = [];
         console.log("Trying to retrieve as public...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             console.log("Retrieved encrypted object as public");
             if (p1.type != null && !p1.type.equals("")) 
                 Assert.fail("Retrieved encrypted object as public");
@@ -1317,7 +1314,7 @@ class EcEncryptedValueTest {
             console.log("Access Denied");
         });
         console.log("Searching public...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
@@ -1328,7 +1325,7 @@ class EcEncryptedValueTest {
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        r._delete(thing, function(p1) {
+        await r._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete the Owned Object.");
@@ -1336,9 +1333,9 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.addIdentity(newId2);
         (thing)["value"] = "Changed Object Value";
-        var encThing2 = EcEncryptedValue.toEncryptedValue(thing, false);
+        var encThing2 = await EcEncryptedValue.toEncryptedValue(thing, false);
         console.log("Updating as owner 2...");
-        EcRepository.save(encThing, function(p1) {
+        await EcRepository.save(encThing, function(p1) {
             console.log("Updated as owner 2.");
         }, function(p1) {
             console.log("Failed to Update as owner2.");
@@ -1346,7 +1343,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to Update object as owner2.");
         });
         console.log("Retrieving after update...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await  EcRepository.get(encThing.shortId(), function(p1) {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
@@ -1361,15 +1358,14 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to retrieve object as owner 2");
         });
         console.log("Deleting as owner 2...");
-        r._delete(thing, function(p1) {
+        await  r._delete(thing, function(p1) {
             console.log("Deleted the Owned Object as owner 2.");
         }, function(p1) {
             console.log(p1);
             Assert.fail("Failed to Delete the Owned Object from Repository as owner 2");
         });
     };
-    encryptedValueOwnerReaderTest = function() {
-        EcRemote.async = false;
+    encryptedValueOwnerReaderTest = async function() {
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         var ppk2 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----");
         var thing = new EcRemoteLinkedData(General.context, General.context + "/test");
@@ -1377,13 +1373,13 @@ class EcEncryptedValueTest {
         (thing)["value"] = "Private Object Value";
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
-        var encThing = EcEncryptedValue.toEncryptedValue(thing, false);
+        var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(newId1);
         console.log("Saving...");
-        EcRepository.save(encThing, function(p1) {
+        await EcRepository.save(encThing, function(p1) {
             console.log("Saved.");
         }, function(p1) {
             console.log("Failed to save.");
@@ -1391,7 +1387,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to save object.");
         });
         console.log("Retrieving as owner ...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
@@ -1407,7 +1403,7 @@ class EcEncryptedValueTest {
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching as owner ...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
@@ -1424,7 +1420,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId2);
         console.log("Trying to retrieve as other user...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             console.log("Retrieved encrypted object as other user");
             if (p1.type != null && !p1.type.equals("")) 
                 Assert.fail("Retrieved encrypted object as other user");
@@ -1433,10 +1429,10 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId1);
-        var encThingWithReader = EcEncryptedValue.toEncryptedValue(thing, false);
+        var encThingWithReader = await EcEncryptedValue.toEncryptedValue(thing, false);
         encThingWithReader.addReader(EcPk.fromPem(ppk2.toPk().toPem()));
         console.log("Adding reader...");
-        EcRepository.save(encThingWithReader, function(p1) {
+        await EcRepository.save(encThingWithReader, function(p1) {
             console.log("Reader Added.");
         }, function(p1) {
             console.log("Failed to add reader.");
@@ -1446,7 +1442,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId2);
         console.log("Retrieving as reader...");
-        EcRepository.get(encThingWithReader.shortId(), function(p1) {
+        await EcRepository.get(encThingWithReader.shortId(), function(p1) {
             if (p1.type == null || p1.type.equals("")) 
                 Assert.fail("Unable to retreive object as reader");
             var retrieved = new EcEncryptedValue();
@@ -1463,7 +1459,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to retrieve object as reader.");
         });
         console.log("Searching as reader...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
@@ -1477,7 +1473,7 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.ids = [];
         console.log("Trying to retrieve as public...");
-        EcRepository.get(encThingWithReader.shortId(), function(p1) {
+        await  EcRepository.get(encThingWithReader.shortId(), function(p1) {
             console.log("Retrieved encrypted object as public");
             if (p1.type != null && !p1.type.equals("")) 
                 Assert.fail("Retrieved encrypted object as public");
@@ -1485,7 +1481,7 @@ class EcEncryptedValueTest {
             console.log("Access Denied");
         });
         console.log("Searching public...");
-        r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await  r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
@@ -1496,7 +1492,7 @@ class EcEncryptedValueTest {
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        r._delete(encThingWithReader, function(p1) {
+        await r._delete(encThingWithReader, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete Owned Object as public.");
@@ -1504,7 +1500,7 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.addIdentity(newId2);
         console.log("Deleting as reader...");
-        r._delete(encThingWithReader, function(p1) {
+        await r._delete(encThingWithReader, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as reader");
         }, function(p1) {
             console.log("Failed to Delete the Object as reader.");
@@ -1514,9 +1510,9 @@ class EcEncryptedValueTest {
         EcIdentityManager.addIdentity(newId1);
         var encThingNoReader = new EcEncryptedValue();
         encThingNoReader.copyFrom(encThingWithReader);
-        encThingNoReader.removeReader(EcPk.fromPem(ppk2.toPk().toPem()));
+        await encThingNoReader.removeReader(EcPk.fromPem(ppk2.toPk().toPem()));
         console.log("removing reader...");
-        EcRepository.save(encThingNoReader, function(p1) {
+        await EcRepository.save(encThingNoReader, function(p1) {
             console.log("Updated without reader.");
         }, function(p1) {
             console.log("Failed to remove reader.");
@@ -1526,7 +1522,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId2);
         console.log("Trying to retrieve as other user...");
-        EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             console.log("Retrieved encrypted object as other user");
             if (p1.type != null && !p1.type.equals("")) 
                 Assert.fail("Retrieved encrypted object as other user");
@@ -1536,7 +1532,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId1);
         console.log("Deleting...");
-        r._delete(encThingNoReader, function(p1) {
+        await r._delete(encThingNoReader, function(p1) {
             console.log("Deleted the Owned Object as owner.");
         }, function(p1) {
             console.log(p1);
@@ -4416,6 +4412,7 @@ class TabStructuredImportTest extends ImportTestBase{
     };
 };
 async function fun(){
+    try{
 obj = new EcRandomTest();
 if (obj.setup) obj.setup();
 if (obj.begin) obj.begin();
@@ -4475,23 +4472,22 @@ EcRepository.repos = [];
 obj = new EcRepositoryTest();
 if (obj.setup) obj.setup();
 if (obj.begin) obj.begin();
-obj.createPublicObjectTest();
-obj.createPublicRegisteredObjectTest();
-obj.createAndDeleteSingleOwnedObjectTest();
-obj.createAndDeleteTwoOwnerObjectTest();
-obj.searchForSomethingThatCantExist();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcEncryptedValueTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.encryptDecryptTest();
-// obj.encryptObjectUploadDownloadDecryptTest();
-// obj.encryptValueUploadDownloadDecryptTest();
-// obj.encryptValueWithReaderUploadSearchByPkWithSignatureTest();
-// obj.encryptedValueOneOwnerTest();
-// obj.encryptedValueTwoOwnerTest();
-// obj.encryptedValueOwnerReaderTest();
+await obj.createPublicObjectTest();
+await obj.createPublicRegisteredObjectTest();
+await obj.createAndDeleteSingleOwnedObjectTest();
+await obj.createAndDeleteTwoOwnerObjectTest();
+await obj.searchForSomethingThatCantExist();
+EcRepository.repos = [];
+obj = new EcEncryptedValueTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.encryptDecryptTest();
+obj.encryptObjectUploadDownloadDecryptTest();
+obj.encryptValueUploadDownloadDecryptTest();
+obj.encryptValueWithReaderUploadSearchByPkWithSignatureTest();
+obj.encryptedValueOneOwnerTest();
+obj.encryptedValueTwoOwnerTest();
+obj.encryptedValueOwnerReaderTest();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new EcVersioningTest();
@@ -4720,6 +4716,9 @@ obj.searchForSomethingThatCantExist();
 // obj.constructor();
 // obj.basicTabStructuredImport();
 
+}
+catch(e){
+    console.trace(e);
+}
 };
-
-fun();
+    fun();

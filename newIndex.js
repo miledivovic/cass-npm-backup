@@ -13,9 +13,9 @@ global.generateUUID = function(){
 
 global.cassPromisify = function(p,success,failure){
     if (success !== undefined && success != null)
-        p.then(success);
+        p = p.then(success);
     if (failure !== undefined && failure != null)
-        p.catch(failure);
+        p = p.catch(failure);
     return p;
 }
 global.cassReturnAsPromise = function(o,success,failure){
@@ -23,9 +23,9 @@ global.cassReturnAsPromise = function(o,success,failure){
         resolve(o);
     });
     if (success !== undefined && success != null)
-        p.then(success);
+        p = p.then(success);
     if (failure !== undefined && failure != null)
-        p.catch(failure);
+        p = p.catch(failure);
     return p;
 }
 

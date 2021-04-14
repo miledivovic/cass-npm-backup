@@ -62,7 +62,7 @@ module.exports = class EcIdentity{
         return i;
     };
     equals(obj) {
-        if (stjs.isInstanceOf(obj.constructor, EcIdentity)) {
+        if (obj instanceof EcIdentity) {
             if (this.ppk == null) 
                 return false;
             if ((obj).ppk == null) 

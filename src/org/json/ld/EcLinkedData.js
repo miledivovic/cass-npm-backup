@@ -102,7 +102,7 @@ module.exports = class EcLinkedData{
         var a = new Array();
         for (var i = 0; i < o.length; i++) {
             if (EcObject.isObject(o[i])) {
-                if (stjs.isInstanceOf(o[i].constructor, EcLinkedData)) 
+                if (o[i] instanceof EcLinkedData)
                     a[i] = this.atIfyObject(o[i]);
                  else {
                     a[i] = o[i];

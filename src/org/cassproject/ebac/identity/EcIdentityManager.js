@@ -139,6 +139,7 @@ module.exports = class EcIdentityManager{
      *  @static
      */
     static readIdentities() {
+        if (typeof(localStorage) === 'undefined') return;
         var localStore = localStorage["identities"];
         if (localStore == null) {
             return;
@@ -181,6 +182,7 @@ module.exports = class EcIdentityManager{
             props["source"] = identity.source;
             c.push(o);
         }
+        if (typeof(localStorage) !== 'undefined')
         localStorage["identities"] = JSON.stringify(c);
     };
     /**
@@ -191,7 +193,8 @@ module.exports = class EcIdentityManager{
      *  @static
      */
     static clearContacts() {
-        delete localStorage["contacts"];
+        if (typeof(localStorage) !== 'undefined')
+            delete localStorage["contacts"];
         EcIdentityManager.contacts = new Array();
     };
     /**
@@ -202,7 +205,8 @@ module.exports = class EcIdentityManager{
      *  @static
      */
     static clearIdentities() {
-        delete localStorage["identities"];
+        if (typeof(localStorage) !== 'undefined')
+            delete localStorage["identities"];
         EcIdentityManager.ids = new Array();
     };
     /**
@@ -298,36 +302,6 @@ module.exports = class EcIdentityManager{
         EcIdentityManager.contacts.push(contact);
     };
     /**
-     *  Create a signature sheet, authorizing movement of data outside of our
-     *  control.
-     * 
-     *  @param {String[]} identityPksinPem Which identities to create signatures
-     *                    for.
-     *  @param {long}     duration Length of time in milliseconds to authorize
-     *                    control.
-     *  @param {String}   server Server that we are authorizing.
-     *  @return {String} JSON Array containing signatures.
-     *  @memberOf EcIdentityManager
-     *  @method signatureSheetFor
-     *  @static
-     */
-    static signatureSheetFor(identityPksinPem, duration, server) {
-        var signatures = new Array();
-        for (var j = 0; j < EcIdentityManager.ids.length; j++) {
-            var ppk = EcIdentityManager.ids[j].ppk;
-            var pk = ppk.toPk();
-            if (identityPksinPem != null) {
-                for (var i = 0; i < identityPksinPem.length; i++) {
-                    var ownerPpk = EcPk.fromPem(identityPksinPem[i].trim());
-                    if (pk.equals(ownerPpk)) {
-                        signatures.push(EcIdentityManager.createSignature(duration, server, ppk).atIfy());
-                    }
-                }
-            }
-        }
-        return JSON.stringify(signatures);
-    };
-    /**
      *  Asynchronous version of creating a signature sheet for a list of
      *  identities
      * 
@@ -342,30 +316,32 @@ module.exports = class EcIdentityManager{
      *  @method signatureSheetForAsync
      *  @static
      */
-    static signatureSheetForAsync(identityPksinPem, duration, server, success, failure) {
-        var signatures = new Array();
-        new EcAsyncHelper().each(EcIdentityManager.ids, function(p1, incrementalSuccess) {
-            var ppk = p1.ppk;
-            var pk = ppk.toPk();
-            var found = false;
-            if (identityPksinPem != null) {
-                for (var j = 0; j < identityPksinPem.length; j++) {
-                    var ownerPpk = EcPk.fromPem(identityPksinPem[j].trim());
-                    if (pk.equals(ownerPpk)) {
-                        found = true;
-                        EcIdentityManager.createSignatureAsync(duration, server, ppk, function(p1) {
-                            signatures.push(p1.atIfy());
-                            incrementalSuccess();
-                        }, failure);
-                    }
+    static signatureSheetFor(identityPksinPem, duration, server, success, failure) {
+        var cache = null;
+        if (EcIdentityManager.signatureSheetCaching) {
+            cache = (EcIdentityManager.signatureSheetCache)[server];
+            if (cache != null) {
+                if (cache[0] > new Date().getTime() + duration) {
+                    return cassReturnAsPromise(cache[1],success,failure);
                 }
             }
-            if (!found) {
-                incrementalSuccess();
+            duration += 20000;
+        }
+        var finalDuration = duration;
+        let promises = identityPksinPem.map(pk => this.getPpk(EcPk.fromPem(pk))).filter(x => x != null).map(ppk => EcIdentityManager.createSignature(finalDuration,server,ppk));
+        let p = Promise.all(promises);
+        p = p.then(signatures => {  
+            var cache = null;
+            var stringified = JSON.stringify(signatures);
+            if (EcIdentityManager.signatureSheetCaching) {
+                cache = new Array();
+                cache[0] = new Date().getTime() + finalDuration;
+                cache[1] = stringified;
+                (EcIdentityManager.signatureSheetCache)[server] = cache;
             }
-        }, function(pks) {
-            success(JSON.stringify(signatures));
+            return stringified;
         });
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Create a signature sheet for all identities, authorizing movement of data
@@ -394,10 +370,10 @@ module.exports = class EcIdentityManager{
         let promises = EcIdentityManager.ids.map(ident => EcIdentityManager.createSignature(finalDuration,server,ident.ppk));
         let p = Promise.all(promises);
         p = p.then(signatures => {  
-            var cache = null;
             var stringified = JSON.stringify(signatures);
             if (EcIdentityManager.signatureSheetCaching) {
-                cache = new Array();
+                var cache = null;
+                cache = [];
                 cache[0] = new Date().getTime() + finalDuration;
                 cache[1] = stringified;
                 (EcIdentityManager.signatureSheetCache)[server] = cache;
@@ -504,6 +480,7 @@ module.exports = class EcIdentityManager{
             if (d.signature != null && d.signature.length == 0) {
                 delete (d)["signature"];
             }
+            return d;
         });
     };
     static myIdentitiesSearchString() {

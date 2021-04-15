@@ -183,6 +183,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
 
     static encryptValueActual(v,text,iv,secret,id,owners,readers,success,failure)
     {
+        console.log(text);
         return cassPromisify(EcAesCtrAsync.encrypt(text, secret, iv).then((encryptedText) => {
             v.payload = encryptedText;
             v.owner = owners;
@@ -260,7 +261,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
      *  @method decryptIntoObject
      */
     decryptIntoObject(success, failure) {
-        return cassPromisify(decryptIntoString().then(decryptRaw => {
+        return cassPromisify(this.decryptIntoString().then(decryptRaw => {
             if (decryptRaw == null) {
                 return null;
             }
@@ -286,14 +287,15 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
      */
     decryptIntoString(success, failure) {
         return cassPromisify(this.decryptSecret().then((decryptSecret)=>{
+            console.log(decryptSecret);
             if (decryptSecret != null) {
-                if (me.context == Ebac.context_0_2 || me.context == Ebac.context_0_3) {
+                if (this.context == Ebac.context_0_2 || this.context == Ebac.context_0_3) {
                     if (base64.decode(decryptSecret.iv).byteLength == 32) 
                         decryptSecret.iv = base64.encode(base64.decode(decryptSecret.iv).slice(0, 16));
                 }
-                return EcAesCtrAsync.decrypt(me.payload, decryptSecret.secret, decryptSecret.iv);
+                return EcAesCtrAsync.decrypt(this.payload, decryptSecret.secret, decryptSecret.iv);
             }
-            throw "Secret is null. Cannot decrypt.";
+            throw "Could not decrypt secret.";
         }),success,failure);
     };
     /**
@@ -333,18 +335,21 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
             }
         }
         let iterate = (resolve,reject)=>{
+            console.log("Trying..." + ppks.length);
             if (ppks.length == 0 && estimatedIndices.length == 0)
                 reject("Could not decrypt secret."); //TODO: Try all identified ppks against all secrets.
             let ppk = ppks.pop();
             let estimatedIndex = estimatedIndices.pop();
             let encryptedSecret = this.secret[estimatedIndex];
-            let p = EcRsaOaepAsync.decrypt(ppk,encryptedSecret);
-            p = p.then((decryptedSecret)=>{
+            let p = EcRsaOaepAsync.decrypt(ppk,encryptedSecret).then((decryptedSecret)=>{
                 if (decryptedSecret != null && EcLinkedData.isProbablyJson(decryptedSecret)) 
-                    resolve(EbacEncryptedSecret.fromEncryptableJson(JSON.parse(decryptedSecret)));
-                resolve(new Promise(iterate));
+                {
+                    return EbacEncryptedSecret.fromEncryptableJson(JSON.parse(decryptedSecret));
+                }
+                console.log(JSON.stringify(decryptedSecret,null,2));
+                return new Promise(iterate);
             });
-            return p;
+            resolve(p);
         };
         return new Promise(iterate);
     };
@@ -374,11 +379,11 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
      */
     addReader(newReader) {
         super.addReader(newReader);
-        return decryptSecret().then(decryptedSecret => {
+        return this.decryptSecret().then(decryptedSecret => {
             if (decryptedSecret == null) {
                 throw("Cannot add a Reader if you don't know the secret");
             }
-            return EcRsaOaepAsync.encrypt(newReader,decryptedSecret).then(encryptedSecret => EcArray.setAdd(secret,encryptedSecret));
+            return EcRsaOaepAsync.encrypt(newReader,decryptedSecret.toEncryptableJson()).then(encryptedSecret => EcArray.setAdd(this.secret,encryptedSecret));
         });
     };
     /**
@@ -394,16 +399,11 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
                 EcArray.setRemove(this.reader, oldReader.toPem());
             }
             this.secret = [];
-            let insertSecret = (pk, newIv, newSecret) => {
-                var eSecret = new EbacEncryptedSecret();
-                eSecret.iv = newIv;
-                eSecret.secret = newSecret;
-                return EcRsaOaepAsync.encrypt(EcPk.fromPem(pk), eSecret.toEncryptableJson());
-            }
-            if (owners != null) 
-                promises = promises.concat(d.owner.map(pk => insertSecret(pk, iv, decryptedSecret)));
-            if (readers != null)
-                promises = promises.concat(d.reader.map(pk => insertSecret(pk, iv, decryptedSecret)));
+            let promises = [];
+            if (this.owner != null) 
+                promises = promises.concat(this.owner.map(pk => EcRsaOaepAsync.encrypt(EcPk.fromPem(pk), decryptedSecret.toEncryptableJson())));
+            if (this.reader != null)
+                promises = promises.concat(this.reader.map(pk => EcRsaOaepAsync.encrypt(EcPk.fromPem(pk), decryptedSecret.toEncryptableJson())));
             let p = Promise.all(promises).then((secrets) => {this.secret = secrets;});
             return p;
         });

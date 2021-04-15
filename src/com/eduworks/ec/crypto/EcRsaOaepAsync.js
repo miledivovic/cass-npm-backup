@@ -71,6 +71,18 @@ module.exports = class EcRsaOaepAsync{
         var algorithm = new Object();
         algorithm.name = "RSA-OAEP";
         algorithm.hash = "SHA-1";
+        let afterKeyIsImported = (p1) => {
+            try {
+                var result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
+            }
+            catch (ex) {
+                var result = EcCrypto.ab2str(p1);
+            }
+            if (EcCrypto.caching) {
+                (EcCrypto.decryptionCache)[ppk.toPem() + cipherText] = result;
+            }
+            return result;
+        }
         if (ppk.key == null)
         {
             var keyUsages = new Array();
@@ -78,36 +90,12 @@ module.exports = class EcRsaOaepAsync{
             let p = crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 ppk.key = key;
                 return crypto.subtle.decrypt(algorithm, key, base64.decode(cipherText))
-            }).then(function(p1) {
-                try {
-                    var result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
-                }
-                catch (ex) {
-                    var result = EcCrypto.ab2str(p1);
-                }
-                if (EcCrypto.caching) {
-                    (EcCrypto.decryptionCache)[ppk.toPem() + cipherText] = result;
-                }
-                return result;
-            });
+            }).then(afterKeyIsImported);
             return cassPromisify(p,success,failure);
         }
         else 
         {
-            let p = crypto.subtle.decrypt(algorithm, ppk.key, base64.decode(cipherText)).then(
-                function(p1) {
-                    console.log(p1);
-                try {
-                    var result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
-                }
-                catch (ex) {
-                    var result = EcCrypto.ab2str(p1);
-                }
-                if (EcCrypto.caching) {
-                    (EcCrypto.decryptionCache)[ppk.toPem() + cipherText] = result;
-                }
-                return result;
-            });
+            let p = crypto.subtle.decrypt(algorithm, ppk.key, base64.decode(cipherText)).then(afterKeyIsImported);
             return cassPromisify(p,success,failure);
         }
     };

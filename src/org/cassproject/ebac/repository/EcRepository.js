@@ -627,7 +627,7 @@ module.exports = class EcRepository {
      *  @memberOf EcRepository
      *  @method search
      */
-    search = function(query, eachSuccess, success, failure) {
+    search(query, eachSuccess, success, failure) {
         return this.searchWithParams(query, null, eachSuccess, success, failure);
     };
     /**
@@ -689,6 +689,7 @@ module.exports = class EcRepository {
                 if (results == null) {
                     throw "Error in search. See HTTP request for more details.";
                 }
+                console.log(results);
                 results = results.map(result => {
                     var d = new EcRemoteLinkedData(null, null);
                     d.copyFrom(result);

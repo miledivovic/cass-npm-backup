@@ -54,7 +54,7 @@ module.exports = class GeneralFile extends EcRemoteLinkedData{
         saveAs(blob, this.name);
     };
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (GeneralFile.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 

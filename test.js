@@ -880,7 +880,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.addIdentity(newId1);
         EcIdentityManager.addIdentity(newId2);
         await r.search("\"" + ppk.toPk().toPem() + "\"", function(ecRemoteLinkedData) {
-            return r._delete(ecRemoteLinkedData, null, null);
+            return EcRepository._delete(ecRemoteLinkedData, null, null);
         }, function(p1) {}, function(p1) {
             console.log("Could not find objects to delete");
         });
@@ -905,7 +905,9 @@ class EcEncryptedValueTest {
         v = await EcEncryptedValue.encryptValueOld(f.name, f.id, ppk.toPk().toPem());
         console.log("Encrypted object: " + v.toJson());
         Assert.assertTrue("Owner exists in encrypted object.", v.hasOwner(ppk.toPk()));
-        Assert.assertTrue("Owner can decrypt object.", (await v.decryptIntoString()) == f.name);
+        console.log("Decrypting to verify...");
+        let decrypted = await v.decryptIntoString();
+        Assert.assertTrue("Owner can decrypt object.", decrypted == f.name);
         var readers = new Array();
         readers.push(ppk2.toPk().toPem());
         var v2 = null;
@@ -916,7 +918,7 @@ class EcEncryptedValueTest {
         newId2.ppk = ppk2;
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(newId2);
-        Assert.assertTrue("Reader Decryption:", v2.decryptIntoString() == f.name);
+        Assert.assertTrue("Reader Decryption:", (await v2.decryptIntoString()) == f.name);
     };
     encryptObjectUploadDownloadDecryptTest = async function() {
         console.log("Encrypted Object Upload Download then Decrypt Test.");
@@ -958,7 +960,7 @@ class EcEncryptedValueTest {
         });
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        await r._delete(f, function(p1) {}, function(p1) {
+        await EcRepository._delete(f, function(p1) {}, function(p1) {
             Assert.fail("Failed to delete object. " + p1);
         });
     };
@@ -986,7 +988,7 @@ class EcEncryptedValueTest {
             console.log(p1);
             Assert.fail("Failed to save object.");
         });
-        await EcRepository.get(f.shortId(), function(p1) {
+        await EcRepository.get(f.shortId(), async function(p1) {
             console.log("Read.");
             var val = new GeneralFile();
             console.log(p1.toJson());
@@ -995,15 +997,16 @@ class EcEncryptedValueTest {
             var val1 = new EcEncryptedValue();
             val1.copyFrom((val)["encryptedName"]);
             console.log("Encrypted, downloaded = " + val1.toJson());
-            var decryptIntoString = val1.decryptIntoString();
+            var decryptIntoString = await val1.decryptIntoString();
             console.log("Decrypted = " + decryptIntoString);
             Assert.assertTrue(decryptIntoString == "My_File.txt");
         }, function(p1) {
+            console.error(p1);
             Assert.fail("Failed to read object.");
         });
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        await r._delete(f, function(p1) {}, function(p1) {
+        await EcRepository._delete(f, function(p1) {}, function(p1) {
             Assert.fail("Failed to delete object. " + p1);
         });
     };
@@ -1100,7 +1103,7 @@ class EcEncryptedValueTest {
         } finally {
             EcIdentityManager.ids = new Array();
             EcIdentityManager.addIdentity(newId1);
-            await r._delete(f, function(p1) {}, function(p1) {
+            await EcRepository._delete(f, function(p1) {}, function(p1) {
                 Assert.fail("Failed to delete object. " + p1);
             });
         }
@@ -1112,7 +1115,7 @@ class EcEncryptedValueTest {
         (thing)["value"] = "Private Object Value";
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
-        var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
+        let encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.ids = new Array();
@@ -1126,12 +1129,14 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to save object.");
         });
         console.log("Retrieving...");
-        await EcRepository.get(encThing.shortId(), function(p1) {
+        let val = (await encThing.decryptIntoObject())["value"];
+        await EcRepository.get(encThing.shortId(), async (p1)=> {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertEquals("ID Does Not Match Saved Object", encThing.id, retrieved.id);
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
-            Assert.assertEquals("Name Does Not Match Saved Object Name", (encThing.decryptIntoObject())["value"], (retrieved.decryptIntoObject())["value"]);
+            let val2 = (await retrieved.decryptIntoObject())["value"];
+            Assert.assertEquals("Name Does Not Match Saved Object Name", val, val2);
             console.log("Retrieved Unchanged");
         }, function(p1) {
             console.log("Failed to retrieve.");
@@ -1174,7 +1179,7 @@ class EcEncryptedValueTest {
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        await r._delete(thing, function(p1) {
+        await EcRepository._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete the Owned Object.");
@@ -1212,7 +1217,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to retrieve updated object");
         });
         console.log("Deleting...");
-        await r._delete(thing, function(p1) {
+        await EcRepository._delete(thing, function(p1) {
             console.log("Deleted the Owned Object.");
         }, function(p1) {
             console.log(p1);
@@ -1325,7 +1330,7 @@ class EcEncryptedValueTest {
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        await r._delete(thing, function(p1) {
+        await EcRepository._delete(thing, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete the Owned Object.");
@@ -1358,7 +1363,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to retrieve object as owner 2");
         });
         console.log("Deleting as owner 2...");
-        await  r._delete(thing, function(p1) {
+        await  EcRepository._delete(thing, function(p1) {
             console.log("Deleted the Owned Object as owner 2.");
         }, function(p1) {
             console.log(p1);
@@ -1442,14 +1447,16 @@ class EcEncryptedValueTest {
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId2);
         console.log("Retrieving as reader...");
-        await EcRepository.get(encThingWithReader.shortId(), function(p1) {
+        let encThingValue = (await encThingWithReader.decryptIntoObject())["value"];
+        await EcRepository.get(encThingWithReader.shortId(), async function(p1) {
             if (p1.type == null || p1.type.equals("")) 
                 Assert.fail("Unable to retreive object as reader");
-            var retrieved = new EcEncryptedValue();
+            let retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             EcIdentityManager.addIdentity(newId2);
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
-            Assert.assertEquals("Value Does Not Match Saved Object Value", (encThingWithReader.decryptIntoObject())["value"], (retrieved.decryptIntoObject())["value"]);
+            let retValue = (await retrieved.decryptIntoObject())["value"];
+            Assert.assertEquals("Value Does Not Match Saved Object Value", encThingValue, retValue);
             Assert.assertEquals("ID Does Not Match Saved Object Id", encThingWithReader.id, retrieved.id);
             Assert.assertTrue("Object does not have first owner", retrieved.hasOwner(ppk.toPk()));
             console.log("Retrieved as Reader");
@@ -1459,14 +1466,16 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to retrieve object as reader.");
         });
         console.log("Searching as reader...");
-        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, (p1) => {
             var found = false;
+            console.log("?.");
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
                     found = true;
             }
+            console.log("Found." + found);
             Assert.assertTrue("Unable to find object in search as reader ", found);
-        }, function(p1) {
+        }, (p1) => {
             console.log("Failed to search.");
             console.log(p1);
             Assert.fail("Failed to search for object after save.");
@@ -1492,7 +1501,7 @@ class EcEncryptedValueTest {
             console.log("Could not find object in search");
         });
         console.log("Deleting as Public...");
-        await r._delete(encThingWithReader, function(p1) {
+        await EcRepository._delete(encThingWithReader, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as public");
         }, function(p1) {
             console.log("Failed to Delete Owned Object as public.");
@@ -1500,7 +1509,7 @@ class EcEncryptedValueTest {
         });
         EcIdentityManager.addIdentity(newId2);
         console.log("Deleting as reader...");
-        await r._delete(encThingWithReader, function(p1) {
+        await EcRepository._delete(encThingWithReader, function(p1) {
             Assert.fail("Deleted the Owned Object from Repository as reader");
         }, function(p1) {
             console.log("Failed to Delete the Object as reader.");
@@ -1532,7 +1541,7 @@ class EcEncryptedValueTest {
         EcIdentityManager.ids = [];
         EcIdentityManager.addIdentity(newId1);
         console.log("Deleting...");
-        await r._delete(encThingNoReader, function(p1) {
+        await EcRepository._delete(encThingNoReader, function(p1) {
             console.log("Deleted the Owned Object as owner.");
         }, function(p1) {
             console.log(p1);
@@ -1587,7 +1596,7 @@ class EcVersioningTest {
         }, function(p1) {
             Assert.fail("Couldn't retrieve the old version.");
         });
-        r._delete(t, function(p1) {
+        EcRepository._delete(t, function(p1) {
             console.log("Deleted the thing.");
             EcRepository.get(t.shortId(), function(p1) {
                 Assert.fail("Could find the thing that was supposed to be gone.");
@@ -4479,15 +4488,17 @@ await obj.createAndDeleteTwoOwnerObjectTest();
 await obj.searchForSomethingThatCantExist();
 EcRepository.repos = [];
 obj = new EcEncryptedValueTest();
-if (obj.setup) obj.setup();
-if (obj.begin) obj.begin();
-obj.encryptDecryptTest();
-obj.encryptObjectUploadDownloadDecryptTest();
-obj.encryptValueUploadDownloadDecryptTest();
-obj.encryptValueWithReaderUploadSearchByPkWithSignatureTest();
-obj.encryptedValueOneOwnerTest();
-obj.encryptedValueTwoOwnerTest();
-obj.encryptedValueOwnerReaderTest();
+if (obj.setup) 
+    obj.setup();
+if (obj.begin) 
+    await obj.begin();
+await obj.encryptDecryptTest();
+await obj.encryptObjectUploadDownloadDecryptTest();
+await obj.encryptValueUploadDownloadDecryptTest();
+await obj.encryptValueWithReaderUploadSearchByPkWithSignatureTest();
+await obj.encryptedValueOneOwnerTest();
+await obj.encryptedValueTwoOwnerTest();
+await obj.encryptedValueOwnerReaderTest();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new EcVersioningTest();

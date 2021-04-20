@@ -8,6 +8,7 @@
  */
 module.exports = class Competency extends schema.CreativeWork{
     constructor(){
+        super();
         this.setContextAndType(Cass.context, Competency.myType);
     }
     static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/competency";

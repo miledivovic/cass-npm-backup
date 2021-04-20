@@ -12,19 +12,26 @@ global.generateUUID = function(){
 }
 
 global.cassPromisify = function(p,success,failure){
-    if (success !== undefined && success != null)
+    if (success !== undefined && success != null && failure !== undefined && failure != null)
+        p = p.then(success,failure);
+    else if (success !== undefined && success != null)
         p = p.then(success);
-    if (failure !== undefined && failure != null)
+    else if (failure !== undefined && failure != null)
         p = p.catch(failure);
     return p;
 }
-global.cassReturnAsPromise = function(o,success,failure){
+global.cassReturnAsPromise = function(o,success,failure,error){
     let p = new Promise((resolve,reject)=>{
-        resolve(o);
+        if (o === undefined || o == null)
+            reject(error);
+        else
+            resolve(o);
     });
-    if (success !== undefined && success != null)
+    if (success !== undefined && success != null && failure !== undefined && failure != null)
+        p = p.then(success,failure);
+    else if (success !== undefined && success != null)
         p = p.then(success);
-    if (failure !== undefined && failure != null)
+    else if (failure !== undefined && failure != null)
         p = p.catch(failure);
     return p;
 }

@@ -15,13 +15,13 @@ var Assert = {
         if (val2 == null || val2 === undefined) {
             if (val == false) {
                 console.log("PROBLEM: " + val + " == false");
-                console.trace();
+                console.trace(val);
                 process.exit(1);
             }
         } else if (val2 == false)
         {
             console.log("PROBLEM: " + val + " - " + val2 + " == false");
-            console.trace();
+            console.trace(val);
             process.exit(1);
         }
     },
@@ -29,13 +29,13 @@ var Assert = {
         if (val2 == null || val2 === undefined) {
             if (val == true) {
                 console.log("PROBLEM: " + val + " == true");
-                console.trace();
+                console.trace(val);
                 process.exit(1);
             }
         } else if (val2 == true)
         {
             console.log("PROBLEM: " + val + " - " + val2 + " != true");
-            console.trace();
+            console.trace(val);
             process.exit(1);
         }
 
@@ -46,12 +46,12 @@ var Assert = {
         if (val3 != null && val3 !== undefined) {
             if (val2 != val3) {
                 console.log("PROBLEM: " + val + " - " + val2 + " != " + val3);
-                console.trace();
+                console.trace(val);
                 process.exit(1);
             }
         } else if (val != val2) {
             console.log("PROBLEM: " + val + " != " + val2);
-            console.trace();
+            console.trace(val);
             process.exit(1);
         }
     },
@@ -61,12 +61,12 @@ var Assert = {
         if (val3 != null && val3 !== undefined) {
             if (val2 != val3) {
                 console.log("PROBLEM: " + val + " - " + val2 + " != " + val3);
-                console.trace();
+                console.trace(val);
                 process.exit(1);
             }
         } else if (val != val2) {
             console.log("PROBLEM: " + val + " != " + val2);
-            console.trace();
+            console.trace(val);
             process.exit(1);
         }
     },
@@ -76,23 +76,23 @@ var Assert = {
         if (val3 != null && val3 !== undefined) {
             if (val2 == val3) {
                 console.log("PROBLEM: " + val + " - " + val2 + " != " + val3);
-                console.trace();
+                console.trace(val);
                 process.exit(1);
             }
         } else if (val == val2) {
             console.log("PROBLEM: " + val + " != " + val2);
-            console.trace();
+            console.trace(val);
             process.exit(1);
         }
     },
     assertFail: function(val){
         console.log("PROBLEM: " + val);
-        console.trace();
+        console.trace(val);
         process.exit(1);
     },
     fail: function(val){
         console.log("PROBLEM: " + val);
-        console.trace();
+        console.trace(val);
         process.exit(1);
     }
 };
@@ -947,15 +947,16 @@ class EcEncryptedValueTest {
             console.log(p1);
             Assert.fail("Failed to save object.");
         });
-        await EcRepository.get(v.shortId(), function(p1) {
+        await EcRepository.get(v.shortId(), async function(p1) {
             console.log("Read.");
             var val = new EcEncryptedValue();
             val.copyFrom(p1);
-            var decryptedObject = val.decryptIntoObject();
+            var decryptedObject = await val.decryptIntoObject();
             var file = new GeneralFile();
             file.copyFrom(decryptedObject);
             Assert.assertTrue(file.name == f.name);
         }, function(p1) {
+            console.trace(p1);
             Assert.fail("Failed to read object.");
         });
         var r = new EcRepository();
@@ -1146,7 +1147,7 @@ class EcEncryptedValueTest {
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching...");
-        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.searchWithParams("\\*encryptedType:\"" + thing.type + "\"",{size:10000}, null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == thing.shortId()) 
@@ -1162,7 +1163,7 @@ class EcEncryptedValueTest {
         console.log("Trying to retrieve as public...");
         await EcRepository.get(encThing.shortId(), function(p1) {
             console.log("Retrieved encrypted object as public");
-            if (p1.type != null && p1.type != "") 
+            if (p1 !== undefined && p1 !== null && p1.type != null && p1.type != "") 
                 Assert.fail("Retrieved encrypted object as public");
         }, function(p1) {
             console.log("Access Denied");
@@ -1265,7 +1266,8 @@ class EcEncryptedValueTest {
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching as owner 1...");
-        await  r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.searchWithParams("\\*encryptedType:\"" + thing.type + "\"", {size:10000},null, function(p1) {
+            console.log(JSON.stringify(p1,null,2));
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == thing.shortId()) 
@@ -1348,7 +1350,7 @@ class EcEncryptedValueTest {
             Assert.fail("Failed to Update object as owner2.");
         });
         console.log("Retrieving after update...");
-        await  EcRepository.get(encThing.shortId(), function(p1) {
+        await EcRepository.get(encThing.shortId(), function(p1) {
             var retrieved = new EcEncryptedValue();
             retrieved.copyFrom(p1);
             Assert.assertTrue("Object is not Owned by the Identity that Created It", retrieved.canEdit(newId1.ppk.toPk()));
@@ -1408,7 +1410,7 @@ class EcEncryptedValueTest {
         var r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching as owner ...");
-        await r.search("\\*encryptedType:\"" + thing.type + "\"", null, function(p1) {
+        await r.searchWithParams("\\*encryptedType:\"" + thing.type + "\"", {size:10000}, null, function(p1) {
             var found = false;
             for (var i = 0; i < p1.length; i++) {
                 if (p1[i].shortId().equals(thing.shortId())) 
@@ -1462,7 +1464,7 @@ class EcEncryptedValueTest {
             console.log("Retrieved as Reader");
         }, function(p1) {
             console.log("Failed to retrieve as reader");
-            console.log(p1);
+            console.trace(p1);
             Assert.fail("Failed to retrieve object as reader.");
         });
         console.log("Searching as reader...");
@@ -1552,10 +1554,8 @@ class EcEncryptedValueTest {
 class EcVersioningTest {
     static server = "http://localhost/api/";
     begin = function() {
-        EcRemote.async = false;
     };
-    testSaveTwoVersionsBothExist = function() {
-        EcRemote.async = false;
+    testSaveTwoVersionsBothExist = async function() {
         var r = new EcRepository();
         r.selectedServer = EcVersioningTest.server;
         var ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
@@ -1563,77 +1563,88 @@ class EcVersioningTest {
         newId1.ppk = ppk;
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(newId1);
-        var t = new Thing();
+        var t = new schema.Thing();
         t.name = "Foo";
         t.generateId(r.selectedServer);
         t.addOwner(ppk.toPk());
-        EcRepository.save(t, function(p1) {
+        await EcRepository.save(t, function(p1) {
             console.log("First save OK.");
         }, function(p1) {
+            console.trace(p1);
             Assert.fail("Couldn't save the object.");
         });
         t.name = "Foo2";
         var oldVersion = t.id;
-        EcRepository.save(t, function(p1) {
-            console.log("First save OK.");
+        await EcRepository.save(t, function(p1) {
+            console.log("Second save OK.");
         }, function(p1) {
+            console.trace(p1);
             Assert.fail("Couldn't save the object.");
         });
         var newVersion = t.id;
-        EcRepository.get(oldVersion, function(p1) {
-            var t = new Thing();
+        await EcRepository.get(oldVersion, function(p1) {
+            var t = new schema.Thing();
             t.copyFrom(p1);
             Assert.assertEquals(t.name, "Foo");
             Assert.assertEquals(t.id, oldVersion);
         }, function(p1) {
+            console.trace(p1);
             Assert.fail("Couldn't retrieve the old version.");
         });
-        EcRepository.get(newVersion, function(p1) {
-            var t = new Thing();
+        await EcRepository.get(newVersion, function(p1) {
+            var t = new schema.Thing();
             t.copyFrom(p1);
             Assert.assertEquals(t.name, "Foo2");
             Assert.assertEquals(t.id, newVersion);
         }, function(p1) {
+            console.trace(p1);
             Assert.fail("Couldn't retrieve the old version.");
         });
-        EcRepository._delete(t, function(p1) {
+        await EcRepository._delete(t, async (p1) => {
             console.log("Deleted the thing.");
-            EcRepository.get(t.shortId(), function(p1) {
+            await EcRepository.get(t.shortId(), function(p1) {
+                console.log(p1);
                 Assert.fail("Could find the thing that was supposed to be gone.");
             }, function(p1) {
                 console.log("Couldn't find the deleted 'latest' -- good.");
             });
-            r.search("\"" + t.shortId() + "\"", null, function(p1) {
+            await r.search("\"" + t.shortId() + "\"", null, function(p1) {
+                console.log(p1);
                 if (p1.length != 0) 
                     Assert.fail("Could find the thing that was supposed to be gone.");
             }, function(p1) {
                 console.log("Couldn't find the deleted 'latest' -- good.");
             });
+            console.log("Deleted the thing done.");
         }, function(p1) {
+            console.trace(p1);
             Assert.fail("Couldn't delete it.");
         });
-        EcRepository.get(oldVersion, function(p1) {
-            var t = new Thing();
+        await EcRepository.get(oldVersion, function(p1) {
+            var t = new schema.Thing();
             t.copyFrom(p1);
             Assert.assertEquals(t.name, "Foo");
             Assert.assertEquals(t.id, oldVersion);
+            console.log("Getting old version - OK.");
         }, function(p1) {
-            Assert.fail("Couldn't retrieve the old version 2.");
+            console.trace(p1);
+            Assert.fail("Couldn't retrieve the old version.");
         });
-        EcRepository.get(newVersion, function(p1) {
-            var t = new Thing();
+        await EcRepository.get(newVersion, function(p1) {
+            var t = new schema.Thing();
             t.copyFrom(p1);
             Assert.assertEquals(t.name, "Foo2");
             Assert.assertEquals(t.id, newVersion);
+            console.log("Getting new version - OK.");
         }, function(p1) {
-            Assert.fail("Couldn't retrieve the old version 2.");
+            console.trace(p1);
+            Assert.fail("Couldn't retrieve the new version.");
         });
     };
 };
 class EcRekeyTest {
     static server = "http://localhost/api/";
     begin = function() {
-        EcRemote.async = false;
         EcRekeyTest.oldKey = EcPpk.generateKey().toPem();
         EcRekeyTest.newerKey = EcPpk.generateKey().toPem();
         EcRekeyTest.newestKey = EcPpk.generateKey().toPem();
@@ -1642,7 +1653,6 @@ class EcRekeyTest {
     static newerKey = null;
     static newestKey = null;
     basicInMemoryForwardingTest = function() {
-        EcRemote.async = false;
         EcRemoteLinkedData.forwardingTable = new Object();
         var rld = new EcRemoteLinkedData("https://cass.test", "TestObject");
         rld.addOwner(EcPpk.fromPem(EcRekeyTest.oldKey).toPk());
@@ -1656,16 +1666,16 @@ class EcRekeyTest {
         rld.copyFrom(JSON.parse(oldestData));
         Assert.assertEquals(rld.owner[0], EcPpk.fromPem(EcRekeyTest.newestKey).toPk().toPem());
     };
-    basicRekeyRecordForwardingTest = function() {
+    basicRekeyRecordForwardingTest = async function() {
         EcIdentityManager.ids[0] = new EcIdentity();
         EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
-        EcRemote.async = false;
         EcRemoteLinkedData.forwardingTable = new Object();
-        var err = EcRekeyRequest.generateRekeyRequest(EcRekeyTest.server, EcPpk.fromPem(EcRekeyTest.oldKey), EcPpk.fromPem(EcRekeyTest.newerKey));
-        EcRepository.save(err, function(s) {
+        var err = await EcRekeyRequest.generateRekeyRequest(EcRekeyTest.server, EcPpk.fromPem(EcRekeyTest.oldKey), EcPpk.fromPem(EcRekeyTest.newerKey));
+        console.log(err.toJson())
+        await EcRepository.save(err, async(s) => {
             EcIdentityManager.clearIdentities();
             var repo = new EcRepository();
-            repo.init(EcRekeyTest.server, function() {
+            await repo.init(EcRekeyTest.server, ()=> {
                 var rld = new EcRemoteLinkedData("https://cass.test", "TestObject");
                 rld.addOwner(EcPpk.fromPem(EcRekeyTest.oldKey).toPk());
                 rld.copyFrom(JSON.parse(rld.toJson()));
@@ -1677,24 +1687,23 @@ class EcRekeyTest {
             Assert.fail("Could not save EcRekeyRequest to server. " + s);
         });
     };
-    basicRekeyRecordClientTest = function() {
+    basicRekeyRecordClientTest = async function() {
         EcIdentityManager.ids[0] = new EcIdentity();
         EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
-        EcRemote.async = false;
         EcRemoteLinkedData.forwardingTable = new Object();
-        var err = EcRekeyRequest.generateRekeyRequest(EcRekeyTest.server, EcPpk.fromPem(EcRekeyTest.oldKey), EcPpk.fromPem(EcRekeyTest.newerKey));
-        EcRepository.save(err, function(s) {
+        var err = await EcRekeyRequest.generateRekeyRequest(EcRekeyTest.server, EcPpk.fromPem(EcRekeyTest.oldKey), EcPpk.fromPem(EcRekeyTest.newerKey));
+        await EcRepository.save(err, async function(s) {
             EcIdentityManager.clearIdentities();
             var repo = new EcRepository();
-            repo.init(EcRekeyTest.server, function() {
+            await repo.init(EcRekeyTest.server, async function() {
                 EcIdentityManager.ids[0] = new EcIdentity();
                 EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.oldKey);
                 var rld = new EcRemoteLinkedData("https://cass.test", "TestObject");
                 rld.generateId(EcRekeyTest.server);
                 rld.addOwner(EcPpk.fromPem(EcRekeyTest.oldKey).toPk());
-                EcRepository.save(rld, function(s) {
+                await EcRepository.save(rld, async function(s) {
                     EcIdentityManager.clearIdentities();
-                    var rld2 = EcRepository.getBlocking(rld.shortId());
+                    var rld2 = await EcRepository.get(rld.shortId());
                     Assert.assertEquals(rld2.owner[0], EcPpk.fromPem(EcRekeyTest.newerKey).toPk().toPem());
                 }, function(s) {
                     Assert.fail("Could not save record that needs to be forwarded. " + s);
@@ -1706,36 +1715,41 @@ class EcRekeyTest {
             Assert.fail("Could not save EcRekeyRequest to server. " + s);
         });
     };
-    basicRekeyRecordServerTest = function() {
+    basicRekeyRecordServerTest = async function() {
         EcIdentityManager.ids[0] = new EcIdentity();
         EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
-        EcRemote.async = false;
         EcRemoteLinkedData.forwardingTable = new Object();
-        var err = EcRekeyRequest.generateRekeyRequest(EcRekeyTest.server, EcPpk.fromPem(EcRekeyTest.oldKey), EcPpk.fromPem(EcRekeyTest.newerKey));
-        EcRepository.save(err, function(s) {
+        var err = await EcRekeyRequest.generateRekeyRequest(EcRekeyTest.server, EcPpk.fromPem(EcRekeyTest.oldKey), EcPpk.fromPem(EcRekeyTest.newerKey));
+        await EcRepository.save(err, async (s) => {
             EcIdentityManager.clearIdentities();
             var repo = new EcRepository();
-            repo.init(EcRekeyTest.server, function() {
+            await repo.init(EcRekeyTest.server, async () => {
                 EcIdentityManager.ids[0] = new EcIdentity();
                 EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.oldKey);
                 var rld = new EcRemoteLinkedData("https://cass.test", "TestObject");
                 rld.generateId(EcRekeyTest.server);
+                console.log("Init'd.");
                 rld.addOwner(EcPpk.fromPem(EcRekeyTest.oldKey).toPk());
                 EcEncryptedValue.encryptOnSave(rld.id, true);
-                EcRepository.save(rld, function(s) {
+                await EcRepository.save(rld, async (s) => {
                     EcIdentityManager.clearIdentities();
                     EcIdentityManager.ids[0] = new EcIdentity();
                     EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.oldKey);
-                    var rld2 = EcRepository.getBlocking(rld.shortId());
+                    console.log("Test 0.");
+                    var rld2 = await EcRepository.get(rld.shortId());
+                    console.log(JSON.stringify(rld2,null,2));
+                    console.log("Test 1.");
                     Assert.assertEquals("Could retreive object, shouldn't be able to.", rld2, null);
                     EcIdentityManager.clearIdentities();
                     EcIdentityManager.ids[0] = new EcIdentity();
                     EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
-                    rld2 = EcRepository.getBlocking(rld.shortId());
-                    Assert.assertEquals("Should not be able to decrypt object, can(?)", EcEncryptedValue.fromEncryptedValue(rld2), null);
+                    rld2 = await EcRepository.get(rld.shortId());
+                    console.log("Test 2.");
+                    Assert.assertEquals("Should not be able to decrypt object, can(?)", await EcEncryptedValue.fromEncryptedValue(rld2), null);
                     EcIdentityManager.ids[1] = new EcIdentity();
                     EcIdentityManager.ids[1].ppk = EcPpk.fromPem(EcRekeyTest.oldKey);
-                    Assert.assertTrue("Should be able to decrypt object, can't", (rld2 = EcEncryptedValue.fromEncryptedValue(rld2)) != null);
+                    console.log("Test 3.");
+                    Assert.assertTrue("Should be able to decrypt object, can't", (rld2 = await EcEncryptedValue.fromEncryptedValue(rld2)) != null);
                     Assert.assertEquals(rld2.owner[0], EcPpk.fromPem(EcRekeyTest.newerKey).toPk().toPem());
                 }, function(s) {
                     Assert.fail("Could not save record that needs to be forwarded. " + s);
@@ -1755,7 +1769,7 @@ class OrganizationTest {
     static newId1 = new EcIdentity();
     static repo = new EcRepository();
     setup = function() {};
-    basicOrganizationUpgradeTest = function() {
+    basicOrganizationUpgradeTest = async function() {
         Assert.assertTrue(true);
     };
 }; 
@@ -1767,9 +1781,8 @@ class EcAlignmentTest {
     static sourceComp = null;
     static targetComp = null;
     static relation = null;
-    setup = function() {
+    setup = async function() {
         console.log("setup");
-        EcRemote.async = false;
         EcAlignmentTest.repo.selectedServer = EcAlignmentTest.server;
         EcAlignmentTest.ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         EcAlignmentTest.newId1.ppk = EcAlignmentTest.ppk;
@@ -1794,31 +1807,31 @@ class EcAlignmentTest {
         var end = new Date();
         end.setFullYear(2017);
         EcAlignmentTest.relation.validThrough = end.toDateString();
-        EcAlignmentTest.sourceComp.save(null, function(p1) {
+        await EcAlignmentTest.sourceComp.save(null, function(p1) {
             Assert.fail("Failed to create Source Competency");
         }, null);
-        EcAlignmentTest.targetComp.save(null, function(p1) {
+        await EcAlignmentTest.targetComp.save(null, function(p1) {
             Assert.fail("Failed to create Target Competency");
         }, null);
-        EcAlignmentTest.relation.save(null, function(p1) {
+        await EcAlignmentTest.relation.save(null, function(p1) {
             Assert.fail("Failed to create Relation");
         }, null);
     };
-    breakdown = function() {
-        EcAlignmentTest.relation._delete(null, function(p1) {
+    breakdown = async function() {
+        await EcAlignmentTest.relation._delete(null, function(p1) {
             Assert.fail("failed to delete relation");
         });
-        EcAlignmentTest.sourceComp._delete(null, function(p1) {
+        await EcAlignmentTest.sourceComp._delete(null, function(p1) {
             Assert.fail("failed to delete source competency");
         }, null);
-        EcAlignmentTest.targetComp._delete(null, function(p1) {
+        await EcAlignmentTest.targetComp._delete(null, function(p1) {
             Assert.fail("failed to delete target competency");
         }, null);
     };
-    createAlignmentTest = function() {
+    createAlignmentTest = async function() {
         var paramObj = new Object();
-        (paramObj)["size"] = 1000;
-        EcAlignmentTest.repo.searchWithParams(new Relation().getSearchStringByType(), paramObj, null, function(p1) {
+        (paramObj)["size"] = 10000;
+        await EcAlignmentTest.repo.searchWithParams(new Relation().getSearchStringByType(), paramObj, null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == EcAlignmentTest.relation.id) {
@@ -1830,38 +1843,38 @@ class EcAlignmentTest {
             Assert.fail("Failed to Search for relation after save");
         });
     };
-    createNoSourceAlignmentTest = function() {
+    createNoSourceAlignmentTest = async function() {
         var noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.target = EcAlignmentTest.targetComp.shortId();
         noSource.relationType = "requires";
         noSource.addOwner(EcAlignmentTest.ppk.toPk());
-        noSource.save(function(p1) {
+        await noSource.save(function(p1) {
             Assert.fail("Relation Saved without source competency, shouldn't happen");
         }, null, null);
     };
-    createNoTargetAlignmentTest = function() {
+    createNoTargetAlignmentTest = async function() {
         var noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.source = EcAlignmentTest.sourceComp.shortId();
         noSource.relationType = "requires";
         noSource.addOwner(EcAlignmentTest.ppk.toPk());
-        noSource.save(function(p1) {
+        await noSource.save(function(p1) {
             Assert.fail("Relation Saved without target competency, shouldn't happen");
         }, null, null);
     };
-    createNoTypeAlignmentTest = function() {
+    createNoTypeAlignmentTest = async function() {
         var noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.source = EcAlignmentTest.sourceComp.shortId();
         noSource.target = EcAlignmentTest.targetComp.shortId();
         noSource.addOwner(EcAlignmentTest.ppk.toPk());
-        noSource.save(function(p1) {
+        await noSource.save(function(p1) {
             Assert.fail("Relation Saved without relationType field, shouldn't happen");
         }, null, null);
     };
-    viewAlignmentTest = function() {
-        EcRepository.get(EcAlignmentTest.relation.id, function(p1) {
+    viewAlignmentTest = async function() {
+        await EcRepository.get(EcAlignmentTest.relation.id, function(p1) {
             var r = new EcAlignment();
             r.copyFrom(p1);
             Assert.assertEquals(EcAlignmentTest.relation.id, r.id);
@@ -1875,7 +1888,7 @@ class EcAlignmentTest {
             Assert.fail("Failed to Get relation");
         });
     };
-    updateAlignmentInfo = function() {
+    updateAlignmentInfo = async function() {
         EcAlignmentTest.relation.name = "changed relation name";
         EcAlignmentTest.relation.description = "changed description";
         EcAlignmentTest.relation.relationType = "required By";
@@ -1884,13 +1897,13 @@ class EcAlignmentTest {
         end.setFullYear(2017);
         EcAlignmentTest.relation.validThrough = end.toDateString();
         console.log("Updating Relation");
-        EcAlignmentTest.relation.save(function(p1) {
+        await EcAlignmentTest.relation.save(function(p1) {
             console.log("Updated Relation successfully");
         }, function(p1) {
             Assert.fail("Failed to save updated relation");
         }, null);
         console.log("Getting Relation after update");
-        EcRepository.get(EcAlignmentTest.relation.id, function(p1) {
+        await EcRepository.get(EcAlignmentTest.relation.id, function(p1) {
             var r = new EcAlignment();
             r.copyFrom(p1);
             Assert.assertEquals(EcAlignmentTest.relation.id, r.id);
@@ -1902,29 +1915,29 @@ class EcAlignmentTest {
             Assert.fail("Failed to Get relation after update");
         });
     };
-    updateAlignmentRemoveSource = function() {
+    updateAlignmentRemoveSource = async function() {
         EcAlignmentTest.relation.source = null;
         EcAlignmentTest.relation.target = EcAlignmentTest.targetComp.shortId();
-        EcAlignmentTest.relation.save(function(p1) {
+        await EcAlignmentTest.relation.save(function(p1) {
             Assert.fail("Saved Relation without source, shouldn't be allowed");
         }, null, null);
     };
-    updateAlignmentRemoveTarget = function() {
+    updateAlignmentRemoveTarget = async function() {
         EcAlignmentTest.relation.source = EcAlignmentTest.sourceComp.shortId();
         EcAlignmentTest.relation.target = null;
-        EcAlignmentTest.relation.save(function(p1) {
+        await EcAlignmentTest.relation.save(function(p1) {
             Assert.fail("Saved Relation without target, shouldn't be allowed");
         }, null, null);
     };
-    updateAlignmentRemoveType = function() {
+    updateAlignmentRemoveType = async function() {
         EcAlignmentTest.relation.source = EcAlignmentTest.sourceComp.shortId();
         EcAlignmentTest.relation.target = EcAlignmentTest.targetComp.shortId();
         EcAlignmentTest.relation.relationType = null;
-        EcAlignmentTest.relation.save(function(p1) {
+        await EcAlignmentTest.relation.save(function(p1) {
             Assert.fail("Saved Relation without relation Type, shouldn't be allowed");
         }, null, null);
     };
-    deleteAlignmentTest = function() {
+    deleteAlignmentTest = async function() {
         var toDelete = new EcAlignment();
         toDelete.generateId(EcAlignmentTest.server);
         toDelete.name = "Relation To Delete";
@@ -1932,15 +1945,15 @@ class EcAlignmentTest {
         toDelete.target = EcAlignmentTest.targetComp.shortId();
         toDelete.addOwner(EcAlignmentTest.ppk.toPk());
         console.log("saving relation to delete...");
-        EcRepository.save(toDelete, null, function(p1) {
+        await EcRepository.save(toDelete, null, function(p1) {
             Assert.fail("Failed to save relation for delete");
         });
         console.log("deleting relation...");
-        toDelete._delete(function(p1) {}, function(p1) {
+        await toDelete._delete(function(p1) {}, function(p1) {
             Assert.fail("Failed to delete relation");
         });
         console.log("searching for deleted relation...");
-        EcAlignmentTest.repo.search("@type:\"" + toDelete.myType + "\"", null, function(p1) {
+        await EcAlignmentTest.repo.search("@type:\"" + toDelete.myType + "\"", null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == toDelete.id) {
@@ -4499,42 +4512,38 @@ await obj.encryptValueWithReaderUploadSearchByPkWithSignatureTest();
 await obj.encryptedValueOneOwnerTest();
 await obj.encryptedValueTwoOwnerTest();
 await obj.encryptedValueOwnerReaderTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcVersioningTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.testSaveTwoVersionsBothExist();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcRekeyTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.basicInMemoryForwardingTest();
-// obj.basicRekeyRecordForwardingTest();
-// obj.basicRekeyRecordClientTest();
-// obj.basicRekeyRecordServerTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new OrganizationTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.basicOrganizationUpgradeTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcAlignmentTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.createAlignmentTest();
-// obj.createNoSourceAlignmentTest();
-// obj.createNoTargetAlignmentTest();
-// obj.createNoTypeAlignmentTest();
-// obj.viewAlignmentTest();
-// obj.updateAlignmentInfo();
-// obj.updateAlignmentRemoveSource();
-// obj.updateAlignmentRemoveTarget();
-// obj.updateAlignmentRemoveType();
-// obj.deleteAlignmentTest();
+EcRepository.repos = [];
+obj = new EcVersioningTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+await obj.testSaveTwoVersionsBothExist();
+EcRepository.repos = [];
+obj = new EcRekeyTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+await obj.basicInMemoryForwardingTest();
+await obj.basicRekeyRecordForwardingTest();
+await obj.basicRekeyRecordClientTest();
+await obj.basicRekeyRecordServerTest();
+EcRepository.repos = [];
+obj = new OrganizationTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+await obj.basicOrganizationUpgradeTest();
+EcRepository.repos = [];
+obj = new EcAlignmentTest();
+if (obj.setup) await obj.setup();
+if (obj.begin) await obj.begin();
+await obj.createAlignmentTest();
+await obj.createNoSourceAlignmentTest();
+await obj.createNoTargetAlignmentTest();
+await obj.createNoTypeAlignmentTest();
+await obj.viewAlignmentTest();
+await obj.updateAlignmentInfo();
+await obj.updateAlignmentRemoveSource();
+await obj.updateAlignmentRemoveTarget();
+await obj.updateAlignmentRemoveType();
+await obj.deleteAlignmentTest();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new EcCompetencyTest();

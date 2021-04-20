@@ -8,6 +8,7 @@
  */
 module.exports = class Relation extends schema.CreativeWork{
     constructor(){
+        super();
         this.setContextAndType(Cass.context, Relation.myType);
     }
     /**

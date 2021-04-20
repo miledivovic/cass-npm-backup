@@ -241,32 +241,6 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
         return false;
     };
     /**
-     *  Encodes the object in a form where it is ready to be signed.
-     *  This method is under long term review, and may change from version to version.
-     * 
-     *  @return ASCII-sort order encoded space-free and tab-free JSON-LD.
-     *  @method toSignableJson
-     */
-    toSignableJson() {
-        var d = JSON.parse(this.toJson());
-        if (this.type.indexOf("http://schema.eduworks.com/") != -1 && this.type.indexOf("/0.1/") != -1) {
-            delete (d)["signature"];
-            delete (d)["owner"];
-            delete (d)["reader"];
-            delete (d)["@signature"];
-            delete (d)["@owner"];
-            delete (d)["@reader"];
-            delete (d)["@id"];
-        } else {
-            delete (d)["signature"];
-            delete (d)["@signature"];
-            delete (d)["@id"];
-        }
-        var e = new EcLinkedData(d.context, d.type);
-        e.copyFrom(d);
-        return e.toJson();
-    };
-    /**
      *  Sign this object using a private key.
      *  Does not check for ownership, objects signed with keys absent from owner or reader may be removed.
      * 

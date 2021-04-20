@@ -39,8 +39,8 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData{
      *  {EcPpk}  oldKeyPpk   The old PPK
      *  @method generateRekeyRequestId
      */
-    finalizeRequest(oldKeyPpk) {
-        this.rekeySignature = EcRsaOaep.signSha256(oldKeyPpk, this.toSignableJson());
+    async finalizeRequest(oldKeyPpk) {
+        this.rekeySignature = await EcRsaOaepAsync.signSha256(oldKeyPpk, this.toSignableJson());
     };
     /**
      *  Generates and populates a rekey request with the given information
@@ -50,12 +50,12 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData{
      *  {EcPpk}  newKey  The new PPK
      *  @method generateRekeyRequest
      */
-    static generateRekeyRequest(server, oldKey, newKey) {
+    static async generateRekeyRequest(server, oldKey, newKey) {
         var err = new EcRekeyRequest();
         err.addOwner(newKey.toPk());
         err.rekeyPk = oldKey.toPk().toPem();
         err.generateRekeyRequestId(server, oldKey.toPk());
-        err.finalizeRequest(oldKey);
+        await err.finalizeRequest(oldKey);
         return err;
     };
     /**
@@ -76,10 +76,10 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData{
      *  Verifies both the integrity of the rekey request and the signed nonce of the old key. Returns false if either of these fail.
      *  @return True if the rekey request is valid and maintains its cryptographically integrity.
      */
-    verify() {
-        if (!EcRemoteLinkedData.verify.call(this)) 
+    async verify() {
+        if (!(await super.verify())) 
             return false;
-        return EcRsaOaep.verifySha256(EcPk.fromPem(this.rekeyPk), this.toSignableRekeyJson(), this.rekeySignature);
+        return await EcRsaOaepAsync.verifySha256(EcPk.fromPem(this.rekeyPk), this.toSignableRekeyJson(), this.rekeySignature);
     };
     addRekeyRequestToForwardingTable() {
         if (!this.verify()) 

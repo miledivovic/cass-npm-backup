@@ -11,6 +11,7 @@
  */
 module.exports = class EcCompetency extends Competency{
     constructor(){
+        super();
         var me = (this);
         if (EcCompetency.template != null) {
             var you = (EcCompetency.template);
@@ -41,7 +42,7 @@ module.exports = class EcCompetency extends Competency{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcCompetency(), success, failure);
+        return EcRepository.getAs(id, new EcCompetency(), success, failure);
     };
     /**
      *  Retrieves a competency from it's server synchronously, the call
@@ -76,7 +77,7 @@ module.exports = class EcCompetency extends Competency{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
+        return EcRepository.searchAs(repo, query, function() {
             return new EcCompetency();
         }, success, failure, paramObj);
     };
@@ -147,7 +148,7 @@ module.exports = class EcCompetency extends Competency{
      *  @deprecated
      */
     relationships(repo, eachSuccess, failure, successAll) {
-        EcAlignment.search(repo, "source:\"" + this.id + "\" OR target:\"" + this.id + "\" OR source:\"" + this.shortId() + "\" OR target:\"" + this.shortId() + "\"", function(results) {
+        return EcAlignment.search(repo, "source:\"" + this.id + "\" OR target:\"" + this.id + "\" OR source:\"" + this.shortId() + "\" OR target:\"" + this.shortId() + "\"", function(results) {
             for (var i = 0; i < results.length; i++) 
                 eachSuccess(results[i]);
             successAll(results);
@@ -202,7 +203,7 @@ module.exports = class EcCompetency extends Competency{
      */
     levels(repo, eachSuccess, failure, successAll) {
         var query = "competency:\"" + this.id + "\" OR competency:\"" + this.shortId() + "\"";
-        EcLevel.search(repo, query, function(results) {
+        return EcLevel.search(repo, query, function(results) {
             for (var i = 0; i < results.length; i++) 
                 eachSuccess(results[i]);
             successAll(results);
@@ -258,7 +259,7 @@ module.exports = class EcCompetency extends Competency{
      */
     rollupRules(repo, eachSuccess, failure, successAll) {
         var query = "competency:\"" + this.id + "\" OR competency:\"" + this.shortId() + "\"";
-        EcRollupRule.search(repo, query, function(results) {
+        return EcRollupRule.search(repo, query, function(results) {
             for (var i = 0; i < results.length; i++) 
                 eachSuccess(results[i]);
             successAll(results);
@@ -295,9 +296,9 @@ module.exports = class EcCompetency extends Competency{
             return;
         }
         if (repo == null) 
-            EcRepository.save(this, success, failure);
-         else 
-            repo.saveTo(this, success, failure);
+            return EcRepository.save(this, success, failure);
+        else 
+            return repo.saveTo(this, success, failure);
     };
     /**
      *  Deletes the competency from the server
@@ -315,52 +316,6 @@ module.exports = class EcCompetency extends Competency{
      */
     _delete = function(success, failure, repo) {
         var me = this;
-        EcRepository.DELETE(this, function(p1) {
-            if (repo != null) {
-                me.relationships(repo, function(p1) {
-                    for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-                        if (p1.canEdit(EcIdentityManager.ids[i].ppk.toPk())) {
-                            p1._delete(null, function(p1) {
-                                if (failure != null) 
-                                    failure("Unable to Delete Competency Relation");
-                                 else 
-                                    console.error("Unable to Delete Competency Relation");
-                            });
-                            return;
-                        }
-                    }
-                }, failure, function(p1) {
-                    if (EcCompetency.levelDone[this.id]) {
-                        if (success != null) 
-                            success("");
-                    } else {
-                        EcCompetency.relDone[this.id] = true;
-                    }
-                });
-                me.levels(repo, function(p1) {
-                    for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-                        if (p1.canEdit(EcIdentityManager.ids[i].ppk.toPk())) {
-                            p1._delete(null, function(p1) {
-                                if (failure != null) 
-                                    failure("Unable to Delete Competency Relation");
-                                 else 
-                                    console.error("Unable to Delete Competency Relation");
-                            });
-                            return;
-                        }
-                    }
-                }, failure, function(p1) {
-                    if (EcCompetency.relDone[this.id]) {
-                        if (success != null) 
-                            success("");
-                    } else {
-                        EcCompetency.levelDone[this.id] = true;
-                    }
-                });
-            } else {
-                if (success != null) 
-                    success(p1);
-            }
-        }, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
 };

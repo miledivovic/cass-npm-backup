@@ -257,7 +257,8 @@ module.exports = class EcLinkedData{
             this.context = newContext;
         this.upgrade();
         if (!this.isAny(this.getTypes())) 
-             throw new RuntimeException("Incompatible type: " + this.getFullType());
+             throw "Incompatible type: " + this.getFullType() + that;
+        return this;
     };
     recast(translationContext, targetContext, success, failure) {
         var me = this;
@@ -281,6 +282,32 @@ module.exports = class EcLinkedData{
                 success(me);
             });
         });
+    };
+    /**
+     *  Encodes the object in a form where it is ready to be signed.
+     *  This method is under long term review, and may change from version to version.
+     * 
+     *  @return ASCII-sort order encoded space-free and tab-free JSON-LD.
+     *  @method toSignableJson
+     */
+    toSignableJson() {
+        var d = JSON.parse(this.toJson());
+        if (this.type.indexOf("http://schema.eduworks.com/") != -1 && this.type.indexOf("/0.1/") != -1) {
+            delete (d)["signature"];
+            delete (d)["owner"];
+            delete (d)["reader"];
+            delete (d)["@signature"];
+            delete (d)["@owner"];
+            delete (d)["@reader"];
+            delete (d)["@id"];
+        } else {
+            delete (d)["signature"];
+            delete (d)["@signature"];
+            delete (d)["@id"];
+        }
+        var e = new EcLinkedData(d.context, d.type);
+        e.copyFrom(d);
+        return e.toJson();
     };
     /**
      *  Upgrades the object to the latest version, performing transforms and the like.

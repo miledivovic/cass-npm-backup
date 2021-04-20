@@ -1,5 +1,6 @@
 const { ConsoleErrorListener } = require("antlr4/error/ErrorListener");
 let FormData = require("form-data");
+const EcEncryptedValue = require("./EcEncryptedValue");
 
 /**
  *  Repository object used to interact with the CASS Repository web services.
@@ -25,7 +26,7 @@ module.exports = class EcRepository {
     autoDetectFound = false;
     timeOffset = 0;
     cassDockerEndpoint = null;
-    init = function(selectedServer, success, failure) {
+    init(selectedServer, success, failure) {
         this.selectedServer = selectedServer;
         return this.negotiateTimeOffset(success, failure);
     };
@@ -58,16 +59,11 @@ module.exports = class EcRepository {
     buildKeyForwardingTable = function(success, failure) {
         var params = new Object();
         (params)["size"] = 10000;
-        return EcRepository.searchAs(this, "*", function() {
-            return new EcRekeyRequest();
-        }, function(array) {
-            var rekeyRequests = array;
+        return cassPromisify(EcRepository.searchAs(this, "*",() => new EcRekeyRequest(), null, null, params).then(rekeyRequests => {
             for (var i = 0; i < rekeyRequests.length; i++) {
                 rekeyRequests[i].addRekeyRequestToForwardingTable();
             }
-            if (success != null) 
-                success();
-        }, failure, params);
+        }),success,failure);
     };
     /**
      *  Gets a JSON-LD object from the place designated by the URI.
@@ -83,7 +79,7 @@ module.exports = class EcRepository {
      *  @method get
      *  @static
      */
-    static get = function(url, success, failure) {
+    static get(url, success, failure) {
         if (url == null) {
             throw("URL is null. Cannot EcRepository.get");
         }
@@ -120,7 +116,6 @@ module.exports = class EcRepository {
         p = p.then((data) => {
             return EcRepository.getHandleData(data, originalUrl, success, failure, finalUrl);
         }).catch((error)=>{
-            console.trace(error);
             return EcRepository.find(originalUrl, error, new Object(), 0, success, failure);
         })
         return p;
@@ -136,6 +131,18 @@ module.exports = class EcRepository {
     };
     static getHandleData = function(p1, originalUrl, success, failure, finalUrl) {
         var d = new EcRemoteLinkedData("", "");
+        let defaultFunc = result=>{
+            if (result === undefined || result == null) 
+            {
+                if (p1 !== undefined && p1 !== null && EcObject.isObject(p1))
+                    return d;
+                else
+                    return null;
+            }
+            return result;            
+        };
+        if (!EcObject.isObject(p1))
+            return cassReturnAsPromise(null,success,failure).then(defaultFunc);
         d.copyFrom(p1);
         if (d.getFullType() == null) {
             return EcRepository.find(originalUrl, JSON.stringify(p1), new Object(), 0, success, failure);
@@ -145,7 +152,7 @@ module.exports = class EcRepository {
             if (d.id != null) 
                 (EcRepository.cache)[d.id] = d;
         }
-        return d;
+        return cassReturnAsPromise(d,success,failure).then(defaultFunc);
     };
     static shouldTryUrl = function(url) {
         if (url == null) 
@@ -164,26 +171,23 @@ module.exports = class EcRepository {
             return true;
         return false;
     };
-    static find = function(url, error, history, i, success, failure) {
-        if (isNaN(i) || i == undefined || i > EcRepository.repos.length || EcRepository.repos[i] == null) {
+    static find(url, error, history, counter, success, failure) {
+        if (isNaN(counter) || counter == undefined || counter > EcRepository.repos.length || EcRepository.repos[counter] == null) {
             delete (EcRepository.fetching)[url];
-            if (failure != null) 
-                failure(error);
-            return;
+            return cassReturnAsPromise(null,success,failure,error);
         }
-        var repo = EcRepository.repos[i];
+        var repo = EcRepository.repos[counter];
         if (repo.selectedServer == null) {
-            return EcRepository.find(url, error, history, i + 1, success, failure);
+            return EcRepository.find(url, error, history, counter + 1, success, failure);
         }
         if (((history)[repo.selectedServer]) == true) {
-            return EcRepository.find(url, error, history, i + 1, success, failure);
+            return EcRepository.find(url, error, history, counter + 1, success, failure);
         }
         (history)[repo.selectedServer] = true;
         let p = repo.search("@id:\"" + url + "\"", null);
         p = p.then(function(strings) {
-            console.log(strings);
             if (strings == null || strings.length == 0) 
-                EcRepository.find(url, error, history, i + 1, success, failure);
+                EcRepository.find(url, error, history, counter + 1, success, failure);
             else {
                 var done = false;
                 for (var i = 0; i < strings.length; i++) {
@@ -195,17 +199,17 @@ module.exports = class EcRepository {
                         if (EcRepository.caching) {
                             (EcRepository.cache)[url] = strings[i];
                         }
-                        return strings[i];
+                        return cassReturnAsPromise(strings[i],success,failure);
                     }
                 }
                 if (done)
-                    return null;
-                return EcRepository.find(url, error, history, i + 1, success, failure);
+                    return cassReturnAsPromise(null,success,failure);
+                return EcRepository.find(url, error, history, counter + 1, success, failure);
             }
         }).catch(function(s) {
-            return EcRepository.find(url, s, history, i + 1, success, failure);
+            return EcRepository.find(url, s, history, counter + 1, success, failure);
         });
-        return cassPromisify(p,success,failure);
+        return p;
     };
     /**
      *  Escapes a search query
@@ -676,12 +680,14 @@ module.exports = class EcRepository {
         }
         let p = new Promise((resolve,reject)=>{resolve();});
         if (EcRepository.unsigned == true || (paramObj)["unsigned"] == true)
+        {
             p = p.then(()=>fd.append("signatureSheet", []));
+        }
         else
-            p = p.then(()=>{
-                return EcIdentityManager.signatureSheet(60000 + this.timeOffset, this.selectedServer).then(signatureSheet => fd.append("signatureSheet", signatureSheet));
-            });
-        p = p.then(() => {            
+        {
+            p = p.then(()=>EcIdentityManager.signatureSheet(60000 + this.timeOffset, this.selectedServer).then(signatureSheet => {fd.append("signatureSheet", signatureSheet)}));
+        }
+        p = p.then(() => {           
             return EcRemote.postExpectingObject(this.selectedServer, "sky/repo/search", fd).then(results => {
                 if (EcRepository.cachingSearch) {
                     (EcRepository.cache)[cacheKey] = p1;
@@ -689,7 +695,6 @@ module.exports = class EcRepository {
                 if (results == null) {
                     throw "Error in search. See HTTP request for more details.";
                 }
-                console.log(results);
                 results = results.map(result => {
                     var d = new EcRemoteLinkedData(null, null);
                     d.copyFrom(result);
@@ -702,7 +707,7 @@ module.exports = class EcRepository {
                         eachSuccess(result);
                     }
                     return d;
-                });
+                }).filter(n => n);
                 return results;
             })
         })
@@ -1132,23 +1137,8 @@ module.exports = class EcRepository {
             query = queryAdd;
          else 
             query = "(" + query + ") AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1s) {
-            var eah = new EcAsyncHelper();
-            if (success != null) {
-                eah.eachSet(p1s, function(p1, set) {
-                    EcEncryptedValue.fromEncryptedValueAsync(p1, function(p1) {
-                        var result = factory();
-                        if (p1.isAny(result.getTypes())) {
-                            result.copyFrom(p1);
-                            set(result);
-                        } else {
-                            set(null);
-                        }
-                    }, EcAsyncHelper.setNull(set));
-                }, function(results) {
-                    success(results);
-                });
-            }
-        }, failure);
+        return cassPromisify(repo.searchWithParams(query, paramObj, null).then(p1s => { 
+            return Promise.all(p1s.map(p1 => EcEncryptedValue.fromEncryptedValue(p1))).then(results => results.map(result => factory().copyFrom(result)));
+        }),success,failure);
     };
 }

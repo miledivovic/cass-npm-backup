@@ -162,13 +162,13 @@ module.exports = class EcRsaOaepAsync{
         algorithm.name = "RSASSA-PKCS1-v1_5";
         algorithm.hash = "SHA-256";
         let p = null;
-        if (ppk.signKey == null) 
+        if (ppk.signKey256 == null) 
             p = crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
-                ppk.signKey = key;
+                ppk.signKey256 = key;
                 return crypto.subtle.sign(algorithm, key, EcCrypto.str2ab(forge.util.encodeUtf8(text)));
             });
         else 
-            p = crypto.subtle.sign(algorithm, ppk.signKey, EcCrypto.str2ab(forge.util.encodeUtf8(text)));
+            p = crypto.subtle.sign(algorithm, ppk.signKey256, EcCrypto.str2ab(forge.util.encodeUtf8(text)));
 
         p = p.then(function(p1) {
             return base64.encode(p1);
@@ -233,18 +233,18 @@ module.exports = class EcRsaOaepAsync{
         var algorithm = new Object();
         algorithm.name = "RSASSA-PKCS1-v1_5";
         algorithm.hash = "SHA-256";
-        if (pk.signKey == null)
+        if (pk.signKey256 == null)
         {
             var keyUsages = new Array();
             keyUsages.push("verify");
             return cassPromisify(crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
-                pk.signKey = key;
+                pk.signKey256 = key;
                 return crypto.subtle.verify(algorithm, key, base64.decode(signature), EcCrypto.str2ab(forge.util.encodeUtf8(text)));
             }),success,failure);
         }
         else 
         {
-            return cassPromisify(crypto.subtle.verify(algorithm, pk.signKey, base64.decode(signature), EcCrypto.str2ab(forge.util.encodeUtf8(text))),success,failure);
+            return cassPromisify(crypto.subtle.verify(algorithm, pk.signKey256, base64.decode(signature), EcCrypto.str2ab(forge.util.encodeUtf8(text))),success,failure);
         }
     };
 };

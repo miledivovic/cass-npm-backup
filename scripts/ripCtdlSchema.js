@@ -104,8 +104,8 @@ function codeGenerate(graph, node, context) {
     text += "\tconstructor()\n";
     text += "\t{\n";
     if (node["rdfs:subClassOf"] != null) {
-        text += "\t\tcontext=\"" + context + "\";\n";
-        text += "\t\ttype=\"" + className + "\";\n";
+        text += "\t\tsuper();\n";
+        text += "\t\tthis.setContextAndType(\"" + context + "\",\"" + className + "\");\n";
     }
     else {
         text += "\t\tsuper(\"" + context + "\"";

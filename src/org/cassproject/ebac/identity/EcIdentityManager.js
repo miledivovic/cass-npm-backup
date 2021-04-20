@@ -399,6 +399,8 @@ module.exports = class EcIdentityManager{
         var s = new EbacSignature();
         s.expiry = new Date().getTime() + duration;
         s.server = server;
+        delete s.owner;
+        delete s.signature;
         (s)["@owner"] = ppk.toPk().toPem();
         return EcRsaOaepAsync.sign(ppk, s.toJson()).then(signature => {
             (s)["@signature"] = signature;

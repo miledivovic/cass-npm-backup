@@ -183,7 +183,6 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
 
     static encryptValueActual(v,text,iv,secret,id,owners,readers,success,failure)
     {
-        console.log(text);
         return cassPromisify(EcAesCtrAsync.encrypt(text, secret, iv).then((encryptedText) => {
             v.payload = encryptedText;
             v.owner = owners;
@@ -196,7 +195,6 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
                 eSecret.secret = newSecret;
                 return EcRsaOaepAsync.encrypt(EcPk.fromPem(pk), eSecret.toEncryptableJson());
             }
-            console.log(JSON.stringify(owners,null,2));
             if (owners != null) 
                 promises = promises.concat(owners.map(pk => insertSecret(pk, iv, secret)));
             if (readers != null)
@@ -287,7 +285,6 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
      */
     decryptIntoString(success, failure) {
         return cassPromisify(this.decryptSecret().then((decryptSecret)=>{
-            console.log(decryptSecret);
             if (decryptSecret != null) {
                 if (this.context == Ebac.context_0_2 || this.context == Ebac.context_0_3) {
                     if (base64.decode(decryptSecret.iv).byteLength == 32) 
@@ -335,9 +332,9 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
             }
         }
         let iterate = (resolve,reject)=>{
-            console.log("Trying..." + ppks.length);
             if (ppks.length == 0 && estimatedIndices.length == 0)
                 reject("Could not decrypt secret."); //TODO: Try all identified ppks against all secrets.
+            console.log(ppks.length + " : " + estimatedIndices.length);
             let ppk = ppks.pop();
             let estimatedIndex = estimatedIndices.pop();
             let encryptedSecret = this.secret[estimatedIndex];

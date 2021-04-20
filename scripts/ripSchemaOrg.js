@@ -56,7 +56,10 @@ function codeGenerate(graph, node) {
     text += " */\n";
     text += "module.exports = class " + className;
     if (node["rdfs:subClassOf"] != null)
+    {
         text += " extends schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " {\n";
+        text = "global.schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " = require(\"./" + node["rdfs:subClassOf"]["@id"].split(":")[1] + ".js\");\n"+text
+    }
     else
         text += " extends EcRemoteLinkedData {\n";
     //text += "\n";
@@ -66,8 +69,8 @@ function codeGenerate(graph, node) {
     text += "\t * @constructor\n";
     text += "\t */\n";
     text += "\tconstructor() {\n";
-    text += "\t\tcontext = \"http://schema.org/\";\n";
-    text += "\t\ttype = \"" + className + "\";\n";
+    text += "\t\tsuper();\n";
+    text += "\t\tthis.setContextAndType(\"http://schema.org/\",\"" + className + "\");\n";
     text += "\t}\n\n";
 
     for (var i = 0; i < graph.length; i++) {

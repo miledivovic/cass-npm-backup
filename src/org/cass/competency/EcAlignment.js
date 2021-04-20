@@ -219,9 +219,9 @@ module.exports = class EcAlignment extends Relation{
             return;
         }
         if (repo == null) 
-            EcRepository.save(this, success, failure);
-         else 
-            repo.saveTo(this, success, failure);
+            return EcRepository.save(this, success, failure);
+        else 
+            return repo.saveTo(this, success, failure);
     };
     /**
      *  Deletes the alignment from the server corresponding to its ID
@@ -234,6 +234,6 @@ module.exports = class EcAlignment extends Relation{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
 };

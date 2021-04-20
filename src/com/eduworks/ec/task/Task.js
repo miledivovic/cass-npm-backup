@@ -42,7 +42,7 @@ module.exports = Task = class Task{
         var currentMs = Date.now();
         var nextFrameMs = Math.trunc(1000 / Task.desiredFps);
         Task.calledFunctions++;
-        if (EcRemote.async == true && (Task.lastFrame == null || currentMs > Task.lastFrame + nextFrameMs)) {
+        if ((Task.lastFrame == null || currentMs > Task.lastFrame + nextFrameMs)) {
             if (Task.updateFrameHandle == null) 
                 Task.updateFrame();
             return setTimeout(function() {

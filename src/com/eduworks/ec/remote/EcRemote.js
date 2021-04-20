@@ -93,8 +93,9 @@ module.exports = class EcRemote{
         }
         url = EcRemote.upgradeHttpToHttps(url);
         let postHeaders = fd.getHeaders();
-        for (let header in headers)
-            postHeaders[header] = headers[header];
+        if (headers !== undefined && headers != null)
+            for (let header in headers)
+                postHeaders[header] = headers[header];
         let p = axios.post(url,fd,{
             headers: postHeaders
         }).then((response=>{return response.data})).catch(err => {throw err.response.data});
@@ -114,7 +115,7 @@ module.exports = class EcRemote{
      *  @static
      */
     static getExpectingObject(server, service, success, failure) {
-        return EcRemote.getExpectingString(server, service, EcRemote.getSuccessJSONCallback(success, failure), failure);
+        return EcRemote.getExpectingString(server, service, success, failure);
     };
     /**
      *  GETs something from a remote endpoint. Composed of a server endpoint
@@ -132,9 +133,7 @@ module.exports = class EcRemote{
     static getExpectingString(server, service, success, failure) {
         var url = EcRemote.urlAppend(server, service);
         url = EcRemote.upgradeHttpToHttps(url);
-        let p = axios.get(url,{
-            headers: headers
-        }).then((response=>{return response.data})).catch(err => {throw err.response.data});
+        let p = axios.get(url).then((response=>{return response.data})).catch(err => {throw err.response.data});
         return cassPromisify(p,success,failure);
     };
     static urlAppend(server, service) {

@@ -15,8 +15,8 @@ module.exports = class VerificationServiceProfile extends schema.Intangible
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="VerificationServiceProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","VerificationServiceProfile");
 	}
 
 	/**

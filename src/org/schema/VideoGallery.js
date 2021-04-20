@@ -13,8 +13,8 @@ module.exports = class VideoGallery extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VideoGallery";
+		super();
+		this.setContextAndType("http://schema.org/","VideoGallery");
 	}
 
 }

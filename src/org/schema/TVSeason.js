@@ -1,3 +1,4 @@
+global.schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/TVSeason
  * Season dedicated to TV broadcast and associated online delivery.
@@ -14,8 +15,8 @@ module.exports = class TVSeason extends schema.CreativeWork {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TVSeason";
+		super();
+		this.setContextAndType("http://schema.org/","TVSeason");
 	}
 
 }

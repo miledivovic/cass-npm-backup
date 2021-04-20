@@ -13,8 +13,8 @@ module.exports = class AutoWash extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AutoWash";
+		super();
+		this.setContextAndType("http://schema.org/","AutoWash");
 	}
 
 }

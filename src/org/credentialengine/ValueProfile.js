@@ -14,8 +14,8 @@ module.exports = class ValueProfile extends schema.QuantitativeValue
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="ValueProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ValueProfile");
 	}
 
 	/**

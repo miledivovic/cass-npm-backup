@@ -13,8 +13,8 @@ module.exports = class SuspendAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SuspendAction";
+		super();
+		this.setContextAndType("http://schema.org/","SuspendAction");
 	}
 
 }

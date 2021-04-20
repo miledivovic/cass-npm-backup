@@ -16,8 +16,8 @@ module.exports = class DayOfWeek extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DayOfWeek";
+		super();
+		this.setContextAndType("http://schema.org/","DayOfWeek");
 	}
 
 }

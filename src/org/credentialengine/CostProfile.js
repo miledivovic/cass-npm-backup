@@ -14,8 +14,8 @@ module.exports = class CostProfile extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="CostProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CostProfile");
 	}
 
 	/**

@@ -13,8 +13,8 @@ module.exports = class HealthAndBeautyBusiness extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HealthAndBeautyBusiness";
+		super();
+		this.setContextAndType("http://schema.org/","HealthAndBeautyBusiness");
 	}
 
 }

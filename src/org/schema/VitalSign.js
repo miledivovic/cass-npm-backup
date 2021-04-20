@@ -13,8 +13,8 @@ module.exports = class VitalSign extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VitalSign";
+		super();
+		this.setContextAndType("http://schema.org/","VitalSign");
 	}
 
 }

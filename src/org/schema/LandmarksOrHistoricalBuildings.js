@@ -13,8 +13,8 @@ module.exports = class LandmarksOrHistoricalBuildings extends EcRemoteLinkedData
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "LandmarksOrHistoricalBuildings";
+		super();
+		this.setContextAndType("http://schema.org/","LandmarksOrHistoricalBuildings");
 	}
 
 }

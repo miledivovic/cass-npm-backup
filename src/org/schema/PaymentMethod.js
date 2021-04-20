@@ -14,8 +14,8 @@ module.exports = class PaymentMethod extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PaymentMethod";
+		super();
+		this.setContextAndType("http://schema.org/","PaymentMethod");
 	}
 
 }

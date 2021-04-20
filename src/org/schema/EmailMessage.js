@@ -13,8 +13,8 @@ module.exports = class EmailMessage extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EmailMessage";
+		super();
+		this.setContextAndType("http://schema.org/","EmailMessage");
 	}
 
 }

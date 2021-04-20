@@ -13,8 +13,8 @@ module.exports = class BankOrCreditUnion extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BankOrCreditUnion";
+		super();
+		this.setContextAndType("http://schema.org/","BankOrCreditUnion");
 	}
 
 }

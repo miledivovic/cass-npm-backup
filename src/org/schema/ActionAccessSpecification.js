@@ -13,8 +13,8 @@ module.exports = class ActionAccessSpecification extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ActionAccessSpecification";
+		super();
+		this.setContextAndType("http://schema.org/","ActionAccessSpecification");
 	}
 
 }

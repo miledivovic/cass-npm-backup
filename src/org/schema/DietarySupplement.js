@@ -13,8 +13,8 @@ module.exports = class DietarySupplement extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DietarySupplement";
+		super();
+		this.setContextAndType("http://schema.org/","DietarySupplement");
 	}
 
 }

@@ -14,8 +14,8 @@ module.exports = class PostalAddress extends ce.ContactPoint
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="PostalAddress";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","PostalAddress");
 	}
 
 	/**

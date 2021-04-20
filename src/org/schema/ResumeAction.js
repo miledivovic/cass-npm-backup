@@ -13,8 +13,8 @@ module.exports = class ResumeAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ResumeAction";
+		super();
+		this.setContextAndType("http://schema.org/","ResumeAction");
 	}
 
 }

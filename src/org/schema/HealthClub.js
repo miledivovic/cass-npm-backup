@@ -1,3 +1,4 @@
+global.schema.HealthAndBeautyBusiness = require("./HealthAndBeautyBusiness.js");
 /**
  * Schema.org/HealthClub
  * A health club.
@@ -14,8 +15,8 @@ module.exports = class HealthClub extends schema.HealthAndBeautyBusiness {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HealthClub";
+		super();
+		this.setContextAndType("http://schema.org/","HealthClub");
 	}
 
 }

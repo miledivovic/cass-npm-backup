@@ -13,8 +13,8 @@ module.exports = class DanceEvent extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DanceEvent";
+		super();
+		this.setContextAndType("http://schema.org/","DanceEvent");
 	}
 
 }

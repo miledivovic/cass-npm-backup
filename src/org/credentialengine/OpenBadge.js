@@ -14,8 +14,8 @@ module.exports = class OpenBadge extends ce.Badge
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="OpenBadge";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","OpenBadge");
 	}
 
 	/**

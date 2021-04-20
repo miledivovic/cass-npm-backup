@@ -13,8 +13,8 @@ module.exports = class RsvpAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "RsvpAction";
+		super();
+		this.setContextAndType("http://schema.org/","RsvpAction");
 	}
 
 }

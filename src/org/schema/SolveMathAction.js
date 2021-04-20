@@ -13,8 +13,8 @@ module.exports = class SolveMathAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SolveMathAction";
+		super();
+		this.setContextAndType("http://schema.org/","SolveMathAction");
 	}
 
 }

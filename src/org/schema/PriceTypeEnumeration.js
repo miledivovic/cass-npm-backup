@@ -13,8 +13,8 @@ module.exports = class PriceTypeEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PriceTypeEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","PriceTypeEnumeration");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class UserInteraction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "UserInteraction";
+		super();
+		this.setContextAndType("http://schema.org/","UserInteraction");
 	}
 
 }

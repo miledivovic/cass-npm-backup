@@ -13,8 +13,8 @@ module.exports = class AnatomicalSystem extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AnatomicalSystem";
+		super();
+		this.setContextAndType("http://schema.org/","AnatomicalSystem");
 	}
 
 }

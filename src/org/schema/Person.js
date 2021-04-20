@@ -13,8 +13,8 @@ module.exports = class Person extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Person";
+		super();
+		this.setContextAndType("http://schema.org/","Person");
 	}
 
 }

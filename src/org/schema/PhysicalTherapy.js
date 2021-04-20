@@ -13,8 +13,8 @@ module.exports = class PhysicalTherapy extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PhysicalTherapy";
+		super();
+		this.setContextAndType("http://schema.org/","PhysicalTherapy");
 	}
 
 }

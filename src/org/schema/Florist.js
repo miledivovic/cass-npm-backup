@@ -13,8 +13,8 @@ module.exports = class Florist extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Florist";
+		super();
+		this.setContextAndType("http://schema.org/","Florist");
 	}
 
 }

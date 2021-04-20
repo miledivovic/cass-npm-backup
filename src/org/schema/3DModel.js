@@ -14,8 +14,8 @@ module.exports = class 3DModel extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "3DModel";
+		super();
+		this.setContextAndType("http://schema.org/","3DModel");
 	}
 
 }

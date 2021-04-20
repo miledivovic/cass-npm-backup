@@ -14,8 +14,8 @@ module.exports = class JobComponent extends ce.PathwayComponent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="JobComponent";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","JobComponent");
 	}
 
 	/**

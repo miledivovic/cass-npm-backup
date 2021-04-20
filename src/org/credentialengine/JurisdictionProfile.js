@@ -14,8 +14,8 @@ module.exports = class JurisdictionProfile extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="JurisdictionProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","JurisdictionProfile");
 	}
 
 	/**

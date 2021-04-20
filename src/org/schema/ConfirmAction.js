@@ -13,8 +13,8 @@ module.exports = class ConfirmAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ConfirmAction";
+		super();
+		this.setContextAndType("http://schema.org/","ConfirmAction");
 	}
 
 }

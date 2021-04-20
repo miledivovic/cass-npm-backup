@@ -15,8 +15,8 @@ module.exports = class SecondarySchoolDiploma extends ce.Diploma
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="SecondarySchoolDiploma";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","SecondarySchoolDiploma");
 	}
 
 	/**

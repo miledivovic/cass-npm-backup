@@ -15,8 +15,8 @@ module.exports = class ProductGroup extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ProductGroup";
+		super();
+		this.setContextAndType("http://schema.org/","ProductGroup");
 	}
 
 }

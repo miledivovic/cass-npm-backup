@@ -14,8 +14,8 @@ module.exports = class OccupationClassification extends ce.CredentialFramework
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="OccupationClassification";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","OccupationClassification");
 	}
 
 }

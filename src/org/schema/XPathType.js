@@ -13,8 +13,8 @@ module.exports = class XPathType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "XPathType";
+		super();
+		this.setContextAndType("http://schema.org/","XPathType");
 	}
 
 }

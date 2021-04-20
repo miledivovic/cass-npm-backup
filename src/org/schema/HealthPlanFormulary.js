@@ -13,8 +13,8 @@ module.exports = class HealthPlanFormulary extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HealthPlanFormulary";
+		super();
+		this.setContextAndType("http://schema.org/","HealthPlanFormulary");
 	}
 
 }

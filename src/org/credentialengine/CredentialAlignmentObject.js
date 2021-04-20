@@ -14,8 +14,8 @@ module.exports = class CredentialAlignmentObject extends schema.AlignmentObject
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="CredentialAlignmentObject";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CredentialAlignmentObject");
 	}
 
 	/**

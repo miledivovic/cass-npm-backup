@@ -1,3 +1,4 @@
+global.schema.CriticReview = require("./CriticReview.js");
 /**
  * Schema.org/ReviewNewsArticle
  * A [[NewsArticle]] and [[CriticReview]] providing a professional critic's assessment of a service, product, performance, or artistic or literary work.
@@ -14,8 +15,8 @@ module.exports = class ReviewNewsArticle extends schema.CriticReview {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ReviewNewsArticle";
+		super();
+		this.setContextAndType("http://schema.org/","ReviewNewsArticle");
 	}
 
 }

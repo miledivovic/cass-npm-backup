@@ -13,8 +13,8 @@ module.exports = class UserCheckins extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "UserCheckins";
+		super();
+		this.setContextAndType("http://schema.org/","UserCheckins");
 	}
 
 }

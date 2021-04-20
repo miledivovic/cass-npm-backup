@@ -13,8 +13,8 @@ module.exports = class VideoGameSeries extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VideoGameSeries";
+		super();
+		this.setContextAndType("http://schema.org/","VideoGameSeries");
 	}
 
 }

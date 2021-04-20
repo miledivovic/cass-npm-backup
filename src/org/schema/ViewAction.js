@@ -13,8 +13,8 @@ module.exports = class ViewAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ViewAction";
+		super();
+		this.setContextAndType("http://schema.org/","ViewAction");
 	}
 
 }

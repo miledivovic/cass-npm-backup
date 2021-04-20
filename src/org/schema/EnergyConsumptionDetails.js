@@ -13,8 +13,8 @@ module.exports = class EnergyConsumptionDetails extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EnergyConsumptionDetails";
+		super();
+		this.setContextAndType("http://schema.org/","EnergyConsumptionDetails");
 	}
 
 }

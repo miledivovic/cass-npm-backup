@@ -13,8 +13,8 @@ module.exports = class CookAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CookAction";
+		super();
+		this.setContextAndType("http://schema.org/","CookAction");
 	}
 
 }

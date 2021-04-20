@@ -14,8 +14,8 @@ module.exports = class QACredentialOrganization extends ce.Agent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="QACredentialOrganization";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","QACredentialOrganization");
 	}
 
 	/**

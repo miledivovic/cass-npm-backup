@@ -13,8 +13,8 @@ module.exports = class WebAPI extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WebAPI";
+		super();
+		this.setContextAndType("http://schema.org/","WebAPI");
 	}
 
 }

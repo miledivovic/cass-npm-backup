@@ -13,8 +13,8 @@ module.exports = class ReturnFeesEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ReturnFeesEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","ReturnFeesEnumeration");
 	}
 
 }

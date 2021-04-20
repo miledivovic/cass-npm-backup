@@ -15,8 +15,8 @@ module.exports = class AccreditAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="AccreditAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","AccreditAction");
 	}
 
 	/**

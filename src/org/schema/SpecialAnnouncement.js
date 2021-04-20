@@ -48,8 +48,8 @@ module.exports = class SpecialAnnouncement extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SpecialAnnouncement";
+		super();
+		this.setContextAndType("http://schema.org/","SpecialAnnouncement");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class UKNonprofitType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "UKNonprofitType";
+		super();
+		this.setContextAndType("http://schema.org/","UKNonprofitType");
 	}
 
 }

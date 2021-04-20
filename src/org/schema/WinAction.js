@@ -13,8 +13,8 @@ module.exports = class WinAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WinAction";
+		super();
+		this.setContextAndType("http://schema.org/","WinAction");
 	}
 
 }

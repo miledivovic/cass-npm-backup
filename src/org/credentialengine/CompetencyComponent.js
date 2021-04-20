@@ -15,8 +15,8 @@ module.exports = class CompetencyComponent extends ce.PathwayComponent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="CompetencyComponent";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CompetencyComponent");
 	}
 
 	/**

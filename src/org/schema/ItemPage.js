@@ -13,8 +13,8 @@ module.exports = class ItemPage extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ItemPage";
+		super();
+		this.setContextAndType("http://schema.org/","ItemPage");
 	}
 
 }

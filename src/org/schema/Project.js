@@ -15,8 +15,8 @@ module.exports = class Project extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Project";
+		super();
+		this.setContextAndType("http://schema.org/","Project");
 	}
 
 }

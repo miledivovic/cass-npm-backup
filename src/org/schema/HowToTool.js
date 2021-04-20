@@ -13,8 +13,8 @@ module.exports = class HowToTool extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HowToTool";
+		super();
+		this.setContextAndType("http://schema.org/","HowToTool");
 	}
 
 }

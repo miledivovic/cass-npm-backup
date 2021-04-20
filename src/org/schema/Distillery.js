@@ -13,8 +13,8 @@ module.exports = class Distillery extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Distillery";
+		super();
+		this.setContextAndType("http://schema.org/","Distillery");
 	}
 
 }

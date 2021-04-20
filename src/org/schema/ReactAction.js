@@ -13,8 +13,8 @@ module.exports = class ReactAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ReactAction";
+		super();
+		this.setContextAndType("http://schema.org/","ReactAction");
 	}
 
 }

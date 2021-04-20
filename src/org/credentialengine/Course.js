@@ -14,8 +14,8 @@ module.exports = class Course extends ce.LearningOpportunity
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="Course";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","Course");
 	}
 
 }

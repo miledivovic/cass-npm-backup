@@ -1,3 +1,4 @@
+global.schema.ComicStory = require("./ComicStory.js");
 /**
  * Schema.org/ComicCoverArt
  * The artwork on the cover of a comic.
@@ -14,8 +15,8 @@ module.exports = class ComicCoverArt extends schema.ComicStory {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ComicCoverArt";
+		super();
+		this.setContextAndType("http://schema.org/","ComicCoverArt");
 	}
 
 }

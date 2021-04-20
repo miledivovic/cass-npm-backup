@@ -13,8 +13,8 @@ module.exports = class DryCleaningOrLaundry extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DryCleaningOrLaundry";
+		super();
+		this.setContextAndType("http://schema.org/","DryCleaningOrLaundry");
 	}
 
 }

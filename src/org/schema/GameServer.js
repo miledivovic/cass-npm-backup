@@ -13,8 +13,8 @@ module.exports = class GameServer extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "GameServer";
+		super();
+		this.setContextAndType("http://schema.org/","GameServer");
 	}
 
 }

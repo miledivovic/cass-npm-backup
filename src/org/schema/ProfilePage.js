@@ -13,8 +13,8 @@ module.exports = class ProfilePage extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ProfilePage";
+		super();
+		this.setContextAndType("http://schema.org/","ProfilePage");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class DefinedTermSet extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DefinedTermSet";
+		super();
+		this.setContextAndType("http://schema.org/","DefinedTermSet");
 	}
 
 }

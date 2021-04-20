@@ -13,8 +13,8 @@ module.exports = class OpinionNewsArticle extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OpinionNewsArticle";
+		super();
+		this.setContextAndType("http://schema.org/","OpinionNewsArticle");
 	}
 
 }

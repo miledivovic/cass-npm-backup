@@ -13,8 +13,8 @@ module.exports = class VirtualLocation extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VirtualLocation";
+		super();
+		this.setContextAndType("http://schema.org/","VirtualLocation");
 	}
 
 }

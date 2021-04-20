@@ -13,8 +13,8 @@ module.exports = class NutritionInformation extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "NutritionInformation";
+		super();
+		this.setContextAndType("http://schema.org/","NutritionInformation");
 	}
 
 }

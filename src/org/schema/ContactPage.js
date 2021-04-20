@@ -13,8 +13,8 @@ module.exports = class ContactPage extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ContactPage";
+		super();
+		this.setContextAndType("http://schema.org/","ContactPage");
 	}
 
 }

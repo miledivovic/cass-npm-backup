@@ -14,8 +14,8 @@ module.exports = class SelectionComponent extends ce.PathwayComponent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="SelectionComponent";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","SelectionComponent");
 	}
 
 	/**

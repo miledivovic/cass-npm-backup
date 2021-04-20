@@ -13,8 +13,8 @@ module.exports = class VoteAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VoteAction";
+		super();
+		this.setContextAndType("http://schema.org/","VoteAction");
 	}
 
 }

@@ -14,8 +14,8 @@ module.exports = class AccountingService extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AccountingService";
+		super();
+		this.setContextAndType("http://schema.org/","AccountingService");
 	}
 
 }

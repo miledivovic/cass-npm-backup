@@ -13,8 +13,8 @@ module.exports = class WearableSizeSystemEnumeration extends EcRemoteLinkedData 
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WearableSizeSystemEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","WearableSizeSystemEnumeration");
 	}
 
 }

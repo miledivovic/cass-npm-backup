@@ -15,8 +15,8 @@ module.exports = class ProfessionalService extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ProfessionalService";
+		super();
+		this.setContextAndType("http://schema.org/","ProfessionalService");
 	}
 
 }

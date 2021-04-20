@@ -13,8 +13,8 @@ module.exports = class DigitalDocumentPermission extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DigitalDocumentPermission";
+		super();
+		this.setContextAndType("http://schema.org/","DigitalDocumentPermission");
 	}
 
 }

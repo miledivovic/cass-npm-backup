@@ -13,8 +13,8 @@ module.exports = class OfferCatalog extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OfferCatalog";
+		super();
+		this.setContextAndType("http://schema.org/","OfferCatalog");
 	}
 
 }

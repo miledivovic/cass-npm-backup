@@ -13,8 +13,8 @@ module.exports = class MenuItem extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MenuItem";
+		super();
+		this.setContextAndType("http://schema.org/","MenuItem");
 	}
 
 }

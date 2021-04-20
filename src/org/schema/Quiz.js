@@ -13,8 +13,8 @@ module.exports = class Quiz extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Quiz";
+		super();
+		this.setContextAndType("http://schema.org/","Quiz");
 	}
 
 }

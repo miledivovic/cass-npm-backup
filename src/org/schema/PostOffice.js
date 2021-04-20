@@ -13,8 +13,8 @@ module.exports = class PostOffice extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PostOffice";
+		super();
+		this.setContextAndType("http://schema.org/","PostOffice");
 	}
 
 }

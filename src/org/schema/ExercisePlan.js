@@ -1,3 +1,4 @@
+global.schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/ExercisePlan
  * Fitness-related activity designed for a specific health-related purpose, including defined exercise routines as well as activity prescribed by a clinician.
@@ -14,8 +15,8 @@ module.exports = class ExercisePlan extends schema.CreativeWork {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ExercisePlan";
+		super();
+		this.setContextAndType("http://schema.org/","ExercisePlan");
 	}
 
 }

@@ -15,8 +15,8 @@ module.exports = class CredentialComponent extends ce.PathwayComponent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="CredentialComponent";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CredentialComponent");
 	}
 
 	/**

@@ -14,8 +14,8 @@ module.exports = class BreadcrumbList extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BreadcrumbList";
+		super();
+		this.setContextAndType("http://schema.org/","BreadcrumbList");
 	}
 
 }

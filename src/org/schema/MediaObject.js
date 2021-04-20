@@ -13,8 +13,8 @@ module.exports = class MediaObject extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MediaObject";
+		super();
+		this.setContextAndType("http://schema.org/","MediaObject");
 	}
 
 }

@@ -15,8 +15,8 @@ module.exports = class ApproveAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="ApproveAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ApproveAction");
 	}
 
 	/**

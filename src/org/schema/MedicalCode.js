@@ -1,3 +1,4 @@
+global.schema.CategoryCode = require("./CategoryCode.js");
 /**
  * Schema.org/MedicalCode
  * A code for a medical entity.
@@ -14,8 +15,8 @@ module.exports = class MedicalCode extends schema.CategoryCode {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MedicalCode";
+		super();
+		this.setContextAndType("http://schema.org/","MedicalCode");
 	}
 
 }

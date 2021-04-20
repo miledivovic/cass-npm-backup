@@ -13,8 +13,8 @@ module.exports = class MediaSubscription extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MediaSubscription";
+		super();
+		this.setContextAndType("http://schema.org/","MediaSubscription");
 	}
 
 }

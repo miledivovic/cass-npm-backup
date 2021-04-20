@@ -14,8 +14,8 @@ module.exports = class WorkExperienceComponent extends ce.PathwayComponent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="WorkExperienceComponent";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","WorkExperienceComponent");
 	}
 
 	/**

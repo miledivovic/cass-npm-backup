@@ -13,8 +13,8 @@ module.exports = class WearableMeasurementTypeEnumeration extends EcRemoteLinked
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WearableMeasurementTypeEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","WearableMeasurementTypeEnumeration");
 	}
 
 }

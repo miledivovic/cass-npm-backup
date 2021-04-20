@@ -13,8 +13,8 @@ module.exports = class SuperficialAnatomy extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SuperficialAnatomy";
+		super();
+		this.setContextAndType("http://schema.org/","SuperficialAnatomy");
 	}
 
 }

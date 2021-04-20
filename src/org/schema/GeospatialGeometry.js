@@ -13,8 +13,8 @@ module.exports = class GeospatialGeometry extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "GeospatialGeometry";
+		super();
+		this.setContextAndType("http://schema.org/","GeospatialGeometry");
 	}
 
 }

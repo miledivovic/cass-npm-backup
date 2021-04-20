@@ -14,8 +14,8 @@ module.exports = class DigitalBadge extends ce.Badge
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="DigitalBadge";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","DigitalBadge");
 	}
 
 	/**

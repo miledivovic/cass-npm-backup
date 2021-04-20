@@ -14,8 +14,8 @@ module.exports = class MicroCredential extends ce.Credential
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="MicroCredential";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","MicroCredential");
 	}
 
 	/**

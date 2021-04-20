@@ -14,8 +14,8 @@ module.exports = class DeliveryMethod extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DeliveryMethod";
+		super();
+		this.setContextAndType("http://schema.org/","DeliveryMethod");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class ArchiveOrganization extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ArchiveOrganization";
+		super();
+		this.setContextAndType("http://schema.org/","ArchiveOrganization");
 	}
 
 }

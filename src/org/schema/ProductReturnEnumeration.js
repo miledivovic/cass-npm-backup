@@ -13,8 +13,8 @@ module.exports = class ProductReturnEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ProductReturnEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","ProductReturnEnumeration");
 	}
 
 }

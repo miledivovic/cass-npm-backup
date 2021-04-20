@@ -13,8 +13,8 @@ module.exports = class AgreeAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AgreeAction";
+		super();
+		this.setContextAndType("http://schema.org/","AgreeAction");
 	}
 
 }

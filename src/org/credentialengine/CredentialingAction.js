@@ -15,8 +15,8 @@ module.exports = class CredentialingAction extends schema.Action
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="CredentialingAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CredentialingAction");
 	}
 
 	/**

@@ -13,8 +13,8 @@ module.exports = class MathSolver extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MathSolver";
+		super();
+		this.setContextAndType("http://schema.org/","MathSolver");
 	}
 
 }

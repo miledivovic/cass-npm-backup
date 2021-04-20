@@ -13,8 +13,8 @@ module.exports = class UnRegisterAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "UnRegisterAction";
+		super();
+		this.setContextAndType("http://schema.org/","UnRegisterAction");
 	}
 
 }

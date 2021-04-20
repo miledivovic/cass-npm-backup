@@ -13,8 +13,8 @@ module.exports = class SocialMediaPosting extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SocialMediaPosting";
+		super();
+		this.setContextAndType("http://schema.org/","SocialMediaPosting");
 	}
 
 }

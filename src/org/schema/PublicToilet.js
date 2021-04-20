@@ -13,8 +13,8 @@ module.exports = class PublicToilet extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PublicToilet";
+		super();
+		this.setContextAndType("http://schema.org/","PublicToilet");
 	}
 
 }

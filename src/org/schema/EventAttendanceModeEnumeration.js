@@ -13,8 +13,8 @@ module.exports = class EventAttendanceModeEnumeration extends EcRemoteLinkedData
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EventAttendanceModeEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","EventAttendanceModeEnumeration");
 	}
 
 }

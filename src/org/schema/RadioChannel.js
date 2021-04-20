@@ -13,8 +13,8 @@ module.exports = class RadioChannel extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "RadioChannel";
+		super();
+		this.setContextAndType("http://schema.org/","RadioChannel");
 	}
 
 }

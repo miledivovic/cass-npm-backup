@@ -13,8 +13,8 @@ module.exports = class BorrowAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BorrowAction";
+		super();
+		this.setContextAndType("http://schema.org/","BorrowAction");
 	}
 
 }

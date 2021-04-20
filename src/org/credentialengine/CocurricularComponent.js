@@ -14,8 +14,8 @@ module.exports = class CocurricularComponent extends ce.PathwayComponent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="CocurricularComponent";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CocurricularComponent");
 	}
 
 	/**

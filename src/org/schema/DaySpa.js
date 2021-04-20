@@ -13,8 +13,8 @@ module.exports = class DaySpa extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DaySpa";
+		super();
+		this.setContextAndType("http://schema.org/","DaySpa");
 	}
 
 }

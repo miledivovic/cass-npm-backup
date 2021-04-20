@@ -13,8 +13,8 @@ module.exports = class CoverArt extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CoverArt";
+		super();
+		this.setContextAndType("http://schema.org/","CoverArt");
 	}
 
 }

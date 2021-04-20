@@ -14,8 +14,8 @@ module.exports = class InstructionalProgramClassification extends ce.CredentialF
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="InstructionalProgramClassification";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","InstructionalProgramClassification");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class CancelAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CancelAction";
+		super();
+		this.setContextAndType("http://schema.org/","CancelAction");
 	}
 
 }

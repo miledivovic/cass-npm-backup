@@ -13,8 +13,8 @@ module.exports = class Distance extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Distance";
+		super();
+		this.setContextAndType("http://schema.org/","Distance");
 	}
 
 }

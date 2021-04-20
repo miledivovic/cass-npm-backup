@@ -13,8 +13,8 @@ module.exports = class WPHeader extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WPHeader";
+		super();
+		this.setContextAndType("http://schema.org/","WPHeader");
 	}
 
 }

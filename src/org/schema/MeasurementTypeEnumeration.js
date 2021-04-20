@@ -13,8 +13,8 @@ module.exports = class MeasurementTypeEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MeasurementTypeEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","MeasurementTypeEnumeration");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class GovernmentBenefitsType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "GovernmentBenefitsType";
+		super();
+		this.setContextAndType("http://schema.org/","GovernmentBenefitsType");
 	}
 
 }

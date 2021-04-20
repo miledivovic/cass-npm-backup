@@ -13,8 +13,8 @@ module.exports = class SizeSystemEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SizeSystemEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","SizeSystemEnumeration");
 	}
 
 }

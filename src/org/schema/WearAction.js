@@ -13,8 +13,8 @@ module.exports = class WearAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WearAction";
+		super();
+		this.setContextAndType("http://schema.org/","WearAction");
 	}
 
 }

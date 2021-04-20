@@ -13,8 +13,8 @@ module.exports = class VeterinaryCare extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VeterinaryCare";
+		super();
+		this.setContextAndType("http://schema.org/","VeterinaryCare");
 	}
 
 }

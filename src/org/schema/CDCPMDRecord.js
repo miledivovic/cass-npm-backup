@@ -16,8 +16,8 @@ module.exports = class CDCPMDRecord extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CDCPMDRecord";
+		super();
+		this.setContextAndType("http://schema.org/","CDCPMDRecord");
 	}
 
 }

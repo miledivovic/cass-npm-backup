@@ -15,8 +15,8 @@ module.exports = class Observation extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Observation";
+		super();
+		this.setContextAndType("http://schema.org/","Observation");
 	}
 
 }

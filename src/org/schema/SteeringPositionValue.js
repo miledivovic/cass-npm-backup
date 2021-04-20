@@ -13,8 +13,8 @@ module.exports = class SteeringPositionValue extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SteeringPositionValue";
+		super();
+		this.setContextAndType("http://schema.org/","SteeringPositionValue");
 	}
 
 }

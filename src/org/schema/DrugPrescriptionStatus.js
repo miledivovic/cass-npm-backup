@@ -13,8 +13,8 @@ module.exports = class DrugPrescriptionStatus extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DrugPrescriptionStatus";
+		super();
+		this.setContextAndType("http://schema.org/","DrugPrescriptionStatus");
 	}
 
 }

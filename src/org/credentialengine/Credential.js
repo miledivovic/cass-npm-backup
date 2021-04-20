@@ -15,8 +15,8 @@ module.exports = class Credential extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="Credential";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","Credential");
 	}
 
 	/**

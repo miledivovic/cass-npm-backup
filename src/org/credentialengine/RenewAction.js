@@ -15,8 +15,8 @@ module.exports = class RenewAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="RenewAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RenewAction");
 	}
 
 	/**

@@ -13,8 +13,8 @@ module.exports = class Crematorium extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Crematorium";
+		super();
+		this.setContextAndType("http://schema.org/","Crematorium");
 	}
 
 }

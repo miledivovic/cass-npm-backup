@@ -13,8 +13,8 @@ module.exports = class SearchResultsPage extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SearchResultsPage";
+		super();
+		this.setContextAndType("http://schema.org/","SearchResultsPage");
 	}
 
 }

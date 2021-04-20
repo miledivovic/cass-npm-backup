@@ -13,8 +13,8 @@ module.exports = class ReportedDoseSchedule extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ReportedDoseSchedule";
+		super();
+		this.setContextAndType("http://schema.org/","ReportedDoseSchedule");
 	}
 
 }

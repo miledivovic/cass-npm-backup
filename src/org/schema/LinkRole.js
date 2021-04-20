@@ -13,8 +13,8 @@ module.exports = class LinkRole extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "LinkRole";
+		super();
+		this.setContextAndType("http://schema.org/","LinkRole");
 	}
 
 }

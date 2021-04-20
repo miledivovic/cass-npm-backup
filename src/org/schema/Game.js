@@ -13,8 +13,8 @@ module.exports = class Game extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Game";
+		super();
+		this.setContextAndType("http://schema.org/","Game");
 	}
 
 }

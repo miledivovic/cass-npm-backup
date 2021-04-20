@@ -15,8 +15,8 @@ module.exports = class RightsAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="RightsAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RightsAction");
 	}
 
 	/**

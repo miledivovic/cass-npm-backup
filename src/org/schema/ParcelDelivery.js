@@ -13,8 +13,8 @@ module.exports = class ParcelDelivery extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ParcelDelivery";
+		super();
+		this.setContextAndType("http://schema.org/","ParcelDelivery");
 	}
 
 }

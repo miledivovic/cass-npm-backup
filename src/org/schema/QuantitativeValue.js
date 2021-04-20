@@ -13,8 +13,8 @@ module.exports = class QuantitativeValue extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "QuantitativeValue";
+		super();
+		this.setContextAndType("http://schema.org/","QuantitativeValue");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class BloodTest extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BloodTest";
+		super();
+		this.setContextAndType("http://schema.org/","BloodTest");
 	}
 
 }

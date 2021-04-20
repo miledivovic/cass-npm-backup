@@ -13,8 +13,8 @@ module.exports = class BroadcastFrequencySpecification extends EcRemoteLinkedDat
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BroadcastFrequencySpecification";
+		super();
+		this.setContextAndType("http://schema.org/","BroadcastFrequencySpecification");
 	}
 
 }

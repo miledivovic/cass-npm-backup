@@ -14,8 +14,8 @@ module.exports = class HoldersProfile extends ce.AggregateDataProfile
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="HoldersProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","HoldersProfile");
 	}
 
 	/**

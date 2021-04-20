@@ -13,8 +13,8 @@ module.exports = class RecyclingCenter extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "RecyclingCenter";
+		super();
+		this.setContextAndType("http://schema.org/","RecyclingCenter");
 	}
 
 }

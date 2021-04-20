@@ -15,8 +15,8 @@ module.exports = class Schedule extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Schedule";
+		super();
+		this.setContextAndType("http://schema.org/","Schedule");
 	}
 
 }

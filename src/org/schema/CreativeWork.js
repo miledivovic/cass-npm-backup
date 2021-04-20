@@ -13,8 +13,8 @@ module.exports = class CreativeWork extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CreativeWork";
+		super();
+		this.setContextAndType("http://schema.org/","CreativeWork");
 	}
 
 }

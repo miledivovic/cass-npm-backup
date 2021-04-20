@@ -13,8 +13,8 @@ module.exports = class Consortium extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Consortium";
+		super();
+		this.setContextAndType("http://schema.org/","Consortium");
 	}
 
 }

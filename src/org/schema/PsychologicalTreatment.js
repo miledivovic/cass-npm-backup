@@ -13,8 +13,8 @@ module.exports = class PsychologicalTreatment extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PsychologicalTreatment";
+		super();
+		this.setContextAndType("http://schema.org/","PsychologicalTreatment");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class HealthPlanCostSharingSpecification extends EcRemoteLinked
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HealthPlanCostSharingSpecification";
+		super();
+		this.setContextAndType("http://schema.org/","HealthPlanCostSharingSpecification");
 	}
 
 }

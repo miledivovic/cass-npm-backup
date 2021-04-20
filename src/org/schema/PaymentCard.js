@@ -1,3 +1,4 @@
+global.schema.FinancialProduct = require("./FinancialProduct.js");
 /**
  * Schema.org/PaymentCard
  * A payment method using a credit, debit, store or other card to associate the payment with an account.
@@ -14,8 +15,8 @@ module.exports = class PaymentCard extends schema.FinancialProduct {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PaymentCard";
+		super();
+		this.setContextAndType("http://schema.org/","PaymentCard");
 	}
 
 }

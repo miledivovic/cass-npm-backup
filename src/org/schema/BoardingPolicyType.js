@@ -13,8 +13,8 @@ module.exports = class BoardingPolicyType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BoardingPolicyType";
+		super();
+		this.setContextAndType("http://schema.org/","BoardingPolicyType");
 	}
 
 }

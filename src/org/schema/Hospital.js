@@ -1,4 +1,4 @@
-schema.MedicalOrganization = require("./MedicalOrganization");
+global.schema.MedicalOrganization = require("./MedicalOrganization.js");
 /**
  * Schema.org/Hospital
  * A hospital.
@@ -15,8 +15,8 @@ module.exports = class Hospital extends schema.MedicalOrganization {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Hospital";
+		super();
+		this.setContextAndType("http://schema.org/","Hospital");
 	}
 
 }

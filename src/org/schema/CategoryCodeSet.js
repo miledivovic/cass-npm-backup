@@ -13,8 +13,8 @@ module.exports = class CategoryCodeSet extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CategoryCodeSet";
+		super();
+		this.setContextAndType("http://schema.org/","CategoryCodeSet");
 	}
 
 }

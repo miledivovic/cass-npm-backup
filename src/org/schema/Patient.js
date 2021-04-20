@@ -1,3 +1,4 @@
+global.schema.MedicalAudience = require("./MedicalAudience.js");
 /**
  * Schema.org/Patient
  * A patient is any person recipient of health care services.
@@ -14,8 +15,8 @@ module.exports = class Patient extends schema.MedicalAudience {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Patient";
+		super();
+		this.setContextAndType("http://schema.org/","Patient");
 	}
 
 }

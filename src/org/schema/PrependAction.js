@@ -13,8 +13,8 @@ module.exports = class PrependAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PrependAction";
+		super();
+		this.setContextAndType("http://schema.org/","PrependAction");
 	}
 
 }

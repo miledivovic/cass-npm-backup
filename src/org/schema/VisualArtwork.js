@@ -13,8 +13,8 @@ module.exports = class VisualArtwork extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VisualArtwork";
+		super();
+		this.setContextAndType("http://schema.org/","VisualArtwork");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class FloorPlan extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "FloorPlan";
+		super();
+		this.setContextAndType("http://schema.org/","FloorPlan");
 	}
 
 }

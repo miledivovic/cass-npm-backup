@@ -13,8 +13,8 @@ module.exports = class PropertyValueSpecification extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PropertyValueSpecification";
+		super();
+		this.setContextAndType("http://schema.org/","PropertyValueSpecification");
 	}
 
 }

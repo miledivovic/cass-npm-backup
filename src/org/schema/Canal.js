@@ -13,8 +13,8 @@ module.exports = class Canal extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Canal";
+		super();
+		this.setContextAndType("http://schema.org/","Canal");
 	}
 
 }

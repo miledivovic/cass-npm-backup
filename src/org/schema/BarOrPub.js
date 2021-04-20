@@ -13,8 +13,8 @@ module.exports = class BarOrPub extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BarOrPub";
+		super();
+		this.setContextAndType("http://schema.org/","BarOrPub");
 	}
 
 }

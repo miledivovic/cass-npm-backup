@@ -13,8 +13,8 @@ module.exports = class MediaManipulationRatingEnumeration extends EcRemoteLinked
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MediaManipulationRatingEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","MediaManipulationRatingEnumeration");
 	}
 
 }

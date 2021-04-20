@@ -1,3 +1,4 @@
+global.schema.SoftwareApplication = require("./SoftwareApplication.js");
 /**
  * Schema.org/VideoGame
  * A video game is an electronic game that involves human interaction with a user interface to generate visual feedback on a video device.
@@ -14,8 +15,8 @@ module.exports = class VideoGame extends schema.SoftwareApplication {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VideoGame";
+		super();
+		this.setContextAndType("http://schema.org/","VideoGame");
 	}
 
 }

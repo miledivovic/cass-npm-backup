@@ -13,8 +13,8 @@ module.exports = class Notary extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Notary";
+		super();
+		this.setContextAndType("http://schema.org/","Notary");
 	}
 
 }

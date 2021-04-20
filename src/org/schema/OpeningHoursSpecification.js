@@ -15,8 +15,8 @@ module.exports = class OpeningHoursSpecification extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OpeningHoursSpecification";
+		super();
+		this.setContextAndType("http://schema.org/","OpeningHoursSpecification");
 	}
 
 }

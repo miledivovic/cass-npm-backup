@@ -13,8 +13,8 @@ module.exports = class Cemetery extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Cemetery";
+		super();
+		this.setContextAndType("http://schema.org/","Cemetery");
 	}
 
 }

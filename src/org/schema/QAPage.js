@@ -13,8 +13,8 @@ module.exports = class QAPage extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "QAPage";
+		super();
+		this.setContextAndType("http://schema.org/","QAPage");
 	}
 
 }

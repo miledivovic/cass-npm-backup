@@ -13,8 +13,8 @@ module.exports = class RefundTypeEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "RefundTypeEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","RefundTypeEnumeration");
 	}
 
 }

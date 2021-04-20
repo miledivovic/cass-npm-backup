@@ -13,8 +13,8 @@ module.exports = class Landform extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Landform";
+		super();
+		this.setContextAndType("http://schema.org/","Landform");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class OrganizationRole extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OrganizationRole";
+		super();
+		this.setContextAndType("http://schema.org/","OrganizationRole");
 	}
 
 }

@@ -1,3 +1,4 @@
+global.schema.MedicalOrganization = require("./MedicalOrganization.js");
 /**
  * Schema.org/Physician
  * A doctor's office.
@@ -14,8 +15,8 @@ module.exports = class Physician extends schema.MedicalOrganization {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Physician";
+		super();
+		this.setContextAndType("http://schema.org/","Physician");
 	}
 
 }

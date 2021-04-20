@@ -13,8 +13,8 @@ module.exports = class Atlas extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Atlas";
+		super();
+		this.setContextAndType("http://schema.org/","Atlas");
 	}
 
 }

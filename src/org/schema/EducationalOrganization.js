@@ -1,3 +1,4 @@
+global.schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/EducationalOrganization
  * An educational organization.
@@ -14,8 +15,8 @@ module.exports = class EducationalOrganization extends schema.CivicStructure {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EducationalOrganization";
+		super();
+		this.setContextAndType("http://schema.org/","EducationalOrganization");
 	}
 
 }

@@ -17,8 +17,8 @@ module.exports = class LearningResource extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "LearningResource";
+		super();
+		this.setContextAndType("http://schema.org/","LearningResource");
 	}
 
 }

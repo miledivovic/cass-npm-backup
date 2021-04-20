@@ -13,8 +13,8 @@ module.exports = class Photograph extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Photograph";
+		super();
+		this.setContextAndType("http://schema.org/","Photograph");
 	}
 
 }

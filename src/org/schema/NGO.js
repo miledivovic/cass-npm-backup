@@ -13,8 +13,8 @@ module.exports = class NGO extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "NGO";
+		super();
+		this.setContextAndType("http://schema.org/","NGO");
 	}
 
 }

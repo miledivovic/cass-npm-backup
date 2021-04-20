@@ -14,8 +14,8 @@ module.exports = class Certificate extends ce.Credential
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="Certificate";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","Certificate");
 	}
 
 	/**

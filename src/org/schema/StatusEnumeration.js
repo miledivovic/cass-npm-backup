@@ -13,8 +13,8 @@ module.exports = class StatusEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "StatusEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","StatusEnumeration");
 	}
 
 }

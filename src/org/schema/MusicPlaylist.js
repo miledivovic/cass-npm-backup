@@ -13,8 +13,8 @@ module.exports = class MusicPlaylist extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MusicPlaylist";
+		super();
+		this.setContextAndType("http://schema.org/","MusicPlaylist");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class SeekToAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SeekToAction";
+		super();
+		this.setContextAndType("http://schema.org/","SeekToAction");
 	}
 
 }

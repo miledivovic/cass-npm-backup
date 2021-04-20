@@ -13,8 +13,8 @@ module.exports = class WPFooter extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WPFooter";
+		super();
+		this.setContextAndType("http://schema.org/","WPFooter");
 	}
 
 }

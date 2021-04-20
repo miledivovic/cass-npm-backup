@@ -16,8 +16,8 @@ module.exports = class BedAndBreakfast extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BedAndBreakfast";
+		super();
+		this.setContextAndType("http://schema.org/","BedAndBreakfast");
 	}
 
 }

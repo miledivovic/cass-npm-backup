@@ -13,8 +13,8 @@ module.exports = class Mosque extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Mosque";
+		super();
+		this.setContextAndType("http://schema.org/","Mosque");
 	}
 
 }

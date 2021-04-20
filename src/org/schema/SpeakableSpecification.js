@@ -13,8 +13,8 @@ module.exports = class SpeakableSpecification extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SpeakableSpecification";
+		super();
+		this.setContextAndType("http://schema.org/","SpeakableSpecification");
 	}
 
 }

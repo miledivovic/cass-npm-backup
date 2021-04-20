@@ -13,8 +13,8 @@ module.exports = class MerchantReturnPolicy extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MerchantReturnPolicy";
+		super();
+		this.setContextAndType("http://schema.org/","MerchantReturnPolicy");
 	}
 
 }

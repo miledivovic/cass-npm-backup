@@ -13,8 +13,8 @@ module.exports = class BroadcastChannel extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BroadcastChannel";
+		super();
+		this.setContextAndType("http://schema.org/","BroadcastChannel");
 	}
 
 }

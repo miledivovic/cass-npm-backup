@@ -13,8 +13,8 @@ module.exports = class DrugPregnancyCategory extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DrugPregnancyCategory";
+		super();
+		this.setContextAndType("http://schema.org/","DrugPregnancyCategory");
 	}
 
 }

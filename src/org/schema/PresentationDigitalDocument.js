@@ -13,8 +13,8 @@ module.exports = class PresentationDigitalDocument extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PresentationDigitalDocument";
+		super();
+		this.setContextAndType("http://schema.org/","PresentationDigitalDocument");
 	}
 
 }

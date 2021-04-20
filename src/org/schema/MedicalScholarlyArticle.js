@@ -13,8 +13,8 @@ module.exports = class MedicalScholarlyArticle extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MedicalScholarlyArticle";
+		super();
+		this.setContextAndType("http://schema.org/","MedicalScholarlyArticle");
 	}
 
 }

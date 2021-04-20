@@ -13,8 +13,8 @@ module.exports = class OnDemandEvent extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OnDemandEvent";
+		super();
+		this.setContextAndType("http://schema.org/","OnDemandEvent");
 	}
 
 }

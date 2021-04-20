@@ -13,8 +13,8 @@ module.exports = class SizeGroupEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SizeGroupEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","SizeGroupEnumeration");
 	}
 
 }

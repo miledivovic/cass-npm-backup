@@ -13,8 +13,8 @@ module.exports = class Invoice extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Invoice";
+		super();
+		this.setContextAndType("http://schema.org/","Invoice");
 	}
 
 }

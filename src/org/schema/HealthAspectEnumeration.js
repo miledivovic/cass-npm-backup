@@ -13,8 +13,8 @@ module.exports = class HealthAspectEnumeration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HealthAspectEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","HealthAspectEnumeration");
 	}
 
 }

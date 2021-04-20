@@ -1,3 +1,4 @@
+global.schema.Place = require("./Place.js");
 /**
  * Schema.org/LocalBusiness
  * A particular physical business or branch of an organization. Examples of LocalBusiness include a restaurant, a particular branch of a restaurant chain, a branch of a bank, a medical practice, a club, a bowling alley, etc.
@@ -14,8 +15,8 @@ module.exports = class LocalBusiness extends schema.Place {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "LocalBusiness";
+		super();
+		this.setContextAndType("http://schema.org/","LocalBusiness");
 	}
 
 }

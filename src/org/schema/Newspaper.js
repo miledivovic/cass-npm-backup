@@ -13,8 +13,8 @@ module.exports = class Newspaper extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Newspaper";
+		super();
+		this.setContextAndType("http://schema.org/","Newspaper");
 	}
 
 }

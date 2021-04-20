@@ -1,5 +1,3 @@
-const EcRemoteLinkedData = require("../cassproject/schema/general/EcRemoteLinkedData");
-
 /**
  * credentialengine.org/ProficiencyScale
  * The class of structured profiles describing discrete levels of expertise and performance mastery.
@@ -17,8 +15,8 @@ module.exports = class ProficiencyScale extends EcRemoteLinkedData
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="ProficiencyScale";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ProficiencyScale");
 	}
 
 }

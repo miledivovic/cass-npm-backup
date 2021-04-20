@@ -13,8 +13,8 @@ module.exports = class AnimalShelter extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AnimalShelter";
+		super();
+		this.setContextAndType("http://schema.org/","AnimalShelter");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class VideoObject extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "VideoObject";
+		super();
+		this.setContextAndType("http://schema.org/","VideoObject");
 	}
 
 }

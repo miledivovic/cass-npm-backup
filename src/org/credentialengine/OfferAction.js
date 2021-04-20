@@ -15,8 +15,8 @@ module.exports = class OfferAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="OfferAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","OfferAction");
 	}
 
 	/**

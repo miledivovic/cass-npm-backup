@@ -13,8 +13,8 @@ module.exports = class RadioClip extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "RadioClip";
+		super();
+		this.setContextAndType("http://schema.org/","RadioClip");
 	}
 
 }

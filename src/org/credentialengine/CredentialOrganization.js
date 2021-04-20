@@ -14,8 +14,8 @@ module.exports = class CredentialOrganization extends ce.Agent
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="CredentialOrganization";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CredentialOrganization");
 	}
 
 	/**

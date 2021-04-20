@@ -13,8 +13,8 @@ module.exports = class EducationalOccupationalProgram extends EcRemoteLinkedData
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EducationalOccupationalProgram";
+		super();
+		this.setContextAndType("http://schema.org/","EducationalOccupationalProgram");
 	}
 
 }

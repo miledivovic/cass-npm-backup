@@ -13,8 +13,8 @@ module.exports = class BusReservation extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BusReservation";
+		super();
+		this.setContextAndType("http://schema.org/","BusReservation");
 	}
 
 }

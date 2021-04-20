@@ -13,8 +13,8 @@ module.exports = class BodyMeasurementTypeEnumeration extends EcRemoteLinkedData
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BodyMeasurementTypeEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","BodyMeasurementTypeEnumeration");
 	}
 
 }

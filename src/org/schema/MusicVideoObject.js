@@ -13,8 +13,8 @@ module.exports = class MusicVideoObject extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MusicVideoObject";
+		super();
+		this.setContextAndType("http://schema.org/","MusicVideoObject");
 	}
 
 }

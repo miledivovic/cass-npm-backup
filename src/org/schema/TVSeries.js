@@ -1,3 +1,4 @@
+global.schema.CreativeWorkSeries = require("./CreativeWorkSeries.js");
 /**
  * Schema.org/TVSeries
  * CreativeWorkSeries dedicated to TV broadcast and associated online delivery.
@@ -14,8 +15,8 @@ module.exports = class TVSeries extends schema.CreativeWorkSeries {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TVSeries";
+		super();
+		this.setContextAndType("http://schema.org/","TVSeries");
 	}
 
 }

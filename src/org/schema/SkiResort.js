@@ -1,3 +1,4 @@
+global.schema.Resort = require("./Resort.js");
 /**
  * Schema.org/SkiResort
  * A ski resort.
@@ -14,8 +15,8 @@ module.exports = class SkiResort extends schema.Resort {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SkiResort";
+		super();
+		this.setContextAndType("http://schema.org/","SkiResort");
 	}
 
 }

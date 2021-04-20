@@ -13,8 +13,8 @@ module.exports = class APIReference extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "APIReference";
+		super();
+		this.setContextAndType("http://schema.org/","APIReference");
 	}
 
 }

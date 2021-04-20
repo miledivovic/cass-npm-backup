@@ -13,8 +13,8 @@ module.exports = class AutoDealer extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AutoDealer";
+		super();
+		this.setContextAndType("http://schema.org/","AutoDealer");
 	}
 
 }

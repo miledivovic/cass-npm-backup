@@ -1,4 +1,4 @@
-ce.AggregateDataProfile = require("./AggregateDataProfile.js");
+global.ce.AggregateDataProfile = require("./AggregateDataProfile.js");
 /**
  * credentialengine.org/EarningsProfile
  * Entity that describes earning and related statistical information for a given credential.
@@ -15,8 +15,8 @@ module.exports = class EarningsProfile extends ce.AggregateDataProfile
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="EarningsProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","EarningsProfile");
 	}
 
 	/**

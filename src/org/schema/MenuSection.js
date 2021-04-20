@@ -13,8 +13,8 @@ module.exports = class MenuSection extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MenuSection";
+		super();
+		this.setContextAndType("http://schema.org/","MenuSection");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class PerformanceRole extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PerformanceRole";
+		super();
+		this.setContextAndType("http://schema.org/","PerformanceRole");
 	}
 
 }

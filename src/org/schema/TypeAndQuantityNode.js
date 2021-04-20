@@ -13,8 +13,8 @@ module.exports = class TypeAndQuantityNode extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TypeAndQuantityNode";
+		super();
+		this.setContextAndType("http://schema.org/","TypeAndQuantityNode");
 	}
 
 }

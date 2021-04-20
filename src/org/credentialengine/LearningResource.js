@@ -14,8 +14,8 @@ module.exports = class LearningResource extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="LearningResource";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","LearningResource");
 	}
 
 }

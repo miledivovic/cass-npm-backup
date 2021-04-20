@@ -15,8 +15,8 @@ module.exports = class AssessmentProfile extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="AssessmentProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","AssessmentProfile");
 	}
 
 	/**

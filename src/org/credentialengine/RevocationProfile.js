@@ -14,8 +14,8 @@ module.exports = class RevocationProfile extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="RevocationProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RevocationProfile");
 	}
 
 	/**

@@ -13,8 +13,8 @@ module.exports = class OwnershipInfo extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OwnershipInfo";
+		super();
+		this.setContextAndType("http://schema.org/","OwnershipInfo");
 	}
 
 }

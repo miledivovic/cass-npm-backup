@@ -13,8 +13,8 @@ module.exports = class InviteAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "InviteAction";
+		super();
+		this.setContextAndType("http://schema.org/","InviteAction");
 	}
 
 }

@@ -14,8 +14,8 @@ module.exports = class License extends ce.Credential
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="License";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","License");
 	}
 
 	/**

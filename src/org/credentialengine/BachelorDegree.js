@@ -15,8 +15,8 @@ module.exports = class BachelorDegree extends ce.Degree
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="BachelorDegree";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","BachelorDegree");
 	}
 
 	/**

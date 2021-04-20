@@ -13,8 +13,8 @@ module.exports = class CriticReview extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CriticReview";
+		super();
+		this.setContextAndType("http://schema.org/","CriticReview");
 	}
 
 }

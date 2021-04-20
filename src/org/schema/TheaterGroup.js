@@ -13,8 +13,8 @@ module.exports = class TheaterGroup extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TheaterGroup";
+		super();
+		this.setContextAndType("http://schema.org/","TheaterGroup");
 	}
 
 }

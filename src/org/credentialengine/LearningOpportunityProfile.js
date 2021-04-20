@@ -15,8 +15,8 @@ module.exports = class LearningOpportunityProfile extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="LearningOpportunityProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","LearningOpportunityProfile");
 	}
 
 	/**

@@ -13,8 +13,8 @@ module.exports = class TieAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TieAction";
+		super();
+		this.setContextAndType("http://schema.org/","TieAction");
 	}
 
 }

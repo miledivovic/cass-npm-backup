@@ -13,8 +13,8 @@ module.exports = class ListenAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ListenAction";
+		super();
+		this.setContextAndType("http://schema.org/","ListenAction");
 	}
 
 }

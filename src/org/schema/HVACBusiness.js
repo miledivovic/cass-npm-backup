@@ -13,8 +13,8 @@ module.exports = class HVACBusiness extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HVACBusiness";
+		super();
+		this.setContextAndType("http://schema.org/","HVACBusiness");
 	}
 
 }

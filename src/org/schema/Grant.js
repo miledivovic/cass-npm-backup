@@ -19,8 +19,8 @@ module.exports = class Grant extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Grant";
+		super();
+		this.setContextAndType("http://schema.org/","Grant");
 	}
 
 }

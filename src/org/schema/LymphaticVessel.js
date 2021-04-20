@@ -13,8 +13,8 @@ module.exports = class LymphaticVessel extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "LymphaticVessel";
+		super();
+		this.setContextAndType("http://schema.org/","LymphaticVessel");
 	}
 
 }

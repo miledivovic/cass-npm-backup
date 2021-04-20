@@ -1,3 +1,4 @@
+global.schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/StadiumOrArena
  * A stadium.
@@ -14,8 +15,8 @@ module.exports = class StadiumOrArena extends schema.CivicStructure {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "StadiumOrArena";
+		super();
+		this.setContextAndType("http://schema.org/","StadiumOrArena");
 	}
 
 }

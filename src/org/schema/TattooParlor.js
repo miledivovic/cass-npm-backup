@@ -13,8 +13,8 @@ module.exports = class TattooParlor extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TattooParlor";
+		super();
+		this.setContextAndType("http://schema.org/","TattooParlor");
 	}
 
 }

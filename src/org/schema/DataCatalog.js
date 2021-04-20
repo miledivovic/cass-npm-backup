@@ -13,8 +13,8 @@ module.exports = class DataCatalog extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "DataCatalog";
+		super();
+		this.setContextAndType("http://schema.org/","DataCatalog");
 	}
 
 }

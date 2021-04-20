@@ -13,8 +13,8 @@ module.exports = class ApprovedIndication extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ApprovedIndication";
+		super();
+		this.setContextAndType("http://schema.org/","ApprovedIndication");
 	}
 
 }

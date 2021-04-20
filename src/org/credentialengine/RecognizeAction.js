@@ -15,8 +15,8 @@ module.exports = class RecognizeAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="RecognizeAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RecognizeAction");
 	}
 
 	/**

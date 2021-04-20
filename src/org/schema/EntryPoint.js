@@ -13,8 +13,8 @@ module.exports = class EntryPoint extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EntryPoint";
+		super();
+		this.setContextAndType("http://schema.org/","EntryPoint");
 	}
 
 }

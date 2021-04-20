@@ -13,8 +13,8 @@ module.exports = class TVEpisode extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TVEpisode";
+		super();
+		this.setContextAndType("http://schema.org/","TVEpisode");
 	}
 
 }

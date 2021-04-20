@@ -13,8 +13,8 @@ module.exports = class ShareAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ShareAction";
+		super();
+		this.setContextAndType("http://schema.org/","ShareAction");
 	}
 
 }

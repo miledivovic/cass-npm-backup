@@ -1,3 +1,5 @@
+const EcRemoteLinkedData = require("../cassproject/schema/general/EcRemoteLinkedData");
+
 /**
  * credentialengine.org/IdentifierValue
  * Means of identifying a resource, typically consisting of an alphanumeric token and a context or scheme from which that token originates.
@@ -14,8 +16,8 @@ module.exports = class IdentifierValue extends EcRemoteLinkedData
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="IdentifierValue";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","IdentifierValue");
 	}
 
 	/**

@@ -13,8 +13,8 @@ module.exports = class CollectionPage extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CollectionPage";
+		super();
+		this.setContextAndType("http://schema.org/","CollectionPage");
 	}
 
 }

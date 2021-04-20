@@ -1,3 +1,4 @@
+global.schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/Campground
  * A camping site, campsite, or [[Campground]] is a place used for overnight stay in the outdoors, typically containing individual [[CampingPitch]] locations. \n\n
@@ -18,8 +19,8 @@ module.exports = class Campground extends schema.CivicStructure {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Campground";
+		super();
+		this.setContextAndType("http://schema.org/","Campground");
 	}
 
 }

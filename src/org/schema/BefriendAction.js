@@ -13,8 +13,8 @@ module.exports = class BefriendAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BefriendAction";
+		super();
+		this.setContextAndType("http://schema.org/","BefriendAction");
 	}
 
 }

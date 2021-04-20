@@ -13,8 +13,8 @@ module.exports = class BoatTerminal extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BoatTerminal";
+		super();
+		this.setContextAndType("http://schema.org/","BoatTerminal");
 	}
 
 }

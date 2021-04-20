@@ -1,3 +1,4 @@
+global.schema.MedicalProcedure = require("./MedicalProcedure.js");
 /**
  * Schema.org/PhysicalExam
  * A type of physical examination of a patient performed by a physician. 
@@ -14,8 +15,8 @@ module.exports = class PhysicalExam extends schema.MedicalProcedure {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PhysicalExam";
+		super();
+		this.setContextAndType("http://schema.org/","PhysicalExam");
 	}
 
 }

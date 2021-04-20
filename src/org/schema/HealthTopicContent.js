@@ -14,8 +14,8 @@ module.exports = class HealthTopicContent extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HealthTopicContent";
+		super();
+		this.setContextAndType("http://schema.org/","HealthTopicContent");
 	}
 
 }

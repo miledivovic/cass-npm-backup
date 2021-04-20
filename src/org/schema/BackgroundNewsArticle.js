@@ -13,8 +13,8 @@ module.exports = class BackgroundNewsArticle extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BackgroundNewsArticle";
+		super();
+		this.setContextAndType("http://schema.org/","BackgroundNewsArticle");
 	}
 
 }

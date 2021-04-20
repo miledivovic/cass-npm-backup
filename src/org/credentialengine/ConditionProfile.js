@@ -15,8 +15,8 @@ module.exports = class ConditionProfile extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="ConditionProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ConditionProfile");
 	}
 
 	/**

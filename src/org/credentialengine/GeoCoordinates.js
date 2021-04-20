@@ -14,8 +14,8 @@ module.exports = class GeoCoordinates extends schema.StructuredValue
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="GeoCoordinates";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","GeoCoordinates");
 	}
 
 	/**

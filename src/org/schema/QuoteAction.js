@@ -13,8 +13,8 @@ module.exports = class QuoteAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "QuoteAction";
+		super();
+		this.setContextAndType("http://schema.org/","QuoteAction");
 	}
 
 }

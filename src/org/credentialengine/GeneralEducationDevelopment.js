@@ -15,8 +15,8 @@ module.exports = class GeneralEducationDevelopment extends ce.Diploma
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="GeneralEducationDevelopment";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","GeneralEducationDevelopment");
 	}
 
 	/**

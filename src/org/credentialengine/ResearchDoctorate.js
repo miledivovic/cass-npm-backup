@@ -15,8 +15,8 @@ module.exports = class ResearchDoctorate extends ce.DoctoralDegree
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="ResearchDoctorate";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ResearchDoctorate");
 	}
 
 	/**

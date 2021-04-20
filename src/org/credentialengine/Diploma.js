@@ -14,8 +14,8 @@ module.exports = class Diploma extends ce.Credential
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="Diploma";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","Diploma");
 	}
 
 	/**

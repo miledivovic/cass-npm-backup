@@ -13,8 +13,8 @@ module.exports = class CssSelectorType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CssSelectorType";
+		super();
+		this.setContextAndType("http://schema.org/","CssSelectorType");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class EducationalOccupationalCredential extends EcRemoteLinkedD
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EducationalOccupationalCredential";
+		super();
+		this.setContextAndType("http://schema.org/","EducationalOccupationalCredential");
 	}
 
 }

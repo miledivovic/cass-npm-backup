@@ -13,8 +13,8 @@ module.exports = class ComedyClub extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ComedyClub";
+		super();
+		this.setContextAndType("http://schema.org/","ComedyClub");
 	}
 
 }

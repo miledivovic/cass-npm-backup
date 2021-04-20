@@ -1,3 +1,4 @@
+global.schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/HowToDirection
  * A direction indicating a single action to do in the instructions for how to achieve a result.
@@ -14,8 +15,8 @@ module.exports = class HowToDirection extends schema.CreativeWork {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "HowToDirection";
+		super();
+		this.setContextAndType("http://schema.org/","HowToDirection");
 	}
 
 }

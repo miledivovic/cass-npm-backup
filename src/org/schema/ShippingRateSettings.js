@@ -13,8 +13,8 @@ module.exports = class ShippingRateSettings extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ShippingRateSettings";
+		super();
+		this.setContextAndType("http://schema.org/","ShippingRateSettings");
 	}
 
 }

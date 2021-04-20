@@ -13,8 +13,8 @@ module.exports = class Series extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Series";
+		super();
+		this.setContextAndType("http://schema.org/","Series");
 	}
 
 }

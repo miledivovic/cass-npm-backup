@@ -14,8 +14,8 @@ module.exports = class WarrantyScope extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WarrantyScope";
+		super();
+		this.setContextAndType("http://schema.org/","WarrantyScope");
 	}
 
 }

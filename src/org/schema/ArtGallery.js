@@ -13,8 +13,8 @@ module.exports = class ArtGallery extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ArtGallery";
+		super();
+		this.setContextAndType("http://schema.org/","ArtGallery");
 	}
 
 }

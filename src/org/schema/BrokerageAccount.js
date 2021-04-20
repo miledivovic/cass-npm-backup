@@ -13,8 +13,8 @@ module.exports = class BrokerageAccount extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BrokerageAccount";
+		super();
+		this.setContextAndType("http://schema.org/","BrokerageAccount");
 	}
 
 }

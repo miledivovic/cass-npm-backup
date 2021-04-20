@@ -16,8 +16,8 @@ module.exports = class GeoCircle extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "GeoCircle";
+		super();
+		this.setContextAndType("http://schema.org/","GeoCircle");
 	}
 
 }

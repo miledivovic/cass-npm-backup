@@ -13,8 +13,8 @@ module.exports = class CreativeWorkSeason extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CreativeWorkSeason";
+		super();
+		this.setContextAndType("http://schema.org/","CreativeWorkSeason");
 	}
 
 }

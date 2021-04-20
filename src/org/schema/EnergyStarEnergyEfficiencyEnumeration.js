@@ -13,8 +13,8 @@ module.exports = class EnergyStarEnergyEfficiencyEnumeration extends EcRemoteLin
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EnergyStarEnergyEfficiencyEnumeration";
+		super();
+		this.setContextAndType("http://schema.org/","EnergyStarEnergyEfficiencyEnumeration");
 	}
 
 }

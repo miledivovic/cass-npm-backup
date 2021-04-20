@@ -13,8 +13,8 @@ module.exports = class SiteNavigationElement extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SiteNavigationElement";
+		super();
+		this.setContextAndType("http://schema.org/","SiteNavigationElement");
 	}
 
 }

@@ -15,8 +15,8 @@ module.exports = class ComicStory extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ComicStory";
+		super();
+		this.setContextAndType("http://schema.org/","ComicStory");
 	}
 
 }

@@ -15,8 +15,8 @@ module.exports = class RegulateAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="RegulateAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RegulateAction");
 	}
 
 	/**

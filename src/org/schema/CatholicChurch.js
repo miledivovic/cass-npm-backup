@@ -13,8 +13,8 @@ module.exports = class CatholicChurch extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CatholicChurch";
+		super();
+		this.setContextAndType("http://schema.org/","CatholicChurch");
 	}
 
 }

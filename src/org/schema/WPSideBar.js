@@ -13,8 +13,8 @@ module.exports = class WPSideBar extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WPSideBar";
+		super();
+		this.setContextAndType("http://schema.org/","WPSideBar");
 	}
 
 }

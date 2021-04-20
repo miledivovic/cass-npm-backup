@@ -13,8 +13,8 @@ module.exports = class ServiceChannel extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ServiceChannel";
+		super();
+		this.setContextAndType("http://schema.org/","ServiceChannel");
 	}
 
 }

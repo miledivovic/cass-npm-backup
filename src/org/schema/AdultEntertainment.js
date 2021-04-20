@@ -13,8 +13,8 @@ module.exports = class AdultEntertainment extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AdultEntertainment";
+		super();
+		this.setContextAndType("http://schema.org/","AdultEntertainment");
 	}
 
 }

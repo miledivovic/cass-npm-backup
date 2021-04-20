@@ -14,8 +14,8 @@ module.exports = class IndustryClassification extends ce.CredentialFramework
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="IndustryClassification";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","IndustryClassification");
 	}
 
 }

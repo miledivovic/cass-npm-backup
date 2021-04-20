@@ -13,8 +13,8 @@ module.exports = class Clip extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Clip";
+		super();
+		this.setContextAndType("http://schema.org/","Clip");
 	}
 
 }

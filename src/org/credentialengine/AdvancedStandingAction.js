@@ -15,8 +15,8 @@ module.exports = class AdvancedStandingAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="AdvancedStandingAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","AdvancedStandingAction");
 	}
 
 	/**

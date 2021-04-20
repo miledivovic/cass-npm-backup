@@ -1,3 +1,4 @@
+global.schema.Event = require("./Event.js");
 /**
  * Schema.org/EventSeries
  * A series of [[Event]]s. Included events can relate with the series using the [[superEvent]] property.
@@ -27,8 +28,8 @@ module.exports = class EventSeries extends schema.Event {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EventSeries";
+		super();
+		this.setContextAndType("http://schema.org/","EventSeries");
 	}
 
 }

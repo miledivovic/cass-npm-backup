@@ -15,8 +15,8 @@ module.exports = class AlignmentObject extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "AlignmentObject";
+		super();
+		this.setContextAndType("http://schema.org/","AlignmentObject");
 	}
 
 }

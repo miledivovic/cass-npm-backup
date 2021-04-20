@@ -13,8 +13,8 @@ module.exports = class Aquarium extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Aquarium";
+		super();
+		this.setContextAndType("http://schema.org/","Aquarium");
 	}
 
 }

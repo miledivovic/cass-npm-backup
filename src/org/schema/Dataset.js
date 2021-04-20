@@ -13,8 +13,8 @@ module.exports = class Dataset extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Dataset";
+		super();
+		this.setContextAndType("http://schema.org/","Dataset");
 	}
 
 }

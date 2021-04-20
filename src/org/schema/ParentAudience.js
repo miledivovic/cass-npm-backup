@@ -13,8 +13,8 @@ module.exports = class ParentAudience extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ParentAudience";
+		super();
+		this.setContextAndType("http://schema.org/","ParentAudience");
 	}
 
 }

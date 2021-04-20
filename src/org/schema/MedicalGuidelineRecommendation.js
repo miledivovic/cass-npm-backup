@@ -13,8 +13,8 @@ module.exports = class MedicalGuidelineRecommendation extends EcRemoteLinkedData
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MedicalGuidelineRecommendation";
+		super();
+		this.setContextAndType("http://schema.org/","MedicalGuidelineRecommendation");
 	}
 
 }

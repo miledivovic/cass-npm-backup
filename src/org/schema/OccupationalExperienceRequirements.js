@@ -13,8 +13,8 @@ module.exports = class OccupationalExperienceRequirements extends EcRemoteLinked
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OccupationalExperienceRequirements";
+		super();
+		this.setContextAndType("http://schema.org/","OccupationalExperienceRequirements");
 	}
 
 }

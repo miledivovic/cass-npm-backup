@@ -13,8 +13,8 @@ module.exports = class InteractionCounter extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "InteractionCounter";
+		super();
+		this.setContextAndType("http://schema.org/","InteractionCounter");
 	}
 
 }

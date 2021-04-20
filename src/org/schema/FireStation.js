@@ -1,4 +1,4 @@
-schema.EmergencyService = require("./EmergencyService");
+global.schema.EmergencyService = require("./EmergencyService.js");
 /**
  * Schema.org/FireStation
  * A fire station. With firemen.
@@ -15,8 +15,8 @@ module.exports = class FireStation extends schema.EmergencyService {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "FireStation";
+		super();
+		this.setContextAndType("http://schema.org/","FireStation");
 	}
 
 }

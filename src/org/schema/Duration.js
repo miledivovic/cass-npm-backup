@@ -13,8 +13,8 @@ module.exports = class Duration extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Duration";
+		super();
+		this.setContextAndType("http://schema.org/","Duration");
 	}
 
 }

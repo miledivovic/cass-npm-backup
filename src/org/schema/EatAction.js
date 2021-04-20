@@ -13,8 +13,8 @@ module.exports = class EatAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EatAction";
+		super();
+		this.setContextAndType("http://schema.org/","EatAction");
 	}
 
 }

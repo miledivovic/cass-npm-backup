@@ -13,8 +13,8 @@ module.exports = class MedicalGuidelineContraindication extends EcRemoteLinkedDa
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MedicalGuidelineContraindication";
+		super();
+		this.setContextAndType("http://schema.org/","MedicalGuidelineContraindication");
 	}
 
 }

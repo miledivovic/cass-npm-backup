@@ -13,8 +13,8 @@ module.exports = class MortgageLoan extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MortgageLoan";
+		super();
+		this.setContextAndType("http://schema.org/","MortgageLoan");
 	}
 
 }

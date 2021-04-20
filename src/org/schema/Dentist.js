@@ -15,8 +15,8 @@ module.exports = class Dentist extends schema.MedicalBusiness {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Dentist";
+		super();
+		this.setContextAndType("http://schema.org/","Dentist");
 	}
 
 }

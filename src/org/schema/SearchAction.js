@@ -13,8 +13,8 @@ module.exports = class SearchAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "SearchAction";
+		super();
+		this.setContextAndType("http://schema.org/","SearchAction");
 	}
 
 }

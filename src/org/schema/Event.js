@@ -13,8 +13,8 @@ module.exports = class Event extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Event";
+		super();
+		this.setContextAndType("http://schema.org/","Event");
 	}
 
 }

@@ -15,8 +15,8 @@ module.exports = class MasterDegree extends ce.Degree
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="MasterDegree";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","MasterDegree");
 	}
 
 	/**

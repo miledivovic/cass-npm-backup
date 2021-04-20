@@ -13,8 +13,8 @@ module.exports = class MusicAlbumProductionType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MusicAlbumProductionType";
+		super();
+		this.setContextAndType("http://schema.org/","MusicAlbumProductionType");
 	}
 
 }

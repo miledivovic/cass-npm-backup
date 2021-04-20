@@ -15,8 +15,8 @@ module.exports = class RevokeAction extends ce.CredentialingAction
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="RevokeAction";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RevokeAction");
 	}
 
 	/**

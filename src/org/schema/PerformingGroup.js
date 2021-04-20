@@ -13,8 +13,8 @@ module.exports = class PerformingGroup extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "PerformingGroup";
+		super();
+		this.setContextAndType("http://schema.org/","PerformingGroup");
 	}
 
 }

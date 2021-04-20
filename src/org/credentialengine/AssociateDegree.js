@@ -15,8 +15,8 @@ module.exports = class AssociateDegree extends ce.Degree
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="AssociateDegree";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","AssociateDegree");
 	}
 
 	/**

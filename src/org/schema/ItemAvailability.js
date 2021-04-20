@@ -13,8 +13,8 @@ module.exports = class ItemAvailability extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ItemAvailability";
+		super();
+		this.setContextAndType("http://schema.org/","ItemAvailability");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class WPAdBlock extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "WPAdBlock";
+		super();
+		this.setContextAndType("http://schema.org/","WPAdBlock");
 	}
 
 }

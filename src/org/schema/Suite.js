@@ -16,8 +16,8 @@ module.exports = class Suite extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Suite";
+		super();
+		this.setContextAndType("http://schema.org/","Suite");
 	}
 
 }

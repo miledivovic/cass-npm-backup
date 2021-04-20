@@ -13,8 +13,8 @@ module.exports = class MapCategoryType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MapCategoryType";
+		super();
+		this.setContextAndType("http://schema.org/","MapCategoryType");
 	}
 
 }

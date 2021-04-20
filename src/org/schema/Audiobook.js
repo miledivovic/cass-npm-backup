@@ -1,3 +1,4 @@
+global.schema.AudioObject = require("./AudioObject.js");
 /**
  * Schema.org/Audiobook
  * An audiobook.
@@ -14,8 +15,8 @@ module.exports = class Audiobook extends schema.AudioObject {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Audiobook";
+		super();
+		this.setContextAndType("http://schema.org/","Audiobook");
 	}
 
 }

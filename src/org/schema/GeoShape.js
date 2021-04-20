@@ -13,8 +13,8 @@ module.exports = class GeoShape extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "GeoShape";
+		super();
+		this.setContextAndType("http://schema.org/","GeoShape");
 	}
 
 }

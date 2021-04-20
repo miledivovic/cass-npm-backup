@@ -13,8 +13,8 @@ module.exports = class Mountain extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Mountain";
+		super();
+		this.setContextAndType("http://schema.org/","Mountain");
 	}
 
 }

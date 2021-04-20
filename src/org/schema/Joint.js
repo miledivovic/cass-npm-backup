@@ -13,8 +13,8 @@ module.exports = class Joint extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Joint";
+		super();
+		this.setContextAndType("http://schema.org/","Joint");
 	}
 
 }

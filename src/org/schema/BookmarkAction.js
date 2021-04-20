@@ -13,8 +13,8 @@ module.exports = class BookmarkAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BookmarkAction";
+		super();
+		this.setContextAndType("http://schema.org/","BookmarkAction");
 	}
 
 }

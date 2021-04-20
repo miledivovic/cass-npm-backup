@@ -14,8 +14,8 @@ module.exports = class EmploymentOutcomeProfile extends ce.AggregateDataProfile
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="EmploymentOutcomeProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","EmploymentOutcomeProfile");
 	}
 
 	/**

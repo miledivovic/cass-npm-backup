@@ -13,8 +13,8 @@ module.exports = class CompoundPriceSpecification extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CompoundPriceSpecification";
+		super();
+		this.setContextAndType("http://schema.org/","CompoundPriceSpecification");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class OceanBodyOfWater extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "OceanBodyOfWater";
+		super();
+		this.setContextAndType("http://schema.org/","OceanBodyOfWater");
 	}
 
 }

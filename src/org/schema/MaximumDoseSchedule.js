@@ -13,8 +13,8 @@ module.exports = class MaximumDoseSchedule extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "MaximumDoseSchedule";
+		super();
+		this.setContextAndType("http://schema.org/","MaximumDoseSchedule");
 	}
 
 }

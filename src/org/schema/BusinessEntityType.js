@@ -14,8 +14,8 @@ module.exports = class BusinessEntityType extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "BusinessEntityType";
+		super();
+		this.setContextAndType("http://schema.org/","BusinessEntityType");
 	}
 
 }

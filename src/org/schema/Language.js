@@ -13,8 +13,8 @@ module.exports = class Language extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Language";
+		super();
+		this.setContextAndType("http://schema.org/","Language");
 	}
 
 }

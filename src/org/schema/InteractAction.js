@@ -13,8 +13,8 @@ module.exports = class InteractAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "InteractAction";
+		super();
+		this.setContextAndType("http://schema.org/","InteractAction");
 	}
 
 }

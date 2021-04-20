@@ -13,8 +13,8 @@ module.exports = class GeneralContractor extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "GeneralContractor";
+		super();
+		this.setContextAndType("http://schema.org/","GeneralContractor");
 	}
 
 }

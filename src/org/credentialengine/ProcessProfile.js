@@ -14,8 +14,8 @@ module.exports = class ProcessProfile extends schema.CreativeWork
 	 */
 	constructor()
 	{
-		context="http://schema.eduworks.com/simpleCtdl";
-		type="ProcessProfile";
+		super();
+		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ProcessProfile");
 	}
 
 	/**

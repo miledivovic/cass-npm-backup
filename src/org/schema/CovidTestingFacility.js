@@ -17,8 +17,8 @@ module.exports = class CovidTestingFacility extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CovidTestingFacility";
+		super();
+		this.setContextAndType("http://schema.org/","CovidTestingFacility");
 	}
 
 }

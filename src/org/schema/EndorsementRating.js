@@ -19,8 +19,8 @@ module.exports = class EndorsementRating extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "EndorsementRating";
+		super();
+		this.setContextAndType("http://schema.org/","EndorsementRating");
 	}
 
 }

@@ -13,8 +13,8 @@ module.exports = class ReserveAction extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "ReserveAction";
+		super();
+		this.setContextAndType("http://schema.org/","ReserveAction");
 	}
 
 }

@@ -16,8 +16,8 @@ module.exports = class StatisticalPopulation extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "StatisticalPopulation";
+		super();
+		this.setContextAndType("http://schema.org/","StatisticalPopulation");
 	}
 
 }

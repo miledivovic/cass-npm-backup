@@ -13,8 +13,8 @@ module.exports = class TextDigitalDocument extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "TextDigitalDocument";
+		super();
+		this.setContextAndType("http://schema.org/","TextDigitalDocument");
 	}
 
 }

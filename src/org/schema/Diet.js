@@ -1,3 +1,4 @@
+global.schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/Diet
  * A strategy of regulating the intake of food to achieve or maintain a specific health-related goal.
@@ -14,8 +15,8 @@ module.exports = class Diet extends schema.CreativeWork {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "Diet";
+		super();
+		this.setContextAndType("http://schema.org/","Diet");
 	}
 
 }

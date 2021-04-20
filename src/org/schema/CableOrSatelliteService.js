@@ -13,8 +13,8 @@ module.exports = class CableOrSatelliteService extends EcRemoteLinkedData {
 	 * @constructor
 	 */
 	constructor() {
-		context = "http://schema.org/";
-		type = "CableOrSatelliteService";
+		super();
+		this.setContextAndType("http://schema.org/","CableOrSatelliteService");
 	}
 
 }

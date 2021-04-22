@@ -107,10 +107,10 @@ module.exports = class Assertion extends schema.CreativeWork{
      *  @param pk
      */
     setSubject(pk) {
-        var owners = new Array();
+        var owners = [];
         var readers = this.reader;
         if (readers == null) 
-            readers = new Array();
+            readers = [];
         if (this.subject != null) {
             if (this.subject.owner != null) 
                 owners.concat(this.subject.owner);
@@ -256,7 +256,7 @@ module.exports = class Assertion extends schema.CreativeWork{
         this.evidence = evidences;
     };
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (Assertion.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -287,7 +287,7 @@ module.exports = class Assertion extends schema.CreativeWork{
             }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(Assertion.TYPE_0_6);
         a.push(Assertion.TYPE_0_5);
         a.push(Assertion.TYPE_0_4);
@@ -298,7 +298,7 @@ module.exports = class Assertion extends schema.CreativeWork{
     };
     static getCodebook(assertion) {
         if (Assertion.codebooks == null) 
-            Assertion.codebooks = new Object();
+            Assertion.codebooks = {};
         return (Assertion.codebooks)[assertion.id];
     };
 };

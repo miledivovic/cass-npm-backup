@@ -41,7 +41,7 @@ module.exports = class EcFramework extends Framework{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcFramework(), success, failure);
+        return EcRepository.getAs(id, new EcFramework(), success, failure);
     };
     /**
      *  Retrieves a framework from the server in a blocking fashion, specified by the ID
@@ -56,9 +56,10 @@ module.exports = class EcFramework extends Framework{
      *  @memberOf EcFramework
      *  @method getBlocking
      *  @static
+     *  @deprecated Use await on get()
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcFramework());
+        return EcRepository.getAs(id, new EcFramework());
     };
     /**
      *  Searches the repository given for frameworks using the query passed in
@@ -79,9 +80,7 @@ module.exports = class EcFramework extends Framework{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcFramework();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcFramework(), success, failure, paramObj);
     };
     /**
      *  Adds the competency ID specified to the frameworks list of competency IDs
@@ -94,7 +93,7 @@ module.exports = class EcFramework extends Framework{
     addCompetency(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.competency == null) 
-            this.competency = new Array();
+            this.competency = [];
         for (var i = 0; i < this.competency.length; i++) 
             if (EcRemoteLinkedData.trimVersionFromUrl(this.competency[i]).equals(id)) 
                 return;
@@ -118,7 +117,7 @@ module.exports = class EcFramework extends Framework{
     removeCompetency(id, success, failure) {
         var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.competency == null) 
-            this.competency = new Array();
+            this.competency = [];
         for (var i = 0; i < this.competency.length; i++) 
             if (this.competency[i].equals(shortId) || this.competency[i].equals(id)) 
                 this.competency.splice(i, 1);
@@ -175,14 +174,14 @@ module.exports = class EcFramework extends Framework{
         if (i >= this.relation.length && success != null) 
             success("");
          else 
-            EcAlignment.get(this.relation[i], function(a) {
+            return EcAlignment.get(this.relation[i], async (a) => {
                 if (a != null && a.source == shortId || a.target == shortId || a.source == id || a.target == id) {
                     me.relation.splice(i, 1);
-                    me.removeRelationshipsThatInclude(id, i, success, failure);
+                    await me.removeRelationshipsThatInclude(id, i, success, failure);
                 } else 
-                    me.removeRelationshipsThatInclude(id, i + 1, success, failure);
-            }, function(s) {
-                me.removeRelationshipsThatInclude(id, i + 1, success, failure);
+                    await me.removeRelationshipsThatInclude(id, i + 1, success, failure);
+            }, async (s) => {
+                await me.removeRelationshipsThatInclude(id, i + 1, success, failure);
             });
     };
     /**
@@ -205,15 +204,15 @@ module.exports = class EcFramework extends Framework{
         var me = this;
         if (i >= this.level.length && success != null) 
             success("");
-         else 
-            EcLevel.get(this.level[i], function(a) {
+        else 
+            return EcLevel.get(this.level[i], async (a) => {
                 if (a.competency == shortId || a.competency == id) {
                     me.level.splice(i, 1);
-                    me.removeLevelsThatInclude(id, i, success, failure);
+                    await me.removeLevelsThatInclude(id, i, success, failure);
                 } else 
-                    me.removeLevelsThatInclude(id, i + 1, success, failure);
-            }, function(s) {
-                me.removeLevelsThatInclude(id, i + 1, success, failure);
+                await me.removeLevelsThatInclude(id, i + 1, success, failure);
+            }, async (s) => {
+                await me.removeLevelsThatInclude(id, i + 1, success, failure);
             });
     };
     /**
@@ -227,7 +226,7 @@ module.exports = class EcFramework extends Framework{
     addRelation(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.relation == null) 
-            this.relation = new Array();
+            this.relation = [];
         for (var i = 0; i < this.relation.length; i++) 
             if (EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]).equals(id)) 
                 return;
@@ -244,7 +243,7 @@ module.exports = class EcFramework extends Framework{
     removeRelation(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.relation == null) 
-            this.relation = new Array();
+            this.relation = [];
         for (var i = 0; i < this.relation.length; i++) 
             if (EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]).equals(id)) 
                 this.relation.splice(i, 1);
@@ -260,7 +259,7 @@ module.exports = class EcFramework extends Framework{
     addLevel(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.level == null) 
-            this.level = new Array();
+            this.level = [];
         for (var i = 0; i < this.level.length; i++) 
             if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]).equals(id)) 
                 return;
@@ -277,7 +276,7 @@ module.exports = class EcFramework extends Framework{
     removeLevel(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.level == null) 
-            this.level = new Array();
+            this.level = [];
         for (var i = 0; i < this.level.length; i++) 
             if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]).equals(id)) 
                 this.level.splice(i, 1);
@@ -293,7 +292,7 @@ module.exports = class EcFramework extends Framework{
     addRollupRule(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.rollupRule == null) 
-            this.rollupRule = new Array();
+            this.rollupRule = [];
         for (var i = 0; i < this.rollupRule.length; i++) 
             if (EcRemoteLinkedData.trimVersionFromUrl(this.rollupRule[i]).equals(id)) 
                 return;
@@ -310,7 +309,7 @@ module.exports = class EcFramework extends Framework{
     removeRollupRule(id) {
         id = EcRemoteLinkedData.trimVersionFromUrl(id);
         if (this.rollupRule == null) 
-            this.rollupRule = new Array();
+            this.rollupRule = [];
         for (var i = 0; i < this.rollupRule.length; i++) 
             if (EcRemoteLinkedData.trimVersionFromUrl(this.rollupRule[i]).equals(id)) 
                 this.rollupRule.splice(i, 1);
@@ -328,16 +327,15 @@ module.exports = class EcFramework extends Framework{
     save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Framework Name Cannot be Empty";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (repo == null) 
-            EcRepository.save(this, success, failure);
-         else 
-            repo.saveTo(this, success, failure);
+            return EcRepository.save(this, success, failure);
+        else 
+            return repo.saveTo(this, success, failure);
     };
     /**
      *  Deletes this framework from the server specified by it's ID
@@ -350,7 +348,7 @@ module.exports = class EcFramework extends Framework{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
     asAsnJson(success, failure, fallbackServerUrl) {
         var id = this.id;
@@ -358,13 +356,13 @@ module.exports = class EcFramework extends Framework{
         if (server != null && server != undefined && !server.endsWith("/")) {
             server = server + "/";
         }
-        EcRemote.getExpectingString(server, "asn?id=" + this.getGuid(), success, function(p1) {
+        return EcRemote.getExpectingString(server, "asn?id=" + this.getGuid(), success, (p1) => {
             if (fallbackServerUrl != null && fallbackServerUrl != undefined) {
                 var server = fallbackServerUrl;
                 if (!server.endsWith("/")) {
                     server = server + "/";
                 }
-                EcRemote.getExpectingString(server, "asn?id=" + id, success, failure);
+                return EcRemote.getExpectingString(server, "asn?id=" + id, success, failure);
             } else {
                 failure(p1);
             }

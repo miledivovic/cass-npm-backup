@@ -18,8 +18,12 @@ module.exports = class EcAesCtr{
      *  @return {string} Ciphertext encoded using base64.
      *  @method encrypt
      *  @static
+     *  @deprecated For backup use only. Instead, use await on EcAesCtrAsync.
      */
     static encrypt(plaintext, secret, iv) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcAesCtrAsync.");
+        EcCrypto.deprecationNotice = true;
         if ((typeof httpStatus) != "undefined" && forge.util.decode64(secret).length == 16 && forge.util.decode64(iv).length == 16) 
             return aesEncrypt(plaintext, iv, secret);
         var c = forge.cipher.createCipher("AES-CTR", forge.util.decode64(secret));
@@ -40,8 +44,12 @@ module.exports = class EcAesCtr{
      *  @return {string} Plaintext with no encoding.
      *  @method decrypt
      *  @static
+     *  @deprecated For backup use only. Instead, use await on EcAesCtrAsync.
      */
     static decrypt(ciphertext, secret, iv) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcAesCtrAsync.");
+        EcCrypto.deprecationNotice = true;
         if (EcCrypto.caching) {
             var cacheGet = (EcCrypto.decryptionCache)[secret + iv + ciphertext];
             if (cacheGet != null) 

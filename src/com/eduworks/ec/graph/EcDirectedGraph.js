@@ -12,13 +12,13 @@ module.exports = class EcDirectedGraph extends Graph{
     edges = [];
     verticies = [];
     getEdges() {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) 
             results[i] = this.edges[i].edge;
         return results;
     };
     getVertices() {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.verticies.length; i++) 
             results[i] = this.verticies[i];
         return results;
@@ -42,7 +42,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return this.verticies.length;
     };
     getNeighbors(vertex) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
                 results.push(this.edges[i].destination);
@@ -53,7 +53,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return results;
     };
     getIncidentEdges(vertex) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
                 results.push(this.edges[i].edge);
@@ -64,7 +64,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return results;
     };
     getIncidentVertices(edge) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (edge.equals(this.edges[i].edge)) {
                 results.push(this.edges[i].source);
@@ -84,7 +84,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return null;
     };
     findEdgeSet(v1, v2) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (v1.equals(this.edges[i].source) && v2.equals(this.edges[i].destination)) 
                 results.push(this.edges[i].edge);
@@ -161,7 +161,7 @@ module.exports = class EcDirectedGraph extends Graph{
     getEdgeType(edge) {};
     getDefaultEdgeType() {};
     getEdgesOfType(edge_type) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (this.getEdgeType(this.edges[i].edge) == edge_type) 
                 results.push(this.edges[i].edge);
@@ -172,7 +172,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return this.getEdgesOfType(edge_type).length;
     };
     getInEdges(vertex) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].destination)) 
                 results.push(this.edges[i].edge);
@@ -181,7 +181,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return results;
     };
     getOutEdges(vertex) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
                 results.push(this.edges[i].edge);
@@ -210,7 +210,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return null;
     };
     getPredecessors(vertex) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].destination)) 
                 results.push(this.edges[i].source);
@@ -219,7 +219,7 @@ module.exports = class EcDirectedGraph extends Graph{
         return results;
     };
     getSuccessors(vertex) {
-        var results = new Array();
+        var results = [];
         for (var i = 0; i < this.edges.length; i++) {
             if (vertex.equals(this.edges[i].source)) 
                 results.push(this.edges[i].destination);

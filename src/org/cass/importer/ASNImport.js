@@ -229,13 +229,13 @@ module.exports = class ASNImport extends Importer{
                 ASNImport.savedCompetencies++;
                 if (ASNImport.savedCompetencies % ASNImport.INCREMENTAL_STEP == 0) {
                     if (ASNImport.progressObject == null) 
-                        ASNImport.progressObject = new Object();
+                        ASNImport.progressObject = {};
                     (ASNImport.progressObject)["competencies"] = ASNImport.savedCompetencies;
                     incremental(ASNImport.progressObject);
                 }
                 if (ASNImport.savedCompetencies == ASNImport.competencyCount) {
                     if (ASNImport.progressObject == null) 
-                        ASNImport.progressObject = new Object();
+                        ASNImport.progressObject = {};
                     (ASNImport.progressObject)["competencies"] = ASNImport.savedCompetencies;
                     incremental(ASNImport.progressObject);
                     success();
@@ -304,7 +304,7 @@ module.exports = class ASNImport extends Importer{
                 ASNImport.savedRelations++;
                 if (ASNImport.savedRelations % ASNImport.INCREMENTAL_STEP == 0) {
                     if (ASNImport.progressObject == null) 
-                        ASNImport.progressObject = new Object();
+                        ASNImport.progressObject = {};
                     (ASNImport.progressObject)["relations"] = ASNImport.savedRelations;
                     incremental(ASNImport.progressObject);
                 }

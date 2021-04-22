@@ -45,10 +45,10 @@ module.exports = class EcAssertion extends Assertion{
      *  @param pk
      */
     setSubject(pk) {
-        var owners = new Array();
+        var owners = [];
         var readers = null;
         if (this.reader == null) 
-            readers = new Array();
+            readers = [];
          else 
             readers = JSON.parse(JSON.stringify(this.reader));
         if (this.subject != null) {
@@ -64,10 +64,10 @@ module.exports = class EcAssertion extends Assertion{
     };
     setSubjectAsync(pk, success, failure) {
         var me = this;
-        var owners = new Array();
+        var owners = [];
         var readers = null;
         if (this.reader == null) 
-            readers = new Array();
+            readers = [];
          else 
             readers = JSON.parse(JSON.stringify(this.reader));
         if (this.subject != null) {
@@ -376,7 +376,7 @@ module.exports = class EcAssertion extends Assertion{
         return decryptedString;
     };
     getEvidencesAsync(success, failure) {
-        var results = new Array();
+        var results = [];
         if (this.evidence != null) 
             new EcAsyncHelper().each(this.evidence, function(e, callback0) {
                 e.decryptIntoStringAsync(function(str) {
@@ -512,14 +512,14 @@ module.exports = class EcAssertion extends Assertion{
         this.confidence = confidenceZeroToOne;
     };
     setEvidence(evidences) {
-        var encryptedValues = new Array();
+        var encryptedValues = [];
         for (var i = 0; i < evidences.length; i++) 
             encryptedValues.push(EcEncryptedValue.encryptValue(evidences[i], this.id, this.subject.owner, this.subject.reader));
         this.evidence = encryptedValues;
     };
     setEvidenceAsync(evidences, success, failure) {
         var me = this;
-        var encryptedValues = new Array();
+        var encryptedValues = [];
         new EcAsyncHelper().each(evidences, function(s, callback0) {
             EcEncryptedValue.encryptValueAsync(s, me.id, me.subject.owner, me.subject.reader, function(ecEncryptedValue) {
                 encryptedValues.push(ecEncryptedValue);
@@ -619,7 +619,7 @@ module.exports = class EcAssertion extends Assertion{
         EcRemoteLinkedData.removeReader.call(this, newReader);
     };
     addReaderAsync(newReader, success, failure) {
-        var ary = new Array();
+        var ary = [];
         if (this.agent != null) {
             ary.push(this.agent);
         }
@@ -656,7 +656,7 @@ module.exports = class EcAssertion extends Assertion{
         });
     };
     removeReaderAsync(oldReader, success, failure) {
-        var ary = new Array();
+        var ary = [];
         if (this.agent != null) {
             ary.push(this.agent);
         }

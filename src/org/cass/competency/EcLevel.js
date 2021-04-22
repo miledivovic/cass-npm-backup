@@ -25,7 +25,7 @@ module.exports = class EcLevel extends Level{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcLevel(), success, failure);
+        return EcRepository.getAs(id, new EcLevel(), success, failure);
     };
     /**
      *  Retrieves a level from it's server synchronously, the call
@@ -38,9 +38,10 @@ module.exports = class EcLevel extends Level{
      *  @memberOf EcLevel
      *  @method getBlocking
      *  @static
+     *  @deprecated Use await on get()
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcLevel());
+        return EcRepository.getAs(id, new EcLevel());
     };
     /**
      *  Searches for levels with a string query
@@ -60,9 +61,7 @@ module.exports = class EcLevel extends Level{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcLevel();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcLevel(), success, failure, paramObj);
     };
     /**
      *  Searches for levels using a competency that the results must be related to
@@ -87,7 +86,7 @@ module.exports = class EcLevel extends Level{
             return;
         }
         var query = "competency:\"" + competencyId + "\" OR competency:\"" + EcRemoteLinkedData.trimVersionFromUrl(competencyId) + "\"";
-        EcLevel.search(repo, competencyId, success, failure, paramObj);
+        return EcLevel.search(repo, competencyId, success, failure, paramObj);
     };
     /**
      *  Adds a relationship between this level and a target level to define
@@ -115,7 +114,7 @@ module.exports = class EcLevel extends Level{
          else 
             a.generateShortId(serverUrl);
         a.signWith(identity);
-        a.save(success, failure, repo);
+        return a.save(success, failure, repo);
     };
     /**
      *  Method to set the name of this level
@@ -152,24 +151,22 @@ module.exports = class EcLevel extends Level{
     save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Level name cannot be empty";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.competency == null || this.competency == "") {
             var msg = "Level's Competency cannot be empty";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (repo == null) 
-            EcRepository.save(this, success, failure);
-         else 
-            repo.saveTo(this, success, failure);
+            return EcRepository.save(this, success, failure);
+        else 
+            return repo.saveTo(this, success, failure);
     };
     /**
      *  Deletes the level from it's repository
@@ -182,6 +179,6 @@ module.exports = class EcLevel extends Level{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
 };

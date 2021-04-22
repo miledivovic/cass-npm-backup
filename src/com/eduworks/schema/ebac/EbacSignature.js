@@ -51,7 +51,7 @@ module.exports = class EbacSignature extends EcLinkedData{
         EcLinkedData.upgrade.call(this);
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(EbacSignature.TYPE_0_4);
         a.push(EbacSignature.TYPE_0_3);
         a.push(EbacSignature.TYPE_0_2);

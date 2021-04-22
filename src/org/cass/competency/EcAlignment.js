@@ -32,7 +32,7 @@ module.exports = class EcAlignment extends Relation{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcAlignment(), success, failure);
+        returnEcRepository.getAs(id, new EcAlignment(), success, failure);
     };
     /**
      *  Retrieves an alignment from it's server synchronously, the call
@@ -45,9 +45,10 @@ module.exports = class EcAlignment extends Relation{
      *  @memberOf EcAlignment
      *  @method getBlocking
      *  @static
+     *  @deprecated await on get() instead.
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcAlignment());
+        return EcRepository.getAs(id, new EcAlignment());
     };
     /**
      *  Searches the repository using the query and optional parameters provided
@@ -67,7 +68,7 @@ module.exports = class EcAlignment extends Relation{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
+        return EcRepository.searchAs(repo, query, function() {
             return new EcAlignment();
         }, success, failure, paramObj);
     };
@@ -96,7 +97,7 @@ module.exports = class EcAlignment extends Relation{
         } else {
             query += "source:\"" + sourceId + "\" OR source:\"" + noVersion + "\"";
         }
-        EcAlignment.search(repo, query, success, failure, paramObj);
+        return EcAlignment.search(repo, query, success, failure, paramObj);
     };
     /**
      *  Searches the repository for alignments with one of an array of IDs in the source field
@@ -132,7 +133,7 @@ module.exports = class EcAlignment extends Relation{
             noVersions.push(noVersion);
         }
         query += ")";
-        EcAlignment.search(repo, query, success, failure, paramObj);
+        return EcAlignment.search(repo, query, success, failure, paramObj);
     };
     /**
      *  Searches the repository for alignments with a specific ID in the target field
@@ -159,7 +160,7 @@ module.exports = class EcAlignment extends Relation{
         } else {
             query += " AND (source:\"" + competencyId + "\" OR source:\"" + noVersion + "\" OR target:\"" + competencyId + "\" OR target:\"" + noVersion + "\")";
         }
-        EcAlignment.search(repo, query, success, failure, paramObj);
+        return EcAlignment.search(repo, query, success, failure, paramObj);
     };
     /**
      *  Setter for alignment name
@@ -196,27 +197,24 @@ module.exports = class EcAlignment extends Relation{
     save(success, failure, repo) {
         if (this.source == null || this.source == "") {
             var msg = "Source Competency cannot be missing";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.target == null || this.target == "") {
             var msg = "Target Competency cannot be missing";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.relationType == null || this.relationType == "") {
             var msg = "Relation Type cannot be missing";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (repo == null) 
             return EcRepository.save(this, success, failure);

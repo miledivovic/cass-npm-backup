@@ -25,10 +25,26 @@ module.exports = class EcRollupRule extends RollupRule{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcRollupRule(), success, failure);
+        return EcRepository.getAs(id, new EcRollupRule(), success, failure);
     };
+    
+    /**
+     *  Retrieves a rollup rule from the server
+     * 
+     *  @param {String}                  id
+     *                                   ID of the rollup rule to retrieve
+     *  @param {Callback1<EcRollupRule>} success
+     *                                   Callback triggered on successful retrieving rollup rule,
+     *                                   returns the rollup rule
+     *  @param {Callback1<String>}       failure
+     *                                   Callback triggered if error retrieving rollup rule
+     *  @memberOf EcRollupRule
+     *  @method getBlocking
+     *  @static
+     *  @deprecated
+     */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcRollupRule());
+        return EcRepository.getAs(id, new EcRollupRule());
     };
     /**
      *  Searches for levels with a string query
@@ -48,9 +64,7 @@ module.exports = class EcRollupRule extends RollupRule{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcRollupRule();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcRollupRule(), success, failure, paramObj);
     };
     /**
      *  Method for setting a rollup rule name
@@ -85,24 +99,22 @@ module.exports = class EcRollupRule extends RollupRule{
     save(success, failure, repo) {
         if (this.rule == null || this.rule == "") {
             var msg = "RollupRule Rule cannot be empty";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.competency == null || this.competency == "") {
             var msg = "RollupRule's Competency cannot be empty";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (repo == null) 
-            EcRepository.save(this, success, failure);
-         else 
-            repo.saveTo(this, success, failure);
+            return EcRepository.save(this, success, failure);
+        else 
+            return repo.saveTo(this, success, failure);
     };
     /**
      *  Deletes this rollup rule from the server specified by it's ID
@@ -115,6 +127,6 @@ module.exports = class EcRollupRule extends RollupRule{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
 };

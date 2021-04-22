@@ -14,10 +14,10 @@ module.exports = class Directory extends schema.CreativeWork{
     static myType = Directory.TYPE_0_6;
     parentDirectory = null;
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(Directory.TYPE_0_6);
         return a;
     };

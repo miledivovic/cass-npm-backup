@@ -99,7 +99,7 @@ module.exports = class EcLinkedData{
         return this.atIfyObject(this);
     };
     atIfyArray(o) {
-        var a = new Array();
+        var a = [];
         for (var i = 0; i < o.length; i++) {
             if (EcObject.isObject(o[i])) {
                 if (o[i] instanceof EcLinkedData)
@@ -115,7 +115,7 @@ module.exports = class EcLinkedData{
         return a;
     };
     atIfyObject(o) {
-        var keys = new Array();
+        var keys = [];
         var me = (o);
         for (var key in me) {
             if (me["type"] != null) 
@@ -126,7 +126,7 @@ module.exports = class EcLinkedData{
         keys.sort(function(a, b) {
             return a.compareTo(b);
         });
-        var op = (new Object());
+        var op = ({});
         for (var i = 0; i < keys.length; i++) {
             var key = keys[i];
             var value = me[key.replace("@", "")];
@@ -267,12 +267,12 @@ module.exports = class EcLinkedData{
             targetContext = (json)["@context"];
         (json)["@context"] = translationContext;
         var finalTargetContext = targetContext;
-        jsonld.expand(json, new Object(), function(error, actual) {
+        jsonld.expand(json, {}, function(error, actual) {
             if (error != null) {
                 failure((error)["message"]);
                 return;
             }
-            jsonld.compact(actual, finalTargetContext, new Object(), function(s, o, o2) {
+            jsonld.compact(actual, finalTargetContext, {}, function(s, o, o2) {
                 if (s != null) {
                     failure(s);
                     return;
@@ -354,7 +354,7 @@ module.exports = class EcLinkedData{
      *  @method getTypes
      */
     getTypes() {
-        var a = new Array();
+        var a = [];
         if (this.context != null && this.type != null) {
             if (!EcObject.isObject(this.context)) {
                 var context = (!this.context.endsWith("/") ? this.context + "/" : this.context);
@@ -368,7 +368,7 @@ module.exports = class EcLinkedData{
     };
     compact(remoteContextUrl, success, failure) {
         var me = this;
-        jsonld.compact(this.toJson(), remoteContextUrl, new Object(), function(err, compacted, context) {
+        jsonld.compact(this.toJson(), remoteContextUrl, {}, function(err, compacted, context) {
             if (err != null) {
                 failure(err);
                 return;

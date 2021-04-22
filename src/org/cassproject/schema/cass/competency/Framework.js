@@ -53,7 +53,7 @@ module.exports = class Framework extends schema.CreativeWork{
      */
     directory = null;
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (Framework.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -74,7 +74,7 @@ module.exports = class Framework extends schema.CreativeWork{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(Framework.TYPE_0_6);
         a.push(Framework.TYPE_0_5);
         a.push(Framework.TYPE_0_4);

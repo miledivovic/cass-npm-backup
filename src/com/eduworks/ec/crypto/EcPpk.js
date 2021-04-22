@@ -44,7 +44,7 @@ module.exports = class EcPpk{
      *  @static
      */
     static generateKeyAsync(callback) {
-        var o = new Object();
+        var o = {};
         (o)["workers"] = -1;
         forge.pki.rsa.generateKeyPair(o, function(err, keypair) {
             var ppk = new EcPpk();
@@ -60,7 +60,7 @@ module.exports = class EcPpk{
      *  @static
      */
     static generateKey() {
-        var o = new Object();
+        var o = {};
         (o)["workers"] = -1;
         var keypair = forge.pki.rsa.generateKeyPair(o, null);
         var ppk = new EcPpk();

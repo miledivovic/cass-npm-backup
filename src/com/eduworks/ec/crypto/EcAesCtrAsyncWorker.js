@@ -28,7 +28,7 @@ module.exports = class EcAesCtrAsyncWorker{
         }
         var worker = EcRsaOaepAsyncWorker.rotator++;
         EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-        var o = new Object();
+        var o = {};
         (o)["secret"] = secret;
         (o)["iv"] = iv;
         (o)["text"] = forge.util.encodeUtf8(plaintext);
@@ -65,7 +65,7 @@ module.exports = class EcAesCtrAsyncWorker{
         }
             var worker = EcRsaOaepAsyncWorker.rotator++;
             EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-            var o = new Object();
+            var o = {};
             (o)["secret"] = secret;
             (o)["iv"] = iv;
             (o)["text"] = ciphertext;

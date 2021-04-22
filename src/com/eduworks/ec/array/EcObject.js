@@ -30,6 +30,6 @@ module.exports = class EcObject{
      *  @method keys
      */
     static keys = function(o) {
-        return ecKeys(o);
+        return Object.keys(o);
     };
 }

@@ -8,6 +8,7 @@
  */
 module.exports = class Level extends schema.CreativeWork{
     constructor(){
+        super();
         this.setContextAndType(Cass.context, Level.myType);
     }
     static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/level";
@@ -40,7 +41,7 @@ module.exports = class Level extends schema.CreativeWork{
      */
     performance = null;
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (Level.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -61,7 +62,7 @@ module.exports = class Level extends schema.CreativeWork{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(Level.TYPE_0_6);
         a.push(Level.TYPE_0_5);
         a.push(Level.TYPE_0_4);

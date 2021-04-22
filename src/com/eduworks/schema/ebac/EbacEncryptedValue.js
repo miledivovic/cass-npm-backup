@@ -67,7 +67,7 @@ module.exports = class EbacEncryptedValue extends EcRemoteLinkedData{
              throw new RuntimeException("Incompatible type: " + this.getFullType());
     };
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (EbacEncryptedValue.TYPE_0_1 == this.type) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 
@@ -82,7 +82,7 @@ module.exports = class EbacEncryptedValue extends EcRemoteLinkedData{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(EbacEncryptedValue.TYPE_0_4);
         a.push(EbacEncryptedValue.TYPE_0_3);
         a.push(EbacEncryptedValue.TYPE_0_2);

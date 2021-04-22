@@ -12,7 +12,7 @@ module.exports = class CTDLASNCSVImport{
         Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
             var tabularData = (results)["data"];
             var colNames = tabularData[0];
-            var nameToCol = new Object();
+            var nameToCol = {};
             for (var i = 0; i < colNames.length; i++) 
                 (nameToCol)[colNames[i]] = i;
             var frameworkCounter = 0;
@@ -52,13 +52,13 @@ module.exports = class CTDLASNCSVImport{
         }
         Papa.parse(file, {header: true, encoding: "UTF-8", complete: function(results) {
             var tabularData = (results)["data"];
-            var frameworks = new Object();
-            var frameworkArray = new Array();
-            var frameworkRows = new Object();
-            var competencies = new Array();
-            var competencyRows = new Object();
-            var relations = new Array();
-            var relationById = new Object();
+            var frameworks = {};
+            var frameworkArray = [];
+            var frameworkRows = {};
+            var competencies = [];
+            var competencyRows = {};
+            var relations = [];
+            var relationById = {};
             new EcAsyncHelper().each(tabularData, function(pretranslatedE, callback0) {
                 if ((pretranslatedE)["@type"] == "ceasn:CompetencyFramework") {
                     var translator = new EcLinkedData(null, null);
@@ -92,8 +92,8 @@ module.exports = class CTDLASNCSVImport{
                         (f)["ceasn:hasChild"] = null;
                         (f)["ceasn:hasTopChild"] = null;
                         frameworkArray.push(f);
-                        f.competency = new Array();
-                        f.relation = new Array();
+                        f.competency = [];
+                        f.relation = [];
                         callback0();
                     }, failure);
                 } else if ((pretranslatedE)["@type"] == "ceasn:Competency") {

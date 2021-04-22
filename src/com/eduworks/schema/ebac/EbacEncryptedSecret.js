@@ -76,7 +76,7 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData{
      *  @method toEncryptableJson
      */
     toEncryptableJson() {
-        var o = (new Object());
+        var o = ({});
         o["v"] = this.iv;
         if (this.id != null) 
             o["d"] = this.id;
@@ -101,7 +101,7 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(EbacEncryptedSecret.TYPE_0_4);
         a.push(EbacEncryptedSecret.TYPE_0_3);
         a.push(EbacEncryptedSecret.TYPE_0_2);

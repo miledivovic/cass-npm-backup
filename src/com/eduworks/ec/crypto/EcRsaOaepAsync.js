@@ -23,9 +23,9 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.encrypt(pk, plainText, success, failure);
         }
-        var keyUsages = new Array();
+        var keyUsages = [];
         keyUsages.push("encrypt");
-        var algorithm = new Object();
+        var algorithm = {};
         algorithm.name = "RSA-OAEP";
         algorithm.hash = "SHA-1";
         let p = null;
@@ -68,7 +68,7 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.decrypt(ppk, cipherText, success, failure);
         }
-        var algorithm = new Object();
+        var algorithm = {};
         algorithm.name = "RSA-OAEP";
         algorithm.hash = "SHA-1";
         let afterKeyIsImported = (p1) => {
@@ -85,17 +85,17 @@ module.exports = class EcRsaOaepAsync{
         }
         if (ppk.key == null)
         {
-            var keyUsages = new Array();
+            var keyUsages = [];
             keyUsages.push("decrypt");
             let p = crypto.subtle.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 ppk.key = key;
                 return crypto.subtle.decrypt(algorithm, key, base64.decode(cipherText))
-            }).then(afterKeyIsImported);
+            }).then(afterKeyIsImported).catch((error)=>{console.trace(ppk,cipherText,error);return null;});
             return cassPromisify(p,success,failure);
         }
         else 
         {
-            let p = crypto.subtle.decrypt(algorithm, ppk.key, base64.decode(cipherText)).then(afterKeyIsImported);
+            let p = crypto.subtle.decrypt(algorithm, ppk.key, base64.decode(cipherText)).then(afterKeyIsImported).catch((error)=>{console.trace(error);return null;});
             return cassPromisify(p,success,failure);
         }
     };
@@ -121,9 +121,9 @@ module.exports = class EcRsaOaepAsync{
         {
             return cassReturnAsPromise(null,success,failure);
         }
-        var keyUsages = new Array();
+        var keyUsages = [];
         keyUsages.push("sign");
-        var algorithm = new Object();
+        var algorithm = {};
         algorithm.name = "RSASSA-PKCS1-v1_5";
         algorithm.hash = "SHA-1";
         if (ppk.signKey == null) 
@@ -156,9 +156,9 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
         }
-        var keyUsages = new Array();
+        var keyUsages = [];
         keyUsages.push("sign");
-        var algorithm = new Object();
+        var algorithm = {};
         algorithm.name = "RSASSA-PKCS1-v1_5";
         algorithm.hash = "SHA-256";
         let p = null;
@@ -194,12 +194,12 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.verify(pk, text, signature, success, failure);
         }
-        var algorithm = new Object();
+        var algorithm = {};
         algorithm.name = "RSASSA-PKCS1-v1_5";
         algorithm.hash = "SHA-1";
         if (pk.signKey == null)
         {
-            var keyUsages = new Array();
+            var keyUsages = [];
             keyUsages.push("verify");
             return cassPromisify(crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 pk.signKey = key;
@@ -230,12 +230,12 @@ module.exports = class EcRsaOaepAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcRsaOaepAsyncWorker.verify(pk, text, signature, success, failure);
         }
-        var algorithm = new Object();
+        var algorithm = {};
         algorithm.name = "RSASSA-PKCS1-v1_5";
         algorithm.hash = "SHA-256";
         if (pk.signKey256 == null)
         {
-            var keyUsages = new Array();
+            var keyUsages = [];
             keyUsages.push("verify");
             return cassPromisify(crypto.subtle.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages).then(function(key) {
                 pk.signKey256 = key;

@@ -188,7 +188,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
         }
         this.usernameWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(username, this.usernameSalt, this.usernameIterations, this.usernameWidth));
         this.passwordWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(password, this.passwordSalt, this.passwordIterations, this.passwordWidth));
-        var arys = new Array();
+        var arys = [];
         arys.push(username, password);
         var secret = this.splicePasswords(arys);
         this.secretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(secret, this.secretSalt, this.secretIterations, 32));
@@ -219,7 +219,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
              throw new RuntimeException("Old password does not match. Aborting password change.");
         }
         this.passwordWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(newPassword, this.passwordSalt, this.passwordIterations, this.passwordWidth));
-        var arys = new Array();
+        var arys = [];
         arys.push(username, newPassword);
         var secret = this.splicePasswords(arys);
         this.secretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(secret, this.secretSalt, this.secretIterations, 32));
@@ -326,8 +326,8 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
         if (this.usernameWithSalt == null || this.passwordWithSalt == null || this.secretWithSalt == null) {
              throw new RuntimeException("Please log in before performing this operation.");
         }
-        var credentials = new Array();
-        var contacts = new Array();
+        var credentials = [];
+        var contacts = [];
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
             var id = EcIdentityManager.ids[i];
             if (id.source != null && id.source != this.server) 

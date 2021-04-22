@@ -26,7 +26,7 @@ module.exports = class Competency extends schema.CreativeWork{
      */
     scope = null;
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (Competency.TYPE_0_1.equals(this.type)) {
             if (this.url != null && this.sameAs == null) {
                 this.sameAs = this.url;
@@ -51,7 +51,7 @@ module.exports = class Competency extends schema.CreativeWork{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(Competency.TYPE_0_6);
         a.push(Competency.TYPE_0_5);
         a.push(Competency.TYPE_0_4);

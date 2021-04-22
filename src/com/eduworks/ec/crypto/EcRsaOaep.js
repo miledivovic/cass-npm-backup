@@ -16,8 +16,12 @@ module.exports = class EcRsaOaep{
      *  @param {string} plaintext Plaintext. Does not perform encoding.
      *  @method encrypt
      *  @static
+     *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
      */
     static encrypt(pk, plaintext) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcRsaOaepAsync.");
+        EcCrypto.deprecationNotice = true;
         if ((typeof httpStatus) != "undefined") {
             return rsaEncrypt(plaintext, pk.toPem());
         }
@@ -32,8 +36,12 @@ module.exports = class EcRsaOaep{
      *  @return {string} Unencoded plaintext.
      *  @method decrypt
      *  @static
+     *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
      */
     static decrypt(ppk, ciphertext) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcRsaOaepAsync.");
+        EcCrypto.deprecationNotice = true;
         if (EcCrypto.caching) {
             var cacheGet = null;
             cacheGet = (EcCrypto.decryptionCache)[ppk.toPem() + ciphertext];
@@ -62,8 +70,12 @@ module.exports = class EcRsaOaep{
      *  @return Base64 encoded signature.
      *  @method sign
      *  @static
+     *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
      */
     static sign(ppk, text) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcRsaOaepAsync.");
+        EcCrypto.deprecationNotice = true;
         if ((typeof httpStatus) != "undefined") {
             return rsaSign(text, ppk.toPem());
         }
@@ -81,8 +93,12 @@ module.exports = class EcRsaOaep{
      *  @return Base64 encoded signature.
      *  @method signSha256
      *  @static
+     *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
      */
     static signSha256 = function(ppk, text) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcRsaOaepAsync.");
+        EcCrypto.deprecationNotice = true;
         var s = forge.md.sha256.create();
         s.update(forge.util.encodeUtf8(text), "utf8");
         return forge.util.encode64(ppk.ppk.sign(s));
@@ -97,8 +113,12 @@ module.exports = class EcRsaOaep{
      *  @return True IFF the signature is valid.
      *  @static
      *  @method verify
+     *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
      */
     static verify(pk, text, signature) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcRsaOaepAsync.");
+        EcCrypto.deprecationNotice = true;
         if ((typeof httpStatus) != "undefined") {
             return rsaVerify(signature, pk.toPem(), text);
         }
@@ -120,8 +140,12 @@ module.exports = class EcRsaOaep{
      *  @return True IFF the signature is valid.
      *  @static
      *  @method verify
+     *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
      */
     static verifySha256 = function(pk, text, signature) {
+        if (EcCrypto.deprecationNotice == false)
+            console.trace("This method is deprecated. Please use await on EcRsaOaepAsync.");
+        EcCrypto.deprecationNotice = true;
         if ((typeof httpStatus) != "undefined") {
             return rsaVerifySha256(signature, pk.toPem(), text);
         }

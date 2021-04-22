@@ -40,6 +40,7 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData{
      *  @method generateRekeyRequestId
      */
     async finalizeRequest(oldKeyPpk) {
+        console.log("creating: " + this.toSignableJson());
         this.rekeySignature = await EcRsaOaepAsync.signSha256(oldKeyPpk, this.toSignableJson());
     };
     /**
@@ -66,10 +67,11 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData{
      *  @method toSignableJson
      */
     toSignableRekeyJson() {
-        var d = JSON.parse(EcRemoteLinkedData.toSignableJson.call(this));
+        var d = JSON.parse(this.toSignableJson());
         delete (d)["rekeySignature"];
         var e = new EcLinkedData(d.context, d.type);
         e.copyFrom(d);
+        console.log("verifying: " + e.toJson());
         return e.toJson();
     };
     /**

@@ -12,7 +12,7 @@ module.exports = class CTDLASNCSVConceptImport{
         Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
             var tabularData = (results)["data"];
             var colNames = tabularData[0];
-            var nameToCol = new Object();
+            var nameToCol = {};
             for (var i = 0; i < colNames.length; i++) 
                 (nameToCol)[colNames[i]] = i;
             var conceptSchemeCounter = 0;
@@ -52,8 +52,8 @@ module.exports = class CTDLASNCSVConceptImport{
         }
         Papa.parse(file, {header: true, encoding: "UTF-8", complete: function(results) {
             var tabularData = (results)["data"];
-            var schemeArray = new Array();
-            var concepts = new Array();
+            var schemeArray = [];
+            var concepts = [];
             new EcAsyncHelper().each(tabularData, function(pretranslatedE, callback0) {
                 if ((pretranslatedE)["@type"] == "skos:ConceptScheme") {
                     var translator = new EcLinkedData(null, null);
@@ -61,7 +61,7 @@ module.exports = class CTDLASNCSVConceptImport{
                     CTDLASNCSVImport.cleanUpTranslator(translator, endpoint, repo);
                     if ((translator)["ceasn:name"] != null) {
                         var name = (translator)["ceasn:name"];
-                        var nameWithLanguage = new Object();
+                        var nameWithLanguage = {};
                         (nameWithLanguage)["en-US"] = name;
                         (translator)["ceasn:name"] = nameWithLanguage;
                     }
@@ -98,7 +98,7 @@ module.exports = class CTDLASNCSVConceptImport{
                     CTDLASNCSVImport.cleanUpTranslator(translator, endpoint, repo);
                     if ((translator)["skos:prefLabel"] != null) {
                         var name = (translator)["skos:prefLabel"];
-                        var nameWithLanguage = new Object();
+                        var nameWithLanguage = {};
                         (nameWithLanguage)["en-US"] = name;
                         (translator)["skos:prefLabel"] = nameWithLanguage;
                     }
@@ -179,7 +179,7 @@ module.exports = class CTDLASNCSVConceptImport{
                                 var schemeObj = schemeArray[i];
                                 if (scheme == (schemeObj)["id"]) {
                                     if ((schemeObj)["skos:hasTopConcept"] == null) {
-                                        var hasTopConcept = new Array();
+                                        var hasTopConcept = [];
                                         (schemeObj)["skos:hasTopConcept"] = hasTopConcept;
                                     }
                                     var conceptId = f.shortId();

@@ -6,8 +6,8 @@ module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
     assertions = null;
     nextSearch = null;
     collectAssertions(ip, listOfCompetencies, success) {
-        this.assertedBy = new Object();
-        this.assertions = new Object();
+        this.assertedBy = {};
+        this.assertions = {};
         var me = this;
         this.rabbitHole(0, ip, listOfCompetencies, function() {
             me.findAssertions(ip, function() {
@@ -23,9 +23,9 @@ module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
         return count;
     };
     generateAssertions(ip, listOfCompetencies, success) {
-        var assertions = new Array();
+        var assertions = [];
         for (var i = 0; i < listOfCompetencies.length; i++) {
-            var evidences = new Array();
+            var evidences = [];
             this.addEvidenceOfDependenciesToArray(listOfCompetencies[i], evidences);
             if (evidences.length == 0) 
                 continue;
@@ -54,7 +54,7 @@ module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
     findAssertions(ip, success) {
         var me = this;
         me.assertionProcessor.log(ip, "Querying repositories for AchieveActions");
-        var evidence = new Array();
+        var evidence = [];
         var keys = EcObject.keys(this.assertedBy);
         for (var i = 0; i < keys.length; i++) 
             for (var j = 0; j < ((this.assertedBy)[keys[i]]).length; j++) 
@@ -67,7 +67,7 @@ module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
         eah.each(me.assertionProcessor.repositories, function(currentRepository, callback0) {
             var searchQuery = me.buildAssertionSearchQuery(ip, evidence);
             me.assertionProcessor.log(ip, "Querying repositories for AchieveActions regarding " + evidence.length + " evidences: " + searchQuery);
-            var params = new Object();
+            var params = {};
             (params)["size"] = 5000;
             currentRepository.searchWithParams(searchQuery, params, null, function(p1) {
                 me.assertionProcessor.log(ip, p1.length + " AchieveActions found.");
@@ -76,7 +76,7 @@ module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
                     a.copyFrom(p1[i]);
                     var thingy = EcRemoteLinkedData.trimVersionFromUrl(a.object);
                     if ((me.assertions)[thingy] == null) 
-                        (me.assertions)[thingy] = new Array();
+                        (me.assertions)[thingy] = [];
                     var as = (me.assertions)[thingy];
                     EcArray.setAdd(as, a);
                 }
@@ -90,12 +90,12 @@ module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
     };
     rabbitHole(level, ip, listOfThingies, success) {
         var me = this;
-        this.nextSearch = new Array();
+        this.nextSearch = [];
         var eah = new EcAsyncHelper();
         eah.each(me.assertionProcessor.repositories, function(currentRepository, callback0) {
             var searchQuery = me.buildRelationsSearchQuery(ip, listOfThingies);
             me.assertionProcessor.log(ip, "Querying repositories for relations regarding " + listOfThingies.length + " objects: " + searchQuery);
-            var params = new Object();
+            var params = {};
             (params)["size"] = 5000;
             currentRepository.searchWithParams(searchQuery, params, null, function(p1) {
                 me.assertionProcessor.log(ip, p1.length + " relations found.");
@@ -105,7 +105,7 @@ module.exports = class MilCredCoprocessor extends AssertionCoprocessor{
                     var thingy = EcRemoteLinkedData.trimVersionFromUrl(a.educationalAlignment.targetUrl);
                     var assertedBy = EcRemoteLinkedData.trimVersionFromUrl(a.url);
                     if ((me.assertedBy)[thingy] == null) 
-                        (me.assertedBy)[thingy] = new Array();
+                        (me.assertedBy)[thingy] = [];
                     var as = (me.assertedBy)[thingy];
                     if (!EcArray.has(as, assertedBy)) {
                         as.push(assertedBy);

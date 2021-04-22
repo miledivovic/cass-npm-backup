@@ -33,7 +33,7 @@ module.exports = class Concept extends EcRemoteLinkedData{
      */
     semanticRelation = null;
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (Concept.TYPE_0_1.equals(this.getFullType())) {
             this.setContextAndType("https://schema.cassproject.org/0.3/skos", Concept.TYPE_0_2);
         }
@@ -42,7 +42,7 @@ module.exports = class Concept extends EcRemoteLinkedData{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(Concept.TYPE_0_3);
         a.push(Concept.TYPE_0_2);
         a.push(Concept.TYPE_0_1);

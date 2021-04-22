@@ -62,7 +62,7 @@ module.exports = class EbacCredentialCommit extends EcLinkedData{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(EbacCredentialCommit.TYPE_0_4);
         a.push(EbacCredentialCommit.TYPE_0_3);
         a.push(EbacCredentialCommit.TYPE_0_2);

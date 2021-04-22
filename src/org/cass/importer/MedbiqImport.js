@@ -141,13 +141,13 @@ module.exports = class MedbiqImport extends Importer{
                 MedbiqImport.saved++;
                 if (MedbiqImport.saved % MedbiqImport.INCREMENTAL_STEP == 0) {
                     if (MedbiqImport.progressObject == null) 
-                        MedbiqImport.progressObject = new Object();
+                        MedbiqImport.progressObject = {};
                     (MedbiqImport.progressObject)["competencies"] = MedbiqImport.saved;
                     incremental(MedbiqImport.progressObject);
                 }
                 if (MedbiqImport.saved == MedbiqImport.medbiqXmlCompetencies.length) {
                     if (MedbiqImport.progressObject == null) 
-                        MedbiqImport.progressObject = new Object();
+                        MedbiqImport.progressObject = {};
                     (MedbiqImport.progressObject)["competencies"] = MedbiqImport.saved;
                     incremental(MedbiqImport.progressObject);
                     success(MedbiqImport.medbiqXmlCompetencies);

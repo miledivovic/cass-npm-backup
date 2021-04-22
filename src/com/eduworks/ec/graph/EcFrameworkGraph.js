@@ -7,12 +7,12 @@
  */
 module.exports = class EcFrameworkGraph extends EcDirectedGraph{
     constructor(){
-        this.metaVerticies = new Object();
-        this.metaEdges = new Object();
-        this.competencyMap = new Object();
-        this.edgeMap = new Object();
-        this.dontTryAnyMore = new Object();
-        this.frameworks = new Array();
+        this.metaVerticies = {};
+        this.metaEdges = {};
+        this.competencyMap = {};
+        this.edgeMap = {};
+        this.dontTryAnyMore = {};
+        this.frameworks = [];
     }
     metaVerticies = null;
     metaEdges = null;
@@ -37,9 +37,9 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
         this.frameworks.push(framework);
         var me = this;
         if (framework.competency == null) 
-            framework.competency = new Array();
+            framework.competency = [];
         if (framework.relation == null) 
-            framework.relation = new Array();
+            framework.relation = [];
         repo.multiget(framework.competency, function(data) {
             var eah = new EcAsyncHelper();
             eah.each(data, function(d, callback0) {
@@ -110,7 +110,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
                 return;
             }
             assertion.getNegativeAsync(function(negative) {
-                me.processAssertionsBooleanPerAssertion(assertion, negative, competency, done, new Array());
+                me.processAssertionsBooleanPerAssertion(assertion, negative, competency, done, []);
             }, eah.failWithCallback(failure, done));
         }, function(strings) {
             success();
@@ -173,7 +173,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
         if (metaState == null) 
             return;
         if ((metaState)[key] == null) 
-            (metaState)[key] = new Array();
+            (metaState)[key] = [];
         ((metaState)[key]).push(value);
     };
     /**
@@ -190,7 +190,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
             if (this.containsVertex(c) == false) 
                 return null;
             if (this.metaVerticies[c.shortId()] == null) 
-                this.metaVerticies[c.shortId()] = result = new Object();
+                this.metaVerticies[c.shortId()] = result = {};
         }
         return result;
     };
@@ -200,7 +200,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
             if (this.containsEdge(a) == false) 
                 return null;
             if (this.metaEdges[a.shortId()] == null) 
-                this.metaEdges[a.shortId()] = result = new Object();
+                this.metaEdges[a.shortId()] = result = {};
         }
         return result;
     };

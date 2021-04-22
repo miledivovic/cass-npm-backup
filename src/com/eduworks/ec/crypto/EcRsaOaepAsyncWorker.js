@@ -56,7 +56,7 @@ module.exports = class EcRsaOaepAsyncWorker{
         }
         var worker = EcRsaOaepAsyncWorker.rotator++;
         EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-        var o = new Object();
+        var o = {};
         (o)["pk"] = pk.toPem();
         (o)["text"] = forge.util.encodeUtf8(plaintext);
         (o)["cmd"] = "encryptRsaOaep";
@@ -95,7 +95,7 @@ module.exports = class EcRsaOaepAsyncWorker{
         }
         var worker = EcRsaOaepAsyncWorker.rotator++;
         EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-        var o = new Object();
+        var o = {};
         (o)["ppk"] = ppk.toPem();
         (o)["text"] = ciphertext;
         (o)["cmd"] = "decryptRsaOaep";
@@ -133,7 +133,7 @@ module.exports = class EcRsaOaepAsyncWorker{
         }
         var worker = EcRsaOaepAsyncWorker.rotator++;
         EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-        var o = new Object();
+        var o = {};
         (o)["ppk"] = ppk.toPem();
         (o)["text"] = forge.util.encodeUtf8(text);
         (o)["cmd"] = "signRsaOaep";
@@ -164,7 +164,7 @@ module.exports = class EcRsaOaepAsyncWorker{
         }
         var worker = EcRsaOaepAsyncWorker.rotator++;
         EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-        var o = new Object();
+        var o = {};
         (o)["ppk"] = ppk.toPem();
         (o)["text"] = forge.util.encodeUtf8(text);
         (o)["cmd"] = "signSha256RsaOaep";
@@ -195,7 +195,7 @@ module.exports = class EcRsaOaepAsyncWorker{
         }
         var worker = EcRsaOaepAsyncWorker.rotator++;
         EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-        var o = new Object();
+        var o = {};
         (o)["pk"] = pk.toPem();
         (o)["text"] = forge.util.encodeUtf8(text);
         (o)["signature"] = signature;
@@ -227,7 +227,7 @@ module.exports = class EcRsaOaepAsyncWorker{
         }
         var worker = EcRsaOaepAsyncWorker.rotator++;
         EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-        var o = new Object();
+        var o = {};
         (o)["pk"] = pk.toPem();
         (o)["text"] = forge.util.encodeUtf8(text);
         (o)["signature"] = signature;

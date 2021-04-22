@@ -113,7 +113,7 @@ module.exports = class Relation extends schema.CreativeWork{
      */
     validThrough = null;
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if ("isEquivalenTo" == this.relationType) 
             this.relationType = Relation.IS_EQUIVALENT_TO;
         if (Relation.TYPE_0_1 == this.type) {
@@ -136,7 +136,7 @@ module.exports = class Relation extends schema.CreativeWork{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(Relation.TYPE_0_6);
         a.push(Relation.TYPE_0_5);
         a.push(Relation.TYPE_0_4);

@@ -58,7 +58,7 @@ module.exports = class EcOrganization extends schema.Organization{
      */
     addEmployee(person) {
         if (this.employee == null) 
-            (this)["employee"] = new Array();
+            (this)["employee"] = [];
         if (!EcArray.isArray(this.employee)) 
              throw new RuntimeException("Employee is not Array");
         var ary = this.employee;
@@ -96,7 +96,7 @@ module.exports = class EcOrganization extends schema.Organization{
         if (this.member == null) 
             return;
         if (this.employee == null) 
-            (this)["employee"] = new Array();
+            (this)["employee"] = [];
         if (!EcArray.isArray(this.employee) || !EcArray.isArray(this.member)) 
             return;
         var membAry = this.member;
@@ -124,9 +124,9 @@ module.exports = class EcOrganization extends schema.Organization{
      */
     ppkListToPemArrayString(ppkList) {
         if (ppkList == null) 
-            return JSON.stringify(new Array());
+            return JSON.stringify([]);
          else {
-            var pemArray = new Array();
+            var pemArray = [];
             for (var i = 0; i < ppkList.length; i++) {
                 pemArray.push(ppkList[i].toPem());
             }
@@ -222,7 +222,7 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @method getOrgKeys
      */
     getOrgKeys() {
-        var orgKeys = new Array();
+        var orgKeys = [];
         var o = (this)[EcOrganization.ORG_PPK_SET_KEY];
         if (o != null) {
             var ev = new EcEncryptedValue();
@@ -245,7 +245,7 @@ module.exports = class EcOrganization extends schema.Organization{
             var ev = new EcEncryptedValue();
             ev.copyFrom(o);
             var currentGroupPpkPem = ev.decryptIntoString();
-            var keyArray = new Array();
+            var keyArray = [];
             keyArray.push(currentGroupPpkPem);
             var newKey = EcEncryptedValue.encryptValue(JSON.stringify(keyArray), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
             (this)[EcOrganization.ORG_PPK_SET_KEY] = newKey;
@@ -253,7 +253,7 @@ module.exports = class EcOrganization extends schema.Organization{
         }
     };
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         this.movePersonMembersToEmployee();
         this.moveKeyField();
     };

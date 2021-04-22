@@ -88,19 +88,19 @@ module.exports = class EcQuestion extends schema.Question{
     };
     acceptedAnswers() {
         if (this.acceptedAnswer == null) {
-            return new Array();
+            return [];
         }
         return this.acceptedAnswer;
     };
     suggestedAnswers() {
         if (this.suggestedAnswer == null) {
-            return new Array();
+            return [];
         }
         return this.suggestedAnswer;
     };
     addAcceptedAnswer(answer) {
         if (this.acceptedAnswer == null) {
-            (this)["acceptedAnswer"] = new Array();
+            (this)["acceptedAnswer"] = [];
         }
         if (!EcArray.isArray(this.acceptedAnswer)) {
              throw new RuntimeException("Accepted Answer is not Array");
@@ -110,7 +110,7 @@ module.exports = class EcQuestion extends schema.Question{
     };
     addSuggestedAnswer(answer) {
         if (this.suggestedAnswer == null) {
-            (this)["suggestedAnswer"] = new Array();
+            (this)["suggestedAnswer"] = [];
         }
         if (!EcArray.isArray(this.suggestedAnswer)) {
              throw new RuntimeException("Suggested Answer is not Array");

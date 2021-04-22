@@ -45,7 +45,7 @@ module.exports = class EbacCredentialRequest extends EcLinkedData{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(EbacCredentialRequest.TYPE_0_4);
         a.push(EbacCredentialRequest.TYPE_0_3);
         a.push(EbacCredentialRequest.TYPE_0_2);

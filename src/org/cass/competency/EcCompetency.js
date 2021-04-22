@@ -55,9 +55,10 @@ module.exports = class EcCompetency extends Competency{
      *  @memberOf EcCompetency
      *  @method getBlocking
      *  @static
+     *  @deprecated await on get() instead.
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcCompetency());
+        return EcRepository.getAs(id, new EcCompetency());
     };
     /**
      *  Searches a repository for competencies that match the search query
@@ -77,9 +78,7 @@ module.exports = class EcCompetency extends Competency{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        return EcRepository.searchAs(repo, query, function() {
-            return new EcCompetency();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcCompetency(), success, failure, paramObj);
     };
     /**
      *  Adds a new alignment on the server specified with this competency as its
@@ -102,7 +101,7 @@ module.exports = class EcCompetency extends Competency{
      *  @memberOf EcCompetency
      *  @method addAlignment
      */
-    addAlignment(target, alignmentType, owner, serverUrl, success, failure, repo) {
+    async addAlignment(target, alignmentType, owner, serverUrl, success, failure, repo) {
         var a = new EcAlignment();
         if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
             a.generateId(serverUrl);
@@ -112,7 +111,7 @@ module.exports = class EcCompetency extends Competency{
         a.target = target.shortId();
         a.relationType = alignmentType;
         a.addOwner(owner.toPk());
-        a.save(success, failure, repo);
+        await a.save(success, failure, repo);
         return a;
     };
     /**
@@ -130,7 +129,7 @@ module.exports = class EcCompetency extends Competency{
      *  @method relations
      */
     relations(repo, eachSuccess, failure, successAll) {
-        this.relationships(repo, eachSuccess, failure, successAll);
+        return this.relationships(repo, eachSuccess, failure, successAll);
     };
     /**
      *  Searches the repository given for any relationships that contain this competency
@@ -148,11 +147,14 @@ module.exports = class EcCompetency extends Competency{
      *  @deprecated
      */
     relationships(repo, eachSuccess, failure, successAll) {
-        return EcAlignment.search(repo, "source:\"" + this.id + "\" OR target:\"" + this.id + "\" OR source:\"" + this.shortId() + "\" OR target:\"" + this.shortId() + "\"", function(results) {
-            for (var i = 0; i < results.length; i++) 
-                eachSuccess(results[i]);
-            successAll(results);
-        }, failure, new Object());
+        return EcAlignment.search(repo, "source:\"" + this.id + "\" OR target:\"" + this.id + "\" OR source:\"" + this.shortId() + "\" OR target:\"" + this.shortId() + "\"", async (results) => {
+            if (eachSuccess !== undefined && eachSuccess != null)
+                for (var i = 0; i < results.length; i++) 
+                    await eachSuccess(results[i]);
+            if (successAll !== undefined && successAll != null)
+                await successAll(results);
+            return results;
+        }, failure, {});
     };
     /**
      *  Adds a new level on the server specified for this competency.
@@ -174,7 +176,7 @@ module.exports = class EcCompetency extends Competency{
      *  @memberOf EcCompetency
      *  @method addLevel
      */
-    addLevel(name, description, owner, serverUrl, success, failure, repo) {
+    async addLevel(name, description, owner, serverUrl, success, failure, repo) {
         var l = new EcLevel();
         if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
             l.generateId(serverUrl);
@@ -184,7 +186,7 @@ module.exports = class EcCompetency extends Competency{
         l.description = description;
         l.name = name;
         l.addOwner(owner.toPk());
-        l.save(success, failure, repo);
+        await l.save(success, failure, repo);
         return l;
     };
     /**
@@ -203,11 +205,11 @@ module.exports = class EcCompetency extends Competency{
      */
     levels(repo, eachSuccess, failure, successAll) {
         var query = "competency:\"" + this.id + "\" OR competency:\"" + this.shortId() + "\"";
-        return EcLevel.search(repo, query, function(results) {
+        return EcLevel.search(repo, query, async (results) => {
             for (var i = 0; i < results.length; i++) 
-                eachSuccess(results[i]);
-            successAll(results);
-        }, failure, new Object());
+                await eachSuccess(results[i]);
+            await successAll(results);
+        }, failure, {});
     };
     /**
      *  Adds a new rollup rule on the server specified for this competency
@@ -229,7 +231,7 @@ module.exports = class EcCompetency extends Competency{
      *  @memberOf EcCompetency
      *  @method addRollupRule
      */
-    addRollupRule(name, description, owner, serverUrl, success, failure, repo) {
+    async addRollupRule(name, description, owner, serverUrl, success, failure, repo) {
         var r = new EcRollupRule();
         if (repo == null) 
             if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
@@ -240,7 +242,7 @@ module.exports = class EcCompetency extends Competency{
         r.description = description;
         r.name = name;
         r.addOwner(owner.toPk());
-        r.save(success, failure, repo);
+        await r.save(success, failure, repo);
         return r;
     };
     /**
@@ -259,11 +261,11 @@ module.exports = class EcCompetency extends Competency{
      */
     rollupRules(repo, eachSuccess, failure, successAll) {
         var query = "competency:\"" + this.id + "\" OR competency:\"" + this.shortId() + "\"";
-        return EcRollupRule.search(repo, query, function(results) {
+        return EcRollupRule.search(repo, query, async (results) => {
             for (var i = 0; i < results.length; i++) 
-                eachSuccess(results[i]);
-            successAll(results);
-        }, failure, new Object());
+                await eachSuccess(results[i]);
+            await successAll(results);
+        }, failure, {});
     };
     /**
      *  Method to set competency scope
@@ -289,11 +291,10 @@ module.exports = class EcCompetency extends Competency{
     save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Competency Name can not be empty";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (repo == null) 
             return EcRepository.save(this, success, failure);
@@ -314,8 +315,17 @@ module.exports = class EcCompetency extends Competency{
      *  @memberOf EcCompetency
      *  @method _delete
      */
-    _delete = function(success, failure, repo) {
+    async _delete(success, failure, repo) {
         var me = this;
-        return EcRepository.DELETE(this, success, failure);
+        if (repo != null)
+            console.log((await this.relations(repo)));
+        if (repo != null)
+        {
+            console.log((await this.relations(repo)));
+            (await this.relations(repo)).each(async (relation) => await EcRepository.DELETE(relation));
+        }
+        if (repo != null)
+            (await this.levels(repo)).each(async (level) => await EcRepository.DELETE(level));
+        await EcRepository.DELETE(this, success, failure);
     };
 };

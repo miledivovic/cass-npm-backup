@@ -255,7 +255,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
                 if (this.signature[i] == signed) 
                     return;
         } else {
-            this.signature = new Array();
+            this.signature = [];
         }
         this.signature.push(signed);
     };
@@ -305,7 +305,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
     addOwner(newOwner) {
         var pem = newOwner.toPem();
         if (this.owner == null) 
-            this.owner = new Array();
+            this.owner = [];
         for (var i = 0; i < this.owner.length; i++) 
             if (this.owner[i] == pem) 
                 return;
@@ -322,7 +322,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
     removeOwner(oldOwner) {
         var pem = oldOwner.toPem();
         if (this.owner == null) 
-            this.owner = new Array();
+            this.owner = [];
         for (var i = 0; i < this.owner.length; i++) 
             if (this.owner[i] == pem) 
                 this.owner.splice(i, 1);
@@ -338,7 +338,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
     addReader(newReader) {
         var pem = newReader.toPem();
         if (this.reader == null) 
-            this.reader = new Array();
+            this.reader = [];
         EcArray.setAdd(this.reader, pem);
         this.signature = null;
     };
@@ -352,7 +352,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
     removeReader(oldReader) {
         var pem = oldReader.toPem();
         if (this.reader == null) 
-            this.reader = new Array();
+            this.reader = [];
         EcArray.setRemove(this.reader, pem);
         this.signature = null;
     };
@@ -519,7 +519,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
         }
         this.handleForwarding();
     };
-    static forwardingTable = new Object();
+    static forwardingTable = {};
     handleForwarding() {
         var me = (this);
         if (this.owner != null) {

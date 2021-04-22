@@ -38,7 +38,7 @@ module.exports = class EcDirectory extends Directory{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcDirectory(), success, failure);
+        return EcRepository.getAs(id, new EcDirectory(), success, failure);
     };
     /**
      *  Retrieves a directory from the server in a blocking fashion, specified by the ID
@@ -53,9 +53,10 @@ module.exports = class EcDirectory extends Directory{
      *  @memberOf EcDirectory
      *  @method getBlocking
      *  @static
+     *  @deprecated Use await on get().
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcDirectory());
+        return EcRepository.getAs(id, new EcDirectory());
     };
     /**
      *  Searches the repository given for directories using the query passed in
@@ -76,9 +77,7 @@ module.exports = class EcDirectory extends Directory{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcDirectory();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcDirectory(), success, failure, paramObj);
     };
     /**
      *  Saves this directory's details on the server specified by its ID or repo
@@ -95,16 +94,15 @@ module.exports = class EcDirectory extends Directory{
     save(success, failure, repo) {
         if (this.name == null || this.name == "") {
             var msg = "Directory Name Cannot be Empty";
-            if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+            if (failure !== undefined && failure != null)
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (repo == null) 
-            EcRepository.save(this, success, failure);
-         else 
-            repo.saveTo(this, success, failure);
+            return EcRepository.save(this, success, failure);
+        else 
+            return repo.saveTo(this, success, failure);
     };
     /**
      *  Deletes this directory from the server specified by its ID
@@ -117,6 +115,6 @@ module.exports = class EcDirectory extends Directory{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
 };

@@ -58,7 +58,7 @@ module.exports = class EbacCredentials extends EcLinkedData{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(EbacCredentials.TYPE_0_4);
         a.push(EbacCredentials.TYPE_0_3);
         a.push(EbacCredentials.TYPE_0_2);

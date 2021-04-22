@@ -65,7 +65,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork{
         if (this.assertion != null) 
             if (index < this.assertion.length) {
                 if (Assertion.codebooks == null) 
-                    Assertion.codebooks = new Object();
+                    Assertion.codebooks = {};
                 var a = new Assertion();
                 a.copyFrom(this.assertion[index]);
                 (Assertion.codebooks)[a.id] = this.codebook[index];
@@ -82,10 +82,10 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork{
         var me = this;
         var ac = new AssertionCodebook();
         if (this.assertion == null) 
-            this.assertion = new Array();
+            this.assertion = [];
         this.assertion.push(a);
         if (this.codebook == null) 
-            this.codebook = new Array();
+            this.codebook = [];
         this.codebook.push(ac);
         if (a.shortId() != null) 
             ac.assertionShortId = a.shortId();
@@ -104,7 +104,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork{
         if (a.evidence != null) 
             for (var i = 0; i < a.evidence.length; i++) {
                 if (ac.evidence == null) 
-                    ac.evidence = new Array();
+                    ac.evidence = [];
                 var ecEncryptedValue = a.evidence[i];
                 ac.evidence.push(ecEncryptedValue.decryptSecret());
             }
@@ -120,12 +120,12 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork{
         var me = this;
         var ac = new AssertionCodebook();
         if (this.assertion == null) 
-            this.assertion = new Array();
+            this.assertion = [];
         this.assertion.push(a);
         if (this.codebook == null) 
-            this.codebook = new Array();
+            this.codebook = [];
         this.codebook.push(ac);
-        var thingsToRun = new Array();
+        var thingsToRun = [];
         var eah = new EcAsyncHelper();
         if (a.agent != null) 
             thingsToRun.push(function(finished) {
@@ -176,7 +176,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork{
                     ecEncryptedValue.decryptSecretAsync(function(ebacEncryptedSecret) {
                         if (ebacEncryptedSecret != null) {
                             if (ac.evidence == null) 
-                                ac.evidence = new Array();
+                                ac.evidence = [];
                             ac.evidence.push(ebacEncryptedSecret);
                         }
                         callback0();

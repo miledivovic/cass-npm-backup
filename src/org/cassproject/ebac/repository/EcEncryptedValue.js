@@ -292,7 +292,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
                 }
                 return EcAesCtrAsync.decrypt(this.payload, decryptSecret.secret, decryptSecret.iv);
             }
-            throw "Could not decrypt secret.";
+            throw new Error("Could not decrypt secret.");
         }),success,failure);
     };
     /**
@@ -307,8 +307,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
      *  @method decryptSecretAsync
      */
     decryptSecret() {
-        var ppks = new Array();
-        var estimatedIndices = new Array();
+        var ppks = [];
+        var estimatedIndices = [];
         if (this.owner != null) {
             for (var i = 0; i < this.owner.length; i++) {
                 var decryptionKey = EcIdentityManager.getPpk(EcPk.fromPem(this.owner[i]));
@@ -333,7 +333,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
         }
         let iterate = (resolve,reject)=>{
             if (ppks.length == 0 && estimatedIndices.length == 0)
-                reject("Could not decrypt secret."); //TODO: Try all identified ppks against all secrets.
+                reject(new Error("Could not decrypt secret.")); //TODO: Try all identified ppks against all secrets.
             console.log(ppks.length + " : " + estimatedIndices.length);
             let ppk = ppks.pop();
             let estimatedIndex = estimatedIndices.pop();

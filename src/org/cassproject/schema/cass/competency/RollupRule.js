@@ -31,7 +31,7 @@ module.exports = class RollupRule extends schema.CreativeWork{
      */
     competency = null;
     upgrade() {
-        EcRemoteLinkedData.upgrade.call(this);
+        super.upgrade();
         if (RollupRule.TYPE_0_2.equals(this.getFullType())) {
             this.setContextAndType(Cass.context_0_3, RollupRule.TYPE_0_3);
         }
@@ -46,7 +46,7 @@ module.exports = class RollupRule extends schema.CreativeWork{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(RollupRule.TYPE_0_6);
         a.push(RollupRule.TYPE_0_5);
         a.push(RollupRule.TYPE_0_4);

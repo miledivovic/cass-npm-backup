@@ -25,8 +25,8 @@ module.exports = class TabStructuredImport{
      */
     static importCompetencies(text, serverUrl, owner, success, failure, incremental, repo, hashNameForId) {
         var lines = text.split("\n");
-        var competencies = new Array();
-        var alignments = new Array();
+        var competencies = [];
+        var alignments = [];
         for (var i = 0; i < lines.length; i++) 
             TabStructuredImport.parseLinesIntoHierarchy(lines, competencies, alignments, i, serverUrl, hashNameForId, repo);
         success(competencies, alignments);

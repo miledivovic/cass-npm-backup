@@ -23,9 +23,9 @@ module.exports = class EcAesCtrAsync{
         if (crypto == null || crypto.subtle == null) {
             return EcAesCtrAsyncWorker.encrypt(plaintext, secret, iv, success, failure);
         }
-        var keyUsages = new Array();
+        var keyUsages = [];
         keyUsages.push("encrypt", "decrypt");
-        var algorithm = new Object();
+        var algorithm = {};
         algorithm.name = "AES-CTR";
         algorithm.counter = base64.decode(iv);
         algorithm.length = 128;

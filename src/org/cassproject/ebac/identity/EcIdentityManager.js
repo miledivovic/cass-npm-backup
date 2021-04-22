@@ -21,7 +21,7 @@ module.exports = class EcIdentityManager{
      *  @type EcIdentity[]
      *  @static
      */
-    static ids = new Array();
+    static ids = [];
     /**
      *  Contacts (Keys that we do not own)
      * 
@@ -29,7 +29,7 @@ module.exports = class EcIdentityManager{
      *  @type EcContact[]
      *  @static
      */
-    static contacts = new Array();
+    static contacts = [];
     /**
      *  Identity change hook.
      * 
@@ -47,7 +47,7 @@ module.exports = class EcIdentityManager{
      */
     static onContactChanged = null;
     static signatureSheetCaching = false;
-    static signatureSheetCache = new Object();
+    static signatureSheetCache = {};
     static async = true;
     static main(args) {
         EcIdentityManager.readContacts();
@@ -119,9 +119,9 @@ module.exports = class EcIdentityManager{
      *  @static
      */
     static saveContacts() {
-        var c = new Array();
+        var c = [];
         for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
-            var o = new Object();
+            var o = {};
             var props = (o);
             var contact = EcIdentityManager.contacts[i];
             props["displayName"] = contact.displayName;
@@ -172,9 +172,9 @@ module.exports = class EcIdentityManager{
      *  @static
      */
     static saveIdentities() {
-        var c = new Array();
+        var c = [];
         for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-            var o = new Object();
+            var o = {};
             var props = (o);
             var identity = EcIdentityManager.ids[i];
             props["displayName"] = identity.displayName;
@@ -195,7 +195,7 @@ module.exports = class EcIdentityManager{
     static clearContacts() {
         if (typeof(localStorage) !== 'undefined')
             delete localStorage["contacts"];
-        EcIdentityManager.contacts = new Array();
+        EcIdentityManager.contacts = [];
     };
     /**
      *  Clears identities from the local storage
@@ -207,7 +207,7 @@ module.exports = class EcIdentityManager{
     static clearIdentities() {
         if (typeof(localStorage) !== 'undefined')
             delete localStorage["identities"];
-        EcIdentityManager.ids = new Array();
+        EcIdentityManager.ids = [];
     };
     /**
      *  Adds an identity to the identity manager. Checks for duplicates. Triggers
@@ -334,7 +334,7 @@ module.exports = class EcIdentityManager{
             var cache = null;
             var stringified = JSON.stringify(signatures);
             if (EcIdentityManager.signatureSheetCaching) {
-                cache = new Array();
+                cache = [];
                 cache[0] = new Date().getTime() + finalDuration;
                 cache[1] = stringified;
                 (EcIdentityManager.signatureSheetCache)[server] = cache;
@@ -498,7 +498,7 @@ module.exports = class EcIdentityManager{
         return searchString;
     };
     static getMyPks() {
-        var pks = new Array();
+        var pks = [];
         if (EcIdentityManager.ids == null) 
             return pks;
         for (var i = 0; i < EcIdentityManager.ids.length; i++) 

@@ -63,7 +63,7 @@ module.exports = class GeneralFile extends EcRemoteLinkedData{
         }
     };
     getTypes() {
-        var a = new Array();
+        var a = [];
         a.push(GeneralFile.TYPE_0_2);
         a.push(GeneralFile.TYPE_0_1);
         return a;

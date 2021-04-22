@@ -12,7 +12,7 @@ module.exports = Task = class Task{
     }
     static desiredFps = 2;
     static lastFrame = null;
-    static tasks = new Array();
+    static tasks = [];
     static delayedFunctions = 0;
     static immediateFunctions = 0;
     static calledFunctions = 0;

@@ -88,14 +88,14 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
      *  @method fetch
      */
     fetch(success, failure) {
-        var o = new Object();
+        var o = {};
         (o)["scope"] = (this.configuration)[this.server + "Scope"];
         (o)["display"] = "page";
         var me = this;
         hello.on("auth.login", function(o) {
             me.oauthLoginResponse = o;
             me.network = (me.oauthLoginResponse)["network"];
-            hello.api(me.network + "/me/folders", "get", new Object()).then(function(folderResponse) {
+            hello.api(me.network + "/me/folders", "get", {}).then(function(folderResponse) {
                 var folders = (folderResponse)["data"];
                 var foundIdentities = false;
                 var foundContacts = false;
@@ -126,7 +126,7 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
     };
     createContactFolder() {
         var me = this;
-        var o = new Object();
+        var o = {};
         (o)["name"] = "CASS Contacts";
         hello.api(me.network + "/me/folders", "post", o).then(function(r) {
             me.hookIdentityManagerContacts((r)["id"]);
@@ -134,7 +134,7 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
     };
     createIdentityFolder(success) {
         var me = this;
-        var o = new Object();
+        var o = {};
         (o)["name"] = "CASS Identities";
         hello.api(me.network + "/me/folders", "post", o).then(function(r) {
             me.hookIdentityManagerIdentities((r)["id"]);
@@ -152,12 +152,12 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
     };
     writeIdentityFile(folderId, identity, finished) {
         var file = stringToFile(identity.ppk.toPem(), identity.displayName + ".pem", "text/plain");
-        var o = new Object();
+        var o = {};
         (o)["id"] = (identity)["id"];
         if ((o)["id"] == undefined) 
             (o)["parent"] = folderId;
         (o)["name"] = file.name;
-        var files = new Array();
+        var files = [];
         files.push(file);
         (o)["file"] = files;
         hello.api(this.network + "/me/files", (identity)["id"] == undefined ? "post" : "put", o).then(function(r) {
@@ -173,12 +173,12 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
     };
     writeContactFile(folderId, contact) {
         var file = stringToFile(contact.pk.toPem(), contact.displayName + ".pem", "text/plain");
-        var o = new Object();
+        var o = {};
         (o)["id"] = (contact)["id"];
         if ((o)["id"] == undefined) 
             (o)["parent"] = folderId;
         (o)["name"] = file.name;
-        var files = new Array();
+        var files = [];
         files.push(file);
         (o)["file"] = files;
         hello.api(this.network + "/me/files", (contact)["id"] == undefined ? "post" : "put", o).then(function(r) {
@@ -187,7 +187,7 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
     };
     readIdentityFiles(folderId, success, failure) {
         var me = this;
-        var o = new Object();
+        var o = {};
         (o)["parent"] = folderId;
         hello.api(this.network + "/me/files", "get", o).then(function(folderResponse) {
             var files = (folderResponse)["data"];
@@ -212,7 +212,7 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
     };
     readContactFiles(folderId, success, failure) {
         var me = this;
-        var o = new Object();
+        var o = {};
         (o)["parent"] = folderId;
         hello.api(this.network + "/me/files", "get", o).then(function(folderResponse) {
             var files = (folderResponse)["data"];
@@ -257,7 +257,7 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
      */
     commit(success, failure) {
         var me = this;
-        var apio = new Object();
+        var apio = {};
         (apio)["network"] = this.network;
         if (hello.getAuthResponse(this.server)) 
             hello.api(me.network + "/me/folders", "get", apio).then(function(folderResponse) {
@@ -278,13 +278,13 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends RemoteIdenti
             failure("Please login again.");
     };
     create(success, failure) {
-        var o = new Object();
+        var o = {};
         (o)["scope"] = (this.configuration)[this.server + "Scope"];
         var me = this;
         hello.on("auth.login", function(o) {
             me.oauthLoginResponse = o;
             me.network = (me.oauthLoginResponse)["network"];
-            hello.api(me.network + "/me/folders", "get", new Object()).then(function(folderResponse) {
+            hello.api(me.network + "/me/folders", "get", {}).then(function(folderResponse) {
                 var folders = (folderResponse)["data"];
                 var foundIdentities = false;
                 var foundContacts = false;

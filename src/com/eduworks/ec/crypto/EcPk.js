@@ -92,7 +92,7 @@ module.exports = class EcPk{
      *  @method fingerprint
      */
     fingerprint() {
-        var o = new Object();
+        var o = {};
         (o)["encoding"] = "hex";
         return forge.ssh.getPublicKeyFingerprint(this.pk, o);
     };

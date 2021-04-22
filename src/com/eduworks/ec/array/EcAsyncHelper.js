@@ -75,7 +75,7 @@ module.exports = class EcAsyncHelper{
                 array[i] = result;
                 me.counter--;
                 if (me.counter == 0) {
-                    var finalArray = new Array();
+                    var finalArray = [];
                     for (var j = 0; j < array.length; j++) 
                         if (array[j] != null) 
                             finalArray.push(array[j]);

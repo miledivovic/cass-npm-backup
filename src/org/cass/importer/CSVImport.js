@@ -104,7 +104,7 @@ module.exports = class CSVImport{
      */
     static importCompetencies(file, serverUrl, owner, nameIndex, descriptionIndex, scopeIndex, idIndex, relations, sourceIndex, relationTypeIndex, destIndex, success, failure, incremental, uniquify, repo) {
         CSVImport.progressObject = null;
-        CSVImport.importCsvLookup = new Object();
+        CSVImport.importCsvLookup = {};
         if (nameIndex < 0) {
             failure("Name Index not Set");
             return;
@@ -172,13 +172,13 @@ module.exports = class CSVImport{
                 CSVImport.saved++;
                 if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0) {
                     if (CSVImport.progressObject == null) 
-                        CSVImport.progressObject = new Object();
+                        CSVImport.progressObject = {};
                     (CSVImport.progressObject)["competencies"] = CSVImport.saved;
                     incremental(CSVImport.progressObject);
                 }
                 if (CSVImport.saved == competencies.length) {
                     if (relations == null) 
-                        success(competencies, new Array());
+                        success(competencies, []);
                      else 
                         CSVImport.importRelations(serverUrl, owner, relations, sourceIndex, relationTypeIndex, destIndex, competencies, success, failure, incremental, repo);
                 }
@@ -216,7 +216,7 @@ module.exports = class CSVImport{
      *  @static
      */
     static importRelations(serverUrl, owner, file, sourceIndex, relationTypeIndex, destIndex, competencies, success, failure, incremental, repo) {
-        var relations = new Array();
+        var relations = [];
         if (sourceIndex == null || sourceIndex < 0) {
             failure("Source Index not Set");
             return;
@@ -270,7 +270,7 @@ module.exports = class CSVImport{
                 CSVImport.saved++;
                 if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0) {
                     if (CSVImport.progressObject == null) 
-                        CSVImport.progressObject = new Object();
+                        CSVImport.progressObject = {};
                     (CSVImport.progressObject)["relations"] = CSVImport.saved;
                     incremental(CSVImport.progressObject);
                     incremental(CSVImport.saved);
@@ -315,7 +315,7 @@ module.exports = class CSVImport{
         } else {
             var key = nestedFields[0];
             if ((nestedObj)[key] == null || (nestedObj)[key] == undefined) 
-                (nestedObj)[key] = new Object();
+                (nestedObj)[key] = {};
             nestedFields.splice(0, 1);
             CSVImport.expandObject(nestedFields, (nestedObj)[key], value);
         }
@@ -341,7 +341,7 @@ module.exports = class CSVImport{
         var objects = [];
         var hasAssignedContext = assignedContext != undefined && assignedContext != null && assignedContext.trim() != "";
         var hasAssignedType = assignedType != undefined && assignedType != null && assignedType.trim() != "";
-        CSVImport.importCsvLookup = new Object();
+        CSVImport.importCsvLookup = {};
         Papa.parse(file, {encoding: "UTF-8", complete: function(results) {
             var tabularData = (results)["data"];
             var colNames = tabularData[0];
@@ -380,7 +380,7 @@ module.exports = class CSVImport{
                         if (split.length > 1) {
                             var key = split[0];
                             if (nestedObjs[key] == null || nestedObjs[key] == undefined) 
-                                nestedObjs[key] = new Object();
+                                nestedObjs[key] = {};
                             split.splice(0, 1);
                             CSVImport.expandObject(split, nestedObjs[key], tabularData[i][idx]);
                             continue;

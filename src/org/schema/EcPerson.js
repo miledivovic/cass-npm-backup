@@ -1,6 +1,6 @@
 module.exports = class EcPerson extends schema.Person{
     static getByPk(repo, pk, success, failure) {
-        EcPerson.get(repo.selectedServer + (repo.selectedServer.endsWith("/") ? "" : "/") + "data/" + pk.fingerprint(), success, failure);
+        return EcPerson.get(repo.selectedServer + (repo.selectedServer.endsWith("/") ? "" : "/") + "data/" + pk.fingerprint(), success, failure);
     };
     static getByPkBlocking(repo, pk) {
         return EcPerson.getBlocking(repo.selectedServer + (repo.selectedServer.endsWith("/") ? "" : "/") + "data/" + pk.fingerprint());

@@ -8,6 +8,7 @@
  */
 module.exports = class Assertion extends schema.CreativeWork{
     constructor(){
+        super();
         this.setContextAndType(Cass.context, Assertion.myType);
     }
     static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/assertion";

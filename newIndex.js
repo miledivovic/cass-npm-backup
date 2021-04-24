@@ -41,9 +41,9 @@ global.cassReturnAsPromise = function(o,success,failure,error){
 
 global.crypto = null;
 try {
-  crypto = require('crypto').webcrypto;
+  global.crypto = require('crypto').webcrypto;
 } catch (err) {
-  console.log("Webcrypto not available.");
+  console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 }
 
 var bon = require('browser-or-node');

@@ -20,7 +20,7 @@ module.exports = class EcRsaOaepAsync{
      */
     static encrypt(pk, plainText, success, failure) {
         if (!EcCrypto.testMode)
-        if (crypto == null || crypto.subtle == null) {
+        if (crypto == null || crypto === undefined || crypto.subtle == null || crypto.subtle === undefined) {
             return EcRsaOaepAsyncWorker.encrypt(pk, plainText, success, failure);
         }
         var keyUsages = [];
@@ -65,7 +65,7 @@ module.exports = class EcRsaOaepAsync{
             }
         }
         if (!EcCrypto.testMode)
-        if (crypto == null || crypto.subtle == null) {
+        if (crypto == null || crypto === undefined || crypto.subtle == null || crypto.subtle === undefined) {
             return EcRsaOaepAsyncWorker.decrypt(ppk, cipherText, success, failure);
         }
         var algorithm = {};

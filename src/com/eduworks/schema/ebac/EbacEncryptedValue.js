@@ -64,7 +64,7 @@ module.exports = class EbacEncryptedValue extends EcRemoteLinkedData{
                 me[key.replace("@", "")] = you[key];
         }
         if (!this.isAny(this.getTypes())) 
-             throw new RuntimeException("Incompatible type: " + this.getFullType());
+             throw new Error("Incompatible type: " + this.getFullType());
     };
     upgrade() {
         super.upgrade();

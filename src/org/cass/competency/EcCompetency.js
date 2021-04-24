@@ -206,9 +206,12 @@ module.exports = class EcCompetency extends Competency{
     levels(repo, eachSuccess, failure, successAll) {
         var query = "competency:\"" + this.id + "\" OR competency:\"" + this.shortId() + "\"";
         return EcLevel.search(repo, query, async (results) => {
-            for (var i = 0; i < results.length; i++) 
-                await eachSuccess(results[i]);
-            await successAll(results);
+            for (var i = 0; i < results.length; i++)
+                if (eachSuccess !== undefined && eachSuccess != null) 
+                    await eachSuccess(results[i]);
+            if (successAll !== undefined && successAll != null)
+                await successAll(results);
+            return results;
         }, failure, {});
     };
     /**
@@ -321,11 +324,14 @@ module.exports = class EcCompetency extends Competency{
             console.log((await this.relations(repo)));
         if (repo != null)
         {
-            console.log((await this.relations(repo)));
-            (await this.relations(repo)).each(async (relation) => await EcRepository.DELETE(relation));
+            console.log(JSON.stringify(await this.relations(repo)));
+            (await this.relations(repo)).forEach(async (relation) => await EcRepository.DELETE(relation));
         }
         if (repo != null)
-            (await this.levels(repo)).each(async (level) => await EcRepository.DELETE(level));
+        {
+            console.log(JSON.stringify(await this.levels(repo)));
+            (await this.levels(repo)).forEach(async (level) => await EcRepository.DELETE(level));
+        }
         await EcRepository.DELETE(this, success, failure);
     };
 };

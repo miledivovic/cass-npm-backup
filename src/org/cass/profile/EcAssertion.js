@@ -11,17 +11,14 @@ module.exports = class EcAssertion extends Assertion{
         return this.isId((obj).id);
     };
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcAssertion(), success, failure);
-    };
-    static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcAssertion());
+        return EcRepository.getAs(id, new EcAssertion(), success, failure);
     };
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
+        return EcRepository.searchAs(repo, query, function() {
             return new EcAssertion();
         }, success, failure, paramObj);
     };
-    getSubject() {
+    async getSubject() {
         if (this.subject == null) 
             return null;
         var v = new EcEncryptedValue();
@@ -29,9 +26,9 @@ module.exports = class EcAssertion extends Assertion{
         var codebook = Assertion.getCodebook(this);
         var decryptedString;
         if (codebook != null) 
-            decryptedString = v.decryptIntoStringUsingSecret(codebook.subject);
+            decryptedString = await v.decryptIntoStringUsingSecret(codebook.subject).catch((error)=>null);
          else {
-            decryptedString = v.decryptIntoString();
+            decryptedString = await v.decryptIntoString().catch((error)=>null);
         }
         if (decryptedString == null) 
             return null;
@@ -44,7 +41,7 @@ module.exports = class EcAssertion extends Assertion{
      * 
      *  @param pk
      */
-    setSubject(pk) {
+    async setSubject(pk) {
         var owners = [];
         var readers = null;
         if (this.reader == null) 
@@ -60,8 +57,9 @@ module.exports = class EcAssertion extends Assertion{
         if (this.owner != null) 
             owners = owners.concat(this.owner);
         readers.push(pk.toPem());
-        this.subject = EcEncryptedValue.encryptValue(pk.toPem(), this.id, owners, readers);
+        this.subject = await EcEncryptedValue.encryptValue(pk.toPem(), this.id, owners, readers);
     };
+    //@deprecated
     setSubjectAsync(pk, success, failure) {
         var me = this;
         var owners = [];
@@ -79,11 +77,12 @@ module.exports = class EcAssertion extends Assertion{
         if (this.owner != null) 
             owners = owners.concat(this.owner);
         readers.push(pk.toPem());
-        EcEncryptedValue.encryptValueAsync(pk.toPem(), this.id, owners, readers, function(subject) {
+        return EcEncryptedValue.encryptValueAsync(pk.toPem(), this.id, owners, readers, function(subject) {
             me.subject = subject;
             success();
         }, failure);
     };
+    //@deprecated
     getSubjectAsync(success, failure) {
         if (this.subject == null) {
             success(null);
@@ -99,11 +98,11 @@ module.exports = class EcAssertion extends Assertion{
         };
         var codebook = Assertion.getCodebook(this);
         if (codebook != null) 
-            v.decryptIntoStringUsingSecretAsync(codebook.subject, decrypted, failure);
+            return v.decryptIntoStringUsingSecretAsync(codebook.subject, decrypted, failure);
          else 
-            v.decryptIntoStringAsync(decrypted, failure);
+            return v.decryptIntoStringAsync(decrypted, failure);
     };
-    getAgent() {
+    async getAgent() {
         if (this.agent == null) 
             return null;
         var v = new EcEncryptedValue();
@@ -111,24 +110,26 @@ module.exports = class EcAssertion extends Assertion{
         var codebook = Assertion.getCodebook(this);
         var decryptedString;
         if (codebook != null) 
-            decryptedString = v.decryptIntoStringUsingSecret(codebook.agent);
+            decryptedString = await v.decryptIntoStringUsingSecret(codebook.agent).catch((error)=>null);
          else {
-            decryptedString = v.decryptIntoString();
+            decryptedString = await v.decryptIntoString().catch((error)=>null);
         }
         if (decryptedString == null) 
             return null;
         return EcPk.fromPem(decryptedString);
     };
-    setAgent(pk) {
-        this.agent = EcEncryptedValue.encryptValue(pk.toPem(), this.id, this.subject.owner, this.subject.reader);
+    async setAgent(pk) {
+        this.agent = await EcEncryptedValue.encryptValue(pk.toPem(), this.id, this.subject.owner, this.subject.reader);
     };
+    //@deprecated
     setAgentAsync(pk, success, failure) {
         var me = this;
-        EcEncryptedValue.encryptValueAsync(pk.toPem(), this.id, this.subject.owner, this.subject.reader, function(agent) {
+        return EcEncryptedValue.encryptValueAsync(pk.toPem(), this.id, this.subject.owner, this.subject.reader, function(agent) {
             me.agent = agent;
             success();
         }, failure);
     };
+    //@deprecated
     getAgentAsync(success, failure) {
         if (this.agent == null) {
             success(null);
@@ -144,129 +145,51 @@ module.exports = class EcAssertion extends Assertion{
         };
         var codebook = Assertion.getCodebook(this);
         if (codebook != null) 
-            v.decryptIntoStringUsingSecretAsync(codebook.agent, decrypted, failure);
+            return v.decryptIntoStringUsingSecretAsync(codebook.agent, decrypted, failure);
          else 
-            v.decryptIntoStringAsync(decrypted, failure);
+            return v.decryptIntoStringAsync(decrypted, failure);
     };
-    getSubjectName() {
+    async getSubjectName() {
         if (this.subject == null) 
             return "Nobody";
-        var subjectPk = this.getSubject();
-        var name = EcAssertion.getNameByPkBlocking(subjectPk);
+        var subjectPk = await this.getSubject();
+        var name = await EcAssertion.getNameByPkBlocking(subjectPk);
         if (name != null) 
             return name;
         return "Unknown Subject";
     };
+    //@deprecated
     getSubjectNameAsync(success, failure) {
         if (this.subject == null) {
             success("Nobody");
             return;
         }
-        this.getSubjectAsync(EcAssertion.getNameByPk(success, failure, "Unknown Subject"), failure);
+        return cassPromisify(this.getSubject().then((pk)=>getNameByPk(pk,"Unknown Agent")),success,failure);
     };
-    getAgentName() {
+    async getAgentName() {
         if (this.agent == null) 
             return "Nobody";
-        var agentPk = this.getAgent();
-        var name = EcAssertion.getNameByPkBlocking(agentPk);
+        var agentPk = await this.getAgent();
+        var name = await EcAssertion.getNameByPk("Unknown Agent")(agentPk);
         if (name != null) 
             return name;
         return "Unknown Agent";
     };
+    //@deprecated
     getAgentNameAsync(success, failure) {
         if (this.subject == null) {
             success("Nobody");
             return;
         }
-        this.getAgentAsync(EcAssertion.getNameByPk(success, failure, "Unknown Agent"), failure);
+        return cassPromisify(this.getAgent().then((pk)=>getNameByPk(pk,"Unknown Agent")),success,failure);
     };
-    static getNameByPk(success, failure, dflt) {
-        return function(pk) {
-            var repoHelper = new EcAsyncHelper();
-            repoHelper.each(EcRepository.repos, function(ecRepository, callback0) {
-                var url = ecRepository.selectedServer;
-                if (url == null) {
-                    callback0();
-                    return;
-                }
-                if (url.endsWith("/") == false) 
-                    url += "/";
-                url += "data/" + pk.fingerprint();
-                EcRepository.get(url, function(personOrOrganization) {
-                    var e = new EcEncryptedValue();
-                    if (personOrOrganization.isAny(e.getTypes())) {
-                        e.copyFrom(personOrOrganization);
-                        e.decryptIntoObjectAsync(function(decryptedPersonOrOrganization) {
-                            var name = Thing.getDisplayStringFrom((decryptedPersonOrOrganization)["name"]);
-                            if (name != null && repoHelper.counter != -1) {
-                                success(name);
-                                repoHelper.stop();
-                            } else {
-                                callback0();
-                                return;
-                            }
-                        }, function(s) {
-                            callback0();
-                        });
-                    } else {
-                        var name = Thing.getDisplayStringFrom((personOrOrganization)["name"]);
-                        if (name != null && repoHelper.counter != -1) {
-                            success(name);
-                            repoHelper.stop();
-                        } else {
-                            callback0();
-                            return;
-                        }
-                    }
-                }, function(s) {
-                    callback0();
-                });
-            }, function(strings) {
-                var identity = EcIdentityManager.getIdentity(pk);
-                if (identity != null && identity.displayName != null) {
-                    success(identity.displayName + " (You)");
-                    return;
-                }
-                var contact = EcIdentityManager.getContact(pk);
-                if (contact != null && contact.displayName != null) {
-                    success(contact.displayName);
-                    return;
-                }
-                success(dflt);
-            });
-        };
+    static async getNameByPk(pk,dflt) {
+        let p = await EcPerson.getByPk(pk);
+        if(p === undefined || p== null)
+        return dflt;
+        return p.getName();
     };
-    static getNameByPkBlocking(agentPk) {
-        for (var i = 0; i < EcRepository.repos.length; i++) {
-            var url = EcRepository.repos[i].selectedServer;
-            if (url == null) 
-                continue;
-            if (url.endsWith("/") == false) 
-                url += "/";
-            url += "data/" + agentPk.fingerprint();
-            var personOrOrganization = EcRepository.getBlocking(url);
-            if (personOrOrganization == null) 
-                continue;
-            var e = new EcEncryptedValue();
-            if (personOrOrganization.isAny(e.getTypes())) {
-                e.copyFrom(personOrOrganization);
-                var decryptedPersonOrOrganization = e.decryptIntoObject();
-                if (decryptedPersonOrOrganization != null) 
-                    personOrOrganization = decryptedPersonOrOrganization;
-            }
-            var name = Thing.getDisplayStringFrom((personOrOrganization)["name"]);
-            if (name != null) 
-                return name;
-        }
-        var identity = EcIdentityManager.getIdentity(agentPk);
-        if (identity != null && identity.displayName != null) 
-            return identity.displayName + " (You)";
-        var contact = EcIdentityManager.getContact(agentPk);
-        if (contact != null && contact.displayName != null) 
-            return contact.displayName;
-        return null;
-    };
-    getAssertionDate() {
+    async getAssertionDate() {
         if (this.assertionDate == null) 
             return null;
         var v = new EcEncryptedValue();
@@ -274,24 +197,26 @@ module.exports = class EcAssertion extends Assertion{
         var codebook = Assertion.getCodebook(this);
         var decryptedString;
         if (codebook != null) 
-            decryptedString = v.decryptIntoStringUsingSecret(codebook.assertionDate);
+            decryptedString = await v.decryptIntoStringUsingSecret(codebook.assertionDate).catch((error)=>null);
          else {
-            decryptedString = v.decryptIntoString();
+            decryptedString = await v.decryptIntoString().catch((error)=>null);
         }
         if (decryptedString == null) 
             return null;
-        return Long.parseLong(decryptedString);
+        return parseInt(decryptedString);
     };
-    setAssertionDate(assertionDateMs) {
-        this.assertionDate = EcEncryptedValue.encryptValue(assertionDateMs.toString(), this.id, this.subject.owner, this.subject.reader);
+    async setAssertionDate(assertionDateMs) {
+        this.assertionDate = await EcEncryptedValue.encryptValue(assertionDateMs.toString(), this.id, this.subject.owner, this.subject.reader);
     };
+    //@deprecated
     setAssertionDateAsync(assertionDateMs, success, failure) {
         var me = this;
-        EcEncryptedValue.encryptValueAsync(assertionDateMs.toString(), this.id, this.subject.owner, this.subject.reader, function(assertionDate) {
+        return EcEncryptedValue.encryptValueAsync(assertionDateMs.toString(), this.id, this.subject.owner, this.subject.reader, function(assertionDate) {
             me.assertionDate = assertionDate;
             success();
         }, failure);
     };
+    //@deprecated
     getAssertionDateAsync(success, failure) {
         if (this.assertionDate == null) {
             success(null);
@@ -307,11 +232,11 @@ module.exports = class EcAssertion extends Assertion{
         };
         var codebook = Assertion.getCodebook(this);
         if (codebook != null) 
-            v.decryptIntoStringUsingSecretAsync(codebook.assertionDate, decrypted, failure);
+            return v.decryptIntoStringUsingSecretAsync(codebook.assertionDate, decrypted, failure);
          else 
-            v.decryptIntoStringAsync(decrypted, failure);
+            return v.decryptIntoStringAsync(decrypted, failure);
     };
-    getExpirationDate() {
+    async getExpirationDate() {
         if (this.expirationDate == null) 
             return null;
         var v = new EcEncryptedValue();
@@ -319,24 +244,26 @@ module.exports = class EcAssertion extends Assertion{
         var decryptedString;
         v.copyFrom(this.expirationDate);
         if (codebook != null) 
-            decryptedString = v.decryptIntoStringUsingSecret(codebook.expirationDate);
+            decryptedString = await v.decryptIntoStringUsingSecret(codebook.expirationDate).catch((error)=>null);
          else {
-            decryptedString = v.decryptIntoString();
+            decryptedString = await v.decryptIntoString().catch((error)=>null);
         }
         if (decryptedString == null) 
             return null;
-        return Long.parseLong(decryptedString);
+        return parseInt(decryptedString);
     };
-    setExpirationDate(expirationDateMs) {
-        this.expirationDate = EcEncryptedValue.encryptValue(expirationDateMs.toString(), this.id, this.subject.owner, this.subject.reader);
+    async setExpirationDate(expirationDateMs) {
+        this.expirationDate = await EcEncryptedValue.encryptValue(expirationDateMs.toString(), this.id, this.subject.owner, this.subject.reader);
     };
+    //@deprecated
     setExpirationDateAsync(expirationDateMs, success, failure) {
         var me = this;
-        EcEncryptedValue.encryptValueAsync(expirationDateMs.toString(), this.id, this.subject.owner, this.subject.reader, function(expirationDate) {
+        return EcEncryptedValue.encryptValueAsync(expirationDateMs.toString(), this.id, this.subject.owner, this.subject.reader, function(expirationDate) {
             me.expirationDate = expirationDate;
             success();
         }, failure);
     };
+    //@deprecated
     getExpirationDateAsync(success, failure) {
         if (this.expirationDate == null) {
             success(null);
@@ -352,16 +279,16 @@ module.exports = class EcAssertion extends Assertion{
         };
         var codebook = Assertion.getCodebook(this);
         if (codebook != null) 
-            v.decryptIntoStringUsingSecretAsync(codebook.expirationDate, decrypted, failure);
+            return v.decryptIntoStringUsingSecretAsync(codebook.expirationDate, decrypted, failure);
          else 
-            v.decryptIntoStringAsync(decrypted, failure);
+            return v.decryptIntoStringAsync(decrypted, failure);
     };
     getEvidenceCount() {
         if (this.evidence == null) 
             return 0;
         return this.evidence.length;
     };
-    getEvidence(index) {
+    async getEvidence(index) {
         if (this.evidence == null) 
             return null;
         var v = new EcEncryptedValue();
@@ -369,26 +296,20 @@ module.exports = class EcAssertion extends Assertion{
         var codebook = Assertion.getCodebook(this);
         var decryptedString;
         if (codebook != null) 
-            decryptedString = v.decryptIntoStringUsingSecret(codebook.evidence[index]);
+            decryptedString = await v.decryptIntoStringUsingSecret(codebook.evidence[index]).catch((error)=>null);
          else {
-            decryptedString = v.decryptIntoString();
+            decryptedString = await v.decryptIntoString().catch((error)=>null);
         }
         return decryptedString;
     };
+    //@deprecated
     getEvidencesAsync(success, failure) {
-        var results = [];
-        if (this.evidence != null) 
-            new EcAsyncHelper().each(this.evidence, function(e, callback0) {
-                e.decryptIntoStringAsync(function(str) {
-                    results.push(str);
-                    callback0();
-                }, callback0);
-            }, function(strings) {
-                success(results);
-            });
-         else 
-            success(results);
+        var evidences = this.evidence;
+        if (evidences === undefined || evidences == null)
+        evidences = [];
+        return cassPromisify(Promise.all(evidences.map((evidence) => evidence.decryptIntoString())),success,failure);
     };
+    //@deprecated
     getEvidenceAsync(index, success, failure) {
         if (this.evidence[index] == null) {
             success(null);
@@ -404,11 +325,11 @@ module.exports = class EcAssertion extends Assertion{
         };
         var codebook = Assertion.getCodebook(this);
         if (codebook != null) 
-            v.decryptIntoStringUsingSecretAsync(codebook.evidence[index], decrypted, failure);
+            return v.decryptIntoStringUsingSecretAsync(codebook.evidence[index], decrypted, failure);
          else 
-            v.decryptIntoStringAsync(decrypted, failure);
+            return v.decryptIntoStringAsync(decrypted, failure);
     };
-    getDecayFunction() {
+    async getDecayFunction() {
         if (this.decayFunction == null) 
             return null;
         var v = new EcEncryptedValue();
@@ -416,24 +337,26 @@ module.exports = class EcAssertion extends Assertion{
         var codebook = Assertion.getCodebook(this);
         var decryptedString;
         if (codebook != null) 
-            decryptedString = v.decryptIntoStringUsingSecret(codebook.decayFunction);
+            decryptedString = await v.decryptIntoStringUsingSecret(codebook.decayFunction).catch((error)=>null);
          else {
-            decryptedString = v.decryptIntoString();
+            decryptedString = await v.decryptIntoString().catch((error)=>null);
         }
         if (decryptedString == null) 
             return null;
         return decryptedString;
     };
-    setDecayFunction(decayFunctionText) {
-        this.decayFunction = EcEncryptedValue.encryptValue(decayFunctionText.toString(), this.id, this.subject.owner, this.subject.reader);
+    async setDecayFunction(decayFunctionText) {
+        this.decayFunction = await EcEncryptedValue.encryptValue(decayFunctionText.toString(), this.id, this.subject.owner, this.subject.reader);
     };
+    //@deprecated
     setDecayFunctionAsync(decayFunctionText, success, failure) {
         var me = this;
-        EcEncryptedValue.encryptValueAsync(decayFunctionText, this.id, this.subject.owner, this.subject.reader, function(decayFunction) {
+        return EcEncryptedValue.encryptValueAsync(decayFunctionText, this.id, this.subject.owner, this.subject.reader, function(decayFunction) {
             me.decayFunction = decayFunction;
             success();
         }, failure);
     };
+    //@deprecated
     getDecayFunctionAsync(success, failure) {
         if (this.decayFunction == null) {
             success(null);
@@ -449,11 +372,11 @@ module.exports = class EcAssertion extends Assertion{
         };
         var codebook = Assertion.getCodebook(this);
         if (codebook != null) 
-            v.decryptIntoStringUsingSecretAsync(codebook.decayFunction, decrypted, failure);
+            return v.decryptIntoStringUsingSecretAsync(codebook.decayFunction, decrypted, failure);
          else 
-            v.decryptIntoStringAsync(decrypted, failure);
+            return v.decryptIntoStringAsync(decrypted, failure);
     };
-    getNegative() {
+    async getNegative() {
         if (this.negative == null) 
             return false;
         var v = new EcEncryptedValue();
@@ -461,24 +384,26 @@ module.exports = class EcAssertion extends Assertion{
         var codebook = Assertion.getCodebook(this);
         var decryptedString;
         if (codebook != null) 
-            decryptedString = v.decryptIntoStringUsingSecret(codebook.negative);
+            decryptedString = await v.decryptIntoStringUsingSecret(codebook.negative).catch((error)=>null);
          else {
-            decryptedString = v.decryptIntoString();
+            decryptedString = await v.decryptIntoString().catch((error)=>null);
         }
         if (decryptedString != null) 
             decryptedString.toLowerCase();
         return "true".equals(decryptedString);
     };
-    setNegative(negativeB) {
-        this.negative = EcEncryptedValue.encryptValue(negativeB.toString(), this.id, this.subject.owner, this.subject.reader);
+    async setNegative(negativeB) {
+        this.negative = await EcEncryptedValue.encryptValue(negativeB.toString(), this.id, this.subject.owner, this.subject.reader);
     };
+    //@deprecated
     setNegativeAsync(negativeB, success, failure) {
         var me = this;
-        EcEncryptedValue.encryptValueAsync(negativeB.toString(), this.id, this.subject.owner, this.subject.reader, function(negative) {
+        return EcEncryptedValue.encryptValueAsync(negativeB.toString(), this.id, this.subject.owner, this.subject.reader, function(negative) {
             me.negative = negative;
             success();
         }, failure);
     };
+    //@deprecated
     getNegativeAsync(success, failure) {
         if (this.negative == null) {
             success(null);
@@ -498,9 +423,9 @@ module.exports = class EcAssertion extends Assertion{
         };
         var codebook = Assertion.getCodebook(this);
         if (codebook != null) 
-            v.decryptIntoStringUsingSecretAsync(codebook.negative, decrypted, failure);
+            return v.decryptIntoStringUsingSecretAsync(codebook.negative, decrypted, failure);
          else 
-            v.decryptIntoStringAsync(decrypted, failure);
+            return v.decryptIntoStringAsync(decrypted, failure);
     };
     setCompetency(competencyUrl) {
         this.competency = competencyUrl;
@@ -511,186 +436,115 @@ module.exports = class EcAssertion extends Assertion{
     setConfidence(confidenceZeroToOne) {
         this.confidence = confidenceZeroToOne;
     };
-    setEvidence(evidences) {
+    async setEvidence(evidences) {
         var encryptedValues = [];
         for (var i = 0; i < evidences.length; i++) 
-            encryptedValues.push(EcEncryptedValue.encryptValue(evidences[i], this.id, this.subject.owner, this.subject.reader));
+            encryptedValues.push(await EcEncryptedValue.encryptValue(evidences[i], this.id, this.subject.owner, this.subject.reader));
         this.evidence = encryptedValues;
     };
     setEvidenceAsync(evidences, success, failure) {
-        var me = this;
-        var encryptedValues = [];
-        new EcAsyncHelper().each(evidences, function(s, callback0) {
-            EcEncryptedValue.encryptValueAsync(s, me.id, me.subject.owner, me.subject.reader, function(ecEncryptedValue) {
-                encryptedValues.push(ecEncryptedValue);
-                callback0();
-            }, callback0);
-        }, function(strings) {
-            me.evidence = encryptedValues;
-            success();
-        });
+        return cassPromisify(
+            Promise.all(
+                evidences.map(
+                    (evidence) => EcEncryptedValue.encryptValue(s, me.id, me.subject.owner, me.subject.reader)
+                ).then(
+                    (evidences)=>{this.evidence = evidences;}
+                )
+            ),success,failure);
     };
     save(success, failure, repo) {
         if (this.competency == null || this.competency == "") {
             var msg = "Failing to save: Competency cannot be missing";
-            if (failure != null) 
+            if (failure !== undefined && failure != null) 
                 failure(msg);
              else 
-                console.error(msg);
+                throw new Error(msg);
             return;
         }
         if (this.subject == null) {
             var msg = "Failing to save: Subject cannot be missing";
-            if (failure != null) 
+            if (failure !== undefined && failure != null) 
                 failure(msg);
              else 
-                console.error(msg);
+                throw new Error(msg);
             return;
         }
         if (this.agent == null) {
             var msg = "Failing to save: Agent cannot be missing";
-            if (failure != null) 
+            if (failure !== undefined && failure != null) 
                 failure(msg);
              else 
-                console.error(msg);
+                throw new Error(msg);
             return;
         }
         if (this.assertionDate == null) {
             var msg = "Failing to save: Assertion Date cannot be missing";
-            if (failure != null) 
+            if (failure !== undefined && failure != null) 
                 failure(msg);
              else 
-                console.error(msg);
+                throw new Error(msg);
             return;
         }
         if (repo == null) 
-            EcRepository.save(this, success, failure);
+            return EcRepository.save(this, success, failure);
          else 
-            repo.saveTo(this, success, failure);
+            return repo.saveTo(this, success, failure);
     };
-    addReader(newReader) {
+    async addReader(newReader) {
         if (this.agent != null) {
-            this.agent.addReader(newReader);
+            await this.agent.addReader(newReader);
         }
         if (this.assertionDate != null) {
-            this.assertionDate.addReader(newReader);
+            await this.assertionDate.addReader(newReader);
         }
         if (this.decayFunction != null) {
-            this.decayFunction.addReader(newReader);
+            await this.decayFunction.addReader(newReader);
         }
         if (this.evidence != null) 
             for (var i = 0; i < this.evidence.length; i++) {
-                this.evidence[i].addReader(newReader);
+                await this.evidence[i].addReader(newReader);
             }
         if (this.expirationDate != null) {
-            this.expirationDate.addReader(newReader);
+            await this.expirationDate.addReader(newReader);
         }
         if (this.negative != null) {
-            this.negative.addReader(newReader);
+            await this.negative.addReader(newReader);
         }
         if (this.subject != null) {
-            this.subject.addReader(newReader);
+            await this.subject.addReader(newReader);
         }
-        EcRemoteLinkedData.addReader.call(this, newReader);
+        await super.addReader(newReader);
     };
-    removeReader(newReader) {
+    async removeReader(newReader) {
         if (this.agent != null) {
-            this.agent.removeReader(newReader);
+            await this.agent.removeReader(newReader);
         }
         if (this.assertionDate != null) {
-            this.assertionDate.removeReader(newReader);
+            await this.assertionDate.removeReader(newReader);
         }
         if (this.decayFunction != null) {
-            this.decayFunction.removeReader(newReader);
+            await this.decayFunction.removeReader(newReader);
         }
         if (this.evidence != null) 
             for (var i = 0; i < this.evidence.length; i++) {
-                this.evidence[i].removeReader(newReader);
+                await this.evidence[i].removeReader(newReader);
             }
         if (this.expirationDate != null) {
-            this.expirationDate.removeReader(newReader);
+            await this.expirationDate.removeReader(newReader);
         }
         if (this.negative != null) {
-            this.negative.removeReader(newReader);
+            await this.negative.removeReader(newReader);
         }
         if (this.subject != null) {
-            this.subject.removeReader(newReader);
+            await this.subject.removeReader(newReader);
         }
-        EcRemoteLinkedData.removeReader.call(this, newReader);
+        await super.removeReader(newReader);
     };
     addReaderAsync(newReader, success, failure) {
-        var ary = [];
-        if (this.agent != null) {
-            ary.push(this.agent);
-        }
-        if (this.assertionDate != null) {
-            ary.push(this.assertionDate);
-        }
-        if (this.decayFunction != null) {
-            ary.push(this.decayFunction);
-        }
-        if (this.evidence != null) 
-            for (var i = 0; i < this.evidence.length; i++) {
-                ary.push(this.evidence[i]);
-            }
-        if (this.expirationDate != null) {
-            ary.push(this.expirationDate);
-        }
-        if (this.negative != null) {
-            ary.push(this.negative);
-        }
-        if (this.subject != null) {
-            ary.push(this.subject);
-        }
-        EcRemoteLinkedData.addReader.call(this, newReader);
-        var eah = new EcAsyncHelper();
-        eah.each(ary, function(ecEncryptedValue, callback0) {
-            ecEncryptedValue.addReaderAsync(newReader, callback0, function(s) {
-                if (!eah.isStopped()) {
-                    eah.stop();
-                    failure("Failed to add reader to an assertion.");
-                }
-            });
-        }, function(strings) {
-            success();
-        });
+        return cassPromisify(addReader(newReader),success,failure);
     };
     removeReaderAsync(oldReader, success, failure) {
-        var ary = [];
-        if (this.agent != null) {
-            ary.push(this.agent);
-        }
-        if (this.assertionDate != null) {
-            ary.push(this.assertionDate);
-        }
-        if (this.decayFunction != null) {
-            ary.push(this.decayFunction);
-        }
-        if (this.evidence != null) 
-            for (var i = 0; i < this.evidence.length; i++) {
-                ary.push(this.evidence[i]);
-            }
-        if (this.expirationDate != null) {
-            ary.push(this.expirationDate);
-        }
-        if (this.negative != null) {
-            ary.push(this.negative);
-        }
-        if (this.subject != null) {
-            ary.push(this.subject);
-        }
-        EcRemoteLinkedData.removeReader.call(this, oldReader);
-        var eah = new EcAsyncHelper();
-        eah.each(ary, function(ecEncryptedValue, callback0) {
-            ecEncryptedValue.removeReaderAsync(oldReader, callback0, function(s) {
-                if (!eah.isStopped()) {
-                    eah.stop();
-                    failure("Failed to remove reader to an assertion.");
-                }
-            });
-        }, function(strings) {
-            success();
-        });
+        return cassPromisify(removeReader(newReader),success,failure);
     };
     getSearchStringByTypeAndCompetency(competency) {
         return "(" + this.getSearchStringByType() + " AND competency:\"" + competency.shortId() + "\")";

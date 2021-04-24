@@ -2237,9 +2237,8 @@ class EcLevelTest {
     static repo = new EcRepository();
     static level = null;
     static comp = null;
-    setup = function() {
+    setup = async function() {
         console.log("setup");
-        EcRemote.async = false;
         EcLevelTest.repo.selectedServer = EcLevelTest.server;
         EcLevelTest.ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         EcLevelTest.newId1.ppk = EcLevelTest.ppk;
@@ -2256,24 +2255,24 @@ class EcLevelTest {
         EcLevelTest.comp.name = "Level Competency";
         EcLevelTest.comp.generateId(EcLevelTest.server);
         EcLevelTest.comp.addOwner(EcLevelTest.ppk.toPk());
-        EcLevelTest.comp.save(null, function(p1) {
+        await EcLevelTest.comp.save(null, function(p1) {
             Assert.fail("Failed to Save Level Competency");
         }, null);
         EcLevelTest.level.competency = EcLevelTest.comp.shortId();
-        EcLevelTest.level.save(null, function(p1) {
+        await EcLevelTest.level.save(null, function(p1) {
             Assert.fail("Unable to save Level");
         }, null);
     };
-    breakdown = function() {
-        EcLevelTest.level._delete(null, function(p1) {
+    breakdown = async function() {
+        await EcLevelTest.level._delete(null, function(p1) {
             Assert.fail("Unable to delete Level");
         });
-        EcLevelTest.comp._delete(null, function(p1) {
+        await EcLevelTest.comp._delete(null, function(p1) {
             Assert.fail("Unable to delete Level Competency");
         }, null);
     };
-    createLevelTest = function() {
-        EcLevelTest.repo.search(new EcLevel().getSearchStringByType() + " AND name:\"Test Level Name\"", null, function(p1) {
+    createLevelTest = async function() {
+        await EcLevelTest.repo.search(new EcLevel().getSearchStringByType() + " AND name:\"Test Level Name\"", null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == EcLevelTest.level.id) {
@@ -2285,24 +2284,24 @@ class EcLevelTest {
             Assert.fail("Failed to Search for level");
         });
     };
-    createLevelNoNameTest = function() {
+    createLevelNoNameTest = async function() {
         var noName = new EcLevel();
         noName.generateId(EcLevelTest.server);
         noName.competency = EcLevelTest.comp.shortId();
-        noName.save(function(p1) {
+        await noName.save(function(p1) {
             Assert.fail("Level saved without name, should not happen");
-        }, null, null);
+        }, function(){}, null);
     };
-    createLevelNoCompetencyTest = function() {
+    createLevelNoCompetencyTest = async function() {
         var noComp = new EcLevel();
         noComp.generateId(EcLevelTest.server);
         noComp.name = "Test Level Name";
-        noComp.save(function(p1) {
+        await noComp.save(function(p1) {
             Assert.fail("Level saved without competency, should not happen");
-        }, null, null);
+        }, function(){}, null);
     };
-    viewLevelTest = function() {
-        EcRepository.get(EcLevelTest.level.id, function(p1) {
+    viewLevelTest = async function() {
+        await EcRepository.get(EcLevelTest.level.id, function(p1) {
             var l = new EcLevel();
             l.copyFrom(p1);
             Assert.assertEquals(EcLevelTest.level.id, l.id);
@@ -2314,19 +2313,19 @@ class EcLevelTest {
             Assert.fail("Failed to Get Competency");
         });
     };
-    updateLevelInfoTest = function() {
+    updateLevelInfoTest = async function() {
         EcLevelTest.level.name = "Changed Name";
         EcLevelTest.level.description = "Changed Description";
         EcLevelTest.level.title = "Changed Title";
         EcLevelTest.level.performance = "Changed performance";
         console.log("Updating Level...");
-        EcLevelTest.level.save(function(p1) {
+        await EcLevelTest.level.save(function(p1) {
             console.log("Level Updated");
         }, function(p1) {
             Assert.fail("Failed to Update the Level");
         }, null);
         console.log("Retrieving Level after update...");
-        EcRepository.get(EcLevelTest.level.id, function(p1) {
+        await EcRepository.get(EcLevelTest.level.id, function(p1) {
             var l = new EcLevel();
             l.copyFrom(p1);
             Assert.assertEquals(EcLevelTest.level.id, l.id);
@@ -2338,42 +2337,42 @@ class EcLevelTest {
             Assert.fail("Failed to Retrieve Competency after Update");
         });
     };
-    updateLevelNoNameTest = function() {
+    updateLevelNoNameTest = async function() {
         EcLevelTest.level.name = "";
         EcLevelTest.level.competency = EcLevelTest.comp.shortId();
         console.log("Updating Level without name...");
-        EcLevelTest.level.save(function(p1) {
+        await EcLevelTest.level.save(function(p1) {
             Assert.fail("Updated Level without name, shouldn't happen");
         }, function(p1) {
             console.log("Failed to update Level");
         }, null);
     };
-    updateLevelNoCompetencyTest = function() {
+    updateLevelNoCompetencyTest = async function() {
         EcLevelTest.level.name = "updated name";
         EcLevelTest.level.competency = "";
         console.log("Updating Level without competency...");
-        EcLevelTest.level.save(function(p1) {
+        await EcLevelTest.level.save(function(p1) {
             Assert.fail("Updated Level without competency, shouldn't happen");
         }, function(p1) {
             console.log("Failed to update Level");
         }, null);
     };
-    deleteLevelTest = function() {
+    deleteLevelTest = async function() {
         var toDelete = new EcLevel();
         toDelete.generateId(EcLevelTest.server);
         toDelete.name = "Competency To Delete";
         toDelete.addOwner(EcLevelTest.ppk.toPk());
         toDelete.competency = EcLevelTest.comp.shortId();
         console.log("saving level to delete...");
-        toDelete.save(null, function(p1) {
+        await toDelete.save(null, function(p1) {
             Assert.fail("Failed to save level for delete");
         }, null);
         console.log("deleting level...");
-        toDelete._delete(null, function(p1) {
+        await toDelete._delete(null, function(p1) {
             Assert.fail("Failed to delete Level");
         });
         console.log("searching for deleted level...");
-        EcLevelTest.repo.search("@type:\"" + toDelete.myType + "\"", null, function(p1) {
+        await EcLevelTest.repo.search("@type:\"" + toDelete.myType + "\"", null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == toDelete.id) {
@@ -2396,9 +2395,8 @@ class EcAssertionTest {
     static repo = new EcRepository();
     static comp = null;
     static assn = null;
-    setup = function() {
+    setup = async function() {
         console.log("setup");
-        EcRemote.async = false;
         EcAssertionTest.repo.selectedServer = EcAssertionTest.server;
         EcAssertionTest.ppk1 = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         EcAssertionTest.newId1.ppk = EcAssertionTest.ppk1;
@@ -2410,16 +2408,16 @@ class EcAssertionTest {
         EcAssertionTest.comp.name = "Just a Competency";
         EcAssertionTest.comp.generateId(EcAssertionTest.server);
         EcAssertionTest.comp.addOwner(EcAssertionTest.ppk1.toPk());
-        EcAssertionTest.comp.save(null, function(p1) {
+        await EcAssertionTest.comp.save(null, function(p1) {
             Assert.fail("Failed to Save Competency");
         }, null);
     };
-    breakdown = function() {
-        EcAssertionTest.comp._delete(null, function(p1) {
+    breakdown = async function() {
+        await EcAssertionTest.comp._delete(null, function(p1) {
             Assert.fail("Unable to delete Competency");
         }, null);
     };
-    assertionEncryptDecryptTest = function() {
+    assertionEncryptDecryptTest = async function() {
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId1);
         var assn = new EcAssertion();
@@ -2430,56 +2428,56 @@ class EcAssertionTest {
         var expirationDate = Date.now() + 1000 * 60 * 60 * 24 * 30;
         assn.generateId(EcAssertionTest.server);
         assn.addOwner(agent);
-        assn.setSubject(subject);
-        assn.setAgent(agent);
-        assn.setCompetency(EcAssertionTest.comp.id);
-        assn.setConfidence(0.85);
-        assn.setAssertionDate(assertionDate);
-        assn.setExpirationDate(expirationDate);
-        assn.setDecayFunction("t");
-        assn.setNegative(false);
+        await assn.setSubject(subject);
+        await assn.setAgent(agent);
+        await assn.setCompetency(EcAssertionTest.comp.id);
+        await assn.setConfidence(0.85);
+        await assn.setAssertionDate(assertionDate);
+        await assn.setExpirationDate(expirationDate);
+        await assn.setDecayFunction("t");
+        await assn.setNegative(false);
         var evidences = new Array();
         evidences.push("I saw them do it.");
-        assn.setEvidence(evidences);
+        await assn.setEvidence(evidences);
         console.log("Setup of assertion");
         console.log(assn);
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId2);
-        Assert.assertEquals("Subject not readable by subject.", subject.toPem(), assn.getSubject().toPem());
-        Assert.assertEquals("Agent not readable by subject.", agent.toPem(), assn.getAgent().toPem());
-        Assert.assertEquals("Assertion Date not readable by subject.", assertionDate, assn.getAssertionDate());
-        Assert.assertEquals("Expiration Date not readable by subject.", expirationDate, assn.getExpirationDate());
-        Assert.assertEquals("Evidence not readable by subject.", evidences[0], assn.getEvidence(0));
-        Assert.assertEquals("Negative not readable by subject.", false, assn.getNegative());
-        Assert.assertEquals("Decay Function not readable by subject.", "t", assn.getDecayFunction());
+        Assert.assertEquals("Subject not readable by subject.", subject.toPem(), (await assn.getSubject()).toPem());
+        Assert.assertEquals("Agent not readable by subject.", agent.toPem(), (await assn.getAgent()).toPem());
+        Assert.assertEquals("Assertion Date not readable by subject.", assertionDate, await assn.getAssertionDate());
+        Assert.assertEquals("Expiration Date not readable by subject.", expirationDate, await assn.getExpirationDate());
+        Assert.assertEquals("Evidence not readable by subject.", evidences[0], await assn.getEvidence(0));
+        Assert.assertEquals("Negative not readable by subject.", false, await assn.getNegative());
+        Assert.assertEquals("Decay Function not readable by subject.", "t", await assn.getDecayFunction());
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId1);
-        assn.addReader(thirdParty);
+        await assn.addReader(thirdParty);
         console.log("Added Third Party to assertion");
         console.log(assn);
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId3);
-        Assert.assertEquals("Subject not readable by third party.", subject.toPem(), assn.getSubject().toPem());
-        Assert.assertEquals("Agent not readable by third party.", agent.toPem(), assn.getAgent().toPem());
-        Assert.assertEquals("Assertion Date not readable by third party.", assertionDate, assn.getAssertionDate());
-        Assert.assertEquals("Expiration Date not readable by third party.", expirationDate, assn.getExpirationDate());
-        Assert.assertEquals("Evidence not readable by third party.", evidences[0], assn.getEvidence(0));
-        Assert.assertEquals("Negative not readable by third party.", false, assn.getNegative());
-        Assert.assertEquals("Decay Function not readable by third party.", "t", assn.getDecayFunction());
+        Assert.assertEquals("Subject not readable by third party.", subject.toPem(), (await assn.getSubject()).toPem());
+        Assert.assertEquals("Agent not readable by third party.", agent.toPem(), (await assn.getAgent()).toPem());
+        Assert.assertEquals("Assertion Date not readable by third party.", assertionDate, await assn.getAssertionDate());
+        Assert.assertEquals("Expiration Date not readable by third party.", expirationDate, await assn.getExpirationDate());
+        Assert.assertEquals("Evidence not readable by third party.", evidences[0], await assn.getEvidence(0));
+        Assert.assertEquals("Negative not readable by third party.", false, await assn.getNegative());
+        Assert.assertEquals("Decay Function not readable by third party.", "t", await assn.getDecayFunction());
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId1);
-        assn.removeReader(thirdParty);
+        await assn.removeReader(thirdParty);
         console.log("Removed Third Party to assertion");
         console.log(assn);
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId3);
-        Assert.assertEquals("Subject readable by third party.", null, assn.getSubject());
-        Assert.assertEquals("Agent readable by third party.", null, assn.getAgent());
-        Assert.assertEquals("Assertion Date readable by third party.", null, assn.getAssertionDate());
-        Assert.assertEquals("Expiration Date readable by third party.", null, assn.getExpirationDate());
-        Assert.assertEquals("Evidence readable by third party.", null, assn.getEvidence(0));
-        Assert.assertEquals("Negative readable by third party.", false, assn.getNegative());
-        Assert.assertEquals("Decay Function readable by third party.", null, assn.getDecayFunction());
+        Assert.assertEquals("Subject readable by third party.", null, await assn.getSubject());
+        Assert.assertEquals("Agent readable by third party.", null, await assn.getAgent());
+        Assert.assertEquals("Assertion Date readable by third party.", null, await assn.getAssertionDate());
+        Assert.assertEquals("Expiration Date readable by third party.", null, await assn.getExpirationDate());
+        Assert.assertEquals("Evidence readable by third party.", null, await assn.getEvidence(0));
+        Assert.assertEquals("Negative readable by third party.", false, await assn.getNegative());
+        Assert.assertEquals("Decay Function readable by third party.", null, await assn.getDecayFunction());
     };
 };
 class EcFrameworkTest {
@@ -4566,25 +4564,23 @@ await obj.updateCompetencyInfo();
 await obj.deleteCompetencyTest();
 await obj.deleteCompetencyWithRelationshipTest();
 await obj.deleteCompetencyWithLevelTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcLevelTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.createLevelTest();
-// obj.createLevelNoNameTest();
-// obj.createLevelNoCompetencyTest();
-// obj.viewLevelTest();
-// obj.updateLevelInfoTest();
-// obj.updateLevelNoNameTest();
-// obj.updateLevelNoCompetencyTest();
-// obj.deleteLevelTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcAssertionTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.assertionEncryptDecryptTest();
+EcRepository.repos = [];
+obj = new EcLevelTest();
+if (obj.setup) await obj.setup();
+if (obj.begin) await obj.begin();
+await obj.createLevelTest();
+await obj.createLevelNoNameTest();
+await obj.createLevelNoCompetencyTest();
+await obj.viewLevelTest();
+await obj.updateLevelInfoTest();
+await obj.updateLevelNoNameTest();
+await obj.updateLevelNoCompetencyTest();
+await obj.deleteLevelTest();
+EcRepository.repos = [];
+obj = new EcAssertionTest();
+if (obj.setup) await obj.setup();
+if (obj.begin) await obj.begin();
+await obj.assertionEncryptDecryptTest();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new EcFrameworkTest();

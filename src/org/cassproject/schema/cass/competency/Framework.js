@@ -8,6 +8,7 @@
  */
 module.exports = class Framework extends schema.CreativeWork{
     constructor(){
+        super();
         this.setContextAndType(Cass.context, Framework.myType);
     }
     static TYPE_0_1 = "http://schema.eduworks.com/cass/0.1/framework";

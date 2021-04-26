@@ -2491,9 +2491,8 @@ class EcFrameworkTest {
     static comp2 = null;
     static level = null;
     static rel = null;
-    setup = function() {
+    setup = async function() {
         console.log("setup");
-        EcRemote.async = false;
         EcFrameworkTest.frameworkId = EcFrameworkTest.server + "data/" + EcFramework.myType.replace("http://", "").replace("https://", "").replaceAll("/", ".") + "/testFramework/1";
         EcFrameworkTest.ppk = EcPpk.fromPem("-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----");
         EcFrameworkTest.newId1.ppk = EcFrameworkTest.ppk;
@@ -2518,7 +2517,7 @@ class EcFrameworkTest {
         EcFrameworkTest.comp.setName("Test Competency");
         EcFrameworkTest.comp.addOwner(EcFrameworkTest.ppk.toPk());
         console.log("Saving Competency");
-        EcRepository.save(EcFrameworkTest.comp, function(p1) {}, function(p1) {
+        await EcRepository.save(EcFrameworkTest.comp, function(p1) {}, function(p1) {
             Assert.fail("Unable to Save Competency");
         });
         EcFrameworkTest.level = new EcLevel();
@@ -2526,7 +2525,7 @@ class EcFrameworkTest {
         EcFrameworkTest.level.setName("Test Level");
         EcFrameworkTest.level.addOwner(EcFrameworkTest.ppk.toPk());
         console.log("Saving Level");
-        EcRepository.save(EcFrameworkTest.level, function(p1) {}, function(p1) {
+        await EcRepository.save(EcFrameworkTest.level, function(p1) {}, function(p1) {
             Assert.fail("Unable to Save Level");
         });
         EcFrameworkTest.comp2 = new EcCompetency();
@@ -2534,7 +2533,7 @@ class EcFrameworkTest {
         EcFrameworkTest.comp2.setName("Test Competency 2");
         EcFrameworkTest.comp2.addOwner(EcFrameworkTest.ppk.toPk());
         console.log("Saving 2nd Competency");
-        EcRepository.save(EcFrameworkTest.comp2, function(p1) {}, function(p1) {
+        await EcRepository.save(EcFrameworkTest.comp2, function(p1) {}, function(p1) {
             Assert.fail("Unable to Save 2nd Competency");
         });
         EcFrameworkTest.rel = new EcAlignment();
@@ -2545,31 +2544,31 @@ class EcFrameworkTest {
         EcFrameworkTest.rel.relationType = "requires";
         EcFrameworkTest.rel.addOwner(EcFrameworkTest.ppk.toPk());
         console.log("Saving Relation");
-        EcRepository.save(EcFrameworkTest.rel, function(p1) {}, function(p1) {
+        await EcRepository.save(EcFrameworkTest.rel, function(p1) {}, function(p1) {
             Assert.fail("Unable to Save Relation");
         });
     };
-    afterTest = function() {
-        EcFrameworkTest.framework._delete(null, function(p1) {
+    afterTest = async function() {
+        await EcFrameworkTest.framework._delete(null, function(p1) {
             Assert.fail("Failed to Delete Framework");
         });
-        EcFrameworkTest.comp._delete(null, function(p1) {
+        await EcFrameworkTest.comp._delete(null, function(p1) {
             Assert.fail("Failed to Delete Competency");
         }, null);
-        EcFrameworkTest.comp2._delete(null, function(p1) {
+        await EcFrameworkTest.comp2._delete(null, function(p1) {
             Assert.fail("Failed to Delete 2nd Competency");
         }, null);
-        EcRepository._delete(EcFrameworkTest.rel, null, function(p1) {
+        await EcRepository._delete(EcFrameworkTest.rel, null, function(p1) {
             Assert.fail("Failed to Delete Relation");
         });
-        EcRepository._delete(EcFrameworkTest.level, null, function(p1) {
+        await EcRepository._delete(EcFrameworkTest.level, null, function(p1) {
             Assert.fail("Failed to Delete Level");
         });
     };
-    createFrameworkTest = function() {
+    createFrameworkTest = async function() {
         var paramObj = new Object();
         (paramObj)["size"] = 1000;
-        EcFrameworkTest.repo.searchWithParams(new EcFramework().getSearchStringByType(), paramObj, null, function(p1) {
+        await EcFrameworkTest.repo.searchWithParams(new EcFramework().getSearchStringByType(), paramObj, null, function(p1) {
             for (var i = 0; i < p1.length; i++) {
                 var d = p1[i];
                 if (d.id == EcFrameworkTest.framework.id) {
@@ -2581,17 +2580,17 @@ class EcFrameworkTest {
             Assert.fail("Failed to Search for Framework");
         });
     };
-    createNoNameFrameworkTest = function() {
+    createNoNameFrameworkTest = async function() {
         var noName = new EcFramework();
         noName.generateId(EcFrameworkTest.server);
-        noName.save(function(p1) {
+        await noName.save(function(p1) {
             Assert.fail("No Name Framework saved, should not be able to save a framework without a name");
         }, function(p1) {
             console.log("Failed to save a Framework without a name");
         }, null);
     };
-    viewFrameworkTest = function() {
-        EcRepository.get(EcFrameworkTest.framework.id, function(p1) {
+    viewFrameworkTest = async function() {
+        await EcRepository.get(EcFrameworkTest.framework.id, function(p1) {
             var f = p1;
             Assert.assertEquals("Name does not match saved name", EcFrameworkTest.framework.name, f.name);
             Assert.assertEquals("Description does not match saved description", EcFrameworkTest.framework.description, f.description);
@@ -2599,18 +2598,18 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework");
         });
     };
-    updateFrameworkInfoTest = function() {
+    updateFrameworkInfoTest = async function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.name = "Updated Name";
         editedFramework.description = "Updated Description";
         console.log("Updating Framework...");
-        editedFramework.save(function(p1) {
+        await editedFramework.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to update Framework");
         }, null);
-        EcRepository.get(editedFramework.id, function(p1) {
+        await EcRepository.get(editedFramework.id, function(p1) {
             var f = p1;
             Assert.assertEquals("Name does not match updated name", editedFramework.name, f.name);
             Assert.assertEquals("Description does not match updated description", editedFramework.description, f.description);
@@ -2618,35 +2617,35 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    updateFrameworkNoNameTest = function() {
+    updateFrameworkNoNameTest = async function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.name = "";
         editedFramework.description = "Updated Description";
         console.log("Updating Framework...");
-        editedFramework.save(function(p1) {
+        await editedFramework.save(function(p1) {
             Assert.fail("Saved Framework with no name, this shouldnt be allowed");
         }, function(p1) {
             console.log("Failed to update framework with no name");
         }, null);
-        EcRepository.get(editedFramework.id, function(p1) {
+        await EcRepository.get(editedFramework.id, function(p1) {
             var f = p1;
             Assert.assertNotSame("Name should not be empty", editedFramework.name, f.name);
         }, function(p1) {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    updateFrameworkAddRemoveCompetencyTest = function() {
+    updateFrameworkAddRemoveCompetencyTest = async function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addCompetency(EcFrameworkTest.comp.id);
         console.log("Adding Competency to Framework...");
-        editedFramework.save(function(p1) {
+        await editedFramework.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to add competency to Framework");
         }, null);
-        EcRepository.get(editedFramework.id, function(p1) {
+        await EcRepository.get(editedFramework.id, function(p1) {
             var f = p1;
             if (f.competency.indexOf(EcFrameworkTest.comp.shortId()) != -1) 
                 return;
@@ -2658,12 +2657,12 @@ class EcFrameworkTest {
         frameworkCompRemoved.copyFrom(editedFramework);
         frameworkCompRemoved.removeCompetency(EcFrameworkTest.comp.id, null, null);
         console.log("Updating Framework...");
-        frameworkCompRemoved.save(function(p1) {
+        await frameworkCompRemoved.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to Remove Competency from Framework");
         }, null);
-        EcRepository.get(frameworkCompRemoved.id, function(p1) {
+        await EcRepository.get(frameworkCompRemoved.id, function(p1) {
             var f = p1;
             if (f.competency.indexOf(EcFrameworkTest.comp.id) == -1) 
                 return;
@@ -2672,18 +2671,18 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    updateFrameworkRemoveNonCompetencyTest = function() {
+    updateFrameworkRemoveNonCompetencyTest = async function() {
         var frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
         var compSize = EcFrameworkTest.framework.competency == null ? 0 : frameworkCompRemoved.competency.length;
         frameworkCompRemoved.removeCompetency(EcFrameworkTest.comp.id, null, null);
         console.log("Updating Framework...");
-        frameworkCompRemoved.save(function(p1) {
+        await frameworkCompRemoved.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to Remove Competency from Framework");
         }, null);
-        EcRepository.get(frameworkCompRemoved.id, function(p1) {
+        await EcRepository.get(frameworkCompRemoved.id, function(p1) {
             var f = p1;
             if ((f.competency == null && compSize == 0) || f.competency.length == compSize) 
                 return;
@@ -2692,17 +2691,17 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    updateFrameworkAddRemoveLevelTest = function() {
+    updateFrameworkAddRemoveLevelTest = async function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addLevel(EcFrameworkTest.level.id);
         console.log("Adding Level to Framework...");
-        editedFramework.save(function(p1) {
+        await editedFramework.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to add level to Framework");
         }, null);
-        EcRepository.get(editedFramework.id, function(p1) {
+        await EcRepository.get(editedFramework.id, function(p1) {
             var f = p1;
             if (f.level.indexOf(EcFrameworkTest.level.shortId()) != -1) 
                 return;
@@ -2714,12 +2713,12 @@ class EcFrameworkTest {
         frameworkLevelRemoved.copyFrom(editedFramework);
         frameworkLevelRemoved.removeLevel(EcFrameworkTest.level.id);
         console.log("Updating Framework...");
-        frameworkLevelRemoved.save(function(p1) {
+        await frameworkLevelRemoved.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to Remove Level from Framework");
         }, null);
-        EcRepository.get(frameworkLevelRemoved.id, function(p1) {
+        await EcRepository.get(frameworkLevelRemoved.id, function(p1) {
             var f = p1;
             if (f.level.indexOf(EcFrameworkTest.level.id) == -1) 
                 return;
@@ -2728,18 +2727,18 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    updateFrameworkRemoveNonLevelTest = function() {
+    updateFrameworkRemoveNonLevelTest = async function() {
         var frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
         var levelSize = EcFrameworkTest.framework.level == null ? 0 : frameworkCompRemoved.level.length;
         frameworkCompRemoved.removeLevel(EcFrameworkTest.level.id);
         console.log("Updating Framework...");
-        frameworkCompRemoved.save(function(p1) {
+        await frameworkCompRemoved.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to Remove Competency from Framework");
         }, null);
-        EcRepository.get(frameworkCompRemoved.id, function(p1) {
+        await EcRepository.get(frameworkCompRemoved.id, function(p1) {
             var f = p1;
             if ((f.level == null && levelSize == 0) || f.level.length == levelSize) 
                 return;
@@ -2748,17 +2747,17 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    updateFrameworkAddRemoveRelationTest = function() {
+    updateFrameworkAddRemoveRelationTest = async function() {
         var editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addRelation(EcFrameworkTest.rel.id);
         console.log("Adding Level to Framework...");
-        editedFramework.save(function(p1) {
+        await editedFramework.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to add relation to Framework");
         }, null);
-        EcRepository.get(editedFramework.id, function(p1) {
+        await EcRepository.get(editedFramework.id, function(p1) {
             var f = p1;
             if (f.relation.indexOf(EcFrameworkTest.rel.shortId()) != -1) 
                 return;
@@ -2770,12 +2769,12 @@ class EcFrameworkTest {
         frameworkRelationRemoved.copyFrom(editedFramework);
         frameworkRelationRemoved.removeRelation(EcFrameworkTest.rel.id);
         console.log("Updating Framework...");
-        frameworkRelationRemoved.save(function(p1) {
+        await frameworkRelationRemoved.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to Remove relation from Framework");
         }, null);
-        EcRepository.get(frameworkRelationRemoved.id, function(p1) {
+        await EcRepository.get(frameworkRelationRemoved.id, function(p1) {
             var f = p1;
             if (f.relation.indexOf(EcFrameworkTest.rel.id) == -1) 
                 return;
@@ -2784,18 +2783,18 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    updateFrameworkRemoveNonRelationTest = function() {
+    updateFrameworkRemoveNonRelationTest = async function() {
         var frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
         var relSize = EcFrameworkTest.framework.relation == null ? 0 : frameworkCompRemoved.relation.length;
         frameworkCompRemoved.removeRelation(EcFrameworkTest.rel.id);
         console.log("Updating Framework...");
-        frameworkCompRemoved.save(function(p1) {
+        await frameworkCompRemoved.save(function(p1) {
             console.log("Framework Updated.");
         }, function(p1) {
             Assert.fail("Failed to Remove Competency from Framework");
         }, null);
-        EcRepository.get(frameworkCompRemoved.id, function(p1) {
+        await EcRepository.get(frameworkCompRemoved.id, function(p1) {
             var f = p1;
             if ((f.relation == null && relSize == 0) || f.relation.length == relSize) 
                 return;
@@ -2804,27 +2803,27 @@ class EcFrameworkTest {
             Assert.fail("Unable to Retreive Framework after update");
         });
     };
-    deleteFramework = function() {
+    deleteFramework = async function() {
         var toDelete = new EcFramework();
         toDelete.generateId(EcFrameworkTest.server);
         toDelete.name = "Framework to Delete";
         toDelete.addOwner(EcFrameworkTest.ppk.toPk());
         console.log("Saving Framework to Delete");
-        toDelete.save(function(p1) {
+        await toDelete.save(function(p1) {
             console.log("Framework Saved.");
         }, function(p1) {
             Assert.fail("Failed to Save Framework");
         }, null);
         console.log("Deleting Framework...");
-        toDelete._delete(function(p1) {
+        await toDelete._delete(function(p1) {
             console.log("Successfully deleted Framework");
         }, function(p1) {
             Assert.fail("Unable to Delete Framework");
         });
-        EcRepository.get(toDelete.shortId(), function(p1) {
+        await EcRepository.get(toDelete.shortId(), function(p1) {
             if ((p1.context != "" && p1.context != null) || (p1.type != "" && p1.type != null)) 
                 Assert.fail("Shouldn't be able to Retreive Framework after delete");
-        }, null);
+        }, function(){});
     };
 };
 class ProfileProcessorTest {
@@ -2858,14 +2857,13 @@ class FrameworkCollapserTest {
     capFrameworkCollapseTest = function() {
         Assert.assertSame(true, true);
     };
-    basicFrameworkCollapseTest = function() {
-        EcRemote.async = false;
+    basicFrameworkCollapseTest = async function() {
         console.log("start basicFrameworkCollapseTest:");
         try {
             this.repo = new EcRepository();
             this.repo.selectedServer = "https://sandbox.cassproject.org/api/";
             var fct = this;
-            var framework = EcFramework.getBlocking(this.FRAMEWORK_ID);
+            var framework = await EcFramework.get(this.FRAMEWORK_ID);
             console.log("Framework: " + framework.name);
             var fc = new FrameworkCollapser();
             fc.collapseFramework(this.repo, framework, true, function(fwId, npg) {
@@ -4581,39 +4579,36 @@ obj = new EcAssertionTest();
 if (obj.setup) await obj.setup();
 if (obj.begin) await obj.begin();
 await obj.assertionEncryptDecryptTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new EcFrameworkTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.createFrameworkTest();
-// obj.createNoNameFrameworkTest();
-// obj.viewFrameworkTest();
-// obj.updateFrameworkInfoTest();
-// obj.updateFrameworkNoNameTest();
-// obj.updateFrameworkAddRemoveCompetencyTest();
-// obj.updateFrameworkRemoveNonCompetencyTest();
-// obj.updateFrameworkAddRemoveLevelTest();
-// obj.updateFrameworkRemoveNonLevelTest();
-// obj.updateFrameworkAddRemoveRelationTest();
-// obj.updateFrameworkRemoveNonRelationTest();
-// obj.deleteFramework();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new ProfileProcessorTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.capFrameworkGraphPerfTest();
-// obj.samanthaSmithProfileTest();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new FrameworkCollapserTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.capFrameworkCollapseTest();
-// obj.basicFrameworkCollapseTest();
-// obj.basicAssertionSearchTest();
-// obj.basicMultiGetTest();
+EcRepository.repos = [];
+obj = new EcFrameworkTest();
+if (obj.setup) await obj.setup();
+if (obj.begin) await obj.begin();
+await obj.createFrameworkTest();
+await obj.createNoNameFrameworkTest();
+await obj.viewFrameworkTest();
+await obj.updateFrameworkInfoTest();
+await obj.updateFrameworkNoNameTest();
+await obj.updateFrameworkAddRemoveCompetencyTest();
+await obj.updateFrameworkRemoveNonCompetencyTest();
+await obj.updateFrameworkAddRemoveLevelTest();
+await obj.updateFrameworkRemoveNonLevelTest();
+await obj.updateFrameworkAddRemoveRelationTest();
+await obj.updateFrameworkRemoveNonRelationTest();
+await obj.deleteFramework();
+EcRepository.repos = [];
+obj = new ProfileProcessorTest();
+if (obj.setup) await obj.setup();
+if (obj.begin) await obj.begin();
+await obj.capFrameworkGraphPerfTest();
+await obj.samanthaSmithProfileTest();
+EcRepository.repos = [];
+obj = new FrameworkCollapserTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+obj.capFrameworkCollapseTest();
+obj.basicFrameworkCollapseTest();
+obj.basicAssertionSearchTest();
+obj.basicMultiGetTest();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new CollapserTest();

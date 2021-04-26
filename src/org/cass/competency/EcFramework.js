@@ -11,6 +11,7 @@
  */
 module.exports = class EcFramework extends Framework{
     constructor(){
+        super();
         var me = (this);
         if (EcFramework.template != null) {
             var you = (EcFramework.template);

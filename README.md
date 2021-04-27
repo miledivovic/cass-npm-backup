@@ -33,7 +33,7 @@ You may also omit the callbacks. No callbacks are required. If failure is omitte
 Await on promise based functions also work. This includes search and save and delete!
 #### 2.5 `let out = await Ec<something>.<function>(<parameters>)`
 Anything that had a `success(output)` can now retreive that `output` using assignment.
-* `.search`, `EcEncryptedValue`, `EcFrameworkGraph` and any other methods will `throw new Error(error)` and need `try/catch` blocks or `.catch((error)=>console.error(error))` to catch the errors. 
+* `.search`, `EcEncryptedValue`, `EcFrameworkGraph` and any other methods will either use the `failure` callback or, if it doesn't exist, will `throw new Error(error)` and need `try/catch` blocks or `.catch((error)=>console.error(error))` to catch the errors. 
 * `.get` and `Ec<RsaOaep/AesCtr>Async` will `return null` if the operations fail, though you may use a `failure` method if desired, as the callbacks are still supported. These are a special case to mirror the blockable methods.
 ### 3. `EcAssertion.get<encryptedField> / EcAssertion.set<encryptedField>`
 These methods now use awaitable promises to perform their cryptography.

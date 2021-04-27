@@ -46,18 +46,6 @@ try {
   console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 }
 
-var bon = require('browser-or-node');
-
-if (bon.isBrowser) {
-  	// do browser only stuff
-}
-
-if (bon.isNode) {
-	// do node.js only stuff
-	var isNodeJs = {};
-	var request = require("request");
-}
-
 if (global.forge === undefined)
 	if (typeof __webpack_require__ === 'function')
 	{
@@ -65,7 +53,6 @@ if (global.forge === undefined)
 	}
 	else
 	{
-		isNodeJs.forgeType = "node";
 		global.forge = require("node-forge");
 	}
 else

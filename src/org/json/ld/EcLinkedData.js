@@ -1,3 +1,4 @@
+global.jsonld = require('jsonld');
 /**
  *  Represents a JSON-LD linked data object and performs serialization.
  *  Note: Serialization and deserialization remove parameters that begin with '@'.

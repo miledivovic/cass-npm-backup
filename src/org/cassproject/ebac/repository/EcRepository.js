@@ -1,4 +1,3 @@
-const { ConsoleErrorListener } = require("antlr4/error/ErrorListener");
 let FormData = require("form-data");
 const EcEncryptedValue = require("./EcEncryptedValue");
 

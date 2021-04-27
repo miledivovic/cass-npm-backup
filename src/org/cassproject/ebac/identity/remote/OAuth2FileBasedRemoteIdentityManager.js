@@ -157,11 +157,13 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 			success(r);
 		});
 	}
-	writeIdentityFiles(folderId, success) {
+	writeIdentityFiles(folderId, success, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var me = this;
 		var helper = new EcAsyncHelper();
 		helper.each(
-			EcIdentityManager.ids,
+			eim.ids,
 			function(identity, callback0) {
 				me.writeIdentityFile(folderId, identity, callback0);
 			},
@@ -194,9 +196,11 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 				if (finished != null) finished();
 			});
 	}
-	writeContactFiles(folderId) {
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
-			this.writeContactFile(folderId, EcIdentityManager.contacts[i]);
+	writeContactFiles(folderId, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
+		for (var i = 0; i < eim.contacts.length; i++) {
+			this.writeContactFile(folderId, eim.contacts[i]);
 		}
 	}
 	writeContactFile(folderId, contact) {
@@ -222,10 +226,12 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 				contact["id"] = r["id"];
 			});
 	}
-	readIdentityFiles(folderId, success, failure) {
+	readIdentityFiles(folderId, success, failure, eim) {
 		var me = this;
 		var o = {};
 		o["parent"] = folderId;
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		hello
 			.api(this.network + "/me/files", "get", o)
 			.then(function(folderResponse) {
@@ -250,22 +256,24 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 								identity.ppk = EcPpk.fromPem(s);
 								identity.source = "google";
 								identity["id"] = id;
-								EcIdentityManager.addIdentityQuietly(identity);
+								eim.addIdentityQuietly(identity);
 								callback0();
 							},
 							failure
 						);
 					},
 					function(strings) {
-						success(null);
+						success(eim);
 					}
 				);
 			});
 	}
-	readContactFiles(folderId, success, failure) {
+	readContactFiles(folderId, success, failure, eim) {
 		var me = this;
 		var o = {};
 		o["parent"] = folderId;
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		hello
 			.api(this.network + "/me/files", "get", o)
 			.then(function(folderResponse) {
@@ -290,7 +298,7 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 								contact.pk = EcPk.fromPem(s);
 								contact.source = "google";
 								contact["id"] = id;
-								EcIdentityManager.addContactQuietly(contact);
+								eim.addContactQuietly(contact);
 								callback0();
 							},
 							failure
@@ -302,15 +310,19 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 				);
 			});
 	}
-	hookIdentityManagerIdentities(folderId) {
+	hookIdentityManagerIdentities(folderId, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var me = this;
-		EcIdentityManager.onIdentityChanged = function(identity) {
+		eim.onIdentityChanged = function(identity) {
 			me.writeIdentityFile(folderId, identity, null);
 		};
 	}
-	hookIdentityManagerContacts(folderId) {
+	hookIdentityManagerContacts(folderId, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var me = this;
-		EcIdentityManager.onContactChanged = function(contact) {
+		eim.onContactChanged = function(contact) {
 			me.writeContactFile(folderId, contact);
 		};
 	}

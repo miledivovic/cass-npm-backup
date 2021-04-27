@@ -162,7 +162,9 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @memberOf EcOrganization
 	 *  @method rekeyAndSave
 	 */
-	async rekeyAndSave(success, failure, repo) {
+	async rekeyAndSave(success, failure, repo, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (repo == null) {
 			var msg = "Repository cannot be null for a rekey operation";
 			if (failure != null) failure(msg);
@@ -174,7 +176,7 @@ module.exports = class EcOrganization extends schema.Organization {
 			var identity = new EcIdentity();
 			identity.ppk = newKey;
 			identity.displayName = "Organization Rekey New Key";
-			EcIdentityManager.addIdentity(identity);
+			eim.addIdentity(identity);
 			var rekeyRequest = await EcRekeyRequest.generateRekeyRequest(
 				repo.selectedServer,
 				oldKey,

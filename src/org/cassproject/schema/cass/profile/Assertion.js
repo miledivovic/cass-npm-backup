@@ -132,29 +132,33 @@ module.exports = class Assertion extends schema.CreativeWork {
 	getAgentAsync(success, failure) {
 		success(EcPk.fromPem(this.agent));
 	}
-	getSubjectName() {
+	getSubjectName(eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (this.subject == null) return "Nobody";
 		var subjectPk = this.getSubject();
-		var identity = EcIdentityManager.getIdentity(subjectPk);
+		var identity = eim.getIdentity(subjectPk);
 		if (identity != null && identity.displayName != null)
 			return identity.displayName + " (You)";
-		var contact = EcIdentityManager.getContact(subjectPk);
+		var contact = eim.getContact(subjectPk);
 		if (contact == null || contact.displayName == null)
 			return "Unknown Subject";
 		return contact.displayName;
 	}
-	getSubjectNameAsync(success, failure) {
+	getSubjectNameAsync(success, failure, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (this.subject == null) {
 			success("Nobody");
 			return;
 		}
 		this.getSubjectAsync(function(subjectPk) {
-			var identity = EcIdentityManager.getIdentity(subjectPk);
+			var identity = eim.getIdentity(subjectPk);
 			if (identity != null && identity.displayName != null) {
 				success(identity.displayName + " (You)");
 				return;
 			}
-			var contact = EcIdentityManager.getContact(subjectPk);
+			var contact = eim.getContact(subjectPk);
 			if (contact == null || contact.displayName == null) {
 				success("Unknown Subject");
 				return;
@@ -162,29 +166,33 @@ module.exports = class Assertion extends schema.CreativeWork {
 			success(contact.displayName);
 		}, failure);
 	}
-	getAgentName() {
+	getAgentName(eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (this.agent == null) return "Nobody";
 		var agentPk = this.getAgent();
-		var identity = EcIdentityManager.getIdentity(agentPk);
+		var identity = eim.getIdentity(agentPk);
 		if (identity != null && identity.displayName != null)
 			return identity.displayName + " (You)";
-		var contact = EcIdentityManager.getContact(agentPk);
+		var contact = eim.getContact(agentPk);
 		if (contact == null || contact.displayName == null)
 			return "Unknown Agent";
 		return contact.displayName;
 	}
-	getAgentNameAsync(success, failure) {
+	getAgentNameAsync(success, failure,eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (this.subject == null) {
 			success("Nobody");
 			return;
 		}
 		this.getAgentAsync(function(subjectPk) {
-			var identity = EcIdentityManager.getIdentity(subjectPk);
+			var identity = eim.getIdentity(subjectPk);
 			if (identity != null && identity.displayName != null) {
 				success(identity.displayName + " (You)");
 				return;
 			}
-			var contact = EcIdentityManager.getContact(subjectPk);
+			var contact = eim.getContact(subjectPk);
 			if (contact == null || contact.displayName == null) {
 				success("Unknown Agent");
 				return;

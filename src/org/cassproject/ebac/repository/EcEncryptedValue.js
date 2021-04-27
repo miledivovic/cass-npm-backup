@@ -398,12 +398,14 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @memberOf EcEncryptedValue
 	 *  @method decryptSecretAsync
 	 */
-	decryptSecret() {
+	decryptSecret(eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var ppks = [];
 		var estimatedIndices = [];
 		if (this.owner != null) {
 			for (var i = 0; i < this.owner.length; i++) {
-				var decryptionKey = EcIdentityManager.getPpk(
+				var decryptionKey = eim.getPpk(
 					EcPk.fromPem(this.owner[i])
 				);
 				if (decryptionKey != null) {
@@ -416,7 +418,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		}
 		if (this.reader != null) {
 			for (var i = 0; i < this.reader.length; i++) {
-				var decryptionKey = EcIdentityManager.getPpk(
+				var decryptionKey = eim.getPpk(
 					EcPk.fromPem(this.reader[i])
 				);
 				if (decryptionKey != null) {

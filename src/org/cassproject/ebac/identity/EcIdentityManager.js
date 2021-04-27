@@ -11,8 +11,8 @@
  *  @static
  */
 module.exports = class EcIdentityManager {
-	static constructor() {
-		EcIdentityManager.main();
+	static default = new EcIdentityManager();
+	constructor() {
 	}
 	/**
 	 *  The current user's owned identities (keys+displayName)
@@ -21,7 +21,7 @@ module.exports = class EcIdentityManager {
 	 *  @type EcIdentity[]
 	 *  @static
 	 */
-	static ids = [];
+	ids = [];
 	/**
 	 *  Contacts (Keys that we do not own)
 	 *
@@ -29,7 +29,7 @@ module.exports = class EcIdentityManager {
 	 *  @type EcContact[]
 	 *  @static
 	 */
-	static contacts = [];
+	contacts = [];
 	/**
 	 *  Identity change hook.
 	 *
@@ -37,7 +37,7 @@ module.exports = class EcIdentityManager {
 	 *  @type Callback1<EcIdentity>
 	 *  @static
 	 */
-	static onIdentityChanged = null;
+	onIdentityChanged = null;
 	/**
 	 *  Contacts change hook.
 	 *
@@ -45,13 +45,9 @@ module.exports = class EcIdentityManager {
 	 *  @type Callback1<EcIdentity>
 	 *  @static
 	 */
-	static onContactChanged = null;
-	static signatureSheetCaching = false;
-	static signatureSheetCache = {};
-	static async = true;
-	static main(args) {
-		EcIdentityManager.readContacts();
-	}
+	onContactChanged = null;
+	signatureSheetCaching = false;
+	signatureSheetCache = {};
 	/**
 	 *  Trigger for the onIdentityChanged hook
 	 *
@@ -60,9 +56,9 @@ module.exports = class EcIdentityManager {
 	 *  @method identityChanged
 	 *  @static
 	 */
-	static identityChanged(identity) {
-		if (EcIdentityManager.onIdentityChanged != null) {
-			EcIdentityManager.onIdentityChanged(identity);
+	identityChanged(identity) {
+		if (this.onIdentityChanged != null) {
+			this.onIdentityChanged(identity);
 		}
 	}
 	/**
@@ -73,11 +69,11 @@ module.exports = class EcIdentityManager {
 	 *  @method contactChanged
 	 *  @static
 	 */
-	static contactChanged(contact) {
-		if (EcIdentityManager.onContactChanged != null) {
-			EcIdentityManager.onContactChanged(contact);
+	contactChanged(contact) {
+		if (this.onContactChanged != null) {
+			this.onContactChanged(contact);
 		}
-		EcIdentityManager.saveContacts();
+		this.saveContacts();
 	}
 	/**
 	 *  Reads contact data from localstorage.
@@ -86,7 +82,7 @@ module.exports = class EcIdentityManager {
 	 *  @method readContacts
 	 *  @static
 	 */
-	static readContacts() {
+	readContacts() {
 		var localStore = localStorage["contacts"];
 		if (localStore == null) {
 			return;
@@ -100,9 +96,9 @@ module.exports = class EcIdentityManager {
 			contact.pk = EcPk.fromPem(props["pk"]);
 			contact.source = props["source"];
 			var cont = false;
-			for (var j = 0; j < EcIdentityManager.contacts.length; j++) {
+			for (var j = 0; j < this.contacts.length; j++) {
 				if (
-					EcIdentityManager.contacts[j].pk.toPem() ==
+					this.contacts[j].pk.toPem() ==
 					contact.pk.toPem()
 				) {
 					cont = true;
@@ -111,7 +107,7 @@ module.exports = class EcIdentityManager {
 			if (cont) {
 				continue;
 			}
-			EcIdentityManager.contacts.push(contact);
+			this.contacts.push(contact);
 		}
 	}
 	/**
@@ -121,12 +117,12 @@ module.exports = class EcIdentityManager {
 	 *  @method saveContacts
 	 *  @static
 	 */
-	static saveContacts() {
+	saveContacts() {
 		var c = [];
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
+		for (var i = 0; i < this.contacts.length; i++) {
 			var o = {};
 			var props = o;
-			var contact = EcIdentityManager.contacts[i];
+			var contact = this.contacts[i];
 			props["displayName"] = contact.displayName;
 			props["pk"] = contact.pk.toPem();
 			props["source"] = contact.source;
@@ -141,7 +137,7 @@ module.exports = class EcIdentityManager {
 	 *  @method readIdentities
 	 *  @static
 	 */
-	static readIdentities() {
+	readIdentities() {
 		if (typeof localStorage === "undefined") return;
 		var localStore = localStorage["identities"];
 		if (localStore == null) {
@@ -156,9 +152,9 @@ module.exports = class EcIdentityManager {
 			identity.ppk = EcPpk.fromPem(props["ppk"]);
 			identity.source = props["source"];
 			var cont = false;
-			for (var j = 0; j < EcIdentityManager.ids.length; j++) {
+			for (var j = 0; j < this.ids.length; j++) {
 				if (
-					EcIdentityManager.ids[j].ppk.toPem() == identity.ppk.toPem()
+					this.ids[j].ppk.toPem() == identity.ppk.toPem()
 				) {
 					cont = true;
 				}
@@ -166,7 +162,7 @@ module.exports = class EcIdentityManager {
 			if (cont) {
 				continue;
 			}
-			EcIdentityManager.ids.push(identity);
+			this.ids.push(identity);
 		}
 	}
 	/**
@@ -176,12 +172,12 @@ module.exports = class EcIdentityManager {
 	 *  @method saveIdentities
 	 *  @static
 	 */
-	static saveIdentities() {
+	saveIdentities() {
 		var c = [];
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
+		for (var i = 0; i < this.ids.length; i++) {
 			var o = {};
 			var props = o;
-			var identity = EcIdentityManager.ids[i];
+			var identity = this.ids[i];
 			props["displayName"] = identity.displayName;
 			props["ppk"] = identity.ppk.toPem();
 			props["source"] = identity.source;
@@ -197,10 +193,10 @@ module.exports = class EcIdentityManager {
 	 *  @method clearContacts
 	 *  @static
 	 */
-	static clearContacts() {
+	clearContacts() {
 		if (typeof localStorage !== "undefined")
 			delete localStorage["contacts"];
-		EcIdentityManager.contacts = [];
+		this.contacts = [];
 	}
 	/**
 	 *  Clears identities from the local storage
@@ -209,10 +205,10 @@ module.exports = class EcIdentityManager {
 	 *  @method clearIdentities
 	 *  @static
 	 */
-	static clearIdentities() {
+	clearIdentities() {
 		if (typeof localStorage !== "undefined")
 			delete localStorage["identities"];
-		EcIdentityManager.ids = [];
+		this.ids = [];
 	}
 	/**
 	 *  Adds an identity to the identity manager. Checks for duplicates. Triggers
@@ -223,14 +219,14 @@ module.exports = class EcIdentityManager {
 	 *  @method addIdentity
 	 *  @static
 	 */
-	static addIdentity(identity) {
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-			if (EcIdentityManager.ids[i].equals(identity)) {
+	addIdentity(identity) {
+		for (var i = 0; i < this.ids.length; i++) {
+			if (this.ids[i].equals(identity)) {
 				return;
 			}
 		}
-		EcIdentityManager.ids.push(identity);
-		EcIdentityManager.identityChanged(identity);
+		this.ids.push(identity);
+		this.identityChanged(identity);
 	}
 	/**
 	 *  Adds an identity to the identity manager. Checks for duplicates. Does not trigger
@@ -241,13 +237,13 @@ module.exports = class EcIdentityManager {
 	 *  @method addIdentityQuietly
 	 *  @static
 	 */
-	static addIdentityQuietly(identity) {
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-			if (EcIdentityManager.ids[i].equals(identity)) {
+	addIdentityQuietly(identity) {
+		for (var i = 0; i < this.ids.length; i++) {
+			if (this.ids[i].equals(identity)) {
 				return;
 			}
 		}
-		EcIdentityManager.ids.push(identity);
+		this.ids.push(identity);
 	}
 	/**
 	 *  Adds a contact to the identity manager. Checks for duplicates. Triggers
@@ -258,35 +254,35 @@ module.exports = class EcIdentityManager {
 	 *  @method addContact
 	 *  @static
 	 */
-	static addContact(contact) {
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
+	addContact(contact) {
+		for (var i = 0; i < this.ids.length; i++) {
 			if (
-				EcIdentityManager.ids[i].ppk
+				this.ids[i].ppk
 					.toPk()
 					.toPem()
 					.equals(contact.pk.toPem())
 			) {
-				EcIdentityManager.ids[i].displayName = contact.displayName;
-				EcIdentityManager.identityChanged(EcIdentityManager.ids[i]);
+				this.ids[i].displayName = contact.displayName;
+				this.identityChanged(this.ids[i]);
 			}
 		}
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
+		for (var i = 0; i < this.contacts.length; i++) {
 			if (
-				EcIdentityManager.contacts[i].pk
+				this.contacts[i].pk
 					.toPem()
 					.equals(contact.pk.toPem())
 			) {
-				EcIdentityManager.contacts[i].displayName = contact.displayName;
-				EcIdentityManager.contactChanged(EcIdentityManager.contacts[i]);
+				this.contacts[i].displayName = contact.displayName;
+				this.contactChanged(this.contacts[i]);
 			}
 		}
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
-			if (EcIdentityManager.contacts[i].equals(contact)) {
+		for (var i = 0; i < this.contacts.length; i++) {
+			if (this.contacts[i].equals(contact)) {
 				return;
 			}
 		}
-		EcIdentityManager.contacts.push(contact);
-		EcIdentityManager.contactChanged(contact);
+		this.contacts.push(contact);
+		this.contactChanged(contact);
 	}
 	/**
 	 *  Adds a contact to the identity manager. Checks for duplicates. Does not trigger
@@ -297,32 +293,32 @@ module.exports = class EcIdentityManager {
 	 *  @method addContactQuietly
 	 *  @static
 	 */
-	static addContactQuietly(contact) {
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
+	addContactQuietly(contact) {
+		for (var i = 0; i < this.ids.length; i++) {
 			if (
-				EcIdentityManager.ids[i].ppk
+				this.ids[i].ppk
 					.toPk()
 					.toPem()
 					.equals(contact.pk.toPem())
 			) {
-				EcIdentityManager.ids[i].displayName = contact.displayName;
+				this.ids[i].displayName = contact.displayName;
 			}
 		}
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
+		for (var i = 0; i < this.contacts.length; i++) {
 			if (
-				EcIdentityManager.contacts[i].pk
+				this.contacts[i].pk
 					.toPem()
 					.equals(contact.pk.toPem())
 			) {
-				EcIdentityManager.contacts[i].displayName = contact.displayName;
+				this.contacts[i].displayName = contact.displayName;
 			}
 		}
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
-			if (EcIdentityManager.contacts[i].equals(contact)) {
+		for (var i = 0; i < this.contacts.length; i++) {
+			if (this.contacts[i].equals(contact)) {
 				return;
 			}
 		}
-		EcIdentityManager.contacts.push(contact);
+		this.contacts.push(contact);
 	}
 	/**
 	 *  Asynchronous version of creating a signature sheet for a list of
@@ -339,7 +335,7 @@ module.exports = class EcIdentityManager {
 	 *  @method signatureSheetForAsync
 	 *  @static
 	 */
-	static signatureSheetFor(
+	signatureSheetFor(
 		identityPksinPem,
 		duration,
 		server,
@@ -347,8 +343,8 @@ module.exports = class EcIdentityManager {
 		failure
 	) {
 		var cache = null;
-		if (EcIdentityManager.signatureSheetCaching) {
-			cache = EcIdentityManager.signatureSheetCache[server];
+		if (this.signatureSheetCaching) {
+			cache = this.signatureSheetCache[server];
 			if (cache != null) {
 				if (cache[0] > new Date().getTime() + duration) {
 					return cassReturnAsPromise(cache[1], success, failure);
@@ -361,17 +357,17 @@ module.exports = class EcIdentityManager {
 			.map((pk) => this.getPpk(EcPk.fromPem(pk)))
 			.filter((x) => x != null)
 			.map((ppk) =>
-				EcIdentityManager.createSignature(finalDuration, server, ppk)
+				this.createSignature(finalDuration, server, ppk)
 			);
 		let p = Promise.all(promises);
 		p = p.then((signatures) => {
 			var cache = null;
 			var stringified = JSON.stringify(signatures);
-			if (EcIdentityManager.signatureSheetCaching) {
+			if (this.signatureSheetCaching) {
 				cache = [];
 				cache[0] = new Date().getTime() + finalDuration;
 				cache[1] = stringified;
-				EcIdentityManager.signatureSheetCache[server] = cache;
+				this.signatureSheetCache[server] = cache;
 			}
 			return stringified;
 		});
@@ -389,10 +385,10 @@ module.exports = class EcIdentityManager {
 	 *  @method signatureSheet
 	 *  @static
 	 */
-	static signatureSheet(duration, server, success, failure) {
+	signatureSheet(duration, server, success, failure) {
 		var cache = null;
-		if (EcIdentityManager.signatureSheetCaching) {
-			cache = EcIdentityManager.signatureSheetCache[server];
+		if (this.signatureSheetCaching) {
+			cache = this.signatureSheetCache[server];
 			if (cache != null) {
 				if (cache[0] > new Date().getTime() + duration) {
 					return cassReturnAsPromise(cache[1], success, failure);
@@ -401,18 +397,18 @@ module.exports = class EcIdentityManager {
 			duration += 20000;
 		}
 		var finalDuration = duration;
-		let promises = EcIdentityManager.ids.map((ident) =>
-			EcIdentityManager.createSignature(finalDuration, server, ident.ppk)
+		let promises = this.ids.map((ident) =>
+			this.createSignature(finalDuration, server, ident.ppk)
 		);
 		let p = Promise.all(promises);
 		p = p.then((signatures) => {
 			var stringified = JSON.stringify(signatures);
-			if (EcIdentityManager.signatureSheetCaching) {
+			if (this.signatureSheetCaching) {
 				var cache = null;
 				cache = [];
 				cache[0] = new Date().getTime() + finalDuration;
 				cache[1] = stringified;
-				EcIdentityManager.signatureSheetCache[server] = cache;
+				this.signatureSheetCache[server] = cache;
 			}
 			return stringified;
 		});
@@ -431,7 +427,7 @@ module.exports = class EcIdentityManager {
 	 *  @method createSignature
 	 *  @static
 	 */
-	static createSignature(duration, server, ppk) {
+	createSignature(duration, server, ppk) {
 		var s = new EbacSignature();
 		s.expiry = new Date().getTime() + duration;
 		s.server = server;
@@ -452,11 +448,11 @@ module.exports = class EcIdentityManager {
 	 *  @method getPpk
 	 *  @static
 	 */
-	static getPpk(fromPem) {
+	getPpk(fromPem) {
 		var pem = fromPem.toPem();
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-			if (pem.equals(EcIdentityManager.ids[i].ppk.toPk().toPem())) {
-				return EcIdentityManager.ids[i].ppk;
+		for (var i = 0; i < this.ids.length; i++) {
+			if (pem.equals(this.ids[i].ppk.toPk().toPem())) {
+				return this.ids[i].ppk;
 			}
 		}
 		return null;
@@ -470,10 +466,10 @@ module.exports = class EcIdentityManager {
 	 *  @method getContact
 	 *  @static
 	 */
-	static getContact(pk) {
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
-			if (pk.equals(EcIdentityManager.contacts[i].pk)) {
-				return EcIdentityManager.contacts[i];
+	getContact(pk) {
+		for (var i = 0; i < this.contacts.length; i++) {
+			if (pk.equals(this.contacts[i].pk)) {
+				return this.contacts[i];
 			}
 		}
 		return null;
@@ -487,10 +483,10 @@ module.exports = class EcIdentityManager {
 	 *  @method getIdentity
 	 *  @static
 	 */
-	static getIdentity(pk) {
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-			if (pk.equals(EcIdentityManager.ids[i].ppk.toPk())) {
-				return EcIdentityManager.ids[i];
+	getIdentity(pk) {
+		for (var i = 0; i < this.ids.length; i++) {
+			if (pk.equals(this.ids[i].ppk.toPk())) {
+				return this.ids[i];
 			}
 		}
 		return null;
@@ -503,11 +499,11 @@ module.exports = class EcIdentityManager {
 	 *  @method sign
 	 *  @static
 	 */
-	static sign(d) {
+	sign(d) {
 		let promises = [];
 		if (d.owner != null) {
 			for (var i = 0; i < d.owner.length; i++) {
-				var attempt = EcIdentityManager.getPpk(
+				var attempt = this.getPpk(
 					EcPk.fromPem(d.owner[i])
 				);
 				if (attempt != null) {
@@ -523,29 +519,29 @@ module.exports = class EcIdentityManager {
 			return d;
 		});
 	}
-	static myIdentitiesSearchString() {
+	myIdentitiesSearchString() {
 		var searchString = "";
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
+		for (var i = 0; i < this.ids.length; i++) {
 			if (i > 0) {
 				searchString += " OR ";
 			}
 			searchString +=
 				'\\*reader:"' +
-				EcIdentityManager.ids[i].ppk.toPk().toPem() +
+				this.ids[i].ppk.toPk().toPem() +
 				'"';
 			searchString += " OR ";
 			searchString +=
 				'\\*owner:"' +
-				EcIdentityManager.ids[i].ppk.toPk().toPem() +
+				this.ids[i].ppk.toPk().toPem() +
 				'"';
 		}
 		return searchString;
 	}
-	static getMyPks() {
+	getMyPks() {
 		var pks = [];
-		if (EcIdentityManager.ids == null) return pks;
-		for (var i = 0; i < EcIdentityManager.ids.length; i++)
-			pks.push(EcIdentityManager.ids[i].ppk.toPk());
+		if (this.ids == null) return pks;
+		for (var i = 0; i < this.ids.length; i++)
+			pks.push(this.ids[i].ppk.toPk());
 		return pks;
 	}
 };

@@ -43,7 +43,7 @@ module.exports = class EbacCredentials extends EcLinkedData{
      */
     contacts = null;
     upgrade() {
-        EcLinkedData.upgrade.call(this);
+        super.upgrade();
         if (EbacCredentials.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 

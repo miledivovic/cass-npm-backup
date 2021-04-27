@@ -23,7 +23,7 @@ module.exports = class EcPerson extends schema.Person{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcPerson(), success, failure);
+        return EcRepository.getAs(id, new EcPerson(), success, failure);
     };
     /**
      *  Retrieves a person from it's server synchronously, the call
@@ -38,7 +38,7 @@ module.exports = class EcPerson extends schema.Person{
      *  @static
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcPerson());
+        return EcRepository.getAs(id, new EcPerson());
     };
     /**
      *  Searches a repository for persons that match the search query
@@ -54,9 +54,7 @@ module.exports = class EcPerson extends schema.Person{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcPerson();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcPerson(), success, failure, paramObj);
     };
     /**
      *  Attempts to find and return the person's fingerprint from the id.

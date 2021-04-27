@@ -22,8 +22,6 @@ module.exports = class EcQuiz extends schema.CreativeWork{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcQuiz();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcQuiz(), success, failure, paramObj);
     };
 };

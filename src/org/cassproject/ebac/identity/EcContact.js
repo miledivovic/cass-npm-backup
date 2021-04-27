@@ -68,7 +68,7 @@ module.exports = class EcContact{
      *  @method equals
      */
     equals(obj) {
-        if (stjs.isInstanceOf(obj.constructor, EcContact)) {
+        if (obj instanceof EcContact) {
             if (this.pk == null) 
                 return false;
             if ((obj).pk == null) 

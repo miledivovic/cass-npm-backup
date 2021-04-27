@@ -53,12 +53,12 @@ module.exports = class EcIdentity{
      *  @method fromCredential
      *  @static
      */
-    static fromCredential(credential, secret, source) {
+    static async fromCredential(credential, secret, source) {
         var i = new EcIdentity();
-        i.ppk = EcPpk.fromPem(EcAesCtr.decrypt(credential.ppk, secret, credential.iv));
+        i.ppk = EcPpk.fromPem(await EcAesCtrAsync.decrypt(credential.ppk, secret, credential.iv));
         i.source = source;
         if (credential.displayName != null && credential.displayNameIv != null) 
-            i.displayName = EcAesCtr.decrypt(credential.displayName, secret, credential.iv);
+            i.displayName = await EcAesCtrAsync.decrypt(credential.displayName, secret, credential.iv);
         return i;
     };
     equals(obj) {
@@ -82,12 +82,12 @@ module.exports = class EcIdentity{
      *  @memberOf EcIdentity
      *  @method toCredential
      */
-    toCredential(secret) {
+    async toCredential(secret) {
         var c = new EbacCredential();
         c.iv = EcAes.newIv(16);
-        c.ppk = EcAesCtr.encrypt(this.ppk.toPem(), secret, c.iv);
+        c.ppk = await EcAesCtrAsync.encrypt(this.ppk.toPem(), secret, c.iv);
         c.displayNameIv = EcAes.newIv(16);
-        c.displayName = EcAesCtr.encrypt(this.displayName, secret, c.iv);
+        c.displayName = await EcAesCtrAsync.encrypt(this.displayName, secret, c.iv);
         return c;
     };
     /**

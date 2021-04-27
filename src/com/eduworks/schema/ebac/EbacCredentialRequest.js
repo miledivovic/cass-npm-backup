@@ -30,7 +30,7 @@ module.exports = class EbacCredentialRequest extends EcLinkedData{
      */
     password = null;
     upgrade() {
-        EcLinkedData.upgrade.call(this);
+        super.upgrade();
         if (EbacCredentialRequest.TYPE_0_1 == this.type) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 

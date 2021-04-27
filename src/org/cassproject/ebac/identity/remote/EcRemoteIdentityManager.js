@@ -91,59 +91,47 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
      *  @memberOf EcRemoteIdentityManager
      *  @method configureFromServer
      */
-    configureFromServer(success, failure) {
+    async configureFromServer(success, failure) {
         var me = this;
-        EcRemote.getExpectingObject(this.server, "sky/id/salts", function(p1) {
+        return cassPromisify(EcRemote.getExpectingObject(this.server, "sky/id/salts", function(p1) {
             me.usernameSalt = (p1)["usernameSalt"];
             if (me.usernameSalt.length < 16) {
-                failure("Insufficient length on Username Salt");
-                return;
+                throw new Error("Insufficient length on Username Salt");
             }
-            me.usernameIterations = stjs.trunc((p1)["usernameIterations"]);
+            me.usernameIterations = Math.trunc((p1)["usernameIterations"]);
             if (me.usernameIterations < 1000) {
-                failure("Insufficient iterations on Username Hash");
-                return;
+                throw new Error("Insufficient iterations on Username Hash");
             }
-            me.usernameWidth = stjs.trunc((p1)["usernameLength"]);
+            me.usernameWidth = Math.trunc((p1)["usernameLength"]);
             if (me.usernameWidth != 64) {
-                failure("Username Hash required to be length 64.");
-                return;
+                throw new Error("Username Hash required to be length 64.");
             }
             me.passwordSalt = (p1)["passwordSalt"];
             if (me.passwordSalt.length < 16) {
-                failure("Insufficient length on Password Salt");
-                return;
+                throw new Error("Insufficient length on Password Salt");
             }
-            me.passwordIterations = stjs.trunc((p1)["passwordIterations"]);
+            me.passwordIterations = Math.trunc((p1)["passwordIterations"]);
             if (me.passwordIterations < 1000) {
-                failure("Insufficient iterations on Password Hash");
-                return;
+                throw new Error("Insufficient iterations on Password Hash");
             }
-            me.passwordWidth = stjs.trunc((p1)["passwordLength"]);
+            me.passwordWidth = Math.trunc((p1)["passwordLength"]);
             if (me.passwordWidth != 64) {
-                failure("Password Hash required to be length 64.");
-                return;
+                throw new Error("Password Hash required to be length 64.");
             }
             me.secretSalt = (p1)["secretSalt"];
             if (me.secretSalt.length < 16) {
-                failure("Insufficient length on Secret Salt");
-                return;
+                throw new Error("Insufficient length on Secret Salt");
             }
-            me.secretIterations = stjs.trunc((p1)["secretIterations"]);
+            me.secretIterations = Math.trunc((p1)["secretIterations"]);
             if (me.secretIterations < 1000) {
-                failure("Insufficient iterations on Secret Hash");
-                return;
+                throw new Error("Insufficient iterations on Secret Hash");
             }
             me.configured = true;
-            if (success != null) 
-                success(p1);
+            return p1;
         }, function(p1) {
             me.configured = false;
-            if (failure != null) 
-                failure(p1);
-             else 
-                console.error(p1);
-        });
+            throw new Error(p1);
+        }),success,failure);
     };
     /**
      *  Wipes login data.
@@ -184,7 +172,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
      */
     startLogin(username, password) {
         if (!this.configured) {
-             throw new RuntimeException("Remote Identity not configured.");
+             throw new Error("Remote Identity not configured.");
         }
         this.usernameWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(username, this.usernameSalt, this.usernameIterations, this.usernameWidth));
         this.passwordWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(password, this.passwordSalt, this.passwordIterations, this.passwordWidth));
@@ -212,11 +200,11 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
     changePassword(username, oldPassword, newPassword) {
         var usernameHash = forge.util.encode64(forge.pkcs5.pbkdf2(username, this.usernameSalt, this.usernameIterations, this.usernameWidth));
         if (this.usernameWithSalt != usernameHash) {
-             throw new RuntimeException("Username does not match. Aborting password change.");
+             throw new Error("Username does not match. Aborting password change.");
         }
         var oldPasswordHash = forge.util.encode64(forge.pkcs5.pbkdf2(oldPassword, this.passwordSalt, this.passwordIterations, this.passwordWidth));
         if (this.passwordWithSalt != oldPasswordHash) {
-             throw new RuntimeException("Old password does not match. Aborting password change.");
+             throw new Error("Old password does not match. Aborting password change.");
         }
         this.passwordWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2(newPassword, this.passwordSalt, this.passwordIterations, this.passwordWidth));
         var arys = [];
@@ -253,26 +241,26 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
         var fd = new FormData();
         fd.append("credentialRequest", r.toJson());
         var me = this;
-        EcRemote.postExpectingObject(this.server, "sky/id/login", fd, function(arg0) {
+        return cassPromisify(EcRemote.postExpectingObject(this.server, "sky/id/login", fd, async (arg0) => {
             var cs = arg0;
             me.pad = cs.pad;
             me.token = cs.token;
             if (cs.credentials != null) 
                 for (var i = 0; i < cs.credentials.length; i++) {
                     var c = cs.credentials[i];
-                    var identity = EcIdentity.fromCredential(c, me.secretWithSalt, me.server);
+                    var identity = await EcIdentity.fromCredential(c, me.secretWithSalt, me.server);
                     EcIdentityManager.addIdentity(identity);
                 }
             if (cs.contacts != null) 
                 for (var i = 0; i < cs.contacts.length; i++) {
                     var c = cs.contacts[i];
-                    var identity = EcContact.fromEncryptedContact(c, me.secretWithSalt, me.server);
+                    var identity = await EcContact.fromEncryptedContact(c, me.secretWithSalt, me.server);
                     EcIdentityManager.addContact(identity);
                 }
-            success(arg0);
+            return arg0;
         }, function(arg0) {
-            failure(arg0);
-        });
+            throw new Error(arg0);
+        }),success,failure);
     };
     /**
      *  Commits credentials in EcIdentityManager to remote server.
@@ -284,9 +272,9 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
      *  @memberOf EcRemoteIdentityManager
      *  @method commit
      */
-    commit(success, failure) {
+    async commit(success, failure) {
         var service = "sky/id/commit";
-        this.sendCredentials(success, failure, service);
+        return this.sendCredentials(success, failure, service);
     };
     /**
      *  Creates an account.
@@ -305,9 +293,9 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
      *  @memberOf EcRemoteIdentityManager
      *  @method create
      */
-    create(success, failure) {
+    async create(success, failure) {
         var service = "sky/id/create";
-        this.sendCredentials(success, failure, service);
+        return this.sendCredentials(success, failure, service);
     };
     /**
      *  Sends the identity managers credentials to the service specified
@@ -320,11 +308,11 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
      *  @memberOf EcRemoteIdentityManager
      *  @method sendCredentials
      */
-    sendCredentials(success, failure, service) {
+    async sendCredentials(success, failure, service) {
         if (!this.configured) 
-             throw new RuntimeException("Remote Identity not configured.");
+             throw new Error("Remote Identity not configured.");
         if (this.usernameWithSalt == null || this.passwordWithSalt == null || this.secretWithSalt == null) {
-             throw new RuntimeException("Please log in before performing this operation.");
+             throw new Error("Please log in before performing this operation.");
         }
         var credentials = [];
         var contacts = [];
@@ -333,14 +321,14 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
             if (id.source != null && id.source != this.server) 
                 continue;
             id.source = this.server;
-            credentials.push(id.toCredential(this.secretWithSalt));
+            credentials.push(await id.toCredential(this.secretWithSalt));
         }
         for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
             var id = EcIdentityManager.contacts[i];
             if (id.source != null && id.source != this.server) 
                 continue;
             id.source = this.server;
-            contacts.push(id.toEncryptedContact(this.secretWithSalt));
+            contacts.push(await id.toEncryptedContact(this.secretWithSalt));
         }
         var commit = new EbacCredentialCommit();
         commit.username = this.usernameWithSalt;
@@ -352,14 +340,16 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
         var fd = new FormData();
         fd.append("credentialCommit", commit.toJson());
         var me = this;
-        EcIdentityManager.signatureSheetAsync(60000, this.server, function(p1) {
+        return cassPromisify(EcIdentityManager.signatureSheet(60000, this.server, async (p1) => {
             fd.append("signatureSheet", p1);
-            EcRemote.postExpectingString(me.server, service, fd, function(arg0) {
-                success(arg0);
+            return await EcRemote.postExpectingString(me.server, service, fd, function(arg0) {
+                return arg0;
             }, function(arg0) {
-                failure(arg0);
+                throw new Error(arg0);
             });
-        }, failure);
+        }, function(arg0) {
+            throw new Error(arg0);
+        }),success,failure);
     };
     /**
      *  Splices together passwords (in a fashion more like shuffling a deck of

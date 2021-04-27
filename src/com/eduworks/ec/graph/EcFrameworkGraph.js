@@ -240,7 +240,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
         return this.addEdgeUnsafely(alignment, source, target);
     };
     addHyperEdge(edge, vertices) {
-         throw new RuntimeException("Don't do this.");
+         throw new Error("Don't do this.");
     };
     getEdgeType(edge) {
         return edge.relationType;

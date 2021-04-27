@@ -37,7 +37,7 @@ module.exports = class Triple{
     equals(obj) {
         if (Object.equals.call(this, obj)) 
             return true;
-        if (stjs.isInstanceOf(obj.constructor, Triple)) {
+        if (obj instanceof Triple) {
             var t = obj;
             if (this.source == t.source && this.destination == t.destination && this.edge == t.edge) 
                 return true;

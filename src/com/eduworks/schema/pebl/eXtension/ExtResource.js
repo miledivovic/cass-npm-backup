@@ -27,34 +27,7 @@ module.exports = class ExtResource extends schema.CreativeWork{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.get(id, function(p1) {
-            if (stjs.isInstanceOf(p1.constructor, ExtResource)) 
-                if (success != null) {
-                    success(p1);
-                    return;
-                }
-            var resource = new ExtResource();
-            if (p1.isA(EcEncryptedValue.myType)) {
-                var encrypted = new EcEncryptedValue();
-                encrypted.copyFrom(p1);
-                p1 = encrypted.decryptIntoObject();
-            }
-            if (p1.isAny(resource.getTypes())) {
-                resource.copyFrom(p1);
-                if (EcRepository.caching) {
-                    (EcRepository.cache)[resource.shortId()] = resource;
-                    (EcRepository.cache)[resource.id] = resource;
-                }
-                if (success != null) 
-                    success(resource);
-            } else {
-                var msg = "Resultant object is not a resource.";
-                if (failure != null) 
-                    failure(msg);
-                 else 
-                    console.error(msg);
-            }
-        }, failure);
+        return EcRepository.getAs(id, new ExtResource(),success,failure);
     };
     /**
      *  Retrieves a resource from the server synchronously, the call
@@ -69,28 +42,7 @@ module.exports = class ExtResource extends schema.CreativeWork{
      *  @static
      */
     static getBlocking(id) {
-        var p1 = EcRepository.getBlocking(id);
-        if (stjs.isInstanceOf(p1.constructor, ExtResource)) 
-            return p1;
-        var resource = new ExtResource();
-        if (p1.isA(EcEncryptedValue.myType)) {
-            var encrypted = new EcEncryptedValue();
-            encrypted.copyFrom(p1);
-            p1 = encrypted.decryptIntoObject();
-            EcEncryptedValue.encryptOnSave(p1.id, true);
-        }
-        if (p1.isAny(resource.getTypes())) {
-            resource.copyFrom(p1);
-            if (EcRepository.caching) {
-                (EcRepository.cache)[resource.shortId()] = resource;
-                (EcRepository.cache)[resource.id] = resource;
-            }
-            return resource;
-        } else {
-            var msg = "Retrieved object was not a resource";
-            console.error(msg);
-            return null;
-        }
+        return EcRepository.getAs(id, new ExtResource());
     };
     /**
      *  Searches the repository using the query and optional parameters provided
@@ -112,22 +64,7 @@ module.exports = class ExtResource extends schema.CreativeWork{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        var queryAdd = new ExtResource().getSearchStringByType();
-        if (query == null || query == "") 
-            query = queryAdd;
-         else 
-            query = "(" + query + ") AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                for (var i = 0; i < p1.length; i++) {
-                    var resource = new ExtResource();
-                    resource.copyFrom(p1[i]);
-                    ret[i] = resource;
-                }
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, query, () => new ExtResource(), success, failure, paramObj);
     };
     /**
      *  Saves this resource on the server corresponding to its ID
@@ -144,29 +81,25 @@ module.exports = class ExtResource extends schema.CreativeWork{
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getTitle() == null || this.getTitle() == "") {
             var msg = "Title cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getLaunchURL() == null || this.getLaunchURL() == "") {
             var msg = "Launch URL cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
-        EcRepository.save(this, success, failure);
-        return "Resource " + this.getId() + " saved.";
+        return EcRepository.save(this, success, failure);
     };
     /**
      *  Deletes the resource from the server corresponding to its ID
@@ -179,7 +112,7 @@ module.exports = class ExtResource extends schema.CreativeWork{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
     /**
      *  Returns the ID of the resource

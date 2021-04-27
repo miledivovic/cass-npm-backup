@@ -1,3 +1,4 @@
+global.Papa = require('papaparse');
 /**
  *  Export methods to handle exporting two CSV file , one of competencies
  *  and one of relationships representing a framework
@@ -64,7 +65,7 @@ module.exports = class CSVExport extends Exporter{
         }
         CSVExport.frameworkCompetencies = [];
         CSVExport.frameworkRelations = [];
-        EcRepository.get(frameworkId, function(data) {
+        return EcRepository.get(frameworkId, function(data) {
             if (data.isAny(new EcFramework().getTypes())) {
                 var fw = new EcFramework();
                 fw.copyFrom(data);
@@ -129,9 +130,9 @@ module.exports = class CSVExport extends Exporter{
                     id = prefix + "." + prop;
                  else 
                     id = prop;
-                if (props[prop] != null && props[prop] != "" && stjs.isInstanceOf(props[prop].constructor, Object) && !piped) {
+                if (props[prop] != null && props[prop] != "" && EcObject.isObject(props[prop]) && !piped) {
                     this.flattenObject(flattenedObject, props[prop], id, false);
-                } else if (props[prop] != null && props[prop] != "" && (stjs.isInstanceOf(props[prop].constructor, Object) || EcArray.isArray(props[prop])) && piped) {
+                } else if (props[prop] != null && props[prop] != "" && (EcObject.isObject(props[prop]) || EcArray.isArray(props[prop])) && piped) {
                     var display = "";
                     var props2 = (props[prop]);
                     for (var prop2 in props2) {

@@ -475,7 +475,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
             fd.append("signatureSheet", signatureSheet);
         var headers = {};
         headers["Accept"] = "application/rdf+xml";
-        EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
+        return EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
     };
     asNQuads(success, failure, signatureSheet) {
         var fd = new FormData();
@@ -484,7 +484,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
             fd.append("signatureSheet", signatureSheet);
         var headers = {};
         headers["Accept"] = "text/n4";
-        EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
+        return EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
     };
     asTurtle(success, failure, signatureSheet) {
         var fd = new FormData();
@@ -493,7 +493,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
             fd.append("signatureSheet", signatureSheet);
         var headers = {};
         headers["Accept"] = "text/turtle";
-        EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
+        return EcRemote.postWithHeadersExpectingString(id, "", fd, headers, success, failure);
     };
     /**
      *  Upgrades the object to the latest version, performing transforms and the like.

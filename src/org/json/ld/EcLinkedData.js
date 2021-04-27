@@ -334,13 +334,13 @@ module.exports = class EcLinkedData{
                 if (typeFound) {
                     var value = me[key];
                     if (value != null) 
-                        if (stjs.isInstanceOf(value.constructor, EcLinkedData)) 
+                        if (value instanceof EcLinkedData)
                             value = (value).deAtify();
                     me[key.replace("@", "")] = value;
                 } else {
                     var value = me[key];
                     if (value != null) 
-                        if (stjs.isInstanceOf(value.constructor, EcLinkedData)) 
+                        if (value instanceof EcLinkedData)
                             value = (value).deAtify();
                     me[key] = value;
                 }

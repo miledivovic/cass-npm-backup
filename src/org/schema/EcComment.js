@@ -14,7 +14,7 @@ module.exports = class EcComment extends schema.Comment{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcComment(), success, failure);
+        return EcRepository.getAs(id, new EcComment(), success, failure);
     };
     /**
      *  Retrieves an comment from it's server synchronously, the call
@@ -29,7 +29,7 @@ module.exports = class EcComment extends schema.Comment{
      *  @static
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcComment());
+        return EcRepository.getAs(id, new EcComment());
     };
     /**
      *  Searches a repository for comments that match the search query
@@ -45,7 +45,7 @@ module.exports = class EcComment extends schema.Comment{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
+        return EcRepository.searchAs(repo, query, function() {
             return new EcComment();
         }, success, failure, paramObj);
     };

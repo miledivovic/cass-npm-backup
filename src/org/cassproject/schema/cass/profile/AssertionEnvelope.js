@@ -78,7 +78,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork{
      *  @param a Assertion to add.
      *  @method addAssertion
      */
-    addAssertion(a) {
+    async addAssertion(a) {
         var me = this;
         var ac = new AssertionCodebook();
         if (this.assertion == null) 
@@ -90,23 +90,23 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork{
         if (a.shortId() != null) 
             ac.assertionShortId = a.shortId();
         if (a.agent != null) 
-            ac.agent = a.agent.decryptSecret();
+            ac.agent = await a.agent.decryptSecret();
         if (a.subject != null) 
-            ac.subject = a.subject.decryptSecret();
+            ac.subject = await a.subject.decryptSecret();
         if (a.assertionDate != null) 
-            ac.assertionDate = a.assertionDate.decryptSecret();
+            ac.assertionDate = await a.assertionDate.decryptSecret();
         if (a.expirationDate != null) 
-            ac.expirationDate = a.expirationDate.decryptSecret();
+            ac.expirationDate = await a.expirationDate.decryptSecret();
         if (a.decayFunction != null) 
-            ac.decayFunction = a.decayFunction.decryptSecret();
+            ac.decayFunction = await a.decayFunction.decryptSecret();
         if (a.negative != null) 
-            ac.negative = a.negative.decryptSecret();
+            ac.negative = await a.negative.decryptSecret();
         if (a.evidence != null) 
             for (var i = 0; i < a.evidence.length; i++) {
                 if (ac.evidence == null) 
                     ac.evidence = [];
                 var ecEncryptedValue = a.evidence[i];
-                ac.evidence.push(ecEncryptedValue.decryptSecret());
+                ac.evidence.push(await ecEncryptedValue.decryptSecret());
             }
     };
     /**

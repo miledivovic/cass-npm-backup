@@ -27,34 +27,7 @@ module.exports = class ExtContent extends schema.CreativeWork{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.get(id, function(p1) {
-            if (stjs.isInstanceOf(p1.constructor, ExtContent)) 
-                if (success != null) {
-                    success(p1);
-                    return;
-                }
-            var content = new ExtContent();
-            if (p1.isA(EcEncryptedValue.myType)) {
-                var encrypted = new EcEncryptedValue();
-                encrypted.copyFrom(p1);
-                p1 = encrypted.decryptIntoObject();
-            }
-            if (p1.isAny(content.getTypes())) {
-                content.copyFrom(p1);
-                if (EcRepository.caching) {
-                    (EcRepository.cache)[content.shortId()] = content;
-                    (EcRepository.cache)[content.id] = content;
-                }
-                if (success != null) 
-                    success(content);
-            } else {
-                var msg = "Resultant object is not a content.";
-                if (failure != null) 
-                    failure(msg);
-                 else 
-                    console.error(msg);
-            }
-        }, failure);
+        return EcRepository.getAs(id, new ExtContent(),success,failure);
     };
     /**
      *  Retrieves a content from the server synchronously, the call
@@ -69,28 +42,7 @@ module.exports = class ExtContent extends schema.CreativeWork{
      *  @static
      */
     static getBlocking(id) {
-        var p1 = EcRepository.getBlocking(id);
-        if (stjs.isInstanceOf(p1.constructor, ExtContent)) 
-            return p1;
-        var content = new ExtContent();
-        if (p1.isA(EcEncryptedValue.myType)) {
-            var encrypted = new EcEncryptedValue();
-            encrypted.copyFrom(p1);
-            p1 = encrypted.decryptIntoObject();
-            EcEncryptedValue.encryptOnSave(p1.id, true);
-        }
-        if (p1.isAny(content.getTypes())) {
-            content.copyFrom(p1);
-            if (EcRepository.caching) {
-                (EcRepository.cache)[content.shortId()] = content;
-                (EcRepository.cache)[content.id] = content;
-            }
-            return content;
-        } else {
-            var msg = "Retrieved object was not a content";
-            console.error(msg);
-            return null;
-        }
+        return EcRepository.getAs(id, new ExtContent());
     };
     /**
      *  Searches the repository using the query and optional parameters provided
@@ -112,22 +64,7 @@ module.exports = class ExtContent extends schema.CreativeWork{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        var queryAdd = new ExtContent().getSearchStringByType();
-        if (query == null || query == "") 
-            query = queryAdd;
-         else 
-            query = "(" + query + ") AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                p1.forEach(function(rld) {
-                    var content = new ExtContent();
-                    content.copyFrom(rld);
-                    ret.push(content);
-                });
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, query, () => new ExtContent(), success, failure, paramObj);
     };
     /**
      *  Saves this content on the server corresponding to its ID
@@ -144,45 +81,39 @@ module.exports = class ExtContent extends schema.CreativeWork{
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getTitle() == null || this.getTitle() == "") {
             var msg = "Title cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getDescription() == null || this.getDescription() == "") {
             var msg = "Description cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getLaunchURL() == null || this.getLaunchURL() == "") {
             var msg = "Launch URL cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getInstitution() == null || this.getInstitution().name == null || this.getInstitution().name == "") {
             var msg = "Institution name cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
-        EcRepository.save(this, success, failure);
-        return "Content " + this.getId() + " saved.";
+        return EcRepository.save(this, success, failure);
     };
     /**
      *  Deletes the content from the server corresponding to its ID
@@ -195,7 +126,7 @@ module.exports = class ExtContent extends schema.CreativeWork{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
     /**
      *  Returns the ID of the content

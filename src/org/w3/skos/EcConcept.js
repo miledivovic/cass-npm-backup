@@ -28,7 +28,7 @@ module.exports = class EcConcept extends Concept{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcConcept(), success, failure);
+        return EcRepository.getAs(id, new EcConcept(), success, failure);
     };
     /**
      *  Retrieves a concept from it's server synchronously, the call
@@ -43,7 +43,7 @@ module.exports = class EcConcept extends Concept{
      *  @static
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcConcept());
+        return EcRepository.getAs(id, new EcConcept());
     };
     /**
      *  Searches a repository for competencies that match the search query
@@ -63,8 +63,6 @@ module.exports = class EcConcept extends Concept{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcConcept();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcConcept(), success, failure, paramObj);
     };
 };

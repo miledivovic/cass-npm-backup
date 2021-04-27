@@ -16,29 +16,7 @@ module.exports = class CfdFramework extends EcFramework{
      *  @static
      */
     static cfdGet(id, success, failure) {
-        EcRepository.get(id, function(p1) {
-            var framework = new CfdFramework();
-            if (p1.isA(EcEncryptedValue.myType)) {
-                var encrypted = new EcEncryptedValue();
-                encrypted.copyFrom(p1);
-                p1 = encrypted.decryptIntoObject();
-                EcEncryptedValue.encryptOnSave(p1.id, true);
-            }
-            if (p1.isAny(framework.getTypes())) {
-                framework.copyFrom(p1);
-                if (success != null) 
-                    success(framework);
-            } else {
-                var msg = "Resultant object is not a framework.";
-                if (failure != null) 
-                    failure(msg);
-                 else 
-                    console.error(msg);
-            }
-        }, function(p1) {
-            if (failure != null) 
-                failure(p1);
-        });
+        return EcRepository.getAs(id, new CfdFramework(), success, failure);
     };
     /**
      *  Retrieves a framework from the server in a blocking fashion, specified by the ID
@@ -55,22 +33,7 @@ module.exports = class CfdFramework extends EcFramework{
      *  @static
      */
     static cfdGetBlocking(id) {
-        var p1 = EcRepository.getBlocking(id);
-        if (p1 == null) 
-            return null;
-        var framework = new CfdFramework();
-        if (p1.isA(EcEncryptedValue.myType)) {
-            var encrypted = new EcEncryptedValue();
-            encrypted.copyFrom(p1);
-            p1 = encrypted.decryptIntoObject();
-            EcEncryptedValue.encryptOnSave(p1.id, true);
-        }
-        if (p1.isAny(framework.getTypes())) {
-            framework.copyFrom(p1);
-            return framework;
-        } else {
-            return null;
-        }
+        return EcRepository.getAs(id, new CfdFramework());
     };
     /**
      *  Searches the repository given for frameworks using the query passed in
@@ -93,33 +56,7 @@ module.exports = class CfdFramework extends EcFramework{
      *  @static
      */
     static cfdSearch(repo, query, success, failure, paramObj) {
-        var queryAdd = "";
-        queryAdd = new EcFramework().getSearchStringByType();
-        if (query == null || query == "") 
-            query = queryAdd;
-         else 
-            query = "(" + query + ") AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                for (var i = 0; i < p1.length; i++) {
-                    var framework = new CfdFramework();
-                    if (p1[i].isAny(framework.getTypes())) {
-                        framework.copyFrom(p1[i]);
-                    } else if (p1[i].isA(EcEncryptedValue.myType)) {
-                        var val = new EcEncryptedValue();
-                        val.copyFrom(p1[i]);
-                        if (val.isAnEncrypted(EcFramework.myType)) {
-                            var obj = val.decryptIntoObject();
-                            framework.copyFrom(obj);
-                            EcEncryptedValue.encryptOnSave(framework.id, true);
-                        }
-                    }
-                    ret[i] = framework;
-                }
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, query, () => new CfdFramework(), success, failure, paramObj);
     };
     /**
      *  Deletes this framework from the server specified by it's ID
@@ -130,6 +67,7 @@ module.exports = class CfdFramework extends EcFramework{
      *                             Callback triggered if error occurs when deleting the framework
      *  @memberOf CfdFramework
      *  @method _delete
+     *  FR: DID NOT PORT TO 5.x.x
      */
     _delete = function(success, failure) {
         if (CfdFramework.toRemove == null) 

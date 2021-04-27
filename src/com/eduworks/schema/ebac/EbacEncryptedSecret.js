@@ -86,7 +86,7 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData{
         return JSON.stringify(o);
     };
     upgrade() {
-        EcLinkedData.upgrade.call(this);
+        super.upgrade();
         if (EbacEncryptedSecret.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 

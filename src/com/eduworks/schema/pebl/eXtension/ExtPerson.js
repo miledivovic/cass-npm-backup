@@ -36,34 +36,7 @@ module.exports = class ExtPerson extends schema.Person{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.get(id, function(p1) {
-            if (stjs.isInstanceOf(p1.constructor, ExtPerson)) 
-                if (success != null) {
-                    success(p1);
-                    return;
-                }
-            var person = new ExtPerson();
-            if (p1.isA(EcEncryptedValue.myType)) {
-                var encrypted = new EcEncryptedValue();
-                encrypted.copyFrom(p1);
-                p1 = encrypted.decryptIntoObject();
-            }
-            if (p1.isAny(person.getTypes())) {
-                person.copyFrom(p1);
-                if (EcRepository.caching) {
-                    (EcRepository.cache)[person.shortId()] = person;
-                    (EcRepository.cache)[person.id] = person;
-                }
-                if (success != null) 
-                    success(person);
-            } else {
-                var msg = "Resultant object is not a person.";
-                if (failure != null) 
-                    failure(msg);
-                 else 
-                    console.error(msg);
-            }
-        }, failure);
+        return EcRepository.getAs(id, new ExtPerson(),success,failure);
     };
     /**
      *  Retrieves a person from the server synchronously, the call
@@ -78,28 +51,7 @@ module.exports = class ExtPerson extends schema.Person{
      *  @static
      */
     static getBlocking(id) {
-        var p1 = EcRepository.getBlocking(id);
-        if (stjs.isInstanceOf(p1.constructor, ExtPerson)) 
-            return p1;
-        var person = new ExtPerson();
-        if (p1.isA(EcEncryptedValue.myType)) {
-            var encrypted = new EcEncryptedValue();
-            encrypted.copyFrom(p1);
-            p1 = encrypted.decryptIntoObject();
-            EcEncryptedValue.encryptOnSave(p1.id, true);
-        }
-        if (p1.isAny(person.getTypes())) {
-            person.copyFrom(p1);
-            if (EcRepository.caching) {
-                (EcRepository.cache)[person.shortId()] = person;
-                (EcRepository.cache)[person.id] = person;
-            }
-            return person;
-        } else {
-            var msg = "Retrieved object was not a person";
-            console.error(msg);
-            return null;
-        }
+        return EcRepository.getAs(id, new ExtPerson());
     };
     /**
      *  Searches the repository using the query and optional parameters provided
@@ -121,22 +73,7 @@ module.exports = class ExtPerson extends schema.Person{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        var queryAdd = new ExtPerson().getSearchStringByType();
-        if (query == null || query == "") 
-            query = queryAdd;
-         else 
-            query = "(" + query + ") AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                for (var i = 0; i < p1.length; i++) {
-                    var person = new ExtPerson();
-                    person.copyFrom(p1[i]);
-                    ret[i] = person;
-                }
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, query, () => new ExtPerson(), success, failure, paramObj);
     };
     /**
      *  Saves this person on the server corresponding to its ID
@@ -153,45 +90,39 @@ module.exports = class ExtPerson extends schema.Person{
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getFirstName() == null || this.getFirstName() == "") {
             var msg = "First name cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getLastName() == null || this.getLastName() == "") {
             var msg = "Last name cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getUserName() == null || this.getUserName() == "") {
             var msg = "Username cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getEmail() == null || this.getEmail() == "") {
             var msg = "Email cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
-        EcRepository.save(this, success, failure);
-        return "Person " + this.getId() + " saved.";
+        return EcRepository.save(this, success, failure);
     };
     /**
      *  Deletes the person from the server corresponding to its ID
@@ -204,7 +135,7 @@ module.exports = class ExtPerson extends schema.Person{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
     /**
      *  Returns the ID of the Person

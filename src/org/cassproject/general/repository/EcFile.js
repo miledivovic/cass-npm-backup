@@ -45,10 +45,10 @@ module.exports = class EcFile extends GeneralFile{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcFile(), success, failure);
+        return EcRepository.getAs(id, new EcFile(), success, failure);
     };
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcFile());
+        return EcRepository.getAs(id, new EcFile());
     };
     /**
      *  Searches the repository given for files that match the query passed in
@@ -69,7 +69,7 @@ module.exports = class EcFile extends GeneralFile{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
+        return EcRepository.searchAs(repo, query, function() {
             return new EcFile();
         }, success, failure, paramObj);
     };
@@ -92,7 +92,7 @@ module.exports = class EcFile extends GeneralFile{
                 console.error(msg);
             return;
         }
-        EcRepository.save(this, success, failure);
+        return EcRepository.save(this, success, failure);
     };
     /**
      *  Deletes the file from the repository using repository web services
@@ -105,6 +105,6 @@ module.exports = class EcFile extends GeneralFile{
      *  @method _delete
      */
     _delete = function(repo, success, failure) {
-        repo.DELETE(this, success, failure);
+        return repo.DELETE(this, success, failure);
     };
 };

@@ -51,34 +51,7 @@ module.exports = class ExtInstitution extends schema.Organization{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.get(id, function(p1) {
-            if (stjs.isInstanceOf(p1.constructor, ExtInstitution)) 
-                if (success != null) {
-                    success(p1);
-                    return;
-                }
-            var institution = new ExtInstitution();
-            if (p1.isA(EcEncryptedValue.myType)) {
-                var encrypted = new EcEncryptedValue();
-                encrypted.copyFrom(p1);
-                p1 = encrypted.decryptIntoObject();
-            }
-            if (p1.isAny(institution.getTypes())) {
-                institution.copyFrom(p1);
-                if (EcRepository.caching) {
-                    (EcRepository.cache)[institution.shortId()] = institution;
-                    (EcRepository.cache)[institution.id] = institution;
-                }
-                if (success != null) 
-                    success(institution);
-            } else {
-                var msg = "Resultant object is not a institution.";
-                if (failure != null) 
-                    failure(msg);
-                 else 
-                    console.error(msg);
-            }
-        }, failure);
+        return EcRepository.getAs(id, new ExtInstitution(),success,failure);
     };
     /**
      *  Retrieves a institution from the server synchronously, the call
@@ -93,28 +66,7 @@ module.exports = class ExtInstitution extends schema.Organization{
      *  @static
      */
     static getBlocking(id) {
-        var p1 = EcRepository.getBlocking(id);
-        if (stjs.isInstanceOf(p1.constructor, ExtInstitution)) 
-            return p1;
-        var institution = new ExtInstitution();
-        if (p1.isA(EcEncryptedValue.myType)) {
-            var encrypted = new EcEncryptedValue();
-            encrypted.copyFrom(p1);
-            p1 = encrypted.decryptIntoObject();
-            EcEncryptedValue.encryptOnSave(p1.id, true);
-        }
-        if (p1.isAny(institution.getTypes())) {
-            institution.copyFrom(p1);
-            if (EcRepository.caching) {
-                (EcRepository.cache)[institution.shortId()] = institution;
-                (EcRepository.cache)[institution.id] = institution;
-            }
-            return institution;
-        } else {
-            var msg = "Retrieved object was not a institution";
-            console.error(msg);
-            return null;
-        }
+        return EcRepository.getAs(id, new ExtInstitution());
     };
     /**
      *  Searches the repository using the query and optional parameters provided
@@ -136,22 +88,7 @@ module.exports = class ExtInstitution extends schema.Organization{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        var queryAdd = new ExtInstitution().getSearchStringByType();
-        if (query == null || query == "") 
-            query = queryAdd;
-         else 
-            query = "(" + query + ") AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                p1.forEach(function(rld) {
-                    var content = new ExtInstitution();
-                    content.copyFrom(rld);
-                    ret.push(content);
-                });
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, query, () => new ExtInstitution(), success, failure, paramObj);
     };
     /**
      *  Saves this institution on the server corresponding to its ID
@@ -168,29 +105,25 @@ module.exports = class ExtInstitution extends schema.Organization{
         if (this.getId() == null || this.getId() == "") {
             var msg = "ID cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getName() == null || this.getName() == "") {
             var msg = "Name cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.getWebPage() == null || this.getWebPage() == "") {
             var msg = "Official web page cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return null;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
-        EcRepository.save(this, success, failure);
-        return "Institution " + this.getId() + " saved.";
+        return EcRepository.save(this, success, failure);
     };
     /**
      *  Deletes the institution from the server corresponding to its ID
@@ -203,7 +136,7 @@ module.exports = class ExtInstitution extends schema.Organization{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
     /**
      *  Returns the ID of the Institution

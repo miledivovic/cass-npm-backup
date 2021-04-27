@@ -32,7 +32,7 @@ module.exports = class EcAlignment extends Relation{
      *  @static
      */
     static get(id, success, failure) {
-        returnEcRepository.getAs(id, new EcAlignment(), success, failure);
+        return EcRepository.getAs(id, new EcAlignment(), success, failure);
     };
     /**
      *  Retrieves an alignment from it's server synchronously, the call
@@ -68,9 +68,7 @@ module.exports = class EcAlignment extends Relation{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        return EcRepository.searchAs(repo, query, function() {
-            return new EcAlignment();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcAlignment(), success, failure, paramObj);
     };
     /**
      *  Searches the repository for alignments with a specific ID in the source field

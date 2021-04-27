@@ -140,7 +140,11 @@ module.exports = class EcRepository {
             return result;            
         };
         if (!EcObject.isObject(p1))
+        {
+            if (EcRepository.caching)
+                (EcRepository.cache)[finalUrl] = null;
             return cassReturnAsPromise(null,success,failure).then(defaultFunc);
+        }
         d.copyFrom(p1);
         if (d.getFullType() == null) {
             return EcRepository.find(originalUrl, JSON.stringify(p1), {}, 0, success, failure);
@@ -172,6 +176,8 @@ module.exports = class EcRepository {
     static find(url, error, history, counter, success, failure) {
         if (isNaN(counter) || counter == undefined || counter > EcRepository.repos.length || EcRepository.repos[counter] == null) {
             delete (EcRepository.fetching)[url];
+            if (EcRepository.caching)
+                (EcRepository.cache)[url] = null;
             return cassReturnAsPromise(null,success,failure,error);
         }
         var repo = EcRepository.repos[counter];
@@ -1104,26 +1110,6 @@ module.exports = class EcRepository {
                 }
             }, failure);
         }, failure);
-    };
-    static getBlockingAs = function(id, result) {
-        var p1 = EcRepository.getBlocking(id);
-        if (p1 == null) 
-            return null;
-        if (p1.getClass() == result.getClass()) 
-            return p1;
-        p1 = EcEncryptedValue.fromEncryptedValue(p1);
-        if (p1.isAny(result.getTypes())) {
-            result.copyFrom(p1);
-            if (EcRepository.caching) {
-                (EcRepository.cache)[result.shortId()] = result;
-                (EcRepository.cache)[result.id] = result;
-            }
-            return result;
-        } else {
-            var msg = "Retrieved object was not a " + result.getFullType();
-            console.error(msg);
-            return null;
-        }
     };
     static searchAs = function(repo, query, factory, success, failure, paramObj) {
         if (paramObj == null) 

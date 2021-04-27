@@ -58,7 +58,7 @@ module.exports = class EbacContact extends EcLinkedData{
      */
     source = null;
     upgrade() {
-        EcLinkedData.upgrade.call(this);
+        super.upgrade();
         if (EbacContact.TYPE_0_1.equals(this.type)) {
             var me = (this);
             if (me["@context"] == null && me["@schema"] != null) 

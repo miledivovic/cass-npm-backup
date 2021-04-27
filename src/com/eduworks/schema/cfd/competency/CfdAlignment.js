@@ -15,34 +15,7 @@ module.exports = class CfdAlignment extends schema.AlignmentObject{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.get(id, function(p1) {
-            if (stjs.isInstanceOf(p1.constructor, CfdAlignment)) 
-                if (success != null) {
-                    success(p1);
-                    return;
-                }
-            var alignment = new CfdAlignment();
-            if (p1.isA(EcEncryptedValue.myType)) {
-                var encrypted = new EcEncryptedValue();
-                encrypted.copyFrom(p1);
-                p1 = encrypted.decryptIntoObject();
-            }
-            if (p1.isAny(alignment.getTypes())) {
-                alignment.copyFrom(p1);
-                if (EcRepository.caching) {
-                    (EcRepository.cache)[alignment.shortId()] = alignment;
-                    (EcRepository.cache)[alignment.id] = alignment;
-                }
-                if (success != null) 
-                    success(alignment);
-            } else {
-                var msg = "Resultant object is not a relation.";
-                if (failure != null) 
-                    failure(msg);
-                 else 
-                    console.error(msg);
-            }
-        }, failure);
+        return EcRepository.getAs(id, new CfdAlignment(), success, failure);
     };
     /**
      *  Retrieves an alignment from it's server synchronously, the call
@@ -57,28 +30,7 @@ module.exports = class CfdAlignment extends schema.AlignmentObject{
      *  @static
      */
     static getBlocking(id) {
-        var p1 = EcRepository.getBlocking(id);
-        if (stjs.isInstanceOf(p1.constructor, CfdAlignment)) 
-            return p1;
-        var alignment = new CfdAlignment();
-        if (p1.isA(EcEncryptedValue.myType)) {
-            var encrypted = new EcEncryptedValue();
-            encrypted.copyFrom(p1);
-            p1 = encrypted.decryptIntoObject();
-            EcEncryptedValue.encryptOnSave(p1.id, true);
-        }
-        if (p1.isAny(alignment.getTypes())) {
-            alignment.copyFrom(p1);
-            if (EcRepository.caching) {
-                (EcRepository.cache)[alignment.shortId()] = alignment;
-                (EcRepository.cache)[alignment.id] = alignment;
-            }
-            return alignment;
-        } else {
-            var msg = "Retrieved object was not a relation";
-            console.error(msg);
-            return null;
-        }
+        return EcRepository.getAs(id, new CfdAlignment());
     };
     /**
      *  Searches the repository using the query and optional parameters provided
@@ -100,31 +52,7 @@ module.exports = class CfdAlignment extends schema.AlignmentObject{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        var queryAdd = new CfdAlignment().getSearchStringByType();
-        if (query == null || query == "") 
-            query = queryAdd;
-         else 
-            query = "(" + query + ") AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                for (var i = 0; i < p1.length; i++) {
-                    var alignment = new CfdAlignment();
-                    if (p1[i].isAny(alignment.getTypes())) {
-                        alignment.copyFrom(p1[i]);
-                    } else if (p1[i].isA(EcEncryptedValue.myType)) {
-                        var val = new EcEncryptedValue();
-                        val.copyFrom(p1[i]);
-                        if (val.isAnEncrypted(CfdAlignment.myType)) {
-                            var obj = val.decryptIntoObject();
-                            alignment.copyFrom(obj);
-                        }
-                    }
-                    ret[i] = alignment;
-                }
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, query, () => new CfdAlignment(), success, failure, paramObj);
     };
     /**
      *  Gets the AlignmentObject educationalFramework field of this alignment
@@ -185,20 +113,18 @@ module.exports = class CfdAlignment extends schema.AlignmentObject{
         if (this.targetUrl == null || this.targetUrl == "") {
             var msg = "Target Competency cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.alignmentType == null || this.alignmentType == "") {
             var msg = "Relation Type cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
-        EcRepository.save(this, success, failure);
+        return EcRepository.save(this, success, failure);
     };
     /**
      *  Deletes the alignment from the server corresponding to its ID
@@ -211,6 +137,6 @@ module.exports = class CfdAlignment extends schema.AlignmentObject{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
 };

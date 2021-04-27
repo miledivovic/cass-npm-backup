@@ -91,10 +91,8 @@ else
         }
     }
     if (!String.prototype.trim) {
-        stjs.trimLeftRegExp = /^\s+/;
-        stjs.trimRightRegExp = /\s+$/;
         String.prototype.trim = function() {
-            return this.replace(stjs.trimLeftRegExp, "").replace(stjs.trimRightRegExp, "");
+            return this.replace(/^\s+/, "").replace(/\s+$/, "");
         }
     }
     if (!String.prototype.matches){
@@ -288,7 +286,6 @@ global.EcRsaOaep = require("./src/com/eduworks/ec/crypto/EcRsaOaep.js");
 global.Hypergraph = require("./src/com/eduworks/ec/graph/Hypergraph.js");
 global.Triple = require("./src/com/eduworks/ec/graph/Triple.js");
 global.EcRemote = require("./src/com/eduworks/ec/remote/EcRemote.js");
-global.EcLocalStorage = require("./src/com/eduworks/ec/storage/EcLocalStorage.js");
 global.EcAsyncTask = require("./src/com/eduworks/ec/task/EcAsyncTask.js");
 global.Task = require("./src/com/eduworks/ec/task/Task.js");
 global.Exporter = require("./src/org/cass/exporter/Exporter.js");
@@ -526,8 +523,6 @@ global.ExtPerson = require("./src/com/eduworks/schema/pebl/eXtension/ExtPerson.j
 global.ExtResource = require("./src/com/eduworks/schema/pebl/eXtension/ExtResource.js");
 global.EcQuiz = require("./src/com/eduworks/schema/question/EcQuiz.js");
 global.VideoStory = require("./src/org/angles/schema/angles/VideoStory.js");
-global.MoodleConfig = require("./src/org/cass/adapter/MoodleConfig.js");
-global.XapiConfig = require("./src/org/cass/adapter/XapiConfig.js");
 global.EcContactGrant = require("./src/org/cassproject/ebac/identity/EcContactGrant.js");
 global.EcFile = require("./src/org/cassproject/general/repository/EcFile.js");
 global.Competency = require("./src/org/cassproject/schema/cass/competency/Competency.js");

@@ -19,9 +19,7 @@ module.exports = class EcQuestion extends schema.Question{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcQuestion();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcQuestion(), success, failure, paramObj);
     };
     /**
      *  Heuristic method of determining how this question should be asked.
@@ -65,7 +63,7 @@ module.exports = class EcQuestion extends schema.Question{
     cementAnswerId(id) {
         if (this.acceptedAnswer != null) {
             if (!EcArray.isArray(this.acceptedAnswer)) {
-                 throw new RuntimeException("Accepted Answer is not Array");
+                 throw new Error("Accepted Answer is not Array");
             }
             var ary = this.acceptedAnswer;
             for (var i = 0; i < ary.length; i++) {
@@ -76,7 +74,7 @@ module.exports = class EcQuestion extends schema.Question{
         }
         if (this.suggestedAnswer != null) {
             if (!EcArray.isArray(this.suggestedAnswer)) {
-                 throw new RuntimeException("Suggested Answer is not Array");
+                 throw new Error("Suggested Answer is not Array");
             }
             var ary = this.suggestedAnswer;
             for (var i = 0; i < ary.length; i++) {
@@ -103,7 +101,7 @@ module.exports = class EcQuestion extends schema.Question{
             (this)["acceptedAnswer"] = [];
         }
         if (!EcArray.isArray(this.acceptedAnswer)) {
-             throw new RuntimeException("Accepted Answer is not Array");
+             throw new Error("Accepted Answer is not Array");
         }
         var ary = this.acceptedAnswer;
         ary.push(answer.id);
@@ -113,7 +111,7 @@ module.exports = class EcQuestion extends schema.Question{
             (this)["suggestedAnswer"] = [];
         }
         if (!EcArray.isArray(this.suggestedAnswer)) {
-             throw new RuntimeException("Suggested Answer is not Array");
+             throw new Error("Suggested Answer is not Array");
         }
         var ary = this.suggestedAnswer;
         ary.push(answer.id);
@@ -123,7 +121,7 @@ module.exports = class EcQuestion extends schema.Question{
             return;
         }
         if (!EcArray.isArray(this.suggestedAnswer)) {
-             throw new RuntimeException("Suggested Answer is not Array");
+             throw new Error("Suggested Answer is not Array");
         }
         var ary = this.suggestedAnswer;
         for (var i = 0; i < ary.length; i++) {
@@ -137,7 +135,7 @@ module.exports = class EcQuestion extends schema.Question{
             return;
         }
         if (!EcArray.isArray(this.acceptedAnswer)) {
-             throw new RuntimeException("Accepted Answer is not Array");
+             throw new Error("Accepted Answer is not Array");
         }
         var ary = this.acceptedAnswer;
         for (var i = 0; i < ary.length; i++) {

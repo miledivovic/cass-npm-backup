@@ -15,7 +15,7 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.getAs(id, new EcOrganization(), success, failure);
+        return EcRepository.getAs(id, new EcOrganization(), success, failure);
     };
     /**
      *  Retrieves an organization from it's server synchronously, the call
@@ -30,7 +30,7 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @static
      */
     static getBlocking(id) {
-        return EcRepository.getBlockingAs(id, new EcOrganization());
+        return EcRepository.getAs(id, new EcOrganization());
     };
     /**
      *  Searches a repository for organizations that match the search query
@@ -46,9 +46,7 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        EcRepository.searchAs(repo, query, function() {
-            return new EcOrganization();
-        }, success, failure, paramObj);
+        return EcRepository.searchAs(repo, query, () => new EcOrganization(), success, failure, paramObj);
     };
     /**
      *  Adds the given person's id to the employee list
@@ -60,7 +58,7 @@ module.exports = class EcOrganization extends schema.Organization{
         if (this.employee == null) 
             (this)["employee"] = [];
         if (!EcArray.isArray(this.employee)) 
-             throw new RuntimeException("Employee is not Array");
+             throw new Error("Employee is not Array");
         var ary = this.employee;
         var psid = person.shortId();
         for (var i = 0; i < ary.length; i++) {
@@ -79,7 +77,7 @@ module.exports = class EcOrganization extends schema.Organization{
         if (this.employee == null) 
             return;
         if (!EcArray.isArray(this.employee)) 
-             throw new RuntimeException("Employee is not Array");
+             throw new Error("Employee is not Array");
         var ary = this.employee;
         for (var i = 0; i < ary.length; i++) {
             if (EcRemoteLinkedData.trimVersionFromUrl(ary[i]) == EcRemoteLinkedData.trimVersionFromUrl(id)) {
@@ -140,10 +138,10 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @memberOf EcOrganization
      *  @method addOrgKey
      */
-    addOrgKey(newOrgPpk) {
+    async addOrgKey(newOrgPpk) {
         var orgKeys = this.getOrgKeys();
         orgKeys.push(newOrgPpk);
-        var newKeys = EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(orgKeys), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
+        var newKeys = await EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(orgKeys), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
         (this)[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
     };
     /**
@@ -156,7 +154,7 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @memberOf EcOrganization
      *  @method rekeyAndSave
      */
-    rekeyAndSave(success, failure, repo) {
+    async rekeyAndSave(success, failure, repo) {
         if (repo == null) {
             var msg = "Repository cannot be null for a rekey operation";
             if (failure != null) 
@@ -171,12 +169,12 @@ module.exports = class EcOrganization extends schema.Organization{
             identity.ppk = newKey;
             identity.displayName = "Organization Rekey New Key";
             EcIdentityManager.addIdentity(identity);
-            var rekeyRequest = EcRekeyRequest.generateRekeyRequest(repo.selectedServer, oldKey, newKey);
+            var rekeyRequest = await EcRekeyRequest.generateRekeyRequest(repo.selectedServer, oldKey, newKey);
             this.addOrgKey(newKey);
-            var newKeys = EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(this.getOrgKeys()), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
+            var newKeys = await EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(this.getOrgKeys()), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
             (this)[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
-            repo.saveTo(this, function(res) {
-                repo.saveTo(rekeyRequest, success, failure);
+            await repo.saveTo(this, async (res) => {
+                await repo.saveTo(rekeyRequest, success, failure);
             }, failure);
         }
     };
@@ -190,13 +188,13 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @memberOf EcOrganization
      *  @method save
      */
-    save(success, failure, repo) {
-        var newKeys = EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(this.getOrgKeys()), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
+    async save(success, failure, repo) {
+        var newKeys = await EcEncryptedValue.encryptValue(this.ppkListToPemArrayString(this.getOrgKeys()), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
         (this)[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
         if (repo == null) 
-            EcRepository.save(this, success, failure);
-         else 
-            repo.saveTo(this, success, failure);
+            return EcRepository.save(this, success, failure);
+        else 
+            return repo.saveTo(this, success, failure);
     };
     /**
      *  Returns the current organization key
@@ -221,13 +219,13 @@ module.exports = class EcOrganization extends schema.Organization{
      *  @memberOf EcOrganization
      *  @method getOrgKeys
      */
-    getOrgKeys() {
+    async getOrgKeys() {
         var orgKeys = [];
         var o = (this)[EcOrganization.ORG_PPK_SET_KEY];
         if (o != null) {
             var ev = new EcEncryptedValue();
             ev.copyFrom(o);
-            var orgKeysPPKPems = JSON.parse(ev.decryptIntoString());
+            var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString());
             for (var i = 0; i < orgKeysPPKPems.length; i++) {
                 orgKeys.push(EcPpk.fromPem(orgKeysPPKPems[i]));
             }
@@ -239,15 +237,15 @@ module.exports = class EcOrganization extends schema.Organization{
      * 
      *  @method moveKeyField
      */
-    moveKeyField() {
+    async moveKeyField() {
         var o = (this)["https://schema.cassproject.org/0.3/ppk"];
         if (o != null) {
             var ev = new EcEncryptedValue();
             ev.copyFrom(o);
-            var currentGroupPpkPem = ev.decryptIntoString();
+            var currentGroupPpkPem = await ev.decryptIntoString();
             var keyArray = [];
             keyArray.push(currentGroupPpkPem);
-            var newKey = EcEncryptedValue.encryptValue(JSON.stringify(keyArray), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
+            var newKey = await EcEncryptedValue.encryptValue(JSON.stringify(keyArray), EcOrganization.ORG_PPK_SET_KEY, this.owner, this.reader);
             (this)[EcOrganization.ORG_PPK_SET_KEY] = newKey;
             delete (this)["https://schema.cassproject.org/0.3/ppk"];
         }

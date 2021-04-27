@@ -30,34 +30,7 @@ module.exports = class CfdReference extends schema.CreativeWork{
      *  @static
      */
     static get(id, success, failure) {
-        EcRepository.get(id, function(p1) {
-            if (stjs.isInstanceOf(p1.constructor, CfdReference)) 
-                if (success != null) {
-                    success(p1);
-                    return;
-                }
-            var reference = new CfdReference();
-            if (p1.isA(EcEncryptedValue.myType)) {
-                var encrypted = new EcEncryptedValue();
-                encrypted.copyFrom(p1);
-                p1 = encrypted.decryptIntoObject();
-            }
-            if (p1.isAny(reference.getTypes())) {
-                reference.copyFrom(p1);
-                if (EcRepository.caching) {
-                    (EcRepository.cache)[reference.shortId()] = reference;
-                    (EcRepository.cache)[reference.id] = reference;
-                }
-                if (success != null) 
-                    success(reference);
-            } else {
-                var msg = "Resultant object is not a reference.";
-                if (failure != null) 
-                    failure(msg);
-                 else 
-                    console.error(msg);
-            }
-        }, failure);
+        return EcRepository.getAs(id, new CfdReference(), success, failure);
     };
     /**
      *  Retrieves an alignment from it's server synchronously, the call
@@ -72,28 +45,7 @@ module.exports = class CfdReference extends schema.CreativeWork{
      *  @static
      */
     static getBlocking(id) {
-        var p1 = EcRepository.getBlocking(id);
-        if (stjs.isInstanceOf(p1.constructor, CfdReference)) 
-            return p1;
-        var reference = new CfdReference();
-        if (p1.isA(EcEncryptedValue.myType)) {
-            var encrypted = new EcEncryptedValue();
-            encrypted.copyFrom(p1);
-            p1 = encrypted.decryptIntoObject();
-            EcEncryptedValue.encryptOnSave(p1.id, true);
-        }
-        if (p1.isAny(reference.getTypes())) {
-            reference.copyFrom(p1);
-            if (EcRepository.caching) {
-                (EcRepository.cache)[reference.shortId()] = reference;
-                (EcRepository.cache)[reference.id] = reference;
-            }
-            return reference;
-        } else {
-            var msg = "Retrieved object was not a reference";
-            console.error(msg);
-            return null;
-        }
+        return EcRepository.getAs(id, new CfdReference());
     };
     /**
      *  Searches the repository using the query and optional parameters provided
@@ -115,31 +67,7 @@ module.exports = class CfdReference extends schema.CreativeWork{
      *  @static
      */
     static search(repo, query, success, failure, paramObj) {
-        var queryAdd = new CfdReference().getSearchStringByType();
-        if (query == null || query == "") 
-            query = queryAdd;
-         else 
-            query = "(" + query + ") AND educationalUse:\"" + CfdReference.edUse + "\" AND " + queryAdd;
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                for (var i = 0; i < p1.length; i++) {
-                    var reference = new CfdReference();
-                    if (p1[i].isAny(reference.getTypes())) {
-                        reference.copyFrom(p1[i]);
-                    } else if (p1[i].isA(EcEncryptedValue.myType)) {
-                        var val = new EcEncryptedValue();
-                        val.copyFrom(p1[i]);
-                        if (val.isAnEncrypted(CfdReference.myType)) {
-                            var obj = val.decryptIntoObject();
-                            reference.copyFrom(obj);
-                        }
-                    }
-                    ret[i] = reference;
-                }
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, "(" + query + ") AND educationalUse:\"" + CfdReference.edUse, () => new CfdReference(), success, failure, paramObj);
     };
     /**
      *  Searches the repository for references with the framework and optional parameters provided
@@ -161,28 +89,7 @@ module.exports = class CfdReference extends schema.CreativeWork{
      *  @static
      */
     static searchWithFramework(repo, framework, success, failure, paramObj) {
-        var query = new CfdReference().getSearchStringByType();
-        query = "(" + query + ") AND educationalUse:\"" + CfdReference.edUse + "\" AND educationalAlignment.educationalFramework:\"" + framework + "\"";
-        repo.searchWithParams(query, paramObj, null, function(p1) {
-            if (success != null) {
-                var ret = [];
-                for (var i = 0; i < p1.length; i++) {
-                    var reference = new CfdReference();
-                    if (p1[i].isAny(reference.getTypes())) {
-                        reference.copyFrom(p1[i]);
-                    } else if (p1[i].isA(EcEncryptedValue.myType)) {
-                        var val = new EcEncryptedValue();
-                        val.copyFrom(p1[i]);
-                        if (val.isAnEncrypted(CfdReference.myType)) {
-                            var obj = val.decryptIntoObject();
-                            reference.copyFrom(obj);
-                        }
-                    }
-                    ret[i] = reference;
-                }
-                success(ret);
-            }
-        }, failure);
+        return EcRepository.searchAs(repo, "(" + query + ") AND educationalUse:\"" + CfdReference.edUse + "\" AND educationalAlignment.educationalFramework:\"" + framework + "\"", () => new CfdReference(), success, failure, paramObj);
     };
     /**
      *  Returns the name of the reference
@@ -261,28 +168,25 @@ module.exports = class CfdReference extends schema.CreativeWork{
         if (this.name == null || this.name == "") {
             var msg = "Name cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.url == null || this.url == "") {
             var msg = "Url cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
         if (this.educationalAlignment == null) {
             var msg = "Educational Alignment cannot be missing";
             if (failure != null) 
-                failure(msg);
-             else 
-                console.error(msg);
-            return;
+                return failure(msg);
+            else
+                throw new Error(msg);
         }
-        EcRepository.save(this, success, failure);
+        return EcRepository.save(this, success, failure);
     };
     /**
      *  Deletes the alignment from the server corresponding to its ID
@@ -295,6 +199,6 @@ module.exports = class CfdReference extends schema.CreativeWork{
      *  @method _delete
      */
     _delete = function(success, failure) {
-        EcRepository.DELETE(this, success, failure);
+        return EcRepository.DELETE(this, success, failure);
     };
 };

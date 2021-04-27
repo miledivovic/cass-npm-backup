@@ -14,7 +14,6 @@ module.exports = class Enumeration extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Enumeration");
+		this.setContextAndType("http://schema.org/", "Enumeration");
 	}
-
-}
+};

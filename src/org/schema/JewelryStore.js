@@ -14,7 +14,6 @@ module.exports = class JewelryStore extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","JewelryStore");
+		this.setContextAndType("http://schema.org/", "JewelryStore");
 	}
-
-}
+};

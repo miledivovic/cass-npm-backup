@@ -14,7 +14,6 @@ module.exports = class LodgingBusiness extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LodgingBusiness");
+		this.setContextAndType("http://schema.org/", "LodgingBusiness");
 	}
-
-}
+};

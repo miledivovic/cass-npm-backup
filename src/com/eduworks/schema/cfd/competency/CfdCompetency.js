@@ -1,3 +1,3 @@
-module.exports = class CfdCompetency extends EcCompetency{
-    subtype = null;
+module.exports = class CfdCompetency extends EcCompetency {
+	subtype = null;
 };

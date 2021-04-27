@@ -14,7 +14,6 @@ module.exports = class TireShop extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TireShop");
+		this.setContextAndType("http://schema.org/", "TireShop");
 	}
-
-}
+};

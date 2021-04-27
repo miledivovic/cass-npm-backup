@@ -14,7 +14,6 @@ module.exports = class Guide extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Guide");
+		this.setContextAndType("http://schema.org/", "Guide");
 	}
-
-}
+};

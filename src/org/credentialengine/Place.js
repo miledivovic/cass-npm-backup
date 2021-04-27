@@ -5,15 +5,13 @@
  * @class Place
  * @module org.credentialengine
  */
-module.exports = class Place extends EcRemoteLinkedData
-{
+module.exports = class Place extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","Place");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "Place");
 	}
 
 	/**
@@ -122,5 +120,4 @@ module.exports = class Place extends EcRemoteLinkedData
 	 * @type ContactPoint
 	 */
 	targetContactPoint;
-
-}
+};

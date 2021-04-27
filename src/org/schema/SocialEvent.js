@@ -14,7 +14,6 @@ module.exports = class SocialEvent extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SocialEvent");
+		this.setContextAndType("http://schema.org/", "SocialEvent");
 	}
-
-}
+};

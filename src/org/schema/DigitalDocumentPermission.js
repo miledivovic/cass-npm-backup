@@ -14,7 +14,9 @@ module.exports = class DigitalDocumentPermission extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DigitalDocumentPermission");
+		this.setContextAndType(
+			"http://schema.org/",
+			"DigitalDocumentPermission"
+		);
 	}
-
-}
+};

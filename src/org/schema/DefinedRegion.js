@@ -27,7 +27,6 @@ module.exports = class DefinedRegion extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DefinedRegion");
+		this.setContextAndType("http://schema.org/", "DefinedRegion");
 	}
-
-}
+};

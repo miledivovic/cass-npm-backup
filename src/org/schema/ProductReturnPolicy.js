@@ -14,7 +14,6 @@ module.exports = class ProductReturnPolicy extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ProductReturnPolicy");
+		this.setContextAndType("http://schema.org/", "ProductReturnPolicy");
 	}
-
-}
+};

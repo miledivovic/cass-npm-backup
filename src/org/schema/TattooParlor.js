@@ -14,7 +14,6 @@ module.exports = class TattooParlor extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TattooParlor");
+		this.setContextAndType("http://schema.org/", "TattooParlor");
 	}
-
-}
+};

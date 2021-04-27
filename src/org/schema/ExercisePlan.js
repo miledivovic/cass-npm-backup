@@ -16,7 +16,6 @@ module.exports = class ExercisePlan extends schema.CreativeWork {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ExercisePlan");
+		this.setContextAndType("http://schema.org/", "ExercisePlan");
 	}
-
-}
+};

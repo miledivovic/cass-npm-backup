@@ -14,7 +14,9 @@ module.exports = class ExchangeRateSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ExchangeRateSpecification");
+		this.setContextAndType(
+			"http://schema.org/",
+			"ExchangeRateSpecification"
+		);
 	}
-
-}
+};

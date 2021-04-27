@@ -14,7 +14,6 @@ module.exports = class DoseSchedule extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DoseSchedule");
+		this.setContextAndType("http://schema.org/", "DoseSchedule");
 	}
-
-}
+};

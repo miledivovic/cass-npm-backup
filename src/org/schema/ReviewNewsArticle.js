@@ -16,7 +16,6 @@ module.exports = class ReviewNewsArticle extends schema.CriticReview {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ReviewNewsArticle");
+		this.setContextAndType("http://schema.org/", "ReviewNewsArticle");
 	}
-
-}
+};

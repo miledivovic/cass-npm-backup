@@ -14,7 +14,6 @@ module.exports = class BefriendAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BefriendAction");
+		this.setContextAndType("http://schema.org/", "BefriendAction");
 	}
-
-}
+};

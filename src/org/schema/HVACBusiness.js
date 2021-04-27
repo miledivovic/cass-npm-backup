@@ -14,7 +14,6 @@ module.exports = class HVACBusiness extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HVACBusiness");
+		this.setContextAndType("http://schema.org/", "HVACBusiness");
 	}
-
-}
+};

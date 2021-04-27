@@ -16,7 +16,6 @@ module.exports = class SkiResort extends schema.Resort {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SkiResort");
+		this.setContextAndType("http://schema.org/", "SkiResort");
 	}
-
-}
+};

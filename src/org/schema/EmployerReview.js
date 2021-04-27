@@ -14,7 +14,6 @@ module.exports = class EmployerReview extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EmployerReview");
+		this.setContextAndType("http://schema.org/", "EmployerReview");
 	}
-
-}
+};

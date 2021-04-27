@@ -17,7 +17,6 @@ module.exports = class NewsArticle extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","NewsArticle");
+		this.setContextAndType("http://schema.org/", "NewsArticle");
 	}
-
-}
+};

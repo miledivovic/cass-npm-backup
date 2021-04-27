@@ -14,7 +14,6 @@ module.exports = class PhysicalTherapy extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PhysicalTherapy");
+		this.setContextAndType("http://schema.org/", "PhysicalTherapy");
 	}
-
-}
+};

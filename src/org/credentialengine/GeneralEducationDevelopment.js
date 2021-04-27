@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends Diploma
  */
-module.exports = class GeneralEducationDevelopment extends ce.Diploma
-{
+module.exports = class GeneralEducationDevelopment extends ce.Diploma {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","GeneralEducationDevelopment");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"GeneralEducationDevelopment"
+		);
 	}
 
 	/**
@@ -757,5 +758,4 @@ module.exports = class GeneralEducationDevelopment extends ce.Diploma
 	 * @type IdentifierValue
 	 */
 	versionIdentifier;
-
-}
+};

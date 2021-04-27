@@ -14,7 +14,6 @@ module.exports = class AutomatedTeller extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AutomatedTeller");
+		this.setContextAndType("http://schema.org/", "AutomatedTeller");
 	}
-
-}
+};

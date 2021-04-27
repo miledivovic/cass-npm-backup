@@ -14,7 +14,6 @@ module.exports = class ReservationPackage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ReservationPackage");
+		this.setContextAndType("http://schema.org/", "ReservationPackage");
 	}
-
-}
+};

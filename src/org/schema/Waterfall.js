@@ -14,7 +14,6 @@ module.exports = class Waterfall extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Waterfall");
+		this.setContextAndType("http://schema.org/", "Waterfall");
 	}
-
-}
+};

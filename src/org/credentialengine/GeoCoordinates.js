@@ -6,16 +6,17 @@
  * @module org.credentialengine
  * @extends StructuredValue
  */
-module.exports = class GeoCoordinates extends schema.StructuredValue
-{
+module.exports = class GeoCoordinates extends schema.StructuredValue {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","GeoCoordinates");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"GeoCoordinates"
+		);
 	}
 
 	/**
@@ -52,5 +53,4 @@ module.exports = class GeoCoordinates extends schema.StructuredValue
 	 * @type langString
 	 */
 	name;
-
-}
+};

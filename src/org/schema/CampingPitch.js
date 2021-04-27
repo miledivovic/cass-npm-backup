@@ -18,7 +18,6 @@ module.exports = class CampingPitch extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CampingPitch");
+		this.setContextAndType("http://schema.org/", "CampingPitch");
 	}
-
-}
+};

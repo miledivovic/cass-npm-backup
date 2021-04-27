@@ -14,7 +14,6 @@ module.exports = class ServiceChannel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ServiceChannel");
+		this.setContextAndType("http://schema.org/", "ServiceChannel");
 	}
-
-}
+};

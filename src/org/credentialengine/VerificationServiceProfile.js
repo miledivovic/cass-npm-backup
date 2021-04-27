@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends Intangible
  */
-module.exports = class VerificationServiceProfile extends schema.Intangible
-{
+module.exports = class VerificationServiceProfile extends schema.Intangible {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","VerificationServiceProfile");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"VerificationServiceProfile"
+		);
 	}
 
 	/**
@@ -132,5 +133,4 @@ module.exports = class VerificationServiceProfile extends schema.Intangible
 	 * @type CredentialAlignmentObject
 	 */
 	verifiedClaimType;
-
-}
+};

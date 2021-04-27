@@ -16,7 +16,6 @@ module.exports = class Course extends schema.LearningResource {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Course");
+		this.setContextAndType("http://schema.org/", "Course");
 	}
-
-}
+};

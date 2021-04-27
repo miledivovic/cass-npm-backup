@@ -14,7 +14,6 @@ module.exports = class SportsActivityLocation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SportsActivityLocation");
+		this.setContextAndType("http://schema.org/", "SportsActivityLocation");
 	}
-
-}
+};

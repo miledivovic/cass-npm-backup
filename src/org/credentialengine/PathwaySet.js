@@ -5,15 +5,13 @@
  * @class PathwaySet
  * @module org.credentialengine
  */
-module.exports = class PathwaySet extends EcRemoteLinkedData
-{
+module.exports = class PathwaySet extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","PathwaySet");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "PathwaySet");
 	}
 
 	/**
@@ -74,5 +72,4 @@ module.exports = class PathwaySet extends EcRemoteLinkedData
 	 * @type anyURI
 	 */
 	subjectWebpage;
-
-}
+};

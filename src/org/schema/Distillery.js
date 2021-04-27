@@ -14,7 +14,6 @@ module.exports = class Distillery extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Distillery");
+		this.setContextAndType("http://schema.org/", "Distillery");
 	}
-
-}
+};

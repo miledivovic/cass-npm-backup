@@ -14,7 +14,6 @@ module.exports = class LakeBodyOfWater extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LakeBodyOfWater");
+		this.setContextAndType("http://schema.org/", "LakeBodyOfWater");
 	}
-
-}
+};

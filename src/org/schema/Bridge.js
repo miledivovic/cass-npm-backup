@@ -14,7 +14,6 @@ module.exports = class Bridge extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Bridge");
+		this.setContextAndType("http://schema.org/", "Bridge");
 	}
-
-}
+};

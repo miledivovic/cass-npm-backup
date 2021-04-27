@@ -14,7 +14,6 @@ module.exports = class NailSalon extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","NailSalon");
+		this.setContextAndType("http://schema.org/", "NailSalon");
 	}
-
-}
+};

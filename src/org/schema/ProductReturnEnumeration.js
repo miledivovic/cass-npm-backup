@@ -14,7 +14,9 @@ module.exports = class ProductReturnEnumeration extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ProductReturnEnumeration");
+		this.setContextAndType(
+			"http://schema.org/",
+			"ProductReturnEnumeration"
+		);
 	}
-
-}
+};

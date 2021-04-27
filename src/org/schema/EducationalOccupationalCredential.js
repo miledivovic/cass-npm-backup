@@ -6,7 +6,8 @@
  * @class EducationalOccupationalCredential
  * @module org.schema
  */
-module.exports = class EducationalOccupationalCredential extends EcRemoteLinkedData {
+module.exports = class EducationalOccupationalCredential extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class EducationalOccupationalCredential extends EcRemoteLinkedD
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EducationalOccupationalCredential");
+		this.setContextAndType(
+			"http://schema.org/",
+			"EducationalOccupationalCredential"
+		);
 	}
-
-}
+};

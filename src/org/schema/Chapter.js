@@ -14,7 +14,6 @@ module.exports = class Chapter extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Chapter");
+		this.setContextAndType("http://schema.org/", "Chapter");
 	}
-
-}
+};

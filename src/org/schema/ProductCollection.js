@@ -16,7 +16,6 @@ module.exports = class ProductCollection extends schema.Product {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ProductCollection");
+		this.setContextAndType("http://schema.org/", "ProductCollection");
 	}
-
-}
+};

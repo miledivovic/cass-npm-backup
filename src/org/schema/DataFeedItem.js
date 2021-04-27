@@ -14,7 +14,6 @@ module.exports = class DataFeedItem extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DataFeedItem");
+		this.setContextAndType("http://schema.org/", "DataFeedItem");
 	}
-
-}
+};

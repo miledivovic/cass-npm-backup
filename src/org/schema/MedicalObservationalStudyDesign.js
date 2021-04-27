@@ -6,7 +6,8 @@
  * @class MedicalObservationalStudyDesign
  * @module org.schema
  */
-module.exports = class MedicalObservationalStudyDesign extends EcRemoteLinkedData {
+module.exports = class MedicalObservationalStudyDesign extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class MedicalObservationalStudyDesign extends EcRemoteLinkedDat
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalObservationalStudyDesign");
+		this.setContextAndType(
+			"http://schema.org/",
+			"MedicalObservationalStudyDesign"
+		);
 	}
-
-}
+};

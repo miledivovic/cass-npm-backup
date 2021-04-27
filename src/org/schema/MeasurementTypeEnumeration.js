@@ -14,7 +14,9 @@ module.exports = class MeasurementTypeEnumeration extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MeasurementTypeEnumeration");
+		this.setContextAndType(
+			"http://schema.org/",
+			"MeasurementTypeEnumeration"
+		);
 	}
-
-}
+};

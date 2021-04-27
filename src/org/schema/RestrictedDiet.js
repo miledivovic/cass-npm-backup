@@ -1,6 +1,6 @@
 /**
  * Schema.org/RestrictedDiet
- * A diet restricted to certain foods or preparations for cultural, religious, health or lifestyle reasons. 
+ * A diet restricted to certain foods or preparations for cultural, religious, health or lifestyle reasons.
  *
  * @author schema.org
  * @class RestrictedDiet
@@ -14,7 +14,6 @@ module.exports = class RestrictedDiet extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RestrictedDiet");
+		this.setContextAndType("http://schema.org/", "RestrictedDiet");
 	}
-
-}
+};

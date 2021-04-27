@@ -14,7 +14,6 @@ module.exports = class ElementarySchool extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ElementarySchool");
+		this.setContextAndType("http://schema.org/", "ElementarySchool");
 	}
-
-}
+};

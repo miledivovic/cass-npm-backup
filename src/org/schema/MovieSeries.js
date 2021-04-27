@@ -14,7 +14,6 @@ module.exports = class MovieSeries extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MovieSeries");
+		this.setContextAndType("http://schema.org/", "MovieSeries");
 	}
-
-}
+};

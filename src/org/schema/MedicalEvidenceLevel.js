@@ -14,7 +14,6 @@ module.exports = class MedicalEvidenceLevel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalEvidenceLevel");
+		this.setContextAndType("http://schema.org/", "MedicalEvidenceLevel");
 	}
-
-}
+};

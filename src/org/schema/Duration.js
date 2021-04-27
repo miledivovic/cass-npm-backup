@@ -14,7 +14,6 @@ module.exports = class Duration extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Duration");
+		this.setContextAndType("http://schema.org/", "Duration");
 	}
-
-}
+};

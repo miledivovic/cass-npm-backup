@@ -14,7 +14,6 @@ module.exports = class AdultEntertainment extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AdultEntertainment");
+		this.setContextAndType("http://schema.org/", "AdultEntertainment");
 	}
-
-}
+};

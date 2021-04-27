@@ -14,7 +14,6 @@ module.exports = class AudioObject extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AudioObject");
+		this.setContextAndType("http://schema.org/", "AudioObject");
 	}
-
-}
+};

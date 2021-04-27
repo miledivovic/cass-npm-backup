@@ -14,7 +14,6 @@ module.exports = class Hackathon extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Hackathon");
+		this.setContextAndType("http://schema.org/", "Hackathon");
 	}
-
-}
+};

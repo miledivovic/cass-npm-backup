@@ -14,7 +14,6 @@ module.exports = class Order extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Order");
+		this.setContextAndType("http://schema.org/", "Order");
 	}
-
-}
+};

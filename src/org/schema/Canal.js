@@ -14,7 +14,6 @@ module.exports = class Canal extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Canal");
+		this.setContextAndType("http://schema.org/", "Canal");
 	}
-
-}
+};

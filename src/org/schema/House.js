@@ -14,7 +14,6 @@ module.exports = class House extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","House");
+		this.setContextAndType("http://schema.org/", "House");
 	}
-
-}
+};

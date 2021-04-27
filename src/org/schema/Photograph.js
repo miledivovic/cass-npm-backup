@@ -14,7 +14,6 @@ module.exports = class Photograph extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Photograph");
+		this.setContextAndType("http://schema.org/", "Photograph");
 	}
-
-}
+};

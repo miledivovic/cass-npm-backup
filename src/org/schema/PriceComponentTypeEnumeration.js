@@ -6,7 +6,8 @@
  * @class PriceComponentTypeEnumeration
  * @module org.schema
  */
-module.exports = class PriceComponentTypeEnumeration extends EcRemoteLinkedData {
+module.exports = class PriceComponentTypeEnumeration extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class PriceComponentTypeEnumeration extends EcRemoteLinkedData 
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PriceComponentTypeEnumeration");
+		this.setContextAndType(
+			"http://schema.org/",
+			"PriceComponentTypeEnumeration"
+		);
 	}
-
-}
+};

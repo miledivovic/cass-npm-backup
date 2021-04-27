@@ -14,7 +14,6 @@ module.exports = class GovernmentOffice extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","GovernmentOffice");
+		this.setContextAndType("http://schema.org/", "GovernmentOffice");
 	}
-
-}
+};

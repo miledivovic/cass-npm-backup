@@ -16,7 +16,6 @@ module.exports = class Pharmacy extends schema.MedicalOrganization {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Pharmacy");
+		this.setContextAndType("http://schema.org/", "Pharmacy");
 	}
-
-}
+};

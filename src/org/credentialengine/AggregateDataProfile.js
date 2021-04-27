@@ -5,15 +5,13 @@
  * @class AggregateDataProfile
  * @module org.credentialengine
  */
-module.exports = class AggregateDataProfile extends EcRemoteLinkedData
-{
+module.exports = class AggregateDataProfile extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","AggregateDataProfile");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "AggregateDataProfile");
 	}
 
 	/**
@@ -138,5 +136,4 @@ module.exports = class AggregateDataProfile extends EcRemoteLinkedData
 	 * @type DataSetProfile
 	 */
 	relevantDataSet;
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class DownloadAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DownloadAction");
+		this.setContextAndType("http://schema.org/", "DownloadAction");
 	}
-
-}
+};

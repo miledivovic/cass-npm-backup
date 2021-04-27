@@ -14,7 +14,6 @@ module.exports = class SelfStorage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SelfStorage");
+		this.setContextAndType("http://schema.org/", "SelfStorage");
 	}
-
-}
+};

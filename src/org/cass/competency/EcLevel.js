@@ -1,7 +1,7 @@
 /**
  *  Implementation of a Level object with methods for interacting with CASS
  *  services on a server.
- * 
+ *
  *  @author fritz.ray@eduworks.com
  *  @author devlin.junker@eduworks.com
  *  @module org.cassproject
@@ -9,176 +9,189 @@
  *  @constructor
  *  @extends Level
  */
-module.exports = class EcLevel extends Level{
-    /**
-     *  Retrieves a level from the server specified by its ID
-     * 
-     *  @param {String}             id
-     *                              ID of the level to retrieve
-     *  @param {Callback1<EcLevel>} success
-     *                              Callback triggered when successfully retrieving the level,
-     *                              returns the level
-     *  @param {Callback1<String>}  failure
-     *                              Callback triggered if error occurs when retrieving the level
-     *  @memberOf EcLevel
-     *  @method get
-     *  @static
-     */
-    static get(id, success, failure) {
-        return EcRepository.getAs(id, new EcLevel(), success, failure);
-    };
-    /**
-     *  Retrieves a level from it's server synchronously, the call
-     *  blocks until it is successful or an error occurs
-     * 
-     *  @param {String} id
-     *                  ID of the level to retrieve
-     *  @return EcLevel
-     *  The level retrieved
-     *  @memberOf EcLevel
-     *  @method getBlocking
-     *  @static
-     *  @deprecated Use await on get()
-     */
-    static getBlocking(id) {
-        return EcRepository.getAs(id, new EcLevel());
-    };
-    /**
-     *  Searches for levels with a string query
-     * 
-     *  @param {EcRepository}              repo
-     *                                     Repository to search for levels
-     *  @param {String}                    query
-     *                                     query string to use in search
-     *  @param {Callback1<Array<EcLevel>>} success
-     *                                     Callback triggered when searches successfully
-     *  @param {Callback1<String>}         failure
-     *                                     Callback triggered if an error occurs while searching
-     *  @param {Object}                    paramObj
-     *                                     Search parameters object to pass in
-     *  @memberOf EcLevel
-     *  @method search
-     *  @static
-     */
-    static search(repo, query, success, failure, paramObj) {
-        return EcRepository.searchAs(repo, query, () => new EcLevel(), success, failure, paramObj);
-    };
-    /**
-     *  Searches for levels using a competency that the results must be related to
-     * 
-     *  @param {EcRepository}              repo
-     *                                     Repository to search for levels
-     *  @param {String}                    competencyId
-     *                                     competency ID that the levels are rleated to
-     *  @param {Callback1<Array<EcLevel>>} success
-     *                                     Callback triggered when searches successfully
-     *  @param {Callback1<String>}         failure
-     *                                     Callback triggered if an error occurs while searching
-     *  @param {Object}                    paramObj
-     *                                     Search parameters object to pass in
-     *  @memberOf EcLevel
-     *  @method searchByCompetency
-     *  @static
-     */
-    static searchByCompetency(repo, competencyId, success, failure, paramObj) {
-        if (competencyId == null || competencyId == "") {
-            failure("No Competency Specified");
-            return;
-        }
-        var query = "competency:\"" + competencyId + "\" OR competency:\"" + EcRemoteLinkedData.trimVersionFromUrl(competencyId) + "\"";
-        return EcLevel.search(repo, competencyId, success, failure, paramObj);
-    };
-    /**
-     *  Adds a relationship between this level and a target level to define
-     *  how they correspond to one another
-     * 
-     *  @param {EcLevel} targetLevel
-     *                   Target level of the relationship
-     *  @param {String}  alignmentType
-     *                   Type of relationship
-     *  @param {EcPpk}   identity
-     *                   Private key that will own the new relationship
-     *  @param {String}  server
-     *                   URL Prefix of the new relationship ID (Server it will be saved on)
-     *  @memberOf EcLevel
-     *  @method addRelationship
-     */
-    addRelationship(targetLevel, alignmentType, identity, serverUrl, success, failure, repo) {
-        var a = new EcAlignment();
-        a.source = this.id;
-        a.target = targetLevel.id;
-        a.relationType = alignmentType;
-        a.addOwner(identity.toPk());
-        if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1) 
-            a.generateId(serverUrl);
-         else 
-            a.generateShortId(serverUrl);
-        a.signWith(identity);
-        return a.save(success, failure, repo);
-    };
-    /**
-     *  Method to set the name of this level
-     * 
-     *  @param {String} name
-     *                  Name to set on the level
-     *  @memberOf EcLevel
-     *  @method setName
-     */
-    setName(name) {
-        this.name = name;
-    };
-    /**
-     *  Method to set the description of the level
-     * 
-     *  @param {String} description
-     *                  Description to set on the level
-     *  @memberOf EcLevel
-     *  @method setDescription
-     */
-    setDescription(description) {
-        this.description = description;
-    };
-    /**
-     *  Saves this levels details to the server
-     * 
-     *  @param {Callback1<String>} success
-     *                             Callback triggered on successfully saving the level to the server
-     *  @param {Callback1<String>} failure
-     *                             Callback triggered if error occurs while saving the level to the server
-     *  @memberOf EcLevel
-     *  @method save
-     */
-    save(success, failure, repo) {
-        if (this.name == null || this.name == "") {
-            var msg = "Level name cannot be empty";
-            if (failure !== undefined && failure != null)
-                return failure(msg);
-            else
-                throw new Error(msg);
-        }
-        if (this.competency == null || this.competency == "") {
-            var msg = "Level's Competency cannot be empty";
-            if (failure !== undefined && failure != null)
-                return failure(msg);
-            else
-                throw new Error(msg);
-        }
-        if (repo == null) 
-            return EcRepository.save(this, success, failure);
-        else 
-            return repo.saveTo(this, success, failure);
-    };
-    /**
-     *  Deletes the level from it's repository
-     * 
-     *  @param {Callback1<String>} success
-     *                             Callback triggered when the level is successfully deleted from the server
-     *  @param {Callback1<String>} failure
-     *                             Callback triggered if an error occurs while deleting the level
-     *  @memberOf EcLevel
-     *  @method _delete
-     */
-    _delete = function(success, failure) {
-        return EcRepository.DELETE(this, success, failure);
-    };
+module.exports = class EcLevel extends Level {
+	/**
+	 *  Retrieves a level from the server specified by its ID
+	 *
+	 *  @param {String}             id
+	 *                              ID of the level to retrieve
+	 *  @param {Callback1<EcLevel>} success
+	 *                              Callback triggered when successfully retrieving the level,
+	 *                              returns the level
+	 *  @param {Callback1<String>}  failure
+	 *                              Callback triggered if error occurs when retrieving the level
+	 *  @memberOf EcLevel
+	 *  @method get
+	 *  @static
+	 */
+	static get(id, success, failure) {
+		return EcRepository.getAs(id, new EcLevel(), success, failure);
+	}
+	/**
+	 *  Retrieves a level from it's server synchronously, the call
+	 *  blocks until it is successful or an error occurs
+	 *
+	 *  @param {String} id
+	 *                  ID of the level to retrieve
+	 *  @return EcLevel
+	 *  The level retrieved
+	 *  @memberOf EcLevel
+	 *  @method getBlocking
+	 *  @static
+	 *  @deprecated Use await on get()
+	 */
+	static getBlocking(id) {
+		return EcRepository.getAs(id, new EcLevel());
+	}
+	/**
+	 *  Searches for levels with a string query
+	 *
+	 *  @param {EcRepository}              repo
+	 *                                     Repository to search for levels
+	 *  @param {String}                    query
+	 *                                     query string to use in search
+	 *  @param {Callback1<Array<EcLevel>>} success
+	 *                                     Callback triggered when searches successfully
+	 *  @param {Callback1<String>}         failure
+	 *                                     Callback triggered if an error occurs while searching
+	 *  @param {Object}                    paramObj
+	 *                                     Search parameters object to pass in
+	 *  @memberOf EcLevel
+	 *  @method search
+	 *  @static
+	 */
+	static search(repo, query, success, failure, paramObj) {
+		return EcRepository.searchAs(
+			repo,
+			query,
+			() => new EcLevel(),
+			success,
+			failure,
+			paramObj
+		);
+	}
+	/**
+	 *  Searches for levels using a competency that the results must be related to
+	 *
+	 *  @param {EcRepository}              repo
+	 *                                     Repository to search for levels
+	 *  @param {String}                    competencyId
+	 *                                     competency ID that the levels are rleated to
+	 *  @param {Callback1<Array<EcLevel>>} success
+	 *                                     Callback triggered when searches successfully
+	 *  @param {Callback1<String>}         failure
+	 *                                     Callback triggered if an error occurs while searching
+	 *  @param {Object}                    paramObj
+	 *                                     Search parameters object to pass in
+	 *  @memberOf EcLevel
+	 *  @method searchByCompetency
+	 *  @static
+	 */
+	static searchByCompetency(repo, competencyId, success, failure, paramObj) {
+		if (competencyId == null || competencyId == "") {
+			failure("No Competency Specified");
+			return;
+		}
+		var query =
+			'competency:"' +
+			competencyId +
+			'" OR competency:"' +
+			EcRemoteLinkedData.trimVersionFromUrl(competencyId) +
+			'"';
+		return EcLevel.search(repo, competencyId, success, failure, paramObj);
+	}
+	/**
+	 *  Adds a relationship between this level and a target level to define
+	 *  how they correspond to one another
+	 *
+	 *  @param {EcLevel} targetLevel
+	 *                   Target level of the relationship
+	 *  @param {String}  alignmentType
+	 *                   Type of relationship
+	 *  @param {EcPpk}   identity
+	 *                   Private key that will own the new relationship
+	 *  @param {String}  server
+	 *                   URL Prefix of the new relationship ID (Server it will be saved on)
+	 *  @memberOf EcLevel
+	 *  @method addRelationship
+	 */
+	addRelationship(
+		targetLevel,
+		alignmentType,
+		identity,
+		serverUrl,
+		success,
+		failure,
+		repo
+	) {
+		var a = new EcAlignment();
+		a.source = this.id;
+		a.target = targetLevel.id;
+		a.relationType = alignmentType;
+		a.addOwner(identity.toPk());
+		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
+			a.generateId(serverUrl);
+		else a.generateShortId(serverUrl);
+		a.signWith(identity);
+		return a.save(success, failure, repo);
+	}
+	/**
+	 *  Method to set the name of this level
+	 *
+	 *  @param {String} name
+	 *                  Name to set on the level
+	 *  @memberOf EcLevel
+	 *  @method setName
+	 */
+	setName(name) {
+		this.name = name;
+	}
+	/**
+	 *  Method to set the description of the level
+	 *
+	 *  @param {String} description
+	 *                  Description to set on the level
+	 *  @memberOf EcLevel
+	 *  @method setDescription
+	 */
+	setDescription(description) {
+		this.description = description;
+	}
+	/**
+	 *  Saves this levels details to the server
+	 *
+	 *  @param {Callback1<String>} success
+	 *                             Callback triggered on successfully saving the level to the server
+	 *  @param {Callback1<String>} failure
+	 *                             Callback triggered if error occurs while saving the level to the server
+	 *  @memberOf EcLevel
+	 *  @method save
+	 */
+	save(success, failure, repo) {
+		if (this.name == null || this.name == "") {
+			var msg = "Level name cannot be empty";
+			if (failure !== undefined && failure != null) return failure(msg);
+			else throw new Error(msg);
+		}
+		if (this.competency == null || this.competency == "") {
+			var msg = "Level's Competency cannot be empty";
+			if (failure !== undefined && failure != null) return failure(msg);
+			else throw new Error(msg);
+		}
+		if (repo == null) return EcRepository.save(this, success, failure);
+		else return repo.saveTo(this, success, failure);
+	}
+	/**
+	 *  Deletes the level from it's repository
+	 *
+	 *  @param {Callback1<String>} success
+	 *                             Callback triggered when the level is successfully deleted from the server
+	 *  @param {Callback1<String>} failure
+	 *                             Callback triggered if an error occurs while deleting the level
+	 *  @memberOf EcLevel
+	 *  @method _delete
+	 */
+	_delete = function(success, failure) {
+		return EcRepository.DELETE(this, success, failure);
+	};
 };

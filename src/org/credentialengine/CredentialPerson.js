@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends Agent
  */
-module.exports = class CredentialPerson extends ce.Agent
-{
+module.exports = class CredentialPerson extends ce.Agent {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CredentialPerson");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"CredentialPerson"
+		);
 	}
 
 	/**
@@ -216,5 +217,4 @@ module.exports = class CredentialPerson extends ce.Agent
 	 * @type CredentialOrganization | QACredentialOrganization
 	 */
 	worksFor;
-
-}
+};

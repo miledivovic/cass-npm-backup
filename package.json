@@ -10,6 +10,7 @@
 		"test12": "npm run testkill; docker run -d --name cass-test -p80:80 cassproject/cass:alpine-1.2.41 && node test.js && npm run testkill",
 		"testkill": "docker kill cass-test; docker rm cass-test",
 		"autotest": "nodemon test.js",
+		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
 		"publish": "npm publish",
 		"docs": "yuidoc -c yuidoc.json -o docs -e .js src"
 	},
@@ -65,7 +66,8 @@
 	},
 	"homepage": "https://github.com/cassproject/cass-npm#readme",
 	"devDependencies": {
-		"esprima": "*",
+		"babel-eslint": "^10.1.0",
+		"eslint": "^7.25.0",
 		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
 		"yuidoc-ember-cli-theme": "^1.0.4",

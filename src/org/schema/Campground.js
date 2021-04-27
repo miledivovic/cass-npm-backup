@@ -20,7 +20,6 @@ module.exports = class Campground extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Campground");
+		this.setContextAndType("http://schema.org/", "Campground");
 	}
-
-}
+};

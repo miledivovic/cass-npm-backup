@@ -14,7 +14,6 @@ module.exports = class DietarySupplement extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DietarySupplement");
+		this.setContextAndType("http://schema.org/", "DietarySupplement");
 	}
-
-}
+};

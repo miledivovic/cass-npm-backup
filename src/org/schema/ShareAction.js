@@ -14,7 +14,6 @@ module.exports = class ShareAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ShareAction");
+		this.setContextAndType("http://schema.org/", "ShareAction");
 	}
-
-}
+};

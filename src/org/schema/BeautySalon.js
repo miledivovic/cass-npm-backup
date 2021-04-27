@@ -14,7 +14,6 @@ module.exports = class BeautySalon extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BeautySalon");
+		this.setContextAndType("http://schema.org/", "BeautySalon");
 	}
-
-}
+};

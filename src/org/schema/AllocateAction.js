@@ -14,7 +14,6 @@ module.exports = class AllocateAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AllocateAction");
+		this.setContextAndType("http://schema.org/", "AllocateAction");
 	}
-
-}
+};

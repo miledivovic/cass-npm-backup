@@ -6,16 +6,17 @@
  * @module org.credentialengine
  * @extends AggregateDataProfile
  */
-module.exports = class HoldersProfile extends ce.AggregateDataProfile
-{
+module.exports = class HoldersProfile extends ce.AggregateDataProfile {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","HoldersProfile");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"HoldersProfile"
+		);
 	}
 
 	/**
@@ -90,5 +91,4 @@ module.exports = class HoldersProfile extends ce.AggregateDataProfile
 	 * @type DataSetProfile
 	 */
 	relevantDataSet;
-
-}
+};

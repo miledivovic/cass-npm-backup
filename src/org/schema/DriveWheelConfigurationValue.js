@@ -14,7 +14,9 @@ module.exports = class DriveWheelConfigurationValue extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DriveWheelConfigurationValue");
+		this.setContextAndType(
+			"http://schema.org/",
+			"DriveWheelConfigurationValue"
+		);
 	}
-
-}
+};

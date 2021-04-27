@@ -16,7 +16,6 @@ module.exports = class Patient extends schema.MedicalAudience {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Patient");
+		this.setContextAndType("http://schema.org/", "Patient");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class SearchResultsPage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SearchResultsPage");
+		this.setContextAndType("http://schema.org/", "SearchResultsPage");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class MotorcycleRepair extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MotorcycleRepair");
+		this.setContextAndType("http://schema.org/", "MotorcycleRepair");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Review extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Review");
+		this.setContextAndType("http://schema.org/", "Review");
 	}
-
-}
+};

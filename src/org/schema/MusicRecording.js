@@ -14,7 +14,6 @@ module.exports = class MusicRecording extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MusicRecording");
+		this.setContextAndType("http://schema.org/", "MusicRecording");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class LinkRole extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LinkRole");
+		this.setContextAndType("http://schema.org/", "LinkRole");
 	}
-
-}
+};

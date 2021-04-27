@@ -14,7 +14,6 @@ module.exports = class Table extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Table");
+		this.setContextAndType("http://schema.org/", "Table");
 	}
-
-}
+};

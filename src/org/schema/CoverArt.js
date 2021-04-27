@@ -14,7 +14,6 @@ module.exports = class CoverArt extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CoverArt");
+		this.setContextAndType("http://schema.org/", "CoverArt");
 	}
-
-}
+};

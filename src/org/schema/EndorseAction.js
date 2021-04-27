@@ -14,7 +14,6 @@ module.exports = class EndorseAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EndorseAction");
+		this.setContextAndType("http://schema.org/", "EndorseAction");
 	}
-
-}
+};

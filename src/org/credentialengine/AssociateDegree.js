@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends Degree
  */
-module.exports = class AssociateDegree extends ce.Degree
-{
+module.exports = class AssociateDegree extends ce.Degree {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","AssociateDegree");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"AssociateDegree"
+		);
 	}
 
 	/**
@@ -781,5 +782,4 @@ module.exports = class AssociateDegree extends ce.Degree
 	 * @type IdentifierValue
 	 */
 	versionIdentifier;
-
-}
+};

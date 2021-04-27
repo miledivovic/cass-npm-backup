@@ -1,8 +1,8 @@
 /**
  * Schema.org/ComicSeries
  * A sequential publication of comic stories under a
-    	unifying title, for example "The Amazing Spider-Man" or "Groo the
-    	Wanderer".
+		unifying title, for example "The Amazing Spider-Man" or "Groo the
+		Wanderer".
  *
  * @author schema.org
  * @class ComicSeries
@@ -16,7 +16,6 @@ module.exports = class ComicSeries extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ComicSeries");
+		this.setContextAndType("http://schema.org/", "ComicSeries");
 	}
-
-}
+};

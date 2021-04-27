@@ -14,7 +14,6 @@ module.exports = class GasStation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","GasStation");
+		this.setContextAndType("http://schema.org/", "GasStation");
 	}
-
-}
+};

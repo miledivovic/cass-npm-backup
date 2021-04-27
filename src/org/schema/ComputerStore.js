@@ -14,7 +14,6 @@ module.exports = class ComputerStore extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ComputerStore");
+		this.setContextAndType("http://schema.org/", "ComputerStore");
 	}
-
-}
+};

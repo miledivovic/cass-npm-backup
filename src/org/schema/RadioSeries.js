@@ -14,7 +14,6 @@ module.exports = class RadioSeries extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RadioSeries");
+		this.setContextAndType("http://schema.org/", "RadioSeries");
 	}
-
-}
+};

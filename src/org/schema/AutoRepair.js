@@ -14,7 +14,6 @@ module.exports = class AutoRepair extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AutoRepair");
+		this.setContextAndType("http://schema.org/", "AutoRepair");
 	}
-
-}
+};

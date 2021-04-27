@@ -6,16 +6,17 @@
  * @module org.credentialengine
  * @extends QuantitativeValue
  */
-module.exports = class ValueProfile extends schema.QuantitativeValue
-{
+module.exports = class ValueProfile extends schema.QuantitativeValue {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ValueProfile");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"ValueProfile"
+		);
 	}
 
 	/**
@@ -81,5 +82,4 @@ module.exports = class ValueProfile extends schema.QuantitativeValue
 	 * @type float
 	 */
 	value;
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class LibrarySystem extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LibrarySystem");
+		this.setContextAndType("http://schema.org/", "LibrarySystem");
 	}
-
-}
+};

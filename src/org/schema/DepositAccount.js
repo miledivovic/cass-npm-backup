@@ -16,7 +16,6 @@ module.exports = class DepositAccount extends schema.BankAccount {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DepositAccount");
+		this.setContextAndType("http://schema.org/", "DepositAccount");
 	}
-
-}
+};

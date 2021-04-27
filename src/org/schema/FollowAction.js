@@ -14,7 +14,6 @@ module.exports = class FollowAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","FollowAction");
+		this.setContextAndType("http://schema.org/", "FollowAction");
 	}
-
-}
+};

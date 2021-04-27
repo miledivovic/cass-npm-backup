@@ -14,7 +14,6 @@ module.exports = class FilmAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","FilmAction");
+		this.setContextAndType("http://schema.org/", "FilmAction");
 	}
-
-}
+};

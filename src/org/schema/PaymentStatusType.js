@@ -14,7 +14,6 @@ module.exports = class PaymentStatusType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PaymentStatusType");
+		this.setContextAndType("http://schema.org/", "PaymentStatusType");
 	}
-
-}
+};

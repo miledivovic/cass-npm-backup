@@ -17,7 +17,6 @@ module.exports = class MeetingRoom extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MeetingRoom");
+		this.setContextAndType("http://schema.org/", "MeetingRoom");
 	}
-
-}
+};

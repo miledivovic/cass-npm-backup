@@ -14,7 +14,6 @@ module.exports = class CorrectionComment extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CorrectionComment");
+		this.setContextAndType("http://schema.org/", "CorrectionComment");
 	}
-
-}
+};

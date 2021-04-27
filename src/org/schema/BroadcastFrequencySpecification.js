@@ -6,7 +6,8 @@
  * @class BroadcastFrequencySpecification
  * @module org.schema
  */
-module.exports = class BroadcastFrequencySpecification extends EcRemoteLinkedData {
+module.exports = class BroadcastFrequencySpecification extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class BroadcastFrequencySpecification extends EcRemoteLinkedDat
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BroadcastFrequencySpecification");
+		this.setContextAndType(
+			"http://schema.org/",
+			"BroadcastFrequencySpecification"
+		);
 	}
-
-}
+};

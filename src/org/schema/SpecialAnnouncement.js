@@ -49,7 +49,6 @@ module.exports = class SpecialAnnouncement extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SpecialAnnouncement");
+		this.setContextAndType("http://schema.org/", "SpecialAnnouncement");
 	}
-
-}
+};

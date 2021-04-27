@@ -14,7 +14,6 @@ module.exports = class AutoDealer extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AutoDealer");
+		this.setContextAndType("http://schema.org/", "AutoDealer");
 	}
-
-}
+};

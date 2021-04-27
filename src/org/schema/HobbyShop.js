@@ -14,7 +14,6 @@ module.exports = class HobbyShop extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HobbyShop");
+		this.setContextAndType("http://schema.org/", "HobbyShop");
 	}
-
-}
+};

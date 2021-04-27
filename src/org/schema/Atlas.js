@@ -14,7 +14,6 @@ module.exports = class Atlas extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Atlas");
+		this.setContextAndType("http://schema.org/", "Atlas");
 	}
-
-}
+};

@@ -6,19 +6,19 @@
  *  @class Collection
  *  @module org.w3.skos
  */
-var Collection = /**
- *  Constructor, automatically sets @context and @type.
- *  @constructor
- */
 module.exports = class Collection extends EcRemoteLinkedData {
-    constructor(){
-        super("https://schema.cassproject.org/0.4/skos/", "Collection")
-    }
-    /**
-     *  www.w3.org/2004/02/skos/core/member
-     *  Relates a collection to one of its members.
-     *  @property member
-     *  @type N0e403dc85fe548d1b3d2f3d1ded36d20
-     */
-    member = null;
+	/**
+	 *  Constructor, automatically sets @context and @type.
+	 *  @constructor
+	 */
+	constructor() {
+		super("https://schema.cassproject.org/0.4/skos/", "Collection");
+	}
+	/**
+	 *  www.w3.org/2004/02/skos/core/member
+	 *  Relates a collection to one of its members.
+	 *  @property member
+	 *  @type N0e403dc85fe548d1b3d2f3d1ded36d20
+	 */
+	member = null;
 };

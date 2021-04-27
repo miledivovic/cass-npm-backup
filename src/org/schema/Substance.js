@@ -14,7 +14,6 @@ module.exports = class Substance extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Substance");
+		this.setContextAndType("http://schema.org/", "Substance");
 	}
-
-}
+};

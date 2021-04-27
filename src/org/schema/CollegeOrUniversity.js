@@ -14,7 +14,6 @@ module.exports = class CollegeOrUniversity extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CollegeOrUniversity");
+		this.setContextAndType("http://schema.org/", "CollegeOrUniversity");
 	}
-
-}
+};

@@ -1,8 +1,8 @@
 /**
  * Schema.org/ComicStory
  * The term "story" is any indivisible, re-printable
-    	unit of a comic, including the interior stories, covers, and backmatter. Most
-    	comics have at least two stories: a cover (ComicCoverArt) and an interior story.
+		unit of a comic, including the interior stories, covers, and backmatter. Most
+		comics have at least two stories: a cover (ComicCoverArt) and an interior story.
  *
  * @author schema.org
  * @class ComicStory
@@ -16,7 +16,6 @@ module.exports = class ComicStory extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ComicStory");
+		this.setContextAndType("http://schema.org/", "ComicStory");
 	}
-
-}
+};

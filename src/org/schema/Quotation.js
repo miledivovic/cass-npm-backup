@@ -14,7 +14,6 @@ module.exports = class Quotation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Quotation");
+		this.setContextAndType("http://schema.org/", "Quotation");
 	}
-
-}
+};

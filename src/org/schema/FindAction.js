@@ -14,7 +14,6 @@ module.exports = class FindAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","FindAction");
+		this.setContextAndType("http://schema.org/", "FindAction");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class RVPark extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RVPark");
+		this.setContextAndType("http://schema.org/", "RVPark");
 	}
-
-}
+};

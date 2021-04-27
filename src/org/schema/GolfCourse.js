@@ -14,7 +14,6 @@ module.exports = class GolfCourse extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","GolfCourse");
+		this.setContextAndType("http://schema.org/", "GolfCourse");
 	}
-
-}
+};

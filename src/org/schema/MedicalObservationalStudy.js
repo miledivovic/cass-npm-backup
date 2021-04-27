@@ -14,7 +14,9 @@ module.exports = class MedicalObservationalStudy extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalObservationalStudy");
+		this.setContextAndType(
+			"http://schema.org/",
+			"MedicalObservationalStudy"
+		);
 	}
-
-}
+};

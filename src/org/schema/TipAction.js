@@ -14,7 +14,6 @@ module.exports = class TipAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TipAction");
+		this.setContextAndType("http://schema.org/", "TipAction");
 	}
-
-}
+};

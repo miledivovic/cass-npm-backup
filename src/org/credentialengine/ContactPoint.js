@@ -6,15 +6,13 @@
  * @class ContactPoint
  * @module org.credentialengine
  */
-module.exports = class ContactPoint extends EcRemoteLinkedData
-{
+module.exports = class ContactPoint extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","ContactPoint");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "ContactPoint");
 	}
 
 	/**
@@ -65,5 +63,4 @@ module.exports = class ContactPoint extends EcRemoteLinkedData
 	 * @type string
 	 */
 	telephone;
-
-}
+};

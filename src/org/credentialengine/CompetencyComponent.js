@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends PathwayComponent
  */
-module.exports = class CompetencyComponent extends ce.PathwayComponent
-{
+module.exports = class CompetencyComponent extends ce.PathwayComponent {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CompetencyComponent");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"CompetencyComponent"
+		);
 	}
 
 	/**
@@ -145,5 +146,4 @@ module.exports = class CompetencyComponent extends ce.PathwayComponent
 	 * @type anyURI
 	 */
 	subjectWebpage;
-
-}
+};

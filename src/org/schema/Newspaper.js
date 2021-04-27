@@ -14,7 +14,6 @@ module.exports = class Newspaper extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Newspaper");
+		this.setContextAndType("http://schema.org/", "Newspaper");
 	}
-
-}
+};

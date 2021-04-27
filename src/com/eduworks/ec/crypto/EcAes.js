@@ -4,25 +4,25 @@
  *  @module com.eduworks.ec
  *  @author fritz.ray@eduworks.com
  */
-module.exports = class EcAes{
-    /**
-     *  Generates a random secret of length @i
-     *  @method newSecret
-     *  @static
-     *  @param {integer} i Length of secret
-     *  @return {string} String representing the new secret, encoded using Base64.
-     */
-    static newSecret = function(i) {
-        return forge.util.encode64(forge.random.getBytesSync(i));
-    };
-    /**
-     *  Generates a random Initialization Vector of length @i
-     *  @method newIv
-     *  @static
-     *  @param {integer} i Length of initialization Vector
-     *  @return {string} String representing the new Initialization Vector, encoded using Base64.
-     */
-    static newIv = function(i) {
-        return forge.util.encode64(forge.random.getBytesSync(i));
-    };
-}
+module.exports = class EcAes {
+	/**
+	 *  Generates a random secret of length @i
+	 *  @method newSecret
+	 *  @static
+	 *  @param {integer} i Length of secret
+	 *  @return {string} String representing the new secret, encoded using Base64.
+	 */
+	static newSecret = function(i) {
+		return forge.util.encode64(forge.random.getBytesSync(i));
+	};
+	/**
+	 *  Generates a random Initialization Vector of length @i
+	 *  @method newIv
+	 *  @static
+	 *  @param {integer} i Length of initialization Vector
+	 *  @return {string} String representing the new Initialization Vector, encoded using Base64.
+	 */
+	static newIv = function(i) {
+		return forge.util.encode64(forge.random.getBytesSync(i));
+	};
+};

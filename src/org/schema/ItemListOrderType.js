@@ -14,7 +14,6 @@ module.exports = class ItemListOrderType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ItemListOrderType");
+		this.setContextAndType("http://schema.org/", "ItemListOrderType");
 	}
-
-}
+};

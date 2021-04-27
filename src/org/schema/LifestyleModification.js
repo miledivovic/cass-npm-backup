@@ -14,7 +14,6 @@ module.exports = class LifestyleModification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LifestyleModification");
+		this.setContextAndType("http://schema.org/", "LifestyleModification");
 	}
-
-}
+};

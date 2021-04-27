@@ -5,15 +5,12 @@
  * @class ProgressionModel
  * @module org.credentialengine
  */
-module.exports = class ProgressionModel extends EcRemoteLinkedData
-{
+module.exports = class ProgressionModel extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","ProgressionModel");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "ProgressionModel");
 	}
-
-}
+};

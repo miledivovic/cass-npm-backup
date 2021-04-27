@@ -16,7 +16,6 @@ module.exports = class CompleteDataFeed extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CompleteDataFeed");
+		this.setContextAndType("http://schema.org/", "CompleteDataFeed");
 	}
-
-}
+};

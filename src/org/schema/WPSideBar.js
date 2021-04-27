@@ -14,7 +14,6 @@ module.exports = class WPSideBar extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","WPSideBar");
+		this.setContextAndType("http://schema.org/", "WPSideBar");
 	}
-
-}
+};

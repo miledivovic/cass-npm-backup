@@ -14,7 +14,6 @@ module.exports = class AutoBodyShop extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AutoBodyShop");
+		this.setContextAndType("http://schema.org/", "AutoBodyShop");
 	}
-
-}
+};

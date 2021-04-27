@@ -14,7 +14,6 @@ module.exports = class Play extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Play");
+		this.setContextAndType("http://schema.org/", "Play");
 	}
-
-}
+};

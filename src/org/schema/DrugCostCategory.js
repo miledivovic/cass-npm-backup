@@ -14,7 +14,6 @@ module.exports = class DrugCostCategory extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DrugCostCategory");
+		this.setContextAndType("http://schema.org/", "DrugCostCategory");
 	}
-
-}
+};

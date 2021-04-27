@@ -14,7 +14,6 @@ module.exports = class Barcode extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Barcode");
+		this.setContextAndType("http://schema.org/", "Barcode");
 	}
-
-}
+};

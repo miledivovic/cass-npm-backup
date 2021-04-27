@@ -14,7 +14,6 @@ module.exports = class EmployeeRole extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EmployeeRole");
+		this.setContextAndType("http://schema.org/", "EmployeeRole");
 	}
-
-}
+};

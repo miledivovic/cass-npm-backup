@@ -14,7 +14,6 @@ module.exports = class CookAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CookAction");
+		this.setContextAndType("http://schema.org/", "CookAction");
 	}
-
-}
+};

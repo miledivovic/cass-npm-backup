@@ -14,7 +14,6 @@ module.exports = class UserPageVisits extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","UserPageVisits");
+		this.setContextAndType("http://schema.org/", "UserPageVisits");
 	}
-
-}
+};

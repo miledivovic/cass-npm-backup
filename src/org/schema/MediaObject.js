@@ -14,7 +14,6 @@ module.exports = class MediaObject extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MediaObject");
+		this.setContextAndType("http://schema.org/", "MediaObject");
 	}
-
-}
+};

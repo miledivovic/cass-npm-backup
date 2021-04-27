@@ -14,7 +14,6 @@ module.exports = class TennisComplex extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TennisComplex");
+		this.setContextAndType("http://schema.org/", "TennisComplex");
 	}
-
-}
+};

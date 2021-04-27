@@ -14,7 +14,6 @@ module.exports = class MenuItem extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MenuItem");
+		this.setContextAndType("http://schema.org/", "MenuItem");
 	}
-
-}
+};

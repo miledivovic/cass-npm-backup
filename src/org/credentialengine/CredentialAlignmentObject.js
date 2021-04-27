@@ -6,16 +6,18 @@
  * @module org.credentialengine
  * @extends AlignmentObject
  */
-module.exports = class CredentialAlignmentObject extends schema.AlignmentObject
-{
+module.exports = class CredentialAlignmentObject extends
+	schema.AlignmentObject {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","CredentialAlignmentObject");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"CredentialAlignmentObject"
+		);
 	}
 
 	/**
@@ -93,5 +95,4 @@ module.exports = class CredentialAlignmentObject extends schema.AlignmentObject
 	 * @type float
 	 */
 	weight;
-
-}
+};

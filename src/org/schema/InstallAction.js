@@ -14,7 +14,6 @@ module.exports = class InstallAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","InstallAction");
+		this.setContextAndType("http://schema.org/", "InstallAction");
 	}
-
-}
+};

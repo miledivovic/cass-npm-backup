@@ -9,10 +9,10 @@ https.get("https://credreg.net/ctdl/schema/encoding/json", (resp) => {
     resp.on('data', (chunk) => {
         data += chunk;
     })
-    ;
+        ;
     resp.on('end', () => {
         while (data != data.replace("http://www.w3.org/2000/01/rdf-schema#", "rdfs:")
-            )
+        )
             data = data.replace("http://www.w3.org/2000/01/rdf-schema#", "rdfs:");
         while (data != data.replace("http://schema.org/", "schema:"))
             data = data.replace("http://schema.org/", "schema:");
@@ -64,11 +64,11 @@ https.get("https://credreg.net/ctdl/schema/encoding/json", (resp) => {
         });
 
     })
-    ;
+        ;
 }).on("error", (err) => {
     console.log("Error: " + err.message);
 })
-;
+    ;
 
 function codeGenerate(graph, node, context) {
     var classId = node["@id"];

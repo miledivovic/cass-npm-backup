@@ -6,15 +6,13 @@
  * @class DurationProfile
  * @module org.credentialengine
  */
-module.exports = class DurationProfile extends EcRemoteLinkedData
-{
+module.exports = class DurationProfile extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","DurationProfile");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "DurationProfile");
 	}
 
 	/**
@@ -50,5 +48,4 @@ module.exports = class DurationProfile extends EcRemoteLinkedData
 	 * @type Duration
 	 */
 	minimumDuration;
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Winery extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Winery");
+		this.setContextAndType("http://schema.org/", "Winery");
 	}
-
-}
+};

@@ -5,15 +5,13 @@
  * @class TransferValueProfile
  * @module org.credentialengine
  */
-module.exports = class TransferValueProfile extends EcRemoteLinkedData
-{
+module.exports = class TransferValueProfile extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","TransferValueProfile");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "TransferValueProfile");
 	}
 
 	/**
@@ -114,5 +112,4 @@ module.exports = class TransferValueProfile extends EcRemoteLinkedData
 	 * @type Competency | ApprenticeshipCertificate | AssessmentProfile | AssociateDegree | BachelorDegree | Badge | Certificate | CertificateOfCompletion | Certification | Credential | Degree | DigitalBadge | Diploma | DoctoralDegree | GeneralEducationDevelopment | Job | JourneymanCertificate | LearningOpportunityProfile | License | MasterCertificate | MasterDegree | MicroCredential | Occupation | OpenBadge | ProfessionalDoctorate | QualityAssuranceCredential | ResearchDoctorate | SecondarySchoolDiploma
 	 */
 	transferValueFrom;
-
-}
+};

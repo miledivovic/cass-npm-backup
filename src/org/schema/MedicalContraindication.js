@@ -14,7 +14,6 @@ module.exports = class MedicalContraindication extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalContraindication");
+		this.setContextAndType("http://schema.org/", "MedicalContraindication");
 	}
-
-}
+};

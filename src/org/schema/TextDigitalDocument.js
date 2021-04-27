@@ -14,7 +14,6 @@ module.exports = class TextDigitalDocument extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TextDigitalDocument");
+		this.setContextAndType("http://schema.org/", "TextDigitalDocument");
 	}
-
-}
+};

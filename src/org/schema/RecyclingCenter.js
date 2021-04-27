@@ -14,7 +14,6 @@ module.exports = class RecyclingCenter extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RecyclingCenter");
+		this.setContextAndType("http://schema.org/", "RecyclingCenter");
 	}
-
-}
+};

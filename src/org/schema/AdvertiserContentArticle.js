@@ -14,7 +14,9 @@ module.exports = class AdvertiserContentArticle extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AdvertiserContentArticle");
+		this.setContextAndType(
+			"http://schema.org/",
+			"AdvertiserContentArticle"
+		);
 	}
-
-}
+};

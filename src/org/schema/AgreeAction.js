@@ -14,7 +14,6 @@ module.exports = class AgreeAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AgreeAction");
+		this.setContextAndType("http://schema.org/", "AgreeAction");
 	}
-
-}
+};

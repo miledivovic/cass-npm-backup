@@ -14,7 +14,6 @@ module.exports = class SizeSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SizeSpecification");
+		this.setContextAndType("http://schema.org/", "SizeSpecification");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Optician extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Optician");
+		this.setContextAndType("http://schema.org/", "Optician");
 	}
-
-}
+};

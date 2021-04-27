@@ -14,7 +14,6 @@ module.exports = class RealEstateAgent extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RealEstateAgent");
+		this.setContextAndType("http://schema.org/", "RealEstateAgent");
 	}
-
-}
+};

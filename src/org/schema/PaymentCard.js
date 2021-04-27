@@ -16,7 +16,6 @@ module.exports = class PaymentCard extends schema.FinancialProduct {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PaymentCard");
+		this.setContextAndType("http://schema.org/", "PaymentCard");
 	}
-
-}
+};

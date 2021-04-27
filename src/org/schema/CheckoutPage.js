@@ -14,7 +14,6 @@ module.exports = class CheckoutPage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CheckoutPage");
+		this.setContextAndType("http://schema.org/", "CheckoutPage");
 	}
-
-}
+};

@@ -6,15 +6,13 @@
  * @class CostManifest
  * @module org.credentialengine
  */
-module.exports = class CostManifest extends EcRemoteLinkedData
-{
+module.exports = class CostManifest extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","CostManifest");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "CostManifest");
 	}
 
 	/**
@@ -81,5 +79,4 @@ module.exports = class CostManifest extends EcRemoteLinkedData
 	 * @type date
 	 */
 	startDate;
-
-}
+};

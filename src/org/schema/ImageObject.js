@@ -14,7 +14,6 @@ module.exports = class ImageObject extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ImageObject");
+		this.setContextAndType("http://schema.org/", "ImageObject");
 	}
-
-}
+};

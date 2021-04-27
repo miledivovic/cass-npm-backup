@@ -14,7 +14,6 @@ module.exports = class FlightReservation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","FlightReservation");
+		this.setContextAndType("http://schema.org/", "FlightReservation");
 	}
-
-}
+};

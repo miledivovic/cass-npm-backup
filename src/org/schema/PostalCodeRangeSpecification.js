@@ -14,7 +14,9 @@ module.exports = class PostalCodeRangeSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PostalCodeRangeSpecification");
+		this.setContextAndType(
+			"http://schema.org/",
+			"PostalCodeRangeSpecification"
+		);
 	}
-
-}
+};

@@ -1,6 +1,6 @@
 /**
  * Schema.org/HealthInsurancePlan
- * A US-style health insurance plan, including PPOs, EPOs, and HMOs. 
+ * A US-style health insurance plan, including PPOs, EPOs, and HMOs.
  *
  * @author schema.org
  * @class HealthInsurancePlan
@@ -14,7 +14,6 @@ module.exports = class HealthInsurancePlan extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HealthInsurancePlan");
+		this.setContextAndType("http://schema.org/", "HealthInsurancePlan");
 	}
-
-}
+};

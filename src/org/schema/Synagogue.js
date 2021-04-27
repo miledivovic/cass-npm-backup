@@ -14,7 +14,6 @@ module.exports = class Synagogue extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Synagogue");
+		this.setContextAndType("http://schema.org/", "Synagogue");
 	}
-
-}
+};

@@ -7,16 +7,16 @@
  * @module org.credentialengine
  * @extends EducationalFramework
  */
-module.exports = class ProficiencyScale extends EcRemoteLinkedData
-{
+module.exports = class ProficiencyScale extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ProficiencyScale");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"ProficiencyScale"
+		);
 	}
-
-}
+};

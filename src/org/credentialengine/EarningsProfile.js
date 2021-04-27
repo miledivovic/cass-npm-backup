@@ -7,16 +7,17 @@ global.ce.AggregateDataProfile = require("./AggregateDataProfile.js");
  * @module org.credentialengine
  * @extends AggregateDataProfile
  */
-module.exports = class EarningsProfile extends ce.AggregateDataProfile
-{
+module.exports = class EarningsProfile extends ce.AggregateDataProfile {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","EarningsProfile");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"EarningsProfile"
+		);
 	}
 
 	/**
@@ -92,5 +93,4 @@ module.exports = class EarningsProfile extends ce.AggregateDataProfile
 	 * @type DataSetProfile
 	 */
 	relevantDataSet;
-
-}
+};

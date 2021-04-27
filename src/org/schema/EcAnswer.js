@@ -1,4 +1,1 @@
-
-module.exports = class EcAnswer extends schema.Answer{
-
-}
+module.exports = class EcAnswer extends schema.Answer {};

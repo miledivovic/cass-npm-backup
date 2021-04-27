@@ -14,7 +14,6 @@ module.exports = class ScheduleAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ScheduleAction");
+		this.setContextAndType("http://schema.org/", "ScheduleAction");
 	}
-
-}
+};

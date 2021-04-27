@@ -14,7 +14,6 @@ module.exports = class StatusEnumeration extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","StatusEnumeration");
+		this.setContextAndType("http://schema.org/", "StatusEnumeration");
 	}
-
-}
+};

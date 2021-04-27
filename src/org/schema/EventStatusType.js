@@ -14,7 +14,6 @@ module.exports = class EventStatusType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EventStatusType");
+		this.setContextAndType("http://schema.org/", "EventStatusType");
 	}
-
-}
+};

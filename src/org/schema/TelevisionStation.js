@@ -14,7 +14,6 @@ module.exports = class TelevisionStation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TelevisionStation");
+		this.setContextAndType("http://schema.org/", "TelevisionStation");
 	}
-
-}
+};

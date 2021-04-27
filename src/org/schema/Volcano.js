@@ -14,7 +14,6 @@ module.exports = class Volcano extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Volcano");
+		this.setContextAndType("http://schema.org/", "Volcano");
 	}
-
-}
+};

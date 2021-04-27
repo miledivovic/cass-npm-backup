@@ -14,7 +14,6 @@ module.exports = class PreventionIndication extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PreventionIndication");
+		this.setContextAndType("http://schema.org/", "PreventionIndication");
 	}
-
-}
+};

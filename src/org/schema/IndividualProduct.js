@@ -14,7 +14,6 @@ module.exports = class IndividualProduct extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","IndividualProduct");
+		this.setContextAndType("http://schema.org/", "IndividualProduct");
 	}
-
-}
+};

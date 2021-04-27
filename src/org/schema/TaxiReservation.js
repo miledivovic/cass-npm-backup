@@ -14,7 +14,6 @@ module.exports = class TaxiReservation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TaxiReservation");
+		this.setContextAndType("http://schema.org/", "TaxiReservation");
 	}
-
-}
+};

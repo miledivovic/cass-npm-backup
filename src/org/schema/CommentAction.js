@@ -14,7 +14,6 @@ module.exports = class CommentAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CommentAction");
+		this.setContextAndType("http://schema.org/", "CommentAction");
 	}
-
-}
+};

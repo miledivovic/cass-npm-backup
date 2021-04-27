@@ -14,7 +14,6 @@ module.exports = class ItemAvailability extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ItemAvailability");
+		this.setContextAndType("http://schema.org/", "ItemAvailability");
 	}
-
-}
+};

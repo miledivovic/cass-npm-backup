@@ -14,7 +14,6 @@ module.exports = class RepaymentSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RepaymentSpecification");
+		this.setContextAndType("http://schema.org/", "RepaymentSpecification");
 	}
-
-}
+};

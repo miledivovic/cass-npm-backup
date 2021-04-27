@@ -5,15 +5,16 @@
  * @class FinancialAssistanceProfile
  * @module org.credentialengine
  */
-module.exports = class FinancialAssistanceProfile extends EcRemoteLinkedData
-{
+module.exports = class FinancialAssistanceProfile extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","FinancialAssistanceProfile");
+	constructor() {
+		super(
+			"http://schema.eduworks.com/simpleCtdl",
+			"FinancialAssistanceProfile"
+		);
 	}
 
 	/**
@@ -56,5 +57,4 @@ module.exports = class FinancialAssistanceProfile extends EcRemoteLinkedData
 	 * @type anyURI
 	 */
 	subjectWebpage;
-
-}
+};

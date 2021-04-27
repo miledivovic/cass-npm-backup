@@ -6,7 +6,8 @@
  * @class EventAttendanceModeEnumeration
  * @module org.schema
  */
-module.exports = class EventAttendanceModeEnumeration extends EcRemoteLinkedData {
+module.exports = class EventAttendanceModeEnumeration extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class EventAttendanceModeEnumeration extends EcRemoteLinkedData
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EventAttendanceModeEnumeration");
+		this.setContextAndType(
+			"http://schema.org/",
+			"EventAttendanceModeEnumeration"
+		);
 	}
-
-}
+};

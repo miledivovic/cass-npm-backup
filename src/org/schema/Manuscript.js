@@ -14,7 +14,6 @@ module.exports = class Manuscript extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Manuscript");
+		this.setContextAndType("http://schema.org/", "Manuscript");
 	}
-
-}
+};

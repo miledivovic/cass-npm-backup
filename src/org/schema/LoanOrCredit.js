@@ -14,7 +14,6 @@ module.exports = class LoanOrCredit extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LoanOrCredit");
+		this.setContextAndType("http://schema.org/", "LoanOrCredit");
 	}
-
-}
+};

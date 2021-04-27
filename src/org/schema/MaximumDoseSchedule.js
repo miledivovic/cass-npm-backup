@@ -14,7 +14,6 @@ module.exports = class MaximumDoseSchedule extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MaximumDoseSchedule");
+		this.setContextAndType("http://schema.org/", "MaximumDoseSchedule");
 	}
-
-}
+};

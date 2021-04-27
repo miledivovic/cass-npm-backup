@@ -14,7 +14,6 @@ module.exports = class WorkBasedProgram extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","WorkBasedProgram");
+		this.setContextAndType("http://schema.org/", "WorkBasedProgram");
 	}
-
-}
+};

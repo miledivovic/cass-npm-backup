@@ -14,7 +14,6 @@ module.exports = class PsychologicalTreatment extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PsychologicalTreatment");
+		this.setContextAndType("http://schema.org/", "PsychologicalTreatment");
 	}
-
-}
+};

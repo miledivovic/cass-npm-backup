@@ -6,7 +6,8 @@
  * @class HealthPlanCostSharingSpecification
  * @module org.schema
  */
-module.exports = class HealthPlanCostSharingSpecification extends EcRemoteLinkedData {
+module.exports = class HealthPlanCostSharingSpecification extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class HealthPlanCostSharingSpecification extends EcRemoteLinked
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HealthPlanCostSharingSpecification");
+		this.setContextAndType(
+			"http://schema.org/",
+			"HealthPlanCostSharingSpecification"
+		);
 	}
-
-}
+};

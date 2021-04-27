@@ -14,7 +14,6 @@ module.exports = class ScreeningEvent extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ScreeningEvent");
+		this.setContextAndType("http://schema.org/", "ScreeningEvent");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class VirtualLocation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","VirtualLocation");
+		this.setContextAndType("http://schema.org/", "VirtualLocation");
 	}
-
-}
+};

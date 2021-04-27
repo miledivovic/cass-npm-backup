@@ -14,7 +14,6 @@ module.exports = class DonateAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DonateAction");
+		this.setContextAndType("http://schema.org/", "DonateAction");
 	}
-
-}
+};

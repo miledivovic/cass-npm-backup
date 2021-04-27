@@ -14,7 +14,6 @@ module.exports = class RadiationTherapy extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RadiationTherapy");
+		this.setContextAndType("http://schema.org/", "RadiationTherapy");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Corporation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Corporation");
+		this.setContextAndType("http://schema.org/", "Corporation");
 	}
-
-}
+};

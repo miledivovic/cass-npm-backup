@@ -14,7 +14,6 @@ module.exports = class Comment extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Comment");
+		this.setContextAndType("http://schema.org/", "Comment");
 	}
-
-}
+};

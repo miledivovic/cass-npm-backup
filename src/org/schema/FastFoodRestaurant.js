@@ -14,7 +14,6 @@ module.exports = class FastFoodRestaurant extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","FastFoodRestaurant");
+		this.setContextAndType("http://schema.org/", "FastFoodRestaurant");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Intangible extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Intangible");
+		this.setContextAndType("http://schema.org/", "Intangible");
 	}
-
-}
+};

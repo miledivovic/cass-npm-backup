@@ -14,7 +14,6 @@ module.exports = class AddAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AddAction");
+		this.setContextAndType("http://schema.org/", "AddAction");
 	}
-
-}
+};

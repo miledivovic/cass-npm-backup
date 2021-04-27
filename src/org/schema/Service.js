@@ -14,7 +14,6 @@ module.exports = class Service extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Service");
+		this.setContextAndType("http://schema.org/", "Service");
 	}
-
-}
+};

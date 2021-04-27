@@ -16,7 +16,6 @@ module.exports = class HowToTip extends schema.CreativeWork {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HowToTip");
+		this.setContextAndType("http://schema.org/", "HowToTip");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Season extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Season");
+		this.setContextAndType("http://schema.org/", "Season");
 	}
-
-}
+};

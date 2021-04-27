@@ -5,15 +5,13 @@
  * @class Task
  * @module org.credentialengine
  */
-module.exports = class Task extends EcRemoteLinkedData
-{
+module.exports = class Task extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","Task");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "Task");
 	}
 
 	/**
@@ -123,5 +121,4 @@ module.exports = class Task extends EcRemoteLinkedData
 	 * @type IdentifierValue
 	 */
 	versionIdentifier;
-
-}
+};

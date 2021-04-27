@@ -14,7 +14,6 @@ module.exports = class Brand extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Brand");
+		this.setContextAndType("http://schema.org/", "Brand");
 	}
-
-}
+};

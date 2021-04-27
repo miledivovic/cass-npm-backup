@@ -14,7 +14,6 @@ module.exports = class MiddleSchool extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MiddleSchool");
+		this.setContextAndType("http://schema.org/", "MiddleSchool");
 	}
-
-}
+};

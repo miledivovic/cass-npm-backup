@@ -14,7 +14,6 @@ module.exports = class AutoRental extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AutoRental");
+		this.setContextAndType("http://schema.org/", "AutoRental");
 	}
-
-}
+};

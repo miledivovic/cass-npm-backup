@@ -14,7 +14,9 @@ module.exports = class DeliveryChargeSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DeliveryChargeSpecification");
+		this.setContextAndType(
+			"http://schema.org/",
+			"DeliveryChargeSpecification"
+		);
 	}
-
-}
+};

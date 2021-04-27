@@ -14,7 +14,6 @@ module.exports = class AutoWash extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AutoWash");
+		this.setContextAndType("http://schema.org/", "AutoWash");
 	}
-
-}
+};

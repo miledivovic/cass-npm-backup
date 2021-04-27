@@ -16,7 +16,6 @@ module.exports = class HowToStep extends schema.CreativeWork {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HowToStep");
+		this.setContextAndType("http://schema.org/", "HowToStep");
 	}
-
-}
+};

@@ -16,7 +16,6 @@ module.exports = class EducationalOrganization extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EducationalOrganization");
+		this.setContextAndType("http://schema.org/", "EducationalOrganization");
 	}
-
-}
+};

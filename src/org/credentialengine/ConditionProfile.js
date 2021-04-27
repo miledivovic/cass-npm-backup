@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends CreativeWork
  */
-module.exports = class ConditionProfile extends schema.CreativeWork
-{
+module.exports = class ConditionProfile extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ConditionProfile");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"ConditionProfile"
+		);
 	}
 
 	/**
@@ -221,5 +222,4 @@ module.exports = class ConditionProfile extends schema.CreativeWork
 	 * @type float
 	 */
 	yearsOfExperience;
-
-}
+};

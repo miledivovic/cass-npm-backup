@@ -14,7 +14,6 @@ module.exports = class Casino extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Casino");
+		this.setContextAndType("http://schema.org/", "Casino");
 	}
-
-}
+};

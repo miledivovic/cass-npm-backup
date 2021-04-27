@@ -14,7 +14,6 @@ module.exports = class StructuredValue extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","StructuredValue");
+		this.setContextAndType("http://schema.org/", "StructuredValue");
 	}
-
-}
+};

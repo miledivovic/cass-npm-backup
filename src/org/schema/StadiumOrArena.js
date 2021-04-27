@@ -16,7 +16,6 @@ module.exports = class StadiumOrArena extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","StadiumOrArena");
+		this.setContextAndType("http://schema.org/", "StadiumOrArena");
 	}
-
-}
+};

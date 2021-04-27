@@ -14,7 +14,6 @@ module.exports = class DefenceEstablishment extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DefenceEstablishment");
+		this.setContextAndType("http://schema.org/", "DefenceEstablishment");
 	}
-
-}
+};

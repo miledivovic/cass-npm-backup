@@ -6,15 +6,12 @@
  * @class CredentialFramework
  * @module org.credentialengine
  */
-module.exports = class CredentialFramework extends EcRemoteLinkedData
-{
+module.exports = class CredentialFramework extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","CredentialFramework");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "CredentialFramework");
 	}
-
-}
+};

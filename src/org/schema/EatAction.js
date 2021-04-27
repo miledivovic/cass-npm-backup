@@ -14,7 +14,6 @@ module.exports = class EatAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EatAction");
+		this.setContextAndType("http://schema.org/", "EatAction");
 	}
-
-}
+};

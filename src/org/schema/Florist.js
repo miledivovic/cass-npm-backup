@@ -14,7 +14,6 @@ module.exports = class Florist extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Florist");
+		this.setContextAndType("http://schema.org/", "Florist");
 	}
-
-}
+};

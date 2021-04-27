@@ -14,7 +14,6 @@ module.exports = class Ligament extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Ligament");
+		this.setContextAndType("http://schema.org/", "Ligament");
 	}
-
-}
+};

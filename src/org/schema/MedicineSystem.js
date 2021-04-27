@@ -14,7 +14,6 @@ module.exports = class MedicineSystem extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicineSystem");
+		this.setContextAndType("http://schema.org/", "MedicineSystem");
 	}
-
-}
+};

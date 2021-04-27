@@ -14,7 +14,6 @@ module.exports = class MedicalWebPage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalWebPage");
+		this.setContextAndType("http://schema.org/", "MedicalWebPage");
 	}
-
-}
+};

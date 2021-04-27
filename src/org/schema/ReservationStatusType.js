@@ -14,7 +14,6 @@ module.exports = class ReservationStatusType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ReservationStatusType");
+		this.setContextAndType("http://schema.org/", "ReservationStatusType");
 	}
-
-}
+};

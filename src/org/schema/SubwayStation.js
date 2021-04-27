@@ -14,7 +14,6 @@ module.exports = class SubwayStation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SubwayStation");
+		this.setContextAndType("http://schema.org/", "SubwayStation");
 	}
-
-}
+};

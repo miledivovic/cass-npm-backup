@@ -14,7 +14,6 @@ module.exports = class WebApplication extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","WebApplication");
+		this.setContextAndType("http://schema.org/", "WebApplication");
 	}
-
-}
+};

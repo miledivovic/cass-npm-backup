@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends CredentialingAction
  */
-module.exports = class RenewAction extends ce.CredentialingAction
-{
+module.exports = class RenewAction extends ce.CredentialingAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RenewAction");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"RenewAction"
+		);
 	}
 
 	/**
@@ -101,5 +102,4 @@ module.exports = class RenewAction extends ce.CredentialingAction
 	 * @type date
 	 */
 	startDate;
-
-}
+};

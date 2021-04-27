@@ -14,7 +14,6 @@ module.exports = class Dataset extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Dataset");
+		this.setContextAndType("http://schema.org/", "Dataset");
 	}
-
-}
+};

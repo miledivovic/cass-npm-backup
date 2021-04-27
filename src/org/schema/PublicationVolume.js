@@ -14,7 +14,6 @@ module.exports = class PublicationVolume extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PublicationVolume");
+		this.setContextAndType("http://schema.org/", "PublicationVolume");
 	}
-
-}
+};

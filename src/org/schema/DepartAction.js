@@ -14,7 +14,6 @@ module.exports = class DepartAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DepartAction");
+		this.setContextAndType("http://schema.org/", "DepartAction");
 	}
-
-}
+};

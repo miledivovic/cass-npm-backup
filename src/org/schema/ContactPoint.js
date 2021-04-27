@@ -14,7 +14,6 @@ module.exports = class ContactPoint extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ContactPoint");
+		this.setContextAndType("http://schema.org/", "ContactPoint");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class ChildCare extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ChildCare");
+		this.setContextAndType("http://schema.org/", "ChildCare");
 	}
-
-}
+};

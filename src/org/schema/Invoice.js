@@ -14,7 +14,6 @@ module.exports = class Invoice extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Invoice");
+		this.setContextAndType("http://schema.org/", "Invoice");
 	}
-
-}
+};

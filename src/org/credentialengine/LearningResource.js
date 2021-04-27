@@ -6,16 +6,16 @@
  * @module org.credentialengine
  * @extends CreativeWork
  */
-module.exports = class LearningResource extends schema.CreativeWork
-{
+module.exports = class LearningResource extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","LearningResource");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"LearningResource"
+		);
 	}
-
-}
+};

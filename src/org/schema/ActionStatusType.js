@@ -14,7 +14,6 @@ module.exports = class ActionStatusType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ActionStatusType");
+		this.setContextAndType("http://schema.org/", "ActionStatusType");
 	}
-
-}
+};

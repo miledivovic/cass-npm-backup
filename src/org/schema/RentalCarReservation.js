@@ -14,7 +14,6 @@ module.exports = class RentalCarReservation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RentalCarReservation");
+		this.setContextAndType("http://schema.org/", "RentalCarReservation");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Crematorium extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Crematorium");
+		this.setContextAndType("http://schema.org/", "Crematorium");
 	}
-
-}
+};

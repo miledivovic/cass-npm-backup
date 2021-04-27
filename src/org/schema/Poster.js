@@ -14,7 +14,6 @@ module.exports = class Poster extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Poster");
+		this.setContextAndType("http://schema.org/", "Poster");
 	}
-
-}
+};

@@ -16,7 +16,6 @@ module.exports = class ComicCoverArt extends schema.ComicStory {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ComicCoverArt");
+		this.setContextAndType("http://schema.org/", "ComicCoverArt");
 	}
-
-}
+};

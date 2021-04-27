@@ -14,7 +14,6 @@ module.exports = class AmpStory extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AmpStory");
+		this.setContextAndType("http://schema.org/", "AmpStory");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class MoveAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MoveAction");
+		this.setContextAndType("http://schema.org/", "MoveAction");
 	}
-
-}
+};

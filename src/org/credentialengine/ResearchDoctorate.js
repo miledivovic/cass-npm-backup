@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends DoctoralDegree
  */
-module.exports = class ResearchDoctorate extends ce.DoctoralDegree
-{
+module.exports = class ResearchDoctorate extends ce.DoctoralDegree {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ResearchDoctorate");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"ResearchDoctorate"
+		);
 	}
 
 	/**
@@ -757,5 +758,4 @@ module.exports = class ResearchDoctorate extends ce.DoctoralDegree
 	 * @type IdentifierValue
 	 */
 	versionIdentifier;
-
-}
+};

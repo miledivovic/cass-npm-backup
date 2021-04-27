@@ -17,7 +17,6 @@ module.exports = class MediaReview extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MediaReview");
+		this.setContextAndType("http://schema.org/", "MediaReview");
 	}
-
-}
+};

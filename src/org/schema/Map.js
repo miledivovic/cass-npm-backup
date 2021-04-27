@@ -14,7 +14,6 @@ module.exports = class Map extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Map");
+		this.setContextAndType("http://schema.org/", "Map");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class PerformAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PerformAction");
+		this.setContextAndType("http://schema.org/", "PerformAction");
 	}
-
-}
+};

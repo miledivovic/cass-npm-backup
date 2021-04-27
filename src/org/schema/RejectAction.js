@@ -14,7 +14,6 @@ module.exports = class RejectAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RejectAction");
+		this.setContextAndType("http://schema.org/", "RejectAction");
 	}
-
-}
+};

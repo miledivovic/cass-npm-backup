@@ -14,7 +14,6 @@ module.exports = class InfectiousAgentClass extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","InfectiousAgentClass");
+		this.setContextAndType("http://schema.org/", "InfectiousAgentClass");
 	}
-
-}
+};

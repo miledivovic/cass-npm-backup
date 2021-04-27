@@ -14,7 +14,6 @@ module.exports = class Playground extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Playground");
+		this.setContextAndType("http://schema.org/", "Playground");
 	}
-
-}
+};

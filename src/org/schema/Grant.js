@@ -6,7 +6,7 @@
 Grants support  activities directed towards some agreed collective goals, often but not always organized as [[Project]]s. Long-lived projects are sometimes sponsored by a variety of grants over time, but it is also common for a project to be associated with a single grant.
 
 The amount of a [[Grant]] is represented using [[amount]] as a [[MonetaryAmount]].
-    
+
  *
  * @author schema.org
  * @class Grant
@@ -20,7 +20,6 @@ module.exports = class Grant extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Grant");
+		this.setContextAndType("http://schema.org/", "Grant");
 	}
-
-}
+};

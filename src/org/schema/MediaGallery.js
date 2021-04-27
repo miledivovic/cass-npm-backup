@@ -14,7 +14,6 @@ module.exports = class MediaGallery extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MediaGallery");
+		this.setContextAndType("http://schema.org/", "MediaGallery");
 	}
-
-}
+};

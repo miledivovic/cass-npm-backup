@@ -14,7 +14,6 @@ module.exports = class HousePainter extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HousePainter");
+		this.setContextAndType("http://schema.org/", "HousePainter");
 	}
-
-}
+};

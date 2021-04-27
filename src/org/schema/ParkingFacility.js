@@ -14,7 +14,6 @@ module.exports = class ParkingFacility extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ParkingFacility");
+		this.setContextAndType("http://schema.org/", "ParkingFacility");
 	}
-
-}
+};

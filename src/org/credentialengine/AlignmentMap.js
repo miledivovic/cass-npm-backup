@@ -6,15 +6,13 @@
  * @class AlignmentMap
  * @module org.credentialengine
  */
-module.exports = class AlignmentMap extends EcRemoteLinkedData
-{
+module.exports = class AlignmentMap extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","AlignmentMap");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "AlignmentMap");
 	}
 
 	/**
@@ -24,5 +22,4 @@ module.exports = class AlignmentMap extends EcRemoteLinkedData
 	 * @type Statement
 	 */
 	hasStatement;
-
-}
+};

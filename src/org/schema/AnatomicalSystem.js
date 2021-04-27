@@ -14,7 +14,6 @@ module.exports = class AnatomicalSystem extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AnatomicalSystem");
+		this.setContextAndType("http://schema.org/", "AnatomicalSystem");
 	}
-
-}
+};

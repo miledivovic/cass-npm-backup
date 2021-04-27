@@ -14,7 +14,6 @@ module.exports = class ImagingTest extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ImagingTest");
+		this.setContextAndType("http://schema.org/", "ImagingTest");
 	}
-
-}
+};

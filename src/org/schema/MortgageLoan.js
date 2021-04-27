@@ -14,7 +14,6 @@ module.exports = class MortgageLoan extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MortgageLoan");
+		this.setContextAndType("http://schema.org/", "MortgageLoan");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class RadioSeason extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RadioSeason");
+		this.setContextAndType("http://schema.org/", "RadioSeason");
 	}
-
-}
+};

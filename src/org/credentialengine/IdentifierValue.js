@@ -8,16 +8,17 @@ const EcRemoteLinkedData = require("../cassproject/schema/general/EcRemoteLinked
  * @module org.credentialengine
  * @extends identifier
  */
-module.exports = class IdentifierValue extends EcRemoteLinkedData
-{
+module.exports = class IdentifierValue extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","IdentifierValue");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"IdentifierValue"
+		);
 	}
 
 	/**
@@ -44,5 +45,4 @@ module.exports = class IdentifierValue extends EcRemoteLinkedData
 	 * @type string
 	 */
 	identifierValueCode;
-
-}
+};

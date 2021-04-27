@@ -16,7 +16,6 @@ module.exports = class MedicalCode extends schema.CategoryCode {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalCode");
+		this.setContextAndType("http://schema.org/", "MedicalCode");
 	}
-
-}
+};

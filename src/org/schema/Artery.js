@@ -14,7 +14,6 @@ module.exports = class Artery extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Artery");
+		this.setContextAndType("http://schema.org/", "Artery");
 	}
-
-}
+};

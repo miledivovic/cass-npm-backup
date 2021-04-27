@@ -6,15 +6,13 @@
  * @class ComponentCondition
  * @module org.credentialengine
  */
-module.exports = class ComponentCondition extends EcRemoteLinkedData
-{
+module.exports = class ComponentCondition extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","ComponentCondition");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "ComponentCondition");
 	}
 
 	/**
@@ -56,5 +54,4 @@ module.exports = class ComponentCondition extends EcRemoteLinkedData
 	 * @type AssessmentComponent | BasicComponent | CocurricularComponent | CompetencyComponent | CourseComponent | CredentialComponent | ExtracurricularComponent | JobComponent | SelectionComponent | WorkExperienceComponent
 	 */
 	targetComponent;
-
-}
+};

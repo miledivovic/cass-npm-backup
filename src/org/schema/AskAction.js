@@ -14,7 +14,6 @@ module.exports = class AskAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AskAction");
+		this.setContextAndType("http://schema.org/", "AskAction");
 	}
-
-}
+};

@@ -11,12 +11,12 @@ https.get("https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/relea
         data += chunk;
     });
     resp.on('end', () => {
-        while (data != data.replace("http://www.w3.org/2000/01/rdf-schema#","rdfs:"))
-            data = data.replace("http://www.w3.org/2000/01/rdf-schema#","rdfs:");
-        while (data != data.replace("https://schema.org/","schema:"))
-            data = data.replace("https://schema.org/","schema:");
-        while (data != data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:"))
-            data = data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#","rdf:");
+        while (data != data.replace("http://www.w3.org/2000/01/rdf-schema#", "rdfs:"))
+            data = data.replace("http://www.w3.org/2000/01/rdf-schema#", "rdfs:");
+        while (data != data.replace("https://schema.org/", "schema:"))
+            data = data.replace("https://schema.org/", "schema:");
+        while (data != data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf:"))
+            data = data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf:");
         var graph = JSON.parse(data)["@graph"];
         for (var i = 0; i < graph.length; i++) {
             var node = graph[i];
@@ -44,7 +44,7 @@ function codeGenerate(graph, node) {
     text += "/**\n";
     text += " * " + classId.replace("schema:", "Schema.org/") + "\n";
     text += " * " + node["rdfs:comment"] + "\n";
-    text += " *"+"\n";
+    text += " *" + "\n";
     text += " * @author schema.org\n";
     text += " * @class " + className + "\n";
     text += " * @module org.schema\n";
@@ -55,10 +55,9 @@ function codeGenerate(graph, node) {
         text += " * @extends " + node["rdfs:subClassOf"]["@id"].split(":")[1] + "\n";
     text += " */\n";
     text += "module.exports = class " + className;
-    if (node["rdfs:subClassOf"] != null)
-    {
+    if (node["rdfs:subClassOf"] != null) {
         text += " extends schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " {\n";
-        text = "global.schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " = require(\"./" + node["rdfs:subClassOf"]["@id"].split(":")[1] + ".js\");\n"+text
+        text = "global.schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " = require(\"./" + node["rdfs:subClassOf"]["@id"].split(":")[1] + ".js\");\n" + text
     }
     else
         text += " extends EcRemoteLinkedData {\n";
@@ -95,7 +94,7 @@ function codeGenerate(graph, node) {
         text += "\t/**\n";
         text += "\t * " + gi.replace("schema:", "Schema.org/") + "\n";
         text += "\t * " + gn["rdfs:comment"][0]["@value"] + "\n";
-        text += "\t *"+"\n";
+        text += "\t *" + "\n";
         text += "\t * @property " + gn["rdfs:label"][0]["@value"] + "\n";
         text += "\t * @type ";
         var gr = gn["schema:rangeIncludes"][0];

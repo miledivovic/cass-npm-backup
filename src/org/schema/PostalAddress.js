@@ -14,7 +14,6 @@ module.exports = class PostalAddress extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PostalAddress");
+		this.setContextAndType("http://schema.org/", "PostalAddress");
 	}
-
-}
+};

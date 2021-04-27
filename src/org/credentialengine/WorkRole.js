@@ -5,15 +5,13 @@
  * @class WorkRole
  * @module org.credentialengine
  */
-module.exports = class WorkRole extends EcRemoteLinkedData
-{
+module.exports = class WorkRole extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","WorkRole");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "WorkRole");
 	}
 
 	/**
@@ -106,5 +104,4 @@ module.exports = class WorkRole extends EcRemoteLinkedData
 	 * @type IdentifierValue
 	 */
 	versionIdentifier;
-
-}
+};

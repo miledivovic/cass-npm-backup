@@ -16,7 +16,6 @@ module.exports = class VideoGame extends schema.SoftwareApplication {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","VideoGame");
+		this.setContextAndType("http://schema.org/", "VideoGame");
 	}
-
-}
+};

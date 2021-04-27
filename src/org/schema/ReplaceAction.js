@@ -14,7 +14,6 @@ module.exports = class ReplaceAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ReplaceAction");
+		this.setContextAndType("http://schema.org/", "ReplaceAction");
 	}
-
-}
+};

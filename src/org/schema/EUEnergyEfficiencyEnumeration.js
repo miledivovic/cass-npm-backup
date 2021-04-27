@@ -6,7 +6,8 @@
  * @class EUEnergyEfficiencyEnumeration
  * @module org.schema
  */
-module.exports = class EUEnergyEfficiencyEnumeration extends EcRemoteLinkedData {
+module.exports = class EUEnergyEfficiencyEnumeration extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class EUEnergyEfficiencyEnumeration extends EcRemoteLinkedData 
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EUEnergyEfficiencyEnumeration");
+		this.setContextAndType(
+			"http://schema.org/",
+			"EUEnergyEfficiencyEnumeration"
+		);
 	}
-
-}
+};

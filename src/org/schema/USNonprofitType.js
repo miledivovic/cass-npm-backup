@@ -14,7 +14,6 @@ module.exports = class USNonprofitType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","USNonprofitType");
+		this.setContextAndType("http://schema.org/", "USNonprofitType");
 	}
-
-}
+};

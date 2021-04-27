@@ -14,7 +14,6 @@ module.exports = class SocialMediaPosting extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SocialMediaPosting");
+		this.setContextAndType("http://schema.org/", "SocialMediaPosting");
 	}
-
-}
+};

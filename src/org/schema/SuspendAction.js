@@ -14,7 +14,6 @@ module.exports = class SuspendAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SuspendAction");
+		this.setContextAndType("http://schema.org/", "SuspendAction");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Language extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Language");
+		this.setContextAndType("http://schema.org/", "Language");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class TreatmentIndication extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TreatmentIndication");
+		this.setContextAndType("http://schema.org/", "TreatmentIndication");
 	}
-
-}
+};

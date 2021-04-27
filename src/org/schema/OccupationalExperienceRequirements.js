@@ -6,7 +6,8 @@
  * @class OccupationalExperienceRequirements
  * @module org.schema
  */
-module.exports = class OccupationalExperienceRequirements extends EcRemoteLinkedData {
+module.exports = class OccupationalExperienceRequirements extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class OccupationalExperienceRequirements extends EcRemoteLinked
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","OccupationalExperienceRequirements");
+		this.setContextAndType(
+			"http://schema.org/",
+			"OccupationalExperienceRequirements"
+		);
 	}
-
-}
+};

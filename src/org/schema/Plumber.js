@@ -14,7 +14,6 @@ module.exports = class Plumber extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Plumber");
+		this.setContextAndType("http://schema.org/", "Plumber");
 	}
-
-}
+};

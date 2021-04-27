@@ -14,7 +14,6 @@ module.exports = class HyperTocEntry extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HyperTocEntry");
+		this.setContextAndType("http://schema.org/", "HyperTocEntry");
 	}
-
-}
+};

@@ -16,7 +16,6 @@ module.exports = class LegislationObject extends schema.MediaObject {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LegislationObject");
+		this.setContextAndType("http://schema.org/", "LegislationObject");
 	}
-
-}
+};

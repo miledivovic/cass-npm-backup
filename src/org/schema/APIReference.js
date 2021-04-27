@@ -14,7 +14,6 @@ module.exports = class APIReference extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","APIReference");
+		this.setContextAndType("http://schema.org/", "APIReference");
 	}
-
-}
+};

@@ -5,15 +5,13 @@
  * @class RuleSetProfile
  * @module org.credentialengine
  */
-module.exports = class RuleSetProfile extends EcRemoteLinkedData
-{
+module.exports = class RuleSetProfile extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","RuleSetProfile");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "RuleSetProfile");
 	}
 
 	/**
@@ -39,5 +37,4 @@ module.exports = class RuleSetProfile extends EcRemoteLinkedData
 	 * @type anyURI
 	 */
 	ruleSetUsed;
-
-}
+};

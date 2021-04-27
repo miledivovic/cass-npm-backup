@@ -14,7 +14,6 @@ module.exports = class Festival extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Festival");
+		this.setContextAndType("http://schema.org/", "Festival");
 	}
-
-}
+};

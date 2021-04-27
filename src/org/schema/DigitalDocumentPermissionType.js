@@ -6,7 +6,8 @@
  * @class DigitalDocumentPermissionType
  * @module org.schema
  */
-module.exports = class DigitalDocumentPermissionType extends EcRemoteLinkedData {
+module.exports = class DigitalDocumentPermissionType extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class DigitalDocumentPermissionType extends EcRemoteLinkedData 
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DigitalDocumentPermissionType");
+		this.setContextAndType(
+			"http://schema.org/",
+			"DigitalDocumentPermissionType"
+		);
 	}
-
-}
+};

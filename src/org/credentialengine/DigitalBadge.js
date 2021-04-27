@@ -6,16 +6,17 @@
  * @module org.credentialengine
  * @extends Badge
  */
-module.exports = class DigitalBadge extends ce.Badge
-{
+module.exports = class DigitalBadge extends ce.Badge {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","DigitalBadge");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"DigitalBadge"
+		);
 	}
 
 	/**
@@ -756,5 +757,4 @@ module.exports = class DigitalBadge extends ce.Badge
 	 * @type IdentifierValue
 	 */
 	versionIdentifier;
-
-}
+};

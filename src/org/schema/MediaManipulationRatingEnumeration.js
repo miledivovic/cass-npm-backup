@@ -6,7 +6,8 @@
  * @class MediaManipulationRatingEnumeration
  * @module org.schema
  */
-module.exports = class MediaManipulationRatingEnumeration extends EcRemoteLinkedData {
+module.exports = class MediaManipulationRatingEnumeration extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class MediaManipulationRatingEnumeration extends EcRemoteLinked
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MediaManipulationRatingEnumeration");
+		this.setContextAndType(
+			"http://schema.org/",
+			"MediaManipulationRatingEnumeration"
+		);
 	}
-
-}
+};

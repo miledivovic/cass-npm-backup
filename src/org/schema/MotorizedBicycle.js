@@ -14,7 +14,6 @@ module.exports = class MotorizedBicycle extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MotorizedBicycle");
+		this.setContextAndType("http://schema.org/", "MotorizedBicycle");
 	}
-
-}
+};

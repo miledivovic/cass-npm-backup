@@ -14,7 +14,6 @@ module.exports = class ComedyClub extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ComedyClub");
+		this.setContextAndType("http://schema.org/", "ComedyClub");
 	}
-
-}
+};

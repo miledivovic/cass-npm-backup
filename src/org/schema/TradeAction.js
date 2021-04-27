@@ -14,7 +14,6 @@ module.exports = class TradeAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TradeAction");
+		this.setContextAndType("http://schema.org/", "TradeAction");
 	}
-
-}
+};

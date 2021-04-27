@@ -16,7 +16,6 @@ module.exports = class FireStation extends schema.EmergencyService {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","FireStation");
+		this.setContextAndType("http://schema.org/", "FireStation");
 	}
-
-}
+};

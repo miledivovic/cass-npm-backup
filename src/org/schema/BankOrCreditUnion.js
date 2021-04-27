@@ -14,7 +14,6 @@ module.exports = class BankOrCreditUnion extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BankOrCreditUnion");
+		this.setContextAndType("http://schema.org/", "BankOrCreditUnion");
 	}
-
-}
+};

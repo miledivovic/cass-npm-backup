@@ -14,7 +14,6 @@ module.exports = class TaxiStand extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TaxiStand");
+		this.setContextAndType("http://schema.org/", "TaxiStand");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class ReplyAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ReplyAction");
+		this.setContextAndType("http://schema.org/", "ReplyAction");
 	}
-
-}
+};

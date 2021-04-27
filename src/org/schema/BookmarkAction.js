@@ -14,7 +14,6 @@ module.exports = class BookmarkAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BookmarkAction");
+		this.setContextAndType("http://schema.org/", "BookmarkAction");
 	}
-
-}
+};

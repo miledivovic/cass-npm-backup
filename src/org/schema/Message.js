@@ -14,7 +14,6 @@ module.exports = class Message extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Message");
+		this.setContextAndType("http://schema.org/", "Message");
 	}
-
-}
+};

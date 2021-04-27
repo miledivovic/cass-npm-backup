@@ -14,7 +14,6 @@ module.exports = class PronounceableText extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PronounceableText");
+		this.setContextAndType("http://schema.org/", "PronounceableText");
 	}
-
-}
+};

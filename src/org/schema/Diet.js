@@ -16,7 +16,6 @@ module.exports = class Diet extends schema.CreativeWork {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Diet");
+		this.setContextAndType("http://schema.org/", "Diet");
 	}
-
-}
+};

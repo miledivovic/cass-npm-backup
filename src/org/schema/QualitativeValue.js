@@ -14,7 +14,6 @@ module.exports = class QualitativeValue extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","QualitativeValue");
+		this.setContextAndType("http://schema.org/", "QualitativeValue");
 	}
-
-}
+};

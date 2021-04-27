@@ -14,7 +14,6 @@ module.exports = class IgnoreAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","IgnoreAction");
+		this.setContextAndType("http://schema.org/", "IgnoreAction");
 	}
-
-}
+};

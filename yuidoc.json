@@ -7,6 +7,8 @@
     "options": {
         "exclude": "forgeAsync.js",
         "themedir": "node_modules/yuidoc-ember-cli-theme",
-        "helpers": ["node_modules/yuidoc-ember-cli-theme/helpers.js"]
+        "helpers": [
+            "node_modules/yuidoc-ember-cli-theme/helpers.js"
+        ]
     }
 }

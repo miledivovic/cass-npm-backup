@@ -14,7 +14,6 @@ module.exports = class PerformanceRole extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PerformanceRole");
+		this.setContextAndType("http://schema.org/", "PerformanceRole");
 	}
-
-}
+};

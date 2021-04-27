@@ -14,7 +14,6 @@ module.exports = class DDxElement extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DDxElement");
+		this.setContextAndType("http://schema.org/", "DDxElement");
 	}
-
-}
+};

@@ -6,16 +6,17 @@
  * @module org.credentialengine
  * @extends CredentialFramework
  */
-module.exports = class InstructionalProgramClassification extends ce.CredentialFramework
-{
+module.exports = class InstructionalProgramClassification extends
+	ce.CredentialFramework {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","InstructionalProgramClassification");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"InstructionalProgramClassification"
+		);
 	}
-
-}
+};

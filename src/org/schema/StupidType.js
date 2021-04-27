@@ -14,7 +14,6 @@ module.exports = class StupidType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","StupidType");
+		this.setContextAndType("http://schema.org/", "StupidType");
 	}
-
-}
+};

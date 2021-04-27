@@ -14,7 +14,6 @@ module.exports = class BowlingAlley extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BowlingAlley");
+		this.setContextAndType("http://schema.org/", "BowlingAlley");
 	}
-
-}
+};

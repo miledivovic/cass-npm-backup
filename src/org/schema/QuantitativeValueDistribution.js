@@ -6,7 +6,8 @@
  * @class QuantitativeValueDistribution
  * @module org.schema
  */
-module.exports = class QuantitativeValueDistribution extends EcRemoteLinkedData {
+module.exports = class QuantitativeValueDistribution extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class QuantitativeValueDistribution extends EcRemoteLinkedData 
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","QuantitativeValueDistribution");
+		this.setContextAndType(
+			"http://schema.org/",
+			"QuantitativeValueDistribution"
+		);
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Courthouse extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Courthouse");
+		this.setContextAndType("http://schema.org/", "Courthouse");
 	}
-
-}
+};

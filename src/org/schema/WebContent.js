@@ -14,7 +14,6 @@ module.exports = class WebContent extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","WebContent");
+		this.setContextAndType("http://schema.org/", "WebContent");
 	}
-
-}
+};

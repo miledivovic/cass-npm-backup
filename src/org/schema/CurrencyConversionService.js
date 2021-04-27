@@ -14,7 +14,9 @@ module.exports = class CurrencyConversionService extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CurrencyConversionService");
+		this.setContextAndType(
+			"http://schema.org/",
+			"CurrencyConversionService"
+		);
 	}
-
-}
+};

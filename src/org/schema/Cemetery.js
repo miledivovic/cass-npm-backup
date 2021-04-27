@@ -14,7 +14,6 @@ module.exports = class Cemetery extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Cemetery");
+		this.setContextAndType("http://schema.org/", "Cemetery");
 	}
-
-}
+};

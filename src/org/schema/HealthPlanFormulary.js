@@ -1,6 +1,6 @@
 /**
  * Schema.org/HealthPlanFormulary
- * For a given health insurance plan, the specification for costs and coverage of prescription drugs. 
+ * For a given health insurance plan, the specification for costs and coverage of prescription drugs.
  *
  * @author schema.org
  * @class HealthPlanFormulary
@@ -14,7 +14,6 @@ module.exports = class HealthPlanFormulary extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HealthPlanFormulary");
+		this.setContextAndType("http://schema.org/", "HealthPlanFormulary");
 	}
-
-}
+};

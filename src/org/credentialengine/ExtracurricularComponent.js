@@ -6,16 +6,17 @@
  * @module org.credentialengine
  * @extends PathwayComponent
  */
-module.exports = class ExtracurricularComponent extends ce.PathwayComponent
-{
+module.exports = class ExtracurricularComponent extends ce.PathwayComponent {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","ExtracurricularComponent");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"ExtracurricularComponent"
+		);
 	}
 
 	/**
@@ -152,5 +153,4 @@ module.exports = class ExtracurricularComponent extends ce.PathwayComponent
 	 * @type anyURI
 	 */
 	subjectWebpage;
-
-}
+};

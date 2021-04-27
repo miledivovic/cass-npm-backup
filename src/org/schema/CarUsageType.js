@@ -14,7 +14,6 @@ module.exports = class CarUsageType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","CarUsageType");
+		this.setContextAndType("http://schema.org/", "CarUsageType");
 	}
-
-}
+};

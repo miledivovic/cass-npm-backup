@@ -14,7 +14,6 @@ module.exports = class ConsumeAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ConsumeAction");
+		this.setContextAndType("http://schema.org/", "ConsumeAction");
 	}
-
-}
+};

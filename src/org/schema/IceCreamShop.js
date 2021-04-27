@@ -14,7 +14,6 @@ module.exports = class IceCreamShop extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","IceCreamShop");
+		this.setContextAndType("http://schema.org/", "IceCreamShop");
 	}
-
-}
+};

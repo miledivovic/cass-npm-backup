@@ -5,15 +5,12 @@
  * @class CredentialAssertion
  * @module org.credentialengine
  */
-module.exports = class CredentialAssertion extends EcRemoteLinkedData
-{
+module.exports = class CredentialAssertion extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","CredentialAssertion");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "CredentialAssertion");
 	}
-
-}
+};

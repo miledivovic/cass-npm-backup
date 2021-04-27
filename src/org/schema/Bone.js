@@ -14,7 +14,6 @@ module.exports = class Bone extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Bone");
+		this.setContextAndType("http://schema.org/", "Bone");
 	}
-
-}
+};

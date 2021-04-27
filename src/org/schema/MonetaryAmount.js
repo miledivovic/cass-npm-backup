@@ -14,7 +14,6 @@ module.exports = class MonetaryAmount extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MonetaryAmount");
+		this.setContextAndType("http://schema.org/", "MonetaryAmount");
 	}
-
-}
+};

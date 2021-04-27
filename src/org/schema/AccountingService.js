@@ -1,7 +1,7 @@
 /**
  * Schema.org/AccountingService
  * Accountancy business.\n\nAs a [[LocalBusiness]] it can be described as a [[provider]] of one or more [[Service]]\(s).
-      
+
  *
  * @author schema.org
  * @class AccountingService
@@ -15,7 +15,6 @@ module.exports = class AccountingService extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AccountingService");
+		this.setContextAndType("http://schema.org/", "AccountingService");
 	}
-
-}
+};

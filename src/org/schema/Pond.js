@@ -14,7 +14,6 @@ module.exports = class Pond extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Pond");
+		this.setContextAndType("http://schema.org/", "Pond");
 	}
-
-}
+};

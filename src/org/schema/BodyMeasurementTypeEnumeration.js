@@ -6,7 +6,8 @@
  * @class BodyMeasurementTypeEnumeration
  * @module org.schema
  */
-module.exports = class BodyMeasurementTypeEnumeration extends EcRemoteLinkedData {
+module.exports = class BodyMeasurementTypeEnumeration extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class BodyMeasurementTypeEnumeration extends EcRemoteLinkedData
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BodyMeasurementTypeEnumeration");
+		this.setContextAndType(
+			"http://schema.org/",
+			"BodyMeasurementTypeEnumeration"
+		);
 	}
-
-}
+};

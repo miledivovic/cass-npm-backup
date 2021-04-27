@@ -5,15 +5,13 @@
  * @class Competency
  * @module org.credentialengine
  */
-module.exports = class Competency extends EcRemoteLinkedData
-{
+module.exports = class Competency extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","Competency");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "Competency");
 	}
 
 	/**
@@ -383,5 +381,4 @@ module.exports = class Competency extends EcRemoteLinkedData
 	 * @type CredentialAlignmentObject
 	 */
 	occupationType;
-
-}
+};

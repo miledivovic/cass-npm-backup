@@ -14,7 +14,6 @@ module.exports = class OfficeEquipmentStore extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","OfficeEquipmentStore");
+		this.setContextAndType("http://schema.org/", "OfficeEquipmentStore");
 	}
-
-}
+};

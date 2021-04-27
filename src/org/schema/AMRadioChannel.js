@@ -14,7 +14,6 @@ module.exports = class AMRadioChannel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AMRadioChannel");
+		this.setContextAndType("http://schema.org/", "AMRadioChannel");
 	}
-
-}
+};

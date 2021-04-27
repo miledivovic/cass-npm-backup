@@ -6,15 +6,12 @@
  * @class LearningOpportunity
  * @module org.credentialengine
  */
-module.exports = class LearningOpportunity extends EcRemoteLinkedData
-{
+module.exports = class LearningOpportunity extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","LearningOpportunity");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "LearningOpportunity");
 	}
-
-}
+};

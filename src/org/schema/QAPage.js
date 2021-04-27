@@ -14,7 +14,6 @@ module.exports = class QAPage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","QAPage");
+		this.setContextAndType("http://schema.org/", "QAPage");
 	}
-
-}
+};

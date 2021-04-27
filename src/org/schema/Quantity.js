@@ -14,7 +14,6 @@ module.exports = class Quantity extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Quantity");
+		this.setContextAndType("http://schema.org/", "Quantity");
 	}
-
-}
+};

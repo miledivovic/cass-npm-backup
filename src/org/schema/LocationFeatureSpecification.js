@@ -14,7 +14,9 @@ module.exports = class LocationFeatureSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LocationFeatureSpecification");
+		this.setContextAndType(
+			"http://schema.org/",
+			"LocationFeatureSpecification"
+		);
 	}
-
-}
+};

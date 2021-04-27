@@ -16,7 +16,6 @@ module.exports = class PalliativeProcedure extends schema.MedicalTherapy {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PalliativeProcedure");
+		this.setContextAndType("http://schema.org/", "PalliativeProcedure");
 	}
-
-}
+};

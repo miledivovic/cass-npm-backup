@@ -14,7 +14,6 @@ module.exports = class VitalSign extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","VitalSign");
+		this.setContextAndType("http://schema.org/", "VitalSign");
 	}
-
-}
+};

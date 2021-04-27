@@ -14,7 +14,6 @@ module.exports = class PreOrderAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PreOrderAction");
+		this.setContextAndType("http://schema.org/", "PreOrderAction");
 	}
-
-}
+};

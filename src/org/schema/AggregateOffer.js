@@ -14,7 +14,6 @@ module.exports = class AggregateOffer extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AggregateOffer");
+		this.setContextAndType("http://schema.org/", "AggregateOffer");
 	}
-
-}
+};

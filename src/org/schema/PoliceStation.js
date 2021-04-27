@@ -16,7 +16,6 @@ module.exports = class PoliceStation extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PoliceStation");
+		this.setContextAndType("http://schema.org/", "PoliceStation");
 	}
-
-}
+};

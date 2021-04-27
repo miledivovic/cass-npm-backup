@@ -14,7 +14,6 @@ module.exports = class MobilePhoneStore extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MobilePhoneStore");
+		this.setContextAndType("http://schema.org/", "MobilePhoneStore");
 	}
-
-}
+};

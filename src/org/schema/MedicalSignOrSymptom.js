@@ -14,7 +14,6 @@ module.exports = class MedicalSignOrSymptom extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalSignOrSymptom");
+		this.setContextAndType("http://schema.org/", "MedicalSignOrSymptom");
 	}
-
-}
+};

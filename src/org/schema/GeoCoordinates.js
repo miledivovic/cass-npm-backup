@@ -14,7 +14,6 @@ module.exports = class GeoCoordinates extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","GeoCoordinates");
+		this.setContextAndType("http://schema.org/", "GeoCoordinates");
 	}
-
-}
+};

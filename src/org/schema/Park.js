@@ -14,7 +14,6 @@ module.exports = class Park extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Park");
+		this.setContextAndType("http://schema.org/", "Park");
 	}
-
-}
+};

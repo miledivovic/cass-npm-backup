@@ -6,15 +6,13 @@
  * @class ConditionManifest
  * @module org.credentialengine
  */
-module.exports = class ConditionManifest extends EcRemoteLinkedData
-{
+module.exports = class ConditionManifest extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","ConditionManifest");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "ConditionManifest");
 	}
 
 	/**
@@ -100,5 +98,4 @@ module.exports = class ConditionManifest extends EcRemoteLinkedData
 	 * @type anyURI
 	 */
 	subjectWebpage;
-
-}
+};

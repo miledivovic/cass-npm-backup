@@ -14,7 +14,6 @@ module.exports = class Ticket extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Ticket");
+		this.setContextAndType("http://schema.org/", "Ticket");
 	}
-
-}
+};

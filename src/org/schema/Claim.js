@@ -5,7 +5,7 @@
   Beyond [[ClaimReview]], the Claim type can be associated with related creative works - for example a [[ScholarlyArticle]] or [[Question]] might be [[about]] some [[Claim]].
 
   At this time, Schema.org does not define any types of relationship between claims. This is a natural area for future exploration.
-  
+
  *
  * @author schema.org
  * @class Claim
@@ -19,7 +19,6 @@ module.exports = class Claim extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Claim");
+		this.setContextAndType("http://schema.org/", "Claim");
 	}
-
-}
+};

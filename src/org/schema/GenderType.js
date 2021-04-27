@@ -14,7 +14,6 @@ module.exports = class GenderType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","GenderType");
+		this.setContextAndType("http://schema.org/", "GenderType");
 	}
-
-}
+};

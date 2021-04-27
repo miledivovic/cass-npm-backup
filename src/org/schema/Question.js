@@ -14,7 +14,6 @@ module.exports = class Question extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Question");
+		this.setContextAndType("http://schema.org/", "Question");
 	}
-
-}
+};

@@ -16,7 +16,6 @@ module.exports = class TVSeries extends schema.CreativeWorkSeries {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TVSeries");
+		this.setContextAndType("http://schema.org/", "TVSeries");
 	}
-
-}
+};

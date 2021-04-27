@@ -14,7 +14,6 @@ module.exports = class ShoppingCenter extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ShoppingCenter");
+		this.setContextAndType("http://schema.org/", "ShoppingCenter");
 	}
-
-}
+};

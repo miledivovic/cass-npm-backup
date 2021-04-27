@@ -14,7 +14,6 @@ module.exports = class PaintAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PaintAction");
+		this.setContextAndType("http://schema.org/", "PaintAction");
 	}
-
-}
+};

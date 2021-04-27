@@ -3,7 +3,7 @@
  * An [[OfferForLease]] in Schema.org represents an [[Offer]] to lease out something, i.e. an [[Offer]] whose
   [[businessFunction]] is [lease out](http://purl.org/goodrelations/v1#LeaseOut.). See [Good Relations](https://en.wikipedia.org/wiki/GoodRelations) for
   background on the underlying concepts.
-  
+
  *
  * @author schema.org
  * @class OfferForLease
@@ -17,7 +17,6 @@ module.exports = class OfferForLease extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","OfferForLease");
+		this.setContextAndType("http://schema.org/", "OfferForLease");
 	}
-
-}
+};

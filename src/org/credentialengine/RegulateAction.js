@@ -7,16 +7,17 @@
  * @module org.credentialengine
  * @extends CredentialingAction
  */
-module.exports = class RegulateAction extends ce.CredentialingAction
-{
+module.exports = class RegulateAction extends ce.CredentialingAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","RegulateAction");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"RegulateAction"
+		);
 	}
 
 	/**
@@ -92,5 +93,4 @@ module.exports = class RegulateAction extends ce.CredentialingAction
 	 * @type date
 	 */
 	startDate;
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Vessel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Vessel");
+		this.setContextAndType("http://schema.org/", "Vessel");
 	}
-
-}
+};

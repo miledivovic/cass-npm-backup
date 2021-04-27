@@ -14,7 +14,6 @@ module.exports = class ClaimReview extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ClaimReview");
+		this.setContextAndType("http://schema.org/", "ClaimReview");
 	}
-
-}
+};

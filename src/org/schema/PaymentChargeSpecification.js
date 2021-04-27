@@ -14,7 +14,9 @@ module.exports = class PaymentChargeSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PaymentChargeSpecification");
+		this.setContextAndType(
+			"http://schema.org/",
+			"PaymentChargeSpecification"
+		);
 	}
-
-}
+};

@@ -16,7 +16,6 @@ module.exports = class Audiobook extends schema.AudioObject {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Audiobook");
+		this.setContextAndType("http://schema.org/", "Audiobook");
 	}
-
-}
+};

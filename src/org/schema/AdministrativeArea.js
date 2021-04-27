@@ -14,7 +14,6 @@ module.exports = class AdministrativeArea extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AdministrativeArea");
+		this.setContextAndType("http://schema.org/", "AdministrativeArea");
 	}
-
-}
+};

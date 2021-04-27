@@ -14,7 +14,6 @@ module.exports = class InvestmentFund extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","InvestmentFund");
+		this.setContextAndType("http://schema.org/", "InvestmentFund");
 	}
-
-}
+};

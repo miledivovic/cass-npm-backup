@@ -5,15 +5,13 @@
  * @class Concept
  * @module org.credentialengine
  */
-module.exports = class Concept extends EcRemoteLinkedData
-{
+module.exports = class Concept extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","Concept");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "Concept");
 	}
 
 	/**
@@ -152,5 +150,4 @@ module.exports = class Concept extends EcRemoteLinkedData
 	 * @type ConceptScheme
 	 */
 	topConceptOf;
-
-}
+};

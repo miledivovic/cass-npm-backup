@@ -14,7 +14,6 @@ module.exports = class NGO extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","NGO");
+		this.setContextAndType("http://schema.org/", "NGO");
 	}
-
-}
+};

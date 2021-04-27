@@ -14,7 +14,6 @@ module.exports = class MedicalAudienceType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalAudienceType");
+		this.setContextAndType("http://schema.org/", "MedicalAudienceType");
 	}
-
-}
+};

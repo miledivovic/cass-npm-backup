@@ -14,7 +14,6 @@ module.exports = class MedicalRiskScore extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalRiskScore");
+		this.setContextAndType("http://schema.org/", "MedicalRiskScore");
 	}
-
-}
+};

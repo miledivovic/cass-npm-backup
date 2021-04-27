@@ -14,7 +14,6 @@ module.exports = class PublicationIssue extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PublicationIssue");
+		this.setContextAndType("http://schema.org/", "PublicationIssue");
 	}
-
-}
+};

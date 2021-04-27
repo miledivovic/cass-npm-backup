@@ -6,7 +6,8 @@
  * @class MedicalGuidelineRecommendation
  * @module org.schema
  */
-module.exports = class MedicalGuidelineRecommendation extends EcRemoteLinkedData {
+module.exports = class MedicalGuidelineRecommendation extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class MedicalGuidelineRecommendation extends EcRemoteLinkedData
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalGuidelineRecommendation");
+		this.setContextAndType(
+			"http://schema.org/",
+			"MedicalGuidelineRecommendation"
+		);
 	}
-
-}
+};

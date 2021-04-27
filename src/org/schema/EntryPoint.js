@@ -14,7 +14,6 @@ module.exports = class EntryPoint extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EntryPoint");
+		this.setContextAndType("http://schema.org/", "EntryPoint");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class UserBlocks extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","UserBlocks");
+		this.setContextAndType("http://schema.org/", "UserBlocks");
 	}
-
-}
+};

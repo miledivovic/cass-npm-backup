@@ -6,16 +6,16 @@
  * @module org.credentialengine
  * @extends LearningOpportunity
  */
-module.exports = class Course extends ce.LearningOpportunity
-{
+module.exports = class Course extends ce.LearningOpportunity {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","Course");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"Course"
+		);
 	}
-
-}
+};

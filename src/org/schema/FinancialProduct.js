@@ -14,7 +14,6 @@ module.exports = class FinancialProduct extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","FinancialProduct");
+		this.setContextAndType("http://schema.org/", "FinancialProduct");
 	}
-
-}
+};

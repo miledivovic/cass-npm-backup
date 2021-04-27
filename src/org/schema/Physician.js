@@ -16,7 +16,6 @@ module.exports = class Physician extends schema.MedicalOrganization {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Physician");
+		this.setContextAndType("http://schema.org/", "Physician");
 	}
-
-}
+};

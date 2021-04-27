@@ -14,7 +14,6 @@ module.exports = class InteractAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","InteractAction");
+		this.setContextAndType("http://schema.org/", "InteractAction");
 	}
-
-}
+};

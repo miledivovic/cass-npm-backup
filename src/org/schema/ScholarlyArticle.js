@@ -14,7 +14,6 @@ module.exports = class ScholarlyArticle extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","ScholarlyArticle");
+		this.setContextAndType("http://schema.org/", "ScholarlyArticle");
 	}
-
-}
+};

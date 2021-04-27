@@ -14,7 +14,6 @@ module.exports = class Beach extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Beach");
+		this.setContextAndType("http://schema.org/", "Beach");
 	}
-
-}
+};

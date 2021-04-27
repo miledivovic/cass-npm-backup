@@ -14,7 +14,6 @@ module.exports = class BookFormatType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BookFormatType");
+		this.setContextAndType("http://schema.org/", "BookFormatType");
 	}
-
-}
+};

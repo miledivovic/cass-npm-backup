@@ -14,7 +14,6 @@ module.exports = class Vein extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Vein");
+		this.setContextAndType("http://schema.org/", "Vein");
 	}
-
-}
+};

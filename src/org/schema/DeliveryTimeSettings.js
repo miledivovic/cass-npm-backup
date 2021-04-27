@@ -14,7 +14,6 @@ module.exports = class DeliveryTimeSettings extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","DeliveryTimeSettings");
+		this.setContextAndType("http://schema.org/", "DeliveryTimeSettings");
 	}
-
-}
+};

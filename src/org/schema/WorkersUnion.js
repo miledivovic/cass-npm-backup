@@ -14,7 +14,6 @@ module.exports = class WorkersUnion extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","WorkersUnion");
+		this.setContextAndType("http://schema.org/", "WorkersUnion");
 	}
-
-}
+};

@@ -17,7 +17,6 @@ module.exports = class Hotel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Hotel");
+		this.setContextAndType("http://schema.org/", "Hotel");
 	}
-
-}
+};

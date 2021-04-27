@@ -14,7 +14,6 @@ module.exports = class PublicToilet extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PublicToilet");
+		this.setContextAndType("http://schema.org/", "PublicToilet");
 	}
-
-}
+};

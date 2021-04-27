@@ -6,7 +6,8 @@
  * @class LandmarksOrHistoricalBuildings
  * @module org.schema
  */
-module.exports = class LandmarksOrHistoricalBuildings extends EcRemoteLinkedData {
+module.exports = class LandmarksOrHistoricalBuildings extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class LandmarksOrHistoricalBuildings extends EcRemoteLinkedData
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LandmarksOrHistoricalBuildings");
+		this.setContextAndType(
+			"http://schema.org/",
+			"LandmarksOrHistoricalBuildings"
+		);
 	}
-
-}
+};

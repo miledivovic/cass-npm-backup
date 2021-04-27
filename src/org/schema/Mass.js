@@ -14,7 +14,6 @@ module.exports = class Mass extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Mass");
+		this.setContextAndType("http://schema.org/", "Mass");
 	}
-
-}
+};

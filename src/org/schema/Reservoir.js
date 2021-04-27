@@ -14,7 +14,6 @@ module.exports = class Reservoir extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Reservoir");
+		this.setContextAndType("http://schema.org/", "Reservoir");
 	}
-
-}
+};

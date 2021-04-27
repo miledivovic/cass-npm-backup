@@ -14,7 +14,6 @@ module.exports = class NoteDigitalDocument extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","NoteDigitalDocument");
+		this.setContextAndType("http://schema.org/", "NoteDigitalDocument");
 	}
-
-}
+};

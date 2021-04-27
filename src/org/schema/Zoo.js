@@ -14,7 +14,6 @@ module.exports = class Zoo extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Zoo");
+		this.setContextAndType("http://schema.org/", "Zoo");
 	}
-
-}
+};

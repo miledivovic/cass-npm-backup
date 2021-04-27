@@ -14,7 +14,6 @@ module.exports = class Periodical extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Periodical");
+		this.setContextAndType("http://schema.org/", "Periodical");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class LymphaticVessel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LymphaticVessel");
+		this.setContextAndType("http://schema.org/", "LymphaticVessel");
 	}
-
-}
+};

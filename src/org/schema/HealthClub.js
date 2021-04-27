@@ -16,7 +16,6 @@ module.exports = class HealthClub extends schema.HealthAndBeautyBusiness {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HealthClub");
+		this.setContextAndType("http://schema.org/", "HealthClub");
 	}
-
-}
+};

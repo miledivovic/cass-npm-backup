@@ -14,7 +14,6 @@ module.exports = class RsvpResponseType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","RsvpResponseType");
+		this.setContextAndType("http://schema.org/", "RsvpResponseType");
 	}
-
-}
+};

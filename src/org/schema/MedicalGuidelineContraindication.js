@@ -6,7 +6,8 @@
  * @class MedicalGuidelineContraindication
  * @module org.schema
  */
-module.exports = class MedicalGuidelineContraindication extends EcRemoteLinkedData {
+module.exports = class MedicalGuidelineContraindication extends
+	EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,7 +15,9 @@ module.exports = class MedicalGuidelineContraindication extends EcRemoteLinkedDa
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalGuidelineContraindication");
+		this.setContextAndType(
+			"http://schema.org/",
+			"MedicalGuidelineContraindication"
+		);
 	}
-
-}
+};

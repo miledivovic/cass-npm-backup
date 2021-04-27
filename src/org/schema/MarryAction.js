@@ -14,7 +14,6 @@ module.exports = class MarryAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MarryAction");
+		this.setContextAndType("http://schema.org/", "MarryAction");
 	}
-
-}
+};

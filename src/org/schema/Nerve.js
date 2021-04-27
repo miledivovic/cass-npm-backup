@@ -14,7 +14,6 @@ module.exports = class Nerve extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Nerve");
+		this.setContextAndType("http://schema.org/", "Nerve");
 	}
-
-}
+};

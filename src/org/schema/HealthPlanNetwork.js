@@ -1,6 +1,6 @@
 /**
  * Schema.org/HealthPlanNetwork
- * A US-style health insurance plan network. 
+ * A US-style health insurance plan network.
  *
  * @author schema.org
  * @class HealthPlanNetwork
@@ -14,7 +14,6 @@ module.exports = class HealthPlanNetwork extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HealthPlanNetwork");
+		this.setContextAndType("http://schema.org/", "HealthPlanNetwork");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class Continent extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Continent");
+		this.setContextAndType("http://schema.org/", "Continent");
 	}
-
-}
+};

@@ -6,16 +6,17 @@
  * @module org.credentialengine
  * @extends ContactPoint
  */
-module.exports = class PostalAddress extends ce.ContactPoint
-{
+module.exports = class PostalAddress extends ce.ContactPoint {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
+	constructor() {
 		super();
-		this.setContextAndType("http://schema.eduworks.com/simpleCtdl","PostalAddress");
+		this.setContextAndType(
+			"http://schema.eduworks.com/simpleCtdl",
+			"PostalAddress"
+		);
 	}
 
 	/**
@@ -73,5 +74,4 @@ module.exports = class PostalAddress extends ce.ContactPoint
 	 * @type langString
 	 */
 	streetAddress;
-
-}
+};

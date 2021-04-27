@@ -14,7 +14,6 @@ module.exports = class GameServerStatus extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","GameServerStatus");
+		this.setContextAndType("http://schema.org/", "GameServerStatus");
 	}
-
-}
+};

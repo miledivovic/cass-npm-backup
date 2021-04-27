@@ -16,7 +16,6 @@ module.exports = class HowToDirection extends schema.CreativeWork {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HowToDirection");
+		this.setContextAndType("http://schema.org/", "HowToDirection");
 	}
-
-}
+};

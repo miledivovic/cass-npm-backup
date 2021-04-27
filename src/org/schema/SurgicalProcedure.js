@@ -14,7 +14,6 @@ module.exports = class SurgicalProcedure extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","SurgicalProcedure");
+		this.setContextAndType("http://schema.org/", "SurgicalProcedure");
 	}
-
-}
+};

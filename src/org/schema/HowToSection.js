@@ -16,7 +16,6 @@ module.exports = class HowToSection extends schema.ItemList {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","HowToSection");
+		this.setContextAndType("http://schema.org/", "HowToSection");
 	}
-
-}
+};

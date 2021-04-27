@@ -14,7 +14,6 @@ module.exports = class Airport extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Airport");
+		this.setContextAndType("http://schema.org/", "Airport");
 	}
-
-}
+};

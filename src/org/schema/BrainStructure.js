@@ -14,7 +14,6 @@ module.exports = class BrainStructure extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BrainStructure");
+		this.setContextAndType("http://schema.org/", "BrainStructure");
 	}
-
-}
+};

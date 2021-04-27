@@ -14,7 +14,9 @@ module.exports = class PhysicalActivityCategory extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PhysicalActivityCategory");
+		this.setContextAndType(
+			"http://schema.org/",
+			"PhysicalActivityCategory"
+		);
 	}
-
-}
+};

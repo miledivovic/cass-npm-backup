@@ -14,7 +14,6 @@ module.exports = class InternetCafe extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","InternetCafe");
+		this.setContextAndType("http://schema.org/", "InternetCafe");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class BusTrip extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BusTrip");
+		this.setContextAndType("http://schema.org/", "BusTrip");
 	}
-
-}
+};

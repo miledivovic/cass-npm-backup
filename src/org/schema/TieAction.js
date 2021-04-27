@@ -14,7 +14,6 @@ module.exports = class TieAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","TieAction");
+		this.setContextAndType("http://schema.org/", "TieAction");
 	}
-
-}
+};

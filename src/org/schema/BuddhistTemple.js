@@ -14,7 +14,6 @@ module.exports = class BuddhistTemple extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","BuddhistTemple");
+		this.setContextAndType("http://schema.org/", "BuddhistTemple");
 	}
-
-}
+};

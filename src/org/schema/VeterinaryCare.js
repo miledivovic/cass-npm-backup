@@ -14,7 +14,6 @@ module.exports = class VeterinaryCare extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","VeterinaryCare");
+		this.setContextAndType("http://schema.org/", "VeterinaryCare");
 	}
-
-}
+};

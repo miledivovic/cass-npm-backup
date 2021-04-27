@@ -14,7 +14,6 @@ module.exports = class PerformingGroup extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PerformingGroup");
+		this.setContextAndType("http://schema.org/", "PerformingGroup");
 	}
-
-}
+};

@@ -5,15 +5,13 @@
  * @class QuantitativeValue
  * @module org.credentialengine
  */
-module.exports = class QuantitativeValue extends EcRemoteLinkedData
-{
+module.exports = class QuantitativeValue extends EcRemoteLinkedData {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 * @constructor
 	 */
-	constructor()
-	{
-		super("http://schema.eduworks.com/simpleCtdl","QuantitativeValue");
+	constructor() {
+		super("http://schema.eduworks.com/simpleCtdl", "QuantitativeValue");
 	}
 
 	/**
@@ -63,5 +61,4 @@ module.exports = class QuantitativeValue extends EcRemoteLinkedData
 	 * @type float
 	 */
 	value;
-
-}
+};

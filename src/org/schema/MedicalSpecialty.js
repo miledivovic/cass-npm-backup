@@ -16,7 +16,6 @@ module.exports = class MedicalSpecialty extends schema.Specialty {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MedicalSpecialty");
+		this.setContextAndType("http://schema.org/", "MedicalSpecialty");
 	}
-
-}
+};

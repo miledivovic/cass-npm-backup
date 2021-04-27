@@ -16,7 +16,6 @@ module.exports = class MovieTheater extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","MovieTheater");
+		this.setContextAndType("http://schema.org/", "MovieTheater");
 	}
-
-}
+};

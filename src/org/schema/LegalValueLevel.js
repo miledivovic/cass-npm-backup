@@ -14,7 +14,6 @@ module.exports = class LegalValueLevel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LegalValueLevel");
+		this.setContextAndType("http://schema.org/", "LegalValueLevel");
 	}
-
-}
+};

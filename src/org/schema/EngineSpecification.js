@@ -14,7 +14,6 @@ module.exports = class EngineSpecification extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","EngineSpecification");
+		this.setContextAndType("http://schema.org/", "EngineSpecification");
 	}
-
-}
+};

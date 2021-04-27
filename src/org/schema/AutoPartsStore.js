@@ -16,7 +16,6 @@ module.exports = class AutoPartsStore extends schema.AutomotiveBusiness {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","AutoPartsStore");
+		this.setContextAndType("http://schema.org/", "AutoPartsStore");
 	}
-
-}
+};

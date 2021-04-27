@@ -14,7 +14,6 @@ module.exports = class Embassy extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Embassy");
+		this.setContextAndType("http://schema.org/", "Embassy");
 	}
-
-}
+};

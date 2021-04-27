@@ -16,7 +16,6 @@ module.exports = class LocalBusiness extends schema.Place {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LocalBusiness");
+		this.setContextAndType("http://schema.org/", "LocalBusiness");
 	}
-
-}
+};

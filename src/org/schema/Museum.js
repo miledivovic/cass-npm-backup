@@ -14,7 +14,6 @@ module.exports = class Museum extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","Museum");
+		this.setContextAndType("http://schema.org/", "Museum");
 	}
-
-}
+};

@@ -14,7 +14,6 @@ module.exports = class LegalService extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LegalService");
+		this.setContextAndType("http://schema.org/", "LegalService");
 	}
-
-}
+};

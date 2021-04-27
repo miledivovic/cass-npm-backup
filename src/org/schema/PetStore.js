@@ -14,7 +14,6 @@ module.exports = class PetStore extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","PetStore");
+		this.setContextAndType("http://schema.org/", "PetStore");
 	}
-
-}
+};

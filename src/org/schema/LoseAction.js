@@ -14,7 +14,6 @@ module.exports = class LoseAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/","LoseAction");
+		this.setContextAndType("http://schema.org/", "LoseAction");
 	}
-
-}
+};

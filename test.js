@@ -7,6 +7,8 @@ console.log = function(s){
     let frame = e.stack.split("\n")[2];
     let lineNumber = frame.split(":")[1];
     let functionName = frame.split(" ")[5];
+    if (EcObject.isObject(s))
+    s = JSON.stringify(s,null,2);
     clog(functionName + ":" + lineNumber + " " + s);    
 }
 process.on('unhandledRejection', (reason, p) => {
@@ -2440,7 +2442,6 @@ class EcAssertionTest {
         evidences.push("I saw them do it.");
         await assn.setEvidence(evidences);
         console.log("Setup of assertion");
-        console.log(assn);
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId2);
         Assert.assertEquals("Subject not readable by subject.", subject.toPem(), (await assn.getSubject()).toPem());
@@ -2454,7 +2455,6 @@ class EcAssertionTest {
         EcIdentityManager.addIdentity(EcAssertionTest.newId1);
         await assn.addReader(thirdParty);
         console.log("Added Third Party to assertion");
-        console.log(assn);
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId3);
         Assert.assertEquals("Subject not readable by third party.", subject.toPem(), (await assn.getSubject()).toPem());
@@ -2468,7 +2468,6 @@ class EcAssertionTest {
         EcIdentityManager.addIdentity(EcAssertionTest.newId1);
         await assn.removeReader(thirdParty);
         console.log("Removed Third Party to assertion");
-        console.log(assn);
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(EcAssertionTest.newId3);
         Assert.assertEquals("Subject readable by third party.", null, await assn.getSubject());
@@ -2864,9 +2863,10 @@ class FrameworkCollapserTest {
             this.repo.selectedServer = "https://sandbox.cassproject.org/api/";
             var fct = this;
             var framework = await EcFramework.get(this.FRAMEWORK_ID);
+            Assert.assertTrue(framework != null);
             console.log("Framework: " + framework.name);
             var fc = new FrameworkCollapser();
-            fc.collapseFramework(this.repo, framework, true, function(fwId, npg) {
+            await fc.collapseFramework(this.repo, framework, true, function(fwId, npg) {
                 console.log("--================ FRAMEWORK COLLAPSED GRAPH ================--");
                 console.log(npg.toStringGraphAll());
             }, function(err) {
@@ -2875,16 +2875,14 @@ class FrameworkCollapserTest {
         }catch (e) {
             console.log("Exception: " + e.toString());
         }
-        Assert.assertSame(true, true);
         console.log("end basicFrameworkCollapseTest");
     };
-    basicAssertionSearchTest = function() {
-        EcRemote.async = false;
+    basicAssertionSearchTest = async function() {
         console.log("start basicCollapseTest:");
         try {
             this.repo = new EcRepository();
             this.repo.selectedServer = "https://sandbox.cassproject.org/api/";
-            EcAssertion.search(this.repo, null, function(eca) {
+            await EcAssertion.search(this.repo, null, function(eca) {
                 console.log("Success: " + eca.length);
             }, function(err) {
                 console.log("Failure: " + err);
@@ -2895,9 +2893,8 @@ class FrameworkCollapserTest {
         Assert.assertSame(true, true);
         console.log("end basicCollapseTest TEST");
     };
-    basicMultiGetTest = function() {
-        EcRemote.async = false;
-        console.log("start basicCollapseTest:");
+    basicMultiGetTest = async function() {
+        console.log("start basicMultiGetTest:");
         try {
             this.repo = new EcRepository();
             this.repo.selectedServer = "https://sandbox.cassproject.org/api/";
@@ -2908,7 +2905,7 @@ class FrameworkCollapserTest {
             this.urlArray.push("https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Relation/67b68aa4-1156-443d-8c92-2636ca1eb129");
             this.urlArray.push("https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Relation/9bc16b74-dd96-4ba7-b0a4-038e6edb4f50");
             var fct = this;
-            this.repo.multiget(this.urlArray, function(rlda) {
+            await this.repo.multiget(this.urlArray, function(rlda) {
                 var rld;
                 for (var i = 0; i < rlda.length; i++) {
                     rld = rlda[i];
@@ -2919,13 +2916,15 @@ class FrameworkCollapserTest {
                     }
                 }
             }, function(err) {
-                console.log("Failure: " + err);
+                console.trace(err);
+                throw err;
             });
         }catch (e) {
-            console.log("Exception: " + e.toString());
+            console.trace(e);
+            throw err;
         }
         Assert.assertSame(true, true);
-        console.log("end basicCollapseTest TEST");
+        console.log("end basicMultiGetTest TEST");
     };
 };
 class CollapserTest {
@@ -3173,8 +3172,8 @@ class EvidenceProcessingTestBase {
     failure = null;
     logObject = null;
     newId1 = null;
-    static deleteById = function(id) {
-        EcRepository.get(id, function(p1) {
+    static deleteById = async function(id) {
+        await EcRepository.get(id, function(p1) {
             EcRepository._delete(p1, null, function(p1) {
                 console.log(p1);
             });
@@ -3183,9 +3182,8 @@ class EvidenceProcessingTestBase {
         });
     };
     setup = function() {
-        EcRemote.async = false;
         this.failure = function(p1) {
-            console.log(p1);
+            console.trace(p1);
             Assert.fail();
         };
         this.logObject = function(p1) {
@@ -3202,65 +3200,65 @@ class EvidenceProcessingTestBase {
         EcIdentityManager.ids = new Array();
         EcIdentityManager.addIdentity(this.newId1);
     };
-    newAssertion = function(competencyToAssert) {
+    async newAssertion(competencyToAssert){
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         a.addReader(EcIdentityManager.ids[0].ppk.toPk());
-        a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
-        a.setCompetency(competencyToAssert.shortId());
-        a.setConfidence(1.0);
-        a.setAssertionDate(stjs.trunc(new Date().getTime()));
-        a.setExpirationDate(stjs.trunc((new Date().getTime())) + 1000 * 60 * 60);
-        a.setDecayFunction("t");
-        a.save(null, this.failure, this.repo);
+        await a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
+        await a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
+        await a.setCompetency(competencyToAssert.shortId());
+        await a.setConfidence(1.0);
+        await a.setAssertionDate(new Date().getTime());
+        await a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
+        await a.setDecayFunction("t");
+        await a.save(null, this.failure, this.repo);
         return a;
     };
-    newFalseAssertion = function(competencyToAssert) {
+    async newFalseAssertion(competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        a.addReader(EcIdentityManager.ids[0].ppk.toPk());
-        a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
-        a.setCompetency(competencyToAssert.shortId());
-        a.setConfidence(1.0);
-        a.setNegative(true);
-        a.setAssertionDate(stjs.trunc(new Date().getTime()));
-        a.setExpirationDate(stjs.trunc((new Date().getTime())) + 1000 * 60 * 60);
-        a.setDecayFunction("t");
-        a.save(null, this.failure, this.repo);
+        await a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
+        await a.addReader(EcIdentityManager.ids[0].ppk.toPk());
+        await a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
+        await a.setCompetency(competencyToAssert.shortId());
+        await a.setConfidence(1.0);
+        await a.setNegative(true);
+        await a.setAssertionDate(new Date().getTime());
+        await a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
+        await a.setDecayFunction("t");
+        await a.save(null, this.failure, this.repo);
         return a;
     };
-    newCompetency = function(competencyName) {
+    async newCompetency(competencyName) {
         var competency = new EcCompetency();
         competency.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         competency.name = competencyName;
         competency.generateId(this.repo.selectedServer);
-        competency.save(null, this.failure, this.repo);
+        await competency.save(null, this.failure, this.repo);
         return competency;
     };
-    newRollupRule = function(competency, rule) {
+    async newRollupRule(competency, rule) {
         var rr = new EcRollupRule();
         rr.competency = competency.shortId();
         rr.rule = rule;
         rr.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         rr.generateId(this.repo.selectedServer);
-        rr.save(null, this.failure, this.repo);
+        await rr.save(null, this.failure, this.repo);
         return rr;
     };
-    newRelation = function(c, c2, relationType) {
+    async newRelation(c, c2, relationType) {
         var r = new EcAlignment();
         r.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         r.generateId(this.repo.selectedServer);
         r.relationType = relationType;
         r.source = c.shortId();
         r.target = c2.shortId();
-        r.save(null, this.failure, this.repo);
+        await r.save(null, this.failure, this.repo);
         return r;
     };
-    performTest = function(context, target, isTest) {
+    async performTest(context, target, isTest) {
         var ep = new PessimisticQuadnaryAssertionProcessor();
         ep.logFunction = this.logObject;
         ep.repositories.push(this.repo);
@@ -3269,434 +3267,434 @@ class EvidenceProcessingTestBase {
         var additionalSignatures = null;
         ep.has(subject, target, null, context, additionalSignatures, isTest, this.ask, this.failure);
     };
-    newFramework = function(frameworkName) {
+    async newFramework(frameworkName) {
         var framework = new EcFramework();
         framework.name = frameworkName;
         framework.addOwner(EcIdentityManager.ids[0].ppk.toPk());
         framework.generateId(this.repo.selectedServer);
-        framework.save(null, this.failure, this.repo);
+        await framework.save(null, this.failure, this.repo);
         return framework;
     };
 };
 class GraphEvidenceProcessingTest extends EvidenceProcessingTestBase{
-    basicTrueTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
+    basicTrueTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
         f.addCompetency(c.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, async () => {
+                // console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
     };
-    basicFalseTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
+    basicFalseTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
         f.addCompetency(c.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newFalseAssertion(c);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () =>{
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, async () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["negativeAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
     };
-    basicIndeterminantTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
+    basicIndeterminantTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
         f.addCompetency(c.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c);
-        var a2 = this.newFalseAssertion(c);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c);
+        var a2 = await this.newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () =>{
             var assertions = new Array();
             assertions.push(a);
             assertions.push(a2);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["negativeAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(a2.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(a2.shortId());
     };
-    basicUnknownTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
+    basicUnknownTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
         f.addCompetency(c.shortId());
-        f.save(null, this.failure, this.repo);
+        await f.save(null, this.failure, this.repo);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async ()=> {
             var assertions = new Array();
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, ()=> {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(null, (fg.getMetaStateCompetency(c))["positiveAssertion"]);
                 Assert.assertEquals(null, (fg.getMetaStateCompetency(c))["negativeAssertion"]);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
     };
-    basicEquivalenceTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicEquivalenceTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        var r = await this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c2);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c2);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, async ()=> {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["positiveAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicEquivalenceFalseTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicEquivalenceFalseTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        var r = await this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newFalseAssertion(c2);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newFalseAssertion(c2);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () =>{
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, async ()=> {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["negativeAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["negativeAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicEquivalenceIndeterminantTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicEquivalenceIndeterminantTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        var r = await this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c);
-        var a2 = this.newFalseAssertion(c2);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c);
+        var a2 = await this.newFalseAssertion(c2);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
             assertions.push(a2);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, function() {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["negativeAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["negativeAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(a2.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(a2.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicEquivalenceUnknownTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicEquivalenceUnknownTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        var r = await this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         f.save(null, this.failure, this.repo);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(null, (fg.getMetaStateCompetency(c))["positiveAssertion"]);
                 Assert.assertEquals(null, (fg.getMetaStateCompetency(c))["negativeAssertion"]);
                 Assert.assertEquals(null, (fg.getMetaStateCompetency(c2))["positiveAssertion"]);
                 Assert.assertEquals(null, (fg.getMetaStateCompetency(c2))["negativeAssertion"]);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicEquivalenceEquivalenceTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
-        var c3 = this.newCompetency("Amass");
+    basicEquivalenceEquivalenceTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
+        var c3 = await this.newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
-        var r2 = this.newRelation(c2, c3, EcAlignment.IS_EQUIVALENT_TO);
+        var r = await this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        var r2 = await this.newRelation(c2, c3, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c3);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c3);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c3))["positiveAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(c3.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
-        EvidenceProcessingTestBase.deleteById(r2.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(c3.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(r2.shortId());
     };
-    basicEquivalenceUnEquivalentTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
-        var c3 = this.newCompetency("Amass");
+    basicEquivalenceUnEquivalentTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
+        var c3 = await this.newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        var r = await this.newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c3);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c3);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, async () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(null, ((fg.getMetaStateCompetency(c))["positiveAssertion"]));
                 Assert.assertEquals(null, ((fg.getMetaStateCompetency(c2))["positiveAssertion"]));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c3))["positiveAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(c3.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(c3.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await  EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicRequiresSatisfiedTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicRequiresSatisfiedTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.REQUIRES);
+        var r = await this.newRelation(c, c2, EcAlignment.REQUIRES);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, async () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["positiveAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicRequiresFalseTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicRequiresFalseTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.REQUIRES);
+        var r = await this.newRelation(c, c2, EcAlignment.REQUIRES);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newFalseAssertion(c2);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newFalseAssertion(c2);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await  fg.addFramework(f, this.repo, async() => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, async () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["negativeAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["negativeAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicNarrowsTrueTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicNarrowsTrueTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.NARROWS);
+        var r = await this.newRelation(c, c2, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c2);
-        var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c2);
+        var fg = new EcFrameworkGraph(); 
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, ()=> {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["positiveAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicNarrowsFalseTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
+    basicNarrowsFalseTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.NARROWS);
+        var r = await this.newRelation(c, c2, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newFalseAssertion(c);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async ()=>{
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, function() {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["negativeAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["negativeAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
     };
-    basicNarrowsNarrowsTrueTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
-        var c3 = this.newCompetency("Amass");
+    basicNarrowsNarrowsTrueTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
+        var c3 = await this.newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.NARROWS);
-        var r2 = this.newRelation(c2, c3, EcAlignment.NARROWS);
+        var r = await this.newRelation(c, c2, EcAlignment.NARROWS);
+        var r2 = await this.newRelation(c2, c3, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newAssertion(c3);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newAssertion(c3);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, () => {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["positiveAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c3))["positiveAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(c3.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
-        EvidenceProcessingTestBase.deleteById(r2.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(c3.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(r2.shortId());
     };
-    basicNarrowsNarrowsFalseTest = function() {
-        var f = this.newFramework("Billy's Framework");
-        var c = this.newCompetency("Add");
-        var c2 = this.newCompetency("Sum");
-        var c3 = this.newCompetency("Amass");
+    basicNarrowsNarrowsFalseTest = async () => {
+        var f = await this.newFramework("Billy's Framework");
+        var c = await this.newCompetency("Add");
+        var c2 = await this.newCompetency("Sum");
+        var c3 = await this.newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = this.newRelation(c, c2, EcAlignment.NARROWS);
-        var r2 = this.newRelation(c2, c3, EcAlignment.NARROWS);
+        var r = await this.newRelation(c, c2, EcAlignment.NARROWS);
+        var r2 = await this.newRelation(c2, c3, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
-        f.save(null, this.failure, this.repo);
-        var a = this.newFalseAssertion(c);
+        await f.save(null, this.failure, this.repo);
+        var a = await this.newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
-        fg.addFramework(f, this.repo, function() {
+        await fg.addFramework(f, this.repo, async () => {
             var assertions = new Array();
             assertions.push(a);
-            fg.processAssertionsBoolean(assertions, function() {
-                console.log(fg.getMetaStateCompetency(c));
+            await fg.processAssertionsBoolean(assertions, function() {
+                //console.log(fg.getMetaStateCompetency(c));
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c))["negativeAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c2))["negativeAssertion"]).length);
                 Assert.assertEquals(1, ((fg.getMetaStateCompetency(c3))["negativeAssertion"]).length);
             }, this.failure);
         }, this.failure);
-        EvidenceProcessingTestBase.deleteById(f.shortId());
-        EvidenceProcessingTestBase.deleteById(c.shortId());
-        EvidenceProcessingTestBase.deleteById(c2.shortId());
-        EvidenceProcessingTestBase.deleteById(c3.shortId());
-        EvidenceProcessingTestBase.deleteById(a.shortId());
-        EvidenceProcessingTestBase.deleteById(r.shortId());
-        EvidenceProcessingTestBase.deleteById(r2.shortId());
+        await EvidenceProcessingTestBase.deleteById(f.shortId());
+        await EvidenceProcessingTestBase.deleteById(c.shortId());
+        await EvidenceProcessingTestBase.deleteById(c2.shortId());
+        await EvidenceProcessingTestBase.deleteById(c3.shortId());
+        await EvidenceProcessingTestBase.deleteById(a.shortId());
+        await EvidenceProcessingTestBase.deleteById(r.shortId());
+        await EvidenceProcessingTestBase.deleteById(r2.shortId());
     };
 };
 class RollupRuleInterfaceTest extends EvidenceProcessingTestBase{
@@ -4323,7 +4321,6 @@ class ImportTestBase {
         });
     };
     setup = function() {
-        EcRemote.async = false;
         this.failure = function(p1) {
             console.log(p1);
             Assert.fail();
@@ -4354,8 +4351,8 @@ class ImportTestBase {
         a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
         a.setCompetency(competencyToAssert.shortId());
         a.setConfidence(1.0);
-        a.setAssertionDate(stjs.trunc(new Date().getTime()));
-        a.setExpirationDate(stjs.trunc((new Date().getTime())) + 1000 * 60 * 60);
+        a.setAssertionDate(new Date().getTime());
+        a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
         a.setDecayFunction("t");
         a.save(null, this.failure, this.repo);
         return a;
@@ -4369,8 +4366,8 @@ class ImportTestBase {
         a.setCompetency(competencyToAssert.shortId());
         a.setConfidence(1.0);
         a.setNegative(true);
-        a.setAssertionDate(stjs.trunc(new Date().getTime()));
-        a.setExpirationDate(stjs.trunc((new Date().getTime())) + 1000 * 60 * 60);
+        a.setAssertionDate(new Date().getTime());
+        a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
         a.setDecayFunction("t");
         a.save(null, this.failure, this.repo);
         return a;
@@ -4414,7 +4411,7 @@ class ImportTestBase {
 class TabStructuredImportTest extends ImportTestBase{
     basicTabStructuredImport = function() {
         var me = this;
-        TabStructuredImport.importCompetencies("A\n\tA.1\n\t\tA.1.1\n\tA.2\n\t\tA.2.1\n\t\tA.2.2\n\t\t\tA.2.2.1\nB\n\tB.1\n\t\tB.1.1\n\tB.2\n\t\tB.2.1\n\t\tB.2.2\n\t\t\tB.2.2.1\nC\nD\n D.1\n D.2\n  D.2.1\n  D.2.2\n D.3\n  D.3.1\nE", this.repo.selectedServer, this.newId1, function(competencies, alignments) {
+        TabStructuredImport.importCompetencies("A\n\tA.1\n\t\tA.1.1\n\tA.2\n\t\tA.2.1\n\t\tA.2.2\n\t\t\tA.2.2.1\nB\n\tB.1\n\t\tB.1.1\n\tB.2\n\t\tB.2.1\n\t\tB.2.2\n\t\t\tB.2.2.1\nC\nD\n D.1\n D.2\n  D.2.1\n  D.2.2\n D.3\n  D.3.1\nE", this.repo.selectedServer, this.newId1, async (competencies, alignments) => {
             var f = new EcFramework();
             f.setName("Tab Structured Import Test Framework");
             f.generateId(me.repo.selectedServer);
@@ -4430,9 +4427,9 @@ class TabStructuredImportTest extends ImportTestBase{
                 everything.push(alignments[i]);
             }
             everything.push(f);
-            me.repo.multiput(everything, function(s) {
+            await me.repo.multiput(everything, async (s) => {
                 for (var i = 0; i < everything.length; i++) 
-                    me.repo.deleteRegistered(everything[i], null, this.failure);
+                    await me.repo.deleteRegistered(everything[i], null, this.failure);
             }, this.failure);
         }, this.failure, this.logObject, this.repo, false);
     };
@@ -4603,12 +4600,12 @@ await obj.capFrameworkGraphPerfTest();
 await obj.samanthaSmithProfileTest();
 EcRepository.repos = [];
 obj = new FrameworkCollapserTest();
-if (obj.setup) obj.setup();
-if (obj.begin) obj.begin();
-obj.capFrameworkCollapseTest();
-obj.basicFrameworkCollapseTest();
-obj.basicAssertionSearchTest();
-obj.basicMultiGetTest();
+if (obj.setup) await obj.setup();
+if (obj.begin) await obj.begin();
+// await obj.capFrameworkCollapseTest();
+// await obj.basicFrameworkCollapseTest();
+await obj.basicAssertionSearchTest();
+await obj.basicMultiGetTest();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new CollapserTest();
@@ -4629,28 +4626,26 @@ obj.basicMultiGetTest();
 // if (obj.setup) obj.setup();
 // if (obj.begin) obj.begin();
 // obj.newCredential();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new GraphEvidenceProcessingTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.constructor();
-// obj.basicTrueTest();
-// obj.basicFalseTest();
-// obj.basicIndeterminantTest();
-// obj.basicUnknownTest();
-// obj.basicEquivalenceTest();
-// obj.basicEquivalenceFalseTest();
-// obj.basicEquivalenceIndeterminantTest();
-// obj.basicEquivalenceUnknownTest();
-// obj.basicEquivalenceEquivalenceTest();
-// obj.basicEquivalenceUnEquivalentTest();
-// obj.basicRequiresSatisfiedTest();
-// obj.basicRequiresFalseTest();
-// obj.basicNarrowsTrueTest();
-// obj.basicNarrowsFalseTest();
-// obj.basicNarrowsNarrowsTrueTest();
-// obj.basicNarrowsNarrowsFalseTest();
+EcRepository.repos = [];
+obj = new GraphEvidenceProcessingTest();
+if (obj.setup) await obj.setup();
+if (obj.begin) await obj.begin();
+await obj.basicTrueTest();
+await obj.basicFalseTest();
+await obj.basicIndeterminantTest();
+await obj.basicUnknownTest();
+await obj.basicEquivalenceTest();
+await obj.basicEquivalenceFalseTest();
+await obj.basicEquivalenceIndeterminantTest();
+await obj.basicEquivalenceUnknownTest();
+await obj.basicEquivalenceEquivalenceTest();
+await obj.basicEquivalenceUnEquivalentTest();
+await obj.basicRequiresSatisfiedTest();
+await obj.basicRequiresFalseTest();
+await obj.basicNarrowsTrueTest();
+await obj.basicNarrowsFalseTest();
+await obj.basicNarrowsNarrowsTrueTest();
+await obj.basicNarrowsNarrowsFalseTest();
 // EcRepository.repos = [];
 // EcRemote.async = true;
 // obj = new RollupRuleInterfaceTest();
@@ -4722,18 +4717,15 @@ obj.basicMultiGetTest();
 // obj.basicTrueTest();
 // obj.basicUnknownTest();
 // obj.newCredential();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new ImportTestBase();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// EcRepository.repos = [];
-// EcRemote.async = true;
-// obj = new TabStructuredImportTest();
-// if (obj.setup) obj.setup();
-// if (obj.begin) obj.begin();
-// obj.constructor();
-// obj.basicTabStructuredImport();
+EcRepository.repos = [];
+obj = new ImportTestBase();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+EcRepository.repos = [];
+obj = new TabStructuredImportTest();
+if (obj.setup) obj.setup();
+if (obj.begin) obj.begin();
+await obj.basicTabStructuredImport();
 
 }
 catch(e){

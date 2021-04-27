@@ -23,13 +23,13 @@ module.exports = class TabStructuredImport{
      *  @method importCompetencies
      *  @static
      */
-    static importCompetencies(text, serverUrl, owner, success, failure, incremental, repo, hashNameForId) {
+    static async importCompetencies(text, serverUrl, owner, success, failure, incremental, repo, hashNameForId) {
         var lines = text.split("\n");
         var competencies = [];
         var alignments = [];
         for (var i = 0; i < lines.length; i++) 
             TabStructuredImport.parseLinesIntoHierarchy(lines, competencies, alignments, i, serverUrl, hashNameForId, repo);
-        success(competencies, alignments);
+        await success(competencies, alignments);
     };
     static parseLinesIntoHierarchy(lines, competencies, alignments, index, serverUrl, hashNameForId, repo) {
         var parentI = -1;

@@ -481,7 +481,7 @@ module.exports = class EcRepository {
      */
     multiput = function(data, success, failure) {        
         var allOwners = [];
-        for (d of data)
+        for (let d of data)
         {
             if (d.invalid())
                 throw "Cannot save data. It is missing a vital component.";                
@@ -491,7 +491,7 @@ module.exports = class EcRepository {
             if (d.owner != null && d.owner.length == 0) {
                 delete (d)["owner"];
             }
-            if (EcRepository.alwaysTryUrl || this.shouldTryUrl(d.id) || d.id.indexOf(this.selectedServer) != -1) 
+            if (EcRepository.alwaysTryUrl || EcRepository.shouldTryUrl(d.id) || d.id.indexOf(this.selectedServer) != -1) 
                 d.updateTimestamp();
             if (EcRepository.caching) {
                 delete (EcRepository.cache)[d.id];
@@ -514,17 +514,17 @@ module.exports = class EcRepository {
         return Promise.all(encryptionAndSigningPromises).then(readyToSendData => {
             preparedData = readyToSendData;
             if (allOwners != null && allOwners.length > 0) {
-                return EcIdentityManager.signatureSheetForAsync(allOwners, 60000 + this.timeOffset, this.selectedServer);
+                return EcIdentityManager.signatureSheetFor(allOwners, 60000 + this.timeOffset, this.selectedServer);
             } else {
-                return EcIdentityManager.signatureSheetAsync(60000 + this.timeOffset, this.selectedServer);
+                return EcIdentityManager.signatureSheet(60000 + this.timeOffset, this.selectedServer);
             }
         }).then(signatureSheet => {
             var fd = new FormData();
             fd.append("data", JSON.stringify(preparedData));
             fd.append("signatureSheet", signatureSheet);
-            var server = me.selectedServer;
-            if (me.cassDockerEndpoint != null) {
-                server = me.cassDockerEndpoint;
+            var server = this.selectedServer;
+            if (this.cassDockerEndpoint != null) {
+                server = this.cassDockerEndpoint;
             }
             return EcRemote.postExpectingString(server, "sky/repo/multiPut", fd, success, failure);
         });
@@ -564,12 +564,12 @@ module.exports = class EcRepository {
         let p = new Promise((resolve,reject) => resolve());
         if (EcRepository.unsigned == false)
             p = p.then(()=>{
-                return EcIdentityManager.signatureSheetAsync(60000 + this.timeOffset, this.selectedServer).then((signatureSheet)=>{
-                    fd.append("signatureSheet", p1);
+                return EcIdentityManager.signatureSheet(60000 + this.timeOffset, this.selectedServer).then((signatureSheet)=>{
+                    fd.append("signatureSheet", signatureSheet);
                 });
             });
         p = p.then(()=>{
-            return EcRemote.postExpectingObject(me.selectedServer, "sky/repo/multiGet", fd)
+            return EcRemote.postExpectingObject(this.selectedServer, "sky/repo/multiGet", fd)
         }).then(results => {
             for (var i = 0; i < results.length; i++) {
                 var d = new EcRemoteLinkedData(null, null);
@@ -610,10 +610,12 @@ module.exports = class EcRepository {
      *  @method multiget
      */
     multiget = function(urls, success, failure) {
-        let p = precache(urls).then(()=>{
-            Promise.all(urls.map(url => EcRepository.get(url)));
-        });
-        return cass.promisify(p,success,failure);
+        let p = this.precache(urls).then(
+            ()=>Promise.all(
+                urls.map(url => EcRepository.get(url))
+            ).then((things)=>things.filter((r)=>r))
+        );
+        return cassPromisify(p,success,failure);
     };
     /**
      *  Search a repository for JSON-LD compatible data.

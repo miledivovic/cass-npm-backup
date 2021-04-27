@@ -1,3 +1,5 @@
+const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/EcRemoteLinkedData");
+
 /**
  *  Graph for working with a framework. Additional computed data (such as profile data) can be overlaid on the graph through the use of "metaverticies" and "metaedges" that hold additional information.
  * 
@@ -7,6 +9,7 @@
  */
 module.exports = class EcFrameworkGraph extends EcDirectedGraph{
     constructor(){
+        super();
         this.metaVerticies = {};
         this.metaEdges = {};
         this.competencyMap = {};
@@ -33,65 +36,35 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
      *  @method addFramework
      *  @memberOf EcFrameworkGraph
      */
-    addFramework(framework, repo, success, failure) {
+    async addFramework(framework, repo, success, failure) {
         this.frameworks.push(framework);
-        var me = this;
         if (framework.competency == null) 
             framework.competency = [];
         if (framework.relation == null) 
             framework.relation = [];
-        repo.multiget(framework.competency, function(data) {
-            var eah = new EcAsyncHelper();
-            eah.each(data, function(d, callback0) {
-                me.handleCacheElement(d, callback0, framework);
-            }, function(strings) {
-                repo.multiget(framework.relation, function(data) {
-                    var eah2 = new EcAsyncHelper();
-                    eah2.each(data, function(d2, callback2) {
-                        me.handleCacheElement(d2, callback2, framework);
-                    }, function(strings2) {
-                        success();
-                    });
-                }, failure);
-            });
+        await repo.multiget(framework.competency, async (data) => {
+            await Promise.all(data.map((d)=>this.handleCacheElement(d,framework)));
+            await repo.multiget(framework.relation, async (data2) => {
+                await Promise.all(data2.map((d2)=>this.handleCacheElement(d2,framework)));
+                success();
+            }, failure);
         }, failure);
     };
-    handleCacheElement(d, callback0, framework) {
-        var competencyTemplate = new EcCompetency();
-        var alignmentTemplate = new EcAlignment();
-        var encryptedTemplate = new EcEncryptedValue();
-        var me = this;
-        if (d.isAny(encryptedTemplate.getTypes())) {
-            EcEncryptedValue.fromEncryptedValueAsync(d, function(ecRemoteLinkedData) {
-                me.handleCacheElement(ecRemoteLinkedData, callback0, framework);
-            }, callback0);
-            return;
+    async handleCacheElement(d, framework) {
+        if (d.isAny(new EcEncryptedValue().getTypes()))
+            d = await EcEncryptedValue.fromEncryptedValue(d);
+        if (d == null) return;
+        if (d.isAny(new EcCompetency().getTypes())) {
+            let c = new EcCompetency().copyFrom(d);
+            if (c == null) return;
+            this.addToMetaStateArray(this.getMetaStateCompetency(c), "framework", framework);
+            this.addCompetency(c);            
+        } else if (d.isAny(new EcAlignment().getTypes())) {
+            let alignment = new EcAlignment().copyFrom(d);
+            if (alignment == null) return;
+            await this.addRelation(alignment);
+            this.addToMetaStateArray(this.getMetaStateAlignment(alignment), "framework", framework);   
         }
-        if (d.isAny(competencyTemplate.getTypes())) {
-            EcCompetency.get(d.id, function(c) {
-                me.addToMetaStateArray(me.getMetaStateCompetency(c), "framework", framework);
-                me.addCompetency(c);
-                callback0();
-            }, callback0);
-        } else if (d.isAny(alignmentTemplate.getTypes())) {
-            EcAlignment.get(d.id, function(alignment) {
-                me.addRelation(alignment);
-                me.addToMetaStateArray(me.getMetaStateAlignment(alignment), "framework", framework);
-                callback0();
-            }, callback0);
-        } else 
-            callback0();
-    };
-    fetchFrameworkAlignments(framework) {
-        var me = this;
-        EcAlignment.search(this.repo, EcGraphUtil.buildIdSearchQueryForIdList(framework.relation), function(ecaa) {
-            for (var i = 0; i < ecaa.length; i++) {
-                var a = ecaa[i];
-                me.addRelation(a);
-                me.addToMetaStateArray(me.getMetaStateAlignment(a), "framework", framework);
-            }
-            me.addFrameworkSuccessCallback();
-        }, me.addFrameworkFailureCallback, null);
     };
     /**
      *  Helper method to populate the graph with assertion data, based on propagation rules implicit in the relations (see devs.cassproject.org, Relations). Does not draw conclusions. Must be able to decrypt 'negative' value.
@@ -100,74 +73,80 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
      *  @param {function()}      success Method to invoke when the operation completes successfully.
      *  @param {function(error)} failure Error method.
      */
-    processAssertionsBoolean(assertions, success, failure) {
-        var me = this;
-        var eah = new EcAsyncHelper();
-        eah.each(assertions, function(assertion, done) {
-            var competency = me.getCompetency(assertion.competency);
-            if (competency == null || !me.containsVertex(competency)) {
-                done();
-                return;
-            }
-            assertion.getNegativeAsync(function(negative) {
-                me.processAssertionsBooleanPerAssertion(assertion, negative, competency, done, []);
-            }, eah.failWithCallback(failure, done));
-        }, function(strings) {
-            success();
-        });
+    async processAssertionsBoolean(assertions,success,failure) {
+        await cassPromisify(Promise.all(
+            assertions.map(async (assertion)=>{ 
+                if (!this.containsVertexById(assertion.competency))
+                {
+                    console.log("Could not find " + assertion.competency);
+                    return;
+                }
+                let negative = await assertion.getNegative();
+                await this.processAssertionsBooleanPerAssertion(
+                    assertion, 
+                    negative, 
+                    await this.getCompetency(assertion.competency), 
+                    []
+                );
+            })
+        ),success,failure);
     };
-    processAssertionsBooleanPerAssertion(assertion, negative, competency, done, visited) {
-        var me = this;
+    async processAssertionsBooleanPerAssertion(assertion, negative, competency, visited) {
         if (EcArray.has(visited, competency)) {
-            done();
             return;
         }
         visited.push(competency);
         if (negative) {
-            var metaState = this.getMetaStateCompetency(competency);
-            this.addToMetaStateArray(metaState, "negativeAssertion", assertion);
-            new EcAsyncHelper().each(me.getOutEdges(competency), function(alignment, callback0) {
-                var c = me.getCompetency(alignment.target);
-                me.processAssertionBooleanOutward(alignment, callback0, c, me, assertion, negative, visited);
-            }, function(strings) {
-                new EcAsyncHelper().each(me.getInEdges(competency), function(alignment, callback0) {
-                    var c = me.getCompetency(alignment.source);
-                    me.processAssertionBooleanInward(alignment, callback0, c, me, assertion, negative, visited);
-                }, function(strings) {
-                    done();
-                });
-            });
+            this.addToMetaStateArray(this.getMetaStateCompetency(competency), "negativeAssertion", assertion);
+            await (Promise.all(this.getOutEdges(competency).map(
+                (alignment)=>this.getCompetency(alignment.target).then((t)=>this.processAssertionBooleanOutward(
+                    alignment, 
+                    t, 
+                    assertion, 
+                    negative, 
+                    visited
+                ))
+            )).then(()=>Promise.all(this.getInEdges(competency).map(
+                (alignment)=>this.getCompetency(alignment.source).then((s)=>this.processAssertionBooleanInward(
+                    alignment, 
+                    s, 
+                    assertion, 
+                    negative, 
+                    visited
+                ))
+            ))));
         } else {
-            var metaState = this.getMetaStateCompetency(competency);
-            this.addToMetaStateArray(metaState, "positiveAssertion", assertion);
-            new EcAsyncHelper().each(me.getInEdges(competency), function(alignment, callback0) {
-                var c = me.getCompetency(alignment.source);
-                me.processAssertionBooleanOutward(alignment, callback0, c, me, assertion, negative, visited);
-            }, function(strings) {
-                new EcAsyncHelper().each(me.getOutEdges(competency), function(alignment, callback0) {
-                    var c = me.getCompetency(alignment.target);
-                    me.processAssertionBooleanInward(alignment, callback0, c, me, assertion, negative, visited);
-                }, function(strings) {
-                    done();
-                });
-            });
+            this.addToMetaStateArray(this.getMetaStateCompetency(competency), "positiveAssertion", assertion);            
+            await (Promise.all(this.getInEdges(competency).map(
+                (alignment)=>this.getCompetency(alignment.source).then((t)=>this.processAssertionBooleanOutward(
+                    alignment, 
+                    t, 
+                    assertion, 
+                    negative,
+                    visited
+                ))
+            )).then(()=>Promise.all(this.getOutEdges(competency).map(
+                (alignment)=>this.getCompetency(alignment.target).then((s)=>this.processAssertionBooleanInward(
+                    alignment, 
+                    s, 
+                    assertion,
+                    negative, 
+                    visited
+                ))
+            ))));
         }
     };
-    processAssertionBooleanOutward(alignment, callback0, c, me, assertion, negative, visited) {
+    async processAssertionBooleanOutward(alignment, c, assertion, negative, visited) {
         if (alignment.relationType == Relation.NARROWS) 
-            me.processAssertionsBooleanPerAssertion(assertion, negative, c, callback0, visited);
-         else if (alignment.relationType == Relation.IS_EQUIVALENT_TO) 
-            me.processAssertionsBooleanPerAssertion(assertion, negative, c, callback0, visited);
-         else 
-            callback0();
+            await this.processAssertionsBooleanPerAssertion(assertion, negative, c, visited);
+        else if (alignment.relationType == Relation.IS_EQUIVALENT_TO) 
+            await this.processAssertionsBooleanPerAssertion(assertion, negative, c, visited);
     };
-    processAssertionBooleanInward(alignment, callback0, c, me, assertion, negative, visited) {
+    async processAssertionBooleanInward(alignment, c, assertion, negative, visited) {
         if (alignment.relationType == Relation.REQUIRES) 
-            me.processAssertionsBooleanPerAssertion(assertion, negative, c, callback0, visited);
-         else if (alignment.relationType == Relation.IS_EQUIVALENT_TO) 
-            me.processAssertionsBooleanPerAssertion(assertion, negative, c, callback0, visited);
-         else 
-            callback0();
+            await this.processAssertionsBooleanPerAssertion(assertion, negative, c, visited);
+        else if (alignment.relationType == Relation.IS_EQUIVALENT_TO) 
+            await this.processAssertionsBooleanPerAssertion(assertion, negative, c, visited);
     };
     addToMetaStateArray(metaState, key, value) {
         if (metaState == null) 
@@ -186,7 +165,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
      */
     getMetaStateCompetency(c) {
         var result = this.metaVerticies[c.shortId()];
-        if (result == null) {
+        if (result === undefined || result == null) {
             if (this.containsVertex(c) == false) 
                 return null;
             if (this.metaVerticies[c.shortId()] == null) 
@@ -207,14 +186,25 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
     containsVertex(competency) {
         return (this.competencyMap)[competency.shortId()] != null;
     };
+    containsVertexById(id) {
+        return this.containsVertexByShortId(EcRemoteLinkedData.trimVersionFromUrl(id));
+    };
+    containsVertexByShortId(shortId) {
+        return (this.competencyMap)[shortId] != null;
+    };
     containsEdge(competency) {
         return (this.edgeMap)[competency.shortId()] != null;
     };
-    getCompetency(competencyId) {
+    async getCompetency(competencyId) {
         var c = null;
         c = (this.competencyMap)[competencyId];
         if (c == null) 
-            c = EcCompetency.getBlocking(competencyId);
+            c = await EcCompetency.get(competencyId);
+        return c;
+    };
+    getCompetencySoft(competencyId) {
+        var c = null;
+        c = (this.competencyMap)[competencyId];
         return c;
     };
     addCompetency(competency) {
@@ -226,7 +216,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
         (this.competencyMap)[competency.id] = competency;
         return this.addVertex(competency);
     };
-    addRelation(alignment) {
+    async addRelation(alignment) {
         if (alignment == null) 
             return false;
         if (this.containsEdge(alignment)) 
@@ -235,14 +225,14 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph{
         if (source == null && (this.dontTryAnyMore)[alignment.source] != null) 
             return false;
         if (source == null) 
-            source = this.getCompetency(alignment.source);
+            source = await this.getCompetency(alignment.source);
         if (source == null) 
             (this.dontTryAnyMore)[alignment.source] = "";
         var target = (this.competencyMap)[alignment.target];
         if (target == null && (this.dontTryAnyMore)[alignment.target] != null) 
             return false;
         if (target == null) 
-            target = this.getCompetency(alignment.target);
+            target = await this.getCompetency(alignment.target);
         if (target == null) 
             (this.dontTryAnyMore)[alignment.target] = "";
         if (source == null || target == null) 

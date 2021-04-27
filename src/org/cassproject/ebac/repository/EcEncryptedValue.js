@@ -334,7 +334,6 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue{
         let iterate = (resolve,reject)=>{
             if (ppks.length == 0 && estimatedIndices.length == 0)
                 reject(new Error("Could not decrypt secret.")); //TODO: Try all identified ppks against all secrets.
-            console.log(ppks.length + " : " + estimatedIndices.length);
             let ppk = ppks.pop();
             let estimatedIndex = estimatedIndices.pop();
             let encryptedSecret = this.secret[estimatedIndex];

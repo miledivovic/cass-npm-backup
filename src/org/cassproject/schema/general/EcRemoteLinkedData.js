@@ -558,7 +558,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData{
      */
      getName() {
         var n = this.name;
-        return Thing.getDisplayStringFrom(n);
+        return EcRemoteLinkedData.getDisplayStringFrom(n);
     };
     /**
      *  Method to set Thing name

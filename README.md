@@ -9,8 +9,8 @@ Please migrate your code in a separate branch, as you may need to wait for bug f
 * Removed rollup rule parsed language.
 * Removed /bin/. It was a neat idea.
 * Removed dependencies on most JS files in /lib/, except one to facilitate worker based asynchronous cryptography.
-* All schema.org objects are now in a schema object. As an example, Thing is now schema.Thing, Person is now schema.Person. Schema.org objects have been updated to the most recent version.
-* All CTDL objects are now in a ce object. As an example, CE’s version of Competency is now available under ce.Competency. CTDL objects have been updated to the most recent version.
+* All schema.org objects are now in a schema object. As an example, `Thing` is now `schema.Thing`, `Person` is now `schema.Person`. Schema.org objects have been updated to the most recent version.
+* All CTDL objects are now in a `ce` object. As an example, CE’s version of `Competency` is now available under `ce.Competency`. CTDL objects have been updated to the most recent version.
 * All objects have been moved from using a st-js shim to do class definitions to the ECMAScript 6 class object.
 * Removed dependencies on antlr4, browser-or-node, pure-uuid, request, text-encoding, xmlhttprequest, and added dependencies to axios, web-worker, promise-worker.
 ## Migration Guide

@@ -557,7 +557,7 @@ module.exports = class EcRepository {
         urls = cacheUrls;
         for (var i = 0; i < urls.length; i++) {
             var url = urls[i];
-            if ((EcRepository.cache)[url] != null) {
+            if ((EcRepository.cache)[url] !== undefined) {
                 urls.splice(i--,1);
             } 
         }

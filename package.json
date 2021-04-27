@@ -1,8 +1,8 @@
 {
 	"name": "cassproject",
-	"version": "0.5.1",
+	"version": "0.5.2",
 	"description": "Competency and Skills Service",
-	"main": "output.js",
+	"main": "index.js",
 	"scripts": {
 		"test": "npm run test14 && npm run test13 && npm run test12",
 		"test14": "npm run testkill; docker run -d --name cass-test -p80:80 cassproject/cass:alpine-1.4.0 && node test.js && npm run testkill",

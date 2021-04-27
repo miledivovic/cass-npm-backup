@@ -1,3 +1,8 @@
+# 0.5.1 to 0.5.2
+
+## CAUTION:
+* Caching has been altered. Results that are not found are now stored in the cache and used to speed up (failed) retreival of data.
+
 # 4.x.x to 0.5.1
 
 Please migrate your code in a separate branch, as you may need to wait for bug fixes and the like.

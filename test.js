@@ -1,5 +1,5 @@
 
-require("./newIndex");
+require(".");
 
 var clog = console.log;
 console.log = function(s){
@@ -4409,9 +4409,9 @@ class ImportTestBase {
     };
 };
 class TabStructuredImportTest extends ImportTestBase{
-    basicTabStructuredImport = function() {
+    basicTabStructuredImport = async () => {
         var me = this;
-        TabStructuredImport.importCompetencies("A\n\tA.1\n\t\tA.1.1\n\tA.2\n\t\tA.2.1\n\t\tA.2.2\n\t\t\tA.2.2.1\nB\n\tB.1\n\t\tB.1.1\n\tB.2\n\t\tB.2.1\n\t\tB.2.2\n\t\t\tB.2.2.1\nC\nD\n D.1\n D.2\n  D.2.1\n  D.2.2\n D.3\n  D.3.1\nE", this.repo.selectedServer, this.newId1, async (competencies, alignments) => {
+        await TabStructuredImport.importCompetencies("A\n\tA.1\n\t\tA.1.1\n\tA.2\n\t\tA.2.1\n\t\tA.2.2\n\t\t\tA.2.2.1\nB\n\tB.1\n\t\tB.1.1\n\tB.2\n\t\tB.2.1\n\t\tB.2.2\n\t\t\tB.2.2.1\nC\nD\n D.1\n D.2\n  D.2.1\n  D.2.2\n D.3\n  D.3.1\nE", this.repo.selectedServer, this.newId1, async (competencies, alignments) => {
             var f = new EcFramework();
             f.setName("Tab Structured Import Test Framework");
             f.generateId(me.repo.selectedServer);
@@ -4722,14 +4722,16 @@ obj = new ImportTestBase();
 if (obj.setup) obj.setup();
 if (obj.begin) obj.begin();
 EcRepository.repos = [];
+console.log("TabStructuredImportTest")
 obj = new TabStructuredImportTest();
 if (obj.setup) obj.setup();
 if (obj.begin) obj.begin();
 await obj.basicTabStructuredImport();
-
 }
 catch(e){
     console.trace(e);
 }
+console.log("All tests run.");
+process.exit(0);
 };
-    fun();
+fun();

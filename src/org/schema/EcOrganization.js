@@ -192,7 +192,7 @@ module.exports = class EcOrganization extends schema.Organization {
 			this[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
 			await repo.saveTo(
 				this,
-				async() => {
+				async () => {
 					await repo.saveTo(rekeyRequest, success, failure, eim);
 				},
 				failure, eim
@@ -248,7 +248,7 @@ module.exports = class EcOrganization extends schema.Organization {
 		if (o != null) {
 			var ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString(null,null,eim)));
+			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString(null, null, eim));
 			for (var i = 0; i < orgKeysPPKPems.length; i++) {
 				orgKeys.push(EcPpk.fromPem(orgKeysPPKPems[i]));
 			}
@@ -265,7 +265,7 @@ module.exports = class EcOrganization extends schema.Organization {
 		if (o != null) {
 			var ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var currentGroupPpkPem = await ev.decryptIntoString(null,null,eim);
+			var currentGroupPpkPem = await ev.decryptIntoString(null, null, eim);
 			var keyArray = [];
 			keyArray.push(currentGroupPpkPem);
 			var newKey = await EcEncryptedValue.encryptValue(

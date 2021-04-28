@@ -332,7 +332,7 @@ module.exports = class EcIdentityManager {
 	 *  @param {Callback1<String>} success Callback triggered once the signature
 	 *                             sheet has been created, returns the signature sheet
 	 *  @memberOf EcIdentityManager
-	 *  @method signatureSheetForAsync
+	 *  @method signatureSheetFor
 	 *  @static
 	 */
 	signatureSheetFor(

@@ -179,7 +179,7 @@ module.exports = class Assertion extends schema.CreativeWork {
 			return "Unknown Agent";
 		return contact.displayName;
 	}
-	getAgentNameAsync(success, failure,eim) {
+	getAgentNameAsync(success, failure, eim) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (this.subject == null) {

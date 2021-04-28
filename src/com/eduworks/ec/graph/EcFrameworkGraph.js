@@ -38,23 +38,23 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	 *  @method addFramework
 	 *  @memberOf EcFrameworkGraph
 	 */
-	async addFramework(framework, repo, success, failure) {
+	async addFramework(framework, repo, success, failure, eim) {
 		this.repo = repo;
 		this.frameworks.push(framework);
 		if (framework.competency == null) framework.competency = [];
 		if (framework.relation == null) framework.relation = [];
 		await repo.multiget(
 			framework.competency,
-			async(data) => {
+			async (data) => {
 				await Promise.all(
-					data.map((d) => this.handleCacheElement(d, framework))
+					data.map((d) => this.handleCacheElement(d, framework, eim))
 				);
 				await repo.multiget(
 					framework.relation,
-					async(data2) => {
+					async (data2) => {
 						await Promise.all(
 							data2.map((d2) =>
-								this.handleCacheElement(d2, framework)
+								this.handleCacheElement(d2, framework, eim)
 							)
 						);
 						success();
@@ -65,9 +65,9 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 			failure, this.eim
 		);
 	}
-	async handleCacheElement(d, framework) {
+	async handleCacheElement(d, framework, eim) {
 		if (d.isAny(new EcEncryptedValue().getTypes()))
-			d = await EcEncryptedValue.fromEncryptedValue(d,null,null,eim);
+			d = await EcEncryptedValue.fromEncryptedValue(d, null, null, eim);
 		if (d == null) return;
 		if (d.isAny(new EcCompetency().getTypes())) {
 			let c = new EcCompetency().copyFrom(d);
@@ -99,7 +99,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	async processAssertionsBoolean(assertions, success, failure) {
 		await cassPromisify(
 			Promise.all(
-				assertions.map(async(assertion) => {
+				assertions.map(async (assertion) => {
 					if (!this.containsVertexById(assertion.competency)) {
 						console.log("Could not find " + assertion.competency);
 						return;

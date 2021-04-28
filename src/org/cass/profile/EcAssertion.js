@@ -622,11 +622,11 @@ module.exports = class EcAssertion extends Assertion {
 			await this.negative.addReader(newReader, eim);
 		}
 		if (this.subject != null) {
-			await this.subject.addReader(newReade, eim);
+			await this.subject.addReader(newReader, eim);
 		}
 		await super.addReader(newReader);
 	}
-	async removeReader(newReader,eim) {
+	async removeReader(newReader, eim) {
 		if (this.agent != null) {
 			await this.agent.removeReader(newReader, eim);
 		}

@@ -128,11 +128,11 @@ module.exports = class FrameworkImport {
 																);
 															relation.source =
 																FrameworkImport.compMap[
-																rel.source
+																	rel.source
 																];
 															relation.target =
 																FrameworkImport.compMap[
-																rel.target
+																	rel.target
 																];
 															if (owner != null)
 																relation.addOwner(
@@ -281,8 +281,8 @@ module.exports = class FrameworkImport {
 														) {
 															delete FrameworkImport
 																.targetUsable[
-																"competencyObjects"
-															];
+																	"competencyObjects"
+																];
 															Task.asyncImmediate(
 																function (o) {
 																	var keepGoing = o;

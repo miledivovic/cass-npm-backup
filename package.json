@@ -12,7 +12,8 @@
 		"autotest": "nodemon test.js",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
 		"publish": "npm publish",
-		"docs": "yuidoc -c yuidoc.json -o docs -e .js src"
+		"docs": "yuidoc -c yuidoc.json -o docs -e .js src",
+		"doclint": "yuidoc --lint -c yuidoc.json -o docs -e .js src"
 	},
 	"contributors": [
 		{

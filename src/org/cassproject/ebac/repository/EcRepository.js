@@ -113,6 +113,12 @@ module.exports = class EcRepository {
 						EcRepository.repos[0].selectedServer,
 						EcCrypto.md5(url)
 					);
+			} else if (repo !== undefined && repo !== null) {
+				if (!url.startsWith(repo.selectedServer))
+					url = EcRemoteLinkedData.veryShortId(
+						repo.selectedServer,
+						EcCrypto.md5(url)
+					);
 			} else {
 				return EcRepository.find(
 					url,
@@ -162,14 +168,19 @@ module.exports = class EcRepository {
 				finalUrl
 			);
 		}).catch((error) => {
-			return EcRepository.find(
-				originalUrl,
-				error,
-				{},
-				0,
-				success,
-				failure, eim
-			);
+			if (repo === undefined || repo == null) {
+				return EcRepository.find(
+					originalUrl,
+					error,
+					{},
+					0,
+					success,
+					failure, eim
+				);
+			} else {
+				if (EcRepository.caching) EcRepository.cache[url] = null;
+				return cassReturnAsPromise(null, success, failure, error);
+			}
 		});
 		return p;
 	}
@@ -594,6 +605,8 @@ module.exports = class EcRepository {
 	 *  @static
 	 */
 	static DELETE = function (data, success, failure, repo, eim) {
+		if (repo !== undefined && repo != null)
+			return repo.deleteRegistered(data, success, failure, eim);
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (EcRepository.caching) {
@@ -673,7 +686,7 @@ module.exports = class EcRepository {
 			);
 		var offset = EcRepository.setOffset(data.id);
 		if (data.owner != null && data.owner.length > 0) {
-			return eim.signatureSheetForAsync(
+			return eim.signatureSheetFor(
 				data.owner,
 				60000 + offset,
 				data.id
@@ -1548,8 +1561,8 @@ module.exports = class EcRepository {
 			},
 			failure, repo, eim
 		);
-	};
-	static searchAs = function (
+	}
+	static searchAs(
 		repo,
 		query,
 		factory,
@@ -1576,5 +1589,5 @@ module.exports = class EcRepository {
 			success,
 			failure
 		);
-	};
+	}
 };

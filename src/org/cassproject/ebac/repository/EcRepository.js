@@ -801,7 +801,7 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method precache
 	 */
-	precache = function (urls, success, failure) {
+	precache = function (urls, success, failure, eim) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		var cacheUrls = [];

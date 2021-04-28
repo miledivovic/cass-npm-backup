@@ -1039,8 +1039,8 @@ class EcRepositoryTest {
         thing.signWith(ppk);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         var r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
         console.log("Saving...");
@@ -1055,7 +1055,7 @@ class EcRepositoryTest {
                 Assert.fail("Failed to save object.");
             }
         );
-        EcIdentityManager.ids = [];
+        EcIdentityManager.default.ids = [];
         console.log("Retrieving...");
         await EcRepository.get(
             thing.shortId(),
@@ -1113,7 +1113,7 @@ class EcRepositoryTest {
             }
         );
         console.log("After trying to delete...");
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.addIdentity(newId1);
         var thing2 = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
@@ -1189,8 +1189,8 @@ class EcRepositoryTest {
         thing.addOwner(pk2);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         console.log("Saving...");
         await EcRepository.save(
             thing,
@@ -1203,7 +1203,7 @@ class EcRepositoryTest {
                 Assert.fail("Failed to save object.");
             }
         );
-        EcIdentityManager.ids = [];
+        EcIdentityManager.default.ids = [];
         console.log("Retrieving...");
         await EcRepository.get(
             thing.shortId(),
@@ -1252,7 +1252,7 @@ class EcRepositoryTest {
         );
         var newId2 = new EcIdentity();
         newId2.ppk = ppk2;
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.addIdentity(newId2);
         var thing2 = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
@@ -1332,8 +1332,8 @@ class EcRepositoryTest {
         );
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         console.log("Searching...");
         await r.search(
             '@type:"http://schema.eduworks.com/general/0.2/nonsense"',
@@ -1367,8 +1367,8 @@ class EcEncryptedValueTest {
         newId1.ppk = ppk;
         var newId2 = new EcIdentity();
         newId2.ppk = ppk2;
-        EcIdentityManager.addIdentity(newId1);
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.addIdentity(newId1);
+        EcIdentityManager.default.addIdentity(newId2);
         await r.search(
             '"' + ppk.toPk().toPem() + '"',
             function (ecRemoteLinkedData) {
@@ -1379,7 +1379,7 @@ class EcEncryptedValueTest {
                 console.log("Could not find objects to delete");
             }
         );
-        EcIdentityManager.clearIdentities();
+        EcIdentityManager.default.clearIdentities();
     };
     encryptDecryptTest = async function () {
         var ppk = EcPpk.fromPem(
@@ -1398,7 +1398,7 @@ class EcEncryptedValueTest {
         f.signWith(ppk);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.addIdentity(newId1);
         var v = null;
         console.log("Encrypting: " + f.name);
         v = await EcEncryptedValue.encryptValueOld(
@@ -1427,8 +1427,8 @@ class EcEncryptedValueTest {
         console.log("Encrypted object: " + v2.toJson());
         var newId2 = new EcIdentity();
         newId2.ppk = ppk2;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId2);
         Assert.assertTrue(
             "Reader Decryption:",
             await v2.decryptIntoString() == f.name
@@ -1452,7 +1452,7 @@ class EcEncryptedValueTest {
         f.signWith(ppk);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.addIdentity(newId1);
         var v = null;
         console.log("Encrypting: " + f.name);
         v = await EcEncryptedValue.toEncryptedValue(f, false);
@@ -1516,7 +1516,7 @@ class EcEncryptedValueTest {
         f.signWith(ppk);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.addIdentity(newId1);
         f["encryptedName"] = await EcEncryptedValue.encryptValue(
             f.name,
             f.shortId(),
@@ -1592,7 +1592,7 @@ class EcEncryptedValueTest {
         newId2.ppk = ppk2;
         var newId3 = new EcIdentity();
         newId3.ppk = ppk3;
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.addIdentity(newId1);
         var readers = [];
         readers.push(ppk2.toPk().toPem());
         f["encryptedName"] = await EcEncryptedValue.encryptValue(
@@ -1730,8 +1730,8 @@ class EcEncryptedValueTest {
                 success,
                 failure
             );
-            EcIdentityManager.ids = [];
-            EcIdentityManager.addIdentity(newId2);
+            EcIdentityManager.default.ids = [];
+            EcIdentityManager.default.addIdentity(newId2);
             console.log("ID Search, searching with signature 2.");
             await r.searchWithParams(
                 '@id:"' + f.shortId() + '"',
@@ -1750,8 +1750,8 @@ class EcEncryptedValueTest {
                 success,
                 failure
             );
-            EcIdentityManager.ids = [];
-            EcIdentityManager.addIdentity(newId3);
+            EcIdentityManager.default.ids = [];
+            EcIdentityManager.default.addIdentity(newId3);
             console.log("ID Search.");
             await r.searchWithParams(
                 '@id:"' + f.shortId() + '"',
@@ -1809,8 +1809,8 @@ class EcEncryptedValueTest {
                 failure
             );
         } finally {
-            EcIdentityManager.ids = [];
-            EcIdentityManager.addIdentity(newId1);
+            EcIdentityManager.default.ids = [];
+            EcIdentityManager.default.addIdentity(newId1);
             await EcRepository._delete(
                 f,
                 function (p1) { },
@@ -1835,8 +1835,8 @@ class EcEncryptedValueTest {
         let encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         console.log("Saving...");
         await EcRepository.save(
             encThing,
@@ -1899,7 +1899,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to search for object after save.");
             }
         );
-        EcIdentityManager.ids = [];
+        EcIdentityManager.default.ids = [];
         console.log("Trying to retrieve as public...");
         await EcRepository.get(
             encThing.shortId(),
@@ -1958,7 +1958,7 @@ class EcEncryptedValueTest {
                 console.log(p1);
             }
         );
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.addIdentity(newId1);
         console.log("Updating...");
         await EcRepository.save(
             encThing2,
@@ -2033,8 +2033,8 @@ class EcEncryptedValueTest {
         var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         console.log("Saving...");
         await EcRepository.save(
             encThing,
@@ -2109,8 +2109,8 @@ class EcEncryptedValueTest {
         );
         var newId2 = new EcIdentity();
         newId2.ppk = ppk2;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId2);
         console.log("Retrieving as owner 2...");
         await EcRepository.get(
             encThing.shortId(),
@@ -2168,7 +2168,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to search for object as owner 2.");
             }
         );
-        EcIdentityManager.ids = [];
+        EcIdentityManager.default.ids = [];
         console.log("Trying to retrieve as public...");
         await EcRepository.get(
             encThing.shortId(),
@@ -2209,7 +2209,7 @@ class EcEncryptedValueTest {
                 console.log(p1);
             }
         );
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.addIdentity(newId2);
         thing["value"] = "Changed Object Value";
         var encThing2 = await EcEncryptedValue.toEncryptedValue(thing, false);
         console.log("Updating as owner 2...");
@@ -2292,8 +2292,8 @@ class EcEncryptedValueTest {
         var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         console.log("Saving...");
         await EcRepository.save(
             encThing,
@@ -2363,8 +2363,8 @@ class EcEncryptedValueTest {
         );
         var newId2 = new EcIdentity();
         newId2.ppk = ppk2;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId2);
         console.log("Trying to retrieve as other user...");
         await EcRepository.get(
             encThing.shortId(),
@@ -2377,8 +2377,8 @@ class EcEncryptedValueTest {
                 console.log("Access Denied");
             }
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         var encThingWithReader = await EcEncryptedValue.toEncryptedValue(
             thing,
             false
@@ -2396,8 +2396,8 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to add reader to object.");
             }
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId2);
         console.log("Retrieving as reader...");
         let encThingValue = (await encThingWithReader.decryptIntoObject())[
             "value"
@@ -2409,7 +2409,7 @@ class EcEncryptedValueTest {
                     Assert.fail("Unable to retreive object as reader");
                 let retrieved = new EcEncryptedValue();
                 retrieved.copyFrom(p1);
-                EcIdentityManager.addIdentity(newId2);
+                EcIdentityManager.default.addIdentity(newId2);
                 Assert.assertTrue(
                     "Object is not Owned by the Identity that Created It",
                     retrieved.canEdit(newId1.ppk.toPk())
@@ -2460,7 +2460,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to search for object after save.");
             }
         );
-        EcIdentityManager.ids = [];
+        EcIdentityManager.default.ids = [];
         console.log("Trying to retrieve as public...");
         await EcRepository.get(
             encThingWithReader.shortId(),
@@ -2501,7 +2501,7 @@ class EcEncryptedValueTest {
                 console.log(p1);
             }
         );
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.addIdentity(newId2);
         console.log("Deleting as reader...");
         await EcRepository._delete(
             encThingWithReader,
@@ -2515,8 +2515,8 @@ class EcEncryptedValueTest {
                 console.log(p1);
             }
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         var encThingNoReader = new EcEncryptedValue();
         encThingNoReader.copyFrom(encThingWithReader);
         await encThingNoReader.removeReader(EcPk.fromPem(ppk2.toPk().toPem()));
@@ -2532,8 +2532,8 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to remove reader from object.");
             }
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId2);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId2);
         console.log("Trying to retrieve as other user...");
         await EcRepository.get(
             encThing.shortId(),
@@ -2546,8 +2546,8 @@ class EcEncryptedValueTest {
                 console.log("Access Denied");
             }
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         console.log("Deleting...");
         await EcRepository._delete(
             encThingNoReader,
@@ -2574,8 +2574,8 @@ class EcVersioningTest {
         );
         var newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(newId1);
         var t = new schema.Thing();
         t.name = "Foo";
         t.generateId(r.selectedServer);
@@ -2740,8 +2740,8 @@ class EcRekeyTest {
         );
     };
     basicRekeyRecordForwardingTest = async function () {
-        EcIdentityManager.ids[0] = new EcIdentity();
-        EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
+        EcIdentityManager.default.ids[0] = new EcIdentity();
+        EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemoteLinkedData.forwardingTable = {};
         var err = await EcRekeyRequest.generateRekeyRequest(
             EcRekeyTest.server,
@@ -2752,7 +2752,7 @@ class EcRekeyTest {
         await EcRepository.save(
             err,
             async s => {
-                EcIdentityManager.clearIdentities();
+                EcIdentityManager.default.clearIdentities();
                 var repo = new EcRepository();
                 await repo.init(
                     EcRekeyTest.server,
@@ -2779,8 +2779,8 @@ class EcRekeyTest {
         );
     };
     basicRekeyRecordClientTest = async function () {
-        EcIdentityManager.ids[0] = new EcIdentity();
-        EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
+        EcIdentityManager.default.ids[0] = new EcIdentity();
+        EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemoteLinkedData.forwardingTable = {};
         var err = await EcRekeyRequest.generateRekeyRequest(
             EcRekeyTest.server,
@@ -2790,13 +2790,13 @@ class EcRekeyTest {
         await EcRepository.save(
             err,
             async function (s) {
-                EcIdentityManager.clearIdentities();
+                EcIdentityManager.default.clearIdentities();
                 var repo = new EcRepository();
                 await repo.init(
                     EcRekeyTest.server,
                     async function () {
-                        EcIdentityManager.ids[0] = new EcIdentity();
-                        EcIdentityManager.ids[0].ppk = EcPpk.fromPem(
+                        EcIdentityManager.default.ids[0] = new EcIdentity();
+                        EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(
                             EcRekeyTest.oldKey
                         );
                         var rld = new EcRemoteLinkedData(
@@ -2808,7 +2808,7 @@ class EcRekeyTest {
                         await EcRepository.save(
                             rld,
                             async function (s) {
-                                EcIdentityManager.clearIdentities();
+                                EcIdentityManager.default.clearIdentities();
                                 var rld2 = await EcRepository.get(
                                     rld.shortId()
                                 );
@@ -2838,8 +2838,8 @@ class EcRekeyTest {
         );
     };
     basicRekeyRecordServerTest = async function () {
-        EcIdentityManager.ids[0] = new EcIdentity();
-        EcIdentityManager.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
+        EcIdentityManager.default.ids[0] = new EcIdentity();
+        EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemoteLinkedData.forwardingTable = {};
         var err = await EcRekeyRequest.generateRekeyRequest(
             EcRekeyTest.server,
@@ -2851,13 +2851,13 @@ class EcRekeyTest {
         await EcRepository.save(
             err,
             async s => {
-                EcIdentityManager.clearIdentities();
+                EcIdentityManager.default.clearIdentities();
                 var repo = new EcRepository();
                 await repo.init(
                     EcRekeyTest.server,
                     async () => {
-                        EcIdentityManager.ids[0] = new EcIdentity();
-                        EcIdentityManager.ids[0].ppk = EcPpk.fromPem(
+                        EcIdentityManager.default.ids[0] = new EcIdentity();
+                        EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(
                             EcRekeyTest.oldKey
                         );
                         var rld = new EcRemoteLinkedData(
@@ -2871,9 +2871,9 @@ class EcRekeyTest {
                         await EcRepository.save(
                             rld,
                             async s => {
-                                EcIdentityManager.clearIdentities();
-                                EcIdentityManager.ids[0] = new EcIdentity();
-                                EcIdentityManager.ids[0].ppk = EcPpk.fromPem(
+                                EcIdentityManager.default.clearIdentities();
+                                EcIdentityManager.default.ids[0] = new EcIdentity();
+                                EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(
                                     EcRekeyTest.oldKey
                                 );
                                 console.log("Test 0.");
@@ -2887,9 +2887,9 @@ class EcRekeyTest {
                                     rld2,
                                     null
                                 );
-                                EcIdentityManager.clearIdentities();
-                                EcIdentityManager.ids[0] = new EcIdentity();
-                                EcIdentityManager.ids[0].ppk = EcPpk.fromPem(
+                                EcIdentityManager.default.clearIdentities();
+                                EcIdentityManager.default.ids[0] = new EcIdentity();
+                                EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(
                                     EcRekeyTest.newerKey
                                 );
                                 rld2 = await EcRepository.get(rld.shortId());
@@ -2907,8 +2907,8 @@ class EcRekeyTest {
                                         ),
                                         null
                                     );
-                                EcIdentityManager.ids[1] = new EcIdentity();
-                                EcIdentityManager.ids[1].ppk = EcPpk.fromPem(
+                                EcIdentityManager.default.ids[1] = new EcIdentity();
+                                EcIdentityManager.default.ids[1].ppk = EcPpk.fromPem(
                                     EcRekeyTest.oldKey
                                 );
                                 console.log("Test 3.");
@@ -2971,8 +2971,8 @@ class EcAlignmentTest {
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
         EcAlignmentTest.newId1.ppk = EcAlignmentTest.ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcAlignmentTest.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcAlignmentTest.newId1);
         EcAlignmentTest.sourceComp = new EcCompetency();
         EcAlignmentTest.sourceComp.generateId(EcAlignmentTest.server);
         EcAlignmentTest.sourceComp.name = "Source Name";
@@ -3286,8 +3286,8 @@ class EcCompetencyTest {
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
         EcCompetencyTest.newId1.ppk = EcCompetencyTest.ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcCompetencyTest.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcCompetencyTest.newId1);
         EcCompetencyTest.comp = new EcCompetency();
         EcCompetencyTest.comp.generateId(EcCompetencyTest.server);
         EcCompetencyTest.comp.name = "Test Competency Name";
@@ -3721,8 +3721,8 @@ class EcLevelTest {
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
         EcLevelTest.newId1.ppk = EcLevelTest.ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcLevelTest.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcLevelTest.newId1);
         EcLevelTest.level = new EcLevel();
         EcLevelTest.level.generateId(EcLevelTest.server);
         EcLevelTest.level.name = "Test Level Name";
@@ -4002,8 +4002,8 @@ class EcAssertionTest {
         );
     };
     assertionEncryptDecryptTest = async function () {
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcAssertionTest.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcAssertionTest.newId1);
         var assn = new EcAssertion();
         var agent = EcAssertionTest.ppk1.toPk();
         var subject = EcAssertionTest.ppk2.toPk();
@@ -4024,8 +4024,8 @@ class EcAssertionTest {
         evidences.push("I saw them do it.");
         await assn.setEvidence(evidences);
         console.log("Setup of assertion");
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcAssertionTest.newId2);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcAssertionTest.newId2);
         Assert.assertEquals(
             "Subject not readable by subject.",
             subject.toPem(),
@@ -4061,12 +4061,12 @@ class EcAssertionTest {
             "t",
             await assn.getDecayFunction()
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcAssertionTest.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcAssertionTest.newId1);
         await assn.addReader(thirdParty);
         console.log("Added Third Party to assertion");
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcAssertionTest.newId3);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcAssertionTest.newId3);
         Assert.assertEquals(
             "Subject not readable by third party.",
             subject.toPem(),
@@ -4102,12 +4102,12 @@ class EcAssertionTest {
             "t",
             await assn.getDecayFunction()
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcAssertionTest.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcAssertionTest.newId1);
         await assn.removeReader(thirdParty);
         console.log("Removed Third Party to assertion");
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcAssertionTest.newId3);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcAssertionTest.newId3);
         Assert.assertEquals(
             "Subject readable by third party.",
             null,
@@ -4170,8 +4170,8 @@ class EcFrameworkTest {
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
         EcFrameworkTest.newId1.ppk = EcFrameworkTest.ppk;
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(EcFrameworkTest.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(EcFrameworkTest.newId1);
         EcFrameworkTest.repo.selectedServer = EcFrameworkTest.server;
         EcFrameworkTest.framework = new EcFramework();
         EcFrameworkTest.framework.generateId(EcFrameworkTest.server);
@@ -5232,16 +5232,16 @@ class EvidenceProcessingTestBase {
         this.newId1.ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(this.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(this.newId1);
     };
     async newAssertion(competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
-        a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        a.addReader(EcIdentityManager.ids[0].ppk.toPk());
-        await a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        await a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
+        a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+        a.addReader(EcIdentityManager.default.ids[0].ppk.toPk());
+        await a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
+        await a.setAgent(EcIdentityManager.default.ids[0].ppk.toPk());
         await a.setCompetency(competencyToAssert.shortId());
         await a.setConfidence(1.0);
         await a.setAssertionDate(new Date().getTime());
@@ -5253,10 +5253,10 @@ class EvidenceProcessingTestBase {
     async newFalseAssertion(competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
-        a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        await a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        await a.addReader(EcIdentityManager.ids[0].ppk.toPk());
-        await a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
+        a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+        await a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
+        await a.addReader(EcIdentityManager.default.ids[0].ppk.toPk());
+        await a.setAgent(EcIdentityManager.default.ids[0].ppk.toPk());
         await a.setCompetency(competencyToAssert.shortId());
         await a.setConfidence(1.0);
         await a.setNegative(true);
@@ -5268,7 +5268,7 @@ class EvidenceProcessingTestBase {
     }
     async newCompetency(competencyName) {
         var competency = new EcCompetency();
-        competency.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        competency.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         competency.name = competencyName;
         competency.generateId(this.repo.selectedServer);
         await competency.save(null, this.failure, this.repo);
@@ -5278,14 +5278,14 @@ class EvidenceProcessingTestBase {
         var rr = new EcRollupRule();
         rr.competency = competency.shortId();
         rr.rule = rule;
-        rr.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        rr.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         rr.generateId(this.repo.selectedServer);
         await rr.save(null, this.failure, this.repo);
         return rr;
     }
     async newRelation(c, c2, relationType) {
         var r = new EcAlignment();
-        r.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        r.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         r.generateId(this.repo.selectedServer);
         r.relationType = relationType;
         r.source = c.shortId();
@@ -5298,7 +5298,7 @@ class EvidenceProcessingTestBase {
         ep.logFunction = this.logObject;
         ep.repositories.push(this.repo);
         var subject = [];
-        subject.push(EcIdentityManager.ids[0].ppk.toPk());
+        subject.push(EcIdentityManager.default.ids[0].ppk.toPk());
         var additionalSignatures = null;
         ep.has(
             subject,
@@ -5314,7 +5314,7 @@ class EvidenceProcessingTestBase {
     async newFramework(frameworkName) {
         var framework = new EcFramework();
         framework.name = frameworkName;
-        framework.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        framework.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         framework.generateId(this.repo.selectedServer);
         await framework.save(null, this.failure, this.repo);
         return framework;
@@ -6744,15 +6744,15 @@ class ImportTestBase {
         this.newId1.ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        EcIdentityManager.ids = [];
-        EcIdentityManager.addIdentity(this.newId1);
+        EcIdentityManager.default.ids = [];
+        EcIdentityManager.default.addIdentity(this.newId1);
     };
     newAssertion = function (competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
-        a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
+        a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+        a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
+        a.setAgent(EcIdentityManager.default.ids[0].ppk.toPk());
         a.setCompetency(competencyToAssert.shortId());
         a.setConfidence(1.0);
         a.setAssertionDate(new Date().getTime());
@@ -6764,9 +6764,9 @@ class ImportTestBase {
     newFalseAssertion = function (competencyToAssert) {
         var a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
-        a.addOwner(EcIdentityManager.ids[0].ppk.toPk());
-        a.setSubject(EcIdentityManager.ids[0].ppk.toPk());
-        a.setAgent(EcIdentityManager.ids[0].ppk.toPk());
+        a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+        a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
+        a.setAgent(EcIdentityManager.default.ids[0].ppk.toPk());
         a.setCompetency(competencyToAssert.shortId());
         a.setConfidence(1.0);
         a.setNegative(true);
@@ -6778,7 +6778,7 @@ class ImportTestBase {
     };
     newCompetency = function (competencyName) {
         var competency = new EcCompetency();
-        competency.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        competency.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         competency.name = competencyName;
         competency.generateId(this.repo.selectedServer);
         competency.save(null, this.failure, this.repo);
@@ -6788,14 +6788,14 @@ class ImportTestBase {
         var rr = new EcRollupRule();
         rr.competency = competency.shortId();
         rr.rule = rule;
-        rr.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        rr.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         rr.generateId(this.repo.selectedServer);
         rr.save(null, this.failure, this.repo);
         return rr;
     };
     newRelation = function (c, c2, relationType) {
         var r = new EcAlignment();
-        r.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        r.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         r.generateId(this.repo.selectedServer);
         r.relationType = relationType;
         r.source = c.shortId();
@@ -6806,7 +6806,7 @@ class ImportTestBase {
     newFramework = function (frameworkName) {
         var framework = new EcFramework();
         framework.name = frameworkName;
-        framework.addOwner(EcIdentityManager.ids[0].ppk.toPk());
+        framework.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         framework.generateId(this.repo.selectedServer);
         framework.save(null, this.failure, this.repo);
         return framework;

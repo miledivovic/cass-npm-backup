@@ -14,8 +14,8 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcOrganization(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcOrganization(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves an organization from it's server synchronously, the call
@@ -29,8 +29,8 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcOrganization());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcOrganization(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches a repository for organizations that match the search query
@@ -193,9 +193,9 @@ module.exports = class EcOrganization extends schema.Organization {
 			await repo.saveTo(
 				this,
 				async() => {
-					await repo.saveTo(rekeyRequest, success, failure);
+					await repo.saveTo(rekeyRequest, success, failure, eim);
 				},
-				failure
+				failure, eim
 			);
 		}
 	}
@@ -209,7 +209,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @memberOf EcOrganization
 	 *  @method save
 	 */
-	async save(success, failure, repo) {
+	async save(success, failure, repo, eim) {
 		var newKeys = await EcEncryptedValue.encryptValue(
 			this.ppkListToPemArrayString(this.getOrgKeys()),
 			EcOrganization.ORG_PPK_SET_KEY,
@@ -217,8 +217,8 @@ module.exports = class EcOrganization extends schema.Organization {
 			this.reader
 		);
 		this[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Returns the current organization key

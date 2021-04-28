@@ -44,11 +44,11 @@ module.exports = class EcFile extends GeneralFile {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcFile(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcFile(), success, failure, repo, eim);
 	}
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcFile());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcFile(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository given for files that match the query passed in

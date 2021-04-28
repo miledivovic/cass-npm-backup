@@ -24,8 +24,8 @@ module.exports = class EcRollupRule extends RollupRule {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcRollupRule(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcRollupRule(), success, failure, repo, eim);
 	}
 
 	/**
@@ -43,8 +43,8 @@ module.exports = class EcRollupRule extends RollupRule {
 	 *  @static
 	 *  @deprecated
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcRollupRule());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcRollupRule(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches for levels with a string query
@@ -103,7 +103,7 @@ module.exports = class EcRollupRule extends RollupRule {
 	 *  @memberOf EcRollupRule
 	 *  @method save
 	 */
-	save(success, failure, repo) {
+	save(success, failure, repo, eim) {
 		if (this.rule == null || this.rule == "") {
 			var msg = "RollupRule Rule cannot be empty";
 			if (failure !== undefined && failure != null) return failure(msg);
@@ -114,8 +114,8 @@ module.exports = class EcRollupRule extends RollupRule {
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Deletes this rollup rule from the server specified by it's ID
@@ -127,7 +127,7 @@ module.exports = class EcRollupRule extends RollupRule {
 	 *  @memberOf EcRollupRule
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 };

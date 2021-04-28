@@ -51,8 +51,8 @@ module.exports = class ExtInstitution extends schema.Organization {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new ExtInstitution(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new ExtInstitution(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a institution from the server synchronously, the call
@@ -66,8 +66,8 @@ module.exports = class ExtInstitution extends schema.Organization {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new ExtInstitution());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new ExtInstitution(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository using the query and optional parameters provided
@@ -109,7 +109,7 @@ module.exports = class ExtInstitution extends schema.Organization {
 	 *  @memberOf ExtInstitution
 	 *  @method save
 	 */
-	save(success, failure) {
+	save(success, failure, repo, eim) {
 		if (this.getId() == null || this.getId() == "") {
 			var msg = "ID cannot be missing";
 			if (failure != null) return failure(msg);
@@ -125,7 +125,7 @@ module.exports = class ExtInstitution extends schema.Organization {
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		return EcRepository.save(this, success, failure);
+		return EcRepository.save(this, success, failure, repo, eim);
 	}
 	/**
 	 *  Deletes the institution from the server corresponding to its ID
@@ -137,8 +137,8 @@ module.exports = class ExtInstitution extends schema.Organization {
 	 *  @memberOf ExtInstitution
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 	/**
 	 *  Returns the ID of the Institution

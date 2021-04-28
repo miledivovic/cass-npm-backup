@@ -10,8 +10,8 @@ module.exports = class EcAssertion extends Assertion {
 	equals(obj) {
 		return this.isId(obj.id);
 	}
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcAssertion(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcAssertion(), success, failure, repo, eim);
 	}
 	static search(repo, query, success, failure, paramObj) {
 		return EcRepository.searchAs(
@@ -573,7 +573,7 @@ module.exports = class EcAssertion extends Assertion {
 			failure
 		);
 	}
-	save(success, failure, repo) {
+	save(success, failure, repo, eim) {
 		if (this.competency == null || this.competency == "") {
 			var msg = "Failing to save: Competency cannot be missing";
 			if (failure !== undefined && failure != null) failure(msg);
@@ -598,8 +598,8 @@ module.exports = class EcAssertion extends Assertion {
 			else throw new Error(msg);
 			return;
 		}
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	async addReader(newReader) {
 		if (this.agent != null) {

@@ -688,7 +688,8 @@ module.exports = class CSVImport {
 		objects,
 		success,
 		failure,
-		repo
+		repo,
+		eim
 	) {
 		Task.asyncImmediate(function(o) {
 			var keepGoing = o;
@@ -703,8 +704,8 @@ module.exports = class CSVImport {
 				failure("Failed to save object");
 				keepGoing();
 			};
-			if (repo == null) EcRepository.save(data, scs, err);
-			else repo.saveTo(data, scs, err);
+			if (repo == null) EcRepository.save(data, scs, err, repo, eim);
+			else repo.saveTo(data, scs, err, eim);
 		});
 	}
 };

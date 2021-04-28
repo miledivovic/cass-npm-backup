@@ -382,8 +382,8 @@ module.exports = class EcRepository {
 	 *  @method save
 	 *  @static
 	 */
-	static save = function (data, success, failure) {
-		return EcRepository._save(data, success, failure, null);
+	static save = function (data, success, failure, repo, eim) {
+		return EcRepository._save(data, success, failure, repo, eim);
 	};
 	/**
 	 *  Attempts to save a piece of data. If the @id of the data is not of this server, will register the data to the server.
@@ -399,8 +399,8 @@ module.exports = class EcRepository {
 	 *  @method save
 	 *  @static
 	 */
-	saveTo = function (data, success, failure) {
-		return EcRepository._save(data, success, failure, this);
+	saveTo = function (data, success, failure, eim) {
+		return EcRepository._save(data, success, failure, this, eim);
 	};
 	/**
 	 *  Attempts to save a piece of data. Does some checks before saving to
@@ -575,8 +575,8 @@ module.exports = class EcRepository {
 	 *  @method _delete
 	 *  @static
 	 */
-	static _delete = function (data, success, failure) {
-		return EcRepository.DELETE(data, success, failure);
+	static _delete = function (data, success, failure, repo, eim) {
+		return EcRepository.DELETE(data, success, failure, repo, eim);
 	};
 	/**
 	 *  Attempts to delete a piece of data.
@@ -888,10 +888,10 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method multiget
 	 */
-	multiget = function (urls, success, failure) {
-		let p = this.precache(urls).then(() =>
+	multiget = function (urls, success, failure, eim) {
+		let p = this.precache(urls, null, null, eim).then(() =>
 			Promise.all(
-				urls.map((url) => EcRepository.get(url))
+				urls.map((url) => EcRepository.get(url, null, null, this, eim))
 			).then((things) => things.filter((r) => r))
 		);
 		return cassPromisify(p, success, failure);
@@ -1488,7 +1488,7 @@ module.exports = class EcRepository {
 	 *                               returns an array of the admin public keys
 	 *  @param {Callback1<String>}   failure
 	 *                               Callback triggered if error occurs fetching admin keys
-	 *  @memberOf EcRemoteIdentityManager
+	 *  @memberOf EcRepository
 	 *  @method fetchServerAdminKeys
 	 */
 	fetchServerAdminKeys = function (success, failure) {
@@ -1515,7 +1515,7 @@ module.exports = class EcRepository {
 			}
 		);
 	};
-	static getAs = function (id, result, success, failure) {
+	static getAs(id, result, success, failure, repo, eim) {
 		EcRepository.get(
 			id,
 			function (p1) {
@@ -1545,7 +1545,7 @@ module.exports = class EcRepository {
 					failure
 				);
 			},
-			failure
+			failure, repo, eim
 		);
 	};
 	static searchAs = function (

@@ -41,8 +41,8 @@ module.exports = class EcFramework extends Framework {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcFramework(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcFramework(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a framework from the server in a blocking fashion, specified by the ID
@@ -59,8 +59,8 @@ module.exports = class EcFramework extends Framework {
 	 *  @static
 	 *  @deprecated Use await on get()
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcFramework());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcFramework(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository given for frameworks using the query passed in
@@ -399,14 +399,14 @@ module.exports = class EcFramework extends Framework {
 	 *  @memberOf EcFramework
 	 *  @method save
 	 */
-	save(success, failure, repo) {
+	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
 			var msg = "Framework Name Cannot be Empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Deletes this framework from the server specified by it's ID
@@ -418,8 +418,8 @@ module.exports = class EcFramework extends Framework {
 	 *  @memberOf EcFramework
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 	asAsnJson(success, failure, fallbackServerUrl) {
 		var id = this.id;

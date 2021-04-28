@@ -35,8 +35,8 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcAlignment(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcAlignment(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves an alignment from it's server synchronously, the call
@@ -51,8 +51,8 @@ module.exports = class EcAlignment extends Relation {
 	 *  @static
 	 *  @deprecated await on get() instead.
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcAlignment());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcAlignment(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository using the query and optional parameters provided
@@ -216,7 +216,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @memberOf EcAlignment
 	 *  @method save
 	 */
-	save(success, failure, repo) {
+	save(success, failure, repo, eim) {
 		if (this.source == null || this.source == "") {
 			var msg = "Source Competency cannot be missing";
 			if (failure !== undefined && failure != null) return failure(msg);
@@ -232,8 +232,8 @@ module.exports = class EcAlignment extends Relation {
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Deletes the alignment from the server corresponding to its ID
@@ -245,7 +245,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @memberOf EcAlignment
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 };

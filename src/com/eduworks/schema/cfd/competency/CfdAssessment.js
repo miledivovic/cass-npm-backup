@@ -32,7 +32,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 *  @static
 	 */
 	static get(id, success, failure) {
-		return EcRepository.getAs(id, new CfdAssessment(), success, failure);
+		return EcRepository.getAs(id, new CfdAssessment(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves an alignment from it's server synchronously, the call
@@ -46,8 +46,8 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new CfdAssessment());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new CfdAssessment(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository using the query and optional parameters provided
@@ -188,7 +188,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 *                             Callback triggered if error while saving alignment
 	 *  @method save
 	 */
-	save(success, failure) {
+	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
 			var msg = "Name cannot be missing";
 			if (failure != null) return failure(msg);
@@ -199,7 +199,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		return EcRepository.save(this, success, failure);
+		return EcRepository.save(this, success, failure, repo, eim);
 	}
 	/**
 	 *  Deletes the alignment from the server corresponding to its ID
@@ -210,7 +210,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 *                             Callback triggered if error while deleting alignment
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 };

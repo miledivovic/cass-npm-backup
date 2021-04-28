@@ -41,8 +41,8 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcCompetency(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcCompetency(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a competency from it's server synchronously, the call
@@ -57,8 +57,8 @@ module.exports = class EcCompetency extends Competency {
 	 *  @static
 	 *  @deprecated await on get() instead.
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcCompetency());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcCompetency(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches a repository for competencies that match the search query
@@ -164,15 +164,15 @@ module.exports = class EcCompetency extends Competency {
 		return EcAlignment.search(
 			repo,
 			'source:"' +
-				this.id +
-				'" OR target:"' +
-				this.id +
-				'" OR source:"' +
-				this.shortId() +
-				'" OR target:"' +
-				this.shortId() +
-				'"',
-			async(results) => {
+			this.id +
+			'" OR target:"' +
+			this.id +
+			'" OR source:"' +
+			this.shortId() +
+			'" OR target:"' +
+			this.shortId() +
+			'"',
+			async (results) => {
 				if (eachSuccess !== undefined && eachSuccess != null)
 					for (var i = 0; i < results.length; i++)
 						await eachSuccess(results[i]);
@@ -248,7 +248,7 @@ module.exports = class EcCompetency extends Competency {
 		return EcLevel.search(
 			repo,
 			query,
-			async(results) => {
+			async (results) => {
 				for (var i = 0; i < results.length; i++)
 					if (eachSuccess !== undefined && eachSuccess != null)
 						await eachSuccess(results[i]);
@@ -325,7 +325,7 @@ module.exports = class EcCompetency extends Competency {
 		return EcRollupRule.search(
 			repo,
 			query,
-			async(results) => {
+			async (results) => {
 				for (var i = 0; i < results.length; i++)
 					await eachSuccess(results[i]);
 				await successAll(results);
@@ -355,14 +355,14 @@ module.exports = class EcCompetency extends Competency {
 	 *  @memberOf EcCompetency
 	 *  @method save
 	 */
-	save(success, failure, repo) {
+	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
 			var msg = "Competency Name can not be empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Deletes the competency from the server
@@ -378,21 +378,21 @@ module.exports = class EcCompetency extends Competency {
 	 *  @memberOf EcCompetency
 	 *  @method _delete
 	 */
-	async _delete(success, failure, repo) {
+	async _delete(success, failure, repo, eim) {
 		var me = this;
 		if (repo != null) console.log(await this.relations(repo));
 		if (repo != null) {
 			console.log(JSON.stringify(await this.relations(repo)));
 			(await this.relations(repo)).forEach(
-				async(relation) => await EcRepository.DELETE(relation)
+				async (relation) => await EcRepository.DELETE(relation, null, null, repo, eim)
 			);
 		}
 		if (repo != null) {
 			console.log(JSON.stringify(await this.levels(repo)));
 			(await this.levels(repo)).forEach(
-				async(level) => await EcRepository.DELETE(level)
+				async (level) => await EcRepository.DELETE(level, null, null, repo, eim)
 			);
 		}
-		await EcRepository.DELETE(this, success, failure);
+		await EcRepository.DELETE(this, success, failure, repo, eim);
 	}
 };

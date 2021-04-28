@@ -61,7 +61,7 @@ module.exports = class CSVExport extends Exporter {
 	 *  @method export
 	 *  @static
 	 */
-	static exportFramework(frameworkId, success, failure) {
+	static exportFramework(frameworkId, success, failure, repo, eim) {
 		if (frameworkId == null) {
 			failure("Framework not selected.");
 			return;
@@ -70,7 +70,7 @@ module.exports = class CSVExport extends Exporter {
 		CSVExport.frameworkRelations = [];
 		return EcRepository.get(
 			frameworkId,
-			function(data) {
+			function (data) {
 				if (data.isAny(new EcFramework().getTypes())) {
 					var fw = new EcFramework();
 					fw.copyFrom(data);
@@ -80,7 +80,7 @@ module.exports = class CSVExport extends Exporter {
 						var competencyUrl = fw.competency[i];
 						EcRepository.get(
 							competencyUrl,
-							function(competency) {
+							function (competency) {
 								CSVExport.frameworkCompetencies.push(
 									competency
 								);
@@ -98,7 +98,7 @@ module.exports = class CSVExport extends Exporter {
 									);
 								}
 							},
-							function(s) {
+							function (s) {
 								CSVExport.frameworkCompetencies.push(null);
 								if (
 									CSVExport.frameworkCompetencies.length ==
@@ -113,14 +113,13 @@ module.exports = class CSVExport extends Exporter {
 										fw.getName() + " - Competencies.csv"
 									);
 								}
-							}
-						);
+							}, repo, eim);
 					}
 					for (var i = 0; i < fw.relation.length; i++) {
 						var relationUrl = fw.relation[i];
 						EcRepository.get(
 							relationUrl,
-							function(relation) {
+							function (relation) {
 								CSVExport.frameworkRelations.push(relation);
 								if (
 									CSVExport.frameworkRelations.length ==
@@ -138,7 +137,7 @@ module.exports = class CSVExport extends Exporter {
 										success();
 								}
 							},
-							function(s) {
+							function (s) {
 								CSVExport.frameworkRelations.push(null);
 								if (
 									CSVExport.frameworkRelations.length ==
@@ -155,12 +154,11 @@ module.exports = class CSVExport extends Exporter {
 									if (success != null && success != undefined)
 										success();
 								}
-							}
-						);
+							}, repo, eim);
 					}
 				}
 			},
-			failure
+			failure, repo, eim
 		);
 	}
 	static CSVExportProcess() {

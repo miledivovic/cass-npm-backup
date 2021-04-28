@@ -14,8 +14,8 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new CfdAlignment(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new CfdAlignment(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves an alignment from it's server synchronously, the call
@@ -29,8 +29,8 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new CfdAlignment());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new CfdAlignment(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository using the query and optional parameters provided
@@ -116,7 +116,7 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 	 *  @memberOf CfdAlignment
 	 *  @method save
 	 */
-	save(success, failure) {
+	save(success, failure,repo,eim) {
 		if (this.targetUrl == null || this.targetUrl == "") {
 			var msg = "Target Competency cannot be missing";
 			if (failure != null) return failure(msg);
@@ -127,7 +127,7 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		return EcRepository.save(this, success, failure);
+		return EcRepository.save(this, success, failure, repo, eim);
 	}
 	/**
 	 *  Deletes the alignment from the server corresponding to its ID
@@ -139,7 +139,7 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 	 *  @memberOf CfdAlignment
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 };

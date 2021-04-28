@@ -13,8 +13,8 @@ module.exports = class EcComment extends schema.Comment {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcComment(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcComment(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves an comment from it's server synchronously, the call
@@ -28,8 +28,8 @@ module.exports = class EcComment extends schema.Comment {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcComment());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcComment(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches a repository for comments that match the search query

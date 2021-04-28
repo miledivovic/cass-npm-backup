@@ -13,8 +13,8 @@ module.exports = class EcCreativeWork extends schema.CreativeWork {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcCreativeWork(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcCreativeWork(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a creative work from it's server synchronously, the call
@@ -28,8 +28,8 @@ module.exports = class EcCreativeWork extends schema.CreativeWork {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcCreativeWork());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcCreativeWork(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches a repository for creative works that match the search query

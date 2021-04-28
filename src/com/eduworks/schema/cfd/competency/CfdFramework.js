@@ -15,8 +15,8 @@ module.exports = class CfdFramework extends EcFramework {
 	 *  @method get
 	 *  @static
 	 */
-	static cfdGet(id, success, failure) {
-		return EcRepository.getAs(id, new CfdFramework(), success, failure);
+	static cfdGet(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new CfdFramework(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a framework from the server in a blocking fashion, specified by the ID
@@ -32,8 +32,8 @@ module.exports = class CfdFramework extends EcFramework {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static cfdGetBlocking(id) {
-		return EcRepository.getAs(id, new CfdFramework());
+	static cfdGetBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new CfdFramework(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository given for frameworks using the query passed in
@@ -76,7 +76,7 @@ module.exports = class CfdFramework extends EcFramework {
 	 *  @method _delete
 	 *  FR: DID NOT PORT TO 5.x.x
 	 */
-	_delete = function(success, failure) {
+	_delete = function (success, failure, repo, eim) {
 		if (CfdFramework.toRemove == null) CfdFramework.toRemove = {};
 		var remove = 0;
 		remove += this.competency == null ? 0 : this.competency.length;
@@ -86,7 +86,7 @@ module.exports = class CfdFramework extends EcFramework {
 		CfdFramework.removed[this.shortId()] = 0;
 		var that = this;
 		var onAllRemove = function() {
-			EcRepository.DELETE(that, success, failure);
+			EcRepository.DELETE(that, success, failure, repo, eim);
 		};
 		if (remove == 0) onAllRemove();
 		if (this.competency != null && this.competency.length > 0) {

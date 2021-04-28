@@ -77,14 +77,14 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcCompetency(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -115,7 +115,8 @@ module.exports = class EcCompetency extends Competency {
 		serverUrl,
 		success,
 		failure,
-		repo
+		repo,
+		eim
 	) {
 		var a = new EcAlignment();
 		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
@@ -125,7 +126,7 @@ module.exports = class EcCompetency extends Competency {
 		a.target = target.shortId();
 		a.relationType = alignmentType;
 		a.addOwner(owner.toPk());
-		await a.save(success, failure, repo);
+		await a.save(success, failure, repo, eim);
 		return a;
 	}
 	/**
@@ -160,7 +161,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method relations
 	 *  @deprecated
 	 */
-	relationships(repo, eachSuccess, failure, successAll) {
+	relationships(repo, eachSuccess, failure, successAll, eim) {
 		return EcAlignment.search(
 			repo,
 			'source:"' +
@@ -181,7 +182,7 @@ module.exports = class EcCompetency extends Competency {
 				return results;
 			},
 			failure,
-			{}
+			{}, eim
 		);
 	}
 	/**
@@ -211,7 +212,8 @@ module.exports = class EcCompetency extends Competency {
 		serverUrl,
 		success,
 		failure,
-		repo
+		repo,
+		eim
 	) {
 		var l = new EcLevel();
 		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
@@ -221,7 +223,7 @@ module.exports = class EcCompetency extends Competency {
 		l.description = description;
 		l.name = name;
 		l.addOwner(owner.toPk());
-		await l.save(success, failure, repo);
+		await l.save(success, failure, repo, eim);
 		return l;
 	}
 	/**
@@ -238,7 +240,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @memberOf EcCompetency
 	 *  @method levels
 	 */
-	levels(repo, eachSuccess, failure, successAll) {
+	levels(repo, eachSuccess, failure, successAll, eim) {
 		var query =
 			'competency:"' +
 			this.id +
@@ -257,7 +259,7 @@ module.exports = class EcCompetency extends Competency {
 				return results;
 			},
 			failure,
-			{}
+			{}, eim
 		);
 	}
 	/**
@@ -287,7 +289,7 @@ module.exports = class EcCompetency extends Competency {
 		serverUrl,
 		success,
 		failure,
-		repo
+		repo, eim
 	) {
 		var r = new EcRollupRule();
 		if (repo == null)
@@ -298,7 +300,7 @@ module.exports = class EcCompetency extends Competency {
 		r.description = description;
 		r.name = name;
 		r.addOwner(owner.toPk());
-		await r.save(success, failure, repo);
+		await r.save(success, failure, repo, eim);
 		return r;
 	}
 	/**
@@ -315,7 +317,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @memberOf EcCompetency
 	 *  @method rollupRules
 	 */
-	rollupRules(repo, eachSuccess, failure, successAll) {
+	rollupRules(repo, eachSuccess, failure, successAll, eim) {
 		var query =
 			'competency:"' +
 			this.id +
@@ -331,7 +333,7 @@ module.exports = class EcCompetency extends Competency {
 				await successAll(results);
 			},
 			failure,
-			{}
+			{}, eim
 		);
 	}
 	/**

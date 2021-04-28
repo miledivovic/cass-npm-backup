@@ -45,14 +45,14 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcOrganization(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -242,13 +242,13 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @memberOf EcOrganization
 	 *  @method getOrgKeys
 	 */
-	async getOrgKeys() {
+	async getOrgKeys(eim) {
 		var orgKeys = [];
 		var o = this[EcOrganization.ORG_PPK_SET_KEY];
 		if (o != null) {
 			var ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString());
+			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString(null,null,eim)));
 			for (var i = 0; i < orgKeysPPKPems.length; i++) {
 				orgKeys.push(EcPpk.fromPem(orgKeysPPKPems[i]));
 			}
@@ -260,12 +260,12 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *
 	 *  @method moveKeyField
 	 */
-	async moveKeyField() {
+	async moveKeyField(eim) {
 		var o = this["https://schema.cassproject.org/0.3/ppk"];
 		if (o != null) {
 			var ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var currentGroupPpkPem = await ev.decryptIntoString();
+			var currentGroupPpkPem = await ev.decryptIntoString(null,null,eim);
 			var keyArray = [];
 			keyArray.push(currentGroupPpkPem);
 			var newKey = await EcEncryptedValue.encryptValue(

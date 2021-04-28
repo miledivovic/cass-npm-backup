@@ -63,14 +63,14 @@ module.exports = class EcRollupRule extends RollupRule {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcRollupRule(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

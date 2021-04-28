@@ -18,14 +18,14 @@ module.exports = class EcQuestion extends schema.Question {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcQuestion(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

@@ -67,14 +67,14 @@ module.exports = class CfdReference extends schema.CreativeWork {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			"(" + query + ') AND educationalUse:"' + CfdReference.edUse,
 			() => new CfdReference(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -96,7 +96,7 @@ module.exports = class CfdReference extends schema.CreativeWork {
 	 *  @method search
 	 *  @static
 	 */
-	static searchWithFramework(repo, framework, success, failure, paramObj) {
+	static searchWithFramework(repo, framework, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			"(" +
@@ -109,7 +109,7 @@ module.exports = class CfdReference extends schema.CreativeWork {
 			() => new CfdReference(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

@@ -287,7 +287,7 @@ module.exports = class ASNImport extends Importer {
 			ASNImport.saveCompetency(success, failure, incremental, comp, repo);
 		}
 	}
-	static saveCompetency(success, failure, incremental, comp, repo) {
+	static saveCompetency(success, failure, incremental, comp, repo, eim) {
 		Task.asyncImmediate(function(o) {
 			var keepGoing = o;
 			comp.save(
@@ -320,7 +320,7 @@ module.exports = class ASNImport extends Importer {
 					failure("Failed to save competency");
 					keepGoing();
 				},
-				repo
+				repo, eim
 			);
 		});
 	}
@@ -402,7 +402,7 @@ module.exports = class ASNImport extends Importer {
 				);
 			}
 	}
-	static saveRelation(success, failure, incremental, relation, repo) {
+	static saveRelation(success, failure, incremental, relation, repo, eim) {
 		Task.asyncImmediate(function(o) {
 			var keepGoing = o;
 			relation.save(
@@ -427,7 +427,7 @@ module.exports = class ASNImport extends Importer {
 					failure("Failed to save Relationship");
 					keepGoing();
 				},
-				repo
+				repo, eim
 			);
 		});
 	}
@@ -476,7 +476,7 @@ module.exports = class ASNImport extends Importer {
 			function(p1) {
 				failure("Failed to save framework");
 			},
-			repo
+			repo, eim
 		);
 	}
 };

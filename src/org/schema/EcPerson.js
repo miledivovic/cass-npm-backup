@@ -1,20 +1,20 @@
 module.exports = class EcPerson extends schema.Person {
-	static getByPk(repo, pk, success, failure) {
+	static getByPk(repo, pk, success, failure, eim) {
 		return EcPerson.get(
 			repo.selectedServer +
-				(repo.selectedServer.endsWith("/") ? "" : "/") +
-				"data/" +
-				pk.fingerprint(),
+			(repo.selectedServer.endsWith("/") ? "" : "/") +
+			"data/" +
+			pk.fingerprint(),
 			success,
-			failure
+			failure, repo, eim
 		);
 	}
-	static getByPkBlocking(repo, pk) {
-		return EcPerson.getBlocking(
+	static getByPkBlocking(repo, pk, eim) {
+		return EcPerson.get(
 			repo.selectedServer +
-				(repo.selectedServer.endsWith("/") ? "" : "/") +
-				"data/" +
-				pk.fingerprint()
+			(repo.selectedServer.endsWith("/") ? "" : "/") +
+			"data/" +
+			pk.fingerprint(), null, null, repo, eim
 		);
 	}
 	equals(obj) {
@@ -65,14 +65,14 @@ module.exports = class EcPerson extends schema.Person {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcPerson(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

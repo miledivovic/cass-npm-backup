@@ -77,14 +77,14 @@ module.exports = class EcDirectory extends Directory {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcDirectory(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

@@ -64,14 +64,14 @@ module.exports = class ExtResource extends schema.CreativeWork {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new ExtResource(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

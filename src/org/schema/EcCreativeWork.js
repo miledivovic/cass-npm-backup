@@ -48,14 +48,14 @@ module.exports = class EcCreativeWork extends schema.CreativeWork {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcCreativeWork(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 };

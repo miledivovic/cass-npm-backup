@@ -51,14 +51,14 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new CfdAlignment(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -116,7 +116,7 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 	 *  @memberOf CfdAlignment
 	 *  @method save
 	 */
-	save(success, failure,repo,eim) {
+	save(success, failure, repo, eim) {
 		if (this.targetUrl == null || this.targetUrl == "") {
 			var msg = "Target Competency cannot be missing";
 			if (failure != null) return failure(msg);

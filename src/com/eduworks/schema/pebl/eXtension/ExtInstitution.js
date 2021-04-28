@@ -88,14 +88,14 @@ module.exports = class ExtInstitution extends schema.Organization {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new ExtInstitution(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

@@ -24,7 +24,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 *  @method fromEncryptedValue
 	 */
-	static fromEncryptedValue(d, success, failure) {
+	static fromEncryptedValue(d, success, failure, eim) {
 		if (!d.isAny(new EcEncryptedValue().getTypes()))
 			return cassReturnAsPromise(d, success, failure);
 		else {
@@ -32,7 +32,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 			eev.copyFrom(d);
 			EcEncryptedValue.encryptOnSave(d.id, true);
 			EcEncryptedValue.encryptOnSave(d.shortId(), true);
-			return eev.decryptIntoObject(success, failure);
+			return eev.decryptIntoObject(success, failure, eim);
 		}
 	}
 	/**
@@ -46,11 +46,11 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 *  @method fromEncryptedValue
 	 */
-	static fromEncryptedValueAsync(d, success, failure) {
+	static fromEncryptedValueAsync(d, success, failure, eim) {
 		console.trace(
 			"fromEncryptedValueAsync is deprecated. The promise version, fromEncryptedValue, supports promises and callbacks. This will continue to function."
 		);
-		return this.fromEncryptedValue();
+		return this.fromEncryptedValue(d, success, failure, eim);
 	}
 	/**
 	 *  Gets the fully qualified type name, as JSON-LD allows the "namespace" of
@@ -360,7 +360,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @param {Callback1<String>} failure Callback triggered if error during
 	 *                             decryption
 	 *  @memberOf EcEncryptedValue
-	 *  @method decryptIntoStringAsync
+	 *  @method decryptIntoString
 	 */
 	decryptIntoString(success, failure, eim) {
 		return cassPromisify(

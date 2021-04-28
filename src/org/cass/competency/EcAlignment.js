@@ -71,14 +71,14 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcAlignment(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -98,7 +98,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method searchBySource
 	 *  @static
 	 */
-	static searchBySource(repo, sourceId, success, failure, paramObj) {
+	static searchBySource(repo, sourceId, success, failure, paramObj, eim) {
 		var query = "";
 		var noVersion = EcRemoteLinkedData.trimVersionFromUrl(sourceId);
 		if (noVersion == sourceId) {
@@ -106,7 +106,7 @@ module.exports = class EcAlignment extends Relation {
 		} else {
 			query += 'source:"' + sourceId + '" OR source:"' + noVersion + '"';
 		}
-		return EcAlignment.search(repo, query, success, failure, paramObj);
+		return EcAlignment.search(repo, query, success, failure, paramObj, eim);
 	}
 	/**
 	 *  Searches the repository for alignments with one of an array of IDs in the source field
@@ -125,7 +125,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method searchBySource
 	 *  @static
 	 */
-	static searchBySources(repo, sourceIds, success, failure, paramObj) {
+	static searchBySources(repo, sourceIds, success, failure, paramObj, eim) {
 		var query = "";
 		query = "(source:";
 		var noVersions = [];
@@ -141,7 +141,7 @@ module.exports = class EcAlignment extends Relation {
 			noVersions.push(noVersion);
 		}
 		query += ")";
-		return EcAlignment.search(repo, query, success, failure, paramObj);
+		return EcAlignment.search(repo, query, success, failure, paramObj, eim);
 	}
 	/**
 	 *  Searches the repository for alignments with a specific ID in the target field
@@ -160,7 +160,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method searchByCompetency
 	 *  @static
 	 */
-	static searchByCompetency(repo, competencyId, success, failure, paramObj) {
+	static searchByCompetency(repo, competencyId, success, failure, paramObj, eim) {
 		var query = "";
 		var noVersion = EcRemoteLinkedData.trimVersionFromUrl(competencyId);
 		if (noVersion == competencyId) {
@@ -182,7 +182,7 @@ module.exports = class EcAlignment extends Relation {
 				noVersion +
 				'")';
 		}
-		return EcAlignment.search(repo, query, success, failure, paramObj);
+		return EcAlignment.search(repo, query, success, failure, paramObj, eim);
 	}
 	/**
 	 *  Setter for alignment name

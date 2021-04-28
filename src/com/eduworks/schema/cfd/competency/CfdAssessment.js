@@ -68,14 +68,14 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			"(" + query + ') AND educationalUse:"' + CfdAssessment.edUse + '"',
 			() => new CfdAssessment(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -97,7 +97,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 *  @method search
 	 *  @static
 	 */
-	static searchWithFramework(repo, framework, success, failure, paramObj) {
+	static searchWithFramework(repo, framework, success, failure, paramObj, eim) {
 		var query = new CfdAssessment().getSearchStringByType();
 		query =
 			"(" +
@@ -111,7 +111,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 			query,
 			paramObj,
 			null,
-			async(p1) => {
+			async (p1) => {
 				if (success != null) {
 					var ret = [];
 					for (var i = 0; i < p1.length; i++) {
@@ -122,7 +122,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 							var val = new EcEncryptedValue();
 							val.copyFrom(p1[i]);
 							if (val.isAnEncrypted(CfdAssessment.myType)) {
-								var obj = await val.decryptIntoObject();
+								var obj = await val.decryptIntoObject(null, null, eim);
 								assessment.copyFrom(obj);
 							}
 						}
@@ -131,7 +131,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 					success(ret);
 				}
 			},
-			failure
+			failure, eim
 		);
 	}
 	/**

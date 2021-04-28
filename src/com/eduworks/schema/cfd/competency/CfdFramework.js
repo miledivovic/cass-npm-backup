@@ -55,14 +55,14 @@ module.exports = class CfdFramework extends EcFramework {
 	 *  @method search
 	 *  @static
 	 */
-	static cfdSearch(repo, query, success, failure, paramObj) {
+	static cfdSearch(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new CfdFramework(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -85,7 +85,7 @@ module.exports = class CfdFramework extends EcFramework {
 		if (CfdFramework.removed == null) CfdFramework.removed = {};
 		CfdFramework.removed[this.shortId()] = 0;
 		var that = this;
-		var onAllRemove = function() {
+		var onAllRemove = function () {
 			EcRepository.DELETE(that, success, failure, repo, eim);
 		};
 		if (remove == 0) onAllRemove();
@@ -93,9 +93,9 @@ module.exports = class CfdFramework extends EcFramework {
 			for (var x = 0; x < this.competency.length; x++) {
 				CfdCompetency.get(
 					this.competency[x],
-					function(comp) {
+					function (comp) {
 						comp._delete(
-							function(p1) {
+							function (p1) {
 								CfdFramework.removed[that.shortId()] =
 									CfdFramework.removed[that.shortId()] + 1;
 								if (
@@ -104,7 +104,7 @@ module.exports = class CfdFramework extends EcFramework {
 								)
 									onAllRemove();
 							},
-							function(err) {
+							function (err) {
 								var error =
 									"Error deleting competency (" +
 									comp.id +
@@ -119,10 +119,10 @@ module.exports = class CfdFramework extends EcFramework {
 								)
 									onAllRemove();
 							},
-							null
+							repo, eim
 						);
 					},
-					function(err) {
+					function (err) {
 						var error =
 							"Error retrieving competency to delete: " + err;
 						failure(error);
@@ -133,7 +133,7 @@ module.exports = class CfdFramework extends EcFramework {
 							CfdFramework.toRemove[that.shortId()]
 						)
 							onAllRemove();
-					}
+					}, repo, eim
 				);
 			}
 		}
@@ -141,9 +141,9 @@ module.exports = class CfdFramework extends EcFramework {
 			for (var x = 0; x < this.relation.length; x++) {
 				EcAlignment.get(
 					this.relation[x],
-					function(rel) {
+					function (rel) {
 						rel._delete(
-							function(p1) {
+							function (p1) {
 								CfdFramework.removed[that.shortId()] =
 									CfdFramework.removed[that.shortId()] + 1;
 								if (
@@ -152,7 +152,7 @@ module.exports = class CfdFramework extends EcFramework {
 								)
 									onAllRemove();
 							},
-							function(err) {
+							function (err) {
 								var error =
 									"Error deleting relation (" +
 									rel.id +
@@ -166,10 +166,10 @@ module.exports = class CfdFramework extends EcFramework {
 									CfdFramework.toRemove[that.shortId()]
 								)
 									onAllRemove();
-							}
+							}, repo, eim
 						);
 					},
-					function(err) {
+					function (err) {
 						var error =
 							"Error retrieving relationship to delete: " + err;
 						failure(error);
@@ -181,7 +181,7 @@ module.exports = class CfdFramework extends EcFramework {
 						)
 							onAllRemove();
 					}
-				);
+					, repo, eim);
 			}
 		}
 		if (

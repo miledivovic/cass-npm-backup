@@ -60,14 +60,14 @@ module.exports = class EcLevel extends Level {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcLevel(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -87,7 +87,7 @@ module.exports = class EcLevel extends Level {
 	 *  @method searchByCompetency
 	 *  @static
 	 */
-	static searchByCompetency(repo, competencyId, success, failure, paramObj) {
+	static searchByCompetency(repo, competencyId, success, failure, paramObj, eim) {
 		if (competencyId == null || competencyId == "") {
 			failure("No Competency Specified");
 			return;
@@ -98,7 +98,7 @@ module.exports = class EcLevel extends Level {
 			'" OR competency:"' +
 			EcRemoteLinkedData.trimVersionFromUrl(competencyId) +
 			'"';
-		return EcLevel.search(repo, competencyId, success, failure, paramObj);
+		return EcLevel.search(repo, competencyId, success, failure, paramObj, eim);
 	}
 	/**
 	 *  Adds a relationship between this level and a target level to define
@@ -122,7 +122,7 @@ module.exports = class EcLevel extends Level {
 		serverUrl,
 		success,
 		failure,
-		repo
+		repo, eim
 	) {
 		var a = new EcAlignment();
 		a.source = this.id;
@@ -133,7 +133,7 @@ module.exports = class EcLevel extends Level {
 			a.generateId(serverUrl);
 		else a.generateShortId(serverUrl);
 		a.signWith(identity);
-		return a.save(success, failure, repo);
+		return a.save(success, failure, repo, eim);
 	}
 	/**
 	 *  Method to set the name of this level

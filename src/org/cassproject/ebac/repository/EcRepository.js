@@ -48,7 +48,7 @@ module.exports = class EcRepository {
 			.then(successCheck)
 			.catch(failureCheck);
 	};
-	buildKeyForwardingTable = function (success, failure) {
+	buildKeyForwardingTable = function (success, failure, eim) {
 		var params = {};
 		params["size"] = 10000;
 		return cassPromisify(
@@ -58,7 +58,7 @@ module.exports = class EcRepository {
 				() => new EcRekeyRequest(),
 				null,
 				null,
-				params
+				params, eim
 			).then((rekeyRequests) => {
 				for (var i = 0; i < rekeyRequests.length; i++) {
 					rekeyRequests[i].addRekeyRequestToForwardingTable();
@@ -120,7 +120,7 @@ module.exports = class EcRepository {
 					{},
 					0,
 					success,
-					failure
+					failure, eim
 				).catch((error) => {
 					if (
 						error !== undefined &&
@@ -168,7 +168,7 @@ module.exports = class EcRepository {
 				{},
 				0,
 				success,
-				failure
+				failure, eim
 			);
 		});
 		return p;
@@ -212,7 +212,7 @@ module.exports = class EcRepository {
 				{},
 				0,
 				success,
-				failure
+				failure, eim
 			);
 		}
 		if (EcRepository.caching) {
@@ -233,7 +233,7 @@ module.exports = class EcRepository {
 		if (!validUrlFound) return true;
 		return false;
 	};
-	static find(url, error, history, counter, success, failure) {
+	static find(url, error, history, counter, success, failure, eim) {
 		if (
 			isNaN(counter) ||
 			counter == undefined ||
@@ -252,7 +252,7 @@ module.exports = class EcRepository {
 				history,
 				counter + 1,
 				success,
-				failure
+				failure, eim
 			);
 		}
 		if (history[repo.selectedServer] == true) {
@@ -262,11 +262,11 @@ module.exports = class EcRepository {
 				history,
 				counter + 1,
 				success,
-				failure
+				failure, eim
 			);
 		}
 		history[repo.selectedServer] = true;
-		let p = repo.search('@id:"' + url + '"', null);
+		let p = repo.search('@id:"' + url + '"', null, null, null, eim);
 		p = p
 			.then(function (strings) {
 				if (strings == null || strings.length == 0)
@@ -276,7 +276,7 @@ module.exports = class EcRepository {
 						history,
 						counter + 1,
 						success,
-						failure
+						failure, eim
 					);
 				else {
 					var done = false;
@@ -317,7 +317,7 @@ module.exports = class EcRepository {
 						history,
 						counter + 1,
 						success,
-						failure
+						failure, eim
 					);
 				}
 			})
@@ -328,7 +328,7 @@ module.exports = class EcRepository {
 					history,
 					counter + 1,
 					success,
-					failure
+					failure, eim
 				);
 			});
 		return p;
@@ -911,13 +911,14 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method search
 	 */
-	search(query, eachSuccess, success, failure) {
+	search(query, eachSuccess, success, failure, eim) {
 		return this.searchWithParams(
 			query,
 			null,
 			eachSuccess,
 			success,
-			failure
+			failure,
+			eim
 		);
 	}
 	/**
@@ -1524,7 +1525,7 @@ module.exports = class EcRepository {
 						success(p1);
 						return;
 					}
-				EcEncryptedValue.fromEncryptedValueAsync(
+				EcEncryptedValue.fromEncryptedValue(
 					p1,
 					function (p1) {
 						if (p1.isAny(result.getTypes())) {
@@ -1542,7 +1543,7 @@ module.exports = class EcRepository {
 							else console.error(msg);
 						}
 					},
-					failure
+					failure, eim
 				);
 			},
 			failure, repo, eim
@@ -1554,7 +1555,8 @@ module.exports = class EcRepository {
 		factory,
 		success,
 		failure,
-		paramObj
+		paramObj,
+		eim
 	) {
 		if (paramObj == null) paramObj = {};
 		var template = factory();
@@ -1564,9 +1566,9 @@ module.exports = class EcRepository {
 		if (query == null || query == "") query = queryAdd;
 		else query = "(" + query + ") AND " + queryAdd;
 		return cassPromisify(
-			repo.searchWithParams(query, paramObj, null).then((p1s) => {
+			repo.searchWithParams(query, paramObj, null, null, null, eim).then((p1s) => {
 				return Promise.all(
-					p1s.map((p1) => EcEncryptedValue.fromEncryptedValue(p1))
+					p1s.map((p1) => EcEncryptedValue.fromEncryptedValue(p1, null, null, eim))
 				).then((results) =>
 					results.map((result) => factory().copyFrom(result))
 				);

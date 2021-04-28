@@ -80,14 +80,14 @@ module.exports = class EcFramework extends Framework {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcFramework(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -192,7 +192,7 @@ module.exports = class EcFramework extends Framework {
 	 *  @method removeRelationshipsThatInclude
 	 *  @private
 	 */
-	removeRelationshipsThatInclude(id, i, success, failure) {
+	removeRelationshipsThatInclude(id, i, success, failure, repo, eim) {
 		var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
 		var me = this;
 		if (i >= this.relation.length && success != null) success("");
@@ -228,7 +228,7 @@ module.exports = class EcFramework extends Framework {
 						success,
 						failure
 					);
-				}
+				}, repo, eim
 			);
 	}
 	/**
@@ -246,7 +246,7 @@ module.exports = class EcFramework extends Framework {
 	 *  @method removeLevelsThatInclude
 	 *  @private
 	 */
-	removeLevelsThatInclude(id, i, success, failure) {
+	removeLevelsThatInclude(id, i, success, failure, repo, eim) {
 		var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
 		var me = this;
 		if (i >= this.level.length && success != null) success("");
@@ -277,7 +277,7 @@ module.exports = class EcFramework extends Framework {
 						success,
 						failure
 					);
-				}
+				}, repo, eim
 			);
 	}
 	/**

@@ -46,7 +46,7 @@ module.exports = class FrameworkImport {
 		owner,
 		success,
 		failure,
-		repo
+		repo, eim
 	) {
 		if (source == null) {
 			failure("Source Framework not set");
@@ -71,7 +71,7 @@ module.exports = class FrameworkImport {
 				var id = source.competency[i];
 				EcCompetency.get(
 					id,
-					function(comp) {
+					function (comp) {
 						var competency = new EcCompetency();
 						competency.copyFrom(comp);
 						if (
@@ -86,10 +86,10 @@ module.exports = class FrameworkImport {
 						if (owner != null)
 							competency.addOwner(owner.ppk.toPk());
 						var id = competency.id;
-						Task.asyncImmediate(function(o) {
+						Task.asyncImmediate(function (o) {
 							var keepGoing = o;
 							competency.save(
-								function(str) {
+								function (str) {
 									FrameworkImport.savedComp++;
 									FrameworkImport.targetUsable.addCompetency(
 										id
@@ -99,7 +99,7 @@ module.exports = class FrameworkImport {
 										FrameworkImport.competencies.length
 									) {
 										FrameworkImport.targetUsable.save(
-											function(p1) {
+											function (p1) {
 												for (
 													var i = 0;
 													i < source.relation.length;
@@ -108,7 +108,7 @@ module.exports = class FrameworkImport {
 													var id = source.relation[i];
 													EcAlignment.get(
 														id,
-														function(rel) {
+														function (rel) {
 															var relation = new EcAlignment();
 															relation.copyFrom(
 																rel
@@ -128,11 +128,11 @@ module.exports = class FrameworkImport {
 																);
 															relation.source =
 																FrameworkImport.compMap[
-																	rel.source
+																rel.source
 																];
 															relation.target =
 																FrameworkImport.compMap[
-																	rel.target
+																rel.target
 																];
 															if (owner != null)
 																relation.addOwner(
@@ -141,10 +141,10 @@ module.exports = class FrameworkImport {
 															var id =
 																relation.id;
 															Task.asyncImmediate(
-																function(o) {
+																function (o) {
 																	var keepGoing2 = o;
 																	relation.save(
-																		function(
+																		function (
 																			str
 																		) {
 																			FrameworkImport.savedRel++;
@@ -158,7 +158,7 @@ module.exports = class FrameworkImport {
 																					.length
 																			) {
 																				FrameworkImport.targetUsable.save(
-																					function(
+																					function (
 																						p1
 																					) {
 																						success(
@@ -166,19 +166,19 @@ module.exports = class FrameworkImport {
 																							FrameworkImport.relations
 																						);
 																					},
-																					function(
+																					function (
 																						p1
 																					) {
 																						failure(
 																							p1
 																						);
 																					},
-																					repo
+																					repo, eim
 																				);
 																			}
 																			keepGoing2();
 																		},
-																		function(
+																		function (
 																			str
 																		) {
 																			failure(
@@ -186,7 +186,7 @@ module.exports = class FrameworkImport {
 																			);
 																			keepGoing2();
 																		},
-																		repo
+																		repo, eim
 																	);
 																}
 															);
@@ -194,32 +194,32 @@ module.exports = class FrameworkImport {
 																relation
 															);
 														},
-														function(str) {
+														function (str) {
 															failure(str);
 														}
-													);
+														, repo, eim);
 												}
 											},
-											function(p1) {
+											function (p1) {
 												failure(p1);
 											},
-											repo
+											repo, eim
 										);
 									}
 									keepGoing();
 								},
-								function(str) {
+								function (str) {
 									failure("Trouble Saving Copied Competency");
 									keepGoing();
 								},
-								repo
+								repo, eim
 							);
 						});
 						FrameworkImport.competencies.push(competency);
 					},
-					function(str) {
+					function (str) {
 						failure(str);
-					}
+					}, repo, eim
 				);
 			}
 		} else {
@@ -227,15 +227,15 @@ module.exports = class FrameworkImport {
 				if (
 					target.competency == null ||
 					target.competency.indexOf(source.competency[i]) == -1 &&
-						target.competency.indexOf(
-							EcRemoteLinkedData.trimVersionFromUrl(
-								source.competency[i]
-							)
-						) == -1
+					target.competency.indexOf(
+						EcRemoteLinkedData.trimVersionFromUrl(
+							source.competency[i]
+						)
+					) == -1
 				) {
 					EcCompetency.get(
 						source.competency[i],
-						function(comp) {
+						function (comp) {
 							FrameworkImport.competencies.push(comp);
 							FrameworkImport.targetUsable.addCompetency(comp.id);
 							if (
@@ -246,7 +246,7 @@ module.exports = class FrameworkImport {
 									"competencyObjects"
 								];
 								FrameworkImport.targetUsable.save(
-									function(p1) {
+									function (p1) {
 										for (
 											var i = 0;
 											i < source.relation.length;
@@ -257,15 +257,15 @@ module.exports = class FrameworkImport {
 												target.relation.indexOf(
 													source.relation[i]
 												) == -1 &&
-													target.relation.indexOf(
-														EcRemoteLinkedData.trimVersionFromUrl(
-															source.competency[i]
-														)
-													) == -1
+												target.relation.indexOf(
+													EcRemoteLinkedData.trimVersionFromUrl(
+														source.competency[i]
+													)
+												) == -1
 											) {
 												EcAlignment.get(
 													source.relation[i],
-													function(relation) {
+													function (relation) {
 														FrameworkImport.relations.push(
 															relation
 														);
@@ -281,13 +281,13 @@ module.exports = class FrameworkImport {
 														) {
 															delete FrameworkImport
 																.targetUsable[
-																	"competencyObjects"
-																];
+																"competencyObjects"
+															];
 															Task.asyncImmediate(
-																function(o) {
+																function (o) {
 																	var keepGoing = o;
 																	FrameworkImport.targetUsable.save(
-																		function(
+																		function (
 																			p1
 																		) {
 																			success(
@@ -296,7 +296,7 @@ module.exports = class FrameworkImport {
 																			);
 																			keepGoing();
 																		},
-																		function(
+																		function (
 																			p1
 																		) {
 																			failure(
@@ -304,29 +304,29 @@ module.exports = class FrameworkImport {
 																			);
 																			keepGoing();
 																		},
-																		repo
+																		repo, eim
 																	);
 																}
 															);
 														}
 													},
-													function(p1) {
+													function (p1) {
 														failure(p1);
-													}
+													}, repo, eim
 												);
 											}
 										}
 									},
-									function(p1) {
+									function (p1) {
 										failure(p1);
 									},
-									repo
+									repo, eim
 								);
 							}
 						},
-						function(p1) {
+						function (p1) {
 							failure(p1);
-						}
+						}, repo, eim
 					);
 				}
 			}

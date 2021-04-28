@@ -44,7 +44,7 @@ module.exports = class EcComment extends schema.Comment {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
@@ -53,7 +53,7 @@ module.exports = class EcComment extends schema.Comment {
 			},
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

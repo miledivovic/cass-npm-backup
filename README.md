@@ -1,3 +1,6 @@
+# 0.5.3 to 0.5.4
+* Bug fixes. Dependency updates.
+
 # 0.5.2 to 0.5.3
 EcIdentityManager is now instantiatable and may be passed into many library functions. Many method signatures have changed.
 

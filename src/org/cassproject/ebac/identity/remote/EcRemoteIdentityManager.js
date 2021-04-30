@@ -1,3 +1,4 @@
+let FormData = require("form-data");
 const EcIdentity = require("../EcIdentity");
 
 /**

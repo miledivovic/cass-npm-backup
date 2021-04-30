@@ -24,7 +24,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 *  @method fromEncryptedValue
 	 */
-	static fromEncryptedValue(d, success, failure) {
+	static fromEncryptedValue(d, success, failure, eim) {
 		if (!d.isAny(new EcEncryptedValue().getTypes()))
 			return cassReturnAsPromise(d, success, failure);
 		else {
@@ -32,7 +32,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 			eev.copyFrom(d);
 			EcEncryptedValue.encryptOnSave(d.id, true);
 			EcEncryptedValue.encryptOnSave(d.shortId(), true);
-			return eev.decryptIntoObject(success, failure);
+			return eev.decryptIntoObject(success, failure, eim);
 		}
 	}
 	/**
@@ -46,11 +46,11 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 *  @method fromEncryptedValue
 	 */
-	static fromEncryptedValueAsync(d, success, failure) {
+	static fromEncryptedValueAsync(d, success, failure, eim) {
 		console.trace(
 			"fromEncryptedValueAsync is deprecated. The promise version, fromEncryptedValue, supports promises and callbacks. This will continue to function."
 		);
-		return this.fromEncryptedValue();
+		return this.fromEncryptedValue(d, success, failure, eim);
 	}
 	/**
 	 *  Gets the fully qualified type name, as JSON-LD allows the "namespace" of
@@ -333,9 +333,9 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @memberOf EcEncryptedValue
 	 *  @method decryptIntoObject
 	 */
-	decryptIntoObject(success, failure) {
+	decryptIntoObject(success, failure, eim) {
 		return cassPromisify(
-			this.decryptIntoString().then((decryptRaw) => {
+			this.decryptIntoString(eim).then((decryptRaw) => {
 				if (decryptRaw == null) {
 					return null;
 				}
@@ -360,11 +360,11 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @param {Callback1<String>} failure Callback triggered if error during
 	 *                             decryption
 	 *  @memberOf EcEncryptedValue
-	 *  @method decryptIntoStringAsync
+	 *  @method decryptIntoString
 	 */
-	decryptIntoString(success, failure) {
+	decryptIntoString(success, failure, eim) {
 		return cassPromisify(
-			this.decryptSecret().then((decryptSecret) => {
+			this.decryptSecret(eim).then((decryptSecret) => {
 				if (decryptSecret != null) {
 					if (
 						this.context == Ebac.context_0_2 ||
@@ -388,22 +388,20 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		);
 	}
 	/**
-	 *  Asynchronously attempts to decrypt secret using all identities in
+	 *  Attempts to decrypt secret using all identities in
 	 *  Identity Manager
 	 *
-	 *  @param {Callback1<EbacEncryptedSecret>} success Callback triggered after
-	 *                                          successfully decrypting secret, returns the decrypted secret
-	 *  @param {Callback1<String>}              failure Callback triggered if error decrypting
-	 *                                          secret
 	 *  @memberOf EcEncryptedValue
-	 *  @method decryptSecretAsync
+	 *  @method decryptSecret
 	 */
-	decryptSecret() {
+	decryptSecret(eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var ppks = [];
 		var estimatedIndices = [];
 		if (this.owner != null) {
 			for (var i = 0; i < this.owner.length; i++) {
-				var decryptionKey = EcIdentityManager.getPpk(
+				var decryptionKey = eim.getPpk(
 					EcPk.fromPem(this.owner[i])
 				);
 				if (decryptionKey != null) {
@@ -416,7 +414,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		}
 		if (this.reader != null) {
 			for (var i = 0; i < this.reader.length; i++) {
-				var decryptionKey = EcIdentityManager.getPpk(
+				var decryptionKey = eim.getPpk(
 					EcPk.fromPem(this.reader[i])
 				);
 				if (decryptionKey != null) {
@@ -478,9 +476,9 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @memberOf EcEncryptedValue
 	 *  @method addReader
 	 */
-	addReader(newReader) {
+	addReader(newReader, eim) {
 		super.addReader(newReader);
-		return this.decryptSecret().then((decryptedSecret) => {
+		return this.decryptSecret(eim).then((decryptedSecret) => {
 			if (decryptedSecret == null) {
 				throw "Cannot add a Reader if you don't know the secret";
 			}
@@ -499,8 +497,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @memberOf EcEncryptedValue
 	 *  @method removeReader
 	 */
-	removeReader(oldReader) {
-		return this.decryptSecret().then((decryptedSecret) => {
+	removeReader(oldReader, eim) {
+		return this.decryptSecret(eim).then((decryptedSecret) => {
 			if (this.reader != null) {
 				EcArray.setRemove(this.reader, oldReader.toPem());
 			}

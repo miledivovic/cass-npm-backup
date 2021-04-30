@@ -44,11 +44,11 @@ module.exports = class EcFile extends GeneralFile {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcFile(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcFile(), success, failure, repo, eim);
 	}
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcFile());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcFile(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository given for files that match the query passed in
@@ -68,7 +68,7 @@ module.exports = class EcFile extends GeneralFile {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
@@ -77,7 +77,7 @@ module.exports = class EcFile extends GeneralFile {
 			},
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -90,14 +90,14 @@ module.exports = class EcFile extends GeneralFile {
 	 *  @memberOf EcFile
 	 *  @method save
 	 */
-	save(success, failure) {
+	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
 			var msg = "File Name can not be empty";
 			if (failure != null) failure(msg);
 			else console.error(msg);
 			return;
 		}
-		return EcRepository.save(this, success, failure);
+		return EcRepository.save(this, success, failure, repo, eim);
 	}
 	/**
 	 *  Deletes the file from the repository using repository web services
@@ -109,7 +109,7 @@ module.exports = class EcFile extends GeneralFile {
 	 *  @memberOf EcFile
 	 *  @method _delete
 	 */
-	_delete = function(repo, success, failure) {
-		return repo.DELETE(this, success, failure);
+	_delete = function(repo, success, failure, eim) {
+		return repo.DELETE(this, success, failure, repo, eim);
 	};
 };

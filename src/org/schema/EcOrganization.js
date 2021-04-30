@@ -14,8 +14,8 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcOrganization(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcOrganization(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves an organization from it's server synchronously, the call
@@ -29,8 +29,8 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcOrganization());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcOrganization(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches a repository for organizations that match the search query
@@ -45,14 +45,14 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcOrganization(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -162,7 +162,9 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @memberOf EcOrganization
 	 *  @method rekeyAndSave
 	 */
-	async rekeyAndSave(success, failure, repo) {
+	async rekeyAndSave(success, failure, repo, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (repo == null) {
 			var msg = "Repository cannot be null for a rekey operation";
 			if (failure != null) failure(msg);
@@ -174,7 +176,7 @@ module.exports = class EcOrganization extends schema.Organization {
 			var identity = new EcIdentity();
 			identity.ppk = newKey;
 			identity.displayName = "Organization Rekey New Key";
-			EcIdentityManager.addIdentity(identity);
+			eim.addIdentity(identity);
 			var rekeyRequest = await EcRekeyRequest.generateRekeyRequest(
 				repo.selectedServer,
 				oldKey,
@@ -190,10 +192,10 @@ module.exports = class EcOrganization extends schema.Organization {
 			this[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
 			await repo.saveTo(
 				this,
-				async() => {
-					await repo.saveTo(rekeyRequest, success, failure);
+				async () => {
+					await repo.saveTo(rekeyRequest, success, failure, eim);
 				},
-				failure
+				failure, eim
 			);
 		}
 	}
@@ -207,7 +209,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @memberOf EcOrganization
 	 *  @method save
 	 */
-	async save(success, failure, repo) {
+	async save(success, failure, repo, eim) {
 		var newKeys = await EcEncryptedValue.encryptValue(
 			this.ppkListToPemArrayString(this.getOrgKeys()),
 			EcOrganization.ORG_PPK_SET_KEY,
@@ -215,8 +217,8 @@ module.exports = class EcOrganization extends schema.Organization {
 			this.reader
 		);
 		this[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Returns the current organization key
@@ -240,13 +242,13 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @memberOf EcOrganization
 	 *  @method getOrgKeys
 	 */
-	async getOrgKeys() {
+	async getOrgKeys(eim) {
 		var orgKeys = [];
 		var o = this[EcOrganization.ORG_PPK_SET_KEY];
 		if (o != null) {
 			var ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString());
+			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString(null, null, eim));
 			for (var i = 0; i < orgKeysPPKPems.length; i++) {
 				orgKeys.push(EcPpk.fromPem(orgKeysPPKPems[i]));
 			}
@@ -258,12 +260,12 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *
 	 *  @method moveKeyField
 	 */
-	async moveKeyField() {
+	async moveKeyField(eim) {
 		var o = this["https://schema.cassproject.org/0.3/ppk"];
 		if (o != null) {
 			var ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var currentGroupPpkPem = await ev.decryptIntoString();
+			var currentGroupPpkPem = await ev.decryptIntoString(null, null, eim);
 			var keyArray = [];
 			keyArray.push(currentGroupPpkPem);
 			var newKey = await EcEncryptedValue.encryptValue(

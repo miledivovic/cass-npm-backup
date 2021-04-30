@@ -273,7 +273,7 @@ module.exports = class CSVImport {
 		relationTypeIndex,
 		destIndex,
 		failure,
-		repo
+		repo, eim
 	) {
 		Task.asyncImmediate(function(o) {
 			var keepGoing = o;
@@ -304,7 +304,7 @@ module.exports = class CSVImport {
 				}
 				keepGoing();
 			};
-			comp.save(saveDone, saveDone, repo);
+			comp.save(saveDone, saveDone, repo, eim);
 		});
 	}
 	/**
@@ -417,7 +417,7 @@ module.exports = class CSVImport {
 		success,
 		competencies,
 		failure,
-		repo
+		repo, eim
 	) {
 		Task.asyncImmediate(function(o) {
 			var keepGoing = o;
@@ -439,14 +439,14 @@ module.exports = class CSVImport {
 				function(results) {
 					failure("Failed to save competency or relation");
 					for (var j = 0; j < competencies.length; j++) {
-						competencies[j]._delete(null, null, null);
+						competencies[j]._delete(null, null, repo, eim);
 					}
 					for (var j = 0; j < relations.length; j++) {
-						relations[j]._delete(null, null);
+						relations[j]._delete(null, null, repo, eim);
 					}
 					keepGoing();
 				},
-				repo
+				repo, eim
 			);
 		});
 	}
@@ -688,7 +688,8 @@ module.exports = class CSVImport {
 		objects,
 		success,
 		failure,
-		repo
+		repo,
+		eim
 	) {
 		Task.asyncImmediate(function(o) {
 			var keepGoing = o;
@@ -703,8 +704,8 @@ module.exports = class CSVImport {
 				failure("Failed to save object");
 				keepGoing();
 			};
-			if (repo == null) EcRepository.save(data, scs, err);
-			else repo.saveTo(data, scs, err);
+			if (repo == null) EcRepository.save(data, scs, err, repo, eim);
+			else repo.saveTo(data, scs, err, eim);
 		});
 	}
 };

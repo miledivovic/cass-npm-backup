@@ -1,3 +1,21 @@
+# 0.5.2 to 0.5.3
+EcIdentityManager is now instantiatable and may be passed into many library functions. Many method signatures have changed.
+
+## BREAKING:
+* All static EcIdentityManager methods are now instance methods.
+
+## UPDATES:
+* All functions with web interactions will optionally allow `repo` to be specified.
+* All functions with web or decryption interactions will optionally allow `eim` to be specified.
+* If `repo` is not specified, the library will employ several methods for operating on that data (in the case of get, delete). If it is specified, the library will strictly only operate on data in that repository. If that is not the case, that is now a defect.
+* If `eim` is not specified, the library will use a default EcIdentityManager found at `EcIdentityManager.default` to perform any necessary operations. In an enforced multitenancy situation, we recommend setting EcIdentityManager.default to null, in order to force errors.
+* If you are using `eim`, we strongly recommend disabling caching to prevent any tenancy leaks.
+
+## Migration Guide
+
+### 1. Replace all: `EcIdentityManager.` -> `EcIdentityManager.default.`
+As the new EcIdentityManager is instanceable and the static methods and properties are gone, use the default EcIdentityManager.
+
 # 0.5.1 to 0.5.2
 
 ## CAUTION:

@@ -85,7 +85,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 	 *  @param a Assertion to add.
 	 *  @method addAssertion
 	 */
-	async addAssertion(a) {
+	async addAssertion(a, eim) {
 		var me = this;
 		var ac = new AssertionCodebook();
 		if (this.assertion == null) this.assertion = [];
@@ -93,111 +93,21 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 		if (this.codebook == null) this.codebook = [];
 		this.codebook.push(ac);
 		if (a.shortId() != null) ac.assertionShortId = a.shortId();
-		if (a.agent != null) ac.agent = await a.agent.decryptSecret();
-		if (a.subject != null) ac.subject = await a.subject.decryptSecret();
+		if (a.agent != null) ac.agent = await a.agent.decryptSecret(eim);
+		if (a.subject != null) ac.subject = await a.subject.decryptSecret(eim);
 		if (a.assertionDate != null)
-			ac.assertionDate = await a.assertionDate.decryptSecret();
+			ac.assertionDate = await a.assertionDate.decryptSecret(eim);
 		if (a.expirationDate != null)
-			ac.expirationDate = await a.expirationDate.decryptSecret();
+			ac.expirationDate = await a.expirationDate.decryptSecret(eim);
 		if (a.decayFunction != null)
-			ac.decayFunction = await a.decayFunction.decryptSecret();
-		if (a.negative != null) ac.negative = await a.negative.decryptSecret();
+			ac.decayFunction = await a.decayFunction.decryptSecret(eim);
+		if (a.negative != null) ac.negative = await a.negative.decryptSecret(eim);
 		if (a.evidence != null)
 			for (var i = 0; i < a.evidence.length; i++) {
 				if (ac.evidence == null) ac.evidence = [];
 				var ecEncryptedValue = a.evidence[i];
-				ac.evidence.push(await ecEncryptedValue.decryptSecret());
+				ac.evidence.push(await ecEncryptedValue.decryptSecret(eim));
 			}
-	}
-	/**
-	 *  Adds the assertion to the envelope and adds the keys necessary to decode the assertion to the envelope.
-	 *  @param a Assertion to add.
-	 *  @param success Event to call when success occurs.
-	 *  @param failure Event to call when failure occurs.
-	 *  @method addAssertionAsync
-	 */
-	addAssertionAsync(a, success, failure) {
-		var me = this;
-		var ac = new AssertionCodebook();
-		if (this.assertion == null) this.assertion = [];
-		this.assertion.push(a);
-		if (this.codebook == null) this.codebook = [];
-		this.codebook.push(ac);
-		var thingsToRun = [];
-		var eah = new EcAsyncHelper();
-		if (a.agent != null)
-			thingsToRun.push(function(finished) {
-				a.agent.decryptSecretAsync(function(secret) {
-					ac.agent = secret;
-					finished();
-				}, failure);
-			});
-		if (a.subject != null)
-			thingsToRun.push(function(finished) {
-				a.subject.decryptSecretAsync(function(secret) {
-					ac.subject = secret;
-					finished();
-				}, failure);
-			});
-		if (a.assertionDate != null)
-			thingsToRun.push(function(finished) {
-				a.assertionDate.decryptSecretAsync(function(secret) {
-					ac.assertionDate = secret;
-					finished();
-				}, failure);
-			});
-		if (a.expirationDate != null)
-			thingsToRun.push(function(finished) {
-				a.expirationDate.decryptSecretAsync(function(secret) {
-					ac.expirationDate = secret;
-					finished();
-				}, failure);
-			});
-		if (a.decayFunction != null)
-			thingsToRun.push(function(finished) {
-				a.decayFunction.decryptSecretAsync(function(secret) {
-					ac.decayFunction = secret;
-					finished();
-				}, failure);
-			});
-		if (a.negative != null)
-			thingsToRun.push(function(finished) {
-				a.negative.decryptSecretAsync(function(secret) {
-					ac.negative = secret;
-					finished();
-				}, failure);
-			});
-		if (a.evidence != null)
-			thingsToRun.push(function(finished) {
-				var eah = new EcAsyncHelper();
-				eah.each(
-					a.evidence,
-					function(ecEncryptedValue, callback0) {
-						ecEncryptedValue.decryptSecretAsync(function(
-							ebacEncryptedSecret
-						) {
-							if (ebacEncryptedSecret != null) {
-								if (ac.evidence == null) ac.evidence = [];
-								ac.evidence.push(ebacEncryptedSecret);
-							}
-							callback0();
-						},
-						failure);
-					},
-					function(strings) {
-						finished();
-					}
-				);
-			});
-		eah.each(
-			thingsToRun,
-			function(theThingToDo, callback0) {
-				theThingToDo(callback0);
-			},
-			function(strings) {
-				success();
-			}
-		);
 	}
 	/**
 	 *  Validates that all assertions have not been tampered with (are authentic).

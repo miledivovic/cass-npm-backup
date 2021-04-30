@@ -35,8 +35,8 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcAlignment(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcAlignment(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves an alignment from it's server synchronously, the call
@@ -51,8 +51,8 @@ module.exports = class EcAlignment extends Relation {
 	 *  @static
 	 *  @deprecated await on get() instead.
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcAlignment());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcAlignment(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository using the query and optional parameters provided
@@ -71,14 +71,14 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcAlignment(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -98,7 +98,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method searchBySource
 	 *  @static
 	 */
-	static searchBySource(repo, sourceId, success, failure, paramObj) {
+	static searchBySource(repo, sourceId, success, failure, paramObj, eim) {
 		var query = "";
 		var noVersion = EcRemoteLinkedData.trimVersionFromUrl(sourceId);
 		if (noVersion == sourceId) {
@@ -106,7 +106,7 @@ module.exports = class EcAlignment extends Relation {
 		} else {
 			query += 'source:"' + sourceId + '" OR source:"' + noVersion + '"';
 		}
-		return EcAlignment.search(repo, query, success, failure, paramObj);
+		return EcAlignment.search(repo, query, success, failure, paramObj, eim);
 	}
 	/**
 	 *  Searches the repository for alignments with one of an array of IDs in the source field
@@ -125,7 +125,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method searchBySource
 	 *  @static
 	 */
-	static searchBySources(repo, sourceIds, success, failure, paramObj) {
+	static searchBySources(repo, sourceIds, success, failure, paramObj, eim) {
 		var query = "";
 		query = "(source:";
 		var noVersions = [];
@@ -141,7 +141,7 @@ module.exports = class EcAlignment extends Relation {
 			noVersions.push(noVersion);
 		}
 		query += ")";
-		return EcAlignment.search(repo, query, success, failure, paramObj);
+		return EcAlignment.search(repo, query, success, failure, paramObj, eim);
 	}
 	/**
 	 *  Searches the repository for alignments with a specific ID in the target field
@@ -160,7 +160,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method searchByCompetency
 	 *  @static
 	 */
-	static searchByCompetency(repo, competencyId, success, failure, paramObj) {
+	static searchByCompetency(repo, competencyId, success, failure, paramObj, eim) {
 		var query = "";
 		var noVersion = EcRemoteLinkedData.trimVersionFromUrl(competencyId);
 		if (noVersion == competencyId) {
@@ -182,7 +182,7 @@ module.exports = class EcAlignment extends Relation {
 				noVersion +
 				'")';
 		}
-		return EcAlignment.search(repo, query, success, failure, paramObj);
+		return EcAlignment.search(repo, query, success, failure, paramObj, eim);
 	}
 	/**
 	 *  Setter for alignment name
@@ -216,7 +216,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @memberOf EcAlignment
 	 *  @method save
 	 */
-	save(success, failure, repo) {
+	save(success, failure, repo, eim) {
 		if (this.source == null || this.source == "") {
 			var msg = "Source Competency cannot be missing";
 			if (failure !== undefined && failure != null) return failure(msg);
@@ -232,8 +232,8 @@ module.exports = class EcAlignment extends Relation {
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Deletes the alignment from the server corresponding to its ID
@@ -245,7 +245,7 @@ module.exports = class EcAlignment extends Relation {
 	 *  @memberOf EcAlignment
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 };

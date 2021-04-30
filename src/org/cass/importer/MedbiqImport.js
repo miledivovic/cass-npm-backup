@@ -150,7 +150,7 @@ module.exports = class MedbiqImport extends Importer {
 			);
 		}
 	}
-	static saveCompetency(success, failure, incremental, comp, repo) {
+	static saveCompetency(success, failure, incremental, comp, repo, eim) {
 		Task.asyncImmediate(function(o) {
 			var keepGoing = o;
 			var scs = function(p1) {
@@ -179,7 +179,7 @@ module.exports = class MedbiqImport extends Importer {
 				failure("Failed to Save Competency");
 				keepGoing();
 			};
-			comp.save(scs, err, repo);
+			comp.save(scs, err, repo, eim);
 		});
 	}
 };

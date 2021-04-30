@@ -1,20 +1,20 @@
 module.exports = class EcPerson extends schema.Person {
-	static getByPk(repo, pk, success, failure) {
+	static getByPk(repo, pk, success, failure, eim) {
 		return EcPerson.get(
 			repo.selectedServer +
-				(repo.selectedServer.endsWith("/") ? "" : "/") +
-				"data/" +
-				pk.fingerprint(),
+			(repo.selectedServer.endsWith("/") ? "" : "/") +
+			"data/" +
+			pk.fingerprint(),
 			success,
-			failure
+			failure, repo, eim
 		);
 	}
-	static getByPkBlocking(repo, pk) {
-		return EcPerson.getBlocking(
+	static getByPkBlocking(repo, pk, eim) {
+		return EcPerson.get(
 			repo.selectedServer +
-				(repo.selectedServer.endsWith("/") ? "" : "/") +
-				"data/" +
-				pk.fingerprint()
+			(repo.selectedServer.endsWith("/") ? "" : "/") +
+			"data/" +
+			pk.fingerprint(), null, null, repo, eim
 		);
 	}
 	equals(obj) {
@@ -34,8 +34,8 @@ module.exports = class EcPerson extends schema.Person {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcPerson(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcPerson(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a person from it's server synchronously, the call
@@ -49,8 +49,8 @@ module.exports = class EcPerson extends schema.Person {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcPerson());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcPerson(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches a repository for persons that match the search query
@@ -65,14 +65,14 @@ module.exports = class EcPerson extends schema.Person {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcPerson(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**

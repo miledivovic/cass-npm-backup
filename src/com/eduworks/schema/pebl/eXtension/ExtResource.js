@@ -27,8 +27,8 @@ module.exports = class ExtResource extends schema.CreativeWork {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new ExtResource(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new ExtResource(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a resource from the server synchronously, the call
@@ -42,8 +42,8 @@ module.exports = class ExtResource extends schema.CreativeWork {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new ExtResource());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new ExtResource(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository using the query and optional parameters provided
@@ -64,14 +64,14 @@ module.exports = class ExtResource extends schema.CreativeWork {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new ExtResource(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -85,7 +85,7 @@ module.exports = class ExtResource extends schema.CreativeWork {
 	 *  @memberOf ExtResource
 	 *  @method save
 	 */
-	save(success, failure) {
+	save(success, failure, repo, eim) {
 		if (this.getId() == null || this.getId() == "") {
 			var msg = "ID cannot be missing";
 			if (failure != null) return failure(msg);
@@ -101,7 +101,7 @@ module.exports = class ExtResource extends schema.CreativeWork {
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		return EcRepository.save(this, success, failure);
+		return EcRepository.save(this, success, failure, repo, eim);
 	}
 	/**
 	 *  Deletes the resource from the server corresponding to its ID
@@ -113,8 +113,8 @@ module.exports = class ExtResource extends schema.CreativeWork {
 	 *  @memberOf ExtResource
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 	/**
 	 *  Returns the ID of the resource

@@ -55,8 +55,11 @@ module.exports = class CTDLASNCSVImport {
 		success,
 		failure,
 		ceo,
-		endpoint
+		endpoint,
+		eim
 	) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (file == null) {
 			failure("No file to analyze");
 			return;
@@ -113,7 +116,7 @@ module.exports = class CTDLASNCSVImport {
 										var id = new EcIdentity();
 										id.ppk = EcPpk.fromPem(e["owner"]);
 										f.addOwner(id.ppk.toPk());
-										EcIdentityManager.addIdentityQuietly(
+										eim.addIdentityQuietly(
 											id
 										);
 									}
@@ -248,7 +251,7 @@ module.exports = class CTDLASNCSVImport {
 										id.ppk = EcPpk.fromPem(e["owner"]);
 										if (id.ppk != null)
 											f.addOwner(id.ppk.toPk());
-										EcIdentityManager.addIdentityQuietly(
+										eim.addIdentityQuietly(
 											id
 										);
 									}

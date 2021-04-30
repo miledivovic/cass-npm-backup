@@ -1,4 +1,5 @@
 let FormData = require("form-data");
+const EcIdentity = require("../EcIdentity");
 
 /**
  *  Logs into and stores/retrieves credentials from a compatible remote server.
@@ -338,6 +339,7 @@ module.exports = class EcRemoteIdentityManager extends
 				"sky/id/login",
 				fd,
 				async (arg0) => {
+					let eim = new EcIdentityManager();
 					var cs = arg0;
 					me.pad = cs.pad;
 					me.token = cs.token;
@@ -349,7 +351,7 @@ module.exports = class EcRemoteIdentityManager extends
 								me.secretWithSalt,
 								me.server
 							);
-							EcIdentityManager.addIdentity(identity);
+							eim.addIdentity(identity);
 						}
 					if (cs.contacts != null)
 						for (var i = 0; i < cs.contacts.length; i++) {
@@ -359,9 +361,9 @@ module.exports = class EcRemoteIdentityManager extends
 								me.secretWithSalt,
 								me.server
 							);
-							EcIdentityManager.addContact(identity);
+							eim.addContact(identity);
 						}
-					return arg0;
+					return eim;
 				},
 				function (arg0) {
 					throw new Error(arg0);
@@ -417,7 +419,9 @@ module.exports = class EcRemoteIdentityManager extends
 	 *  @memberOf EcRemoteIdentityManager
 	 *  @method sendCredentials
 	 */
-	async sendCredentials(success, failure, service) {
+	async sendCredentials(success, failure, service, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (!this.configured)
 			throw new Error("Remote Identity not configured.");
 		if (
@@ -429,14 +433,14 @@ module.exports = class EcRemoteIdentityManager extends
 		}
 		var credentials = [];
 		var contacts = [];
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
-			var id = EcIdentityManager.ids[i];
+		for (var i = 0; i < eim.ids.length; i++) {
+			var id = eim.ids[i];
 			if (id.source != null && id.source != this.server) continue;
 			id.source = this.server;
 			credentials.push(await id.toCredential(this.secretWithSalt));
 		}
-		for (var i = 0; i < EcIdentityManager.contacts.length; i++) {
-			var id = EcIdentityManager.contacts[i];
+		for (var i = 0; i < eim.contacts.length; i++) {
+			var id = eim.contacts[i];
 			if (id.source != null && id.source != this.server) continue;
 			id.source = this.server;
 			contacts.push(await id.toEncryptedContact(this.secretWithSalt));
@@ -452,7 +456,7 @@ module.exports = class EcRemoteIdentityManager extends
 		fd.append("credentialCommit", commit.toJson());
 		var me = this;
 		return cassPromisify(
-			EcIdentityManager.signatureSheet(
+			eim.signatureSheet(
 				60000,
 				this.server,
 				async (p1) => {

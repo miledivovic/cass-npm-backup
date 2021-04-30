@@ -8,7 +8,7 @@ const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/E
  *  @class EcFrameworkGraph
  */
 module.exports = class EcFrameworkGraph extends EcDirectedGraph {
-	constructor() {
+	constructor(eim) {
 		super();
 		this.metaVerticies = {};
 		this.metaEdges = {};
@@ -16,6 +16,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		this.edgeMap = {};
 		this.dontTryAnyMore = {};
 		this.frameworks = [];
+		this.eim = eim;
 	}
 	metaVerticies = null;
 	metaEdges = null;
@@ -26,6 +27,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	addFrameworkSuccessCallback = null;
 	addFrameworkFailureCallback = null;
 	repo = null;
+	eim = null;
 	/**
 	 *  Adds a framework to the graph, and creates the edges to connect the competencies in the framework.
 	 *
@@ -36,35 +38,36 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	 *  @method addFramework
 	 *  @memberOf EcFrameworkGraph
 	 */
-	async addFramework(framework, repo, success, failure) {
+	async addFramework(framework, repo, success, failure, eim) {
+		this.repo = repo;
 		this.frameworks.push(framework);
 		if (framework.competency == null) framework.competency = [];
 		if (framework.relation == null) framework.relation = [];
 		await repo.multiget(
 			framework.competency,
-			async(data) => {
+			async (data) => {
 				await Promise.all(
-					data.map((d) => this.handleCacheElement(d, framework))
+					data.map((d) => this.handleCacheElement(d, framework, eim))
 				);
 				await repo.multiget(
 					framework.relation,
-					async(data2) => {
+					async (data2) => {
 						await Promise.all(
 							data2.map((d2) =>
-								this.handleCacheElement(d2, framework)
+								this.handleCacheElement(d2, framework, eim)
 							)
 						);
 						success();
 					},
-					failure
+					failure, this.eim
 				);
 			},
-			failure
+			failure, this.eim
 		);
 	}
-	async handleCacheElement(d, framework) {
+	async handleCacheElement(d, framework, eim) {
 		if (d.isAny(new EcEncryptedValue().getTypes()))
-			d = await EcEncryptedValue.fromEncryptedValue(d);
+			d = await EcEncryptedValue.fromEncryptedValue(d, null, null, eim);
 		if (d == null) return;
 		if (d.isAny(new EcCompetency().getTypes())) {
 			let c = new EcCompetency().copyFrom(d);
@@ -96,7 +99,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	async processAssertionsBoolean(assertions, success, failure) {
 		await cassPromisify(
 			Promise.all(
-				assertions.map(async(assertion) => {
+				assertions.map(async (assertion) => {
 					if (!this.containsVertexById(assertion.competency)) {
 						console.log("Could not find " + assertion.competency);
 						return;
@@ -284,7 +287,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	async getCompetency(competencyId) {
 		var c = null;
 		c = this.competencyMap[competencyId];
-		if (c == null) c = await EcCompetency.get(competencyId);
+		if (c == null) c = await EcCompetency.get(competencyId, null, null, repo, eim);
 		return c;
 	}
 	getCompetencySoft(competencyId) {

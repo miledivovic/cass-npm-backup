@@ -18,14 +18,14 @@ module.exports = class EcQuestion extends schema.Question {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcQuestion(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -33,10 +33,12 @@ module.exports = class EcQuestion extends schema.Question {
 	 *
 	 *  @return
 	 */
-	getQuestionType() {
+	getQuestionType(eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var acceptedAnswers = this.acceptedAnswers();
 		if (acceptedAnswers == null) {
-			if (this.canEdit(EcIdentityManager.ids[0].ppk.toPk())) {
+			if (this.canEdit(eim.ids[0].ppk.toPk())) {
 				return EcQuestion.HAND_GRADED_ESSAY;
 			} else {
 				return EcQuestion.ESSAY_OR_SHORT_ANSWER;

@@ -38,8 +38,8 @@ module.exports = class EcDirectory extends Directory {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcDirectory(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcDirectory(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a directory from the server in a blocking fashion, specified by the ID
@@ -56,8 +56,8 @@ module.exports = class EcDirectory extends Directory {
 	 *  @static
 	 *  @deprecated Use await on get().
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcDirectory());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcDirectory(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository given for directories using the query passed in
@@ -77,14 +77,14 @@ module.exports = class EcDirectory extends Directory {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcDirectory(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 	/**
@@ -99,14 +99,14 @@ module.exports = class EcDirectory extends Directory {
 	 *  @memberOf EcDirectory
 	 *  @method save
 	 */
-	save(success, failure, repo) {
+	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
 			var msg = "Directory Name Cannot be Empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
-		if (repo == null) return EcRepository.save(this, success, failure);
-		else return repo.saveTo(this, success, failure);
+		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
+		else return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Deletes this directory from the server specified by its ID
@@ -118,7 +118,7 @@ module.exports = class EcDirectory extends Directory {
 	 *  @memberOf EcDirectory
 	 *  @method _delete
 	 */
-	_delete = function(success, failure) {
-		return EcRepository.DELETE(this, success, failure);
+	_delete = function (success, failure, repo, eim) {
+		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 };

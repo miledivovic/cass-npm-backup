@@ -48,7 +48,7 @@ module.exports = class EcRepository {
 			.then(successCheck)
 			.catch(failureCheck);
 	};
-	buildKeyForwardingTable = function (success, failure) {
+	buildKeyForwardingTable = function (success, failure, eim) {
 		var params = {};
 		params["size"] = 10000;
 		return cassPromisify(
@@ -58,7 +58,7 @@ module.exports = class EcRepository {
 				() => new EcRekeyRequest(),
 				null,
 				null,
-				params
+				params, eim
 			).then((rekeyRequests) => {
 				for (var i = 0; i < rekeyRequests.length; i++) {
 					rekeyRequests[i].addRekeyRequestToForwardingTable();
@@ -86,13 +86,15 @@ module.exports = class EcRepository {
 	 *  @method get
 	 *  @static
 	 */
-	static get(url, success, failure) {
+	static get(url, success, failure, repo, eim) {
 		if (url == null) {
 			throw "URL is null. Cannot EcRepository.get";
 		}
 		if (url.toLowerCase().indexOf("http") != 0) {
 			throw "URL does not begin with http. Cannot EcRepository.get";
 		}
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var originalUrl = url;
 		if (EcRepository.caching) {
 			if (EcRepository.cache[url] !== undefined) {
@@ -111,6 +113,12 @@ module.exports = class EcRepository {
 						EcRepository.repos[0].selectedServer,
 						EcCrypto.md5(url)
 					);
+			} else if (repo !== undefined && repo !== null) {
+				if (!url.startsWith(repo.selectedServer))
+					url = EcRemoteLinkedData.veryShortId(
+						repo.selectedServer,
+						EcCrypto.md5(url)
+					);
 			} else {
 				return EcRepository.find(
 					url,
@@ -118,7 +126,7 @@ module.exports = class EcRepository {
 					{},
 					0,
 					success,
-					failure
+					failure, eim
 				).catch((error) => {
 					if (
 						error !== undefined &&
@@ -143,7 +151,7 @@ module.exports = class EcRepository {
 		if (EcRepository.unsigned) {
 			p = EcRemote.getExpectingObject(finalUrl);
 		} else {
-			p = EcIdentityManager.signatureSheet(60000, url).then(
+			p = eim.signatureSheet(60000, url).then(
 				(signatureSheet) => {
 					var fd = new FormData();
 					fd.append("signatureSheet", signatureSheet);
@@ -151,26 +159,29 @@ module.exports = class EcRepository {
 				}
 			);
 		}
-		p = p
-			.then((data) => {
-				return EcRepository.getHandleData(
-					data,
-					originalUrl,
-					success,
-					failure,
-					finalUrl
-				);
-			})
-			.catch((error) => {
+		p = p.then((data) => {
+			return EcRepository.getHandleData(
+				data,
+				originalUrl,
+				success,
+				failure,
+				finalUrl
+			);
+		}).catch((error) => {
+			if (repo === undefined || repo == null) {
 				return EcRepository.find(
 					originalUrl,
 					error,
 					{},
 					0,
 					success,
-					failure
+					failure, eim
 				);
-			});
+			} else {
+				if (EcRepository.caching) EcRepository.cache[url] = null;
+				return cassReturnAsPromise(null, success, failure, error);
+			}
+		});
 		return p;
 	}
 	static setOffset = function (url) {
@@ -212,7 +223,7 @@ module.exports = class EcRepository {
 				{},
 				0,
 				success,
-				failure
+				failure, eim
 			);
 		}
 		if (EcRepository.caching) {
@@ -233,7 +244,7 @@ module.exports = class EcRepository {
 		if (!validUrlFound) return true;
 		return false;
 	};
-	static find(url, error, history, counter, success, failure) {
+	static find(url, error, history, counter, success, failure, eim) {
 		if (
 			isNaN(counter) ||
 			counter == undefined ||
@@ -252,7 +263,7 @@ module.exports = class EcRepository {
 				history,
 				counter + 1,
 				success,
-				failure
+				failure, eim
 			);
 		}
 		if (history[repo.selectedServer] == true) {
@@ -262,11 +273,11 @@ module.exports = class EcRepository {
 				history,
 				counter + 1,
 				success,
-				failure
+				failure, eim
 			);
 		}
 		history[repo.selectedServer] = true;
-		let p = repo.search('@id:"' + url + '"', null);
+		let p = repo.search('@id:"' + url + '"', null, null, null, eim);
 		p = p
 			.then(function (strings) {
 				if (strings == null || strings.length == 0)
@@ -276,7 +287,7 @@ module.exports = class EcRepository {
 						history,
 						counter + 1,
 						success,
-						failure
+						failure, eim
 					);
 				else {
 					var done = false;
@@ -317,7 +328,7 @@ module.exports = class EcRepository {
 						history,
 						counter + 1,
 						success,
-						failure
+						failure, eim
 					);
 				}
 			})
@@ -328,7 +339,7 @@ module.exports = class EcRepository {
 					history,
 					counter + 1,
 					success,
-					failure
+					failure, eim
 				);
 			});
 		return p;
@@ -382,8 +393,8 @@ module.exports = class EcRepository {
 	 *  @method save
 	 *  @static
 	 */
-	static save = function (data, success, failure) {
-		return EcRepository._save(data, success, failure, null);
+	static save = function (data, success, failure, repo, eim) {
+		return EcRepository._save(data, success, failure, repo, eim);
 	};
 	/**
 	 *  Attempts to save a piece of data. If the @id of the data is not of this server, will register the data to the server.
@@ -399,8 +410,8 @@ module.exports = class EcRepository {
 	 *  @method save
 	 *  @static
 	 */
-	saveTo = function (data, success, failure) {
-		return EcRepository._save(data, success, failure, this);
+	saveTo = function (data, success, failure, eim) {
+		return EcRepository._save(data, success, failure, this, eim);
 	};
 	/**
 	 *  Attempts to save a piece of data. Does some checks before saving to
@@ -417,7 +428,7 @@ module.exports = class EcRepository {
 	 *  @method _save
 	 *  @static
 	 */
-	static _save = function (data, success, failure, repo) {
+	static _save = function (data, success, failure, repo, eim) {
 		if (data.invalid()) {
 			var msg = "Cannot save data. It is missing a vital component.";
 			throw msg;
@@ -428,13 +439,15 @@ module.exports = class EcRepository {
 		if (data.owner != null && data.owner.length == 0) {
 			delete data["owner"];
 		}
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (
 			EcEncryptedValue.encryptOnSave(data.id, null) &&
 			!data.isAny(new EcEncryptedValue().getTypes())
 		) {
 			return EcEncryptedValue.toEncryptedValue(data, false)
 				.then((encryptedValue) => {
-					return EcIdentityManager.sign(encryptedValue);
+					return eim.sign(encryptedValue);
 				})
 				.then((signedEncryptedValue) => {
 					return EcRepository._saveWithoutSigning(
@@ -445,7 +458,7 @@ module.exports = class EcRepository {
 					);
 				});
 		} else {
-			return EcIdentityManager.sign(data).then((signedData) => {
+			return eim.sign(data).then((signedData) => {
 				return EcRepository._saveWithoutSigning(
 					signedData,
 					success,
@@ -469,7 +482,9 @@ module.exports = class EcRepository {
 	 *  @method _saveWithoutSigning
 	 *  @static
 	 */
-	static _saveWithoutSigning = function (data, success, failure, repo) {
+	static _saveWithoutSigning = function (data, success, failure, repo, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (EcRepository.caching) {
 			delete EcRepository.cache[data.id];
 			delete EcRepository.cache[data.shortId()];
@@ -503,13 +518,13 @@ module.exports = class EcRepository {
 			offset = repo.timeOffset;
 		}
 		if (data.owner != null && data.owner.length > 0) {
-			p = EcIdentityManager.signatureSheetFor(
+			p = eim.signatureSheetFor(
 				data.owner,
 				60000 + offset,
 				data.id
 			);
 		} else {
-			p = EcIdentityManager.signatureSheet(60000 + offset, data.id);
+			p = eim.signatureSheet(60000 + offset, data.id);
 		}
 		p = p.then((signatureSheet) => {
 			var fd = new FormData();
@@ -571,8 +586,8 @@ module.exports = class EcRepository {
 	 *  @method _delete
 	 *  @static
 	 */
-	static _delete = function (data, success, failure) {
-		return EcRepository.DELETE(data, success, failure);
+	static _delete = function (data, success, failure, repo, eim) {
+		return EcRepository.DELETE(data, success, failure, repo, eim);
 	};
 	/**
 	 *  Attempts to delete a piece of data.
@@ -589,7 +604,11 @@ module.exports = class EcRepository {
 	 *  @method DELETE
 	 *  @static
 	 */
-	static DELETE = function (data, success, failure) {
+	static DELETE = function (data, success, failure, repo, eim) {
+		if (repo !== undefined && repo != null)
+			return repo.deleteRegistered(data, success, failure, eim);
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (EcRepository.caching) {
 			delete EcRepository.cache[data.id];
 			delete EcRepository.cache[data.shortId()];
@@ -598,7 +617,7 @@ module.exports = class EcRepository {
 		targetUrl = data.shortId();
 		var offset = EcRepository.setOffset(data.id);
 		if (data.owner != null && data.owner.length > 0) {
-			return EcIdentityManager.signatureSheetFor(
+			return eim.signatureSheetFor(
 				data.owner,
 				60000 + offset,
 				data.id
@@ -629,7 +648,9 @@ module.exports = class EcRepository {
 	 *  @method DELETE
 	 *  @static
 	 */
-	deleteRegistered = function (data, success, failure) {
+	deleteRegistered = function (data, success, failure, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (EcRepository.caching) {
 			delete EcRepository.cache[data.id];
 			delete EcRepository.cache[data.shortId()];
@@ -665,7 +686,7 @@ module.exports = class EcRepository {
 			);
 		var offset = EcRepository.setOffset(data.id);
 		if (data.owner != null && data.owner.length > 0) {
-			return EcIdentityManager.signatureSheetForAsync(
+			return eim.signatureSheetFor(
 				data.owner,
 				60000 + offset,
 				data.id
@@ -696,7 +717,9 @@ module.exports = class EcRepository {
 	 *  @method multiput
 	 *  @static
 	 */
-	multiput = function (data, success, failure) {
+	multiput = function (data, success, failure, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var allOwners = [];
 		for (let d of data) {
 			if (d.invalid())
@@ -740,7 +763,7 @@ module.exports = class EcRepository {
 					return unencryptedUnsignedData;
 				})
 				.then((unsignedData) => {
-					return EcIdentityManager.sign(unsignedData);
+					return eim.sign(unsignedData);
 				})
 				.then((unserializedData) =>
 					JSON.parse(unserializedData.toJson())
@@ -751,13 +774,13 @@ module.exports = class EcRepository {
 			.then((readyToSendData) => {
 				preparedData = readyToSendData;
 				if (allOwners != null && allOwners.length > 0) {
-					return EcIdentityManager.signatureSheetFor(
+					return eim.signatureSheetFor(
 						allOwners,
 						60000 + this.timeOffset,
 						this.selectedServer
 					);
 				} else {
-					return EcIdentityManager.signatureSheet(
+					return eim.signatureSheet(
 						60000 + this.timeOffset,
 						this.selectedServer
 					);
@@ -791,7 +814,9 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method precache
 	 */
-	precache = function (urls, success, failure) {
+	precache = function (urls, success, failure, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var cacheUrls = [];
 		urls.map((url) => {
 			if (url.startsWith(this.selectedServer)) {
@@ -817,7 +842,7 @@ module.exports = class EcRepository {
 		let p = new Promise((resolve, reject) => resolve());
 		if (EcRepository.unsigned == false)
 			p = p.then(() => {
-				return EcIdentityManager.signatureSheet(
+				return eim.signatureSheet(
 					60000 + this.timeOffset,
 					this.selectedServer
 				).then((signatureSheet) => {
@@ -876,10 +901,10 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method multiget
 	 */
-	multiget = function (urls, success, failure) {
-		let p = this.precache(urls).then(() =>
+	multiget = function (urls, success, failure, eim) {
+		let p = this.precache(urls, null, null, eim).then(() =>
 			Promise.all(
-				urls.map((url) => EcRepository.get(url))
+				urls.map((url) => EcRepository.get(url, null, null, this, eim))
 			).then((things) => things.filter((r) => r))
 		);
 		return cassPromisify(p, success, failure);
@@ -899,13 +924,14 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method search
 	 */
-	search(query, eachSuccess, success, failure) {
+	search(query, eachSuccess, success, failure, eim) {
 		return this.searchWithParams(
 			query,
 			null,
 			eachSuccess,
 			success,
-			failure
+			failure,
+			eim
 		);
 	}
 	/**
@@ -930,8 +956,11 @@ module.exports = class EcRepository {
 		originalParamObj,
 		eachSuccess,
 		success,
-		failure
+		failure,
+		eim
 	) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var query = originalQuery;
 		var paramObj = originalParamObj;
 		if (paramObj == null) {
@@ -970,7 +999,7 @@ module.exports = class EcRepository {
 			p = p.then(() => fd.append("signatureSheet", []));
 		} else {
 			p = p.then(() =>
-				EcIdentityManager.signatureSheet(
+				eim.signatureSheet(
 					60000 + this.timeOffset,
 					this.selectedServer
 				).then((signatureSheet) => {
@@ -1008,7 +1037,9 @@ module.exports = class EcRepository {
 		});
 		return cassPromisify(p, success, failure);
 	};
-	searchParamProps = function (query, paramObj, paramProps) {
+	searchParamProps = function (query, paramObj, paramProps, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		if (paramObj["start"] != null) {
 			paramProps["start"] = paramObj["start"];
 		}
@@ -1038,11 +1069,11 @@ module.exports = class EcRepository {
 				query += " AND (_exists_:owner OR _exists_:@owner)";
 			} else if (ownership == "me") {
 				query += " AND (";
-				for (var i = 0; i < EcIdentityManager.ids.length; i++) {
+				for (var i = 0; i < eim.ids.length; i++) {
 					if (i != 0) {
 						query += " OR ";
 					}
-					var id = EcIdentityManager.ids[i];
+					var id = eim.ids[i];
 					query += '\\*owner:"' + id.ppk.toPk().toPem() + '"';
 				}
 				query += ")";
@@ -1387,11 +1418,13 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method listTypes
 	 */
-	listTypes = function (success, failure) {
+	listTypes = function (success, failure, eim) {
+		if (eim === undefined || eim == null)
+			eim = EcIdentityManager.default;
 		var fd = new FormData();
 		fd.append(
 			"signatureSheet",
-			EcIdentityManager.signatureSheet(
+			eim.signatureSheet(
 				60000 + this.timeOffset,
 				this.selectedServer
 			)
@@ -1469,7 +1502,7 @@ module.exports = class EcRepository {
 	 *                               returns an array of the admin public keys
 	 *  @param {Callback1<String>}   failure
 	 *                               Callback triggered if error occurs fetching admin keys
-	 *  @memberOf EcRemoteIdentityManager
+	 *  @memberOf EcRepository
 	 *  @method fetchServerAdminKeys
 	 */
 	fetchServerAdminKeys = function (success, failure) {
@@ -1496,7 +1529,7 @@ module.exports = class EcRepository {
 			}
 		);
 	};
-	static getAs = function (id, result, success, failure) {
+	static getAs(id, result, success, failure, repo, eim) {
 		EcRepository.get(
 			id,
 			function (p1) {
@@ -1505,7 +1538,7 @@ module.exports = class EcRepository {
 						success(p1);
 						return;
 					}
-				EcEncryptedValue.fromEncryptedValueAsync(
+				EcEncryptedValue.fromEncryptedValue(
 					p1,
 					function (p1) {
 						if (p1.isAny(result.getTypes())) {
@@ -1523,19 +1556,20 @@ module.exports = class EcRepository {
 							else console.error(msg);
 						}
 					},
-					failure
+					failure, eim
 				);
 			},
-			failure
+			failure, repo, eim
 		);
-	};
-	static searchAs = function (
+	}
+	static searchAs(
 		repo,
 		query,
 		factory,
 		success,
 		failure,
-		paramObj
+		paramObj,
+		eim
 	) {
 		if (paramObj == null) paramObj = {};
 		var template = factory();
@@ -1545,9 +1579,9 @@ module.exports = class EcRepository {
 		if (query == null || query == "") query = queryAdd;
 		else query = "(" + query + ") AND " + queryAdd;
 		return cassPromisify(
-			repo.searchWithParams(query, paramObj, null).then((p1s) => {
+			repo.searchWithParams(query, paramObj, null, null, null, eim).then((p1s) => {
 				return Promise.all(
-					p1s.map((p1) => EcEncryptedValue.fromEncryptedValue(p1))
+					p1s.map((p1) => EcEncryptedValue.fromEncryptedValue(p1, null, null, eim))
 				).then((results) =>
 					results.map((result) => factory().copyFrom(result))
 				);
@@ -1555,5 +1589,5 @@ module.exports = class EcRepository {
 			success,
 			failure
 		);
-	};
+	}
 };

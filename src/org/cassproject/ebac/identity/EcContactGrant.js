@@ -15,14 +15,14 @@ module.exports = class EcContactGrant extends EbacContactGrant {
 	 *  @return {boolean}
 	 *  true if valid, false if not
 	 */
-	valid() {
+	valid(eim) {
 		if (!this.verify()) return false;
 		if (this.invalid()) return false;
 		var found = false;
-		for (var i = 0; i < EcIdentityManager.ids.length; i++) {
+		for (var i = 0; i < eim.ids.length; i++) {
 			if (
 				EcRsaOaep.verify(
-					EcIdentityManager.ids[i].ppk.toPk(),
+					eim.ids[i].ppk.toPk(),
 					this.responseToken,
 					this.responseSignature
 				)

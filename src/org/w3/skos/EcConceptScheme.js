@@ -28,8 +28,8 @@ module.exports = class EcConceptScheme extends ConceptScheme {
 	 *  @method get
 	 *  @static
 	 */
-	static get(id, success, failure) {
-		return EcRepository.getAs(id, new EcConceptScheme(), success, failure);
+	static get(id, success, failure, repo, eim) {
+		return EcRepository.getAs(id, new EcConceptScheme(), success, failure, repo, eim);
 	}
 	/**
 	 *  Retrieves a concept scheme from the server in a blocking fashion, specified by the ID
@@ -45,8 +45,8 @@ module.exports = class EcConceptScheme extends ConceptScheme {
 	 *  @method getBlocking
 	 *  @static
 	 */
-	static getBlocking(id) {
-		return EcRepository.getAs(id, new EcConceptScheme());
+	static getBlocking(id, repo, eim) {
+		return EcRepository.getAs(id, new EcConceptScheme(), null, null, repo, eim);
 	}
 	/**
 	 *  Searches the repository given for concept schemes using the query passed in
@@ -66,14 +66,14 @@ module.exports = class EcConceptScheme extends ConceptScheme {
 	 *  @method search
 	 *  @static
 	 */
-	static search(repo, query, success, failure, paramObj) {
+	static search(repo, query, success, failure, paramObj, eim) {
 		return EcRepository.searchAs(
 			repo,
 			query,
 			() => new EcConceptScheme(),
 			success,
 			failure,
-			paramObj
+			paramObj, eim
 		);
 	}
 };

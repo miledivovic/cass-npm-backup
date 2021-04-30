@@ -1,3 +1,5 @@
+let FormData = require("form-data");
+
 /**
  *  Logs into and stores/retrieves credentials from a compatible remote server.
  *  Performs anonymization of the user.

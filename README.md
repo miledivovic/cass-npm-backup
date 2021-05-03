@@ -1,3 +1,7 @@
+# 0.5.4 to 0.5.5
+* Now testing against Node 12-16
+* Fixed node async worker based cryptography.
+
 # 0.5.3 to 0.5.4
 * Bug fixes. Dependency updates.
 

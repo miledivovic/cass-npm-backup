@@ -19,20 +19,19 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static encrypt(pk, plainText, success, failure) {
-		if (!EcCrypto.testMode)
-			if (
-				crypto == null ||
-				crypto === undefined ||
-				crypto.subtle == null ||
-				crypto.subtle === undefined
-			) {
-				return EcRsaOaepAsyncWorker.encrypt(
-					pk,
-					plainText,
-					success,
-					failure
-				);
-			}
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
+			return EcRsaOaepAsyncWorker.encrypt(
+				pk,
+				plainText,
+				success,
+				failure
+			);
+		}
 		var keyUsages = [];
 		keyUsages.push("encrypt");
 		var algorithm = {};
@@ -42,7 +41,7 @@ module.exports = class EcRsaOaepAsync {
 		if (pk.key == null) {
 			p = crypto.subtle
 				.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages)
-				.then(function(key) {
+				.then(function (key) {
 					pk.key = key;
 					return crypto.subtle.encrypt(
 						algorithm,
@@ -76,28 +75,26 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static decrypt(ppk, cipherText, success, failure) {
-		if (!EcCrypto.testMode)
-			if (EcCrypto.caching) {
-				var cacheGet = null;
-				cacheGet = EcCrypto.decryptionCache[ppk.toPem() + ciphertext];
-				if (cacheGet != null) {
-					return cassReturnAsPromise(cacheGet, success, failure);
-				}
+		if (EcCrypto.caching) {
+			var cacheGet = null;
+			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + ciphertext];
+			if (cacheGet != null) {
+				return cassReturnAsPromise(cacheGet, success, failure);
 			}
-		if (!EcCrypto.testMode)
-			if (
-				crypto == null ||
-				crypto === undefined ||
-				crypto.subtle == null ||
-				crypto.subtle === undefined
-			) {
-				return EcRsaOaepAsyncWorker.decrypt(
-					ppk,
-					cipherText,
-					success,
-					failure
-				);
-			}
+		}
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
+			return EcRsaOaepAsyncWorker.decrypt(
+				ppk,
+				cipherText,
+				success,
+				failure
+			);
+		}
 		var algorithm = {};
 		algorithm.name = "RSA-OAEP";
 		algorithm.hash = "SHA-1";
@@ -117,7 +114,7 @@ module.exports = class EcRsaOaepAsync {
 			keyUsages.push("decrypt");
 			let p = crypto.subtle
 				.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages)
-				.then(function(key) {
+				.then(function (key) {
 					ppk.key = key;
 					return crypto.subtle.decrypt(
 						algorithm,
@@ -156,10 +153,14 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static sign(ppk, text, success, failure) {
-		if (!EcCrypto.testMode)
-			if (crypto == null || crypto.subtle == null) {
-				return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
-			}
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
+			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
+		}
 		if (text == null) {
 			return cassReturnAsPromise(null, success, failure);
 		}
@@ -172,7 +173,7 @@ module.exports = class EcRsaOaepAsync {
 			return cassPromisify(
 				crypto.subtle
 					.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages)
-					.then(function(key) {
+					.then(function (key) {
 						ppk.signKey = key;
 						return crypto.subtle
 							.sign(
@@ -180,7 +181,7 @@ module.exports = class EcRsaOaepAsync {
 								key,
 								EcCrypto.str2ab(forge.util.encodeUtf8(text))
 							)
-							.then(function(p1) {
+							.then(function (p1) {
 								return base64.encode(p1);
 							});
 					}),
@@ -195,7 +196,7 @@ module.exports = class EcRsaOaepAsync {
 						ppk.signKey,
 						EcCrypto.str2ab(forge.util.encodeUtf8(text))
 					)
-					.then(function(p1) {
+					.then(function (p1) {
 						return base64.encode(p1);
 					}),
 				success,
@@ -215,11 +216,15 @@ module.exports = class EcRsaOaepAsync {
 	 *  @method signSha256
 	 *  @static
 	 */
-	static signSha256 = function(ppk, text, success, failure) {
-		if (!EcCrypto.testMode)
-			if (crypto == null || crypto.subtle == null) {
-				return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
-			}
+	static signSha256 = function (ppk, text, success, failure) {
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
+			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
+		}
 		var keyUsages = [];
 		keyUsages.push("sign");
 		var algorithm = {};
@@ -229,7 +234,7 @@ module.exports = class EcRsaOaepAsync {
 		if (ppk.signKey256 == null)
 			p = crypto.subtle
 				.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages)
-				.then(function(key) {
+				.then(function (key) {
 					ppk.signKey256 = key;
 					return crypto.subtle.sign(
 						algorithm,
@@ -244,7 +249,7 @@ module.exports = class EcRsaOaepAsync {
 				EcCrypto.str2ab(forge.util.encodeUtf8(text))
 			);
 
-		p = p.then(function(p1) {
+		p = p.then(function (p1) {
 			return base64.encode(p1);
 		});
 		return cassPromisify(p, success, failure);
@@ -264,16 +269,20 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static verify(pk, text, signature, success, failure) {
-		if (!EcCrypto.testMode)
-			if (crypto == null || crypto.subtle == null) {
-				return EcRsaOaepAsyncWorker.verify(
-					pk,
-					text,
-					signature,
-					success,
-					failure
-				);
-			}
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
+			return EcRsaOaepAsyncWorker.verify(
+				pk,
+				text,
+				signature,
+				success,
+				failure
+			);
+		}
 		var algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-1";
@@ -283,7 +292,7 @@ module.exports = class EcRsaOaepAsync {
 			return cassPromisify(
 				crypto.subtle
 					.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages)
-					.then(function(key) {
+					.then((key) => {
 						pk.signKey = key;
 						return crypto.subtle.verify(
 							algorithm,
@@ -323,16 +332,20 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static verifySha256(pk, text, signature, success, failure) {
-		if (!EcCrypto.testMode)
-			if (crypto == null || crypto.subtle == null) {
-				return EcRsaOaepAsyncWorker.verify(
-					pk,
-					text,
-					signature,
-					success,
-					failure
-				);
-			}
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
+			return EcRsaOaepAsyncWorker.verify(
+				pk,
+				text,
+				signature,
+				success,
+				failure
+			);
+		}
 		var algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-256";
@@ -342,7 +355,7 @@ module.exports = class EcRsaOaepAsync {
 			return cassPromisify(
 				crypto.subtle
 					.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages)
-					.then(function(key) {
+					.then(function (key) {
 						pk.signKey256 = key;
 						return crypto.subtle.verify(
 							algorithm,

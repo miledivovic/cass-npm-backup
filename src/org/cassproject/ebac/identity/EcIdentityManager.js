@@ -499,7 +499,7 @@ module.exports = class EcIdentityManager {
 	 *  @method sign
 	 *  @static
 	 */
-	sign(d) {
+	async sign(d) {
 		let promises = [];
 		if (d.owner != null) {
 			for (var i = 0; i < d.owner.length; i++) {
@@ -507,7 +507,7 @@ module.exports = class EcIdentityManager {
 					EcPk.fromPem(d.owner[i])
 				);
 				if (attempt != null) {
-					promises.push(d.signWith(attempt));
+					promises.push(await d.signWith(attempt));
 				}
 			}
 		}

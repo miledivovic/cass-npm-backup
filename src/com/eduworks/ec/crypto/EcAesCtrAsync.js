@@ -20,7 +20,12 @@ module.exports = class EcAesCtrAsync {
 	 *  @static
 	 */
 	static encrypt(plaintext, secret, iv, success, failure) {
-		if (crypto == null || crypto.subtle == null) {
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
 			return EcAesCtrAsyncWorker.encrypt(
 				plaintext,
 				secret,
@@ -46,10 +51,10 @@ module.exports = class EcAesCtrAsync {
 					false,
 					keyUsages
 				)
-				.then(function(key) {
+				.then(function (key) {
 					return crypto.subtle
 						.encrypt(algorithm, key, data)
-						.then(function(p1) {
+						.then(function (p1) {
 							return base64.encode(p1);
 						});
 				}),
@@ -78,15 +83,19 @@ module.exports = class EcAesCtrAsync {
 				return cassReturnAsPromise(cacheGet, success, failure);
 			}
 		}
-		if (crypto == null || crypto.subtle == null) {
-			EcAesCtrAsyncWorker.decrypt(
+		if (
+			crypto == null ||
+			crypto === undefined ||
+			crypto.subtle == null ||
+			crypto.subtle === undefined
+		) {
+			return EcAesCtrAsyncWorker.decrypt(
 				ciphertext,
 				secret,
 				iv,
 				success,
 				failure
 			);
-			return;
 		}
 		var keyUsages = ["encrypt", "decrypt"];
 		var algorithm = {};
@@ -104,10 +113,10 @@ module.exports = class EcAesCtrAsync {
 					false,
 					keyUsages
 				)
-				.then(function(key) {
+				.then(function (key) {
 					return crypto.subtle
 						.decrypt(algorithm, key, data)
-						.then(function(p1) {
+						.then(function (p1) {
 							EcCrypto.decryptionCache[
 								secret + iv + ciphertext
 							] = EcCrypto.ab2str(p1);

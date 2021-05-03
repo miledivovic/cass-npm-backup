@@ -1,0 +1,16 @@
+FROM node:10
+WORKDIR code
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+RUN npm install
+
+COPY index.js index.js
+COPY src src
+COPY lib lib
+RUN npm pack > ver.ver
+RUN rm -rf index.js src lib package.json package-lock.json node_modules
+
+COPY test.js test.js
+RUN npm i *.tgz
+RUN sed -i '1crequire("cassproject");' test.js
+CMD node test.js

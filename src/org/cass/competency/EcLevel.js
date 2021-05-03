@@ -115,7 +115,7 @@ module.exports = class EcLevel extends Level {
 	 *  @memberOf EcLevel
 	 *  @method addRelationship
 	 */
-	addRelationship(
+	async addRelationship(
 		targetLevel,
 		alignmentType,
 		identity,
@@ -132,7 +132,7 @@ module.exports = class EcLevel extends Level {
 		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
 			a.generateId(serverUrl);
 		else a.generateShortId(serverUrl);
-		a.signWith(identity);
+		await a.signWith(identity);
 		return a.save(success, failure, repo, eim);
 	}
 	/**

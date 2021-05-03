@@ -1,4 +1,3 @@
-
 if (global.forge === undefined)
     if (typeof __webpack_require__ === 'function') {
         var forge = require("forge");
@@ -13,10 +12,10 @@ var registerPromiseWorker = require('promise-worker/register');
 registerPromiseWorker(function (e) {
     var data = e;
     try {
-        switch (data.cmd) {
+        switch (data.cmd) { 
             case 'encryptRsaOaep':
                 return forge.util.encode64(forge.pki.publicKeyFromPem(data.pk)
-                    .encrypt(data.text, "RSA-OAEP"))
+                    .encrypt(data.text, "RSA-OAEP"));
             case 'decryptRsaOaep':
                 return forge.pki.privateKeyFromPem(data.ppk).decrypt(
                     forge.util.decode64(data.text), "RSA-OAEP");

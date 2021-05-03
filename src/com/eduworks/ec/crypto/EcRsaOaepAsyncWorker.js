@@ -1,5 +1,10 @@
-var Worker = require("web-worker");
+
+if (global.Worker === undefined || global.Worker == null)
+	global.Worker = require("web-worker");
 var PromiseWorker = require("promise-worker");
+const path = require('path');
+const url = require('url');
+
 /**
  *  Asynchronous implementation of {{#crossLink
  *  "EcRsaOaep"}}EcRsaOaep{{/crossLink}}. Uses web workers and assumes 8 workers.
@@ -26,18 +31,14 @@ module.exports = class EcRsaOaepAsyncWorker {
 	}
 	static createWorker(index) {
 		let wkr = null;
-		if (typeof window !== "undefined" && window["scriptPath"] != null)
-			EcRsaOaepAsyncWorker.w.push(
-				new PromiseWorker(
-					wkr = new Worker(
-						window["scriptPath"] + "lib/forgeAsync.js"
-					)
-				)
-			);
-		else
-			EcRsaOaepAsyncWorker.w.push(
-				new PromiseWorker(wkr = new Worker("lib/forgeAsync.js"))
-			);
+		try {
+			wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsync.js')));
+		} catch (e) {
+			console.trace(e);
+			// Eat quietly.
+		}
+		if (wkr != null)
+			EcRsaOaepAsyncWorker.w.push(new PromiseWorker(wkr));
 	}
 	/**
 	 *  Asynchronous form of {{#crossLink
@@ -107,11 +108,11 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["text"] = ciphertext;
 		o["cmd"] = "decryptRsaOaep";
 		let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o);
-		p = p.then(function(decrypted) {
+		p = p.then(function (decrypted) {
 			return forge.util.decodeUtf8(decrypted);
 		});
 		if (EcCrypto.caching)
-			p = p.then(function(decrypted) {
+			p = p.then(function (decrypted) {
 				return EcCrypto.decryptionCache[
 					ppk.toPem() + ciphertext
 				] = decrypted;
@@ -162,7 +163,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	 *  @method signSha256
 	 *  @static
 	 */
-	static signSha256 = function(ppk, text, success, failure) {
+	static signSha256 = function (ppk, text, success, failure) {
 		EcRsaOaepAsyncWorker.initWorker();
 		if (!EcCrypto.testMode)
 			if (EcRsaOaepAsyncWorker.w == null) {

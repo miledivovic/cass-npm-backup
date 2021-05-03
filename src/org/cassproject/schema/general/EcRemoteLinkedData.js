@@ -236,9 +236,9 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @param {EcPpk} ppk Public private keypair.
 	 *  @method signWith
 	 */
-	signWith(ppk) {
+	async signWith(ppk) {
 		var signableJson = this.toSignableJson();
-		var signed = EcRsaOaep.sign(ppk, signableJson);
+		var signed = await EcRsaOaepAsync.sign(ppk, signableJson);
 		if (this.signature != null) {
 			for (var i = 0; i < this.signature.length; i++)
 				if (this.signature[i] == signed) return;
@@ -269,10 +269,11 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 								this.toSignableJson(),
 								sig
 							);
+							console.log(verify);
 						} catch (ex) {
 							verify = false;
 						}
-						if (verify) {
+						if (verify == true) {
 							works = true;
 							break;
 						}

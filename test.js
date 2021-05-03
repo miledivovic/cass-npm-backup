@@ -728,14 +728,15 @@ class EcRemoteLinkedDataTest {
         f.generateId("http://localhost:9722/api");
         f["checksum"] = "ABC123";
         f.addOwner(ppk.toPk());
-        f.signWith(ppk);
+        await f.signWith(ppk);
         console.log("Signature: " + f.signature[0]);
         Assert.assertTrue("Signature Verification", (await f.verify()));
         f.removeOwner(ppk.toPk());
         Assert.assertTrue("Removed Owner Verification", !(await f.verify()));
         f.addOwner(ppk2.toPk());
         f.addOwner(ppk.toPk());
-        f.signWith(ppk);
+        await f.signWith(ppk);
+        console.log("Signature: " + f.signature[0]);
         Assert.assertTrue(
             "Multi Owner Single Signature Verification",
             await f.verify()
@@ -747,7 +748,7 @@ class EcRemoteLinkedDataTest {
         );
         f.signature[0] = "z" + f.signature[0].substring(1);
         console.log("Tampered Signature: " + f.signature[0]);
-        Assert.assertTrue("Tampered Signature Verification", !(await f.verify()));
+        Assert.assertFalse("Tampered Signature Verification", await f.verify());
     };
 }
 class EcContactTest {

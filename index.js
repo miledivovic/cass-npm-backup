@@ -1,3 +1,5 @@
+console.log("cass 0.5.6");
+
 global.generateUUID = function () {
     var d = new Date().getTime();
     if (typeof window !== "undefined" && window && window.performance && typeof window.performance.now === "function") {
@@ -24,7 +26,7 @@ global.cassPromisify = function (p, success, failure) {
 global.cassReturnAsPromise = function (o, success, failure, error) {
     let p = new Promise((resolve, reject) => {
         if (o === undefined || o == null) {
-            console.trace(error);
+            //console.trace(error);
             reject(new Error(error));
         }
         else

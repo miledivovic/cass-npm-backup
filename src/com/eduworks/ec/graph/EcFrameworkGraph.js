@@ -38,7 +38,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	 *  @method addFramework
 	 *  @memberOf EcFrameworkGraph
 	 */
-	async addFramework(framework, repo, success, failure, eim) {
+	async addFramework(framework, repo, success, failure) {
 		this.repo = repo;
 		this.frameworks.push(framework);
 		if (framework.competency == null) framework.competency = [];
@@ -47,14 +47,14 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 			framework.competency,
 			async (data) => {
 				await Promise.all(
-					data.map((d) => this.handleCacheElement(d, framework, eim))
+					data.map((d) => this.handleCacheElement(d, framework))
 				);
 				await repo.multiget(
 					framework.relation,
 					async (data2) => {
 						await Promise.all(
 							data2.map((d2) =>
-								this.handleCacheElement(d2, framework, eim)
+								this.handleCacheElement(d2, framework)
 							)
 						);
 						success();
@@ -65,9 +65,9 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 			failure, this.eim
 		);
 	}
-	async handleCacheElement(d, framework, eim) {
+	async handleCacheElement(d, framework) {
 		if (d.isAny(new EcEncryptedValue().getTypes()))
-			d = await EcEncryptedValue.fromEncryptedValue(d, null, null, eim);
+			d = await EcEncryptedValue.fromEncryptedValue(d, null, null, this.eim);
 		if (d == null) return;
 		if (d.isAny(new EcCompetency().getTypes())) {
 			let c = new EcCompetency().copyFrom(d);
@@ -101,7 +101,6 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 			Promise.all(
 				assertions.map(async (assertion) => {
 					if (!this.containsVertexById(assertion.competency)) {
-						console.log("Could not find " + assertion.competency);
 						return;
 					}
 					let negative = await assertion.getNegative();
@@ -279,7 +278,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		);
 	}
 	containsVertexByShortId(shortId) {
-		return this.competencyMap[shortId] != null;
+		return this.competencyMap[shortId] !== undefined && this.competencyMap[shortId] != null;
 	}
 	containsEdge(competency) {
 		return this.edgeMap[competency.shortId()] != null;

@@ -133,8 +133,8 @@ module.exports = class EcRepository {
 						error != null &&
 						error.toString !== undefined
 					)
-						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
-							return null;
+					if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
+						return null;
 					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
 						return null;
 					throw error;
@@ -175,7 +175,18 @@ module.exports = class EcRepository {
 				);
 			} else {
 				if (EcRepository.caching) EcRepository.cache[url] = null;
-				return cassReturnAsPromise(null, success, failure, error);
+				return cassReturnAsPromise(null, success, failure, error).catch((error) => {
+					if (
+						error !== undefined &&
+						error != null &&
+						error.toString !== undefined
+					)
+					if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
+						return null;
+					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
+						return null;
+					throw error;
+				});
 			}
 		});
 		return p;
@@ -813,28 +824,25 @@ module.exports = class EcRepository {
 	precache = function (urls, success, failure, eim) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
-		var cacheUrls = [];
-		urls.map((url) => {
-			if (url.startsWith(this.selectedServer)) {
-				cacheUrls.push(
-					url.replace(this.selectedServer, "").replace("custom/", "")
-				);
-			} else {
-				cacheUrls.push("data/" + EcCrypto.md5(url));
-			}
-		});
-		urls = cacheUrls;
-		for (var i = 0; i < urls.length; i++) {
-			var url = urls[i];
-			if (EcRepository.cache[url] !== undefined) {
-				urls.splice(i--, 1);
-			}
+		if (urls == null) {
+			throw new Error("urls not defined.");
 		}
-		if (urls == null || urls.length == 0) {
+		if (EcRepository.caching == true)
+			urls = urls.filter(url => EcRepository.cache[url] === undefined);
+		urls = urls.map(
+			url => {
+				if (url.startsWith(this.selectedServer))
+					return url.replace(this.selectedServer, "").replace("custom/", "");
+				return ("data/" + EcCrypto.md5(url));
+			}
+		);
+		if (EcRepository.caching == true)
+			urls = urls.filter(url => EcRepository.cache[url] === undefined);
+		if (urls.length == 0) {
 			return new Promise((resolve, reject) => resolve());
 		}
 		var fd = new FormData();
-		fd.append("data", JSON.stringify(cacheUrls));
+		fd.append("data", JSON.stringify(urls));
 		let p = new Promise((resolve, reject) => resolve());
 		if (EcRepository.unsigned == false)
 			p = p.then(() => {
@@ -860,9 +868,9 @@ module.exports = class EcRepository {
 					results[i] = d;
 					if (EcRepository.caching) {
 						if (!EcRepository.shouldTryUrl(d.id)) {
-							for (var j = 0; j < cacheUrls.length; j++) {
-								var url = cacheUrls[j];
-								if (url.indexOf(EcCrypto.md5(url)) != -1) {
+							for (var j = 0; j < urls.length; j++) {
+								var url = urls[j];
+								if (url.indexOf(EcCrypto.md5(d.shortId())) != -1) {
 									EcRepository.cache[url] = d;
 									break;
 								}
@@ -1539,12 +1547,13 @@ module.exports = class EcRepository {
 					EcRepository.cache[result.id] = result;
 				}
 				if (success != null) success(result);
+				return result;
 			} else {
 				var msg =
 					"Retrieved object was not a " +
 					result.getFullType();
 				if (failure != null) failure(msg);
-				else console.error(msg);
+				else throw new Error(msg);
 			}
 		}, failure);
 	}

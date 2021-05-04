@@ -352,7 +352,8 @@ module.exports = class EcAssertion extends Assertion {
 		return this.evidence.length;
 	}
 	async getEvidence(index, eim) {
-		if (this.evidence == null) return null;
+		if (this.evidence === undefined || this.evidence == null) 
+			return null;
 		var v = new EcEncryptedValue();
 		v.copyFrom(this.evidence[index]);
 		var codebook = Assertion.getCodebook(this);
@@ -367,6 +368,26 @@ module.exports = class EcAssertion extends Assertion {
 				.catch((error) => null);
 		}
 		return decryptedString;
+	}
+	async getEvidences(eim) {
+		if (this.evidence === undefined || this.evidence == null)
+			return null;
+		return this.evidence.map(async ev => {
+			var v = new EcEncryptedValue();
+			v.copyFrom(ev);
+			var codebook = Assertion.getCodebook(this);
+			var decryptedString;
+			if (codebook != null)
+				decryptedString = await v
+					.decryptIntoStringUsingSecret(codebook.evidence[index])
+					.catch((error) => null);
+			else {
+				decryptedString = await v
+					.decryptIntoString(null, null, eim)
+					.catch((error) => null);
+			}
+			return decryptedString;
+		});
 	}
 	// @deprecated
 	getEvidencesAsync(success, failure, eim) {

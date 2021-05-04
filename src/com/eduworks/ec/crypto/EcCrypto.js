@@ -12,6 +12,7 @@ module.exports = class EcCrypto {
 	static testMode = false;
 	static deprecationNotice = false;
 	static decryptionCache = {};
+	static md5Cache = {};
 	/**
 	 *  Calculate MD5 hash of a string.
 	 *  @param {String} s String to MD5
@@ -19,7 +20,15 @@ module.exports = class EcCrypto {
 	 *  @static
 	 *  @method md5
 	 */
-	static md5 = function(s) {
+	static md5 = function (s) {
+		if (EcCrypto.caching) {
+			if (EcCrypto.md5Cache[s] === undefined) {
+				var m = forge.md.md5.create();
+				m.update(s);
+				EcCrypto.md5Cache[s] = m.digest().toHex();
+			}
+			return EcCrypto.md5Cache[s];
+		}
 		var m = forge.md.md5.create();
 		m.update(s);
 		return m.digest().toHex();
@@ -31,7 +40,7 @@ module.exports = class EcCrypto {
 	 *  @static
 	 *  @method sha256
 	 */
-	static sha256 = function(s) {
+	static sha256 = function (s) {
 		var m = forge.md.sha256.create();
 		m.update(s, "utf8");
 		return m.digest().toHex();

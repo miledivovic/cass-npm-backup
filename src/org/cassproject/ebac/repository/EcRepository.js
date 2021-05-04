@@ -133,8 +133,8 @@ module.exports = class EcRepository {
 						error != null &&
 						error.toString !== undefined
 					)
-					if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
-						return null;
+						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
+							return null;
 					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
 						return null;
 					throw error;
@@ -181,8 +181,8 @@ module.exports = class EcRepository {
 						error != null &&
 						error.toString !== undefined
 					)
-					if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
-						return null;
+						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
+							return null;
 					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
 						return null;
 					throw error;
@@ -867,15 +867,8 @@ module.exports = class EcRepository {
 					d.copyFrom(results[i]);
 					results[i] = d;
 					if (EcRepository.caching) {
-						if (!EcRepository.shouldTryUrl(d.id)) {
-							for (var j = 0; j < urls.length; j++) {
-								var url = urls[j];
-								if (url.indexOf(EcCrypto.md5(d.shortId())) != -1) {
-									EcRepository.cache[url] = d;
-									break;
-								}
-							}
-						}
+						if (!d.shortId().startsWith(this.selectedServer))
+							EcRepository.cache[this.selectedServer + "data/" + EcCrypto.md5(d.shortId())] = d;
 						EcRepository.cache[d.shortId()] = d;
 						EcRepository.cache[d.id] = d;
 						EcRepository.cache[

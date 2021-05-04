@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "0.5.6",
+	"version": "0.5.7",
 	"description": "Competency and Skills Service",
 	"main": "index.js",
 	"scripts": {
@@ -16,7 +16,6 @@
 		"testNode12": "docker kill npm-cass & docker rm -f npm-cass & docker build --progress plain -f docker/node12 -t npm-cass . & docker run --network=\"host\" --name npm-cass npm-cass",
 		"autotest": "nodemon test.js",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
-		"publish": "npm publish",
 		"docs": "yuidoc -c yuidoc.json -o docs -e .js src",
 		"doclint": "yuidoc --lint -c yuidoc.json -o docs -e .js src"
 	},

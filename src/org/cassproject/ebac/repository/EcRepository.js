@@ -133,14 +133,10 @@ module.exports = class EcRepository {
 						error != null &&
 						error.toString !== undefined
 					)
-						if (
-							error
-								.toString()
-								.indexOf(
-									"Could not locate object. May be due to EcRepository.alwaysTryUrl flag."
-								) != -1
-						)
+						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
 							return null;
+					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
+						return null;
 					throw error;
 				});
 			}
@@ -866,7 +862,7 @@ module.exports = class EcRepository {
 						if (!EcRepository.shouldTryUrl(d.id)) {
 							for (var j = 0; j < cacheUrls.length; j++) {
 								var url = cacheUrls[j];
-								if (url.indexOf(md5) != -1) {
+								if (url.indexOf(EcCrypto.md5(url)) != -1) {
 									EcRepository.cache[url] = d;
 									break;
 								}
@@ -876,7 +872,7 @@ module.exports = class EcRepository {
 						EcRepository.cache[d.id] = d;
 						EcRepository.cache[
 							EcRemoteLinkedData.veryShortId(
-								me.selectedServer,
+								this.selectedServer,
 								d.getGuid()
 							)
 						] = d;
@@ -976,13 +972,7 @@ module.exports = class EcRepository {
 		if (EcRepository.cachingSearch) {
 			cacheKey = JSON.stringify(paramProps) + query;
 			if (EcRepository.cache[cacheKey] != null) {
-				this.handleSearchResults(
-					EcRepository.cache[cacheKey],
-					eachSuccess,
-					success,
-					failure
-				);
-				return;
+				return cassReturnAsPromise(EcRepository.cache[cacheKey], success, failure);
 			}
 		} else {
 			cacheKey = null;
@@ -1013,9 +1003,6 @@ module.exports = class EcRepository {
 				"sky/repo/search",
 				fd
 			).then((results) => {
-				if (EcRepository.cachingSearch) {
-					EcRepository.cache[cacheKey] = p1;
-				}
 				if (results == null) {
 					throw "Error in search. See HTTP request for more details.";
 				}
@@ -1032,6 +1019,9 @@ module.exports = class EcRepository {
 						return d;
 					})
 					.filter((n) => n);
+				if (EcRepository.cachingSearch) {
+					EcRepository.cache[cacheKey] = results;
+				}
 				return results;
 			});
 		});
@@ -1530,37 +1520,33 @@ module.exports = class EcRepository {
 		);
 	};
 	static getAs(id, result, success, failure, repo, eim) {
-		EcRepository.get(
-			id,
-			function (p1) {
-				if (p1.getClass() == result.getClass())
-					if (success != null) {
-						success(p1);
-						return;
-					}
-				EcEncryptedValue.fromEncryptedValue(
-					p1,
-					function (p1) {
-						if (p1.isAny(result.getTypes())) {
-							result.copyFrom(p1);
-							if (EcRepository.caching) {
-								EcRepository.cache[result.shortId()] = result;
-								EcRepository.cache[result.id] = result;
-							}
-							if (success != null) success(result);
-						} else {
-							var msg =
-								"Retrieved object was not a " +
-								result.getFullType();
-							if (failure != null) failure(msg);
-							else console.error(msg);
-						}
-					},
-					failure, eim
-				);
-			},
-			failure, repo, eim
-		);
+		return EcRepository.get(id, null, null, repo, eim).then(async (p1) => {
+			if (p1 == null)
+				return null;
+			if (p1.isAny(result.getTypes())) {
+				if (success != null) {
+					return success(p1);
+				} else
+					return p1;
+			}
+			p1 = await EcEncryptedValue.fromEncryptedValue(
+				p1, null, null, eim
+			);
+			if (p1.isAny(result.getTypes())) {
+				result.copyFrom(p1);
+				if (EcRepository.caching) {
+					EcRepository.cache[result.shortId()] = result;
+					EcRepository.cache[result.id] = result;
+				}
+				if (success != null) success(result);
+			} else {
+				var msg =
+					"Retrieved object was not a " +
+					result.getFullType();
+				if (failure != null) failure(msg);
+				else console.error(msg);
+			}
+		}, failure);
 	}
 	static searchAs(
 		repo,

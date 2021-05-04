@@ -4181,7 +4181,7 @@ class EcFrameworkTest {
         EcFrameworkTest.frameworkId = EcFrameworkTest.framework.id;
         EcFrameworkTest.framework.addOwner(EcFrameworkTest.ppk.toPk());
         console.log("Saving Framework...");
-        EcFrameworkTest.framework.save(
+        await EcFrameworkTest.framework.save(
             function (p1) {
                 EcFrameworkTest.frameworkId = EcFrameworkTest.framework.id;
                 console.log("Framework Saved.");
@@ -4191,6 +4191,7 @@ class EcFrameworkTest {
             },
             null
         );
+        EcFrameworkTest.framework = await EcFramework.get(EcFrameworkTest.framework.shortId());
         EcFrameworkTest.comp = new EcCompetency();
         EcFrameworkTest.comp.generateId(EcFrameworkTest.server);
         EcFrameworkTest.comp.setName("Test Competency");

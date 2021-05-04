@@ -287,7 +287,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	async getCompetency(competencyId) {
 		var c = null;
 		c = this.competencyMap[competencyId];
-		if (c == null) c = await EcCompetency.get(competencyId, null, null, repo, eim);
+		if (c == null) c = await EcCompetency.get(competencyId, null, null, this.repo, this.eim);
 		return c;
 	}
 	getCompetencySoft(competencyId) {

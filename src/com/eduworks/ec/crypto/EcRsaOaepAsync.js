@@ -77,7 +77,7 @@ module.exports = class EcRsaOaepAsync {
 	static decrypt(ppk, cipherText, success, failure) {
 		if (EcCrypto.caching) {
 			var cacheGet = null;
-			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + ciphertext];
+			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + cipherText];
 			if (cacheGet != null) {
 				return cassReturnAsPromise(cacheGet, success, failure);
 			}

@@ -223,7 +223,7 @@ module.exports = {
 		 * 'id-length': 0,
 		 * 'id-match': 0,
 		 */
-		indent: ["error", "tab"],
+		indent: 0,
 		// 'jsx-quotes': 0, // depends
 		"key-spacing": 2, // 3.6.2
 		"keyword-spacing": 2, // 3.6.2

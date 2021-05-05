@@ -273,7 +273,7 @@ module.exports = class EcAssertion extends Assertion {
 		var decrypted = function (decryptedString) {
 			if (decryptedString == null)
 				failure("Could not decrypt assertion date.");
-			else success(Long.parseLong(decryptedString));
+			else success(parseInt(decryptedString));
 		};
 		var codebook = Assertion.getCodebook(this);
 		if (codebook != null)
@@ -336,7 +336,7 @@ module.exports = class EcAssertion extends Assertion {
 		var decrypted = function (decryptedString) {
 			if (decryptedString == null)
 				failure("Could not decrypt expiration date.");
-			else success(Long.parseLong(decryptedString));
+			else success(parseInt(decryptedString));
 		};
 		var codebook = Assertion.getCodebook(this);
 		if (codebook != null)
@@ -352,7 +352,7 @@ module.exports = class EcAssertion extends Assertion {
 		return this.evidence.length;
 	}
 	async getEvidence(index, eim) {
-		if (this.evidence === undefined || this.evidence == null) 
+		if (this.evidence === undefined || this.evidence == null)
 			return null;
 		var v = new EcEncryptedValue();
 		v.copyFrom(this.evidence[index]);
@@ -580,16 +580,15 @@ module.exports = class EcAssertion extends Assertion {
 				evidences
 					.map((evidence) =>
 						EcEncryptedValue.encryptValue(
-							s,
-							me.id,
-							me.subject.owner,
-							me.subject.reader
+							evidence,
+							this.id,
+							this.subject.owner,
+							this.subject.reader
 						)
 					)
-					.then((evidences) => {
-						this.evidence = evidences;
-					})
-			),
+			).then((evidences) => {
+				this.evidence = evidences;
+			}),
 			success,
 			failure
 		);

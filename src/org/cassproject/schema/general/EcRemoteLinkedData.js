@@ -605,7 +605,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 */
 	getDescription() {
 		var n = this.description;
-		return Thing.getDisplayStringFrom(n);
+		return schema.Thing.getDisplayStringFrom(n);
 	}
 	static getDisplayStringFrom(n) {
 		if (n != null && EcArray.isArray(n)) {

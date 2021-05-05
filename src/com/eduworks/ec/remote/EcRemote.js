@@ -1,4 +1,4 @@
-const {default: axios} = require("axios");
+const { default: axios } = require("axios");
 
 /**
  *  Wrapper to handle all remote web service invocations.
@@ -123,7 +123,14 @@ module.exports = class EcRemote {
 				return response.data;
 			})
 			.catch((err) => {
-				throw err.response.data;
+				if (err) {
+					if (err.response) {
+						if (err.response.data)
+							throw err.response.data;
+					}
+					throw err.response;
+				}
+				throw err;
 			});
 		return cassPromisify(p, successCallback, failureCallback);
 	}
@@ -165,7 +172,14 @@ module.exports = class EcRemote {
 				return response.data;
 			})
 			.catch((err) => {
-				throw err.response.data;
+				if (err) {
+					if (err.response) {
+						if (err.response.data)
+							throw err.response.data;
+					}
+					throw err.response;
+				}
+				throw err;
 			});
 		return cassPromisify(p, success, failure);
 	}
@@ -196,13 +210,20 @@ module.exports = class EcRemote {
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = axios
 			.delete(url, {
-				headers: {signatureSheet: signatureSheet}
+				headers: { signatureSheet: signatureSheet }
 			})
 			.then((response) => {
 				return response.data;
 			})
 			.catch((err) => {
-				throw err.response.data;
+				if (err) {
+					if (err.response) {
+						if (err.response.data)
+							throw err.response.data;
+					}
+					throw err.response;
+				}
+				throw err;
 			});
 		return cassPromisify(p, success, failure);
 	}

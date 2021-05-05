@@ -69,7 +69,7 @@ module.exports = class EcArray {
 	static has = function (a, o) {
 		if (EcArray.isObject(o))
 			for (var i = 0; i < a.length; i++) {
-				if (a[i] == o) return true;
+				if (a[i] === o) return true;
 				try {
 					if (a[i].equals(o)) return true;
 				} catch (e) {
@@ -78,7 +78,7 @@ module.exports = class EcArray {
 			}
 		else
 			for (var i = 0; i < a.length; i++) {
-				if (a[i] == o) {
+				if (a[i] === o) {
 					return true;
 				}
 			}
@@ -111,7 +111,7 @@ module.exports = class EcArray {
 	static indexOf = function (a, o) {
 		if (EcArray.isObject(o))
 			for (var i = 0; i < a.length; i++) {
-				if (a[i] == o) return i;
+				if (a[i] === o) return i;
 				try {
 					if (a[i].equals(o)) return i;
 				} catch (e) {
@@ -120,7 +120,7 @@ module.exports = class EcArray {
 			}
 		else
 			for (var i = 0; i < a.length; i++) {
-				if (a[i] == o) {
+				if (a[i] === o) {
 					return i;
 				}
 			}

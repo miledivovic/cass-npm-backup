@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "0.5.7",
+	"version": "0.5.8",
 	"description": "Competency and Skills Service",
 	"main": "index.js",
 	"scripts": {
@@ -15,6 +15,8 @@
 		"testNode13": "docker kill npm-cass & docker rm -f npm-cass & docker build --progress plain -f docker/node13 -t npm-cass . & docker run --network=\"host\" --name npm-cass npm-cass",
 		"testNode12": "docker kill npm-cass & docker rm -f npm-cass & docker build --progress plain -f docker/node12 -t npm-cass . & docker run --network=\"host\" --name npm-cass npm-cass",
 		"autotest": "nodemon test.js",
+		"mocha": "mocha src/**/*.test.js",
+		"automocha": "nodemon --exec \"npm run mocha\"",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
 		"docs": "yuidoc -c yuidoc.json -o docs -e .js src",
 		"doclint": "yuidoc --lint -c yuidoc.json -o docs -e .js src"
@@ -72,7 +74,9 @@
 	"homepage": "https://github.com/cassproject/cass-npm#readme",
 	"devDependencies": {
 		"babel-eslint": "^10.1.0",
+		"chai": "^4.3.4",
 		"eslint": "^7.25.0",
+		"mocha": "^8.3.2",
 		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
 		"yuidoc-ember-cli-theme": "^1.0.4",

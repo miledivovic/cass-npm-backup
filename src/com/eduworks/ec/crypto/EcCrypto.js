@@ -20,7 +20,7 @@ module.exports = class EcCrypto {
 	 *  @static
 	 *  @method md5
 	 */
-	static md5 = function (s) {
+	static md5(s) {
 		if (EcCrypto.caching) {
 			if (EcCrypto.md5Cache[s] === undefined) {
 				var m = forge.md.md5.create();
@@ -32,7 +32,7 @@ module.exports = class EcCrypto {
 		var m = forge.md.md5.create();
 		m.update(s);
 		return m.digest().toHex();
-	};
+	}
 	/**
 	 *  Calculate SHA-256 hash of a string.
 	 *  @param {String} s String to SHA-256
@@ -40,11 +40,11 @@ module.exports = class EcCrypto {
 	 *  @static
 	 *  @method sha256
 	 */
-	static sha256 = function (s) {
+	static sha256(s) {
 		var m = forge.md.sha256.create();
 		m.update(s, "utf8");
 		return m.digest().toHex();
-	};
+	}
 
 	static ab2str(buf) {
 		return new TextDecoder("utf-8").decode(buf);

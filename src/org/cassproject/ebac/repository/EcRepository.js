@@ -105,7 +105,6 @@ module.exports = class EcRepository {
 				);
 			}
 		}
-
 		if (!EcRepository.shouldTryUrl(url)) {
 			if (EcRepository.repos.length == 1) {
 				if (!url.startsWith(EcRepository.repos[0].selectedServer))

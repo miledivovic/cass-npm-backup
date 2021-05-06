@@ -31,12 +31,14 @@ module.exports = class EcRsaOaepAsyncWorker {
 	}
 	static createWorker(index) {
 		let wkr = null;
+		console.log("creating worker.");
 		try {
 			wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsync.js')));
 		} catch (e) {
 			console.trace(e);
 			// Eat quietly.
 		}
+		console.log(wkr);
 		if (wkr != null)
 			EcRsaOaepAsyncWorker.w.push(new PromiseWorker(wkr));
 	}

@@ -2,6 +2,14 @@ let EcCrypto = require("./EcCrypto.js");
 let EcAes = require("./EcAes.js");
 let chai = require("chai");
 
+if (typeof process === 'undefined')
+    var process = {};
+if (process.hrtime === undefined)
+    process.hrtime = function() {
+        let t = performance.now();
+        return [Math.round(t/1000), t * 1000];
+    };
+
 var should = chai.should();
 var expect = chai.expect;
 var assert = chai.assert;

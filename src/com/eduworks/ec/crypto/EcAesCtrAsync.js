@@ -5,12 +5,13 @@ if (typeof __webpack_require__ === 'function') {
 } else {
 	forge = require("node-forge");
 }
-
-let crypto = null;
-try {
-    crypto = require('crypto').webcrypto;
-} catch (err) {
-    console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
+if (typeof crypto === undefined) {
+	var crypto = null;
+	try {
+		crypto = require('crypto').webcrypto;
+	} catch (err) {
+		console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
+	}
 }
 let EcCrypto = require("./EcCrypto.js");
 let EcAesCtrAsyncWorker = require("./EcAesCtrAsyncWorker.js");

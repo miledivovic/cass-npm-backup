@@ -5,6 +5,16 @@ let EcAes = require("./EcAes.js");
 let EcCrypto = require("./EcCrypto.js");
 let chai = require("chai");
 
+console.log(typeof process == undefined);
+if (typeof process == 'undefined')
+    var process = {};
+console.log("hrtime"+process.hrtime);
+if (process.hrtime == null)
+    process.hrtime = function() {
+        let t = performance.now();
+        return [Math.round(performance.now()/1000), performance.now() * 1000];
+    };
+
 var should = chai.should();
 var expect = chai.expect;
 var assert = chai.assert;
@@ -31,7 +41,7 @@ describe("EcAesCtrAsync", () => {
         var randomString = EcAes.newIv(4096*4);
         var secret = EcAes.newSecret(16);
         var iv = EcAes.newIv(16);
-        var hrTime = process.hrtime();
+        var hrTime = (typeof process === undefined) ? [Math.round(performance.now()/1000), performance.now() * 1000] : process.hrtime();
         var encrypted = await EcAesCtrAsync.encrypt(randomString, secret, iv);
         let elapsed = (process.hrtime()[0]*1000000 + process.hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log(randomString.length/1024+"KB encryption speed: " + elapsed+"ms");

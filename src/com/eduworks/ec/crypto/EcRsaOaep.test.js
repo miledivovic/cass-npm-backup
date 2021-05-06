@@ -9,6 +9,15 @@ var expect = chai.expect;
 var assert = chai.assert;
 
 describe("EcRsaOaep", () => {
+console.log(process);
+if (typeof process === 'undefined')
+    var process = {};
+if (process.hrtime === undefined)
+    process.hrtime = function() {
+        let t = performance.now();
+        return [Math.round(t/1000), t * 1000];
+    };
+
     it('encryption then decryption', () => {
         var randomString = EcAes.newIv(256).substring(0, 190);
         var ppk = EcPpk.fromPem(

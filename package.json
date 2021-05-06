@@ -19,7 +19,8 @@
 		"automocha": "nodemon --exec \"npm run mocha\"",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
 		"docs": "yuidoc -c yuidoc.json -o docs -e .js src",
-		"doclint": "yuidoc --lint -c yuidoc.json -o docs -e .js src"
+		"doclint": "yuidoc --lint -c yuidoc.json -o docs -e .js src",
+		"karma": "karma start --single-run --browsers Chrome karma.conf.js"
 	},
 	"contributors": [
 		{
@@ -74,11 +75,18 @@
 	"homepage": "https://github.com/cassproject/cass-npm#readme",
 	"devDependencies": {
 		"babel-eslint": "^10.1.0",
+		"browserify": "^17.0.0",
 		"chai": "^4.3.4",
 		"eslint": "^7.25.0",
+		"karma": "^6.3.2",
+		"karma-browserify": "^8.0.0",
+		"karma-chai": "^0.1.0",
+		"karma-chrome-launcher": "^3.1.0",
+		"karma-mocha": "^2.0.1",
 		"mocha": "^8.3.2",
 		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
+		"watchify": "^3.11.1",
 		"yuidoc-ember-cli-theme": "^1.0.4",
 		"yuidocjs": "^0.10.2"
 	}

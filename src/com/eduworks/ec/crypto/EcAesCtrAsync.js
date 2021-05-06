@@ -1,4 +1,21 @@
 var base64 = require("base64-arraybuffer");
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
+
+let crypto = null;
+try {
+    crypto = require('crypto').webcrypto;
+} catch (err) {
+    console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
+}
+let EcCrypto = require("./EcCrypto.js");
+let EcAesCtrAsyncWorker = require("./EcAesCtrAsyncWorker.js");
+let cassPromisify = require("../promises/helpers.js").cassPromisify;
+let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 /**
  *  Async version of EcAesCtr that uses browser extensions (window.crypto) to accomplish cryptography much faster.
  *  Falls back to EcAesCtrAsyncWorker, if window.crypto is not available.

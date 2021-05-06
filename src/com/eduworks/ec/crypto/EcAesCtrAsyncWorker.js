@@ -1,3 +1,15 @@
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
+
+let EcCrypto = require("./EcCrypto.js");
+let EcAesCtr = require("./EcAesCtr.js");
+let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
+let cassPromisify = require("../promises/helpers.js").cassPromisify;
+let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 /**
  *  Asynchronous implementation of {{#crossLink
  *  "EcAesCtr"}}EcAesCtr{{/crossLink}}. Uses web workers and assumes 8 workers.
@@ -58,8 +70,7 @@ module.exports = class EcAesCtrAsyncWorker {
 			var cacheGet = null;
 			cacheGet = EcCrypto.decryptionCache[secret + iv + ciphertext];
 			if (cacheGet != null) {
-				success(cacheGet);
-				return;
+				return cassReturnAsPromise(cacheGet, success, failure);
 			}
 		}
 		EcRsaOaepAsyncWorker.initWorker();

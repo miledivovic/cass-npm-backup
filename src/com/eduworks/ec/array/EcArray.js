@@ -1,3 +1,5 @@
+let EcObject = require("./EcObject.js");
+
 /**
  *  Array Helper Functions
  *
@@ -67,7 +69,7 @@ module.exports = class EcArray {
 	 *  @memberOf EcArray
 	 */
 	static has = function (a, o) {
-		if (EcArray.isObject(o))
+		if (EcObject.isObject(o))
 			for (var i = 0; i < a.length; i++) {
 				if (a[i] === o) return true;
 				try {
@@ -85,20 +87,6 @@ module.exports = class EcArray {
 		return false;
 	};
 	/**
-	 *  Returns true if the result is an object.
-	 *
-	 *  @param {any} o Object to test.
-	 *  @return true iff the object is an object.
-	 *  @static
-	 *  @method isObject
-	 *  @memberOf EcArray
-	 */
-	static isObject = function (o) {
-		if (EcArray.isArray(o)) return false;
-		if (o == null) return false;
-		return typeof o == "object";
-	};
-	/**
 	 *  Returns the index of an object or value if the object or value exists in the array. Uses .equals if available.
 	 *
 	 *  @param {Array} a Array to check over.
@@ -109,7 +97,7 @@ module.exports = class EcArray {
 	 *  @memberOf EcArray
 	 */
 	static indexOf = function (a, o) {
-		if (EcArray.isObject(o))
+		if (EcObject.isObject(o))
 			for (var i = 0; i < a.length; i++) {
 				if (a[i] === o) return i;
 				try {

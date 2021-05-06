@@ -1,3 +1,10 @@
+let EcCrypto = require("./EcCrypto.js");
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
 /**
  *  Helper methods for performing RSA Encryption methods. Uses Optimal Asymmetric
  *  Encryption Padding (OAEP) encryption and decryption. Uses RSA SSA PKCS#1 v1.5

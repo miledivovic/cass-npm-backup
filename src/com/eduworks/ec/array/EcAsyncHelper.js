@@ -7,6 +7,7 @@
  *  @author fritz.ray@eduworks.com
  *  @module com.eduworks.ec
  *  @class EcAsyncHelper
+ *  @deprecated
  */
 module.exports = class EcAsyncHelper {
 	static scriptPath = null;

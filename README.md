@@ -1,3 +1,8 @@
+# 0.5.4 to 0.5.8
+* Bug fixes.
+* Performance improvements. Runs ~10x faster than 4.x.x.
+* Added mocha test suite. `npm run mocha` or `npm run automocha` to execute.
+
 # 0.5.4 to 0.5.5
 * Now testing against Node 12-16
 * Fixed node async worker based cryptography.

@@ -1,4 +1,11 @@
 var pemJwk = require("pem-jwk");
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
+let EcPk = require("./EcPk.js");
 /**
  *  Helper classes for dealing with RSA Private Keys.
  *
@@ -25,11 +32,13 @@ module.exports = class EcPpk {
 	 */
 	static fromPem(pem) {
 		var pk = EcPpk.cache[pem];
-		if (pk != null) return pk;
+		if (pk != null)
+			return pk;
 		pk = new EcPpk();
 		try {
 			pk.ppk = forge.pki.privateKeyFromPem(pem);
 		} catch (ex) {
+			console.trace(ex);
 			return null;
 		}
 		EcPpk.cache[pem] = pk;

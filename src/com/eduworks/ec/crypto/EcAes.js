@@ -1,3 +1,9 @@
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
 /**
  *  AES encryption tasks common across all variants of AES.
  *  @class EcAes
@@ -13,6 +19,7 @@ module.exports = class EcAes {
 	 *  @return {string} String representing the new secret, encoded using Base64.
 	 */
 	static newSecret = function(i) {
+		if (i == null) throw new Error("Undefined secret length.");
 		return forge.util.encode64(forge.random.getBytesSync(i));
 	};
 	/**
@@ -23,6 +30,7 @@ module.exports = class EcAes {
 	 *  @return {string} String representing the new Initialization Vector, encoded using Base64.
 	 */
 	static newIv = function(i) {
+		if (i == null) throw new Error("Undefined iv length.");
 		return forge.util.encode64(forge.random.getBytesSync(i));
 	};
 };

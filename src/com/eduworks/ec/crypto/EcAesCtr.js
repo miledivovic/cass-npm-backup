@@ -1,3 +1,10 @@
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
+let EcCrypto = require("./EcCrypto.js");
 /**
  *  Encrypts data synchronously using AES-256-CTR. Requires secret and iv to be 32 bytes.
  *  Output is encoded in base64 for easier handling.
@@ -36,7 +43,7 @@ module.exports = class EcAesCtr {
 			"AES-CTR",
 			forge.util.decode64(secret)
 		);
-		c.start(new EcAesParameters(iv));
+		c.start({iv: forge.util.decode64(iv)});
 		c.update(forge.util.createBuffer(forge.util.encodeUtf8(plaintext)));
 		c.finish();
 		var encrypted = c.output;
@@ -79,7 +86,7 @@ module.exports = class EcAesCtr {
 			"AES-CTR",
 			forge.util.decode64(secret)
 		);
-		c.start(new EcAesParameters(iv));
+		c.start({iv: forge.util.decode64(iv)});
 		c.update(forge.util.createBuffer(forge.util.decode64(ciphertext)));
 		c.finish();
 		var decrypted = c.output;

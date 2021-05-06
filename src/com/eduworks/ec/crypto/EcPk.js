@@ -1,4 +1,10 @@
 var pemJwk = require("pem-jwk");
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
 /**
  *  Helper classes for dealing with RSA Public Keys.
  *

@@ -1,3 +1,9 @@
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
 /**
  *  @author Fritz
  *  @class EcCrypto
@@ -13,6 +19,8 @@ module.exports = class EcCrypto {
 	static deprecationNotice = false;
 	static decryptionCache = {};
 	static md5Cache = {};
+	static sha256Cache = {};
+	
 	/**
 	 *  Calculate MD5 hash of a string.
 	 *  @param {String} s String to MD5
@@ -33,6 +41,7 @@ module.exports = class EcCrypto {
 		m.update(s);
 		return m.digest().toHex();
 	}
+
 	/**
 	 *  Calculate SHA-256 hash of a string.
 	 *  @param {String} s String to SHA-256
@@ -41,6 +50,14 @@ module.exports = class EcCrypto {
 	 *  @method sha256
 	 */
 	static sha256(s) {
+		if (EcCrypto.caching) {
+			if (EcCrypto.sha256Cache[s] === undefined) {
+				var m = forge.md.sha256.create();
+				m.update(s, "utf8");
+				EcCrypto.sha256Cache[s] = m.digest().toHex();
+			}
+			return EcCrypto.sha256Cache[s];
+		}
 		var m = forge.md.sha256.create();
 		m.update(s, "utf8");
 		return m.digest().toHex();

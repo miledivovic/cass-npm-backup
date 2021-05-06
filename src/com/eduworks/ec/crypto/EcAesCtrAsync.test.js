@@ -5,15 +5,14 @@ let EcAes = require("./EcAes.js");
 let EcCrypto = require("./EcCrypto.js");
 let chai = require("chai");
 
-console.log(typeof process == undefined);
-if (typeof process == 'undefined')
-    var process = {};
-console.log("hrtime"+process.hrtime);
-if (process.hrtime == null)
-    process.hrtime = function() {
-        let t = performance.now();
+let hrtime = function() {
+    try {
         return [Math.round(performance.now()/1000), performance.now() * 1000];
-    };
+    } catch (e) {
+        // Eat quietly.
+    }
+    return process.hrtime();
+};
 
 var should = chai.should();
 var expect = chai.expect;
@@ -41,19 +40,19 @@ describe("EcAesCtrAsync", () => {
         var randomString = EcAes.newIv(4096*4);
         var secret = EcAes.newSecret(16);
         var iv = EcAes.newIv(16);
-        var hrTime = (typeof process === undefined) ? [Math.round(performance.now()/1000), performance.now() * 1000] : process.hrtime();
+        var hrTime = typeof process === undefined ? [Math.round(performance.now()/1000), performance.now() * 1000] : hrtime();
         var encrypted = await EcAesCtrAsync.encrypt(randomString, secret, iv);
-        let elapsed = (process.hrtime()[0]*1000000 + process.hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
+        let elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log(randomString.length/1024+"KB encryption speed: " + elapsed+"ms");
-        hrTime = process.hrtime();
+        hrTime = hrtime();
         EcCrypto.caching = true;
         var decrypted = await EcAesCtrAsync.decrypt(encrypted, secret, iv);
-        elapsed = (process.hrtime()[0]*1000000 + process.hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
+        elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log("decryption wout/caching speed: " + elapsed+"ms");
-        hrTime = process.hrtime();
+        hrTime = hrtime();
         decrypted = null;
         decrypted = await EcAesCtrAsync.decrypt(encrypted, secret, iv);
-        elapsed = (process.hrtime()[0]*1000000 + process.hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
+        elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log("decryption w/caching speed: " + elapsed+"ms");
         assert.isTrue(elapsed < 1);
         assert.isTrue(randomString == decrypted);
@@ -66,15 +65,15 @@ describe("EcAesCtrAsync", () => {
         let randomStrings = [];
         for (let ii = 0; ii < i; ii++)
             randomStrings.push(EcAes.newIv(4096*4));
-            let hrTime = process.hrtime();
+            let hrTime = hrtime();
             let encrypteds = await Promise.all(randomStrings.map((randomString)=>EcAesCtrAsync.encrypt(randomString, secret, iv)));
-            let elapsed = (process.hrtime()[0]*1000000 + process.hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
+            let elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
             console.log(randomStrings[0].length/1024+"KB*"+randomStrings.length+" encryption speed: " + elapsed+"ms");
-            hrTime = process.hrtime();
+            hrTime = hrtime();
             let decrypteds = await Promise.all(encrypteds.map((encrypted)=>EcAesCtrAsync.decrypt(encrypted, secret, iv)));
-            elapsed = (process.hrtime()[0]*1000000 + process.hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
+            elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
             console.log("decryption wout/caching speed: " + elapsed+"ms");
-            hrTime = process.hrtime();
+            hrTime = hrtime();
             assert.isTrue(JSON.stringify(randomStrings) == JSON.stringify(decrypteds));
         }
     }).timeout(10000);

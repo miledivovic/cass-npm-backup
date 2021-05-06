@@ -45,7 +45,7 @@ module.exports = class EcArray {
 	 *  @memberOf EcArray
 	 */
 	static setAdd = function (a, o) {
-		if (!EcArray.has(a, o)) a.push(o);
+		if (!this.has(a, o)) a.push(o);
 	};
 	/**
 	 *  Removes a value from the array.
@@ -57,7 +57,7 @@ module.exports = class EcArray {
 	 *  @memberOf EcArray
 	 */
 	static setRemove = function (a, o) {
-		while (EcArray.has(a, o)) a.splice(EcArray.indexOf(a, o), 1);
+		while (this.has(a, o)) a.splice(this.indexOf(a, o), 1);
 	};
 	/**
 	 *  Returns true if the array has the value already.

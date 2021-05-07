@@ -102,7 +102,7 @@ describe("EcRsaOaepAsyncWorker", () => {
         verified = await EcRsaOaepAsyncWorker.verify(pk, randomString, signature);
         elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log("verification w/caching speed: " + elapsed+"ms");
-        assert.isTrue(elapsed < 1);
+        assert.isTrue(elapsed < 2);
         assert.isTrue(verified);
     });
     it('signing then verifying (sha256)', async () => {
@@ -145,7 +145,7 @@ describe("EcRsaOaepAsyncWorker", () => {
         verified = await EcRsaOaepAsyncWorker.verifySha256(pk, randomString, signature);
         elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log("verification w/caching speed: " + elapsed+"ms");
-        assert.isTrue(elapsed < 1);
+        assert.isTrue(elapsed < 2);
         assert.isTrue(verified);
     });
 });

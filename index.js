@@ -276,7 +276,6 @@ Boolean.valueOf = function (value) {
 global.EcArray = require("./src/com/eduworks/ec/array/EcArray.js");
 global.EcObject = require("./src/com/eduworks/ec/array/EcObject.js");
 global.EcAes = require("./src/com/eduworks/ec/crypto/EcAes.js");
-global.EcAesParameters = require("./src/com/eduworks/ec/crypto/EcAesParameters.js");
 global.EcCrypto = require("./src/com/eduworks/ec/crypto/EcCrypto.js");
 global.EcPk = require("./src/com/eduworks/ec/crypto/EcPk.js");
 global.EcPpk = require("./src/com/eduworks/ec/crypto/EcPpk.js");

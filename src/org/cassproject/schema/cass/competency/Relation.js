@@ -1,3 +1,8 @@
+const Cass = require("../Cass.js");
+
+const schema = {
+	"CreativeWork": require("../../../../schema/CreativeWork.js")
+};
 /**
  *  A relation between two objects.
  *
@@ -73,7 +78,7 @@ module.exports = class Relation extends schema.CreativeWork {
 	static TYPE_0_4 = "http://schema.cassproject.org/0.3/Relation";
 	static TYPE_0_5 = "https://schema.cassproject.org/0.3/Relation";
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/Relation";
-	static myType = Relation.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	/**
 	 *  URL of the object at the beginning of the relation.
 	 *  A <relation> B, this is A.

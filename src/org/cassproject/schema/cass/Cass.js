@@ -12,5 +12,5 @@ module.exports = class Cass {
 	static context_0_4 = "http://schema.cassproject.org/0.3";
 	static context_0_5 = "https://schema.cassproject.org/0.3";
 	static context_0_6 = "https://schema.cassproject.org/0.4";
-	static context = Cass.context_0_6;
+	static context = this.context_0_6;
 };

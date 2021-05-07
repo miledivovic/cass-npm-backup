@@ -1,3 +1,8 @@
+const Cass = require("../Cass.js");
+
+const schema = {
+	"CreativeWork": require("../../../../schema/CreativeWork.js")
+};
 /**
  *  A Directory is a collection of frameworks and resources.
  *
@@ -12,7 +17,7 @@ module.exports = class Directory extends schema.CreativeWork {
 		this.setContextAndType(Cass.context, Directory.myType);
 	}
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/Directory";
-	static myType = Directory.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	parentDirectory = null;
 	upgrade() {
 		super.upgrade();

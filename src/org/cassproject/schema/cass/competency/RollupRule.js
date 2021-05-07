@@ -1,3 +1,8 @@
+const Cass = require("../Cass.js");
+
+const schema = {
+	"CreativeWork": require("../../../../schema/CreativeWork.js")
+};
 /**
  *  A segment of script that defines in a domain specific language how competence is transferred from one competency to another.
  *
@@ -16,7 +21,7 @@ module.exports = class RollupRule extends schema.CreativeWork {
 	static TYPE_0_4 = "http://schema.cassproject.org/0.3/RollupRule";
 	static TYPE_0_5 = "https://schema.cassproject.org/0.3/RollupRule";
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/RollupRule";
-	static myType = RollupRule.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	/**
 	 *  The rollup rule encoded as source code that is understandable to the assertion processor.
 	 *

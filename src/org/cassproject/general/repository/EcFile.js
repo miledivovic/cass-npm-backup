@@ -1,3 +1,5 @@
+const EcRepository = require("../../ebac/repository/EcRepository");
+
 /**
  *  Implementation of a file with methods for communicating with repository services
  *

@@ -1,3 +1,5 @@
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
+const Level = require("../../cassproject/schema/cass/competency/Level.js");
 /**
  *  Implementation of a Level object with methods for interacting with CASS
  *  services on a server.

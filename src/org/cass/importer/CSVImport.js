@@ -1,3 +1,6 @@
+const EcObject = require("../../../com/eduworks/ec/array/EcObject");
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository");
+
 /**
  *  Import methods to handle an CSV file of competencies and a
  *  CSV file of relationships and store them in a CASS instance

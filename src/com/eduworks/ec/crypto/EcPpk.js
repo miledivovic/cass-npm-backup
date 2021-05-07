@@ -84,8 +84,10 @@ module.exports = class EcPpk {
 	 *  @method equals
 	 */
 	equals(obj) {
-		if (obj instanceof EcPpk) return this.toPem().equals(obj.toPem());
-		if (obj instanceof EcPk) return this.toPk().toPem().equals(obj.toPem());
+		if (obj instanceof EcPpk)
+			return this.toPem() == obj.toPem();
+		if (obj instanceof EcPk)
+			return this.toPk().toPem() == obj.toPem();
 		return Object.equals.call(this, obj);
 	}
 	/**

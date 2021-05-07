@@ -1,3 +1,6 @@
+const EcArray = require("../../com/eduworks/ec/array/EcArray");
+const EcRepository = require("../cassproject/ebac/repository/EcRepository");
+
 module.exports = class EcQuestion extends schema.Question {
 	static MULTIPLE_CHOICE = "Multiple Choice";
 	static MULTIPLE_SELECT = "Multiple Select";

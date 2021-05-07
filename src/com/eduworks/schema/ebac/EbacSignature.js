@@ -1,3 +1,6 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
+const EcLinkedData = require("../../../../org/json/ld/EcLinkedData");
+
 /**
  *  Signature used to authorize movement of data on behalf of a private-key
  *  holding owner.

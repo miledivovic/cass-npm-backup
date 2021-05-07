@@ -1,3 +1,5 @@
+const EcCrypto = require("../crypto/EcCrypto");
+
 module.exports = class EcAsyncTaskManager {
 	constructor(workerCount) {
 		this.workerList = [];
@@ -33,7 +35,7 @@ module.exports = class EcAsyncTaskManager {
 			key == "" ||
 			this.taskMap[key] != undefined && this.taskMap[key] != null
 		) {
-			key = generateUUID();
+			key = EcCrypto.generateUUID();
 		}
 		this.taskMap[key] = task;
 		this.assignNewTask(task);

@@ -1,3 +1,6 @@
+const EcArray = require("../../com/eduworks/ec/array/EcArray");
+const EcRepository = require("../cassproject/ebac/repository/EcRepository");
+
 module.exports = class EcOrganization extends schema.Organization {
 	static ORG_PPK_SET_KEY = "https://schema.cassproject.org/0.3/ppkSet";
 	/**

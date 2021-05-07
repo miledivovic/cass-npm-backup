@@ -1,3 +1,10 @@
+const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
+const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
+const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
+const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
+const EbacEncryptedValue = require("../../../../com/eduworks/schema/ebac/EbacEncryptedValue");
+const EcIdentityManager = require("../identity/EcIdentityManager");
+
 /**
  *  Represents an encrypted piece of data. Provides helper functions for
  *  encryption/decryption of JSON-LD objects, and provides some searchability of

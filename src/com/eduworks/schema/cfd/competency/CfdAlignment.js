@@ -1,3 +1,5 @@
+const EcRepository = require("../../../../../org/cassproject/ebac/repository/EcRepository");
+
 module.exports = class CfdAlignment extends schema.AlignmentObject {
 	static myType = "http://schema.org/AlignmentObject";
 	/**

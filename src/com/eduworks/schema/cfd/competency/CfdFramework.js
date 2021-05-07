@@ -1,3 +1,5 @@
+const EcRepository = require("../../../../../org/cassproject/ebac/repository/EcRepository");
+
 module.exports = class CfdFramework extends EcFramework {
 	static toRemove = null;
 	static removed = null;

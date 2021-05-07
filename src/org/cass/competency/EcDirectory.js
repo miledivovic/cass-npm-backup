@@ -1,3 +1,5 @@
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
+const Directory = require("../../cassproject/schema/cass/competency/Directory.js");
 /**
  *  Implementation of a Directory object with methods for interacting with CASS
  *  services on a server.

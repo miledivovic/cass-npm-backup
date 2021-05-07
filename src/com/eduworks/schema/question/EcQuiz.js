@@ -1,3 +1,5 @@
+const EcRepository = require("../../../../org/cassproject/ebac/repository/EcRepository");
+
 module.exports = class EcQuiz extends schema.CreativeWork {
 	constructor() {
 		super();

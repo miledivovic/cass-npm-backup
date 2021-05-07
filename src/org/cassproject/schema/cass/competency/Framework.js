@@ -1,3 +1,8 @@
+const Cass = require("../Cass.js");
+
+const schema = {
+	"CreativeWork": require("../../../../schema/CreativeWork.js")
+};
 /**
  *  A Competency Framework or simply Framework is a collection of competencies and relations between competencies in the framework and potentially between competencies in the framework and competencies in other frameworks. In practice, a Framework represents competencies related to a specific job, task, organization, career, knowledge domain, etc.
  *
@@ -17,7 +22,7 @@ module.exports = class Framework extends schema.CreativeWork {
 	static TYPE_0_4 = "http://schema.cassproject.org/0.3/Framework";
 	static TYPE_0_5 = "https://schema.cassproject.org/0.3/Framework";
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/Framework";
-	static myType = Framework.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	/**
 	 *  URLs of competencies included in this framework.
 	 *

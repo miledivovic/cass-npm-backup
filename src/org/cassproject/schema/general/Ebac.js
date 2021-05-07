@@ -17,5 +17,5 @@ module.exports = class Ebac {
 	 *  @static
 	 *  @type string (URL)
 	 */
-	static context = Ebac.context_0_4;
+	static context = this.context_0_4;
 };

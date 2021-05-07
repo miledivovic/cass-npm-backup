@@ -1,3 +1,5 @@
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
+const RollupRule = require("../../cassproject/schema/cass/competency/RollupRule.js");
 /**
  *  Implementation of a Rollup Rule object with methods for interacting with CASS
  *  services on a server.

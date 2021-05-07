@@ -1,3 +1,6 @@
+const EcArray = require("../../../com/eduworks/ec/array/EcArray");
+const EcObject = require("../../../com/eduworks/ec/array/EcObject");
+
 global.jsonld = require("jsonld");
 /**
  *  Create a linked data object.
@@ -44,7 +47,7 @@ global.jsonld = require("jsonld");
 	 */
 	static isAtProperty(key) {
 		for (var i = 0; i < EcLinkedData.atProperties.length; i++)
-			if (EcLinkedData.atProperties[i].equals(key)) return true;
+			if (EcLinkedData.atProperties[i] == key) return true;
 		return false;
 	}
 	/**
@@ -121,7 +124,7 @@ global.jsonld = require("jsonld");
 			keys.push(key);
 		}
 		keys.sort(function (a, b) {
-			return a.compareTo(b);
+			return a.localeCompare(b);
 		});
 		var op = {};
 		for (var i = 0; i < keys.length; i++) {
@@ -160,7 +163,7 @@ global.jsonld = require("jsonld");
 		var computedType = this.getFullType();
 		if (type.length == 0) return true;
 		for (var i = 0; i < type.length; i++)
-			if (type[i].equals(computedType) || type[i].equals(this.type))
+			if (type[i] == computedType || type[i] == this.type)
 				return true;
 		return false;
 	}

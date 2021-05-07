@@ -1,3 +1,5 @@
+const EcRepository = require("../cassproject/ebac/repository/EcRepository");
+
 module.exports = class EcCreativeWork extends schema.CreativeWork {
 	/**
 	 *  Retrieves a creative work from it's server asynchronously

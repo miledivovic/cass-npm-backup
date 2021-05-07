@@ -1,3 +1,5 @@
+const EcArray = require("../../../com/eduworks/ec/array/EcArray");
+
 module.exports = class CTDLASNCSVConceptImport {
 	static analyzeFile(file, success, failure) {
 		if (file == null) {

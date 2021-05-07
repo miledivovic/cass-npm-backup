@@ -1,3 +1,8 @@
+const Cass = require("../Cass.js");
+
+const schema = {
+	"CreativeWork": require("../../../../schema/CreativeWork.js")
+};
 /**
  *  When an individual's performance in a competency can be measured, a level specifies milestones that an individual can reach, creating fine-grained distinction between the proficient and the adept.
  *
@@ -17,7 +22,7 @@ module.exports = class Level extends schema.CreativeWork {
 	static TYPE_0_4 = "http://schema.cassproject.org/0.3/Level";
 	static TYPE_0_5 = "https://schema.cassproject.org/0.3/Level";
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/Level";
-	static myType = Level.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	/**
 	 *  Specifies the URL of the competency this level relates to.
 	 *

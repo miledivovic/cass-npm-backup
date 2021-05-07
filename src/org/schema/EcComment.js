@@ -1,3 +1,5 @@
+const EcRepository = require("../cassproject/ebac/repository/EcRepository");
+
 module.exports = class EcComment extends schema.Comment {
 	/**
 	 *  Retrieves a comment from it's server asynchronously

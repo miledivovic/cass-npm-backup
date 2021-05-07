@@ -1,3 +1,5 @@
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository");
+
 /**
  *  Created by fray on 11/29/17.
  */

@@ -1,7 +1,8 @@
+const EcPk = require("../../../../../com/eduworks/ec/crypto/EcPk");
+const EcIdentityManager = require("../EcIdentityManager");
 /**
  *  Created by fray on 5/9/17.
  */
-
 module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 	RemoteIdentityManagerInterface {
 	/**

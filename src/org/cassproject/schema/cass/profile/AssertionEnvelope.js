@@ -1,3 +1,5 @@
+const Cass = require("../Cass");
+
 /**
  *  Container for storing assertions and the secrets used to decrypt those assertions.
  *

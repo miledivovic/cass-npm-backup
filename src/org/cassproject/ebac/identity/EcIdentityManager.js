@@ -1,3 +1,8 @@
+const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
+const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
+const {cassReturnAsPromise, cassPromisify} = require("../../../../com/eduworks/ec/promises/helpers");
+const EbacSignature = require("../../../../com/eduworks/schema/ebac/EbacSignature");
+
 /**
  *  Manages identities and contacts, provides hooks to respond to identity and
  *  contact events, and builds signatures and signature sheets for authorizing
@@ -11,7 +16,7 @@
  *  @static
  */
 module.exports = class EcIdentityManager {
-	static default = new EcIdentityManager();
+	static default = new this();
 	constructor() {
 	}
 	/**
@@ -451,7 +456,7 @@ module.exports = class EcIdentityManager {
 	getPpk(fromPem) {
 		var pem = fromPem.toPem();
 		for (var i = 0; i < this.ids.length; i++) {
-			if (pem.equals(this.ids[i].ppk.toPk().toPem())) {
+			if (pem == this.ids[i].ppk.toPk().toPem()) {
 				return this.ids[i].ppk;
 			}
 		}

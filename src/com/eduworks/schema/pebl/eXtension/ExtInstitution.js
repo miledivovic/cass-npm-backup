@@ -1,3 +1,5 @@
+const EcRepository = require("../../../../../org/cassproject/ebac/repository/EcRepository");
+
 /**
  *  @author debbie.brown@eduworks.com
  */

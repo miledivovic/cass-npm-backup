@@ -1,15 +1,15 @@
 global.generateUUID = function () {
     var d = new Date().getTime();
     if (typeof window !== "undefined" && window && window.performance && typeof window.performance.now === "function") {
-        d += performance.now(); //use high-precision timer if available
+        d += performance.now(); // use high-precision timer if available
     }
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         var r = (d + Math.random() * 16) % 16 | 0;
         d = Math.floor(d / 16);
-        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        return (c == 'x' ? r : r & 0x3 | 0x8).toString(16);
     });
     return uuid;
-}
+};
 
 global.cassPromisify = function (p, success, failure) {
     if (success !== undefined && success != null && failure !== undefined && failure != null)
@@ -19,15 +19,14 @@ global.cassPromisify = function (p, success, failure) {
     else if (failure !== undefined && failure != null)
         p = p.catch(failure);
     return p;
-}
+};
 
 global.cassReturnAsPromise = function (o, success, failure, error) {
     let p = new Promise((resolve, reject) => {
         if (o === undefined || o == null) {
-            //console.trace(error);
+            // console.trace(error);
             reject(new Error(error));
-        }
-        else
+        } else
             resolve(o);
     });
     if (success !== undefined && success != null && failure !== undefined && failure != null)
@@ -37,7 +36,20 @@ global.cassReturnAsPromise = function (o, success, failure, error) {
     else if (failure !== undefined && failure != null)
         p = p.catch(failure);
     return p;
-}
+};
+
+global.cassReturnNullAsPromise = function (success, failure) {
+    let p = new Promise((resolve, reject) => {
+        resolve(null);
+    });
+    if (success !== undefined && success != null && failure !== undefined && failure != null)
+        p = p.then(success, failure);
+    else if (success !== undefined && success != null)
+        p = p.then(success);
+    else if (failure !== undefined && failure != null)
+        p = p.catch(failure);
+    return p;
+};
 
 global.crypto = null;
 try {
@@ -49,8 +61,7 @@ try {
 if (global.forge === undefined)
     if (typeof __webpack_require__ === 'function') {
         global.forge = require("forge");
-    }
-    else {
+    } else {
         global.forge = require("node-forge");
     }
 else
@@ -77,7 +88,7 @@ if (!String.prototype.startsWith) {
     String.prototype.startsWith = function (start, from) {
         var f = from != null ? from : 0;
         return this.substring(f, f + start.length) == start;
-    }
+    };
 }
 if (!String.prototype.endsWith) {
     String.prototype.endsWith = function (end) {
@@ -86,17 +97,17 @@ if (!String.prototype.endsWith) {
         if (this.length < end.length)
             return false;
         return this.substring(this.length - end.length, this.length) == end;
-    }
+    };
 }
 if (!String.prototype.trim) {
     String.prototype.trim = function () {
         return this.replace(/^\s+/, "").replace(/\s+$/, "");
-    }
+    };
 }
 if (!String.prototype.matches) {
     String.prototype.matches = function (regexp) {
         return this.match("^" + regexp + "$") != null;
-    }
+    };
 }
 if (!String.prototype.compareTo) {
     String.prototype.compareTo = function (other) {
@@ -107,7 +118,7 @@ if (!String.prototype.compareTo) {
         if (this == other)
             return 0;
         return 1;
-    }
+    };
 }
 
 if (!String.prototype.compareToIgnoreCase) {
@@ -115,7 +126,7 @@ if (!String.prototype.compareToIgnoreCase) {
         if (other == null)
             return 1;
         return this.toLowerCase().compareTo(other.toLowerCase());
-    }
+    };
 }
 
 if (!String.prototype.equalsIgnoreCase) {
@@ -123,7 +134,7 @@ if (!String.prototype.equalsIgnoreCase) {
         if (other == null)
             return false;
         return this.toLowerCase() === other.toLowerCase();
-    }
+    };
 }
 
 if (!String.prototype.codePointAt) {
@@ -133,13 +144,13 @@ if (!String.prototype.codePointAt) {
 if (!String.prototype.replaceAll) {
     String.prototype.replaceAll = function (regexp, replace) {
         return this.replace(new RegExp(regexp, "g"), replace);
-    }
+    };
 }
 
 if (!String.prototype.replaceFirst) {
     String.prototype.replaceFirst = function (regexp, replace) {
         return this.replace(new RegExp(regexp), replace);
-    }
+    };
 }
 
 if (!String.prototype.regionMatches) {
@@ -156,7 +167,7 @@ if (!String.prototype.regionMatches) {
         var s1 = this.substring(toffset, toffset + len);
         var s2 = other.substring(ooffset, ooffset + len);
         return ignoreCase ? s1.equalsIgnoreCase(s2) : s1 === s2;
-    }
+    };
 }
 
 if (!String.prototype.contains) {
@@ -170,7 +181,7 @@ if (!String.prototype.getClass) {
 }
 
 
-//force valueof to match the Java's behavior
+// force valueof to match the Java's behavior
 String.valueOf = function (value) {
     return new String(value);
 };
@@ -187,34 +198,34 @@ var Short = Number;
 if (!Number.prototype.intValue) {
     Number.prototype.intValue = function () {
         return parseInt(this);
-    }
+    };
 }
 if (!Number.prototype.shortValue) {
     Number.prototype.shortValue = function () {
         return parseInt(this);
-    }
+    };
 }
 if (!Number.prototype.longValue) {
     Number.prototype.longValue = function () {
         return parseInt(this);
-    }
+    };
 }
 if (!Number.prototype.byteValue) {
     Number.prototype.byteValue = function () {
         return parseInt(this);
-    }
+    };
 }
 
 if (!Number.prototype.floatValue) {
     Number.prototype.floatValue = function () {
         return parseFloat(this);
-    }
+    };
 }
 
 if (!Number.prototype.doubleValue) {
     Number.prototype.doubleValue = function () {
         return parseFloat(this);
-    }
+    };
 }
 
 if (!Number.parseInt) {
@@ -245,7 +256,7 @@ if (!Number.isNaN) {
 if (!Number.prototype.isNaN) {
     Number.prototype.isNaN = function () {
         return isNaN(this);
-    }
+    };
 }
 if (!Number.prototype.equals) {
     Number.prototype.equals = JavalikeEquals;
@@ -254,10 +265,10 @@ if (!Number.prototype.getClass) {
     Number.prototype.getClass = JavalikeGetClass;
 }
 
-//force valueof to match approximately the Java's behavior (for Integer.valueOf it returns in fact a double)
+// force valueof to match approximately the Java's behavior (for Integer.valueOf it returns in fact a double)
 Number.valueOf = function (value) {
     return new Number(value).valueOf();
-}
+};
 
 /* Boolean */
 if (!Boolean.prototype.equals) {
@@ -267,10 +278,10 @@ if (!Boolean.prototype.getClass) {
     Boolean.prototype.getClass = JavalikeGetClass;
 }
 
-//force valueof to match the Java's behavior
+// force valueof to match the Java's behavior
 Boolean.valueOf = function (value) {
     return new Boolean(value).valueOf();
-}
+};
 
 
 global.EcArray = require("./src/com/eduworks/ec/array/EcArray.js");

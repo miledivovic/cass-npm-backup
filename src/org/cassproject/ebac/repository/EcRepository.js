@@ -98,11 +98,18 @@ module.exports = class EcRepository {
 		var originalUrl = url;
 		if (EcRepository.caching) {
 			if (EcRepository.cache[url] !== undefined) {
-				return cassReturnAsPromise(
-					EcRepository.cache[originalUrl],
-					success,
-					failure
-				);
+				if (EcRepository.cache[url] === null) {
+					return cassReturnNullAsPromise(
+						success,
+						failure
+					);
+				} else {
+					return cassReturnAsPromise(
+						EcRepository.cache[originalUrl],
+						success,
+						failure
+					);
+				}
 			}
 		}
 		if (!EcRepository.shouldTryUrl(url)) {
@@ -832,7 +839,7 @@ module.exports = class EcRepository {
 			url => {
 				if (url.startsWith(this.selectedServer))
 					return url.replace(this.selectedServer, "").replace("custom/", "");
-				return ("data/" + EcCrypto.md5(url));
+				return "data/" + EcCrypto.md5(url);
 			}
 		);
 		if (EcRepository.caching == true)

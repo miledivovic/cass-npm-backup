@@ -1,3 +1,5 @@
+const EcRepository = require("../cassproject/ebac/repository/EcRepository");
+
 module.exports = class EcPerson extends schema.Person {
 	static getByPk(repo, pk, success, failure, eim) {
 		return EcPerson.get(

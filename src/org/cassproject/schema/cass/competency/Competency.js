@@ -1,3 +1,8 @@
+const Cass = require("../Cass.js");
+
+const schema = {
+	"CreativeWork": require("../../../../schema/CreativeWork.js")
+};
 /**
  *  Competencies include skills, knowledge, abilities, traits, and combinations thereof that are needed to perform a task or job. In CASS, competencies are identified and located using a globally unique ID. Competencies can be further described using titles, descriptions, levels, indicators (coming soon), roll-up rules, and relationships to other competencies.
  *
@@ -17,7 +22,7 @@ module.exports = class Competency extends schema.CreativeWork {
 	static TYPE_0_4 = "http://schema.cassproject.org/0.3/Competency";
 	static TYPE_0_5 = "https://schema.cassproject.org/0.3/Competency";
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/Competency";
-	static myType = Competency.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	/**
 	 *  Scope in which the competency may be applied. e.g. Underwater.
 	 *

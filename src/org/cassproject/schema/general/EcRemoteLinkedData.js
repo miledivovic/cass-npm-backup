@@ -1,3 +1,10 @@
+const EcArray = require("../../../../com/eduworks/ec/array/EcArray.js");
+const EcObject = require("../../../../com/eduworks/ec/array/EcObject.js");
+const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto.js");
+const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk.js");
+const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync.js");
+const EcLinkedData = require("../../../json/ld/EcLinkedData.js");
+
 /**
  *  Data wrapper to represent remotely hosted data. Includes necessary KBAC fields for
  *  permission controls, signing, identifying and locating the object.
@@ -76,7 +83,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 			id.indexOf("/api/custom/data/") == -1
 		)
 			return id;
-		if (!id.substring(id.lastIndexOf("/")).matches("\\/[0-9]+")) return id;
+		if (!id.substring(id.lastIndexOf("/")).match("\\/[0-9]+")) return id;
 		var rawId = id.substring(0, id.lastIndexOf("/"));
 		if (rawId.endsWith("/")) rawId = rawId.substring(0, rawId.length - 1);
 		return rawId;
@@ -94,7 +101,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		this.id += "data/";
 		this.id += this.getDottedType();
 		this.id += "/";
-		this.id += generateUUID();
+		this.id += EcCrypto.generateUUID();
 		this.id += "/";
 		this.id += new Date().getTime();
 	}
@@ -108,7 +115,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	generateShortId(server) {
 		this.id = server;
 		if (!this.id.endsWith("/") && !this.id.endsWith("ce-")) this.id += "/";
-		this.id += generateUUID();
+		this.id += EcCrypto.generateUUID();
 	}
 	getDottedType() {
 		return this.getFullType()
@@ -378,7 +385,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 */
 	getTimestamp() {
 		var timestamp = this.id.substring(this.id.lastIndexOf("/") + 1);
-		if (timestamp.matches("[0-9]+")) {
+		if (timestamp.match("[0-9]+")) {
 			return parseInt(timestamp);
 		} else {
 			return null;

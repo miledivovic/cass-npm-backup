@@ -20,7 +20,7 @@ module.exports = class EcCrypto {
 	static decryptionCache = {};
 	static md5Cache = {};
 	static sha256Cache = {};
-	
+
 	/**
 	 *  Calculate MD5 hash of a string.
 	 *  @param {String} s String to MD5
@@ -62,12 +62,22 @@ module.exports = class EcCrypto {
 		m.update(s, "utf8");
 		return m.digest().toHex();
 	}
-
 	static ab2str(buf) {
 		return new TextDecoder("utf-8").decode(buf);
 	}
-
 	static str2ab(str) {
 		return new TextEncoder("utf-8").encode(str).buffer;
+	}
+	static generateUUID () {
+		var d = new Date().getTime();
+		if (typeof window !== "undefined" && window && window.performance && typeof window.performance.now === "function") {
+			d += performance.now(); // use high-precision timer if available
+		}
+		var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+			var r = (d + Math.random() * 16) % 16 | 0;
+			d = Math.floor(d / 16);
+			return (c == 'x' ? r : r & 0x3 | 0x8).toString(16);
+		});
+		return uuid;
 	}
 };

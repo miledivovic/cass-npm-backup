@@ -1,5 +1,8 @@
 let FormData = require("form-data");
+const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
 const EcEncryptedValue = require("./EcEncryptedValue");
+const EcIdentityManager = require("../identity/EcIdentityManager");
+const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
 
 /**
  *  Repository object used to interact with the CASS Repository web services.
@@ -11,7 +14,7 @@ const EcEncryptedValue = require("./EcEncryptedValue");
  */
 module.exports = class EcRepository {
 	constructor() {
-		EcRepository.repos.push(this);
+		this.constructor.repos.push(this);
 	}
 	static caching = false;
 	static cachingSearch = false;
@@ -112,11 +115,11 @@ module.exports = class EcRepository {
 				}
 			}
 		}
-		if (!EcRepository.shouldTryUrl(url)) {
-			if (EcRepository.repos.length == 1) {
-				if (!url.startsWith(EcRepository.repos[0].selectedServer))
+		if (!this.shouldTryUrl(url)) {
+			if (this.repos.length == 1) {
+				if (!url.startsWith(this.repos[0].selectedServer))
 					url = EcRemoteLinkedData.veryShortId(
-						EcRepository.repos[0].selectedServer,
+						this.repos[0].selectedServer,
 						EcCrypto.md5(url)
 					);
 			} else if (repo !== undefined && repo !== null) {
@@ -126,7 +129,7 @@ module.exports = class EcRepository {
 						EcCrypto.md5(url)
 					);
 			} else {
-				return EcRepository.find(
+				return this.find(
 					url,
 					"Could not locate object. May be due to EcRepository.alwaysTryUrl flag.",
 					{},
@@ -150,7 +153,7 @@ module.exports = class EcRepository {
 
 		var finalUrl = url;
 		let p = null;
-		if (EcRepository.unsigned) {
+		if (this.unsigned) {
 			p = EcRemote.getExpectingObject(finalUrl);
 		} else {
 			p = eim.signatureSheet(60000, url).then(
@@ -162,7 +165,7 @@ module.exports = class EcRepository {
 			);
 		}
 		p = p.then((data) => {
-			return EcRepository.getHandleData(
+			return this.getHandleData(
 				data,
 				originalUrl,
 				success,
@@ -171,7 +174,7 @@ module.exports = class EcRepository {
 			);
 		}).catch((error) => {
 			if (repo === undefined || repo == null) {
-				return EcRepository.find(
+				return this.find(
 					originalUrl,
 					error,
 					{},
@@ -180,7 +183,7 @@ module.exports = class EcRepository {
 					failure, eim
 				);
 			} else {
-				if (EcRepository.caching) EcRepository.cache[url] = null;
+				if (this.caching) this.cache[url] = null;
 				return cassReturnAsPromise(null, success, failure, error).catch((error) => {
 					if (
 						error !== undefined &&
@@ -199,9 +202,9 @@ module.exports = class EcRepository {
 	}
 	static setOffset = function (url) {
 		var offset = 0;
-		for (var i = 0; i < EcRepository.repos.length; i++) {
-			if (url.indexOf(EcRepository.repos[i].selectedServer) != -1) {
-				offset = EcRepository.repos[i].timeOffset;
+		for (var i = 0; i < this.repos.length; i++) {
+			if (url.indexOf(this.repos[i].selectedServer) != -1) {
+				offset = this.repos[i].timeOffset;
 			}
 		}
 		return offset;
@@ -223,14 +226,14 @@ module.exports = class EcRepository {
 			return result;
 		};
 		if (!EcObject.isObject(p1)) {
-			if (EcRepository.caching) EcRepository.cache[finalUrl] = null;
+			if (this.caching) this.cache[finalUrl] = null;
 			return cassReturnAsPromise(null, success, failure).then(
 				defaultFunc
 			);
 		}
 		d.copyFrom(p1);
 		if (d.getFullType() == null) {
-			return EcRepository.find(
+			return this.find(
 				originalUrl,
 				JSON.stringify(p1),
 				{},
@@ -239,19 +242,19 @@ module.exports = class EcRepository {
 				failure, eim
 			);
 		}
-		if (EcRepository.caching) {
-			EcRepository.cache[finalUrl] = d;
-			if (d.id != null) EcRepository.cache[d.id] = d;
+		if (this.caching) {
+			this.cache[finalUrl] = d;
+			if (d.id != null) this.cache[d.id] = d;
 		}
 		return cassReturnAsPromise(d, success, failure).then(defaultFunc);
 	};
 	static shouldTryUrl = function (url) {
 		if (url == null) return false;
-		if (EcRepository.alwaysTryUrl) return true;
-		if (EcRepository.repos.length == 0) return true;
+		if (this.alwaysTryUrl) return true;
+		if (this.repos.length == 0) return true;
 		var validUrlFound = false;
-		for (var i = 0; i < EcRepository.repos.length; i++) {
-			if (EcRepository.repos[i].selectedServer == null) continue;
+		for (var i = 0; i < this.repos.length; i++) {
+			if (this.repos[i].selectedServer == null) continue;
 			validUrlFound = true;
 		}
 		if (!validUrlFound) return true;
@@ -261,16 +264,16 @@ module.exports = class EcRepository {
 		if (
 			isNaN(counter) ||
 			counter == undefined ||
-			counter > EcRepository.repos.length ||
-			EcRepository.repos[counter] == null
+			counter > this.repos.length ||
+			this.repos[counter] == null
 		) {
-			delete EcRepository.fetching[url];
-			if (EcRepository.caching) EcRepository.cache[url] = null;
+			delete this.fetching[url];
+			if (this.caching) this.cache[url] = null;
 			return cassReturnAsPromise(null, success, failure, error);
 		}
-		var repo = EcRepository.repos[counter];
+		var repo = this.repos[counter];
 		if (repo.selectedServer == null) {
-			return EcRepository.find(
+			return this.find(
 				url,
 				error,
 				history,
@@ -280,7 +283,7 @@ module.exports = class EcRepository {
 			);
 		}
 		if (history[repo.selectedServer] == true) {
-			return EcRepository.find(
+			return this.find(
 				url,
 				error,
 				history,
@@ -292,9 +295,9 @@ module.exports = class EcRepository {
 		history[repo.selectedServer] = true;
 		let p = repo.search('@id:"' + url + '"', null, null, null, eim);
 		p = p
-			.then(function (strings) {
+			.then((strings) => {
 				if (strings == null || strings.length == 0)
-					return EcRepository.find(
+					return this.find(
 						url,
 						error,
 						history,
@@ -335,7 +338,7 @@ module.exports = class EcRepository {
 							failure,
 							error
 						);
-					return EcRepository.find(
+					return this.find(
 						url,
 						error,
 						history,
@@ -345,8 +348,8 @@ module.exports = class EcRepository {
 					);
 				}
 			})
-			.catch(function (s) {
-				return EcRepository.find(
+			.catch((s) => {
+				return this.find(
 					url,
 					s,
 					history,
@@ -407,7 +410,7 @@ module.exports = class EcRepository {
 	 *  @static
 	 */
 	static save = function (data, success, failure, repo, eim) {
-		return EcRepository._save(data, success, failure, repo, eim);
+		return this._save(data, success, failure, repo, eim);
 	};
 	/**
 	 *  Attempts to save a piece of data. If the @id of the data is not of this server, will register the data to the server.
@@ -424,7 +427,7 @@ module.exports = class EcRepository {
 	 *  @static
 	 */
 	saveTo = function (data, success, failure, eim) {
-		return EcRepository._save(data, success, failure, this, eim);
+		return this._save(data, success, failure, this, eim);
 	};
 	/**
 	 *  Attempts to save a piece of data. Does some checks before saving to
@@ -463,7 +466,7 @@ module.exports = class EcRepository {
 					return eim.sign(encryptedValue);
 				})
 				.then((signedEncryptedValue) => {
-					return EcRepository._saveWithoutSigning(
+					return this._saveWithoutSigning(
 						signedEncryptedValue,
 						success,
 						failure,
@@ -472,7 +475,7 @@ module.exports = class EcRepository {
 				});
 		} else {
 			return eim.sign(data).then((signedData) => {
-				return EcRepository._saveWithoutSigning(
+				return this._saveWithoutSigning(
 					signedData,
 					success,
 					failure,
@@ -498,11 +501,11 @@ module.exports = class EcRepository {
 	static _saveWithoutSigning = function (data, success, failure, repo, eim) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
-		if (EcRepository.caching) {
-			delete EcRepository.cache[data.id];
-			delete EcRepository.cache[data.shortId()];
+		if (this.caching) {
+			delete this.cache[data.id];
+			delete this.cache[data.shortId()];
 			if (repo != null)
-				delete EcRepository.cache[
+				delete this.cache[
 					EcRemoteLinkedData.veryShortId(
 						repo.selectedServer,
 						data.getGuid()
@@ -515,9 +518,9 @@ module.exports = class EcRepository {
 		}
 		// Update timestamp if it is an object that originated on a CaSS instance.
 		if (
-			EcRepository.alwaysTryUrl ||
+			this.alwaysTryUrl ||
 			repo == null ||
-			EcRepository.shouldTryUrl(data.id) ||
+			this.shouldTryUrl(data.id) ||
 			repo != null && data.id.indexOf(repo.selectedServer) != -1
 		)
 			data.updateTimestamp();
@@ -526,7 +529,7 @@ module.exports = class EcRepository {
 
 		var offset = 0;
 		if (repo == null) {
-			offset = EcRepository.setOffset(data.id);
+			offset = this.setOffset(data.id);
 		} else {
 			offset = repo.timeOffset;
 		}
@@ -543,7 +546,7 @@ module.exports = class EcRepository {
 			var fd = new FormData();
 			fd.append("data", data.toJson());
 			fd.append("signatureSheet", signatureSheet);
-			if (!EcRepository.alwaysTryUrl) {
+			if (!this.alwaysTryUrl) {
 				if (repo != null) {
 					if (data.id.indexOf(repo.selectedServer) != -1) {
 						return EcRemote.postExpectingString(
@@ -555,7 +558,7 @@ module.exports = class EcRepository {
 						);
 					}
 					if (
-						!EcRepository.shouldTryUrl(data.id) ||
+						!this.shouldTryUrl(data.id) ||
 						data.id.indexOf(repo.selectedServer) == -1
 					) {
 						return EcRemote.postExpectingString(
@@ -600,7 +603,7 @@ module.exports = class EcRepository {
 	 *  @static
 	 */
 	static _delete = function (data, success, failure, repo, eim) {
-		return EcRepository.DELETE(data, success, failure, repo, eim);
+		return this.DELETE(data, success, failure, repo, eim);
 	};
 	/**
 	 *  Attempts to delete a piece of data.
@@ -622,13 +625,13 @@ module.exports = class EcRepository {
 			return repo.deleteRegistered(data, success, failure, eim);
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
-		if (EcRepository.caching) {
-			delete EcRepository.cache[data.id];
-			delete EcRepository.cache[data.shortId()];
+		if (this.caching) {
+			delete this.cache[data.id];
+			delete this.cache[data.shortId()];
 		}
 		var targetUrl;
 		targetUrl = data.shortId();
-		var offset = EcRepository.setOffset(data.id);
+		var offset = this.setOffset(data.id);
 		if (data.owner != null && data.owner.length > 0) {
 			return eim.signatureSheetFor(
 				data.owner,
@@ -664,16 +667,16 @@ module.exports = class EcRepository {
 	deleteRegistered = function (data, success, failure, eim) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
-		if (EcRepository.caching) {
-			delete EcRepository.cache[data.id];
-			delete EcRepository.cache[data.shortId()];
-			delete EcRepository.cache[
+		if (this.caching) {
+			delete this.cache[data.id];
+			delete this.cache[data.shortId()];
+			delete this.cache[
 				EcRemoteLinkedData.veryShortId(
 					this.selectedServer,
 					data.getGuid()
 				)
 			];
-			delete EcRepository.cache[
+			delete this.cache[
 				EcRemoteLinkedData.veryShortId(
 					this.selectedServer,
 					EcCrypto.md5(data.shortId())
@@ -682,7 +685,7 @@ module.exports = class EcRepository {
 		}
 		var targetUrl;
 		if (
-			EcRepository.shouldTryUrl(data.id) ||
+			this.shouldTryUrl(data.id) ||
 			data.id.indexOf(this.selectedServer) != -1
 		)
 			targetUrl = EcRemote.urlAppend(
@@ -697,7 +700,7 @@ module.exports = class EcRepository {
 				"/" +
 				EcCrypto.md5(data.shortId())
 			);
-		var offset = EcRepository.setOffset(data.id);
+		var offset = this.setOffset(data.id);
 		if (data.owner != null && data.owner.length > 0) {
 			return eim.signatureSheetFor(
 				data.owner,
@@ -1527,7 +1530,7 @@ module.exports = class EcRepository {
 		);
 	};
 	static getAs(id, result, success, failure, repo, eim) {
-		return EcRepository.get(id, null, null, repo, eim).then(async (p1) => {
+		return this.get(id, null, null, repo, eim).then(async (p1) => {
 			if (p1 == null)
 				return null;
 			if (p1.isAny(result.getTypes())) {
@@ -1541,9 +1544,9 @@ module.exports = class EcRepository {
 			);
 			if (p1.isAny(result.getTypes())) {
 				result.copyFrom(p1);
-				if (EcRepository.caching) {
-					EcRepository.cache[result.shortId()] = result;
-					EcRepository.cache[result.id] = result;
+				if (this.caching) {
+					this.cache[result.shortId()] = result;
+					this.cache[result.id] = result;
 				}
 				if (success != null) success(result);
 				return result;

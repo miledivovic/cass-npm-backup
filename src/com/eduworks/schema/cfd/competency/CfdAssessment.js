@@ -1,3 +1,5 @@
+const EcRepository = require("../../../../../org/cassproject/ebac/repository/EcRepository");
+
 /**
  *  Competency is Under construction.
  *  <p>

@@ -1,3 +1,7 @@
+const EcArray = require("../../../com/eduworks/ec/array/EcArray");
+const EcObject = require("../../../com/eduworks/ec/array/EcObject");
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository");
+
 global.Papa = require("papaparse");
 /**
  *  Export methods to handle exporting two CSV file , one of competencies

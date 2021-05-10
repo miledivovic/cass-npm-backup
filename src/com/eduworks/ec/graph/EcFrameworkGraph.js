@@ -1,4 +1,6 @@
-const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/EcRemoteLinkedData");
+const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/EcRemoteLinkedData.js");
+const EcArray = require("../array/EcArray.js");
+const EcDirectedGraph = require("./EcDirectedGraph.js");
 
 /**
  *  Graph for working with a framework. Additional computed data (such as profile data) can be overlaid on the graph through the use of "metaverticies" and "metaedges" that hold additional information.

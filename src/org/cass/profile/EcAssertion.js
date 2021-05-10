@@ -1,3 +1,8 @@
+const EcPk = require("../../../com/eduworks/ec/crypto/EcPk");
+const EcEncryptedValue = require("../../cassproject/ebac/repository/EcEncryptedValue");
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository");
+const Assertion = require("../../cassproject/schema/cass/profile/Assertion");
+
 /**
  *  The sequence that assertions should be built as such: 1. Generate the ID. 2.
  *  Add the owner. 3. Set the subject. 4. Set the agent. Further functions may be

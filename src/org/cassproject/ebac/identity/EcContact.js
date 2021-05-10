@@ -1,3 +1,5 @@
+const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
+
 /**
  *  A contact is an identity that we do not own. Using the public key we may: 1.
  *  Send them information (by encrypting data with their public key) 2. Verify a

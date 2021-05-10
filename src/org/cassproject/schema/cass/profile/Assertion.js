@@ -1,3 +1,9 @@
+const EcPk = require("../../../../../com/eduworks/ec/crypto/EcPk.js");
+const Cass = require("../Cass.js");
+
+const schema = {
+	"CreativeWork": require("../../../../schema/CreativeWork.js")
+};
 /**
  *  A claim of competence in CASS is called an Assertion. It states with some confidence that an individual has mastered a competency at a given level, provides evidence of such mastery, and records data such as the time of assertion and the party making the assertion.
  *
@@ -17,7 +23,7 @@ module.exports = class Assertion extends schema.CreativeWork {
 	static TYPE_0_4 = "http://schema.cassproject.org/0.3/Assertion";
 	static TYPE_0_5 = "https://schema.cassproject.org/0.3/Assertion";
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/Assertion";
-	static myType = Assertion.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	static codebooks = null;
 	/**
 	 *  URL of the competency.

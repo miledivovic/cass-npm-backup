@@ -1,5 +1,6 @@
 let FormData = require("form-data");
 const EcIdentity = require("../EcIdentity");
+const EcIdentityManager = require("../EcIdentityManager");
 
 /**
  *  Logs into and stores/retrieves credentials from a compatible remote server.

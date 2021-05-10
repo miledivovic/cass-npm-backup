@@ -1,3 +1,6 @@
+const EcArray = require("../array/EcArray.js");
+const Graph = require("./Graph.js");
+const Triple = require("./Triple.js");
 /**
  *  A directed implementation of {{#crossLink "Graph"}}Graph{{/crossLink}}. Edges have types. Two vertices may have many edges between them.
  *

@@ -1,3 +1,5 @@
+const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/EcRemoteLinkedData");
+
 /**
  *  Encrypted JSON-LD object or string.
  *
@@ -13,7 +15,7 @@ module.exports = class EbacEncryptedValue extends EcRemoteLinkedData {
 	static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/encryptedValue";
 	static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/EncryptedValue";
 	static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/EncryptedValue";
-	static myType = EbacEncryptedValue.TYPE_0_4;
+	static myType = this.TYPE_0_4;
 	/**
 	 *  Optional Hint used to aid in search.
 	 *  Displays the type of the encrypted object.

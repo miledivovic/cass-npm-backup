@@ -1,3 +1,5 @@
+const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
+const Framework = require("../../cassproject/schema/cass/competency/Framework.js");
 /**
  *  Implementation of a Framework object with methods for interacting with CASS
  *  services on a server.

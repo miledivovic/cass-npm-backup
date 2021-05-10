@@ -1,3 +1,4 @@
+const Hypergraph = require("./Hypergraph.js");
 /**
  *  A graph consisting of a set of vertices of type <code>V</code>
  *  set and a set of edges of type <code>E</code>.  Edges of this

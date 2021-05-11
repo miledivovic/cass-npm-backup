@@ -25,6 +25,8 @@ var should = chai.should();
 var expect = chai.expect;
 var assert = chai.assert;
 
+after(()=>EcRsaOaepAsyncWorker.teardown());
+
 let deleteById = async function (id) {
     await EcRepository.get(
         id,

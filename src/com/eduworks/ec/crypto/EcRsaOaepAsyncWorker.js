@@ -25,6 +25,15 @@ let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 module.exports = class EcRsaOaepAsyncWorker {
 	static rotator = 0;
 	static w = null;
+	static teardown(){
+		if (this.w != null)
+			for (let i = 0;i < this.w.length;i++)
+			{
+				let worker = this.w[i];
+				worker._worker.terminate();
+			}
+		this.w = null;
+	}
 	static initWorker() {
 		if (Worker == undefined || Worker == null) {
 			return;

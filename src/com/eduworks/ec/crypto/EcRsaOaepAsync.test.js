@@ -1,4 +1,5 @@
 let EcRsaOaepAsync = require("./EcRsaOaepAsync.js");
+let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
 let EcAes = require("./EcAes.js");
 let EcCrypto = require("./EcCrypto.js");
 let EcPpk = require("./EcPpk.js");
@@ -16,6 +17,8 @@ let hrtime = function() {
 var should = chai.should();
 var expect = chai.expect;
 var assert = chai.assert;
+
+after(()=>EcRsaOaepAsyncWorker.teardown());
 
 describe("EcRsaOaepAsync", () => {
     it('encryption then decryption', async () => {

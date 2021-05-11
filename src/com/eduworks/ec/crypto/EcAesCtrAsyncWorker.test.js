@@ -1,5 +1,6 @@
 let EcAesCtr = require("./EcAesCtr.js");
 let EcAesCtrAsyncWorker = require("./EcAesCtrAsyncWorker.js");
+let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
 let EcAes = require("./EcAes.js");
 let EcCrypto = require("./EcCrypto.js");
 let chai = require("chai");
@@ -16,6 +17,8 @@ let hrtime = function() {
 var should = chai.should();
 var expect = chai.expect;
 var assert = chai.assert;
+
+after(()=>EcRsaOaepAsyncWorker.teardown());
 
 describe("EcAesCtrAsyncWorker", () => {
     it('await encryption then await decryption', async () => {

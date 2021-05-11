@@ -1,5 +1,6 @@
 const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
 const Framework = require("../../cassproject/schema/cass/competency/Framework.js");
+const EcRemoteLinkedData = require("../../cassproject/schema/general/EcRemoteLinkedData.js");
 /**
  *  Implementation of a Framework object with methods for interacting with CASS
  *  services on a server.
@@ -107,7 +108,7 @@ module.exports = class EcFramework extends Framework {
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(
 					this.competency[i]
-				).equals(id)
+				) == id
 			)
 				return;
 		this.competency.push(id);
@@ -295,9 +296,7 @@ module.exports = class EcFramework extends Framework {
 		if (this.relation == null) this.relation = [];
 		for (var i = 0; i < this.relation.length; i++)
 			if (
-				EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]).equals(
-					id
-				)
+				EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]) == id
 			)
 				return;
 		this.relation.push(id);

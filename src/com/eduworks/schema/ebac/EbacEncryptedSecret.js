@@ -1,3 +1,6 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
+const EcLinkedData = require("../../../../org/json/ld/EcLinkedData");
+
 /**
  *  Component of EbacEncryptedValue that contains data needed to decrypt
  *  encrypted payload. Is, itself, encrypted.

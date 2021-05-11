@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "0.5.10",
+	"version": "0.5.11",
 	"description": "Competency and Skills Service",
 	"main": "index.js",
 	"scripts": {
@@ -87,6 +87,7 @@
 		"mocha": "^8.3.2",
 		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
+		"tap": "^15.0.9",
 		"webpack": "^5.36.2",
 		"yuidoc-ember-cli-theme": "^1.0.4",
 		"yuidocjs": "^0.10.2"

@@ -40,7 +40,7 @@ let deleteById = async function (id) {
 };
 var failure = function (p1) {
     console.trace(p1);
-    Assert.fail();
+    assert.fail();
 };
 var logObject = function (p1) {
     console.log(p1);
@@ -69,7 +69,7 @@ async function newAssertion(competencyToAssert) {
     await a.setAssertionDate(new Date().getTime());
     await a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
     await a.setDecayFunction("t");
-    await a.save(null, failure, this.repo);
+    await a.save(null, failure, repo);
     return a;
 }
 async function newFalseAssertion(competencyToAssert) {
@@ -85,7 +85,7 @@ async function newFalseAssertion(competencyToAssert) {
     await a.setAssertionDate(new Date().getTime());
     await a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
     await a.setDecayFunction("t");
-    await a.save(null, failure, this.repo);
+    await a.save(null, failure, repo);
     return a;
 }
 async function newCompetency(competencyName) {
@@ -93,7 +93,7 @@ async function newCompetency(competencyName) {
     competency.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     competency.name = competencyName;
     competency.generateId(repo.selectedServer);
-    await competency.save(null, failure, this.repo);
+    await competency.save(null, failure, repo);
     return competency;
 }
 async function newRollupRule(competency, rule) {
@@ -102,7 +102,7 @@ async function newRollupRule(competency, rule) {
     rr.rule = rule;
     rr.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     rr.generateId(repo.selectedServer);
-    await rr.save(null, failure, this.repo);
+    await rr.save(null, failure, repo);
     return rr;
 }
 async function newRelation(c, c2, relationType) {
@@ -112,7 +112,7 @@ async function newRelation(c, c2, relationType) {
     r.relationType = relationType;
     r.source = c.shortId();
     r.target = c2.shortId();
-    await r.save(null, failure, this.repo);
+    await r.save(null, failure, repo);
     return r;
 }
 async function newFramework(frameworkName) {
@@ -120,7 +120,7 @@ async function newFramework(frameworkName) {
     framework.name = frameworkName;
     framework.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     framework.generateId(repo.selectedServer);
-    await framework.save(null, failure, this.repo);
+    await framework.save(null, failure, repo);
     return framework;
 }
 
@@ -134,25 +134,25 @@ describe("EcFrameworkGraph", () => {
         var encrypted = await EcRsaOaepAsyncWorker.encrypt(pk, randomString);
         var decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
         assert.isTrue(randomString == decrypted);
-    });
+    }).timeout(10000);
     it('basic true test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
         f.addCompetency(c.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
                 await fg.processAssertionsBoolean(
                     assertions,
                     async () => {
-                        // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                         //console.log(fg.getMetaStateCompetency(c));
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
@@ -166,17 +166,17 @@ describe("EcFrameworkGraph", () => {
         await deleteById(f.shortId());
         await deleteById(c.shortId());
         await deleteById(a.shortId());
-    });
+    }).timeout(10000);
     it('basic false test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
         f.addCompetency(c.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -184,7 +184,7 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     async () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                                 .length
@@ -198,18 +198,18 @@ describe("EcFrameworkGraph", () => {
         await deleteById(f.shortId());
         await deleteById(c.shortId());
         await deleteById(a.shortId());
-    });
+    }).timeout(10000);
     it('basic indeterminant test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
         f.addCompetency(c.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c);
         var a2 = await newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -218,12 +218,12 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                                 .length
@@ -238,27 +238,27 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c.shortId());
         await deleteById(a.shortId());
         await deleteById(a2.shortId());
-    });
+    }).timeout(10000);
     it('basic unknown test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
         f.addCompetency(c.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 await fg.processAssertionsBoolean(
                     assertions,
                     () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                         );
@@ -270,7 +270,7 @@ describe("EcFrameworkGraph", () => {
         );
         await deleteById(f.shortId());
         await deleteById(c.shortId());
-    });
+    }).timeout(10000);
     it('basic equivalence test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -279,12 +279,12 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c2);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -292,12 +292,12 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     async () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                                 .length
@@ -313,7 +313,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c2.shortId());
         await deleteById(a.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic equivalence false test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -322,12 +322,12 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newFalseAssertion(c2);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -335,12 +335,12 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     async () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["negativeAssertion"]
                                 .length
@@ -356,7 +356,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c2.shortId());
         await deleteById(a.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic equivalence indeterminant test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -365,13 +365,13 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c);
         var a2 = await newFalseAssertion(c2);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -380,22 +380,22 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     function () {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["negativeAssertion"]
                                 .length
@@ -412,7 +412,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(a.shortId());
         await deleteById(a2.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic equivalence unknown test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -421,30 +421,30 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        f.save(null, failure, this.repo);
+        f.save(null, failure, repo);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 await fg.processAssertionsBoolean(
                     assertions,
                     () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c2)["negativeAssertion"]
                         );
@@ -458,7 +458,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c.shortId());
         await deleteById(c2.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic equivalence equivalence test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -471,12 +471,12 @@ describe("EcFrameworkGraph", () => {
         var r2 = await newRelation(c2, c3, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c3);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -484,17 +484,17 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c3)["positiveAssertion"]
                                 .length
@@ -512,7 +512,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(a.shortId());
         await deleteById(r.shortId());
         await deleteById(r2.shortId());
-    });
+    }).timeout(10000);
     it('basic equivalence unequivalent test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -523,12 +523,12 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c3.shortId());
         var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c3);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -536,15 +536,15 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     async () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             null,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c3)["positiveAssertion"]
                                 .length
@@ -561,7 +561,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c3.shortId());
         await deleteById(a.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic requires satisfied test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -570,12 +570,12 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.REQUIRES);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -583,12 +583,12 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     async () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                                 .length
@@ -604,7 +604,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c2.shortId());
         await deleteById(a.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic requires false test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -613,12 +613,12 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.REQUIRES);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newFalseAssertion(c2);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -626,12 +626,12 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     async () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["negativeAssertion"]
                                 .length
@@ -647,7 +647,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c2.shortId());
         await deleteById(a.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic narrows true test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -656,12 +656,12 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c2);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -669,12 +669,12 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                                 .length
@@ -690,7 +690,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c2.shortId());
         await deleteById(a.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic narrows false test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -699,12 +699,12 @@ describe("EcFrameworkGraph", () => {
         f.addCompetency(c2.shortId());
         var r = await newRelation(c, c2, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -712,12 +712,12 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     function () {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["negativeAssertion"]
                                 .length
@@ -733,7 +733,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(c2.shortId());
         await deleteById(a.shortId());
         await deleteById(r.shortId());
-    });
+    }).timeout(10000);
     it('basic narrows narrows test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -746,12 +746,12 @@ describe("EcFrameworkGraph", () => {
         var r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newAssertion(c3);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -759,17 +759,17 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     () => {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["positiveAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c3)["positiveAssertion"]
                                 .length
@@ -787,7 +787,7 @@ describe("EcFrameworkGraph", () => {
         await deleteById(a.shortId());
         await deleteById(r.shortId());
         await deleteById(r2.shortId());
-    });
+    }).timeout(10000);
     it('basic narrows narrows false test', async () => {
         var f = await newFramework("Billy's Framework");
         var c = await newCompetency("Add");
@@ -800,12 +800,12 @@ describe("EcFrameworkGraph", () => {
         var r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
-        await f.save(null, failure, this.repo);
+        await f.save(null, failure, repo);
         var a = await newFalseAssertion(c);
         var fg = new EcFrameworkGraph();
         await fg.addFramework(
             f,
-            this.repo,
+            repo,
             async () => {
                 var assertions = [];
                 assertions.push(a);
@@ -813,17 +813,17 @@ describe("EcFrameworkGraph", () => {
                     assertions,
                     function () {
                         // console.log(fg.getMetaStateCompetency(c));
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["negativeAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c2)["negativeAssertion"]
                                 .length
                         );
-                        Assert.assertEquals(
+                        assert.equal(
                             1,
                             fg.getMetaStateCompetency(c3)["negativeAssertion"]
                                 .length
@@ -841,5 +841,5 @@ describe("EcFrameworkGraph", () => {
         await deleteById(a.shortId());
         await deleteById(r.shortId());
         await deleteById(r2.shortId());
-    });
+    }).timeout(10000);
 });

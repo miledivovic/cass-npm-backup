@@ -133,10 +133,10 @@ module.exports = class Relation extends schema.CreativeWork {
 		if (Relation.TYPE_0_3 == this.getFullType()) {
 			this.setContextAndType(Cass.context_0_4, Relation.TYPE_0_4);
 		}
-		if (Relation.TYPE_0_4.equals(this.getFullType())) {
+		if (Relation.TYPE_0_4 == this.getFullType()) {
 			this.setContextAndType(Cass.context_0_5, Relation.TYPE_0_5);
 		}
-		if (Relation.TYPE_0_5.equals(this.getFullType())) {
+		if (Relation.TYPE_0_5 == this.getFullType()) {
 			this.setContextAndType(Cass.context_0_6, Relation.TYPE_0_6);
 		}
 	}

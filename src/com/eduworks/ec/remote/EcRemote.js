@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const { cassPromisify } = require("../promises/helpers");
 
 /**
  *  Wrapper to handle all remote web service invocations.
@@ -105,14 +106,20 @@ module.exports = class EcRemote {
 		failureCallback
 	) {
 		var url = server;
-		if (!url.endsWith("/") && service != null && !"".equals(service)) {
+		if (!url.endsWith("/") && service != null && !("" == service)) {
 			url += "/";
 		}
 		if (service != null) {
 			url += service;
 		}
 		url = EcRemote.upgradeHttpToHttps(url);
-		let postHeaders = fd.getHeaders();
+		let postHeaders = null;
+		if (fd.getHeaders != null)
+			postHeaders = fd.getHeaders();
+		else
+			postHeaders = {
+				'content-type': 'multipart/form-data'
+			}
 		if (headers !== undefined && headers != null)
 			for (let header in headers) postHeaders[header] = headers[header];
 		let p = axios

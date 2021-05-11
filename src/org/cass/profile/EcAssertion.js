@@ -506,7 +506,7 @@ module.exports = class EcAssertion extends Assertion {
 				.catch((error) => null);
 		}
 		if (decryptedString != null) decryptedString.toLowerCase();
-		return "true".equals(decryptedString);
+		return "true" == decryptedString;
 	}
 	async setNegative(negativeB) {
 		this.negative = await EcEncryptedValue.encryptValue(

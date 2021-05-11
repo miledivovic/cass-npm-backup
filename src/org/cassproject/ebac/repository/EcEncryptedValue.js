@@ -1,8 +1,13 @@
 const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
 const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
+const EcAes = require("../../../../com/eduworks/ec/crypto/EcAes");
+const EcAesCtrAsync = require("../../../../com/eduworks/ec/crypto/EcAesCtrAsync");
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
+const { cassPromisify } = require("../../../../com/eduworks/ec/promises/helpers");
+const EbacEncryptedSecret = require("../../../../com/eduworks/schema/ebac/EbacEncryptedSecret");
 const EbacEncryptedValue = require("../../../../com/eduworks/schema/ebac/EbacEncryptedValue");
+const EcLinkedData = require("../../../json/ld/EcLinkedData");
 const EcIdentityManager = require("../identity/EcIdentityManager");
 
 /**

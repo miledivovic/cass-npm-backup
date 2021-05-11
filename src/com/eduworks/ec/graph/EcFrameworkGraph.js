@@ -1,5 +1,10 @@
+const EcAlignment = require("../../../../org/cass/competency/EcAlignment.js");
+const EcCompetency = require("../../../../org/cass/competency/EcCompetency.js");
+const EcEncryptedValue = require("../../../../org/cassproject/ebac/repository/EcEncryptedValue.js");
+const Relation = require("../../../../org/cassproject/schema/cass/competency/Relation.js");
 const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/EcRemoteLinkedData.js");
 const EcArray = require("../array/EcArray.js");
+const { cassPromisify } = require("../promises/helpers.js");
 const EcDirectedGraph = require("./EcDirectedGraph.js");
 
 /**
@@ -98,8 +103,8 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	 *  @param {function()}      success Method to invoke when the operation completes successfully.
 	 *  @param {function(error)} failure Error method.
 	 */
-	async processAssertionsBoolean(assertions, success, failure) {
-		await cassPromisify(
+	processAssertionsBoolean(assertions, success, failure) {
+		return cassPromisify(
 			Promise.all(
 				assertions.map(async (assertion) => {
 					if (!this.containsVertexById(assertion.competency)) {

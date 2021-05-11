@@ -3,6 +3,9 @@ const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
 const EcEncryptedValue = require("./EcEncryptedValue");
 const EcIdentityManager = require("../identity/EcIdentityManager");
 const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
+const EcRemote = require("../../../../com/eduworks/ec/remote/EcRemote");
+const { cassPromisify, cassReturnAsPromise } = require("../../../../com/eduworks/ec/promises/helpers");
+const EcRemoteLinkedData = require("../../schema/general/EcRemoteLinkedData");
 
 /**
  *  Repository object used to interact with the CASS Repository web services.
@@ -427,7 +430,7 @@ module.exports = class EcRepository {
 	 *  @static
 	 */
 	saveTo = function (data, success, failure, eim) {
-		return this._save(data, success, failure, this, eim);
+		return EcRepository._save(data, success, failure, this, eim);
 	};
 	/**
 	 *  Attempts to save a piece of data. Does some checks before saving to
@@ -685,7 +688,7 @@ module.exports = class EcRepository {
 		}
 		var targetUrl;
 		if (
-			this.shouldTryUrl(data.id) ||
+			EcRepository.shouldTryUrl(data.id) ||
 			data.id.indexOf(this.selectedServer) != -1
 		)
 			targetUrl = EcRemote.urlAppend(
@@ -700,7 +703,7 @@ module.exports = class EcRepository {
 				"/" +
 				EcCrypto.md5(data.shortId())
 			);
-		var offset = this.setOffset(data.id);
+		var offset = EcRepository.setOffset(data.id);
 		if (data.owner != null && data.owner.length > 0) {
 			return eim.signatureSheetFor(
 				data.owner,

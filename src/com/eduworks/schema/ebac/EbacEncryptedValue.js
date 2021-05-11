@@ -1,3 +1,4 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
 const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/EcRemoteLinkedData");
 
 /**

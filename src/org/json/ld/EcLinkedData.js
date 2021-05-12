@@ -237,7 +237,7 @@ global.jsonld = require("jsonld");
 							me[
 								key.replace(stripNamespace + ":", "")
 							] = JSON.parse(
-								JSON.stringify(me[key]).replaceAll(
+								JSON.stringify(me[key]).replace(
 									stripNamespace + ":",
 									""
 								)
@@ -246,7 +246,7 @@ global.jsonld = require("jsonld");
 							me[
 								key.replace(stripNamespace + ":", "")
 							] = JSON.parse(
-								JSON.stringify(me[key]).replaceAll(
+								JSON.stringify(me[key]).replace(
 									stripNamespace + ":",
 									""
 								)

@@ -121,7 +121,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		return this.getFullType()
 			.replace("http://", "")
 			.replace("https://", "")
-			.replaceAll("/", ".");
+			.replace(/\//g, ".");
 	}
 	/**
 	 *  Will generate an identifier using the server URL provided (usually from

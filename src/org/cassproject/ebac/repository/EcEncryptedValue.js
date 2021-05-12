@@ -93,7 +93,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		return this.getEncryptedFullType()
 			.replace("http://", "")
 			.replace("https://", "")
-			.replaceAll("/", ".");
+			.replace(/\//g, ".");
 	}
 	/**
 	 *  Converts a piece of remote linked data to an encrypted value

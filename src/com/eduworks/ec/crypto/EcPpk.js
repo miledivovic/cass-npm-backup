@@ -101,8 +101,8 @@ module.exports = class EcPpk {
 		if (this.defaultPem == null)
 			this.defaultPem = forge.pki
 				.privateKeyToPem(this.ppk)
-				.replaceAll("\r", "")
-				.replaceAll("\n", "");
+				.replace(/\r/g, "")
+				.replace(/\n/g, "");
 		return this.defaultPem;
 	}
 	/**
@@ -115,8 +115,8 @@ module.exports = class EcPpk {
 	toPkcs1Pem = function() {
 		return forge.pki
 			.privateKeyToPem(this.ppk)
-			.replaceAll("\r", "")
-			.replaceAll("\n", "");
+				.replace(/\r/g, "")
+				.replace(/\n/g, "");
 	};
 	/**
 	 *  Encodes the private key into a PEM encoded PrivateKeyInfo (PKCS#8) formatted RSA Public Key.
@@ -132,8 +132,8 @@ module.exports = class EcPpk {
 					forge.pki.privateKeyToAsn1(this.ppk)
 				)
 			)
-			.replaceAll("\r", "")
-			.replaceAll("\n", "");
+				.replace(/\r/g, "")
+				.replace(/\n/g, "");
 	};
 	toJwk() {
 		if (this.jwk == null)

@@ -287,8 +287,8 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	containsVertexByShortId(shortId) {
 		return this.competencyMap[shortId] !== undefined && this.competencyMap[shortId] != null;
 	}
-	containsEdge(competency) {
-		return this.edgeMap[competency.shortId()] != null;
+	containsEdge(alignment) {
+		return this.edgeMap[alignment.shortId()] != null;
 	}
 	async getCompetency(competencyId) {
 		var c = null;
@@ -311,6 +311,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	async addRelation(alignment) {
 		if (alignment == null) return false;
 		if (this.containsEdge(alignment)) return false;
+		this.edgeMap[alignment.shortId()] = alignment;
 		var source = this.competencyMap[
 			EcRemoteLinkedData.trimVersionFromUrl(alignment.source)
 		];

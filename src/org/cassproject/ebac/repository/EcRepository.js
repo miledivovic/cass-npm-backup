@@ -1156,7 +1156,7 @@ module.exports = class EcRepository {
 						protocols[i] +
 						"//" +
 						hostnames[j] +
-						servicePrefixes[k].replaceAll("//", "/"),
+						servicePrefixes[k].replace(/\/\//g, "/"),
 						success,
 						failure
 					);
@@ -1181,10 +1181,7 @@ module.exports = class EcRepository {
 											protocols[i] +
 											"//" +
 											hostnames[j] +
-											servicePrefixes[k].replaceAll(
-												"//",
-												"/"
-											),
+											servicePrefixes[k].replace(/\/\//g, "/"),
 											success,
 											failure
 										);
@@ -1293,7 +1290,7 @@ module.exports = class EcRepository {
 							protocols[i] +
 							"//" +
 							hostnames[j] +
-							servicePrefixes[k].replaceAll("//", "/")
+							servicePrefixes[k].replace(/\/\//g, "/")
 						)
 					) {
 						EcRemote.async = true;

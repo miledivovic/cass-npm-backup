@@ -44,13 +44,6 @@ var failure = function (p1) {
     console.trace(p1);
     assert.fail();
 };
-var logObject = function (p1) {
-    console.log(p1);
-};
-var ask = function (param1) {
-    console.log(param1);
-    return null;
-};
 let repo = new EcRepository();
 repo.selectedServer = "http://localhost/api/";
 let newId1 = new EcIdentity();

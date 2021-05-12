@@ -83,7 +83,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 			id.indexOf("/api/custom/data/") == -1
 		)
 			return id;
-		if (!id.substring(id.lastIndexOf("/")).match("\\/[0-9]+")) return id;
+		if (!id.substring(id.lastIndexOf("/")).match("^\\/[0-9]+$")) return id;
 		var rawId = id.substring(0, id.lastIndexOf("/"));
 		if (rawId.endsWith("/")) rawId = rawId.substring(0, rawId.length - 1);
 		return rawId;
@@ -385,7 +385,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 */
 	getTimestamp() {
 		var timestamp = this.id.substring(this.id.lastIndexOf("/") + 1);
-		if (timestamp.match("[0-9]+")) {
+		if (timestamp.match("^[0-9]+$")) {
 			return parseInt(timestamp);
 		} else {
 			return null;

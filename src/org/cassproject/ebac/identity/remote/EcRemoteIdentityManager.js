@@ -1,6 +1,18 @@
 let FormData = require("form-data");
+const { cassPromisify } = require("../../../../../com/eduworks/ec/promises/helpers");
+const EcRemote = require("../../../../../com/eduworks/ec/remote/EcRemote");
+const EbacCredentialCommit = require("../../../../../com/eduworks/schema/ebac/EbacCredentialCommit");
+const EbacCredentialRequest = require("../../../../../com/eduworks/schema/ebac/EbacCredentialRequest");
+const EcContact = require("../EcContact");
 const EcIdentity = require("../EcIdentity");
 const EcIdentityManager = require("../EcIdentityManager");
+const RemoteIdentityManagerInterface = require("./RemoteIdentityManagerInterface");
+let forge;
+if (typeof __webpack_require__ === 'function') {
+	forge = require("forge");
+} else {
+	forge = require("node-forge");
+}
 
 /**
  *  Logs into and stores/retrieves credentials from a compatible remote server.
@@ -24,8 +36,7 @@ const EcIdentityManager = require("../EcIdentityManager");
  *  @module com.eduworks.ec
  *  @class EcRemoteIdentityManager
  */
-module.exports = class EcRemoteIdentityManager extends
-	RemoteIdentityManagerInterface {
+module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInterface {
 	server = null;
 	global = null;
 	usernameWithSalt = null;
@@ -367,6 +378,7 @@ module.exports = class EcRemoteIdentityManager extends
 					return eim;
 				},
 				function (arg0) {
+					console.trace(arg0);
 					throw new Error(arg0);
 				}
 			),
@@ -384,9 +396,9 @@ module.exports = class EcRemoteIdentityManager extends
 	 *  @memberOf EcRemoteIdentityManager
 	 *  @method commit
 	 */
-	async commit(success, failure) {
+	async commit(success, failure, eim) {
 		var service = "sky/id/commit";
-		return this.sendCredentials(success, failure, service);
+		return this.sendCredentials(success, failure, service, eim);
 	}
 	/**
 	 *  Creates an account.
@@ -405,9 +417,9 @@ module.exports = class EcRemoteIdentityManager extends
 	 *  @memberOf EcRemoteIdentityManager
 	 *  @method create
 	 */
-	async create(success, failure) {
+	async create(success, failure, eim) {
 		var service = "sky/id/create";
-		return this.sendCredentials(success, failure, service);
+		return this.sendCredentials(success, failure, service, eim);
 	}
 	/**
 	 *  Sends the identity managers credentials to the service specified

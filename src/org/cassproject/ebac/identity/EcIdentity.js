@@ -1,3 +1,9 @@
+const EcAes = require("../../../../com/eduworks/ec/crypto/EcAes");
+const EcAesCtrAsync = require("../../../../com/eduworks/ec/crypto/EcAesCtrAsync");
+const EcPpk = require("../../../../com/eduworks/ec/crypto/EcPpk");
+const EbacCredential = require("../../../../com/eduworks/schema/ebac/EbacCredential");
+const EcContact = require("./EcContact");
+
 /**
  *  An identity is an alias that a person or system may own. It consists of a
  *  private key and a display name. Using the private key we may: 1. Perform all

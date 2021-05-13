@@ -1,3 +1,6 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
+const EcLinkedData = require("../../../../org/json/ld/EcLinkedData");
+
 /**
  *  Credential list along with one time pad and session-based token for use in
  *  commit actions.

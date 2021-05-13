@@ -1,3 +1,6 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
+const EcLinkedData = require("../../../../org/json/ld/EcLinkedData");
+
 /**
  *  AES encrypted private key and display name. Contains Initialization Vectors,
  *  but not secrets. Used to encrypt private identities for storage on remote

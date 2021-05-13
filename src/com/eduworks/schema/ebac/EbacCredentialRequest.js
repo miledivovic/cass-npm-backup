@@ -1,3 +1,6 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
+const EcLinkedData = require("../../../../org/json/ld/EcLinkedData");
+
 /**
  *  Message used to retrieve credentials from a remote system.
  *  <p>

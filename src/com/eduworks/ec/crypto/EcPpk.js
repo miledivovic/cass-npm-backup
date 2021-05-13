@@ -52,13 +52,17 @@ module.exports = class EcPpk {
 	 *  @static
 	 */
 	static generateKeyAsync(callback) {
-		var o = {};
-		o["workers"] = -1;
-		forge.pki.rsa.generateKeyPair(o, function(err, keypair) {
-			var ppk = new EcPpk();
-			ppk.ppk = keypair.privateKey;
-			callback(ppk);
-		});
+		return new Promise((resolve,reject)=>{
+			var o = {};
+			o["workers"] = -1;
+			forge.pki.rsa.generateKeyPair(o, function(err, keypair) {
+				var ppk = new EcPpk();
+				ppk.ppk = keypair.privateKey;
+				if (callback != null)
+					callback(ppk);
+				resolve(ppk);
+			});
+		})
 	}
 	/**
 	 *  Generates an RSA Keypair synchronously. Can take a while.

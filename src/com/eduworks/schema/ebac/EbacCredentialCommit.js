@@ -1,3 +1,7 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
+const EcLinkedData = require("../../../../org/json/ld/EcLinkedData");
+const EbacCredentials = require("./EbacCredentials");
+
 /**
  *  Message used to commit credentials to a remote login server.
  *  <p>
@@ -16,8 +20,7 @@ module.exports = class EbacCredentialCommit extends EcLinkedData {
 	static TYPE_0_1 = "http://schema.eduworks.com/ebac/0.1/credentialCommit";
 	static TYPE_0_2 = "http://schema.eduworks.com/ebac/0.2/credentialCommit";
 	static TYPE_0_3 = "http://schema.cassproject.org/kbac/0.2/CredentialCommit";
-	static TYPE_0_4 =
-		"https://schema.cassproject.org/kbac/0.4/CredentialCommit";
+	static TYPE_0_4 = "https://schema.cassproject.org/kbac/0.4/CredentialCommit";
 	/**
 	 *  Hashed username.
 	 *

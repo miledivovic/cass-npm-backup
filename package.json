@@ -21,8 +21,8 @@
 		"mocha": "mocha src/**/*.test.js",
 		"automocha": "nodemon --exec \"npm run mocha\"",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
-		"docs": "yuidoc -c yuidoc.json -o docs -e .js src",
-		"doclint": "yuidoc --lint -c yuidoc.json -o docs -e .js src",
+		"docs": "npm install yuidocjs yuidoc-ember-cli-theme && yuidoc -c yuidoc.json -o docs -e .js src",
+		"doclint": "npm install yuidocjs yuidoc-ember-cli-theme && yuidoc --lint -c yuidoc.json -o docs -e .js src",
 		"cypress:open": "cypress open",
 		"cypress": "cypress run --headless --browser chrome",
 		"cypressEdge": "cypress run --headless --browser edge"
@@ -90,8 +90,6 @@
 		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
 		"tap": "^15.0.9",
-		"webpack": "^5.36.2",
-		"yuidoc-ember-cli-theme": "^1.0.4",
-		"yuidocjs": "^0.10.2"
+		"webpack": "^5.36.2"
 	}
 }

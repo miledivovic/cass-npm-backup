@@ -30,7 +30,6 @@ module.exports = class EcRepository {
 	selectedServer = null;
 	autoDetectFound = false;
 	timeOffset = 0;
-	cassDockerEndpoint = null;
 	init(selectedServer, success, failure) {
 		this.selectedServer = selectedServer;
 		return this.negotiateTimeOffset(success, failure);
@@ -146,9 +145,13 @@ module.exports = class EcRepository {
 						error.toString !== undefined
 					)
 						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
+						{
 							return null;
-					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
-						return null;
+						}
+						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
+						{
+							return null;
+						}
 					throw error;
 				});
 			}
@@ -742,7 +745,7 @@ module.exports = class EcRepository {
 		var allOwners = [];
 		for (let d of data) {
 			if (d.invalid())
-				throw "Cannot save data. It is missing a vital component.";
+				throw new Error("Cannot save data. It is missing a vital component.");
 			if (d.reader != null && d.reader.length == 0) {
 				delete d["reader"];
 			}
@@ -790,7 +793,7 @@ module.exports = class EcRepository {
 		});
 		let preparedData = [];
 		return Promise.all(encryptionAndSigningPromises)
-			.then((readyToSendData) => {
+			.then((readyToSendData) => {				
 				preparedData = readyToSendData;
 				if (allOwners != null && allOwners.length > 0) {
 					return eim.signatureSheetFor(
@@ -810,9 +813,6 @@ module.exports = class EcRepository {
 				fd.append("data", JSON.stringify(preparedData));
 				fd.append("signatureSheet", signatureSheet);
 				var server = this.selectedServer;
-				if (this.cassDockerEndpoint != null) {
-					server = this.cassDockerEndpoint;
-				}
 				return EcRemote.postExpectingString(
 					server,
 					"sky/repo/multiPut",

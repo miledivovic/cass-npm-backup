@@ -57,6 +57,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @memberOf EcEncryptedValue
 	 *  @static
 	 *  @method fromEncryptedValue
+	 *  @deprecated
 	 */
 	static fromEncryptedValueAsync(d, success, failure, eim) {
 		console.trace(

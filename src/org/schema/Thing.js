@@ -1,3 +1,5 @@
+const EcRemoteLinkedData = require("../cassproject/schema/general/EcRemoteLinkedData");
+
 /**
  * Schema.org/Thing
  * The most generic type of item.

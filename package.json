@@ -82,6 +82,7 @@
 		"@cypress/browserify-preprocessor": "^3.0.1",
 		"babel-plugin-transform-remove-strict-mode": "^0.0.2",
 		"chai": "^4.3.4",
+		"convert-hrtime": "^5.0.0",
 		"cypress": "^7.2.0",
 		"eslint": "^7.25.0",
 		"mocha": "^8.3.2",

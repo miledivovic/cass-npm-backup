@@ -124,20 +124,23 @@ module.exports = class EcRemote {
 			for (let header in headers) postHeaders[header] = headers[header];
 		let p = axios
 			.post(url, fd, {
-				headers: postHeaders
+				headers: postHeaders,
+				maxContentLength: Infinity,
+				maxBodyLength: Infinity
 			})
 			.then((response) => {
 				return response.data;
 			})
 			.catch((err) => {
-				if (err) {
-					if (err.response) {
-						if (err.response.data)
+				if (err != null) {
+					if (err.response != null) {
+						if (err.response.data != null)
 							throw err.response.data;
+						throw err;
 					}
-					throw err.response;
+					throw err;
 				}
-				throw err;
+				console.trace("Internal error in Axios?");
 			});
 		return cassPromisify(p, successCallback, failureCallback);
 	}

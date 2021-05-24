@@ -1,3 +1,8 @@
+# 0.5.8 to 0.5.15
+* Bug fixes.
+* Can now POST unlimited amounts of data.
+* Added unit tests in node (mocha), cypress
+
 # 0.5.4 to 0.5.8
 * Bug fixes.
 * Performance improvements. Runs ~10x faster than 4.x.x.

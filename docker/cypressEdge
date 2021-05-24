@@ -7,7 +7,6 @@ RUN npm install
 
 COPY index.js index.js
 COPY src src
-COPY lib lib
 COPY cypress cypress
 COPY cypress.json cypress.json
 ENTRYPOINT npm run cypressEdge

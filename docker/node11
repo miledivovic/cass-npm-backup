@@ -6,7 +6,6 @@ RUN npm install
 
 COPY index.js index.js
 COPY src src
-COPY lib lib
 RUN npm pack > ver.ver
 
 COPY test.js test.js

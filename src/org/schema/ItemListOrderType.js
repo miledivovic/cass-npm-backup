@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/ItemListOrderType
  * Enumerated for values for itemListOrder for indicating how an ordered ItemList is organized.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class ItemListOrderType
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class ItemListOrderType extends EcRemoteLinkedData {
+module.exports = class ItemListOrderType extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class ItemListOrderType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ItemListOrderType");
+		this.setContextAndType("http://schema.org/","ItemListOrderType");
 	}
-};
+
+}

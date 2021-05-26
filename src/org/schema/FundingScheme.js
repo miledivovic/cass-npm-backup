@@ -1,3 +1,5 @@
+const schema = {};
+schema.Organization = require("./Organization.js");
 /**
  * Schema.org/FundingScheme
  * A FundingScheme combines organizational, project and policy aspects of grant-based funding
@@ -7,8 +9,9 @@
  * @author schema.org
  * @class FundingScheme
  * @module org.schema
+ * @extends Organization
  */
-module.exports = class FundingScheme extends EcRemoteLinkedData {
+module.exports = class FundingScheme extends schema.Organization {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -16,6 +19,7 @@ module.exports = class FundingScheme extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "FundingScheme");
+		this.setContextAndType("http://schema.org/","FundingScheme");
 	}
-};
+
+}

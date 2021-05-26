@@ -1,3 +1,5 @@
+const schema = {};
+schema.OrganizeAction = require("./OrganizeAction.js");
 /**
  * Schema.org/AllocateAction
  * The act of organizing tasks/objects/events by associating resources to it.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class AllocateAction
  * @module org.schema
+ * @extends OrganizeAction
  */
-module.exports = class AllocateAction extends EcRemoteLinkedData {
+module.exports = class AllocateAction extends schema.OrganizeAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class AllocateAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "AllocateAction");
+		this.setContextAndType("http://schema.org/","AllocateAction");
 	}
-};
+
+}

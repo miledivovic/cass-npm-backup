@@ -1,3 +1,5 @@
+const schema = {};
+schema.Review = require("./Review.js");
 /**
  * Schema.org/MediaReview
  * A [[MediaReview]] is a more specialized form of Review dedicated to the evaluation of media content online, typically in the context of fact-checking and misinformation.
@@ -8,8 +10,9 @@
  * @author schema.org
  * @class MediaReview
  * @module org.schema
+ * @extends Review
  */
-module.exports = class MediaReview extends EcRemoteLinkedData {
+module.exports = class MediaReview extends schema.Review {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -17,6 +20,16 @@ module.exports = class MediaReview extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MediaReview");
+		this.setContextAndType("http://schema.org/","MediaReview");
 	}
-};
+
+	/**
+	 * Schema.org/mediaAuthenticityCategory
+	 * Indicates a MediaManipulationRatingEnumeration classification of a media object (in the context of how it was published or shared).
+	 *
+	 * @property mediaAuthenticityCategory
+	 * @type MediaManipulationRatingEnumeration
+	 */
+	mediaAuthenticityCategory;
+
+}

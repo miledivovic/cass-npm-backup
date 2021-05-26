@@ -1,3 +1,5 @@
+const schema = {};
+schema.Reservation = require("./Reservation.js");
 /**
  * Schema.org/BoatReservation
  * A reservation for boat travel.
@@ -7,8 +9,9 @@ Note: This type is for information about actual reservations, e.g. in confirmati
  * @author schema.org
  * @class BoatReservation
  * @module org.schema
+ * @extends Reservation
  */
-module.exports = class BoatReservation extends EcRemoteLinkedData {
+module.exports = class BoatReservation extends schema.Reservation {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -16,6 +19,7 @@ module.exports = class BoatReservation extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "BoatReservation");
+		this.setContextAndType("http://schema.org/","BoatReservation");
 	}
-};
+
+}

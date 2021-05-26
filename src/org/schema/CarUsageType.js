@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/CarUsageType
  * A value indicating a special usage of a car, e.g. commercial rental, driving school, or as a taxi.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class CarUsageType
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class CarUsageType extends EcRemoteLinkedData {
+module.exports = class CarUsageType extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class CarUsageType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "CarUsageType");
+		this.setContextAndType("http://schema.org/","CarUsageType");
 	}
-};
+
+}

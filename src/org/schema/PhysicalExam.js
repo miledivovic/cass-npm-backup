@@ -1,7 +1,8 @@
-global.schema.MedicalProcedure = require("./MedicalProcedure.js");
+const schema = {};
+schema.MedicalProcedure = require("./MedicalProcedure.js");
 /**
  * Schema.org/PhysicalExam
- * A type of physical examination of a patient performed by a physician.
+ * A type of physical examination of a patient performed by a physician. 
  *
  * @author schema.org
  * @class PhysicalExam
@@ -16,6 +17,7 @@ module.exports = class PhysicalExam extends schema.MedicalProcedure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "PhysicalExam");
+		this.setContextAndType("http://schema.org/","PhysicalExam");
 	}
-};
+
+}

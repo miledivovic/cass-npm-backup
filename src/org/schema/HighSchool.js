@@ -1,3 +1,5 @@
+const schema = {};
+schema.EducationalOrganization = require("./EducationalOrganization.js");
 /**
  * Schema.org/HighSchool
  * A high school.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class HighSchool
  * @module org.schema
+ * @extends EducationalOrganization
  */
-module.exports = class HighSchool extends EcRemoteLinkedData {
+module.exports = class HighSchool extends schema.EducationalOrganization {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class HighSchool extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "HighSchool");
+		this.setContextAndType("http://schema.org/","HighSchool");
 	}
-};
+
+}

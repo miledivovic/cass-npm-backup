@@ -1,4 +1,5 @@
-global.schema.AutomotiveBusiness = require("./AutomotiveBusiness.js");
+const schema = {};
+schema.AutomotiveBusiness = require("./AutomotiveBusiness.js");
 /**
  * Schema.org/AutoPartsStore
  * An auto parts store.
@@ -16,6 +17,7 @@ module.exports = class AutoPartsStore extends schema.AutomotiveBusiness {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "AutoPartsStore");
+		this.setContextAndType("http://schema.org/","AutoPartsStore");
 	}
-};
+
+}

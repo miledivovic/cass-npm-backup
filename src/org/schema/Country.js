@@ -1,3 +1,5 @@
+const schema = {};
+schema.AdministrativeArea = require("./AdministrativeArea.js");
 /**
  * Schema.org/Country
  * A country.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Country
  * @module org.schema
+ * @extends AdministrativeArea
  */
-module.exports = class Country extends EcRemoteLinkedData {
+module.exports = class Country extends schema.AdministrativeArea {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Country extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Country");
+		this.setContextAndType("http://schema.org/","Country");
 	}
-};
+
+}

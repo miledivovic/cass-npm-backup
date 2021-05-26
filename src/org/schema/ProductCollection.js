@@ -1,4 +1,5 @@
-global.schema.Product = require("./Product.js");
+const schema = {};
+schema.Product = require("./Product.js");
 /**
  * Schema.org/ProductCollection
  * A set of products (either [[ProductGroup]]s or specific variants) that are listed together e.g. in an [[Offer]].
@@ -16,6 +17,16 @@ module.exports = class ProductCollection extends schema.Product {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ProductCollection");
+		this.setContextAndType("http://schema.org/","ProductCollection");
 	}
-};
+
+	/**
+	 * Schema.org/includesObject
+	 * This links to a node or nodes indicating the exact quantity of the products included in  an [[Offer]] or [[ProductCollection]].
+	 *
+	 * @property includesObject
+	 * @type TypeAndQuantityNode
+	 */
+	includesObject;
+
+}

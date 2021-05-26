@@ -1,4 +1,5 @@
-global.schema.CategoryCode = require("./CategoryCode.js");
+const schema = {};
+schema.CategoryCode = require("./CategoryCode.js");
 /**
  * Schema.org/MedicalCode
  * A code for a medical entity.
@@ -16,6 +17,25 @@ module.exports = class MedicalCode extends schema.CategoryCode {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MedicalCode");
+		this.setContextAndType("http://schema.org/","MedicalCode");
 	}
-};
+
+	/**
+	 * Schema.org/codeValue
+	 * A short textual code that uniquely identifies the value.
+	 *
+	 * @property codeValue
+	 * @type Text
+	 */
+	codeValue;
+
+	/**
+	 * Schema.org/codingSystem
+	 * The coding system, e.g. 'ICD-10'.
+	 *
+	 * @property codingSystem
+	 * @type Text
+	 */
+	codingSystem;
+
+}

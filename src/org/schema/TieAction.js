@@ -1,3 +1,5 @@
+const schema = {};
+schema.AchieveAction = require("./AchieveAction.js");
 /**
  * Schema.org/TieAction
  * The act of reaching a draw in a competitive activity.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class TieAction
  * @module org.schema
+ * @extends AchieveAction
  */
-module.exports = class TieAction extends EcRemoteLinkedData {
+module.exports = class TieAction extends schema.AchieveAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class TieAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "TieAction");
+		this.setContextAndType("http://schema.org/","TieAction");
 	}
-};
+
+}

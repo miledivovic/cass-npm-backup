@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/PriceComponentTypeEnumeration
  * Enumerates different price components that together make up the total price for an offered product.
@@ -5,9 +7,9 @@
  * @author schema.org
  * @class PriceComponentTypeEnumeration
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class PriceComponentTypeEnumeration extends
-	EcRemoteLinkedData {
+module.exports = class PriceComponentTypeEnumeration extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -15,9 +17,7 @@ module.exports = class PriceComponentTypeEnumeration extends
 	 */
 	constructor() {
 		super();
-		this.setContextAndType(
-			"http://schema.org/",
-			"PriceComponentTypeEnumeration"
-		);
+		this.setContextAndType("http://schema.org/","PriceComponentTypeEnumeration");
 	}
-};
+
+}

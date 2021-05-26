@@ -1,4 +1,5 @@
-global.schema.CivicStructure = require("./CivicStructure.js");
+const schema = {};
+schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/StadiumOrArena
  * A stadium.
@@ -16,6 +17,7 @@ module.exports = class StadiumOrArena extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "StadiumOrArena");
+		this.setContextAndType("http://schema.org/","StadiumOrArena");
 	}
-};
+
+}

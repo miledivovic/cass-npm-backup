@@ -1,3 +1,5 @@
+const schema = {};
+schema.MedicalEnumeration = require("./MedicalEnumeration.js");
 /**
  * Schema.org/MedicalProcedureType
  * An enumeration that describes different types of medical procedures.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class MedicalProcedureType
  * @module org.schema
+ * @extends MedicalEnumeration
  */
-module.exports = class MedicalProcedureType extends EcRemoteLinkedData {
+module.exports = class MedicalProcedureType extends schema.MedicalEnumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class MedicalProcedureType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MedicalProcedureType");
+		this.setContextAndType("http://schema.org/","MedicalProcedureType");
 	}
-};
+
+}

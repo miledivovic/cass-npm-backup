@@ -1,3 +1,5 @@
+const schema = {};
+schema.Text = require("./Text.js");
 /**
  * Schema.org/CssSelectorType
  * Text representing a CSS selector.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class CssSelectorType
  * @module org.schema
+ * @extends Text
  */
-module.exports = class CssSelectorType extends EcRemoteLinkedData {
+module.exports = class CssSelectorType extends schema.Text {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class CssSelectorType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "CssSelectorType");
+		this.setContextAndType("http://schema.org/","CssSelectorType");
 	}
-};
+
+}

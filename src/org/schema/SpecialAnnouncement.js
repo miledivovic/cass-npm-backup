@@ -1,3 +1,5 @@
+const schema = {};
+schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/SpecialAnnouncement
  * A SpecialAnnouncement combines a simple date-stamped textual information update
@@ -40,8 +42,9 @@ media type information e.g. "application/rss+xml" or "application/atom+xml".
  * @author schema.org
  * @class SpecialAnnouncement
  * @module org.schema
+ * @extends CreativeWork
  */
-module.exports = class SpecialAnnouncement extends EcRemoteLinkedData {
+module.exports = class SpecialAnnouncement extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -49,6 +52,126 @@ module.exports = class SpecialAnnouncement extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "SpecialAnnouncement");
+		this.setContextAndType("http://schema.org/","SpecialAnnouncement");
 	}
-};
+
+	/**
+	 * Schema.org/gettingTestedInfo
+	 * Information about getting tested (for a [[MedicalCondition]]), e.g. in the context of a pandemic.
+	 *
+	 * @property gettingTestedInfo
+	 * @type WebContent
+	 */
+	gettingTestedInfo;
+
+	/**
+	 * Schema.org/schoolClosuresInfo
+	 * Information about school closures.
+	 *
+	 * @property schoolClosuresInfo
+	 * @type URL
+	 */
+	schoolClosuresInfo;
+
+	/**
+	 * Schema.org/diseaseSpreadStatistics
+	 * Statistical information about the spread of a disease, either as [[WebContent]], or
+  described directly as a [[Dataset]], or the specific [[Observation]]s in the dataset. When a [[WebContent]] URL is
+  provided, the page indicated might also contain more such markup.
+	 *
+	 * @property diseaseSpreadStatistics
+	 * @type Observation
+	 */
+	diseaseSpreadStatistics;
+
+	/**
+	 * Schema.org/publicTransportClosuresInfo
+	 * Information about public transport closures.
+	 *
+	 * @property publicTransportClosuresInfo
+	 * @type URL
+	 */
+	publicTransportClosuresInfo;
+
+	/**
+	 * Schema.org/travelBans
+	 * Information about travel bans, e.g. in the context of a pandemic.
+	 *
+	 * @property travelBans
+	 * @type WebContent
+	 */
+	travelBans;
+
+	/**
+	 * Schema.org/webFeed
+	 * The URL for a feed, e.g. associated with a podcast series, blog, or series of date-stamped updates. This is usually RSS or Atom.
+	 *
+	 * @property webFeed
+	 * @type URL
+	 */
+	webFeed;
+
+	/**
+	 * Schema.org/newsUpdatesAndGuidelines
+	 * Indicates a page with news updates and guidelines. This could often be (but is not required to be) the main page containing [[SpecialAnnouncement]] markup on a site.
+	 *
+	 * @property newsUpdatesAndGuidelines
+	 * @type URL
+	 */
+	newsUpdatesAndGuidelines;
+
+	/**
+	 * Schema.org/datePosted
+	 * Publication date of an online listing.
+	 *
+	 * @property datePosted
+	 * @type Date
+	 */
+	datePosted;
+
+	/**
+	 * Schema.org/category
+	 * A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy.
+	 *
+	 * @property category
+	 * @type Text
+	 */
+	category;
+
+	/**
+	 * Schema.org/diseasePreventionInfo
+	 * Information about disease prevention.
+	 *
+	 * @property diseasePreventionInfo
+	 * @type URL
+	 */
+	diseasePreventionInfo;
+
+	/**
+	 * Schema.org/announcementLocation
+	 * Indicates a specific [[CivicStructure]] or [[LocalBusiness]] associated with the SpecialAnnouncement. For example, a specific testing facility or business with special opening hours. For a larger geographic region like a quarantine of an entire region, use [[spatialCoverage]].
+	 *
+	 * @property announcementLocation
+	 * @type LocalBusiness
+	 */
+	announcementLocation;
+
+	/**
+	 * Schema.org/quarantineGuidelines
+	 * Guidelines about quarantine rules, e.g. in the context of a pandemic.
+	 *
+	 * @property quarantineGuidelines
+	 * @type WebContent
+	 */
+	quarantineGuidelines;
+
+	/**
+	 * Schema.org/governmentBenefitsInfo
+	 * governmentBenefitsInfo provides information about government benefits associated with a SpecialAnnouncement.
+	 *
+	 * @property governmentBenefitsInfo
+	 * @type GovernmentService
+	 */
+	governmentBenefitsInfo;
+
+}

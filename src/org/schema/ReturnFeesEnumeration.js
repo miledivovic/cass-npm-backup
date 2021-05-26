@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/ReturnFeesEnumeration
  * ReturnFeesEnumeration expresses policies for return fees.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class ReturnFeesEnumeration
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class ReturnFeesEnumeration extends EcRemoteLinkedData {
+module.exports = class ReturnFeesEnumeration extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class ReturnFeesEnumeration extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ReturnFeesEnumeration");
+		this.setContextAndType("http://schema.org/","ReturnFeesEnumeration");
 	}
-};
+
+}

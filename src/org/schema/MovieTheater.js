@@ -1,4 +1,5 @@
-global.schema.CivicStructure = require("./CivicStructure.js");
+const schema = {};
+schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/MovieTheater
  * A movie theater.
@@ -16,6 +17,16 @@ module.exports = class MovieTheater extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MovieTheater");
+		this.setContextAndType("http://schema.org/","MovieTheater");
 	}
-};
+
+	/**
+	 * Schema.org/screenCount
+	 * The number of screens in the movie theater.
+	 *
+	 * @property screenCount
+	 * @type Number
+	 */
+	screenCount;
+
+}

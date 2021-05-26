@@ -1,4 +1,5 @@
-global.schema.MedicalOrganization = require("./MedicalOrganization.js");
+const schema = {};
+schema.MedicalOrganization = require("./MedicalOrganization.js");
 /**
  * Schema.org/Pharmacy
  * A pharmacy or drugstore.
@@ -16,6 +17,7 @@ module.exports = class Pharmacy extends schema.MedicalOrganization {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Pharmacy");
+		this.setContextAndType("http://schema.org/","Pharmacy");
 	}
-};
+
+}

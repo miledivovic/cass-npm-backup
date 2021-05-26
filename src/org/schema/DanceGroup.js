@@ -1,3 +1,5 @@
+const schema = {};
+schema.PerformingGroup = require("./PerformingGroup.js");
 /**
  * Schema.org/DanceGroup
  * A dance group&#x2014;for example, the Alvin Ailey Dance Theater or Riverdance.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class DanceGroup
  * @module org.schema
+ * @extends PerformingGroup
  */
-module.exports = class DanceGroup extends EcRemoteLinkedData {
+module.exports = class DanceGroup extends schema.PerformingGroup {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class DanceGroup extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "DanceGroup");
+		this.setContextAndType("http://schema.org/","DanceGroup");
 	}
-};
+
+}

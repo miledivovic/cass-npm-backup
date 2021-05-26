@@ -1,3 +1,5 @@
+const schema = {};
+schema.MedicalTherapy = require("./MedicalTherapy.js");
 /**
  * Schema.org/OccupationalTherapy
  * A treatment of people with physical, emotional, or social problems, using purposeful activity to help them overcome or learn to deal with their problems.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class OccupationalTherapy
  * @module org.schema
+ * @extends MedicalTherapy
  */
-module.exports = class OccupationalTherapy extends EcRemoteLinkedData {
+module.exports = class OccupationalTherapy extends schema.MedicalTherapy {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class OccupationalTherapy extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "OccupationalTherapy");
+		this.setContextAndType("http://schema.org/","OccupationalTherapy");
 	}
-};
+
+}

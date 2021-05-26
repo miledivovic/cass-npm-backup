@@ -1,4 +1,5 @@
-global.schema.PeopleAudience = require("./PeopleAudience.js");
+const schema = {};
+schema.PeopleAudience = require("./PeopleAudience.js");
 /**
  * Schema.org/MedicalAudience
  * Target audiences for medical web pages.
@@ -16,6 +17,7 @@ module.exports = class MedicalAudience extends schema.PeopleAudience {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MedicalAudience");
+		this.setContextAndType("http://schema.org/","MedicalAudience");
 	}
-};
+
+}

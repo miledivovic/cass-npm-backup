@@ -1,3 +1,5 @@
+const schema = {};
+schema.EducationalOrganization = require("./EducationalOrganization.js");
 /**
  * Schema.org/MiddleSchool
  * A middle school (typically for children aged around 11-14, although this varies somewhat).
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class MiddleSchool
  * @module org.schema
+ * @extends EducationalOrganization
  */
-module.exports = class MiddleSchool extends EcRemoteLinkedData {
+module.exports = class MiddleSchool extends schema.EducationalOrganization {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class MiddleSchool extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MiddleSchool");
+		this.setContextAndType("http://schema.org/","MiddleSchool");
 	}
-};
+
+}

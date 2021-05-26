@@ -1,3 +1,5 @@
+const schema = {};
+schema.LocalBusiness = require("./LocalBusiness.js");
 /**
  * Schema.org/GovernmentOffice
  * A government office&#x2014;for example, an IRS or DMV office.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class GovernmentOffice
  * @module org.schema
+ * @extends LocalBusiness
  */
-module.exports = class GovernmentOffice extends EcRemoteLinkedData {
+module.exports = class GovernmentOffice extends schema.LocalBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class GovernmentOffice extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "GovernmentOffice");
+		this.setContextAndType("http://schema.org/","GovernmentOffice");
 	}
-};
+
+}

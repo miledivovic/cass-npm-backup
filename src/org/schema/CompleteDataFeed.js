@@ -1,3 +1,5 @@
+const schema = {};
+schema.DataFeed = require("./DataFeed.js");
 /**
  * Schema.org/CompleteDataFeed
  * A [[CompleteDataFeed]] is a [[DataFeed]] whose standard representation includes content for every item currently in the feed.
@@ -7,8 +9,9 @@ This is the equivalent of Atom's element as defined in Feed Paging and Archiving
  * @author schema.org
  * @class CompleteDataFeed
  * @module org.schema
+ * @extends DataFeed
  */
-module.exports = class CompleteDataFeed extends EcRemoteLinkedData {
+module.exports = class CompleteDataFeed extends schema.DataFeed {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -16,6 +19,7 @@ module.exports = class CompleteDataFeed extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "CompleteDataFeed");
+		this.setContextAndType("http://schema.org/","CompleteDataFeed");
 	}
-};
+
+}

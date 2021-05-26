@@ -1,4 +1,5 @@
-global.schema.AudioObject = require("./AudioObject.js");
+const schema = {};
+schema.AudioObject = require("./AudioObject.js");
 /**
  * Schema.org/Audiobook
  * An audiobook.
@@ -16,6 +17,25 @@ module.exports = class Audiobook extends schema.AudioObject {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Audiobook");
+		this.setContextAndType("http://schema.org/","Audiobook");
 	}
-};
+
+	/**
+	 * Schema.org/readBy
+	 * A person who reads (performs) the audiobook.
+	 *
+	 * @property readBy
+	 * @type Person
+	 */
+	readBy;
+
+	/**
+	 * Schema.org/duration
+	 * The duration of the item (movie, audio recording, event, etc.) in [ISO 8601 date format](http://en.wikipedia.org/wiki/ISO_8601).
+	 *
+	 * @property duration
+	 * @type Duration
+	 */
+	duration;
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.MediaGallery = require("./MediaGallery.js");
 /**
  * Schema.org/VideoGallery
  * Web page type: Video gallery page.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class VideoGallery
  * @module org.schema
+ * @extends MediaGallery
  */
-module.exports = class VideoGallery extends EcRemoteLinkedData {
+module.exports = class VideoGallery extends schema.MediaGallery {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class VideoGallery extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "VideoGallery");
+		this.setContextAndType("http://schema.org/","VideoGallery");
 	}
-};
+
+}

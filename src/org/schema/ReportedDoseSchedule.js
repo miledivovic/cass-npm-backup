@@ -1,3 +1,5 @@
+const schema = {};
+schema.DoseSchedule = require("./DoseSchedule.js");
 /**
  * Schema.org/ReportedDoseSchedule
  * A patient-reported or observed dosing schedule for a drug or supplement.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class ReportedDoseSchedule
  * @module org.schema
+ * @extends DoseSchedule
  */
-module.exports = class ReportedDoseSchedule extends EcRemoteLinkedData {
+module.exports = class ReportedDoseSchedule extends schema.DoseSchedule {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class ReportedDoseSchedule extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ReportedDoseSchedule");
+		this.setContextAndType("http://schema.org/","ReportedDoseSchedule");
 	}
-};
+
+}

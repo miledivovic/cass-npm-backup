@@ -1,3 +1,5 @@
+const schema = {};
+schema.Store = require("./Store.js");
 /**
  * Schema.org/DepartmentStore
  * A department store.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class DepartmentStore
  * @module org.schema
+ * @extends Store
  */
-module.exports = class DepartmentStore extends EcRemoteLinkedData {
+module.exports = class DepartmentStore extends schema.Store {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class DepartmentStore extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "DepartmentStore");
+		this.setContextAndType("http://schema.org/","DepartmentStore");
 	}
-};
+
+}

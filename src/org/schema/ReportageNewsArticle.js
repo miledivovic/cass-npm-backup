@@ -1,3 +1,5 @@
+const schema = {};
+schema.NewsArticle = require("./NewsArticle.js");
 /**
  * Schema.org/ReportageNewsArticle
  * The [[ReportageNewsArticle]] type is a subtype of [[NewsArticle]] representing
@@ -13,8 +15,9 @@ A [[ReportageNewsArticle]] which goes deeper into analysis can also be marked wi
  * @author schema.org
  * @class ReportageNewsArticle
  * @module org.schema
+ * @extends NewsArticle
  */
-module.exports = class ReportageNewsArticle extends EcRemoteLinkedData {
+module.exports = class ReportageNewsArticle extends schema.NewsArticle {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -22,6 +25,7 @@ module.exports = class ReportageNewsArticle extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ReportageNewsArticle");
+		this.setContextAndType("http://schema.org/","ReportageNewsArticle");
 	}
-};
+
+}

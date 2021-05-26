@@ -1,4 +1,5 @@
-global.schema.Specialty = require("./Specialty.js");
+const schema = {};
+schema.Specialty = require("./Specialty.js");
 /**
  * Schema.org/MedicalSpecialty
  * Any specific branch of medical science or practice. Medical specialities include clinical specialties that pertain to particular organ systems and their respective disease states, as well as allied health specialties. Enumerated type.
@@ -16,6 +17,7 @@ module.exports = class MedicalSpecialty extends schema.Specialty {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MedicalSpecialty");
+		this.setContextAndType("http://schema.org/","MedicalSpecialty");
 	}
-};
+
+}

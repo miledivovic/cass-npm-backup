@@ -1,3 +1,5 @@
+const schema = {};
+schema.AutomotiveBusiness = require("./AutomotiveBusiness.js");
 /**
  * Schema.org/AutoWash
  * A car wash business.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class AutoWash
  * @module org.schema
+ * @extends AutomotiveBusiness
  */
-module.exports = class AutoWash extends EcRemoteLinkedData {
+module.exports = class AutoWash extends schema.AutomotiveBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class AutoWash extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "AutoWash");
+		this.setContextAndType("http://schema.org/","AutoWash");
 	}
-};
+
+}

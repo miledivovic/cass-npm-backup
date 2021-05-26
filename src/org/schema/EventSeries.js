@@ -1,4 +1,5 @@
-global.schema.Event = require("./Event.js");
+const schema = {};
+schema.Event = require("./Event.js");
 /**
  * Schema.org/EventSeries
  * A series of [[Event]]s. Included events can relate with the series using the [[superEvent]] property.
@@ -14,7 +15,7 @@ EventSeries has been defined as a kind of Event to make it easy for publishers t
 worrying about which kinds of series are really event-like enough to call an Event. In general an EventSeries
 may seem more Event-like when the period of time is compact and when aspects such as location are fixed, but
 it may also sometimes prove useful to describe a longer-term series as an Event.
-
+   
  *
  * @author schema.org
  * @class EventSeries
@@ -29,6 +30,7 @@ module.exports = class EventSeries extends schema.Event {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "EventSeries");
+		this.setContextAndType("http://schema.org/","EventSeries");
 	}
-};
+
+}

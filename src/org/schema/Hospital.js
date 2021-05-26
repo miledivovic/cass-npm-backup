@@ -1,4 +1,5 @@
-global.schema.MedicalOrganization = require("./MedicalOrganization.js");
+const schema = {};
+schema.MedicalOrganization = require("./MedicalOrganization.js");
 /**
  * Schema.org/Hospital
  * A hospital.
@@ -16,6 +17,34 @@ module.exports = class Hospital extends schema.MedicalOrganization {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Hospital");
+		this.setContextAndType("http://schema.org/","Hospital");
 	}
-};
+
+	/**
+	 * Schema.org/availableService
+	 * A medical service available from this provider.
+	 *
+	 * @property availableService
+	 * @type MedicalTest
+	 */
+	availableService;
+
+	/**
+	 * Schema.org/healthcareReportingData
+	 * Indicates data describing a hospital, e.g. a CDC [[CDCPMDRecord]] or as some kind of [[Dataset]].
+	 *
+	 * @property healthcareReportingData
+	 * @type Dataset
+	 */
+	healthcareReportingData;
+
+	/**
+	 * Schema.org/medicalSpecialty
+	 * A medical specialty of the provider.
+	 *
+	 * @property medicalSpecialty
+	 * @type MedicalSpecialty
+	 */
+	medicalSpecialty;
+
+}

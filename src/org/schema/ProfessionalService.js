@@ -1,3 +1,5 @@
+const schema = {};
+schema.LocalBusiness = require("./LocalBusiness.js");
 /**
  * Schema.org/ProfessionalService
  * Original definition: "provider of professional services."\n\nThe general [[ProfessionalService]] type for local businesses was deprecated due to confusion with [[Service]]. For reference, the types that it included were: [[Dentist]],
@@ -7,8 +9,9 @@
  * @author schema.org
  * @class ProfessionalService
  * @module org.schema
+ * @extends LocalBusiness
  */
-module.exports = class ProfessionalService extends EcRemoteLinkedData {
+module.exports = class ProfessionalService extends schema.LocalBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -16,6 +19,7 @@ module.exports = class ProfessionalService extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ProfessionalService");
+		this.setContextAndType("http://schema.org/","ProfessionalService");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.ControlAction = require("./ControlAction.js");
 /**
  * Schema.org/ActivateAction
  * The act of starting or activating a device or application (e.g. starting a timer or turning on a flashlight).
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class ActivateAction
  * @module org.schema
+ * @extends ControlAction
  */
-module.exports = class ActivateAction extends EcRemoteLinkedData {
+module.exports = class ActivateAction extends schema.ControlAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class ActivateAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ActivateAction");
+		this.setContextAndType("http://schema.org/","ActivateAction");
 	}
-};
+
+}

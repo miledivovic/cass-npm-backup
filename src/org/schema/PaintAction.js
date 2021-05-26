@@ -1,3 +1,5 @@
+const schema = {};
+schema.CreateAction = require("./CreateAction.js");
 /**
  * Schema.org/PaintAction
  * The act of producing a painting, typically with paint and canvas as instruments.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class PaintAction
  * @module org.schema
+ * @extends CreateAction
  */
-module.exports = class PaintAction extends EcRemoteLinkedData {
+module.exports = class PaintAction extends schema.CreateAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class PaintAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "PaintAction");
+		this.setContextAndType("http://schema.org/","PaintAction");
 	}
-};
+
+}

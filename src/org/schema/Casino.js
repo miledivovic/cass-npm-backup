@@ -1,3 +1,5 @@
+const schema = {};
+schema.EntertainmentBusiness = require("./EntertainmentBusiness.js");
 /**
  * Schema.org/Casino
  * A casino.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Casino
  * @module org.schema
+ * @extends EntertainmentBusiness
  */
-module.exports = class Casino extends EcRemoteLinkedData {
+module.exports = class Casino extends schema.EntertainmentBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Casino extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Casino");
+		this.setContextAndType("http://schema.org/","Casino");
 	}
-};
+
+}

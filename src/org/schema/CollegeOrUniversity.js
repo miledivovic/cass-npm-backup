@@ -1,3 +1,5 @@
+const schema = {};
+schema.EducationalOrganization = require("./EducationalOrganization.js");
 /**
  * Schema.org/CollegeOrUniversity
  * A college, university, or other third-level educational institution.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class CollegeOrUniversity
  * @module org.schema
+ * @extends EducationalOrganization
  */
-module.exports = class CollegeOrUniversity extends EcRemoteLinkedData {
+module.exports = class CollegeOrUniversity extends schema.EducationalOrganization {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class CollegeOrUniversity extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "CollegeOrUniversity");
+		this.setContextAndType("http://schema.org/","CollegeOrUniversity");
 	}
-};
+
+}

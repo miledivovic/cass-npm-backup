@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/SizeGroupEnumeration
  * Enumerates common size groups for various product categories.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class SizeGroupEnumeration
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class SizeGroupEnumeration extends EcRemoteLinkedData {
+module.exports = class SizeGroupEnumeration extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class SizeGroupEnumeration extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "SizeGroupEnumeration");
+		this.setContextAndType("http://schema.org/","SizeGroupEnumeration");
 	}
-};
+
+}

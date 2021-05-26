@@ -1,4 +1,5 @@
-global.schema.CivicStructure = require("./CivicStructure.js");
+const schema = {};
+schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/PoliceStation
  * A police station.
@@ -16,6 +17,7 @@ module.exports = class PoliceStation extends schema.CivicStructure {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "PoliceStation");
+		this.setContextAndType("http://schema.org/","PoliceStation");
 	}
-};
+
+}

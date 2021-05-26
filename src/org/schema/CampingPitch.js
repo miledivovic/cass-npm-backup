@@ -1,3 +1,5 @@
+const schema = {};
+schema.Accommodation = require("./Accommodation.js");
 /**
  * Schema.org/CampingPitch
  * A [[CampingPitch]] is an individual place for overnight stay in the outdoors, typically being part of a larger camping site, or [[Campground]].\n\n
@@ -9,8 +11,9 @@ See also the dedicated [document on the use of schema.org for marking up hotels 
  * @author schema.org
  * @class CampingPitch
  * @module org.schema
+ * @extends Accommodation
  */
-module.exports = class CampingPitch extends EcRemoteLinkedData {
+module.exports = class CampingPitch extends schema.Accommodation {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -18,6 +21,7 @@ module.exports = class CampingPitch extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "CampingPitch");
+		this.setContextAndType("http://schema.org/","CampingPitch");
 	}
-};
+
+}

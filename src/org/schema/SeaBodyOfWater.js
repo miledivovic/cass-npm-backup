@@ -1,3 +1,5 @@
+const schema = {};
+schema.BodyOfWater = require("./BodyOfWater.js");
 /**
  * Schema.org/SeaBodyOfWater
  * A sea (for example, the Caspian sea).
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class SeaBodyOfWater
  * @module org.schema
+ * @extends BodyOfWater
  */
-module.exports = class SeaBodyOfWater extends EcRemoteLinkedData {
+module.exports = class SeaBodyOfWater extends schema.BodyOfWater {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class SeaBodyOfWater extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "SeaBodyOfWater");
+		this.setContextAndType("http://schema.org/","SeaBodyOfWater");
 	}
-};
+
+}

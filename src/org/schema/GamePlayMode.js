@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/GamePlayMode
  * Indicates whether this game is multi-player, co-op or single-player.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class GamePlayMode
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class GamePlayMode extends EcRemoteLinkedData {
+module.exports = class GamePlayMode extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class GamePlayMode extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "GamePlayMode");
+		this.setContextAndType("http://schema.org/","GamePlayMode");
 	}
-};
+
+}

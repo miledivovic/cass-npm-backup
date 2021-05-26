@@ -1,3 +1,5 @@
+const schema = {};
+schema.WebPage = require("./WebPage.js");
 /**
  * Schema.org/CollectionPage
  * Web page type: Collection page.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class CollectionPage
  * @module org.schema
+ * @extends WebPage
  */
-module.exports = class CollectionPage extends EcRemoteLinkedData {
+module.exports = class CollectionPage extends schema.WebPage {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class CollectionPage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "CollectionPage");
+		this.setContextAndType("http://schema.org/","CollectionPage");
 	}
-};
+
+}

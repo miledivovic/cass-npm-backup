@@ -1,3 +1,5 @@
+const schema = {};
+schema.AutomotiveBusiness = require("./AutomotiveBusiness.js");
 /**
  * Schema.org/AutoBodyShop
  * Auto body shop.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class AutoBodyShop
  * @module org.schema
+ * @extends AutomotiveBusiness
  */
-module.exports = class AutoBodyShop extends EcRemoteLinkedData {
+module.exports = class AutoBodyShop extends schema.AutomotiveBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class AutoBodyShop extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "AutoBodyShop");
+		this.setContextAndType("http://schema.org/","AutoBodyShop");
 	}
-};
+
+}

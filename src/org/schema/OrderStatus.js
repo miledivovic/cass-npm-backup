@@ -1,3 +1,5 @@
+const schema = {};
+schema.StatusEnumeration = require("./StatusEnumeration.js");
 /**
  * Schema.org/OrderStatus
  * Enumerated status values for Order.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class OrderStatus
  * @module org.schema
+ * @extends StatusEnumeration
  */
-module.exports = class OrderStatus extends EcRemoteLinkedData {
+module.exports = class OrderStatus extends schema.StatusEnumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class OrderStatus extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "OrderStatus");
+		this.setContextAndType("http://schema.org/","OrderStatus");
 	}
-};
+
+}

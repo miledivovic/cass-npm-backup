@@ -1,3 +1,5 @@
+const schema = {};
+schema.BodyOfWater = require("./BodyOfWater.js");
 /**
  * Schema.org/Pond
  * A pond.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Pond
  * @module org.schema
+ * @extends BodyOfWater
  */
-module.exports = class Pond extends EcRemoteLinkedData {
+module.exports = class Pond extends schema.BodyOfWater {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Pond extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Pond");
+		this.setContextAndType("http://schema.org/","Pond");
 	}
-};
+
+}

@@ -1,4 +1,5 @@
-global.schema.MedicalBusiness = require("./MedicalBusiness.js");
+const schema = {};
+schema.MedicalBusiness = require("./MedicalBusiness.js");
 /**
  * Schema.org/Dentist
  * A dentist.
@@ -16,6 +17,7 @@ module.exports = class Dentist extends schema.MedicalBusiness {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Dentist");
+		this.setContextAndType("http://schema.org/","Dentist");
 	}
-};
+
+}

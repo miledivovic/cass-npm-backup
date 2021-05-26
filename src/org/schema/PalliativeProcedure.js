@@ -1,4 +1,5 @@
-global.schema.MedicalTherapy = require("./MedicalTherapy.js");
+const schema = {};
+schema.MedicalTherapy = require("./MedicalTherapy.js");
 /**
  * Schema.org/PalliativeProcedure
  * A medical procedure intended primarily for palliative purposes, aimed at relieving the symptoms of an underlying health condition.
@@ -16,6 +17,7 @@ module.exports = class PalliativeProcedure extends schema.MedicalTherapy {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "PalliativeProcedure");
+		this.setContextAndType("http://schema.org/","PalliativeProcedure");
 	}
-};
+
+}

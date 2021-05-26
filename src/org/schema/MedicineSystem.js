@@ -1,3 +1,5 @@
+const schema = {};
+schema.MedicalEnumeration = require("./MedicalEnumeration.js");
 /**
  * Schema.org/MedicineSystem
  * Systems of medical practice.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class MedicineSystem
  * @module org.schema
+ * @extends MedicalEnumeration
  */
-module.exports = class MedicineSystem extends EcRemoteLinkedData {
+module.exports = class MedicineSystem extends schema.MedicalEnumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class MedicineSystem extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "MedicineSystem");
+		this.setContextAndType("http://schema.org/","MedicineSystem");
 	}
-};
+
+}

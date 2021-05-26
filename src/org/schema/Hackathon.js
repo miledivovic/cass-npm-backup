@@ -1,3 +1,5 @@
+const schema = {};
+schema.Event = require("./Event.js");
 /**
  * Schema.org/Hackathon
  * A [hackathon](https://en.wikipedia.org/wiki/Hackathon) event.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Hackathon
  * @module org.schema
+ * @extends Event
  */
-module.exports = class Hackathon extends EcRemoteLinkedData {
+module.exports = class Hackathon extends schema.Event {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Hackathon extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Hackathon");
+		this.setContextAndType("http://schema.org/","Hackathon");
 	}
-};
+
+}

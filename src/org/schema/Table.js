@@ -1,3 +1,5 @@
+const schema = {};
+schema.WebPageElement = require("./WebPageElement.js");
 /**
  * Schema.org/Table
  * A table on a Web page.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Table
  * @module org.schema
+ * @extends WebPageElement
  */
-module.exports = class Table extends EcRemoteLinkedData {
+module.exports = class Table extends schema.WebPageElement {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Table extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Table");
+		this.setContextAndType("http://schema.org/","Table");
 	}
-};
+
+}

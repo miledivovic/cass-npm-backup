@@ -1,3 +1,5 @@
+const schema = {};
+schema.PlaceOfWorship = require("./PlaceOfWorship.js");
 /**
  * Schema.org/Church
  * A church.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Church
  * @module org.schema
+ * @extends PlaceOfWorship
  */
-module.exports = class Church extends EcRemoteLinkedData {
+module.exports = class Church extends schema.PlaceOfWorship {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Church extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Church");
+		this.setContextAndType("http://schema.org/","Church");
 	}
-};
+
+}

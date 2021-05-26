@@ -1,3 +1,5 @@
+const schema = {};
+schema.LodgingBusiness = require("./LodgingBusiness.js");
 /**
  * Schema.org/Hotel
  * A hotel is an establishment that provides lodging paid on a short-term basis (Source: Wikipedia, the free encyclopedia, see http://en.wikipedia.org/wiki/Hotel).
@@ -8,8 +10,9 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
  * @author schema.org
  * @class Hotel
  * @module org.schema
+ * @extends LodgingBusiness
  */
-module.exports = class Hotel extends EcRemoteLinkedData {
+module.exports = class Hotel extends schema.LodgingBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -17,6 +20,7 @@ module.exports = class Hotel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Hotel");
+		this.setContextAndType("http://schema.org/","Hotel");
 	}
-};
+
+}

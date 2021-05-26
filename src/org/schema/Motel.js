@@ -1,3 +1,5 @@
+const schema = {};
+schema.LodgingBusiness = require("./LodgingBusiness.js");
 /**
  * Schema.org/Motel
  * A motel.
@@ -8,8 +10,9 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
  * @author schema.org
  * @class Motel
  * @module org.schema
+ * @extends LodgingBusiness
  */
-module.exports = class Motel extends EcRemoteLinkedData {
+module.exports = class Motel extends schema.LodgingBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -17,6 +20,7 @@ module.exports = class Motel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Motel");
+		this.setContextAndType("http://schema.org/","Motel");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.Landform = require("./Landform.js");
 /**
  * Schema.org/Mountain
  * A mountain, like Mount Whitney or Mount Everest.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Mountain
  * @module org.schema
+ * @extends Landform
  */
-module.exports = class Mountain extends EcRemoteLinkedData {
+module.exports = class Mountain extends schema.Landform {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Mountain extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Mountain");
+		this.setContextAndType("http://schema.org/","Mountain");
 	}
-};
+
+}

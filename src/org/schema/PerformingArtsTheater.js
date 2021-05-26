@@ -1,3 +1,5 @@
+const schema = {};
+schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/PerformingArtsTheater
  * A theater or other performing art center.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class PerformingArtsTheater
  * @module org.schema
+ * @extends CivicStructure
  */
-module.exports = class PerformingArtsTheater extends EcRemoteLinkedData {
+module.exports = class PerformingArtsTheater extends schema.CivicStructure {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class PerformingArtsTheater extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "PerformingArtsTheater");
+		this.setContextAndType("http://schema.org/","PerformingArtsTheater");
 	}
-};
+
+}

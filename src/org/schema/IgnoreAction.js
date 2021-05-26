@@ -1,3 +1,5 @@
+const schema = {};
+schema.AssessAction = require("./AssessAction.js");
 /**
  * Schema.org/IgnoreAction
  * The act of intentionally disregarding the object. An agent ignores an object.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class IgnoreAction
  * @module org.schema
+ * @extends AssessAction
  */
-module.exports = class IgnoreAction extends EcRemoteLinkedData {
+module.exports = class IgnoreAction extends schema.AssessAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class IgnoreAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "IgnoreAction");
+		this.setContextAndType("http://schema.org/","IgnoreAction");
 	}
-};
+
+}

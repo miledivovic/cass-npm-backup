@@ -1,3 +1,5 @@
+const schema = {};
+schema.Rating = require("./Rating.js");
 /**
  * Schema.org/EndorsementRating
  * An EndorsementRating is a rating that expresses some level of endorsement, for example inclusion in a "critic's pick" blog, a
@@ -11,8 +13,9 @@ endorsement rating is particularly useful in the absence of numeric scales as it
  * @author schema.org
  * @class EndorsementRating
  * @module org.schema
+ * @extends Rating
  */
-module.exports = class EndorsementRating extends EcRemoteLinkedData {
+module.exports = class EndorsementRating extends schema.Rating {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -20,6 +23,7 @@ module.exports = class EndorsementRating extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "EndorsementRating");
+		this.setContextAndType("http://schema.org/","EndorsementRating");
 	}
-};
+
+}

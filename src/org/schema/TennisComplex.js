@@ -1,3 +1,5 @@
+const schema = {};
+schema.SportsActivityLocation = require("./SportsActivityLocation.js");
 /**
  * Schema.org/TennisComplex
  * A tennis complex.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class TennisComplex
  * @module org.schema
+ * @extends SportsActivityLocation
  */
-module.exports = class TennisComplex extends EcRemoteLinkedData {
+module.exports = class TennisComplex extends schema.SportsActivityLocation {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class TennisComplex extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "TennisComplex");
+		this.setContextAndType("http://schema.org/","TennisComplex");
 	}
-};
+
+}

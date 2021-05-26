@@ -1,3 +1,5 @@
+const schema = {};
+schema.InteractAction = require("./InteractAction.js");
 /**
  * Schema.org/BefriendAction
  * The act of forming a personal connection with someone (object) mutually/bidirectionally/symmetrically.\n\nRelated actions:\n\n* [[FollowAction]]: Unlike FollowAction, BefriendAction implies that the connection is reciprocal.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class BefriendAction
  * @module org.schema
+ * @extends InteractAction
  */
-module.exports = class BefriendAction extends EcRemoteLinkedData {
+module.exports = class BefriendAction extends schema.InteractAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class BefriendAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "BefriendAction");
+		this.setContextAndType("http://schema.org/","BefriendAction");
 	}
-};
+
+}

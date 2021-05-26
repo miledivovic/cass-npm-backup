@@ -1,3 +1,5 @@
+const schema = {};
+schema.SportsActivityLocation = require("./SportsActivityLocation.js");
 /**
  * Schema.org/BowlingAlley
  * A bowling alley.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class BowlingAlley
  * @module org.schema
+ * @extends SportsActivityLocation
  */
-module.exports = class BowlingAlley extends EcRemoteLinkedData {
+module.exports = class BowlingAlley extends schema.SportsActivityLocation {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class BowlingAlley extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "BowlingAlley");
+		this.setContextAndType("http://schema.org/","BowlingAlley");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.AnatomicalStructure = require("./AnatomicalStructure.js");
 /**
  * Schema.org/Bone
  * Rigid connective tissue that comprises up the skeletal structure of the human body.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Bone
  * @module org.schema
+ * @extends AnatomicalStructure
  */
-module.exports = class Bone extends EcRemoteLinkedData {
+module.exports = class Bone extends schema.AnatomicalStructure {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Bone extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Bone");
+		this.setContextAndType("http://schema.org/","Bone");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.FoodEstablishment = require("./FoodEstablishment.js");
 /**
  * Schema.org/Brewery
  * Brewery.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Brewery
  * @module org.schema
+ * @extends FoodEstablishment
  */
-module.exports = class Brewery extends EcRemoteLinkedData {
+module.exports = class Brewery extends schema.FoodEstablishment {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Brewery extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Brewery");
+		this.setContextAndType("http://schema.org/","Brewery");
 	}
-};
+
+}

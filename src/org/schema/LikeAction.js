@@ -1,3 +1,5 @@
+const schema = {};
+schema.ReactAction = require("./ReactAction.js");
 /**
  * Schema.org/LikeAction
  * The act of expressing a positive sentiment about the object. An agent likes an object (a proposition, topic or theme) with participants.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class LikeAction
  * @module org.schema
+ * @extends ReactAction
  */
-module.exports = class LikeAction extends EcRemoteLinkedData {
+module.exports = class LikeAction extends schema.ReactAction {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class LikeAction extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "LikeAction");
+		this.setContextAndType("http://schema.org/","LikeAction");
 	}
-};
+
+}

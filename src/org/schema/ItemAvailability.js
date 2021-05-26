@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/ItemAvailability
  * A list of possible product availability options.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class ItemAvailability
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class ItemAvailability extends EcRemoteLinkedData {
+module.exports = class ItemAvailability extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class ItemAvailability extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "ItemAvailability");
+		this.setContextAndType("http://schema.org/","ItemAvailability");
 	}
-};
+
+}

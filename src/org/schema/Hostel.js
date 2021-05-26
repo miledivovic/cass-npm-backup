@@ -1,3 +1,5 @@
+const schema = {};
+schema.LodgingBusiness = require("./LodgingBusiness.js");
 /**
  * Schema.org/Hostel
  * A hostel - cheap accommodation, often in shared dormitories.
@@ -8,8 +10,9 @@ See also the <a href="/docs/hotels.html">dedicated document on the use of schema
  * @author schema.org
  * @class Hostel
  * @module org.schema
+ * @extends LodgingBusiness
  */
-module.exports = class Hostel extends EcRemoteLinkedData {
+module.exports = class Hostel extends schema.LodgingBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -17,6 +20,7 @@ module.exports = class Hostel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Hostel");
+		this.setContextAndType("http://schema.org/","Hostel");
 	}
-};
+
+}

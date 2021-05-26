@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/LegalValueLevel
  * A list of possible levels for the legal validity of a legislation.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class LegalValueLevel
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class LegalValueLevel extends EcRemoteLinkedData {
+module.exports = class LegalValueLevel extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class LegalValueLevel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "LegalValueLevel");
+		this.setContextAndType("http://schema.org/","LegalValueLevel");
 	}
-};
+
+}

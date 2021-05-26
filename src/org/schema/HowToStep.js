@@ -1,4 +1,5 @@
-global.schema.CreativeWork = require("./CreativeWork.js");
+const schema = {};
+schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/HowToStep
  * A step in the instructions for how to achieve a result. It is an ordered list with HowToDirection and/or HowToTip items.
@@ -16,6 +17,7 @@ module.exports = class HowToStep extends schema.CreativeWork {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "HowToStep");
+		this.setContextAndType("http://schema.org/","HowToStep");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.MedicalBusiness = require("./MedicalBusiness.js");
 /**
  * Schema.org/Optician
  * A store that sells reading glasses and similar devices for improving vision.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Optician
  * @module org.schema
+ * @extends MedicalBusiness
  */
-module.exports = class Optician extends EcRemoteLinkedData {
+module.exports = class Optician extends schema.MedicalBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Optician extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Optician");
+		this.setContextAndType("http://schema.org/","Optician");
 	}
-};
+
+}

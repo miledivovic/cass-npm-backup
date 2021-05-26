@@ -1,3 +1,5 @@
+const schema = {};
+schema.NonprofitType = require("./NonprofitType.js");
 /**
  * Schema.org/NLNonprofitType
  * NLNonprofitType: Non-profit organization type originating from the Netherlands.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class NLNonprofitType
  * @module org.schema
+ * @extends NonprofitType
  */
-module.exports = class NLNonprofitType extends EcRemoteLinkedData {
+module.exports = class NLNonprofitType extends schema.NonprofitType {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class NLNonprofitType extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "NLNonprofitType");
+		this.setContextAndType("http://schema.org/","NLNonprofitType");
 	}
-};
+
+}

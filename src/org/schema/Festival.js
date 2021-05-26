@@ -1,3 +1,5 @@
+const schema = {};
+schema.Event = require("./Event.js");
 /**
  * Schema.org/Festival
  * Event type: Festival.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Festival
  * @module org.schema
+ * @extends Event
  */
-module.exports = class Festival extends EcRemoteLinkedData {
+module.exports = class Festival extends schema.Event {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Festival extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Festival");
+		this.setContextAndType("http://schema.org/","Festival");
 	}
-};
+
+}

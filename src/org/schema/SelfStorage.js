@@ -1,3 +1,5 @@
+const schema = {};
+schema.LocalBusiness = require("./LocalBusiness.js");
 /**
  * Schema.org/SelfStorage
  * A self-storage facility.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class SelfStorage
  * @module org.schema
+ * @extends LocalBusiness
  */
-module.exports = class SelfStorage extends EcRemoteLinkedData {
+module.exports = class SelfStorage extends schema.LocalBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class SelfStorage extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "SelfStorage");
+		this.setContextAndType("http://schema.org/","SelfStorage");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.HealthAndBeautyBusiness = require("./HealthAndBeautyBusiness.js");
 /**
  * Schema.org/HairSalon
  * A hair salon.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class HairSalon
  * @module org.schema
+ * @extends HealthAndBeautyBusiness
  */
-module.exports = class HairSalon extends EcRemoteLinkedData {
+module.exports = class HairSalon extends schema.HealthAndBeautyBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class HairSalon extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "HairSalon");
+		this.setContextAndType("http://schema.org/","HairSalon");
 	}
-};
+
+}

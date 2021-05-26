@@ -1,3 +1,5 @@
+const schema = {};
+schema.CivicStructure = require("./CivicStructure.js");
 /**
  * Schema.org/TaxiStand
  * A taxi stand.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class TaxiStand
  * @module org.schema
+ * @extends CivicStructure
  */
-module.exports = class TaxiStand extends EcRemoteLinkedData {
+module.exports = class TaxiStand extends schema.CivicStructure {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class TaxiStand extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "TaxiStand");
+		this.setContextAndType("http://schema.org/","TaxiStand");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.BroadcastChannel = require("./BroadcastChannel.js");
 /**
  * Schema.org/RadioChannel
  * A unique instance of a radio BroadcastService on a CableOrSatelliteService lineup.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class RadioChannel
  * @module org.schema
+ * @extends BroadcastChannel
  */
-module.exports = class RadioChannel extends EcRemoteLinkedData {
+module.exports = class RadioChannel extends schema.BroadcastChannel {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class RadioChannel extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "RadioChannel");
+		this.setContextAndType("http://schema.org/","RadioChannel");
 	}
-};
+
+}

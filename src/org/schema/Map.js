@@ -1,3 +1,5 @@
+const schema = {};
+schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/Map
  * A map.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Map
  * @module org.schema
+ * @extends CreativeWork
  */
-module.exports = class Map extends EcRemoteLinkedData {
+module.exports = class Map extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,16 @@ module.exports = class Map extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Map");
+		this.setContextAndType("http://schema.org/","Map");
 	}
-};
+
+	/**
+	 * Schema.org/mapType
+	 * Indicates the kind of Map, from the MapCategoryType Enumeration.
+	 *
+	 * @property mapType
+	 * @type MapCategoryType
+	 */
+	mapType;
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.CreativeWork = require("./CreativeWork.js");
 /**
  * Schema.org/Painting
  * A painting.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class Painting
  * @module org.schema
+ * @extends CreativeWork
  */
-module.exports = class Painting extends EcRemoteLinkedData {
+module.exports = class Painting extends schema.CreativeWork {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class Painting extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "Painting");
+		this.setContextAndType("http://schema.org/","Painting");
 	}
-};
+
+}

@@ -1,3 +1,5 @@
+const schema = {};
+schema.StatusEnumeration = require("./StatusEnumeration.js");
 /**
  * Schema.org/GameServerStatus
  * Status of a game server.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class GameServerStatus
  * @module org.schema
+ * @extends StatusEnumeration
  */
-module.exports = class GameServerStatus extends EcRemoteLinkedData {
+module.exports = class GameServerStatus extends schema.StatusEnumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class GameServerStatus extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "GameServerStatus");
+		this.setContextAndType("http://schema.org/","GameServerStatus");
 	}
-};
+
+}

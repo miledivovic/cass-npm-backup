@@ -1,3 +1,5 @@
+const schema = {};
+schema.FinancialService = require("./FinancialService.js");
 /**
  * Schema.org/InsuranceAgency
  * An Insurance agency.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class InsuranceAgency
  * @module org.schema
+ * @extends FinancialService
  */
-module.exports = class InsuranceAgency extends EcRemoteLinkedData {
+module.exports = class InsuranceAgency extends schema.FinancialService {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class InsuranceAgency extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "InsuranceAgency");
+		this.setContextAndType("http://schema.org/","InsuranceAgency");
 	}
-};
+
+}

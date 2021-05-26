@@ -48,7 +48,8 @@ function codeGenerate(graph, node) {
     text += " * @author schema.org\n";
     text += " * @class " + className + "\n";
     text += " * @module org.schema\n";
-
+    if (node["rdfs:subClassOf"] != null && !Array.isArray(node["rdfs:subClassOf"]))
+        node["rdfs:subClassOf"] = [node["rdfs:subClassOf"]];
     if (node["rdfs:subClassOf"] != null)
         node["rdfs:subClassOf"] = node["rdfs:subClassOf"][0];
     if (node["rdfs:subClassOf"] != null)
@@ -57,10 +58,15 @@ function codeGenerate(graph, node) {
     text += "module.exports = class " + className;
     if (node["rdfs:subClassOf"] != null) {
         text += " extends schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " {\n";
-        text = "global.schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " = require(\"./" + node["rdfs:subClassOf"]["@id"].split(":")[1] + ".js\");\n" + text
+        text = "schema." + node["rdfs:subClassOf"]["@id"].split(":")[1] + " = require(\"./" + node["rdfs:subClassOf"]["@id"].split(":")[1] + ".js\");\n" + text;
+        text = "const schema = {};\n" + text;
+        
     }
     else
+    {
         text += " extends EcRemoteLinkedData {\n";
+        text = "const EcRemoteLinkedData = require(\"../cassproject/schema/general/EcRemoteLinkedData.js\");\n" + text;
+    }
     //text += "\n";
     text += "\t/**\n";
     text += "\t * Constructor, automatically sets @context and @type.\n";
@@ -73,9 +79,20 @@ function codeGenerate(graph, node) {
     text += "\t}\n\n";
 
     for (var i = 0; i < graph.length; i++) {
-        var gn = graph[i];
+        var gn = graph[i];            
+        if (gn["schema:rangeIncludes"] != null)
+        if (!Array.isArray(gn["schema:rangeIncludes"]))
+            gn["schema:rangeIncludes"] = [gn["schema:rangeIncludes"]];
+        if (gn["schema:domainIncludes"] != null)
+        if (!Array.isArray(gn["schema:domainIncludes"]))
+            gn["schema:domainIncludes"] = [gn["schema:domainIncludes"]];
+        if (gn["rdfs:label"] != null && gn["rdfs:label"]["@value"] != null)
+            gn["rdfs:label"] = gn["rdfs:label"]["@value"]
+        if (gn["rdfs:comment"] != null && gn["rdfs:comment"]["@value"] != null)
+            gn["rdfs:comment"] = gn["rdfs:comment"]["@value"]
+
         var gi = gn["@id"];
-        var gt = gn["@type"][0];
+        var gt = gn["@type"];
         var gd = gn["schema:domainIncludes"];
         if (gt != "rdf:Property")
             continue;
@@ -93,9 +110,9 @@ function codeGenerate(graph, node) {
         }
         text += "\t/**\n";
         text += "\t * " + gi.replace("schema:", "Schema.org/") + "\n";
-        text += "\t * " + gn["rdfs:comment"][0]["@value"] + "\n";
+        text += "\t * " + gn["rdfs:comment"] + "\n";
         text += "\t *" + "\n";
-        text += "\t * @property " + gn["rdfs:label"][0]["@value"] + "\n";
+        text += "\t * @property " + gn["rdfs:label"] + "\n";
         text += "\t * @type ";
         var gr = gn["schema:rangeIncludes"][0];
         //console.log(gr.toString());
@@ -111,8 +128,7 @@ function codeGenerate(graph, node) {
         }
         text += "\t */\n";
         if (gr.toString().indexOf(",") == -1) {
-            text += "\t";
-            text += sub(gr["@id"].split(":")[1]) + " " + gn["rdfs:label"][0]["@value"] + ";\n\n";
+            text += "\t" + gn["rdfs:label"] + ";\n\n";
         } else {
             text += "\t" + gn["rdfs:label"][0]["@value"] + ";\n\n";
         }

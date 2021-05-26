@@ -1,3 +1,5 @@
+const schema = {};
+schema.LocalBusiness = require("./LocalBusiness.js");
 /**
  * Schema.org/TravelAgency
  * A travel agency.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class TravelAgency
  * @module org.schema
+ * @extends LocalBusiness
  */
-module.exports = class TravelAgency extends EcRemoteLinkedData {
+module.exports = class TravelAgency extends schema.LocalBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class TravelAgency extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "TravelAgency");
+		this.setContextAndType("http://schema.org/","TravelAgency");
 	}
-};
+
+}

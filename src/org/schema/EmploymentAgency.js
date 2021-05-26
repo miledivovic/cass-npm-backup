@@ -1,3 +1,5 @@
+const schema = {};
+schema.LocalBusiness = require("./LocalBusiness.js");
 /**
  * Schema.org/EmploymentAgency
  * An employment agency.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class EmploymentAgency
  * @module org.schema
+ * @extends LocalBusiness
  */
-module.exports = class EmploymentAgency extends EcRemoteLinkedData {
+module.exports = class EmploymentAgency extends schema.LocalBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class EmploymentAgency extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "EmploymentAgency");
+		this.setContextAndType("http://schema.org/","EmploymentAgency");
 	}
-};
+
+}

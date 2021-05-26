@@ -1,3 +1,5 @@
+const schema = {};
+schema.StatusEnumeration = require("./StatusEnumeration.js");
 /**
  * Schema.org/LegalForceStatus
  * A list of possible statuses for the legal force of a legislation.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class LegalForceStatus
  * @module org.schema
+ * @extends StatusEnumeration
  */
-module.exports = class LegalForceStatus extends EcRemoteLinkedData {
+module.exports = class LegalForceStatus extends schema.StatusEnumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class LegalForceStatus extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "LegalForceStatus");
+		this.setContextAndType("http://schema.org/","LegalForceStatus");
 	}
-};
+
+}

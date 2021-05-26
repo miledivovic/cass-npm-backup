@@ -1,3 +1,5 @@
+const schema = {};
+schema.HomeAndConstructionBusiness = require("./HomeAndConstructionBusiness.js");
 /**
  * Schema.org/GeneralContractor
  * A general contractor.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class GeneralContractor
  * @module org.schema
+ * @extends HomeAndConstructionBusiness
  */
-module.exports = class GeneralContractor extends EcRemoteLinkedData {
+module.exports = class GeneralContractor extends schema.HomeAndConstructionBusiness {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,6 +17,7 @@ module.exports = class GeneralContractor extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType("http://schema.org/", "GeneralContractor");
+		this.setContextAndType("http://schema.org/","GeneralContractor");
 	}
-};
+
+}

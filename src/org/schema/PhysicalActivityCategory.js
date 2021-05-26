@@ -1,3 +1,5 @@
+const schema = {};
+schema.Enumeration = require("./Enumeration.js");
 /**
  * Schema.org/PhysicalActivityCategory
  * Categories of physical activity, organized by physiologic classification.
@@ -5,8 +7,9 @@
  * @author schema.org
  * @class PhysicalActivityCategory
  * @module org.schema
+ * @extends Enumeration
  */
-module.exports = class PhysicalActivityCategory extends EcRemoteLinkedData {
+module.exports = class PhysicalActivityCategory extends schema.Enumeration {
 	/**
 	 * Constructor, automatically sets @context and @type.
 	 *
@@ -14,9 +17,7 @@ module.exports = class PhysicalActivityCategory extends EcRemoteLinkedData {
 	 */
 	constructor() {
 		super();
-		this.setContextAndType(
-			"http://schema.org/",
-			"PhysicalActivityCategory"
-		);
+		this.setContextAndType("http://schema.org/","PhysicalActivityCategory");
 	}
-};
+
+}

@@ -35,7 +35,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 ## Publish checklist
 
  * `npm test` - Must not fail any tests.
- * Increment version number in package.json
+ * Increment version number in package.json and yuidoc.json
  * `npm docs`
  * Commit changes to GitHub.
  * Tag release with semantic version from package.json, push tag.

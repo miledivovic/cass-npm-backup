@@ -5,7 +5,7 @@ if (typeof __webpack_require__ === 'function') {
 } else {
 	forge = require("node-forge");
 }
-if (typeof crypto === undefined) {
+if (typeof crypto === 'undefined') {
 	var crypto = null;
 	try {
 		crypto = require('crypto').webcrypto;

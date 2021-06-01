@@ -15,7 +15,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 	}
 	static TYPE_0_5 = "http://schema.cassproject.org/0.4/AssertionEnvelope";
 	static TYPE_0_6 = "https://schema.cassproject.org/0.4/AssertionEnvelope";
-	static myType = AssertionEnvelope.TYPE_0_6;
+	static myType = this.TYPE_0_6;
 	/**
 	 *  List of assertions to pack in the envelope.
 	 *

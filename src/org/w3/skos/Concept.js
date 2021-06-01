@@ -17,7 +17,7 @@ module.exports = class Concept extends EcRemoteLinkedData {
 	static TYPE_0_1 = "http://schema.cassproject.org/0.3/skos/Concept";
 	static TYPE_0_2 = "https://schema.cassproject.org/0.3/skos/Concept";
 	static TYPE_0_3 = "https://schema.cassproject.org/0.4/skos/Concept";
-	static myType = Concept.TYPE_0_3;
+	static myType = this.TYPE_0_3;
 	/**
 	 *  www.w3.org/2004/02/skos/core/topConceptOf
 	 *  Relates a concept to the concept scheme that it is a top level concept of.

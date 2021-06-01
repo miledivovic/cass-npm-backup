@@ -13,7 +13,7 @@ module.exports = class GeneralFile extends EcRemoteLinkedData {
 	}
 	static TYPE_0_1 = "http://schema.eduworks.com/general/0.1/file";
 	static TYPE_0_2 = "http://schema.eduworks.com/general/0.2/file";
-	static myType = GeneralFile.TYPE_0_2;
+	static myType = this.TYPE_0_2;
 	/**
 	 *  Optional checksum of the file, used to verify if the file has been
 	 *  transmitted correctly.

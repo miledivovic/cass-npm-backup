@@ -7,12 +7,7 @@ const EcContact = require("../EcContact");
 const EcIdentity = require("../EcIdentity");
 const EcIdentityManager = require("../EcIdentityManager");
 const RemoteIdentityManagerInterface = require("./RemoteIdentityManagerInterface");
-let forge;
-if (typeof __webpack_require__ === 'function') {
-	forge = require("forge");
-} else {
-	forge = require("node-forge");
-}
+let forge = require("node-forge");
 
 /**
  *  Logs into and stores/retrieves credentials from a compatible remote server.

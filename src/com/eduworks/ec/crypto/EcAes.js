@@ -1,9 +1,4 @@
-let forge;
-if (typeof __webpack_require__ === 'function') {
-	forge = require("forge");
-} else {
-	forge = require("node-forge");
-}
+let forge = require("node-forge");
 /**
  *  AES encryption tasks common across all variants of AES.
  *  @class EcAes

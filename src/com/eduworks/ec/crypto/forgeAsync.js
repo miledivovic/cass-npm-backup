@@ -1,10 +1,6 @@
 if (typeof global !== "undefined") {
     if (global.forge === undefined)
-        if (typeof __webpack_require__ === 'function') {
-            var forge = require("forge");
-        } else {
-            var forge = require("node-forge");
-        }
+        var forge = require("node-forge");
     else
         var forge = global.forge;
 } else {

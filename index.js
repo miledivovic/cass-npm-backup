@@ -59,11 +59,7 @@ try {
 }
 
 if (global.forge === undefined)
-    if (typeof __webpack_require__ === 'function') {
-        global.forge = require("forge");
-    } else {
-        global.forge = require("node-forge");
-    }
+    global.forge = require("node-forge");
 else
     var forge = global.forge;
 

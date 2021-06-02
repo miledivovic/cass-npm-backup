@@ -1,9 +1,4 @@
-let forge;
-if (typeof __webpack_require__ === 'function') {
-	forge = require("forge");
-} else {
-	forge = require("node-forge");
-}
+let forge = require("node-forge");
 let EcCrypto = require("./EcCrypto.js");
 /**
  *  Encrypts data synchronously using AES-256-CTR. Requires secret and iv to be 32 bytes.

@@ -1,10 +1,5 @@
 var pemJwk = require("pem-jwk");
-let forge;
-if (typeof __webpack_require__ === 'function') {
-	forge = require("forge");
-} else {
-	forge = require("node-forge");
-}
+let forge = require("node-forge");
 let EcPk = require("./EcPk.js");
 /**
  *  Helper classes for dealing with RSA Private Keys.

@@ -21,7 +21,7 @@ Running `npm test` requires Docker.
 
 ## Release testing
 
- * `npm test` - Runs unit tests in docker images against the CaSS 0.5, 1.2, 1.3, and 1.4 reponsitories using Node versions 12-16 and Cypress against Edge, Chrome, Firefox and Electron. Takes some time.
+ * `npm test` - Runs unit tests in docker images against the CaSS 0.5, 1.2, 1.3, and 1.4 repositories using Node versions 12-16 and Cypress against Edge, Chrome, Firefox and Electron. Takes some time.
 
 ## Development unit testing
 Development unit tests presume you have a CaSS Repository running on `localhost:80`. You may get one by running `docker run -d --name cass-test -p80:80 cassproject/cass:0.5.1`

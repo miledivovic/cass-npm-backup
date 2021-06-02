@@ -5,12 +5,7 @@ var PromiseWorker = require("promise-worker");
 const path = require('path');
 const url = require('url');
 let EcCrypto = require("./EcCrypto.js");
-let forge;
-if (typeof __webpack_require__ === 'function') {
-	forge = require("forge");
-} else {
-	forge = require("node-forge");
-}
+let forge = require("node-forge");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
 let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 

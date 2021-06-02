@@ -1,10 +1,5 @@
 var base64 = require("base64-arraybuffer");
-let forge;
-if (typeof __webpack_require__ === 'function') {
-	forge = require("forge");
-} else {
-	forge = require("node-forge");
-}
+let forge = require("node-forge");
 if (typeof crypto === 'undefined') {
 	var crypto = null;
 	try {

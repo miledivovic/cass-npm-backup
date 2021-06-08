@@ -1027,7 +1027,7 @@ module.exports = class EcRepository {
 							EcRepository.cache[d.shortId()] = EcRepository.cache[d.id] = EcRepository.cache[EcRemoteLinkedData.veryShortId(this.selectedServer, d.getGuid())] = d;
 						}
 						if (eachSuccess != null) {
-							eachSuccess(result);
+							eachSuccess(d);
 						}
 						return d;
 					})

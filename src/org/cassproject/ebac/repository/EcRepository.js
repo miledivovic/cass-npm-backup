@@ -507,6 +507,9 @@ module.exports = class EcRepository {
 	static _saveWithoutSigning = function (data, success, failure, repo, eim) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
+		if (repo === undefined) {
+			repo = null;
+		}
 		if (this.caching) {
 			delete this.cache[data.id];
 			delete this.cache[data.shortId()];

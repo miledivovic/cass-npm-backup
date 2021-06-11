@@ -1536,7 +1536,7 @@ module.exports = class EcRepository {
 		return this.get(id, null, null, repo, eim).then(async (p1) => {
 			if (p1 == null)
 				return null;
-			if (p1.isAny(result.getTypes())) {
+			if (p1.constructor === result.constructor) {
 				if (success != null) {
 					return success(p1);
 				} else

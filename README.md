@@ -28,15 +28,16 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
  * `npm automocha` - Runs mocha unit tests against current Node environment. Will rerun unit tests on-save.
  * `npm mocha` - Runs mocha unit tests.
- * `npm cypress` - Runs unit tests in Cypress against Chrome (headless)
- * `npm cypressEdge` - Runs unit tests in Cypress against Edge (headless)
- * `npm cypress:open` - Runs unit tests in Cypress in development mode. Will rerun unit tests on-save.
+ * `npm webpack:cypress` - Runs unit tests in Cypress against Chrome (headless)
+ * `npm webpack:cypressEdge` - Runs unit tests in Cypress against Edge (headless)
+ * `npm webpack:cypress:open` - Runs unit tests in Cypress in development mode using webpack packaging. Will rerun unit tests on-save.
+ * `npm browserify:cypress:open` - Runs unit tests in Cypress in development mode using browserify packaging. Will rerun unit tests on-save.
 
 ## Publish checklist
 
  * `npm test` - Must not fail any tests.
  * Increment version number in package.json and yuidoc.json
- * `npm docs`
+ * `npm run docs`
  * Commit changes to GitHub.
  * Tag release with semantic version from package.json, push tag.
  * `npm publish` (must be `npm login`ed) 

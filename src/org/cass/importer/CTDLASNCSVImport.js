@@ -163,9 +163,8 @@ module.exports = class CTDLASNCSVImport {
 										return;
 									}
 									if (e["ceasn:isPartOf"] != null) {
-										frameworks[
-											e["ceasn:isPartOf"]
-										].competency.push(f.shortId());
+										let shortId = EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"]);
+										frameworks[shortId].competency.push(f.shortId());
 									} else {
 										var parent = e;
 										var done = false;
@@ -177,9 +176,11 @@ module.exports = class CTDLASNCSVImport {
 											) {
 												parent =
 													competencyRows[
-														parent[
-															"ceasn:isChildOf"
-														]
+														EcRemoteLinkedData.trimVersionFromUrl(
+															parent[
+																"ceasn:isChildOf"
+															]
+														)
 													];
 											} else if (
 												parent["ceasn:isTopChildOf"] !=
@@ -189,9 +190,11 @@ module.exports = class CTDLASNCSVImport {
 											) {
 												parent =
 													frameworkRows[
-														parent[
-															"ceasn:isTopChildOf"
-														]
+														EcRemoteLinkedData.trimVersionFromUrl(
+															parent[
+																"ceasn:isTopChildOf"
+															]
+														)
 													];
 												done = true;
 											}
@@ -239,14 +242,14 @@ module.exports = class CTDLASNCSVImport {
 									}
 									if (e["owner"] == null) {
 										if (
-											frameworkRows[e["ceasn:isPartOf"]][
+											frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"])][
 												"owner"
 											] != null
 										)
 											e["owner"] =
-												frameworkRows[
+												frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(
 													e["ceasn:isPartOf"]
-												]["owner"];
+												)]["owner"];
 									}
 									var id = new EcIdentity();
 									if (e["owner"] != null) {
@@ -610,7 +613,7 @@ module.exports = class CTDLASNCSVImport {
 		}
 		relations.push(r);
 		relationById[r.shortId()] = r;
-		frameworks[e["ceasn:isPartOf"]].relation.push(r.shortId());
+		frameworks[EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"])].relation.push(r.shortId());
 	}
 	static setDateCreated(importObject, object) {
 		if (

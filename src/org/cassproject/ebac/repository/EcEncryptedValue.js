@@ -147,7 +147,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 */
 	static toEncryptedValueAsync(d, hideType, success, failure) {
 		console.trace(
-			"toEncryptedValueAsync is deprecated. The promise version, fromEncryptedValue, supports promises and callbacks. This will continue to function."
+			"toEncryptedValueAsync is deprecated. The promise version, toEncryptedValue, supports promises and callbacks. This will continue to function."
 		);
 		return this.toEncryptedValue(d, hideType, success, failure);
 	}

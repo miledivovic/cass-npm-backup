@@ -7,6 +7,8 @@ RUN npm install
 
 COPY index.js index.js
 COPY src src
-COPY cypress cypress
-COPY cypress.json cypress.json
-ENTRYPOINT cypress run --browser chrome && cypress run --browser firefox && cypress run
+COPY cypressWebpack cypressWebpack
+COPY cypressBrowserify cypressBrowserify
+COPY cypressWebpack.json cypressWebpack.json
+COPY cypressBrowserify.json cypressBrowserify.json
+ENTRYPOINT cypress run --config-file cypressBrowserify.json --browser chrome && cypress run --config-file cypressBrowserify.json --browser firefox && cypress run --config-file cypressBrowserify.json && cypress run --config-file cypressWebpack.json --browser chrome && cypress run --config-file cypressWebpack.json --browser firefox && cypress run --config-file cypressWebpack.json

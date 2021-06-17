@@ -1,0 +1,11 @@
+{
+  "integrationFolder": "src/",
+  "fixturesFolder": "cypressWebpack/fixtures",
+  "pluginsFile": "cypressWebpack/plugins/index.js",
+  "screenshotsFolder": "cypressWebpack/screenshots",
+  "testFiles": "**/*.test.js",
+  "video": false,
+  "defaultCommandTimeout": 60000,
+  "supportFile": "cypressWebpack/support",
+  "fileServerFolder": "src/com/eduworks/ec/crypto"
+}

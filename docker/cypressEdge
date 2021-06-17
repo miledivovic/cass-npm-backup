@@ -7,6 +7,8 @@ RUN npm install
 
 COPY index.js index.js
 COPY src src
-COPY cypress cypress
-COPY cypress.json cypress.json
-ENTRYPOINT npm run cypressEdge
+COPY cypressWebpack cypressWebpack
+COPY cypressBrowserify cypressBrowserify
+COPY cypressWebpack.json cypressWebpack.json
+COPY cypressBrowserify.json cypressBrowserify.json
+ENTRYPOINT npm run browserify:cypressEdge && npm run webpack:cypressEdge

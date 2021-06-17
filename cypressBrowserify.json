@@ -1,0 +1,10 @@
+{
+    "integrationFolder":"src/",
+    "fixturesFolder":"cypressBrowserify/fixtures",
+    "pluginsFile":"cypressBrowserify/plugins/index.js",
+    "screenshotsFolder":"cypressBrowserify/screenshots",
+    "supportFolder":"cypressBrowserify/support",
+    "testFiles":"**/*.test.js",
+    "video":false,
+    "defaultCommandTimeout":60000
+}

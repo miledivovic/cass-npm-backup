@@ -23,9 +23,12 @@
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
 		"docs": "npm install yuidocjs yuidoc-ember-cli-theme && yuidoc -c yuidoc.json -o docs -e .js src",
 		"doclint": "npm install yuidocjs yuidoc-ember-cli-theme && yuidoc --lint -c yuidoc.json -o docs -e .js src",
-		"cypress:open": "cypress open",
-		"cypress": "cypress run --headless --browser chrome",
-		"cypressEdge": "cypress run --headless --browser edge"
+		"browserify:cypress:open": "cypress open --config-file cypressBrowserify.json",
+		"webpack:cypress:open": "cypress open --config-file cypressWebpack.json",
+		"browserify:cypress": "cypress run --config-file cypressBrowserify.json --headless --browser chrome",
+		"browserify:cypressEdge": "cypress run --config-file cypressBrowserify.json --headless --browser edge",
+		"webpack:cypress": "cypress run --config-file cypressWebpack.json --headless --browser chrome",
+		"webpack:cypressEdge": "cypress run --config-file cypressWebpack.json --headless --browser edge"
 	},
 	"contributors": [
 		{
@@ -46,7 +49,6 @@
 		}
 	],
 	"dependencies": {
-		"@babel/core": "^7.14.0",
 		"axios": "^0.21.1",
 		"base64-arraybuffer": "^0.2.0",
 		"forge": "^2.3.0",
@@ -82,17 +84,22 @@
 	},
 	"homepage": "https://github.com/cassproject/cass-npm#readme",
 	"devDependencies": {
+		"@babel/core": "^7.14.6",
+		"@babel/preset-env": "^7.14.5",
 		"@cypress/browserify-preprocessor": "^3.0.1",
+		"@cypress/webpack-preprocessor": "^5.9.0",
+		"babel-loader": "^8.2.2",
 		"babel-plugin-transform-remove-strict-mode": "^0.0.2",
 		"chai": "^4.3.4",
 		"convert-hrtime": "^5.0.0",
 		"cypress": "^7.2.0",
 		"eslint": "^7.25.0",
 		"mocha": "^8.3.2",
+		"node-polyfill-webpack-plugin": "^1.1.3",
 		"nodemon": "^2.0.7",
 		"prettier": "^2.2.1",
 		"tap": "^15.0.9",
 		"wait-on": "^5.3.0",
-		"webpack": "^5.36.2"
+		"webpack": "^5.39.1"
 	}
 }

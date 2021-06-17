@@ -1,6 +1,1 @@
-{
-    "integrationFolder":"src/",
-    "testFiles":"**/*.test.js",
-    "video":false,
-    "defaultCommandTimeout":60000
-}
+{}

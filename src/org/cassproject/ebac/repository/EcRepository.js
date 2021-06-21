@@ -187,7 +187,22 @@ module.exports = class EcRepository {
 					0,
 					success,
 					failure, eim
-				);
+				).catch((error) => {
+					if (
+						error !== undefined &&
+						error != null &&
+						error.toString !== undefined
+					)
+						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
+						{
+							return null;
+						}
+						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
+						{
+							return null;
+						}
+					throw error;
+				});
 			} else {
 				if (this.caching) this.cache[url] = null;
 				return cassReturnAsPromise(null, success, failure, error).catch((error) => {

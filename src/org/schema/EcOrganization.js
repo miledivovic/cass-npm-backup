@@ -145,7 +145,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method addOrgKey
 	 */
 	async addOrgKey(newOrgPpk) {
-		var orgKeys = this.getOrgKeys();
+		var orgKeys = await this.getOrgKeys();
 		orgKeys.push(newOrgPpk);
 		var newKeys = await EcEncryptedValue.encryptValue(
 			this.ppkListToPemArrayString(orgKeys),
@@ -174,7 +174,7 @@ module.exports = class EcOrganization extends schema.Organization {
 			else console.error(msg);
 			return;
 		} else {
-			var oldKey = this.getCurrentOrgKey();
+			var oldKey = await this.getCurrentOrgKey();
 			var newKey = EcPpk.generateKey();
 			var identity = new EcIdentity();
 			identity.ppk = newKey;
@@ -187,7 +187,7 @@ module.exports = class EcOrganization extends schema.Organization {
 			);
 			this.addOrgKey(newKey);
 			var newKeys = await EcEncryptedValue.encryptValue(
-				this.ppkListToPemArrayString(this.getOrgKeys()),
+				this.ppkListToPemArrayString(await this.getOrgKeys()),
 				EcOrganization.ORG_PPK_SET_KEY,
 				this.owner,
 				this.reader
@@ -214,7 +214,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	 */
 	async save(success, failure, repo, eim) {
 		var newKeys = await EcEncryptedValue.encryptValue(
-			this.ppkListToPemArrayString(this.getOrgKeys()),
+			this.ppkListToPemArrayString(await this.getOrgKeys()),
 			EcOrganization.ORG_PPK_SET_KEY,
 			this.owner,
 			this.reader
@@ -231,8 +231,8 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @memberOf EcOrganization
 	 *  @method getCurrentOrgKey
 	 */
-	getCurrentOrgKey() {
-		var orgKeys = this.getOrgKeys();
+	async getCurrentOrgKey() {
+		var orgKeys = await this.getOrgKeys();
 		if (orgKeys.length >= 1) {
 			return orgKeys[orgKeys.length - 1];
 		} else return null;

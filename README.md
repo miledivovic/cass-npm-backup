@@ -125,6 +125,25 @@ Anything that had a `success(output)` can now retreive that `output` using assig
 These methods now use awaitable promises to perform their cryptography.
 #### 4. `else`
 If any of these patterns do not work, please ask before working around, as there are expected to be edge cases that have not yet been found.
+#### 5. Webpack configuration
+If you're using the CaSS libraries with Webpack in the browser, you may need to add a rule to the Webpack configuration so that the application can understand the modern syntax used in the libraries. In the CaSS Editor application, this was accomplished by adding the following to the `configureWebpack` section of `vue.config.js`.
+```
+module: {
+    rules: [
+        {
+            test: /\.m?js$/,
+            exclude: {test: /node_modules/, // Exclude libraries in node_modules ...
+                not: [
+                    // Except for a few of them that needs to be transpiled because they use modern syntax
+                    /cassproject/
+                ]},
+            use: {
+                loader: 'babel-loader'
+            }
+        }
+    ]
+}
+```
 
 ## 3.x to 4.x
 

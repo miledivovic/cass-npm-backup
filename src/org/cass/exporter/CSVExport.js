@@ -165,11 +165,11 @@ module.exports = class CSVExport extends Exporter {
 			failure, repo, eim
 		);
 	}
-	static CSVExportProcess() {
-		this.csvOutput = [];
-	}
 	static CSVExportProcess = class CSVExportProcess {
 		csvOutput = null;
+		constructor() {
+			this.csvOutput = [];
+		}
 		flattenObject(flattenedObject, object, prefix, piped) {
 			var data = new EcRemoteLinkedData(
 				object["@context"],
@@ -205,7 +205,7 @@ module.exports = class CSVExport extends Exporter {
 					display = display.substring(0, display.length - 1);
 					flattenedObject[id] = display;
 				} else {
-					var display = Thing.getDisplayStringFrom(props[prop]);
+					var display = schema.Thing.getDisplayStringFrom(props[prop]);
 					flattenedObject[id] = display;
 				}
 			}
@@ -222,7 +222,7 @@ module.exports = class CSVExport extends Exporter {
 				if (props[prop] != null && props[prop] != "") {
 					for (var i = 0; i < this.csvOutput.length; i++) {
 						var row = this.csvOutput[i];
-						if (!row[prop] !== undefined) {
+						if (row[prop] === undefined) {
 							row[prop] = "";
 						}
 					}

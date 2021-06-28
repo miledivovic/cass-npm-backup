@@ -31,6 +31,9 @@ module.exports = class EcAssertion extends Assertion {
 		);
 	}
 	async getSubject(eim) {
+		if (!eim) {
+			eim = EcIdentityManager.default;
+		}
 		if (this.subject == null) return null;
 		var v = new EcEncryptedValue();
 		v.copyFrom(this.subject);
@@ -123,6 +126,9 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async getAgent(eim) {
 		if (this.agent == null) return null;
+		if (!eim) {
+			eim = EcIdentityManager.default;
+		}
 		var v = new EcEncryptedValue();
 		v.copyFrom(this.agent);
 		var codebook = Assertion.getCodebook(this);
@@ -183,11 +189,13 @@ module.exports = class EcAssertion extends Assertion {
 			);
 		else return v.decryptIntoString(decrypted, failure, eim);
 	}
-	async getSubjectName() {
+	async getSubjectName(repo, eim) {
 		if (this.subject == null) return "Nobody";
-		var subjectPk = await this.getSubject();
-		var name = await EcAssertion.getNameByPkBlocking(subjectPk);
-		if (name != null) return name;
+		var subjectPk = await this.getSubject(eim);
+		if (subjectPk) {
+			var name = await EcAssertion.getNameByPk(repo, subjectPk);
+			if (name != null) return name;
+		}
 		return "Unknown Subject";
 	}
 	// @deprecated
@@ -202,11 +210,13 @@ module.exports = class EcAssertion extends Assertion {
 			failure
 		);
 	}
-	async getAgentName() {
+	async getAgentName(repo, eim) {
 		if (this.agent == null) return "Nobody";
-		var agentPk = await this.getAgent();
-		var name = await EcAssertion.getNameByPk("Unknown Agent")(agentPk);
-		if (name != null) return name;
+		var agentPk = await this.getAgent(eim);
+		if (agentPk) {
+			var name = await EcAssertion.getNameByPk(repo, agentPk, "Unknown Agent");
+			if (name != null) return name;
+		}
 		return "Unknown Agent";
 	}
 	// @deprecated

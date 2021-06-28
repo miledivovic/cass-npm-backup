@@ -9,6 +9,7 @@ const EbacEncryptedSecret = require("../../../../com/eduworks/schema/ebac/EbacEn
 const EbacEncryptedValue = require("../../../../com/eduworks/schema/ebac/EbacEncryptedValue");
 const EcLinkedData = require("../../../json/ld/EcLinkedData");
 const EcIdentityManager = require("../identity/EcIdentityManager");
+const base64 = require("base64-arraybuffer");
 
 /**
  *  Represents an encrypted piece of data. Provides helper functions for

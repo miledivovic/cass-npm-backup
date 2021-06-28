@@ -221,8 +221,8 @@ module.exports = class EcAssertion extends Assertion {
 			failure
 		);
 	}
-	static async getNameByPk(pk, dflt) {
-		let p = await EcPerson.getByPk(pk);
+	static async getNameByPk(repo, pk, dflt) {
+		let p = await EcPerson.getByPk(repo, pk);
 		if (p === undefined || p == null) return dflt;
 		return p.getName();
 	}

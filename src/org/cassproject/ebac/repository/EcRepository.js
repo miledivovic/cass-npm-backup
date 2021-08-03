@@ -1549,8 +1549,13 @@ module.exports = class EcRepository {
 	};
 	static getAs(id, result, success, failure, repo, eim) {
 		return this.get(id, null, null, repo, eim).then(async (p1) => {
-			if (p1 == null)
-				return null;
+			if (p1 == null) {
+				if (failure != null) {
+					return failure(null);
+				} else {
+					return null;
+				}
+			}
 			if (p1.constructor === result.constructor) {
 				if (success != null) {
 					return success(p1);

@@ -28,6 +28,7 @@ module.exports = class EcRepository {
 	static repos = [];
 	adminKeys = null;
 	selectedServer = null;
+	selectedServerProxy = null;
 	autoDetectFound = false;
 	timeOffset = 0;
 	init(selectedServer, success, failure) {
@@ -49,7 +50,7 @@ module.exports = class EcRepository {
 		};
 		var failureCheck = null;
 		EcRemote.timeout = oldTimeout;
-		return EcRemote.getExpectingObject(this.selectedServer, "ping")
+		return EcRemote.getExpectingObject(this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer, "ping")
 			.then(successCheck)
 			.catch(failureCheck);
 	};
@@ -710,15 +711,15 @@ module.exports = class EcRepository {
 		var targetUrl;
 		if (
 			EcRepository.shouldTryUrl(data.id) ||
-			data.id.indexOf(this.selectedServer) != -1
+			data.id.indexOf(this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer) != -1
 		)
 			targetUrl = EcRemote.urlAppend(
-				this.selectedServer,
+				this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 				"data/" + data.getDottedType() + "/" + data.getGuid()
 			);
 		else
 			targetUrl = EcRemote.urlAppend(
-				this.selectedServer,
+				this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 				"data/" +
 				data.getDottedType() +
 				"/" +
@@ -830,7 +831,7 @@ module.exports = class EcRepository {
 				var fd = new FormData();
 				fd.append("data", JSON.stringify(preparedData));
 				fd.append("signatureSheet", signatureSheet);
-				var server = this.selectedServer;
+				var server = this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer;
 				return EcRemote.postExpectingString(
 					server,
 					"sky/repo/multiPut",
@@ -886,7 +887,7 @@ module.exports = class EcRepository {
 		p = p
 			.then(() => {
 				return EcRemote.postExpectingObject(
-					this.selectedServer,
+					this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 					"sky/repo/multiGet",
 					fd
 				);
@@ -1030,7 +1031,7 @@ module.exports = class EcRepository {
 		}
 		p = p.then(() => {
 			return EcRemote.postExpectingObject(
-				this.selectedServer,
+				this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 				"sky/repo/search",
 				fd
 			).then((results) => {
@@ -1448,7 +1449,7 @@ module.exports = class EcRepository {
 			)
 		);
 		EcRemote.postExpectingObject(
-			this.selectedServer,
+			this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 			"sky/repo/types",
 			fd,
 			function (p1) {
@@ -1471,7 +1472,7 @@ module.exports = class EcRepository {
 	 */
 	backup = function (serverSecret, success, failure) {
 		EcRemote.getExpectingObject(
-			this.selectedServer,
+			this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 			"util/backup?secret=" + serverSecret,
 			success,
 			failure
@@ -1488,7 +1489,7 @@ module.exports = class EcRepository {
 	 */
 	restoreBackup = function (serverSecret, success, failure) {
 		EcRemote.getExpectingObject(
-			this.selectedServer,
+			this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 			"util/restore?secret=" + serverSecret,
 			success,
 			failure
@@ -1505,7 +1506,7 @@ module.exports = class EcRepository {
 	 */
 	wipe = function (serverSecret, success, failure) {
 		EcRemote.getExpectingObject(
-			this.selectedServer,
+			this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 			"util/purge?secret=" + serverSecret,
 			success,
 			failure
@@ -1532,7 +1533,7 @@ module.exports = class EcRepository {
 		}
 		var me = this;
 		EcRemote.getExpectingObject(
-			this.selectedServer,
+			this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer,
 			service,
 			function (p1) {
 				var ary = p1;

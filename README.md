@@ -44,6 +44,12 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 0.5.15 to 0.5.19
+* Bug fixes
+* Wide variety of Unit tests on multiple versions of CaSS and in browsers
+* Updated CTDLASN CSV import
+* Added support for proxy servers, separating where data goes from where data belongs. `repo.selectedServerProxy`
+
 ## 0.5.8 to 0.5.15
 * Bug fixes.
 * Can now POST unlimited amounts of data.

@@ -492,7 +492,8 @@ module.exports = class EcRepository {
 						signedEncryptedValue,
 						success,
 						failure,
-						repo
+						repo,
+						eim
 					);
 				});
 		} else {
@@ -501,7 +502,8 @@ module.exports = class EcRepository {
 					signedData,
 					success,
 					failure,
-					repo
+					repo,
+					eim
 				);
 			});
 		}

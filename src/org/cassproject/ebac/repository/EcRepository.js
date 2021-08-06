@@ -998,7 +998,7 @@ module.exports = class EcRepository {
 		}
 		var params = {};
 		var paramProps = params;
-		query = this.searchParamProps(query, paramObj, paramProps);
+		query = this.searchParamProps(query, paramObj, paramProps, eim);
 		if (paramObj["fields"] != null) {
 			paramProps["fields"] = paramObj["fields"];
 		}

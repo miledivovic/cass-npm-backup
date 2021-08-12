@@ -492,7 +492,8 @@ module.exports = class EcRepository {
 						signedEncryptedValue,
 						success,
 						failure,
-						repo
+						repo,
+						eim
 					);
 				});
 		} else {
@@ -501,7 +502,8 @@ module.exports = class EcRepository {
 					signedData,
 					success,
 					failure,
-					repo
+					repo,
+					eim
 				);
 			});
 		}
@@ -996,7 +998,7 @@ module.exports = class EcRepository {
 		}
 		var params = {};
 		var paramProps = params;
-		query = this.searchParamProps(query, paramObj, paramProps);
+		query = this.searchParamProps(query, paramObj, paramProps, eim);
 		if (paramObj["fields"] != null) {
 			paramProps["fields"] = paramObj["fields"];
 		}

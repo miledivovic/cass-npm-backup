@@ -44,6 +44,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 0.5.20
+* Bug fixes
+* No longer depends on yuidoc, as yuidoc is included as part of the documentation script.
+
 ## 0.5.15 to 0.5.19
 * Bug fixes
 * Wide variety of Unit tests on multiple versions of CaSS and in browsers

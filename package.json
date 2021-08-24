@@ -18,6 +18,7 @@
 		"testCypress": "docker kill npm-cass & docker rm -f npm-cass & docker build --progress plain -f docker/cypress -t npm-cass . & docker run --network=\"host\" --name npm-cass npm-cass",
 		"testCypressEdge": "docker kill npm-cass & docker rm -f npm-cass & docker build --progress plain -f docker/cypressEdge -t npm-cass . & docker run --network=\"host\" --name npm-cass npm-cass",
 		"autotest": "nodemon test.js",
+		"autoindex": "nodemon index.js",
 		"mocha": "mocha src/**/*.test.js",
 		"automocha": "nodemon --exec \"npm run mocha\"",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",

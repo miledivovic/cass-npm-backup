@@ -1,0 +1,116 @@
+
+module.exports = class PartAsDesignedPartsListEntry extends EcRemoteLinkedData {
+qty;
+rfd;
+posId;
+repl;
+rly;
+partRef;
+substPart;
+apcEfys;
+docs;
+rmks;
+uid;
+crud;
+
+ getQty() {
+        return qty;
+    }
+
+ setQty( value) {
+        this.qty = value;
+    }
+
+ getRfd() {
+        return rfd;
+    }
+
+ setRfd( value) {
+        this.rfd = value;
+    }
+
+ getPosId() {
+        if (posId == null) {
+            posId = [];
+        }
+        return this.posId;
+    }
+
+ getRepl() {
+        return repl;
+    }
+
+ setRepl( value) {
+        this.repl = value;
+    }
+
+ getRly() {
+        if (rly == null) {
+            rly = [];
+        }
+        return this.rly;
+    }
+
+ getPartRef() {
+        return partRef;
+    }
+
+ setPartRef( value) {
+        this.partRef = value;
+    }
+
+ getSubstPart() {
+        if (substPart == null) {
+            substPart = [];
+        }
+        return this.substPart;
+    }
+
+ getApcEfys() {
+        return apcEfys;
+    }
+
+ setApcEfys( value) {
+        this.apcEfys = value;
+    }
+
+ getDocs() {
+        return docs;
+    }
+
+ setDocs( value) {
+        this.docs = value;
+    }
+
+ getRmks() {
+        return rmks;
+    }
+
+ setRmks( value) {
+        this.rmks = value;
+    }
+
+ getUid() {
+        return uid;
+    }
+
+ setUid( value) {
+        this.uid = value;
+    }
+
+ getCrud() {
+        if (crud == null) {
+            return CrudCodeValues.I;
+        } else {
+            return crud;
+        }
+    }
+
+ setCrud( value) {
+        this.crud = value;
+    }
+
+	constructor() {
+		super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedPartsListEntry");
+	}
+};

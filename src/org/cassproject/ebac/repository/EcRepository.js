@@ -4,7 +4,7 @@ const EcEncryptedValue = require("./EcEncryptedValue");
 const EcIdentityManager = require("../identity/EcIdentityManager");
 const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
 const EcRemote = require("../../../../com/eduworks/ec/remote/EcRemote");
-const { cassPromisify, cassReturnAsPromise } = require("../../../../com/eduworks/ec/promises/helpers");
+const {cassPromisify, cassReturnAsPromise} = require("../../../../com/eduworks/ec/promises/helpers");
 const EcRemoteLinkedData = require("../../schema/general/EcRemoteLinkedData");
 
 /**
@@ -145,12 +145,10 @@ module.exports = class EcRepository {
 						error != null &&
 						error.toString !== undefined
 					)
-						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
-						{
+						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1) {
 							return null;
 						}
-						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
-						{
+						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1) {
 							return null;
 						}
 					throw error;
@@ -194,12 +192,10 @@ module.exports = class EcRepository {
 						error != null &&
 						error.toString !== undefined
 					)
-						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1)
-						{
+						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1) {
 							return null;
 						}
-						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1)
-						{
+						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1) {
 							return null;
 						}
 					throw error;
@@ -814,7 +810,7 @@ module.exports = class EcRepository {
 		});
 		let preparedData = [];
 		return Promise.all(encryptionAndSigningPromises)
-			.then((readyToSendData) => {				
+			.then((readyToSendData) => {
 				preparedData = readyToSendData;
 				if (allOwners != null && allOwners.length > 0) {
 					return eim.signatureSheetFor(
@@ -1569,7 +1565,7 @@ module.exports = class EcRepository {
 				p1, null, null, eim
 			);
 			if (p1.isAny(result.getTypes())) {
-				result.copyFrom(p1);
+				result.copyFrom(p1, eim);
 				if (this.caching) {
 					this.cache[result.shortId()] = result;
 					this.cache[result.id] = result;

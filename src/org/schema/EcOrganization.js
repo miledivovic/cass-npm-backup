@@ -281,10 +281,10 @@ module.exports = class EcOrganization extends schema.Organization {
 			delete this["https://schema.cassproject.org/0.3/ppk"];
 		}
 	}
-	upgrade() {
+	upgrade(eim) {
 		super.upgrade();
 		this.movePersonMembersToEmployee();
-		this.moveKeyField();
+		this.moveKeyField(eim);
 	}
 	/**
 	 *  Attempts to find and return the organization's fingerprint from the id.

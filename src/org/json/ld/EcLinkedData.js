@@ -202,7 +202,7 @@ global.jsonld = require("jsonld");
 	 *  @param that The freshly deserialized object, or the object to upcast into this object.
 	 *  @method copyFrom
 	 */
-	copyFrom(that) {
+	copyFrom(that, eim) {
 		var me = this;
 		for (var key in me) {
 			if (typeof me[key] != "function") delete me[key];
@@ -258,7 +258,7 @@ global.jsonld = require("jsonld");
 				}
 			}
 		if (newContext != null) this.context = newContext;
-		this.upgrade();
+		this.upgrade(eim);
 		if (!this.isAny(this.getTypes()))
 			throw "Incompatible type: " + this.getFullType() + that;
 		return this;

@@ -23,36 +23,36 @@ crud;
     }
 
  getLoRevRtnle() {
-        if (loRevRtnle == null) {
-            loRevRtnle = [];
+        if (this.loRevRtnle == null) {
+            this.loRevRtnle = [];
         }
         return this.loRevRtnle;
     }
 
  getLoDescr() {
-        if (loDescr == null) {
-            loDescr = [];
+        if (this.loDescr == null) {
+            this.loDescr = [];
         }
         return this.loDescr;
     }
 
  getLoPerfStd() {
-        if (loPerfStd == null) {
-            loPerfStd = [];
+        if (this.loPerfStd == null) {
+            this.loPerfStd = [];
         }
         return this.loPerfStd;
     }
 
  getLoTrainStrat() {
-        if (loTrainStrat == null) {
-            loTrainStrat = [];
+        if (this.loTrainStrat == null) {
+            this.loTrainStrat = [];
         }
         return this.loTrainStrat;
     }
 
  getRelLO() {
-        if (relLO == null) {
-            relLO = [];
+        if (this.relLO == null) {
+            this.relLO = [];
         }
         return this.relLO;
     }
@@ -106,7 +106,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

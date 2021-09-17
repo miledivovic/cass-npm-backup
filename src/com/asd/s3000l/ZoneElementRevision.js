@@ -77,15 +77,15 @@ crud;
     }
 
  getFuncFail() {
-        if (funcFail == null) {
-            funcFail = [];
+        if (this.funcFail == null) {
+            this.funcFail = [];
         }
         return this.funcFail;
     }
 
  getBeRel() {
-        if (beRel == null) {
-            beRel = [];
+        if (this.beRel == null) {
+            this.beRel = [];
         }
         return this.beRel;
     }
@@ -107,113 +107,113 @@ crud;
     }
 
  getMaintCpt() {
-        if (maintCpt == null) {
-            maintCpt = [];
+        if (this.maintCpt == null) {
+            this.maintCpt = [];
         }
         return this.maintCpt;
     }
 
  getMaintSln() {
-        if (maintSln == null) {
-            maintSln = [];
+        if (this.maintSln == null) {
+            this.maintSln = [];
         }
         return this.maintSln;
     }
 
  getProductServiceLife() {
-        if (productServiceLife == null) {
-            productServiceLife = [];
+        if (this.productServiceLife == null) {
+            this.productServiceLife = [];
         }
         return this.productServiceLife;
     }
 
  getScheduledMaintenanceInterval() {
-        if (scheduledMaintenanceInterval == null) {
-            scheduledMaintenanceInterval = [];
+        if (this.scheduledMaintenanceInterval == null) {
+            this.scheduledMaintenanceInterval = [];
         }
         return this.scheduledMaintenanceInterval;
     }
 
  getMaintenanceFreeOperatingPeriod() {
-        if (maintenanceFreeOperatingPeriod == null) {
-            maintenanceFreeOperatingPeriod = [];
+        if (this.maintenanceFreeOperatingPeriod == null) {
+            this.maintenanceFreeOperatingPeriod = [];
         }
         return this.maintenanceFreeOperatingPeriod;
     }
 
  getDownTime() {
-        if (downTime == null) {
-            downTime = [];
+        if (this.downTime == null) {
+            this.downTime = [];
         }
         return this.downTime;
     }
 
  getMaintenanceManHoursPerOperatingHour() {
-        if (maintenanceManHoursPerOperatingHour == null) {
-            maintenanceManHoursPerOperatingHour = [];
+        if (this.maintenanceManHoursPerOperatingHour == null) {
+            this.maintenanceManHoursPerOperatingHour = [];
         }
         return this.maintenanceManHoursPerOperatingHour;
     }
 
  getMeanTimeBetweenUnscheduledRemoval() {
-        if (meanTimeBetweenUnscheduledRemoval == null) {
-            meanTimeBetweenUnscheduledRemoval = [];
+        if (this.meanTimeBetweenUnscheduledRemoval == null) {
+            this.meanTimeBetweenUnscheduledRemoval = [];
         }
         return this.meanTimeBetweenUnscheduledRemoval;
     }
 
  getMeanTimeToRepair() {
-        if (meanTimeToRepair == null) {
-            meanTimeToRepair = [];
+        if (this.meanTimeToRepair == null) {
+            this.meanTimeToRepair = [];
         }
         return this.meanTimeToRepair;
     }
 
  getDirectMaintenanceCost() {
-        if (directMaintenanceCost == null) {
-            directMaintenanceCost = [];
+        if (this.directMaintenanceCost == null) {
+            this.directMaintenanceCost = [];
         }
         return this.directMaintenanceCost;
     }
 
  getShopProcessingTime() {
-        if (shopProcessingTime == null) {
-            shopProcessingTime = [];
+        if (this.shopProcessingTime == null) {
+            this.shopProcessingTime = [];
         }
         return this.shopProcessingTime;
     }
 
  getFailuresPerOperatingHour() {
-        if (failuresPerOperatingHour == null) {
-            failuresPerOperatingHour = [];
+        if (this.failuresPerOperatingHour == null) {
+            this.failuresPerOperatingHour = [];
         }
         return this.failuresPerOperatingHour;
     }
 
  getReplacementTime() {
-        if (replacementTime == null) {
-            replacementTime = [];
+        if (this.replacementTime == null) {
+            this.replacementTime = [];
         }
         return this.replacementTime;
     }
 
  getLifeCycleCost() {
-        if (lifeCycleCost == null) {
-            lifeCycleCost = [];
+        if (this.lifeCycleCost == null) {
+            this.lifeCycleCost = [];
         }
         return this.lifeCycleCost;
     }
 
  getMeanTimeBetweenFailure() {
-        if (meanTimeBetweenFailure == null) {
-            meanTimeBetweenFailure = [];
+        if (this.meanTimeBetweenFailure == null) {
+            this.meanTimeBetweenFailure = [];
         }
         return this.meanTimeBetweenFailure;
     }
 
  getFailureRate() {
-        if (failureRate == null) {
-            failureRate = [];
+        if (this.failureRate == null) {
+            this.failureRate = [];
         }
         return this.failureRate;
     }
@@ -227,15 +227,15 @@ crud;
     }
 
  getTaskReq() {
-        if (taskReq == null) {
-            taskReq = [];
+        if (this.taskReq == null) {
+            this.taskReq = [];
         }
         return this.taskReq;
     }
 
  getTaskTargetNonAbstractClasses() {
-        if (taskTargetNonAbstractClasses == null) {
-            taskTargetNonAbstractClasses = [];
+        if (this.taskTargetNonAbstractClasses == null) {
+            this.taskTargetNonAbstractClasses = [];
         }
         return this.taskTargetNonAbstractClasses;
     }
@@ -289,7 +289,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -304,8 +304,8 @@ crud;
 detectMnCap;
 
  getDetectMnCap() {
-            if (detectMnCap == null) {
-                detectMnCap = [];
+            if (this.detectMnCap == null) {
+                this.detectMnCap = [];
             }
             return this.detectMnCap;
         }
@@ -322,8 +322,8 @@ rmks;
 applic;
 
  getCost() {
-            if (cost == null) {
-                cost = [];
+            if (this.cost == null) {
+                this.cost = [];
             }
             return this.cost;
         }
@@ -398,8 +398,8 @@ dmg;
         }
 
  getDmg() {
-            if (dmg == null) {
-                dmg = [];
+            if (this.dmg == null) {
+                this.dmg = [];
             }
             return this.dmg;
         }
@@ -416,8 +416,8 @@ rmks;
 applic;
 
  getTime() {
-            if (time == null) {
-                time = [];
+            if (this.time == null) {
+                this.time = [];
             }
             return this.time;
         }
@@ -491,8 +491,8 @@ rmks;
 applic;
 
  getRate() {
-            if (rate == null) {
-                rate = [];
+            if (this.rate == null) {
+                this.rate = [];
             }
             return this.rate;
         }
@@ -522,8 +522,8 @@ applic;
         }
 
  getCorrFact() {
-            if (corrFact == null) {
-                corrFact = [];
+            if (this.corrFact == null) {
+                this.corrFact = [];
             }
             return this.corrFact;
         }
@@ -622,8 +622,8 @@ applic;
 failureModeNonAbstractClasses;
 
  getFailureModeNonAbstractClasses() {
-            if (failureModeNonAbstractClasses == null) {
-                failureModeNonAbstractClasses = [];
+            if (this.failureModeNonAbstractClasses == null) {
+                this.failureModeNonAbstractClasses = [];
             }
             return this.failureModeNonAbstractClasses;
         }
@@ -640,8 +640,8 @@ rmks;
 applic;
 
  getNr() {
-            if (nr == null) {
-                nr = [];
+            if (this.nr == null) {
+                this.nr = [];
             }
             return this.nr;
         }
@@ -714,8 +714,8 @@ rmks;
 applic;
 
  getCost() {
-            if (cost == null) {
-                cost = [];
+            if (this.cost == null) {
+                this.cost = [];
             }
             return this.cost;
         }
@@ -788,8 +788,8 @@ rmks;
 applic;
 
  getPer() {
-            if (per == null) {
-                per = [];
+            if (this.per == null) {
+                this.per = [];
             }
             return this.per;
         }
@@ -862,8 +862,8 @@ rmks;
 applic;
 
  getMh() {
-            if (mh == null) {
-                mh = [];
+            if (this.mh == null) {
+                this.mh = [];
             }
             return this.mh;
         }
@@ -937,8 +937,8 @@ rmks;
 applic;
 
  getMt() {
-            if (mt == null) {
-                mt = [];
+            if (this.mt == null) {
+                this.mt = [];
             }
             return this.mt;
         }
@@ -968,8 +968,8 @@ applic;
         }
 
  getCorrFact() {
-            if (corrFact == null) {
-                corrFact = [];
+            if (this.corrFact == null) {
+                this.corrFact = [];
             }
             return this.corrFact;
         }
@@ -1018,8 +1018,8 @@ rmks;
 applic;
 
  getMt() {
-            if (mt == null) {
-                mt = [];
+            if (this.mt == null) {
+                this.mt = [];
             }
             return this.mt;
         }
@@ -1092,8 +1092,8 @@ rmks;
 applic;
 
  getMt() {
-            if (mt == null) {
-                mt = [];
+            if (this.mt == null) {
+                this.mt = [];
             }
             return this.mt;
         }
@@ -1166,8 +1166,8 @@ rmks;
 applic;
 
  getTime() {
-            if (time == null) {
-                time = [];
+            if (this.time == null) {
+                this.time = [];
             }
             return this.time;
         }
@@ -1240,7 +1240,7 @@ rmks;
 applic;
 
  getInt() {
-            if (_int == null) {
+            if (this._int == null) {
                 _int = [];
             }
             return this._int;
@@ -1314,8 +1314,8 @@ rmks;
 applic;
 
  getTime() {
-            if (time == null) {
-                time = [];
+            if (this.time == null) {
+                this.time = [];
             }
             return this.time;
         }
@@ -1388,8 +1388,8 @@ rmks;
 applic;
 
  getLife() {
-            if (life == null) {
-                life = [];
+            if (this.life == null) {
+                this.life = [];
             }
             return this.life;
         }

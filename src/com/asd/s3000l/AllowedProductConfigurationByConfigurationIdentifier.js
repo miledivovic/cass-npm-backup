@@ -26,8 +26,8 @@ crud;
     }
 
  getNestedPC() {
-        if (nestedPC == null) {
-            nestedPC = [];
+        if (this.nestedPC == null) {
+            this.nestedPC = [];
         }
         return this.nestedPC;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

@@ -8,8 +8,8 @@ uid;
 crud;
 
  getRfd() {
-        if (rfd == null) {
-            rfd = [];
+        if (this.rfd == null) {
+            this.rfd = [];
         }
         return this.rfd;
     }
@@ -31,8 +31,8 @@ crud;
     }
 
  getRelatedElem() {
-        if (relatedElem == null) {
-            relatedElem = [];
+        if (this.relatedElem == null) {
+            this.relatedElem = [];
         }
         return this.relatedElem;
     }
@@ -46,7 +46,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

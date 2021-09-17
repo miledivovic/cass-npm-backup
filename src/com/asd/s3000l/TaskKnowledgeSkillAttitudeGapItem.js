@@ -3,8 +3,8 @@ module.exports = class TaskKnowledgeSkillAttitudeGapItem extends EcRemoteLinkedD
 taskKSAGap;
 
  getTaskKSAGap() {
-        if (taskKSAGap == null) {
-            taskKSAGap = [];
+        if (this.taskKSAGap == null) {
+            this.taskKSAGap = [];
         }
         return this.taskKSAGap;
     }

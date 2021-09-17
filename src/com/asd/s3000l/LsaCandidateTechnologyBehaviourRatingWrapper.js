@@ -6,15 +6,15 @@ docs;
 rmks;
 
  getBhvrRtg() {
-        if (bhvrRtg == null) {
-            bhvrRtg = [];
+        if (this.bhvrRtg == null) {
+            this.bhvrRtg = [];
         }
         return this.bhvrRtg;
     }
 
  getSensRtg() {
-        if (sensRtg == null) {
-            sensRtg = [];
+        if (this.sensRtg == null) {
+            this.sensRtg = [];
         }
         return this.sensRtg;
     }

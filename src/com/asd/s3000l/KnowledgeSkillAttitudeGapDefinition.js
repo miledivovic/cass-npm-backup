@@ -18,8 +18,8 @@ crud;
     }
 
  getGapIter() {
-        if (gapIter == null) {
-            gapIter = [];
+        if (this.gapIter == null) {
+            this.gapIter = [];
         }
         return this.gapIter;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

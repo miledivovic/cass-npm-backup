@@ -34,8 +34,8 @@ crud;
     }
 
  getBeUsage() {
-        if (beUsage == null) {
-            beUsage = [];
+        if (this.beUsage == null) {
+            this.beUsage = [];
         }
         return this.beUsage;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

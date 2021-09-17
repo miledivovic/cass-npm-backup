@@ -11,8 +11,8 @@ uid;
 crud;
 
  getDocId() {
-        if (docId == null) {
-            docId = [];
+        if (this.docId == null) {
+            this.docId = [];
         }
         return this.docId;
     }
@@ -42,8 +42,8 @@ crud;
     }
 
  getDocIss() {
-        if (docIss == null) {
-            docIss = [];
+        if (this.docIss == null) {
+            this.docIss = [];
         }
         return this.docIss;
     }
@@ -73,7 +73,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

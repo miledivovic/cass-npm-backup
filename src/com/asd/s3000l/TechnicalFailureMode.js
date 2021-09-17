@@ -33,15 +33,15 @@ crud;
     }
 
  getFailRte() {
-        if (failRte == null) {
-            failRte = [];
+        if (this.failRte == null) {
+            this.failRte = [];
         }
         return this.failRte;
     }
 
  getDetectRtg() {
-        if (detectRtg == null) {
-            detectRtg = [];
+        if (this.detectRtg == null) {
+            this.detectRtg = [];
         }
         return this.detectRtg;
     }
@@ -79,8 +79,8 @@ crud;
     }
 
  getFailureModeEffectNonAbstractClasses() {
-        if (failureModeEffectNonAbstractClasses == null) {
-            failureModeEffectNonAbstractClasses = [];
+        if (this.failureModeEffectNonAbstractClasses == null) {
+            this.failureModeEffectNonAbstractClasses = [];
         }
         return this.failureModeEffectNonAbstractClasses;
     }
@@ -126,7 +126,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

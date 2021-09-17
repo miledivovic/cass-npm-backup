@@ -13,43 +13,43 @@ uid;
 crud;
 
  getContrId() {
-        if (contrId == null) {
-            contrId = [];
+        if (this.contrId == null) {
+            this.contrId = [];
         }
         return this.contrId;
     }
 
  getContractor() {
-        if (contractor == null) {
-            contractor = [];
+        if (this.contractor == null) {
+            this.contractor = [];
         }
         return this.contractor;
     }
 
  getCustomer() {
-        if (customer == null) {
-            customer = [];
+        if (this.customer == null) {
+            this.customer = [];
         }
         return this.customer;
     }
 
  getContext() {
-        if (context == null) {
-            context = [];
+        if (this.context == null) {
+            this.context = [];
         }
         return this.context;
     }
 
  getRelContr() {
-        if (relContr == null) {
-            relContr = [];
+        if (this.relContr == null) {
+            this.relContr = [];
         }
         return this.relContr;
     }
 
  getContrPv() {
-        if (contrPv == null) {
-            contrPv = [];
+        if (this.contrPv == null) {
+            this.contrPv = [];
         }
         return this.contrPv;
     }
@@ -87,7 +87,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

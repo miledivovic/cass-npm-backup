@@ -13,15 +13,15 @@ uid;
 crud;
 
  getBeId() {
-        if (beId == null) {
-            beId = [];
+        if (this.beId == null) {
+            this.beId = [];
         }
         return this.beId;
     }
 
  getName() {
-        if (name == null) {
-            name = [];
+        if (this.name == null) {
+            this.name = [];
         }
         return this.name;
     }
@@ -43,8 +43,8 @@ crud;
     }
 
  getBeRev() {
-        if (beRev == null) {
-            beRev = [];
+        if (this.beRev == null) {
+            this.beRev = [];
         }
         return this.beRev;
     }
@@ -90,7 +90,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

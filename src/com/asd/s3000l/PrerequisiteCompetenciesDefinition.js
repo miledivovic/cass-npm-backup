@@ -19,15 +19,15 @@ crud;
     }
 
  getCompDescr() {
-        if (compDescr == null) {
-            compDescr = [];
+        if (this.compDescr == null) {
+            this.compDescr = [];
         }
         return this.compDescr;
     }
 
  getReqComp() {
-        if (reqComp == null) {
-            reqComp = [];
+        if (this.reqComp == null) {
+            this.reqComp = [];
         }
         return this.reqComp;
     }
@@ -73,7 +73,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

@@ -9,8 +9,8 @@ uid;
 crud;
 
  getThld() {
-        if (thld == null) {
-            thld = [];
+        if (this.thld == null) {
+            this.thld = [];
         }
         return this.thld;
     }
@@ -56,7 +56,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

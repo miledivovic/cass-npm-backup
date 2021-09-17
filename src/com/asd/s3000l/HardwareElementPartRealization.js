@@ -57,7 +57,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -72,8 +72,8 @@ crud;
 usableOn;
 
  getUsableOn() {
-            if (usableOn == null) {
-                usableOn = [];
+            if (this.usableOn == null) {
+                this.usableOn = [];
             }
             return this.usableOn;
         }

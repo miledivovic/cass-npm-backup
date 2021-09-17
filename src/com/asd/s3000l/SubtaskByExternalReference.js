@@ -81,29 +81,29 @@ crud;
     }
 
  getEiObjState() {
-        if (eiObjState == null) {
-            eiObjState = [];
+        if (this.eiObjState == null) {
+            this.eiObjState = [];
         }
         return this.eiObjState;
     }
 
  getAccParam() {
-        if (accParam == null) {
-            accParam = [];
+        if (this.accParam == null) {
+            this.accParam = [];
         }
         return this.accParam;
     }
 
  getSubtaskCircuitBreakerSettingsNonAbstractClasses() {
-        if (subtaskCircuitBreakerSettingsNonAbstractClasses == null) {
-            subtaskCircuitBreakerSettingsNonAbstractClasses = [];
+        if (this.subtaskCircuitBreakerSettingsNonAbstractClasses == null) {
+            this.subtaskCircuitBreakerSettingsNonAbstractClasses = [];
         }
         return this.subtaskCircuitBreakerSettingsNonAbstractClasses;
     }
 
  getWcn() {
-        if (wcn == null) {
-            wcn = [];
+        if (this.wcn == null) {
+            this.wcn = [];
         }
         return this.wcn;
     }
@@ -117,22 +117,22 @@ crud;
     }
 
  getInZone() {
-        if (inZone == null) {
-            inZone = [];
+        if (this.inZone == null) {
+            this.inZone = [];
         }
         return this.inZone;
     }
 
  getSubtTgt() {
-        if (subtTgt == null) {
-            subtTgt = [];
+        if (this.subtTgt == null) {
+            this.subtTgt = [];
         }
         return this.subtTgt;
     }
 
  getDocRef() {
-        if (docRef == null) {
-            docRef = [];
+        if (this.docRef == null) {
+            this.docRef = [];
         }
         return this.docRef;
     }
@@ -194,7 +194,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -221,8 +221,8 @@ applic;
         }
 
  getParaValue() {
-            if (paraValue == null) {
-                paraValue = [];
+            if (this.paraValue == null) {
+                this.paraValue = [];
             }
             return this.paraValue;
         }

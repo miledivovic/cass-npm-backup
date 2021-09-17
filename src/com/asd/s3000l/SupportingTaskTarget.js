@@ -10,8 +10,8 @@ uid;
 crud;
 
  getTaskFreq() {
-        if (taskFreq == null) {
-            taskFreq = [];
+        if (this.taskFreq == null) {
+            this.taskFreq = [];
         }
         return this.taskFreq;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -84,8 +84,8 @@ rmks;
 applic;
 
  getFrequency() {
-            if (frequency == null) {
-                frequency = [];
+            if (this.frequency == null) {
+                this.frequency = [];
             }
             return this.frequency;
         }

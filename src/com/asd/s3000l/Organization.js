@@ -8,8 +8,8 @@ uid;
 crud;
 
  getOrgId() {
-        if (orgId == null) {
-            orgId = [];
+        if (this.orgId == null) {
+            this.orgId = [];
         }
         return this.orgId;
     }
@@ -47,7 +47,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

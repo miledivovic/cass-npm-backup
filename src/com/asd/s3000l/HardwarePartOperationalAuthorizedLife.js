@@ -7,8 +7,8 @@ docs;
 rmks;
 
  getAul() {
-        if (aul == null) {
-            aul = [];
+        if (this.aul == null) {
+            this.aul = [];
         }
         return this.aul;
     }

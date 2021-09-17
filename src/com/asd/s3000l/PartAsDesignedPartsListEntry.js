@@ -30,8 +30,8 @@ crud;
     }
 
  getPosId() {
-        if (posId == null) {
-            posId = [];
+        if (this.posId == null) {
+            this.posId = [];
         }
         return this.posId;
     }
@@ -45,8 +45,8 @@ crud;
     }
 
  getRly() {
-        if (rly == null) {
-            rly = [];
+        if (this.rly == null) {
+            this.rly = [];
         }
         return this.rly;
     }
@@ -60,8 +60,8 @@ crud;
     }
 
  getSubstPart() {
-        if (substPart == null) {
-            substPart = [];
+        if (this.substPart == null) {
+            this.substPart = [];
         }
         return this.substPart;
     }
@@ -99,7 +99,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

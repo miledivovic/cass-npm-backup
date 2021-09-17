@@ -18,8 +18,8 @@ crud;
     }
 
  getLag() {
-        if (lag == null) {
-            lag = [];
+        if (this.lag == null) {
+            this.lag = [];
         }
         return this.lag;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

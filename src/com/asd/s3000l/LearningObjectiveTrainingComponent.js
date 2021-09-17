@@ -23,8 +23,8 @@ crud;
     }
 
  getCompName() {
-        if (compName == null) {
-            compName = [];
+        if (this.compName == null) {
+            this.compName = [];
         }
         return this.compName;
     }
@@ -46,15 +46,15 @@ crud;
     }
 
  getResRqmt() {
-        if (resRqmt == null) {
-            resRqmt = [];
+        if (this.resRqmt == null) {
+            this.resRqmt = [];
         }
         return this.resRqmt;
     }
 
  getLoDepend() {
-        if (loDepend == null) {
-            loDepend = [];
+        if (this.loDepend == null) {
+            this.loDepend = [];
         }
         return this.loDepend;
     }
@@ -108,7 +108,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

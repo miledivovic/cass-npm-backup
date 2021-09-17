@@ -34,8 +34,8 @@ crud;
     }
 
  getSpecialEventOccurrenceNonAbstractClasses() {
-        if (specialEventOccurrenceNonAbstractClasses == null) {
-            specialEventOccurrenceNonAbstractClasses = [];
+        if (this.specialEventOccurrenceNonAbstractClasses == null) {
+            this.specialEventOccurrenceNonAbstractClasses = [];
         }
         return this.specialEventOccurrenceNonAbstractClasses;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

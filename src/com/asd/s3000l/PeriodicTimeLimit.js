@@ -28,15 +28,15 @@ crud;
     }
 
  getInitial() {
-        if (initial == null) {
-            initial = [];
+        if (this.initial == null) {
+            this.initial = [];
         }
         return this.initial;
     }
 
  getRepeat() {
-        if (repeat == null) {
-            repeat = [];
+        if (this.repeat == null) {
+            this.repeat = [];
         }
         return this.repeat;
     }
@@ -82,7 +82,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

@@ -24,8 +24,8 @@ crud;
     }
 
  getAlarm() {
-        if (alarm == null) {
-            alarm = [];
+        if (this.alarm == null) {
+            this.alarm = [];
         }
         return this.alarm;
     }
@@ -47,7 +47,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

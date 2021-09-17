@@ -11,22 +11,22 @@ uid;
 crud;
 
  getProdId() {
-        if (prodId == null) {
-            prodId = [];
+        if (this.prodId == null) {
+            this.prodId = [];
         }
         return this.prodId;
     }
 
  getName() {
-        if (name == null) {
-            name = [];
+        if (this.name == null) {
+            this.name = [];
         }
         return this.name;
     }
 
  getProdVar() {
-        if (prodVar == null) {
-            prodVar = [];
+        if (this.prodVar == null) {
+            this.prodVar = [];
         }
         return this.prodVar;
     }
@@ -72,7 +72,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

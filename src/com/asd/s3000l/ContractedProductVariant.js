@@ -20,8 +20,8 @@ crud;
     }
 
  getBlock() {
-        if (block == null) {
-            block = [];
+        if (this.block == null) {
+            this.block = [];
         }
         return this.block;
     }
@@ -35,22 +35,22 @@ crud;
     }
 
  getUser() {
-        if (user == null) {
-            user = [];
+        if (this.user == null) {
+            this.user = [];
         }
         return this.user;
     }
 
  getAtOpLocType() {
-        if (atOpLocType == null) {
-            atOpLocType = [];
+        if (this.atOpLocType == null) {
+            this.atOpLocType = [];
         }
         return this.atOpLocType;
     }
 
  getAtOpLoc() {
-        if (atOpLoc == null) {
-            atOpLoc = [];
+        if (this.atOpLoc == null) {
+            this.atOpLoc = [];
         }
         return this.atOpLoc;
     }
@@ -80,7 +80,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

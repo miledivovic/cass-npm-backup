@@ -22,8 +22,8 @@ crud;
     }
 
  getDuration() {
-        if (duration == null) {
-            duration = [];
+        if (this.duration == null) {
+            this.duration = [];
         }
         return this.duration;
     }
@@ -37,29 +37,29 @@ crud;
     }
 
  getNumber() {
-        if (number == null) {
-            number = [];
+        if (this.number == null) {
+            this.number = [];
         }
         return this.number;
     }
 
  getLaborTime() {
-        if (laborTime == null) {
-            laborTime = [];
+        if (this.laborTime == null) {
+            this.laborTime = [];
         }
         return this.laborTime;
     }
 
  getRelRes() {
-        if (relRes == null) {
-            relRes = [];
+        if (this.relRes == null) {
+            this.relRes = [];
         }
         return this.relRes;
     }
 
  getCompt() {
-        if (compt == null) {
-            compt = [];
+        if (this.compt == null) {
+            this.compt = [];
         }
         return this.compt;
     }
@@ -97,7 +97,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

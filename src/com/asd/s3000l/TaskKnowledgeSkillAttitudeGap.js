@@ -19,8 +19,8 @@ crud;
     }
 
  getTaskKSAGapDescr() {
-        if (taskKSAGapDescr == null) {
-            taskKSAGapDescr = [];
+        if (this.taskKSAGapDescr == null) {
+            this.taskKSAGapDescr = [];
         }
         return this.taskKSAGapDescr;
     }
@@ -74,7 +74,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

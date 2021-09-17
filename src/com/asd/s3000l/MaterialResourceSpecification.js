@@ -35,8 +35,8 @@ crud;
     }
 
  getPartReal() {
-        if (partReal == null) {
-            partReal = [];
+        if (this.partReal == null) {
+            this.partReal = [];
         }
         return this.partReal;
     }
@@ -74,7 +74,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

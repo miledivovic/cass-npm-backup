@@ -12,8 +12,8 @@ uri;
 crud;
 
  getTaskId() {
-        if (taskId == null) {
-            taskId = [];
+        if (this.taskId == null) {
+            this.taskId = [];
         }
         return this.taskId;
     }
@@ -27,8 +27,8 @@ crud;
     }
 
  getTaskRev() {
-        if (taskRev == null) {
-            taskRev = [];
+        if (this.taskRev == null) {
+            this.taskRev = [];
         }
         return this.taskRev;
     }
@@ -82,7 +82,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

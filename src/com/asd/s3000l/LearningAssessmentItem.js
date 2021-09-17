@@ -3,8 +3,8 @@ module.exports = class LearningAssessmentItem extends EcRemoteLinkedData {
 assessmnt;
 
  getAssessmnt() {
-        if (assessmnt == null) {
-            assessmnt = [];
+        if (this.assessmnt == null) {
+            this.assessmnt = [];
         }
         return this.assessmnt;
     }

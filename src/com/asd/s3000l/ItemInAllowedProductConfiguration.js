@@ -10,8 +10,8 @@ uid;
 crud;
 
  getNonConf() {
-        if (nonConf == null) {
-            nonConf = [];
+        if (this.nonConf == null) {
+            this.nonConf = [];
         }
         return this.nonConf;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -98,8 +98,8 @@ nonConfRestr;
         }
 
  getNonConfRestr() {
-            if (nonConfRestr == null) {
-                nonConfRestr = [];
+            if (this.nonConfRestr == null) {
+                this.nonConfRestr = [];
             }
             return this.nonConfRestr;
         }

@@ -12,8 +12,8 @@ uid;
 crud;
 
  getTaskFreq() {
-        if (taskFreq == null) {
-            taskFreq = [];
+        if (this.taskFreq == null) {
+            this.taskFreq = [];
         }
         return this.taskFreq;
     }
@@ -27,8 +27,8 @@ crud;
     }
 
  getMaintLevel() {
-        if (maintLevel == null) {
-            maintLevel = [];
+        if (this.maintLevel == null) {
+            this.maintLevel = [];
         }
         return this.maintLevel;
     }
@@ -82,7 +82,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -97,8 +97,8 @@ crud;
 timeLimitNonAbstractClasses;
 
  getTimeLimitNonAbstractClasses() {
-            if (timeLimitNonAbstractClasses == null) {
-                timeLimitNonAbstractClasses = [];
+            if (this.timeLimitNonAbstractClasses == null) {
+                this.timeLimitNonAbstractClasses = [];
             }
             return this.timeLimitNonAbstractClasses;
         }

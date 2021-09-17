@@ -10,8 +10,8 @@ uri;
 crud;
 
  getLoRtnle() {
-        if (loRtnle == null) {
-            loRtnle = [];
+        if (this.loRtnle == null) {
+            this.loRtnle = [];
         }
         return this.loRtnle;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

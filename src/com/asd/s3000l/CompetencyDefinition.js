@@ -20,8 +20,8 @@ crud;
     }
 
  getCompName() {
-        if (compName == null) {
-            compName = [];
+        if (this.compName == null) {
+            this.compName = [];
         }
         return this.compName;
     }
@@ -35,8 +35,8 @@ crud;
     }
 
  getCompDescr() {
-        if (compDescr == null) {
-            compDescr = [];
+        if (this.compDescr == null) {
+            this.compDescr = [];
         }
         return this.compDescr;
     }
@@ -82,7 +82,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

@@ -131,8 +131,8 @@ rmks;
 orgInfo;
 
  getOrgInfo() {
-            if (orgInfo == null) {
-                orgInfo = [];
+            if (this.orgInfo == null) {
+                this.orgInfo = [];
             }
             return this.orgInfo;
         }

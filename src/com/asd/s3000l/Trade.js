@@ -19,8 +19,8 @@ crud;
     }
 
  getSkillLevel() {
-        if (skillLevel == null) {
-            skillLevel = [];
+        if (this.skillLevel == null) {
+            this.skillLevel = [];
         }
         return this.skillLevel;
     }
@@ -74,7 +74,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

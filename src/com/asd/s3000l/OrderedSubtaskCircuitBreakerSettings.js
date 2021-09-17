@@ -7,8 +7,8 @@ uid;
 crud;
 
  getCb() {
-        if (cb == null) {
-            cb = [];
+        if (this.cb == null) {
+            this.cb = [];
         }
         return this.cb;
     }
@@ -38,7 +38,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

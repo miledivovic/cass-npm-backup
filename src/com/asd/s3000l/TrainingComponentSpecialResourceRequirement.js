@@ -12,29 +12,29 @@ uri;
 crud;
 
  getResName() {
-        if (resName == null) {
-            resName = [];
+        if (this.resName == null) {
+            this.resName = [];
         }
         return this.resName;
     }
 
  getResType() {
-        if (resType == null) {
-            resType = [];
+        if (this.resType == null) {
+            this.resType = [];
         }
         return this.resType;
     }
 
  getResDescr() {
-        if (resDescr == null) {
-            resDescr = [];
+        if (this.resDescr == null) {
+            this.resDescr = [];
         }
         return this.resDescr;
     }
 
  getResRef() {
-        if (resRef == null) {
-            resRef = [];
+        if (this.resRef == null) {
+            this.resRef = [];
         }
         return this.resRef;
     }
@@ -80,7 +80,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

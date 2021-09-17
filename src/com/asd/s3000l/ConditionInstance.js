@@ -57,7 +57,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -72,8 +72,8 @@ crud;
 doc;
 
  getDoc() {
-            if (doc == null) {
-                doc = [];
+            if (this.doc == null) {
+                this.doc = [];
             }
             return this.doc;
         }
@@ -83,8 +83,8 @@ doc;
 rmk;
 
  getRmk() {
-            if (rmk == null) {
-                rmk = [];
+            if (this.rmk == null) {
+                this.rmk = [];
             }
             return this.rmk;
         }

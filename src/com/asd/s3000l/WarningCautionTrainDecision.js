@@ -30,15 +30,15 @@ crud;
     }
 
  getTrainLevRtnle() {
-        if (trainLevRtnle == null) {
-            trainLevRtnle = [];
+        if (this.trainLevRtnle == null) {
+            this.trainLevRtnle = [];
         }
         return this.trainLevRtnle;
     }
 
  getIterRtnle() {
-        if (iterRtnle == null) {
-            iterRtnle = [];
+        if (this.iterRtnle == null) {
+            this.iterRtnle = [];
         }
         return this.iterRtnle;
     }
@@ -100,7 +100,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

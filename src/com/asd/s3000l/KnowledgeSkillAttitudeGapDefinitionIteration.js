@@ -21,8 +21,8 @@ crud;
     }
 
  getGapDescr() {
-        if (gapDescr == null) {
-            gapDescr = [];
+        if (this.gapDescr == null) {
+            this.gapDescr = [];
         }
         return this.gapDescr;
     }
@@ -36,15 +36,15 @@ crud;
     }
 
  getTaskGapSource() {
-        if (taskGapSource == null) {
-            taskGapSource = [];
+        if (this.taskGapSource == null) {
+            this.taskGapSource = [];
         }
         return this.taskGapSource;
     }
 
  getGapLO() {
-        if (gapLO == null) {
-            gapLO = [];
+        if (this.gapLO == null) {
+            this.gapLO = [];
         }
         return this.gapLO;
     }
@@ -90,7 +90,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

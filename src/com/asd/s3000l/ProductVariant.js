@@ -12,29 +12,29 @@ uid;
 crud;
 
  getProdVarId() {
-        if (prodVarId == null) {
-            prodVarId = [];
+        if (this.prodVarId == null) {
+            this.prodVarId = [];
         }
         return this.prodVarId;
     }
 
  getName() {
-        if (name == null) {
-            name = [];
+        if (this.name == null) {
+            this.name = [];
         }
         return this.name;
     }
 
  getAllowedProductConfigurationInterfaceRealizedBy() {
-        if (allowedProductConfigurationInterfaceRealizedBy == null) {
-            allowedProductConfigurationInterfaceRealizedBy = [];
+        if (this.allowedProductConfigurationInterfaceRealizedBy == null) {
+            this.allowedProductConfigurationInterfaceRealizedBy = [];
         }
         return this.allowedProductConfigurationInterfaceRealizedBy;
     }
 
  getNestedPV() {
-        if (nestedPV == null) {
-            nestedPV = [];
+        if (this.nestedPV == null) {
+            this.nestedPV = [];
         }
         return this.nestedPV;
     }
@@ -80,7 +80,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -95,8 +95,8 @@ crud;
 bkdn;
 
  getBkdn() {
-            if (bkdn == null) {
-                bkdn = [];
+            if (this.bkdn == null) {
+                this.bkdn = [];
             }
             return this.bkdn;
         }

@@ -6,22 +6,22 @@ iterRtnle;
 iterDate;
 
  getKnowlLev() {
-        if (knowlLev == null) {
-            knowlLev = [];
+        if (this.knowlLev == null) {
+            this.knowlLev = [];
         }
         return this.knowlLev;
     }
 
  getLolRtnle() {
-        if (lolRtnle == null) {
-            lolRtnle = [];
+        if (this.lolRtnle == null) {
+            this.lolRtnle = [];
         }
         return this.lolRtnle;
     }
 
  getIterRtnle() {
-        if (iterRtnle == null) {
-            iterRtnle = [];
+        if (this.iterRtnle == null) {
+            this.iterRtnle = [];
         }
         return this.iterRtnle;
     }

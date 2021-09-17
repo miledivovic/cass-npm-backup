@@ -9,8 +9,8 @@ uid;
 crud;
 
  getProjId() {
-        if (projId == null) {
-            projId = [];
+        if (this.projId == null) {
+            this.projId = [];
         }
         return this.projId;
     }
@@ -56,7 +56,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

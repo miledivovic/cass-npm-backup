@@ -4,15 +4,15 @@ trainPopDescr;
 number;
 
  getTrainPopDescr() {
-        if (trainPopDescr == null) {
-            trainPopDescr = [];
+        if (this.trainPopDescr == null) {
+            this.trainPopDescr = [];
         }
         return this.trainPopDescr;
     }
 
  getNumber() {
-        if (number == null) {
-            number = [];
+        if (this.number == null) {
+            this.number = [];
         }
         return this.number;
     }

@@ -25,8 +25,8 @@ crud;
     }
 
  getPmIss() {
-        if (pmIss == null) {
-            pmIss = [];
+        if (this.pmIss == null) {
+            this.pmIss = [];
         }
         return this.pmIss;
     }
@@ -56,7 +56,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

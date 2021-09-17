@@ -19,8 +19,8 @@ crud;
     }
 
  getTrRev() {
-        if (trRev == null) {
-            trRev = [];
+        if (this.trRev == null) {
+            this.trRev = [];
         }
         return this.trRev;
     }
@@ -74,7 +74,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

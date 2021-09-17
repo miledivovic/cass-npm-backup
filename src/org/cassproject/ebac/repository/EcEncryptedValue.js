@@ -349,7 +349,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 */
 	decryptIntoObject(success, failure, eim) {
 		return cassPromisify(
-			this.decryptIntoString(eim).then((decryptRaw) => {
+			this.decryptIntoString(null, null, eim).then((decryptRaw) => {
 				if (decryptRaw == null) {
 					return null;
 				}

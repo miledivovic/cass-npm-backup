@@ -9,15 +9,15 @@ uid;
 crud;
 
  getOccRtg() {
-        if (occRtg == null) {
-            occRtg = [];
+        if (this.occRtg == null) {
+            this.occRtg = [];
         }
         return this.occRtg;
     }
 
  getUsagePhaseRef() {
-        if (usagePhaseRef == null) {
-            usagePhaseRef = [];
+        if (this.usagePhaseRef == null) {
+            this.usagePhaseRef = [];
         }
         return this.usagePhaseRef;
     }
@@ -55,7 +55,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

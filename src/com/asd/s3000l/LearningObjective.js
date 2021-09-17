@@ -12,8 +12,8 @@ uri;
 crud;
 
  getLoId() {
-        if (loId == null) {
-            loId = [];
+        if (this.loId == null) {
+            this.loId = [];
         }
         return this.loId;
     }
@@ -27,15 +27,15 @@ crud;
     }
 
  getLoName() {
-        if (loName == null) {
-            loName = [];
+        if (this.loName == null) {
+            this.loName = [];
         }
         return this.loName;
     }
 
  getLoRev() {
-        if (loRev == null) {
-            loRev = [];
+        if (this.loRev == null) {
+            this.loRev = [];
         }
         return this.loRev;
     }
@@ -81,7 +81,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

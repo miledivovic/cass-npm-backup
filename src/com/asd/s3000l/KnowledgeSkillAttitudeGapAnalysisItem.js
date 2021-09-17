@@ -3,8 +3,8 @@ module.exports = class KnowledgeSkillAttitudeGapAnalysisItem extends EcRemoteLin
 ksaGap;
 
  getKsaGap() {
-        if (ksaGap == null) {
-            ksaGap = [];
+        if (this.ksaGap == null) {
+            this.ksaGap = [];
         }
         return this.ksaGap;
     }

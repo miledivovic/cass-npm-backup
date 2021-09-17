@@ -30,7 +30,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -101,8 +101,8 @@ jobPosns;
 jobPos;
 
  getJobPos() {
-                if (jobPos == null) {
-                    jobPos = [];
+                if (this.jobPos == null) {
+                    this.jobPos = [];
                 }
                 return this.jobPos;
             }
@@ -112,8 +112,8 @@ jobPos;
 learnObj;
 
  getLearnObj() {
-                if (learnObj == null) {
-                    learnObj = [];
+                if (this.learnObj == null) {
+                    this.learnObj = [];
                 }
                 return this.learnObj;
             }
@@ -123,8 +123,8 @@ learnObj;
 skill;
 
  getSkill() {
-                if (skill == null) {
-                    skill = [];
+                if (this.skill == null) {
+                    this.skill = [];
                 }
                 return this.skill;
             }
@@ -134,8 +134,8 @@ skill;
 taskNonAbstractClasses;
 
  getTaskNonAbstractClasses() {
-                if (taskNonAbstractClasses == null) {
-                    taskNonAbstractClasses = [];
+                if (this.taskNonAbstractClasses == null) {
+                    this.taskNonAbstractClasses = [];
                 }
                 return this.taskNonAbstractClasses;
             }
@@ -145,8 +145,8 @@ taskNonAbstractClasses;
 trade;
 
  getTrade() {
-                if (trade == null) {
-                    trade = [];
+                if (this.trade == null) {
+                    this.trade = [];
                 }
                 return this.trade;
             }
@@ -156,8 +156,8 @@ trade;
 wcn;
 
  getWcn() {
-                if (wcn == null) {
-                    wcn = [];
+                if (this.wcn == null) {
+                    this.wcn = [];
                 }
                 return this.wcn;
             }
@@ -341,8 +341,8 @@ applicabilityConditions;
 cond;
 
  getCond() {
-                if (cond == null) {
-                    cond = [];
+                if (this.cond == null) {
+                    this.cond = [];
                 }
                 return this.cond;
             }
@@ -352,8 +352,8 @@ cond;
 applicabilityStatementNonAbstractClasses;
 
  getApplicabilityStatementNonAbstractClasses() {
-                if (applicabilityStatementNonAbstractClasses == null) {
-                    applicabilityStatementNonAbstractClasses = [];
+                if (this.applicabilityStatementNonAbstractClasses == null) {
+                    this.applicabilityStatementNonAbstractClasses = [];
                 }
                 return this.applicabilityStatementNonAbstractClasses;
             }
@@ -363,8 +363,8 @@ applicabilityStatementNonAbstractClasses;
 breakdownElementNonAbstractClasses;
 
  getBreakdownElementNonAbstractClasses() {
-                if (breakdownElementNonAbstractClasses == null) {
-                    breakdownElementNonAbstractClasses = [];
+                if (this.breakdownElementNonAbstractClasses == null) {
+                    this.breakdownElementNonAbstractClasses = [];
                 }
                 return this.breakdownElementNonAbstractClasses;
             }
@@ -374,8 +374,8 @@ breakdownElementNonAbstractClasses;
 cr;
 
  getCr() {
-                if (cr == null) {
-                    cr = [];
+                if (this.cr == null) {
+                    this.cr = [];
                 }
                 return this.cr;
             }
@@ -385,8 +385,8 @@ cr;
 cb;
 
  getCb() {
-                if (cb == null) {
-                    cb = [];
+                if (this.cb == null) {
+                    this.cb = [];
                 }
                 return this.cb;
             }
@@ -396,8 +396,8 @@ cb;
 documentNonAbstractClasses;
 
  getDocumentNonAbstractClasses() {
-                if (documentNonAbstractClasses == null) {
-                    documentNonAbstractClasses = [];
+                if (this.documentNonAbstractClasses == null) {
+                    this.documentNonAbstractClasses = [];
                 }
                 return this.documentNonAbstractClasses;
             }
@@ -407,8 +407,8 @@ documentNonAbstractClasses;
 mlv;
 
  getMlv() {
-                if (mlv == null) {
-                    mlv = [];
+                if (this.mlv == null) {
+                    this.mlv = [];
                 }
                 return this.mlv;
             }
@@ -418,8 +418,8 @@ mlv;
 mLoc;
 
  getMLoc() {
-                if (mLoc == null) {
-                    mLoc = [];
+                if (this.mLoc == null) {
+                    this.mLoc = [];
                 }
                 return this.mLoc;
             }
@@ -429,8 +429,8 @@ mLoc;
 opLocType;
 
  getOpLocType() {
-                if (opLocType == null) {
-                    opLocType = [];
+                if (this.opLocType == null) {
+                    this.opLocType = [];
                 }
                 return this.opLocType;
             }
@@ -440,8 +440,8 @@ opLocType;
 opLoc;
 
  getOpLoc() {
-                if (opLoc == null) {
-                    opLoc = [];
+                if (this.opLoc == null) {
+                    this.opLoc = [];
                 }
                 return this.opLoc;
             }
@@ -451,8 +451,8 @@ opLoc;
 org;
 
  getOrg() {
-                if (org == null) {
-                    org = [];
+                if (this.org == null) {
+                    this.org = [];
                 }
                 return this.org;
             }
@@ -462,8 +462,8 @@ org;
 partAsDesignedNonAbstractClasses;
 
  getPartAsDesignedNonAbstractClasses() {
-                if (partAsDesignedNonAbstractClasses == null) {
-                    partAsDesignedNonAbstractClasses = [];
+                if (this.partAsDesignedNonAbstractClasses == null) {
+                    this.partAsDesignedNonAbstractClasses = [];
                 }
                 return this.partAsDesignedNonAbstractClasses;
             }
@@ -473,8 +473,8 @@ partAsDesignedNonAbstractClasses;
 usagePhaseDef;
 
  getUsagePhaseDef() {
-                if (usagePhaseDef == null) {
-                    usagePhaseDef = [];
+                if (this.usagePhaseDef == null) {
+                    this.usagePhaseDef = [];
                 }
                 return this.usagePhaseDef;
             }
@@ -484,8 +484,8 @@ usagePhaseDef;
 prod;
 
  getProd() {
-                if (prod == null) {
-                    prod = [];
+                if (this.prod == null) {
+                    this.prod = [];
                 }
                 return this.prod;
             }
@@ -495,8 +495,8 @@ prod;
 resourceSpecificationNonAbstractClasses;
 
  getResourceSpecificationNonAbstractClasses() {
-                if (resourceSpecificationNonAbstractClasses == null) {
-                    resourceSpecificationNonAbstractClasses = [];
+                if (this.resourceSpecificationNonAbstractClasses == null) {
+                    this.resourceSpecificationNonAbstractClasses = [];
                 }
                 return this.resourceSpecificationNonAbstractClasses;
             }
@@ -506,8 +506,8 @@ resourceSpecificationNonAbstractClasses;
 secClassDef;
 
  getSecClassDef() {
-                if (secClassDef == null) {
-                    secClassDef = [];
+                if (this.secClassDef == null) {
+                    this.secClassDef = [];
                 }
                 return this.secClassDef;
             }
@@ -517,8 +517,8 @@ secClassDef;
 sEvnt;
 
  getSEvnt() {
-                if (sEvnt == null) {
-                    sEvnt = [];
+                if (this.sEvnt == null) {
+                    this.sEvnt = [];
                 }
                 return this.sEvnt;
             }
@@ -528,8 +528,8 @@ sEvnt;
 subs;
 
  getSubs() {
-                if (subs == null) {
-                    subs = [];
+                if (this.subs == null) {
+                    this.subs = [];
                 }
                 return this.subs;
             }
@@ -539,8 +539,8 @@ subs;
 taskRequirementNonAbstractClasses;
 
  getTaskRequirementNonAbstractClasses() {
-                if (taskRequirementNonAbstractClasses == null) {
-                    taskRequirementNonAbstractClasses = [];
+                if (this.taskRequirementNonAbstractClasses == null) {
+                    this.taskRequirementNonAbstractClasses = [];
                 }
                 return this.taskRequirementNonAbstractClasses;
             }

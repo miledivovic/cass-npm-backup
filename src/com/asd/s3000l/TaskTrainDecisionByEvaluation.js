@@ -34,15 +34,15 @@ crud;
     }
 
  getDcsnRtnle() {
-        if (dcsnRtnle == null) {
-            dcsnRtnle = [];
+        if (this.dcsnRtnle == null) {
+            this.dcsnRtnle = [];
         }
         return this.dcsnRtnle;
     }
 
  getIterRtnle() {
-        if (iterRtnle == null) {
-            iterRtnle = [];
+        if (this.iterRtnle == null) {
+            this.iterRtnle = [];
         }
         return this.iterRtnle;
     }
@@ -104,8 +104,8 @@ crud;
     }
 
  getTaskTrainLvlRtnle() {
-        if (taskTrainLvlRtnle == null) {
-            taskTrainLvlRtnle = [];
+        if (this.taskTrainLvlRtnle == null) {
+            this.taskTrainLvlRtnle = [];
         }
         return this.taskTrainLvlRtnle;
     }
@@ -127,15 +127,15 @@ crud;
     }
 
  getTrainLvlRtnle() {
-        if (trainLvlRtnle == null) {
-            trainLvlRtnle = [];
+        if (this.trainLvlRtnle == null) {
+            this.trainLvlRtnle = [];
         }
         return this.trainLvlRtnle;
     }
 
  getPerfObj() {
-        if (perfObj == null) {
-            perfObj = [];
+        if (this.perfObj == null) {
+            this.perfObj = [];
         }
         return this.perfObj;
     }
@@ -149,8 +149,8 @@ crud;
     }
 
  getSubtaskTrainDecisionNonAbstractClasses() {
-        if (subtaskTrainDecisionNonAbstractClasses == null) {
-            subtaskTrainDecisionNonAbstractClasses = [];
+        if (this.subtaskTrainDecisionNonAbstractClasses == null) {
+            this.subtaskTrainDecisionNonAbstractClasses = [];
         }
         return this.subtaskTrainDecisionNonAbstractClasses;
     }
@@ -204,7 +204,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

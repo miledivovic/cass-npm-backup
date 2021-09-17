@@ -17,8 +17,8 @@ crud;
     }
 
  getBeChild() {
-        if (beChild == null) {
-            beChild = [];
+        if (this.beChild == null) {
+            this.beChild = [];
         }
         return this.beChild;
     }
@@ -56,7 +56,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

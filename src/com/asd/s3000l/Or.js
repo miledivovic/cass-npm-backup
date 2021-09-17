@@ -5,8 +5,8 @@ uid;
 crud;
 
  getApplicabilityEvaluationNonAbstractClasses() {
-        if (applicabilityEvaluationNonAbstractClasses == null) {
-            applicabilityEvaluationNonAbstractClasses = [];
+        if (this.applicabilityEvaluationNonAbstractClasses == null) {
+            this.applicabilityEvaluationNonAbstractClasses = [];
         }
         return this.applicabilityEvaluationNonAbstractClasses;
     }
@@ -20,7 +20,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

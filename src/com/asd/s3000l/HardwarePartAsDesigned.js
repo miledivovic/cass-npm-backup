@@ -59,15 +59,15 @@ uid;
 crud;
 
  getPartId() {
-        if (partId == null) {
-            partId = [];
+        if (this.partId == null) {
+            this.partId = [];
         }
         return this.partId;
     }
 
  getName() {
-        if (name == null) {
-            name = [];
+        if (this.name == null) {
+            this.name = [];
         }
         return this.name;
     }
@@ -81,8 +81,8 @@ crud;
     }
 
  getOpAul() {
-        if (opAul == null) {
-            opAul = [];
+        if (this.opAul == null) {
+            this.opAul = [];
         }
         return this.opAul;
     }
@@ -152,15 +152,15 @@ crud;
     }
 
  getSra() {
-        if (sra == null) {
-            sra = [];
+        if (this.sra == null) {
+            this.sra = [];
         }
         return this.sra;
     }
 
  getRpy() {
-        if (rpy == null) {
-            rpy = [];
+        if (this.rpy == null) {
+            this.rpy = [];
         }
         return this.rpy;
     }
@@ -174,36 +174,36 @@ crud;
     }
 
  getInUseDispDescr() {
-        if (inUseDispDescr == null) {
-            inUseDispDescr = [];
+        if (this.inUseDispDescr == null) {
+            this.inUseDispDescr = [];
         }
         return this.inUseDispDescr;
     }
 
  getPlndDispDescr() {
-        if (plndDispDescr == null) {
-            plndDispDescr = [];
+        if (this.plndDispDescr == null) {
+            this.plndDispDescr = [];
         }
         return this.plndDispDescr;
     }
 
  getEnvmtInUseClass() {
-        if (envmtInUseClass == null) {
-            envmtInUseClass = [];
+        if (this.envmtInUseClass == null) {
+            this.envmtInUseClass = [];
         }
         return this.envmtInUseClass;
     }
 
  getEnvmtDispClass() {
-        if (envmtDispClass == null) {
-            envmtDispClass = [];
+        if (this.envmtDispClass == null) {
+            this.envmtDispClass = [];
         }
         return this.envmtDispClass;
     }
 
  getConsRte() {
-        if (consRte == null) {
-            consRte = [];
+        if (this.consRte == null) {
+            this.consRte = [];
         }
         return this.consRte;
     }
@@ -225,36 +225,36 @@ crud;
     }
 
  getMaturity() {
-        if (maturity == null) {
-            maturity = [];
+        if (this.maturity == null) {
+            this.maturity = [];
         }
         return this.maturity;
     }
 
  getObsRisk() {
-        if (obsRisk == null) {
-            obsRisk = [];
+        if (this.obsRisk == null) {
+            this.obsRisk = [];
         }
         return this.obsRisk;
     }
 
  getPartsList() {
-        if (partsList == null) {
-            partsList = [];
+        if (this.partsList == null) {
+            this.partsList = [];
         }
         return this.partsList;
     }
 
  getAltPart() {
-        if (altPart == null) {
-            altPart = [];
+        if (this.altPart == null) {
+            this.altPart = [];
         }
         return this.altPart;
     }
 
  getContSubs() {
-        if (contSubs == null) {
-            contSubs = [];
+        if (this.contSubs == null) {
+            this.contSubs = [];
         }
         return this.contSubs;
     }
@@ -284,113 +284,113 @@ crud;
     }
 
  getMaintCpt() {
-        if (maintCpt == null) {
-            maintCpt = [];
+        if (this.maintCpt == null) {
+            this.maintCpt = [];
         }
         return this.maintCpt;
     }
 
  getMaintSln() {
-        if (maintSln == null) {
-            maintSln = [];
+        if (this.maintSln == null) {
+            this.maintSln = [];
         }
         return this.maintSln;
     }
 
  getProductServiceLife() {
-        if (productServiceLife == null) {
-            productServiceLife = [];
+        if (this.productServiceLife == null) {
+            this.productServiceLife = [];
         }
         return this.productServiceLife;
     }
 
  getScheduledMaintenanceInterval() {
-        if (scheduledMaintenanceInterval == null) {
-            scheduledMaintenanceInterval = [];
+        if (this.scheduledMaintenanceInterval == null) {
+            this.scheduledMaintenanceInterval = [];
         }
         return this.scheduledMaintenanceInterval;
     }
 
  getMaintenanceFreeOperatingPeriod() {
-        if (maintenanceFreeOperatingPeriod == null) {
-            maintenanceFreeOperatingPeriod = [];
+        if (this.maintenanceFreeOperatingPeriod == null) {
+            this.maintenanceFreeOperatingPeriod = [];
         }
         return this.maintenanceFreeOperatingPeriod;
     }
 
  getDownTime() {
-        if (downTime == null) {
-            downTime = [];
+        if (this.downTime == null) {
+            this.downTime = [];
         }
         return this.downTime;
     }
 
  getMaintenanceManHoursPerOperatingHour() {
-        if (maintenanceManHoursPerOperatingHour == null) {
-            maintenanceManHoursPerOperatingHour = [];
+        if (this.maintenanceManHoursPerOperatingHour == null) {
+            this.maintenanceManHoursPerOperatingHour = [];
         }
         return this.maintenanceManHoursPerOperatingHour;
     }
 
  getMeanTimeBetweenUnscheduledRemoval() {
-        if (meanTimeBetweenUnscheduledRemoval == null) {
-            meanTimeBetweenUnscheduledRemoval = [];
+        if (this.meanTimeBetweenUnscheduledRemoval == null) {
+            this.meanTimeBetweenUnscheduledRemoval = [];
         }
         return this.meanTimeBetweenUnscheduledRemoval;
     }
 
  getMeanTimeToRepair() {
-        if (meanTimeToRepair == null) {
-            meanTimeToRepair = [];
+        if (this.meanTimeToRepair == null) {
+            this.meanTimeToRepair = [];
         }
         return this.meanTimeToRepair;
     }
 
  getDirectMaintenanceCost() {
-        if (directMaintenanceCost == null) {
-            directMaintenanceCost = [];
+        if (this.directMaintenanceCost == null) {
+            this.directMaintenanceCost = [];
         }
         return this.directMaintenanceCost;
     }
 
  getShopProcessingTime() {
-        if (shopProcessingTime == null) {
-            shopProcessingTime = [];
+        if (this.shopProcessingTime == null) {
+            this.shopProcessingTime = [];
         }
         return this.shopProcessingTime;
     }
 
  getFailuresPerOperatingHour() {
-        if (failuresPerOperatingHour == null) {
-            failuresPerOperatingHour = [];
+        if (this.failuresPerOperatingHour == null) {
+            this.failuresPerOperatingHour = [];
         }
         return this.failuresPerOperatingHour;
     }
 
  getReplacementTime() {
-        if (replacementTime == null) {
-            replacementTime = [];
+        if (this.replacementTime == null) {
+            this.replacementTime = [];
         }
         return this.replacementTime;
     }
 
  getLifeCycleCost() {
-        if (lifeCycleCost == null) {
-            lifeCycleCost = [];
+        if (this.lifeCycleCost == null) {
+            this.lifeCycleCost = [];
         }
         return this.lifeCycleCost;
     }
 
  getMeanTimeBetweenFailure() {
-        if (meanTimeBetweenFailure == null) {
-            meanTimeBetweenFailure = [];
+        if (this.meanTimeBetweenFailure == null) {
+            this.meanTimeBetweenFailure = [];
         }
         return this.meanTimeBetweenFailure;
     }
 
  getFailureRate() {
-        if (failureRate == null) {
-            failureRate = [];
+        if (this.failureRate == null) {
+            this.failureRate = [];
         }
         return this.failureRate;
     }
@@ -404,15 +404,15 @@ crud;
     }
 
  getTaskReq() {
-        if (taskReq == null) {
-            taskReq = [];
+        if (this.taskReq == null) {
+            this.taskReq = [];
         }
         return this.taskReq;
     }
 
  getTaskTargetNonAbstractClasses() {
-        if (taskTargetNonAbstractClasses == null) {
-            taskTargetNonAbstractClasses = [];
+        if (this.taskTargetNonAbstractClasses == null) {
+            this.taskTargetNonAbstractClasses = [];
         }
         return this.taskTargetNonAbstractClasses;
     }
@@ -474,7 +474,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

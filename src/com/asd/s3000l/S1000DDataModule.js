@@ -25,8 +25,8 @@ crud;
     }
 
  getDmIss() {
-        if (dmIss == null) {
-            dmIss = [];
+        if (this.dmIss == null) {
+            this.dmIss = [];
         }
         return this.dmIss;
     }
@@ -56,7 +56,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

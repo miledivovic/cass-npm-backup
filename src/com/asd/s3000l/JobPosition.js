@@ -12,15 +12,15 @@ uri;
 crud;
 
  getJobPosName() {
-        if (jobPosName == null) {
-            jobPosName = [];
+        if (this.jobPosName == null) {
+            this.jobPosName = [];
         }
         return this.jobPosName;
     }
 
  getJobPosDescr() {
-        if (jobPosDescr == null) {
-            jobPosDescr = [];
+        if (this.jobPosDescr == null) {
+            this.jobPosDescr = [];
         }
         return this.jobPosDescr;
     }
@@ -82,7 +82,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

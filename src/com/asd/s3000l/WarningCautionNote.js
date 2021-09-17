@@ -35,8 +35,8 @@ crud;
     }
 
  getTrainDcsn() {
-        if (trainDcsn == null) {
-            trainDcsn = [];
+        if (this.trainDcsn == null) {
+            this.trainDcsn = [];
         }
         return this.trainDcsn;
     }
@@ -74,7 +74,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

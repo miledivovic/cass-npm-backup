@@ -39,7 +39,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -54,8 +54,8 @@ crud;
 efy;
 
  getEfy() {
-            if (efy == null) {
-                efy = [];
+            if (this.efy == null) {
+                this.efy = [];
             }
             return this.efy;
         }

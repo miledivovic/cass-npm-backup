@@ -26,8 +26,8 @@ crud;
     }
 
  getCrObject() {
-        if (crObject == null) {
-            crObject = [];
+        if (this.crObject == null) {
+            this.crObject = [];
         }
         return this.crObject;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

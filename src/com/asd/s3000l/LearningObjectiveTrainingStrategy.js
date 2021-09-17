@@ -11,15 +11,15 @@ uri;
 crud;
 
  getTrainStrName() {
-        if (trainStrName == null) {
-            trainStrName = [];
+        if (this.trainStrName == null) {
+            this.trainStrName = [];
         }
         return this.trainStrName;
     }
 
  getTrainComp() {
-        if (trainComp == null) {
-            trainComp = [];
+        if (this.trainComp == null) {
+            this.trainComp = [];
         }
         return this.trainComp;
     }
@@ -73,7 +73,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

@@ -21,22 +21,22 @@ crud;
     }
 
  getStepName() {
-        if (stepName == null) {
-            stepName = [];
+        if (this.stepName == null) {
+            this.stepName = [];
         }
         return this.stepName;
     }
 
  getStepDescr() {
-        if (stepDescr == null) {
-            stepDescr = [];
+        if (this.stepDescr == null) {
+            this.stepDescr = [];
         }
         return this.stepDescr;
     }
 
  getPerfStd() {
-        if (perfStd == null) {
-            perfStd = [];
+        if (this.perfStd == null) {
+            this.perfStd = [];
         }
         return this.perfStd;
     }
@@ -90,7 +90,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

@@ -14,8 +14,8 @@ uid;
 crud;
 
  getSubsId() {
-        if (subsId == null) {
-            subsId = [];
+        if (this.subsId == null) {
+            this.subsId = [];
         }
         return this.subsId;
     }
@@ -45,8 +45,8 @@ crud;
     }
 
  getRiskDescr() {
-        if (riskDescr == null) {
-            riskDescr = [];
+        if (this.riskDescr == null) {
+            this.riskDescr = [];
         }
         return this.riskDescr;
     }
@@ -100,7 +100,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

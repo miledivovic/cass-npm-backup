@@ -26,15 +26,15 @@ crud;
     }
 
  getConditionTypeValueNonAbstractClasses() {
-        if (conditionTypeValueNonAbstractClasses == null) {
-            conditionTypeValueNonAbstractClasses = [];
+        if (this.conditionTypeValueNonAbstractClasses == null) {
+            this.conditionTypeValueNonAbstractClasses = [];
         }
         return this.conditionTypeValueNonAbstractClasses;
     }
 
  getCondInst() {
-        if (condInst == null) {
-            condInst = [];
+        if (this.condInst == null) {
+            this.condInst = [];
         }
         return this.condInst;
     }
@@ -64,7 +64,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

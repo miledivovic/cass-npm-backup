@@ -9,22 +9,22 @@ skillRef;
 jobPosRef;
 
  getAffLoL() {
-        if (affLoL == null) {
-            affLoL = [];
+        if (this.affLoL == null) {
+            this.affLoL = [];
         }
         return this.affLoL;
     }
 
  getCognLoL() {
-        if (cognLoL == null) {
-            cognLoL = [];
+        if (this.cognLoL == null) {
+            this.cognLoL = [];
         }
         return this.cognLoL;
     }
 
  getPsychLoL() {
-        if (psychLoL == null) {
-            psychLoL = [];
+        if (this.psychLoL == null) {
+            this.psychLoL = [];
         }
         return this.psychLoL;
     }

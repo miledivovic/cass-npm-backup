@@ -26,8 +26,8 @@ crud;
     }
 
  getPListEntry() {
-        if (pListEntry == null) {
-            pListEntry = [];
+        if (this.pListEntry == null) {
+            this.pListEntry = [];
         }
         return this.pListEntry;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -80,8 +80,8 @@ crud;
 apcEfy;
 
  getApcEfy() {
-            if (apcEfy == null) {
-                apcEfy = [];
+            if (this.apcEfy == null) {
+                this.apcEfy = [];
             }
             return this.apcEfy;
         }

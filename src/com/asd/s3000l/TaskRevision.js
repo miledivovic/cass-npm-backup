@@ -30,8 +30,8 @@ crud;
     }
 
  getName() {
-        if (name == null) {
-            name = [];
+        if (this.name == null) {
+            this.name = [];
         }
         return this.name;
     }
@@ -85,50 +85,50 @@ crud;
     }
 
  getDuration() {
-        if (duration == null) {
-            duration = [];
+        if (this.duration == null) {
+            this.duration = [];
         }
         return this.duration;
     }
 
  getLaborTime() {
-        if (laborTime == null) {
-            laborTime = [];
+        if (this.laborTime == null) {
+            this.laborTime = [];
         }
         return this.laborTime;
     }
 
  getSubtaskNonAbstractClasses() {
-        if (subtaskNonAbstractClasses == null) {
-            subtaskNonAbstractClasses = [];
+        if (this.subtaskNonAbstractClasses == null) {
+            this.subtaskNonAbstractClasses = [];
         }
         return this.subtaskNonAbstractClasses;
     }
 
  getTaskTrainDecisionNonAbstractClasses() {
-        if (taskTrainDecisionNonAbstractClasses == null) {
-            taskTrainDecisionNonAbstractClasses = [];
+        if (this.taskTrainDecisionNonAbstractClasses == null) {
+            this.taskTrainDecisionNonAbstractClasses = [];
         }
         return this.taskTrainDecisionNonAbstractClasses;
     }
 
  getWcn() {
-        if (wcn == null) {
-            wcn = [];
+        if (this.wcn == null) {
+            this.wcn = [];
         }
         return this.wcn;
     }
 
  getTaskJust() {
-        if (taskJust == null) {
-            taskJust = [];
+        if (this.taskJust == null) {
+            this.taskJust = [];
         }
         return this.taskJust;
     }
 
  getDm() {
-        if (dm == null) {
-            dm = [];
+        if (this.dm == null) {
+            this.dm = [];
         }
         return this.dm;
     }
@@ -166,7 +166,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;
@@ -181,8 +181,8 @@ crud;
 taskResourceNonAbstractClasses;
 
  getTaskResourceNonAbstractClasses() {
-            if (taskResourceNonAbstractClasses == null) {
-                taskResourceNonAbstractClasses = [];
+            if (this.taskResourceNonAbstractClasses == null) {
+                this.taskResourceNonAbstractClasses = [];
             }
             return this.taskResourceNonAbstractClasses;
         }

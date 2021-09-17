@@ -12,8 +12,8 @@ compDef;
     }
 
  getCompDef() {
-        if (compDef == null) {
-            compDef = [];
+        if (this.compDef == null) {
+            this.compDef = [];
         }
         return this.compDef;
     }

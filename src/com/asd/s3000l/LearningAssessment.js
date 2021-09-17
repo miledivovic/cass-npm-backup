@@ -10,15 +10,15 @@ uri;
 crud;
 
  getAssmentName() {
-        if (assmentName == null) {
-            assmentName = [];
+        if (this.assmentName == null) {
+            this.assmentName = [];
         }
         return this.assmentName;
     }
 
  getAssmentDescr() {
-        if (assmentDescr == null) {
-            assmentDescr = [];
+        if (this.assmentDescr == null) {
+            this.assmentDescr = [];
         }
         return this.assmentDescr;
     }
@@ -64,7 +64,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

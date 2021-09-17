@@ -54,22 +54,22 @@ crud;
     }
 
  getSpecResReq() {
-        if (specResReq == null) {
-            specResReq = [];
+        if (this.specResReq == null) {
+            this.specResReq = [];
         }
         return this.specResReq;
     }
 
  getTrJust() {
-        if (trJust == null) {
-            trJust = [];
+        if (this.trJust == null) {
+            this.trJust = [];
         }
         return this.trJust;
     }
 
  getChangeReq() {
-        if (changeReq == null) {
-            changeReq = [];
+        if (this.changeReq == null) {
+            this.changeReq = [];
         }
         return this.changeReq;
     }
@@ -99,7 +99,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

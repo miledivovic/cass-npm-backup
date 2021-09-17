@@ -21,8 +21,8 @@ crud;
     }
 
  getDuration() {
-        if (duration == null) {
-            duration = [];
+        if (this.duration == null) {
+            this.duration = [];
         }
         return this.duration;
     }
@@ -44,8 +44,8 @@ crud;
     }
 
  getRelRes() {
-        if (relRes == null) {
-            relRes = [];
+        if (this.relRes == null) {
+            this.relRes = [];
         }
         return this.relRes;
     }
@@ -91,7 +91,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

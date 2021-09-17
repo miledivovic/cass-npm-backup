@@ -35,15 +35,15 @@ crud;
     }
 
  getFailRte() {
-        if (failRte == null) {
-            failRte = [];
+        if (this.failRte == null) {
+            this.failRte = [];
         }
         return this.failRte;
     }
 
  getDetectRtg() {
-        if (detectRtg == null) {
-            detectRtg = [];
+        if (this.detectRtg == null) {
+            this.detectRtg = [];
         }
         return this.detectRtg;
     }
@@ -81,22 +81,22 @@ crud;
     }
 
  getDistrRo() {
-        if (distrRo == null) {
-            distrRo = [];
+        if (this.distrRo == null) {
+            this.distrRo = [];
         }
         return this.distrRo;
     }
 
  getFailureModeEffectNonAbstractClasses() {
-        if (failureModeEffectNonAbstractClasses == null) {
-            failureModeEffectNonAbstractClasses = [];
+        if (this.failureModeEffectNonAbstractClasses == null) {
+            this.failureModeEffectNonAbstractClasses = [];
         }
         return this.failureModeEffectNonAbstractClasses;
     }
 
  getTechFmRef() {
-        if (techFmRef == null) {
-            techFmRef = [];
+        if (this.techFmRef == null) {
+            this.techFmRef = [];
         }
         return this.techFmRef;
     }
@@ -142,7 +142,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

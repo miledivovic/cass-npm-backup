@@ -22,15 +22,15 @@ crud;
     }
 
  getDcsnRtnle() {
-        if (dcsnRtnle == null) {
-            dcsnRtnle = [];
+        if (this.dcsnRtnle == null) {
+            this.dcsnRtnle = [];
         }
         return this.dcsnRtnle;
     }
 
  getIterRtnle() {
-        if (iterRtnle == null) {
-            iterRtnle = [];
+        if (this.iterRtnle == null) {
+            this.iterRtnle = [];
         }
         return this.iterRtnle;
     }
@@ -44,8 +44,8 @@ crud;
     }
 
  getPerfObj() {
-        if (perfObj == null) {
-            perfObj = [];
+        if (this.perfObj == null) {
+            this.perfObj = [];
         }
         return this.perfObj;
     }
@@ -99,7 +99,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

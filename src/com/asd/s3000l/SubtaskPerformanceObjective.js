@@ -7,29 +7,29 @@ poStmnt;
 applic;
 
  getCond() {
-        if (cond == null) {
-            cond = [];
+        if (this.cond == null) {
+            this.cond = [];
         }
         return this.cond;
     }
 
  getAction() {
-        if (action == null) {
-            action = [];
+        if (this.action == null) {
+            this.action = [];
         }
         return this.action;
     }
 
  getStd() {
-        if (std == null) {
-            std = [];
+        if (this.std == null) {
+            this.std = [];
         }
         return this.std;
     }
 
  getPoStmnt() {
-        if (poStmnt == null) {
-            poStmnt = [];
+        if (this.poStmnt == null) {
+            this.poStmnt = [];
         }
         return this.poStmnt;
     }

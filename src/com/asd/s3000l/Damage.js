@@ -25,8 +25,8 @@ crud;
     }
 
  getCause() {
-        if (cause == null) {
-            cause = [];
+        if (this.cause == null) {
+            this.cause = [];
         }
         return this.cause;
     }
@@ -56,7 +56,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

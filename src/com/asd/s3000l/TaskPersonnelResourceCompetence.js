@@ -10,8 +10,8 @@ uid;
 crud;
 
  getAddTrain() {
-        if (addTrain == null) {
-            addTrain = [];
+        if (this.addTrain == null) {
+            this.addTrain = [];
         }
         return this.addTrain;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

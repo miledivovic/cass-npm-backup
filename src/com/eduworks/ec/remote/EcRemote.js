@@ -1,4 +1,5 @@
-const { default: axios } = require("axios");
+if (global.axios == null)
+	global.axios = require("axios");
 const { cassPromisify } = require("../promises/helpers");
 
 /**

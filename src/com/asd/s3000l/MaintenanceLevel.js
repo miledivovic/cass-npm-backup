@@ -34,8 +34,8 @@ crud;
     }
 
  getOpers() {
-        if (opers == null) {
-            opers = [];
+        if (this.opers == null) {
+            this.opers = [];
         }
         return this.opers;
     }
@@ -65,7 +65,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

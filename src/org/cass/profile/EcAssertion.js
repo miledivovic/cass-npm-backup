@@ -387,7 +387,7 @@ module.exports = class EcAssertion extends Assertion {
 	async getEvidences(eim) {
 		if (this.evidence === undefined || this.evidence == null)
 			return null;
-		return this.evidence.map(async ev => {
+		return Promise.all(this.evidence.map(async ev => {
 			var v = new EcEncryptedValue();
 			v.copyFrom(ev);
 			var codebook = Assertion.getCodebook(this);
@@ -402,7 +402,7 @@ module.exports = class EcAssertion extends Assertion {
 					.catch((error) => null);
 			}
 			return decryptedString;
-		});
+		}));
 	}
 	// @deprecated
 	getEvidencesAsync(success, failure, eim) {

@@ -47,15 +47,15 @@ crud;
     }
 
  getMsgSend() {
-        if (msgSend == null) {
-            msgSend = [];
+        if (this.msgSend == null) {
+            this.msgSend = [];
         }
         return this.msgSend;
     }
 
  getMsgReceive() {
-        if (msgReceive == null) {
-            msgReceive = [];
+        if (this.msgReceive == null) {
+            this.msgReceive = [];
         }
         return this.msgReceive;
     }
@@ -77,8 +77,8 @@ crud;
     }
 
  getRelatedMsg() {
-        if (relatedMsg == null) {
-            relatedMsg = [];
+        if (this.relatedMsg == null) {
+            this.relatedMsg = [];
         }
         return this.relatedMsg;
     }
@@ -108,7 +108,7 @@ crud;
     }
 
  getCrud() {
-        if (crud == null) {
+        if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
             return crud;

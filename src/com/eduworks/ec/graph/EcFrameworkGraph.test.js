@@ -147,7 +147,7 @@ describe("EcFrameworkGraph", () => {
                 await fg.processAssertionsBoolean(
                     assertions,
                     async () => {
-                         //console.log(fg.getMetaStateCompetency(c));
+                        // console.log(fg.getMetaStateCompetency(c));
                         assert.equal(
                             1,
                             fg.getMetaStateCompetency(c)["positiveAssertion"]
@@ -837,5 +837,762 @@ describe("EcFrameworkGraph", () => {
         await deleteById(a.shortId());
         await deleteById(r.shortId());
         await deleteById(r2.shortId());
+    }).timeout(10000);
+    it('revised basic true test', async () => {
+        let f = await newFramework("Billy's Framework");
+        let c = await newCompetency("Add");
+        f.addCompetency(c.shortId());
+        await f.save(null, failure, repo);
+        let a = await newFalseAssertion(c);
+        let fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(a.shortId());
+        });
+        assert.deepEqual([1], result);
+    }).timeout(10000);
+    it('revised basic false test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        f.addCompetency(c.shortId());
+        await f.save(null, failure, repo);
+        var a = await newFalseAssertion(c);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(a.shortId());
+        });
+        assert.deepEqual([1], result);
+    }).timeout(10000);
+    it('revised basic indeterminant test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        f.addCompetency(c.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c);
+        var a2 = await newFalseAssertion(c);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            assertions.push(a2);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(a.shortId());
+            deleteById(a2.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic unknown test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        f.addCompetency(c.shortId());
+        await f.save(null, failure, repo);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic equivalence test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c2);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic equivalence false test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newFalseAssertion(c2);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic equivalence indeterminant test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c);
+        var a2 = await newFalseAssertion(c2);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            assertions.push(a2);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(a.shortId());
+            deleteById(a2.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1, 1, 1], result);
+    }).timeout(10000);
+    it('revised basic equivalence unknown test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        f.addRelation(r.shortId());
+        f.save(null, failure, repo);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1, 1, 1], result);
+    }).timeout(10000);
+    it('revised basic equivalence equivalence test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        var c3 = await newCompetency("Amass");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        f.addCompetency(c3.shortId());
+        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        var r2 = await newRelation(c2, c3, EcAlignment.IS_EQUIVALENT_TO);
+        f.addRelation(r.shortId());
+        f.addRelation(r2.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c3);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(c3.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+            deleteById(r2.shortId());
+        });
+        assert.deepEqual([1, 1, 1], result);
+    }).timeout(10000);
+    it('revised basic equivalence unequivalent test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        var c3 = await newCompetency("Amass");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        f.addCompetency(c3.shortId());
+        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c3);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(c3.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1, 1], result);
+    }).timeout(10000);
+    it('revised basic requires satisfied test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.REQUIRES);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic requires false test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.REQUIRES);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newFalseAssertion(c2);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic narrows true test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.NARROWS);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c2);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic narrows false test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        var r = await newRelation(c, c2, EcAlignment.NARROWS);
+        f.addRelation(r.shortId());
+        await f.save(null, failure, repo);
+        var a = await newFalseAssertion(c);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+        });
+        assert.deepEqual([1, 1], result);
+    }).timeout(10000);
+    it('revised basic narrows narrows test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        var c3 = await newCompetency("Amass");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        f.addCompetency(c3.shortId());
+        var r = await newRelation(c, c2, EcAlignment.NARROWS);
+        var r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
+        f.addRelation(r.shortId());
+        f.addRelation(r2.shortId());
+        await f.save(null, failure, repo);
+        var a = await newAssertion(c3);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(c3.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+            deleteById(r2.shortId());
+        });
+        assert.deepEqual([1, 1, 1], result);
+    }).timeout(10000);
+    it('revised basic narrows narrows false test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        var c2 = await newCompetency("Sum");
+        var c3 = await newCompetency("Amass");
+        f.addCompetency(c.shortId());
+        f.addCompetency(c2.shortId());
+        f.addCompetency(c3.shortId());
+        var r = await newRelation(c, c2, EcAlignment.NARROWS);
+        var r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
+        f.addRelation(r.shortId());
+        f.addRelation(r2.shortId());
+        await f.save(null, failure, repo);
+        var a = await newFalseAssertion(c);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo,
+            () => {},
+            () => {}
+        ).then(async () => {
+            let assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                let result = [];
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c3)["negativeAssertion"]?.length);
+                return result;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(c2.shortId());
+            deleteById(c3.shortId());
+            deleteById(a.shortId());
+            deleteById(r.shortId());
+            deleteById(r2.shortId());
+        });
+        assert.deepEqual([1, 1, 1], result);
+    }).timeout(10000);
+    it('callbacks removed test', async () => {
+        var f = await newFramework("Billy's Framework");
+        var c = await newCompetency("Add");
+        f.addCompetency(c.shortId());
+        await f.save(null, failure, repo);
+        var a = await newFalseAssertion(c);
+        var fg = new EcFrameworkGraph();
+        let result = await fg.addFramework(
+            f,
+            repo
+        ).then(async () => {
+            var assertions = [];
+            assertions.push(a);
+            let result = await fg.processAssertionsBoolean(
+                assertions,
+                () => {},
+                () => {}
+            ).then(() => {
+                return fg.getMetaStateCompetency(c)["positiveAssertion"]?.length;
+            }).catch((err) => {
+                assert.fail(err);
+                return null;
+            });
+            return result;
+        }).catch((err) => {
+            assert.fail(err);
+            return null;
+        }).finally(() => {
+            deleteById(f.shortId());
+            deleteById(c.shortId());
+            deleteById(a.shortId());
+        });
+        assert.equal(1, result);
     }).timeout(10000);
 });

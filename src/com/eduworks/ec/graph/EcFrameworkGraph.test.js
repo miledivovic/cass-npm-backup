@@ -136,7 +136,7 @@ describe("EcFrameworkGraph", () => {
         let c = await newCompetency("Add");
         f.addCompetency(c.shortId());
         await f.save(null, failure, repo);
-        let a = await newFalseAssertion(c);
+        let a = await newAssertion(c);
         let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,

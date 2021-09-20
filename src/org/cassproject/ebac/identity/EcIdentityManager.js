@@ -517,12 +517,12 @@ module.exports = class EcIdentityManager {
 					EcPk.fromPem(d.owner[i])
 				);
 				if (attempt != null) {
-					promises.push(await d.signWith(attempt));
+					promises.push(d.signWith(attempt));
 				}
 			}
 		}
 		return Promise.all(promises).then((signatures) => {
-			d.signature = signatures;
+			d.signature = signatures.filter(x=>x);
 			if (d.signature != null && d.signature.length == 0) {
 				delete d["signature"];
 			}

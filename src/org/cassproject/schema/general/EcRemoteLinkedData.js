@@ -2,6 +2,7 @@ const EcArray = require("../../../../com/eduworks/ec/array/EcArray.js");
 const EcObject = require("../../../../com/eduworks/ec/array/EcObject.js");
 const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto.js");
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk.js");
+const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade.js");
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync.js");
 const EcLinkedData = require("../../../json/ld/EcLinkedData.js");
 
@@ -244,6 +245,8 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method signWith
 	 */
 	async signWith(ppk) {
+		if (ppk instanceof EcPpkFacade)
+			return;
 		var signableJson = this.toSignableJson();
 		var signed = await EcRsaOaepAsync.sign(ppk, signableJson);
 		if (this.signature != null) {
@@ -253,6 +256,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 			this.signature = [];
 		}
 		this.signature.push(signed);
+		return signed;
 	}
 	/**
 	 *  Verifies the object's signatures.

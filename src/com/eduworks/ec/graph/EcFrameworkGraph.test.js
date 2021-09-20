@@ -854,6 +854,6 @@ describe("EcFrameworkGraph", () => {
             await deleteById(c.shortId());
             await deleteById(a.shortId());
         });
-        assert.equal(result, [1]);
+        assert.deepEqual(result, [1]);
     }).timeout(10000);
 });

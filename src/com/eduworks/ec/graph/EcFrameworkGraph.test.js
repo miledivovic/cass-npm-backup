@@ -262,8 +262,8 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]);
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -275,7 +275,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(f.shortId());
             await deleteById(c.shortId());
         });
-        assert.deepEqual(result, [1, 1]);
+        assert.deepEqual(result, [undefined, undefined]);
     }).timeout(10000);
     it('basic equivalence test', async () => {
         var f = await newFramework("basic equivalence framework");
@@ -434,10 +434,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]);
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]);
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -451,7 +451,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(c2.shortId());
             await deleteById(r.shortId());
         });
-        assert.deepEqual(result, [1, 1, 1, 1]);
+        assert.deepEqual(result, [undefined, undefined, undefined, undefined]);
     }).timeout(10000);
     it('basic equivalence equivalence test', async () => {
         var f = await newFramework("basic equivalence equivalence framework");
@@ -530,8 +530,8 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]);
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]);
                 result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"]?.length);
                 return result;
             }).catch((err) => {
@@ -548,7 +548,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(a.shortId());
             await deleteById(r.shortId());
         });
-        assert.deepEqual(result, [1, 1, 1]);
+        assert.deepEqual(result, [undefined, undefined, 1]);
     }).timeout(10000);
     it('basic requires satisfied test', async () => {
         var f = await newFramework("basic requires satisfied framework");

@@ -41,6 +41,12 @@ module.exports = class EcRepository {
 		var me = this;
 		var successCheck = function (p1) {
 			if (p1 != null) {
+				if (p1.ssoPublicKey != null) {
+					let identity = new EcIdentity();
+					identity.displayName = "SSO Identity";
+					identity.ppk = new EcPpkFacade(EcPk.fromPem(p1.ssoPublicKey));
+					EcIdentityManager.default.addIdentity(identity);
+				}
 				if (p1["ping"] == "pong") {
 					if (p1["time"] != null)
 						me.timeOffset = new Date().getTime() - p1["time"];
@@ -48,15 +54,14 @@ module.exports = class EcRepository {
 				}
 			}
 		};
-		var failureCheck = null;
+		var failureCheck = console.trace;
 		EcRemote.timeout = oldTimeout;
 		return EcRemote.getExpectingObject(this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer, "ping")
 			.then(successCheck)
 			.catch(failureCheck);
 	};
 	buildKeyForwardingTable = function (success, failure, eim) {
-		var params = {};
-		params["size"] = 10000;
+		var params = {size: 10000};
 		return cassPromisify(
 			EcRepository.searchAs(
 				this,

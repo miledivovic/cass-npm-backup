@@ -365,7 +365,8 @@ module.exports = class EcIdentityManager {
 				this.createSignature(finalDuration, server, ppk)
 			);
 		let p = Promise.all(promises);
-		p = p.then((signatures) => {
+		p = p.then((signatureCandidates) => {
+			let signatures = signatureCandidates.filter(x=>x);
 			var cache = null;
 			var stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
@@ -406,7 +407,8 @@ module.exports = class EcIdentityManager {
 			this.createSignature(finalDuration, server, ident.ppk)
 		);
 		let p = Promise.all(promises);
-		p = p.then((signatures) => {
+		p = p.then((signatureCandidates) => {
+			let signatures = signatureCandidates.filter(x=>x);
 			var stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
 				var cache = null;
@@ -433,6 +435,9 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	createSignature(duration, server, ppk) {
+		if (ppk instanceof EcPpkFacade) {
+			return null;
+		}
 		var s = new EbacSignature();
 		s.expiry = new Date().getTime() + duration;
 		s.server = server;

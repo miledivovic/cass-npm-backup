@@ -1,3 +1,4 @@
+const Ebac = require("../../../../org/cassproject/schema/general/Ebac");
 const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
 const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
 const EcAes = require("../../../../com/eduworks/ec/crypto/EcAes");

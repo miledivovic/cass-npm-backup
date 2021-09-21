@@ -52,7 +52,10 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		if (framework.relation == null) framework.relation = [];
 		await repo.multiget(
 			framework.competency,
-			async (data) => {
+			null,
+			null,
+			this.eim
+			).then(async (data) => {
 				await Promise.all(
 					data.map((d) => this.handleCacheElement(d, framework))
 				);
@@ -68,9 +71,9 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 					},
 					failure, this.eim
 				);
-			},
-			failure, this.eim
-		);
+			}).catch((err) => {
+				failure;
+			});
 	}
 	async handleCacheElement(d, framework) {
 		if (d.isAny(new EcEncryptedValue().getTypes()))

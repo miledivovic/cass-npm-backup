@@ -131,6 +131,25 @@ module.exports = class CTDLASNCSVImport {
 									) {
 										CTDLASNCSVImport.setDateCreated(e, f);
 									}
+									if (f["ceasn:educationLevelType"] != null) {
+										let val = f["ceasn:educationLevelType"];
+										if (!EcArray.isArray(val)) {
+											val = [val];
+										}
+										for (let i = val.length-1; i >=0; i--) {
+											if (!val[i].startsWith('http')) {
+												if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
+												val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
+												val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
+												val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
+													val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
+												} else {
+													val.splice(i, 1);
+												}
+											}
+										}
+										f["ceasn:educationLevelType"] = val;
+									}
 									frameworks[f.shortId()] = f;
 									frameworkRows[f.shortId()] = e;
 									f["ceasn:hasChild"] = null;
@@ -268,6 +287,25 @@ module.exports = class CTDLASNCSVImport {
 										] != null
 									) {
 										CTDLASNCSVImport.setDateCreated(e, f);
+									}
+									if (f["ceasn:educationLevelType"] != null) {
+										let val = f["ceasn:educationLevelType"];
+										if (!EcArray.isArray(val)) {
+											val = [val];
+										}
+										for (let i = val.length-1; i >=0; i--) {
+											if (!val[i].startsWith('http')) {
+												if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
+												val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
+												val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
+												val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
+													val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
+												} else {
+													val.splice(i, 1);
+												}
+											}
+										}
+										f["ceasn:educationLevelType"] = val;
 									}
 									if (e["ceasn:isChildOf"] != null) {
 										CTDLASNCSVImport.createEachRelation(

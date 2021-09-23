@@ -481,7 +481,7 @@ module.exports = class EcRepository {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (
-			EcEncryptedValue.encryptOnSave(data.id, null) &&
+			(EcEncryptedValue.encryptOnSave(data.id, null) || EcEncryptedValue.encryptOnSave(data.shortId(), null)) &&
 			!data.isAny(new EcEncryptedValue().getTypes())
 		) {
 			return EcEncryptedValue.toEncryptedValue(data, false)
@@ -792,10 +792,7 @@ module.exports = class EcRepository {
 			return cassReturnAsPromise(d)
 				.then((unencryptedUnsignedData) => {
 					if (
-						EcEncryptedValue.encryptOnSave(
-							unencryptedUnsignedData.id,
-							null
-						) &&
+						(EcEncryptedValue.encryptOnSave(unencryptedUnsignedData.id, null) || EcEncryptedValue.encryptOnSave(unencryptedUnsignedData.shortId(), null)) &&
 						!unencryptedUnsignedData.isAny(
 							new EcEncryptedValue().getTypes()
 						)

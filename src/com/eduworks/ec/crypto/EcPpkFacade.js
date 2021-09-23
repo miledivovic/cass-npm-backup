@@ -1,6 +1,7 @@
 var pemJwk = require("pem-jwk");
 let forge = require("node-forge");
 let EcPk = require("./EcPk.js");
+let EcPpk = require("./EcPpk.js");
 /**
  *  Helper classes for dealing with RSA Private Keys.
  *

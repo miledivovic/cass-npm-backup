@@ -1,5 +1,5 @@
 let FormData = require("form-data");
-const { cassPromisify } = require("../../../../../com/eduworks/ec/promises/helpers");
+const {cassPromisify} = require("../../../../../com/eduworks/ec/promises/helpers");
 const EcRemote = require("../../../../../com/eduworks/ec/remote/EcRemote");
 const EbacCredentialCommit = require("../../../../../com/eduworks/schema/ebac/EbacCredentialCommit");
 const EbacCredentialRequest = require("../../../../../com/eduworks/schema/ebac/EbacCredentialRequest");
@@ -8,6 +8,7 @@ const EcIdentity = require("../EcIdentity");
 const EcIdentityManager = require("../EcIdentityManager");
 const RemoteIdentityManagerInterface = require("./RemoteIdentityManagerInterface");
 let forge = require("node-forge");
+const EcPpkFacade = require("../../../../../com/eduworks/ec/crypto/EcPpkFacade");
 
 /**
  *  Logs into and stores/retrieves credentials from a compatible remote server.

@@ -1,4 +1,5 @@
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
+const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade");
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
 const {cassReturnAsPromise, cassPromisify} = require("../../../../com/eduworks/ec/promises/helpers");
 const EbacSignature = require("../../../../com/eduworks/schema/ebac/EbacSignature");
@@ -365,7 +366,8 @@ module.exports = class EcIdentityManager {
 				this.createSignature(finalDuration, server, ppk)
 			);
 		let p = Promise.all(promises);
-		p = p.then((signatures) => {
+		p = p.then((signatureCandidates) => {
+			let signatures = signatureCandidates.filter(x=>x);
 			var cache = null;
 			var stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
@@ -406,7 +408,8 @@ module.exports = class EcIdentityManager {
 			this.createSignature(finalDuration, server, ident.ppk)
 		);
 		let p = Promise.all(promises);
-		p = p.then((signatures) => {
+		p = p.then((signatureCandidates) => {
+			let signatures = signatureCandidates.filter(x=>x);
 			var stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
 				var cache = null;
@@ -433,6 +436,9 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	createSignature(duration, server, ppk) {
+		if (ppk instanceof EcPpkFacade) {
+			return null;
+		}
 		var s = new EbacSignature();
 		s.expiry = new Date().getTime() + duration;
 		s.server = server;
@@ -512,12 +518,12 @@ module.exports = class EcIdentityManager {
 					EcPk.fromPem(d.owner[i])
 				);
 				if (attempt != null) {
-					promises.push(await d.signWith(attempt));
+					promises.push(d.signWith(attempt));
 				}
 			}
 		}
 		return Promise.all(promises).then((signatures) => {
-			d.signature = signatures;
+			d.signature = signatures.filter(x=>x);
 			if (d.signature != null && d.signature.length == 0) {
 				delete d["signature"];
 			}

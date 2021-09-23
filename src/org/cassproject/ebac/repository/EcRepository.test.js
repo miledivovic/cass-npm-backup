@@ -9,6 +9,7 @@ const EcAlignment = require("../../../../org/cass/competency/EcAlignment.js");
 const EcIdentityManager = require("../../../../org/cassproject/ebac/identity/EcIdentityManager");
 const EcPpk = require("../../../../com/eduworks/ec/crypto/EcPpk.js");
 const EcRsaOaepAsyncWorker = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker.js");
+const EcEncryptedValue = require("./EcEncryptedValue.js");
 
 const schema = {
 	"Thing": require("../../../schema/Thing.js")
@@ -60,10 +61,133 @@ describe("EcRepository", () => {
     it('create', async () => {
         rld = new schema.Thing();
         rld.generateId(repo.selectedServer);
+        rld.addOwner(newId1.ppk.toPk());
         rld.setName("Some Thing");
         rld.setDescription("Some Description");
     });
-    it('save', async () => {
-        
+    it('save (to)', async () => {
+        await repo.saveTo(rld);
+    }).timeout(10000);
+    it('encrypt and save (to)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), true);
+        await repo.saveTo(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('decrypt and save (to)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), false);
+        await repo.saveTo(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('encrypt and save (to)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), true);
+        await repo.saveTo(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('decrypt and save (to)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), false);
+        await repo.saveTo(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('create', async () => {
+        rld = new schema.Thing();
+        rld.generateId(repo.selectedServer);
+        rld.addOwner(newId1.ppk.toPk());
+        rld.setName("Some Thing");
+        rld.setDescription("Some Description");
+    });
+    it('save (ecrepository)', async () => {
+        await EcRepository._save(rld);
+    }).timeout(10000);
+    it('encrypt and save (ecrepository)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), true);
+        await EcRepository._save(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('decrypt and save (ecrepository)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), false);
+        await EcRepository._save(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('save (ecrepository)', async () => {
+        await EcRepository._save(rld);
+    }).timeout(10000);
+    it('encrypt and save (ecrepository)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), true);
+        await EcRepository._save(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('decrypt and save (ecrepository)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), false);
+        await EcRepository._save(rld);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('create', async () => {
+        rld = new schema.Thing();
+        rld.generateId(repo.selectedServer);
+        rld.addOwner(newId1.ppk.toPk());
+        rld.setName("Some Thing");
+        rld.setDescription("Some Description");
+    });
+    it('save (multiput)', async () => {
+        await repo.multiput([rld]);
+    }).timeout(10000);
+    it('encrypt and save (multiput)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), true);
+        await repo.multiput([rld]);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('decrypt and save (multiput)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), false);
+        await repo.multiput([rld]);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('save (multiput)', async () => {
+        await repo.multiput([rld]);
+    }).timeout(10000);
+    it('encrypt and save (multiput)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), true);
+        await repo.multiput([rld]);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+    }).timeout(10000);
+    it('decrypt and save (multiput)', async () => {
+        EcEncryptedValue.encryptOnSave(rld.shortId(), false);
+        await repo.multiput([rld]);
+    }).timeout(10000);
+    it('search', async () => {
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
     }).timeout(10000);
 });

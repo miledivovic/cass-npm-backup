@@ -286,6 +286,7 @@ global.EcAes = require("./src/com/eduworks/ec/crypto/EcAes.js");
 global.EcCrypto = require("./src/com/eduworks/ec/crypto/EcCrypto.js");
 global.EcPk = require("./src/com/eduworks/ec/crypto/EcPk.js");
 global.EcPpk = require("./src/com/eduworks/ec/crypto/EcPpk.js");
+global.EcPpkFacade = require("./src/com/eduworks/ec/crypto/EcPpkFacade.js");
 global.EcRsaOaep = require("./src/com/eduworks/ec/crypto/EcRsaOaep.js");
 global.Hypergraph = require("./src/com/eduworks/ec/graph/Hypergraph.js");
 global.Triple = require("./src/com/eduworks/ec/graph/Triple.js");

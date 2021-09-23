@@ -5,7 +5,7 @@ const EcAes = require("../../../../com/eduworks/ec/crypto/EcAes");
 const EcAesCtrAsync = require("../../../../com/eduworks/ec/crypto/EcAesCtrAsync");
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
-const { cassPromisify } = require("../../../../com/eduworks/ec/promises/helpers");
+const {cassPromisify} = require("../../../../com/eduworks/ec/promises/helpers");
 const EbacEncryptedSecret = require("../../../../com/eduworks/schema/ebac/EbacEncryptedSecret");
 const EbacEncryptedValue = require("../../../../com/eduworks/schema/ebac/EbacEncryptedValue");
 const EcLinkedData = require("../../../json/ld/EcLinkedData");
@@ -39,9 +39,13 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @method fromEncryptedValue
 	 */
 	static fromEncryptedValue(d, success, failure, eim) {
-		if (!d.isAny(new EcEncryptedValue().getTypes()))
-			return cassReturnAsPromise(d, success, failure);
-		else {
+	if (!d.isAny(new EcEncryptedValue().getTypes())) {
+		if (d.isEncrypted) {
+			EcEncryptedValue.encryptOnSave(d.id, true);
+			EcEncryptedValue.encryptOnSave(d.shortId(), true);
+		}
+		return cassReturnAsPromise(d, success, failure);
+	} else {
 			var eev = new EcEncryptedValue();
 			eev.copyFrom(d);
 			EcEncryptedValue.encryptOnSave(d.id, true);

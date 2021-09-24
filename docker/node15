@@ -11,4 +11,4 @@ RUN npm pack > ver.ver
 COPY test.js test.js
 RUN npm i *.tgz
 RUN sed -i '1crequire("cassproject");' test.js
-ENTRYPOINT node test.js && npm run mocha
+ENTRYPOINT npm run mocha

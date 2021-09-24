@@ -44,6 +44,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 0.5.23
+* Securing Proxy data structures and repository.
+* Negative assertion handling in graphs was corrected.
+
 ## 0.5.20
 * Bug fixes
 * No longer depends on yuidoc, as yuidoc is included as part of the documentation script.

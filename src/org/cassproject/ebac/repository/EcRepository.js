@@ -32,9 +32,9 @@ module.exports = class EcRepository {
 	selectedServerProxy = null;
 	autoDetectFound = false;
 	timeOffset = 0;
-	init(selectedServer, success, failure) {
+	init(selectedServer, success, failure, loginObjectCallback) {
 		this.selectedServer = selectedServer;
-		return this.negotiateTimeOffset(success, failure);
+		return this.negotiateTimeOffset(success, failure, loginObjectCallback);
 	}
 	negotiateTimeOffset = function (success, failure, loginObjectCallback) {
 		var oldTimeout = EcRemote.timeout;

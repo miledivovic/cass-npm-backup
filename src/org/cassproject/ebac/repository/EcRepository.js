@@ -36,7 +36,7 @@ module.exports = class EcRepository {
 		this.selectedServer = selectedServer;
 		return this.negotiateTimeOffset(success, failure);
 	}
-	negotiateTimeOffset = function (success, failure) {
+	negotiateTimeOffset = function (success, failure, loginObjectCallback) {
 		var oldTimeout = EcRemote.timeout;
 		EcRemote.timeout = 500;
 		var me = this;
@@ -49,6 +49,8 @@ module.exports = class EcRepository {
 					EcIdentityManager.default.addIdentity(identity);
 				}
 				if (p1["ping"] == "pong") {
+					if (loginObjectCallback != null)
+						loginObjectCallback(p1);
 					if (p1["time"] != null)
 						me.timeOffset = new Date().getTime() - p1["time"];
 					return me.buildKeyForwardingTable(success, failure);

@@ -552,7 +552,8 @@ module.exports = class EcRepository {
 			this.alwaysTryUrl ||
 			repo == null ||
 			this.shouldTryUrl(data.id) ||
-			repo != null && data.id.indexOf(repo.selectedServer) != -1
+			data.id.indexOf("/api/data/") != -1 ||
+			repo != null && data.id.indexOf(repo.selectedServer.replace(/https?/, "")) != -1
 		)
 			data.updateTimestamp();
 
@@ -780,7 +781,8 @@ module.exports = class EcRepository {
 			if (
 				EcRepository.alwaysTryUrl ||
 				EcRepository.shouldTryUrl(d.id) ||
-				d.id.indexOf(this.selectedServer) != -1
+				d.id.indexOf("/api/data/") != -1 ||
+				d.id.indexOf(this.selectedServer.replace(/https?/, "")) != -1
 			)
 				d.updateTimestamp();
 			if (EcRepository.caching) {

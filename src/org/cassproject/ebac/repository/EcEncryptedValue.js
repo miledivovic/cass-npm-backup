@@ -328,6 +328,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 */
 	static encryptOnSave(id, val) {
+		if (id != EcRemoteLinkedData.trimVersionFromUrl(id))
+			this.encryptOnSave(EcRemoteLinkedData.trimVersionFromUrl(id), val);
 		if (EcEncryptedValue.encryptOnSaveMap == null) {
 			EcEncryptedValue.encryptOnSaveMap = {};
 		}

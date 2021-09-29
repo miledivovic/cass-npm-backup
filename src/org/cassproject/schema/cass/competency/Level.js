@@ -47,22 +47,22 @@ module.exports = class Level extends schema.CreativeWork {
 	performance = null;
 	upgrade() {
 		super.upgrade();
-		if (Level.TYPE_0_1.equals(this.type)) {
+		if (Level.TYPE_0_1 == (this.type)) {
 			var me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(Cass.context_0_2, Level.TYPE_0_2);
 		}
-		if (Level.TYPE_0_2.equals(this.getFullType())) {
+		if (Level.TYPE_0_2 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_3, Level.TYPE_0_3);
 		}
-		if (Level.TYPE_0_3.equals(this.getFullType())) {
+		if (Level.TYPE_0_3 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_4, Level.TYPE_0_4);
 		}
-		if (Level.TYPE_0_4.equals(this.getFullType())) {
+		if (Level.TYPE_0_4 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_5, Level.TYPE_0_5);
 		}
-		if (Level.TYPE_0_5.equals(this.getFullType())) {
+		if (Level.TYPE_0_5 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_6, Level.TYPE_0_6);
 		}
 	}

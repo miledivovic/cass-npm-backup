@@ -86,7 +86,7 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData {
 	}
 	upgrade() {
 		super.upgrade();
-		if (EbacEncryptedSecret.TYPE_0_1.equals(this.type)) {
+		if (EbacEncryptedSecret.TYPE_0_1 == this.type) {
 			var me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
@@ -95,13 +95,13 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData {
 				EbacEncryptedSecret.TYPE_0_2
 			);
 		}
-		if (EbacEncryptedSecret.TYPE_0_2.equals(this.getFullType())) {
+		if (EbacEncryptedSecret.TYPE_0_2 == this.getFullType()) {
 			this.setContextAndType(
 				Ebac.context_0_3,
 				EbacEncryptedSecret.TYPE_0_3
 			);
 		}
-		if (EbacEncryptedSecret.TYPE_0_3.equals(this.getFullType())) {
+		if (EbacEncryptedSecret.TYPE_0_3 == this.getFullType()) {
 			this.setContextAndType(
 				Ebac.context_0_4,
 				EbacEncryptedSecret.TYPE_0_4

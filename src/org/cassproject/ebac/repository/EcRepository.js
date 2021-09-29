@@ -2,11 +2,15 @@ let FormData = require("form-data");
 const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
 const EcEncryptedValue = require("./EcEncryptedValue");
 const EcIdentityManager = require("../identity/EcIdentityManager");
+const EcRekeyRequest = require("../identity/EcRekeyRequest");
 const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
 const EcRemote = require("../../../../com/eduworks/ec/remote/EcRemote");
 const {cassPromisify, cassReturnAsPromise} = require("../../../../com/eduworks/ec/promises/helpers");
 const EcRemoteLinkedData = require("../../schema/general/EcRemoteLinkedData");
 const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto");
+const EcIdentity = require("../identity/EcIdentity");
+const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade");
+const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
 
 /**
  *  Repository object used to interact with the CASS Repository web services.

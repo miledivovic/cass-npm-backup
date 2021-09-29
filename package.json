@@ -21,6 +21,7 @@
 		"autoindex": "nodemon index.js",
 		"mocha": "mocha -b src/**/*.test.js",
 		"automocha": "nodemon --exec \"npm run mocha\"",
+		"automochaHttps": "set CASS_LOOPBACK=https://localhost/api/&& nodemon --exec \"npm run mocha\"",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
 		"docs": "npm install yuidocjs yuidoc-ember-cli-theme && NODE_OPTIONS=--max_old_space_size=4096 yuidoc -c yuidoc.json -o docs -e .js src",
 		"doclint": "npm install yuidocjs yuidoc-ember-cli-theme && yuidoc --lint -c yuidoc.json -o docs -e .js src",

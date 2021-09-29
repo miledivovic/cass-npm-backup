@@ -40,14 +40,18 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @method fromEncryptedValue
 	 */
 	static fromEncryptedValue(d, success, failure, eim) {
-	if (!d.isAny(new EcEncryptedValue().getTypes())) {
-		return cassReturnAsPromise(d, success, failure);
-	} else {
+		if (!d.isAny(new EcEncryptedValue().getTypes())) {
+			return cassReturnAsPromise(d, success, failure);
+		} else {
 			var eev = new EcEncryptedValue();
 			eev.copyFrom(d);
 			EcEncryptedValue.encryptOnSave(d.id, true);
 			EcEncryptedValue.encryptOnSave(d.shortId(), true);
-			return eev.decryptIntoObject(success, failure, eim);
+			return eev.decryptIntoObject(
+				(decrypted)=>{
+					return EcEncryptedValue.fromEncryptedValue(decrypted, success, failure);
+				}
+			, failure, eim);
 		}
 	}
 	/**
@@ -111,6 +115,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 */
 	static toEncryptedValue(d, hideType, success, failure) {
+		if (d.isAny(new EcEncryptedValue().getTypes()))
+			return cassReturnAsPromise(d, success, failure);
 		d.updateTimestamp();
 		let v = new EcEncryptedValue();
 		if (hideType == null || !hideType) {
@@ -328,8 +334,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 */
 	static encryptOnSave(id, val) {
-		if (id != EcRemoteLinkedData.trimVersionFromUrl(id))
-			this.encryptOnSave(EcRemoteLinkedData.trimVersionFromUrl(id), val);
+		 if (id != EcRemoteLinkedData.trimVersionFromUrl(id))
+		 	this.encryptOnSave(EcRemoteLinkedData.trimVersionFromUrl(id), val);
 		if (EcEncryptedValue.encryptOnSaveMap == null) {
 			EcEncryptedValue.encryptOnSaveMap = {};
 		}

@@ -1,4 +1,5 @@
 const EcPk = require("../../../../../com/eduworks/ec/crypto/EcPk.js");
+const EcEncryptedValue = require("../../../ebac/repository/EcEncryptedValue.js");
 const Cass = require("../Cass.js");
 
 const schema = {

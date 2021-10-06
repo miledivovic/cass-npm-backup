@@ -52,7 +52,7 @@ module.exports = class EcRepository {
 					if (loginObjectCallback != null)
 						loginObjectCallback(p1);
 					if (p1["time"] != null)
-						me.timeOffset = new Date().getTime() - p1["time"];
+						me.timeOffset = p1["time"] - new Date().getTime();
 					return me.buildKeyForwardingTable(success, failure);
 				}
 			}
@@ -169,7 +169,8 @@ module.exports = class EcRepository {
 		if (this.unsigned) {
 			p = EcRemote.getExpectingObject(finalUrl);
 		} else {
-			p = eim.signatureSheet(60000, url).then(
+			let offset = this.setOffset(url);
+			p = eim.signatureSheet(60000 + offset, url).then(
 				(signatureSheet) => {
 					var fd = new FormData();
 					fd.append("signatureSheet", signatureSheet);
@@ -1340,7 +1341,7 @@ module.exports = class EcRepository {
 			if (p1 != null) {
 				if (p1["ping"] == "pong") {
 					if (p1["time"] != null)
-						me.timeOffset = new Date().getTime() - p1["time"];
+						me.timeOffset = p1["time"] - new Date().getTime();
 					if (me.autoDetectFound == false) {
 						me.selectedServer = guess;
 						me.autoDetectFound = true;
@@ -1397,7 +1398,7 @@ module.exports = class EcRepository {
 			if (p1 != null) {
 				if (p1["ping"] == "pong") {
 					if (p1["time"] != null)
-						me.timeOffset = new Date().getTime() - p1["time"];
+						me.timeOffset = p1["time"] - new Date().getTime();
 					me.selectedServer = guess;
 					me.autoDetectFound = true;
 				}

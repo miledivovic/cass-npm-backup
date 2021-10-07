@@ -300,7 +300,7 @@ describe("EcRepository", () => {
     }).timeout(10000);
     it('registered create', async () => {
         rld = new schema.Thing();
-        rld.id = "https://this.object.is.not.here/asdf123456";
+        rld.id = "https://this.object.is.not.here/"+EcCrypto.generateUUID();
         rld.addOwner(newId1.ppk.toPk());
         rld.setName("Some Thing");
         rld.setDescription("Some Description");

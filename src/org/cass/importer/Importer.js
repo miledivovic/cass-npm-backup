@@ -9,9 +9,9 @@
  */
 module.exports = class Importer {
 	static isObject(obj) {
-		return Object.toString.call(obj) == "[object Object]";
+		return Object.prototype.toString.call(obj) == "[object Object]";
 	}
 	static isArray(obj) {
-		return Object.toString.call(obj) == "[object Array]";
+		return Object.prototype.toString.call(obj) == "[object Array]";
 	}
 };

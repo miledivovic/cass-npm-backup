@@ -1,3 +1,5 @@
+const EcRemoteLinkedData = require("../../cassproject/schema/general/EcRemoteLinkedData");
+
 /**
  *  Import methods to handle an ASN JSON file containing a framework,
  *  competencies and relationships, and store them in a CASS instance
@@ -53,7 +55,7 @@ module.exports = class ASNImport extends Importer {
 					if (children != null)
 						for (var j = 0; j < children.length; j++) {
 							ASNImport.relationCount++;
-							ASNImport.asnJsonPrime(obj, children[j]["value"]);
+							ASNImport.asnJsonPrime(obj, EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"]));
 						}
 				}
 			}
@@ -98,7 +100,7 @@ module.exports = class ASNImport extends Importer {
 							for (var j = 0; j < children.length; j++) {
 								ASNImport.asnJsonPrime(
 									obj,
-									children[j]["value"]
+									EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"])
 								);
 							}
 					}
@@ -141,6 +143,13 @@ module.exports = class ASNImport extends Importer {
 			ASNImport.jsonCompetencies = {};
 			ASNImport.jsonFramework = null;
 			ASNImport.frameworkUrl = "";
+			for (let each in jsonObj) {
+				if (each !== EcRemoteLinkedData.trimVersionFromUrl(each)) {
+					let trimmed = EcRemoteLinkedData.trimVersionFromUrl(each);
+					jsonObj[trimmed] = jsonObj[each];
+					delete jsonObj[each];
+				}
+			}
 			ASNImport.lookThroughSource(jsonObj);
 			if (ASNImport.jsonFramework == null) {
 				failure("Could not find StandardDocument.");
@@ -178,9 +187,13 @@ module.exports = class ASNImport extends Importer {
 		success,
 		failure,
 		incremental,
-		repo
+		repo,
+		eim
 	) {
 		ASNImport.competencies = {};
+		if (eim === undefined || eim == null) {
+			eim = EcIdentityManager.default;
+		}
 		if (createFramework) {
 			ASNImport.importedFramework = new EcFramework();
 			ASNImport.importedFramework.competency = [];
@@ -205,7 +218,8 @@ module.exports = class ASNImport extends Importer {
 								owner,
 								success,
 								failure,
-								repo
+								repo,
+								eim
 							);
 						} else {
 							var compList = [];
@@ -217,12 +231,14 @@ module.exports = class ASNImport extends Importer {
 					},
 					failure,
 					incremental,
-					repo
+					repo,
+					eim
 				);
 			},
 			failure,
 			incremental,
-			repo
+			repo,
+			eim
 		);
 	}
 	/**
@@ -250,7 +266,8 @@ module.exports = class ASNImport extends Importer {
 		success,
 		failure,
 		incremental,
-		repo
+		repo,
+		eim
 	) {
 		ASNImport.savedCompetencies = 0;
 		for (var key in ASNImport.jsonCompetencies) {
@@ -284,7 +301,7 @@ module.exports = class ASNImport extends Importer {
 			if (ASNImport.importedFramework != null)
 				ASNImport.importedFramework.addCompetency(comp.shortId());
 			ASNImport.competencies[key] = comp;
-			ASNImport.saveCompetency(success, failure, incremental, comp, repo);
+			ASNImport.saveCompetency(success, failure, incremental, comp, repo, eim);
 		}
 	}
 	static saveCompetency(success, failure, incremental, comp, repo, eim) {
@@ -354,7 +371,8 @@ module.exports = class ASNImport extends Importer {
 		success,
 		failure,
 		incremental,
-		repo
+		repo,
+		eim
 	) {
 		ASNImport.savedRelations = 0;
 		if (ASNImport.relationCount == 0) {
@@ -365,9 +383,9 @@ module.exports = class ASNImport extends Importer {
 			for (var j = 0; j < children.length; j++) {
 				if (nodeId != null) {
 					var relation = new EcAlignment();
-					relation.target = ASNImport.competencies[nodeId].id;
+					relation.target = EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[nodeId].id);
 					relation.source =
-						ASNImport.competencies[children[j]["value"]].id;
+						EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[children[j]["value"]].id);
 					relation.relationType = "narrows";
 					relation.name = "";
 					relation.description = "";
@@ -387,7 +405,8 @@ module.exports = class ASNImport extends Importer {
 						failure,
 						incremental,
 						relation,
-						repo
+						repo,
+						eim
 					);
 				}
 				ASNImport.createRelationships(
@@ -398,7 +417,8 @@ module.exports = class ASNImport extends Importer {
 					success,
 					failure,
 					incremental,
-					repo
+					repo,
+					eim
 				);
 			}
 	}
@@ -447,7 +467,7 @@ module.exports = class ASNImport extends Importer {
 	 *  @private
 	 *  @static
 	 */
-	static createFramework(serverUrl, owner, success, failure, repo) {
+	static createFramework(serverUrl, owner, success, failure, repo, eim) {
 		ASNImport.importedFramework.name =
 			ASNImport.jsonFramework["http://purl.org/dc/elements/1.1/title"][
 				"0"

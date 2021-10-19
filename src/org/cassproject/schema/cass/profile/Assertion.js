@@ -1,4 +1,5 @@
 const EcPk = require("../../../../../com/eduworks/ec/crypto/EcPk.js");
+const EcEncryptedValue = require("../../../ebac/repository/EcEncryptedValue.js");
 const Cass = require("../Cass.js");
 
 const schema = {
@@ -266,22 +267,22 @@ module.exports = class Assertion extends schema.CreativeWork {
 	}
 	upgrade() {
 		super.upgrade();
-		if (Assertion.TYPE_0_1.equals(this.type)) {
+		if (Assertion.TYPE_0_1 == (this.type)) {
 			var me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(Cass.context_0_2, Assertion.TYPE_0_2);
 		}
-		if (Assertion.TYPE_0_2.equals(this.getFullType())) {
+		if (Assertion.TYPE_0_2 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_3, Assertion.TYPE_0_3);
 		}
-		if (Assertion.TYPE_0_3.equals(this.getFullType())) {
+		if (Assertion.TYPE_0_3 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_4, Assertion.TYPE_0_4);
 		}
-		if (Assertion.TYPE_0_4.equals(this.getFullType())) {
+		if (Assertion.TYPE_0_4 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_5, Assertion.TYPE_0_5);
 		}
-		if (Assertion.TYPE_0_5.equals(this.getFullType())) {
+		if (Assertion.TYPE_0_5 == (this.getFullType())) {
 			this.setContextAndType(Cass.context_0_6, Assertion.TYPE_0_6);
 		}
 		this.agent = EcEncryptedValue.revive(this.agent);

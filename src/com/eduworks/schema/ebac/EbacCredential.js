@@ -48,16 +48,16 @@ module.exports = class EbacCredential extends EcLinkedData {
 	displayName = null;
 	upgrade() {
 		super.upgrade();
-		if (EbacCredential.TYPE_0_1.equals(this.type)) {
+		if (EbacCredential.TYPE_0_1 == (this.type)) {
 			var me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(Ebac.context_0_2, EbacCredential.TYPE_0_2);
 		}
-		if (EbacCredential.TYPE_0_2.equals(this.getFullType())) {
+		if (EbacCredential.TYPE_0_2 == (this.getFullType())) {
 			this.setContextAndType(Ebac.context_0_3, EbacCredential.TYPE_0_3);
 		}
-		if (EbacCredential.TYPE_0_3.equals(this.getFullType())) {
+		if (EbacCredential.TYPE_0_3 == (this.getFullType())) {
 			this.setContextAndType(Ebac.context_0_4, EbacCredential.TYPE_0_4);
 		}
 	}

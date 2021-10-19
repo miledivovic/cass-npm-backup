@@ -1,5 +1,6 @@
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
+const EcRemoteLinkedData = require("../../schema/general/EcRemoteLinkedData");
 
 /**
  *  The record used to request a rekey of a given public key

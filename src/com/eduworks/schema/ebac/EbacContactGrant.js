@@ -54,16 +54,16 @@ module.exports = class EbacContactGrant extends EcRemoteLinkedData {
 	responseSignature = null;
 	upgrade() {
 		super.upgrade();
-		if (EbacContactGrant.TYPE_0_1.equals(this.type)) {
+		if (EbacContactGrant.TYPE_0_1 == (this.type)) {
 			var me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(Ebac.context_0_2, EbacContactGrant.TYPE_0_2);
 		}
-		if (EbacContactGrant.TYPE_0_2.equals(this.getFullType())) {
+		if (EbacContactGrant.TYPE_0_2 == (this.getFullType())) {
 			this.setContextAndType(Ebac.context_0_3, EbacContactGrant.TYPE_0_3);
 		}
-		if (EbacContactGrant.TYPE_0_3.equals(this.getFullType())) {
+		if (EbacContactGrant.TYPE_0_3 == (this.getFullType())) {
 			this.setContextAndType(Ebac.context_0_4, EbacContactGrant.TYPE_0_4);
 		}
 	}

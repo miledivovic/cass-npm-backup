@@ -381,11 +381,12 @@ module.exports = class ASNImport extends Importer {
 		var children = node["http://purl.org/gem/qualifiers/hasChild"];
 		if (children != null)
 			for (var j = 0; j < children.length; j++) {
+				let sourceId = EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"]);
 				if (nodeId != null) {
 					var relation = new EcAlignment();
 					relation.target = EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[nodeId].id);
 					relation.source =
-						EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[children[j]["value"]].id);
+						EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[sourceId].id);
 					relation.relationType = "narrows";
 					relation.name = "";
 					relation.description = "";
@@ -412,8 +413,8 @@ module.exports = class ASNImport extends Importer {
 				ASNImport.createRelationships(
 					serverUrl,
 					owner,
-					ASNImport.jsonCompetencies[children[j]["value"]],
-					children[j]["value"],
+					ASNImport.jsonCompetencies[sourceId],
+					sourceId,
 					success,
 					failure,
 					incremental,
@@ -472,10 +473,12 @@ module.exports = class ASNImport extends Importer {
 			ASNImport.jsonFramework["http://purl.org/dc/elements/1.1/title"][
 				"0"
 			]["value"];
-		ASNImport.importedFramework.description =
-			ASNImport.jsonFramework["http://purl.org/dc/terms/description"][
-				"0"
-			]["value"];
+		if (ASNImport.jsonFramework["http://purl.org/dc/terms/description"]) {
+			ASNImport.importedFramework.description =
+				ASNImport.jsonFramework["http://purl.org/dc/terms/description"][
+					"0"
+				]["value"];
+		}
 		ASNImport.importedFramework.id = ASNImport.frameworkUrl;
 		if (ASNImport.importedFramework.id == null) {
 			if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)

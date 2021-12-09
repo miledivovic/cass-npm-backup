@@ -49,9 +49,11 @@ var failure = function (p1) {
     assert.fail();
 };
 
-https.globalAgent.options.key = fs.readFileSync('client.key');
-https.globalAgent.options.cert = fs.readFileSync('client.crt');
-https.globalAgent.options.ca = fs.readFileSync('ca.crt');
+if (typeof window === "undefined") {
+    https.globalAgent.options.key = fs.readFileSync('client.key');
+    https.globalAgent.options.cert = fs.readFileSync('client.crt');
+    https.globalAgent.options.ca = fs.readFileSync('ca.crt');
+}
 
 let repo = new EcRepository();
 repo.selectedServer = process.env.CASS_LOOPBACK || "http://localhost/api/";

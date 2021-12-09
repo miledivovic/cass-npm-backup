@@ -632,7 +632,8 @@ module.exports = class CTDLASNCSVImport {
 											relations,
 											relationById,
 											frameworks,
-											endpoint
+											endpoint,
+											true
 										);
 									}
 									if (e["ceasn:narrowAlignment"] != null) {
@@ -646,7 +647,8 @@ module.exports = class CTDLASNCSVImport {
 											relations,
 											relationById,
 											frameworks,
-											endpoint
+											endpoint,
+											true
 										);
 									}
 									if (e["sameAs"] != null) {
@@ -660,7 +662,8 @@ module.exports = class CTDLASNCSVImport {
 											relations,
 											relationById,
 											frameworks,
-											endpoint
+											endpoint,
+											true
 										);
 									}
 									if (e["ceasn:majorAlignment"] != null) {
@@ -674,7 +677,8 @@ module.exports = class CTDLASNCSVImport {
 											relations,
 											relationById,
 											frameworks,
-											endpoint
+											endpoint,
+											true
 										);
 									}
 									if (e["ceasn:minorAlignment"] != null) {
@@ -688,7 +692,8 @@ module.exports = class CTDLASNCSVImport {
 											relations,
 											relationById,
 											frameworks,
-											endpoint
+											endpoint,
+											true
 										);
 									}
 									if (
@@ -704,7 +709,8 @@ module.exports = class CTDLASNCSVImport {
 											relations,
 											relationById,
 											frameworks,
-											endpoint
+											endpoint,
+											true
 										);
 									}
 									f["ceasn:isTopChildOf"] = null;
@@ -861,7 +867,8 @@ module.exports = class CTDLASNCSVImport {
 		relations,
 		relationById,
 		frameworks,
-		endpoint
+		endpoint,
+		collectionFlag
 	) {
 		if (!EcArray.isArray(e[field])) {
 			var makeArray = Array(e[field]);
@@ -879,7 +886,8 @@ module.exports = class CTDLASNCSVImport {
 				relationById,
 				frameworks,
 				i,
-				endpoint
+				endpoint,
+				collectionFlag
 			);
 		}
 	}

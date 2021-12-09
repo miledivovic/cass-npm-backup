@@ -531,6 +531,7 @@ module.exports = class CTDLASNCSVImport {
 									f.competency = f["ceterms:hasMember"];
 									delete f["ceterms:hasMember"];
 									f.relation = [];
+									f.subType = "Collection";
 									callback0();
 								},
 								failure

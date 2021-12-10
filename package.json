@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "npm run test05 && npm run test14 && npm run test13 && npm run test12",
-		"test05": "npm run testkill && docker run -d --name cass-test -p80:80 cassproject/cass:0.5.4 && wait-on http://localhost/api/ping && npm run testCypressEdge && npm run testCypress && npm run testNode16 && npm run testNode15 && npm run testNode14 && npm run testNode13 && npm run testNode12 && npm run testkill",
+		"test05": "npm run testkill && docker run -d --name cass-test -p80:80 cassproject/cass:0.5.5 && wait-on http://localhost/api/ping && npm run testCypressEdge && npm run testCypress && npm run testNode16 && npm run testNode15 && npm run testNode14 && npm run testNode13 && npm run testNode12 && npm run testkill",
 		"test14": "npm run testkill && docker run -d --name cass-test -p80:80 cassproject/cass:1.4.3 && wait-on http://localhost/api/ping && npm run testCypressEdge && npm run testCypress && npm run testNode16 && npm run testNode15 && npm run testNode14 && npm run testNode13 && npm run testNode12 && npm run testkill",
 		"test13": "npm run testkill && docker run -d --name cass-test -p80:80 cassproject/cass:1.3.17 && wait-on http://localhost/api/ping && npm run testCypressEdge && npm run testCypress && npm run testNode16 && npm run testNode15 && npm run testNode14 && npm run testNode13 && npm run testNode12 && npm run testkill",
 		"test12": "npm run testkill && docker run -d --name cass-test -p80:80 cassproject/cass:1.2.43 && wait-on http://localhost/api/ping && npm run testCypressEdge && npm run testCypress && npm run testNode16 && npm run testNode15 && npm run testNode14 && npm run testNode13 && npm run testNode12 && npm run testkill",

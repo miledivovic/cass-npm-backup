@@ -125,6 +125,7 @@ async function newFramework(frameworkName) {
 
 describe("EcFrameworkGraph", () => {
     it('init', async () => {
+        let newId1;
         EcIdentityManager.default.clearIdentities();
         await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/", null, null, console.log);
         if (EcIdentityManager.default.ids.length > 0)
@@ -183,7 +184,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(a.shortId());
         });
         assert.deepEqual(result, [1]);
-    }).timeout(10000);
+    }).timeout(15000);
     it('basic false test', async () => {
         var f = await newFramework("basic false framework");
         var c = await newCompetency("Add");

@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "0.5.26",
+	"version": "0.5.27",
 	"description": "Competency and Skills Service",
 	"main": "index.js",
 	"scripts": {
@@ -23,7 +23,7 @@
 		"automocha": "nodemon --exec \"npm run mocha\"",
 		"automocha:clientSideCertificates": "set CASS_LOOPBACK=https://localhost/api/&& nodemon --exec \"npm run mocha\"",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
-		"docs": "npm install yuidocjs yuidoc-ember-cli-theme && NODE_OPTIONS=--max_old_space_size=4096 yuidoc -c yuidoc.json -o docs -e .js src",
+		"docs": "npm install yuidocjs yuidoc-ember-cli-theme && yuidoc -c yuidoc.json -o docs -e .js src",
 		"doclint": "npm install yuidocjs yuidoc-ember-cli-theme && yuidoc --lint -c yuidoc.json -o docs -e .js src",
 		"browserify:cypress:open": "cypress open --config-file cypressBrowserify.json",
 		"webpack:cypress:open": "cypress open --config-file cypressWebpack.json",

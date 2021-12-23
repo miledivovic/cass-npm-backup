@@ -128,7 +128,7 @@ describe("EcFrameworkGraph", () => {
         let newId1;
         EcIdentityManager.default.clearIdentities();
         await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/", null, null, console.log);
-        let newId1 = null;
+        newId1 = null;
         if (EcIdentityManager.default.ids.length > 0)
             newId1 = EcIdentityManager.default.ids[0];
         else {

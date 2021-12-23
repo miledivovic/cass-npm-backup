@@ -44,6 +44,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 0.5.28
+* Bug fixes and library updates.
+
 ## 0.5.26
 * Revised method of SSO based decryption.
 

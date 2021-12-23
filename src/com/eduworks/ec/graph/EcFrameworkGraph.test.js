@@ -49,7 +49,7 @@ var failure = function (p1) {
     assert.fail();
 };
 
-if (typeof window === "undefined") {
+if (fs.readFileSync != null) {
     https.globalAgent.options.key = fs.readFileSync('client.key');
     https.globalAgent.options.cert = fs.readFileSync('client.crt');
     https.globalAgent.options.ca = fs.readFileSync('ca.crt');
@@ -128,6 +128,7 @@ describe("EcFrameworkGraph", () => {
         let newId1;
         EcIdentityManager.default.clearIdentities();
         await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/", null, null, console.log);
+        let newId1 = null;
         if (EcIdentityManager.default.ids.length > 0)
             newId1 = EcIdentityManager.default.ids[0];
         else {

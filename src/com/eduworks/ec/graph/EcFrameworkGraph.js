@@ -143,9 +143,9 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 				assertion
 			);
 			await Promise.all(
-				this.getOutEdges(competency).map((alignment) =>
-					this.getCompetency(alignment.target).then((t) =>
-						this.processAssertionBooleanOutward(
+				await this.getOutEdges(competency).map(async (alignment) =>
+					await this.getCompetency(alignment.target).then(async (t) =>
+						await this.processAssertionBooleanOutward(
 							alignment,
 							t,
 							assertion,
@@ -154,11 +154,11 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 						)
 					)
 				)
-			).then(() =>
-				Promise.all(
-					this.getInEdges(competency).map((alignment) =>
-						this.getCompetency(alignment.source).then((s) =>
-							this.processAssertionBooleanInward(
+			).then(async() =>
+				await Promise.all(
+					this.getInEdges(competency).map(async (alignment) =>
+						await this.getCompetency(alignment.source).then(async (s) =>
+							await this.processAssertionBooleanInward(
 								alignment,
 								s,
 								assertion,
@@ -187,11 +187,11 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 						)
 					)
 				)
-			).then(() =>
-				Promise.all(
-					this.getOutEdges(competency).map((alignment) =>
-						this.getCompetency(alignment.target).then((s) =>
-							this.processAssertionBooleanInward(
+			).then(async () =>
+				await Promise.all(
+					this.getOutEdges(competency).map(async (alignment) =>
+						await this.getCompetency(alignment.target).then(async (s) =>
+							await this.processAssertionBooleanInward(
 								alignment,
 								s,
 								assertion,

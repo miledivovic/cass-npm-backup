@@ -1,13 +1,29 @@
+const {cassReturnAsPromise} = require("../../com/eduworks/ec/promises/helpers");
 const EcRepository = require("../cassproject/ebac/repository/EcRepository");
 
 module.exports = class EcPerson extends schema.Person {
-	static getByPk(repo, pk, success, failure, eim) {
-		return EcPerson.get(
+	static async getByPk(repo, pk, success, failure, eim) {
+		let p = await EcPerson.get(
 			repo.selectedServer +
 			(repo.selectedServer.endsWith("/") ? "" : "/") +
 			"data/" +
 			pk.fingerprint(),
-			success,
+			null,
+			null, repo, eim
+		);
+		if (p != null)
+			return cassReturnAsPromise(p, success, failure);
+		return EcPerson.search(repo, pk.fingerprint(),
+			(persons)=>{
+                if (persons.length === 0) {
+					if (failure != null)
+						failure("Person not found.");
+					return null;
+				}
+				if (EcRepository.caching)
+					EcRepository.cache[repo.selectedServer +(repo.selectedServer.endsWith("/") ? "" : "/") +"data/" +pk.fingerprint()] = persons[0];
+				return cassReturnAsPromise(persons[0], success, failure);
+			},
 			failure, repo, eim
 		);
 	}

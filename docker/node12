@@ -4,6 +4,9 @@ COPY package.json package.json
 COPY package-lock.json package-lock.json
 RUN npm install
 
+COPY ca.crt ca.crt
+COPY client.crt client.crt
+COPY client.key client.key
 COPY index.js index.js
 COPY src src
 RUN npm pack > ver.ver

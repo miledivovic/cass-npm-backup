@@ -51,7 +51,7 @@ var failure = function (p1) {
     assert.fail();
 };
 
-if (typeof window === "undefined") {
+if (fs.readFileSync != null) {
     https.globalAgent.options.key = fs.readFileSync('client.key');
     https.globalAgent.options.cert = fs.readFileSync('client.crt');
     https.globalAgent.options.ca = fs.readFileSync('ca.crt');

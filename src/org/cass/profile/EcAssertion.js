@@ -31,10 +31,10 @@ module.exports = class EcAssertion extends Assertion {
 		);
 	}
 	async getSubject(eim) {
+		if (this.subject == null) return null;
 		if (!eim) {
 			eim = EcIdentityManager.default;
 		}
-		if (this.subject == null) return null;
 		var v = new EcEncryptedValue();
 		v.copyFrom(this.subject);
 		var codebook = Assertion.getCodebook(this);

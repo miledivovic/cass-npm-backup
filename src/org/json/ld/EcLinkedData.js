@@ -263,7 +263,7 @@ global.jsonld = require("jsonld");
 			throw "Incompatible type: " + this.getFullType() + that;
 		return this;
 	}
-	async recast(translationContext, targetContext, success, failure) {
+	async recast(translationContext, targetContext) {
 		var me = this;
 		var json = JSON.parse(this.toJson());
 		if (targetContext == null) targetContext = json["@context"];
@@ -274,7 +274,7 @@ global.jsonld = require("jsonld");
 			actual = await jsonld.expand(json);
 		} catch(error) {
 			if (error != null) {
-				failure(error["message"]);
+				console.error(error["message"]);
 				return;
 			}
 		}
@@ -283,13 +283,13 @@ global.jsonld = require("jsonld");
 			o = await jsonld.compact(actual, finalTargetContext);
 		} catch(s) {
 			if (s != null) {
-				failure(s);
+				console.error(s);
 				return;
 			}
 		}
 		me.copyFrom(o);
 		me["@context"] = finalTargetContext;
-		success(me);
+		return me;
 	}
 	/**
 	 *  Encodes the object in a form where it is ready to be signed.

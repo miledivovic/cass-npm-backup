@@ -1,4 +1,5 @@
 const EcArray = require("../../../com/eduworks/ec/array/EcArray");
+const EcRemote = require("../../../com/eduworks/ec/remote/EcRemote");
 
 module.exports = class CTDLASNCSVImport {
 	static analyzeFile(file, success, failure) {
@@ -84,8 +85,9 @@ module.exports = class CTDLASNCSVImport {
 		Papa.parse(file, {
 			header: true,
 			encoding: "UTF-8",
-			complete: function(results) {
+			complete: async function(results) {
 				var tabularData = results["data"];
+				const terms = JSON.parse(JSON.stringify((await EcRemote.getExpectingObject("https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cassTerms"))));
 				var frameworks = {};
 				var frameworkArray = [];
 				var frameworkRows = {};
@@ -93,365 +95,368 @@ module.exports = class CTDLASNCSVImport {
 				var competencyRows = {};
 				var relations = [];
 				var relationById = {};
-				new EcAsyncHelper().each(
-					tabularData,
-					function(pretranslatedE, callback0) {
+				for (let i = 0; i < tabularData.length; i++) {
+					let pretranslatedE = tabularData[i];
+					if (
+						pretranslatedE["@type"] ==
+						"ceasn:CompetencyFramework"
+					) {
+						var translator = new EcLinkedData(null, null);
+						translator.copyFrom(pretranslatedE);
+						CTDLASNCSVImport.cleanUpTranslator(
+							translator,
+							endpoint,
+							repo
+						);
+						for (let each in translator) {
+							if (terms[each]) {
+								translator[terms[each]] = translator[each];
+								delete translator[each];
+							}
+							if (each === "type" || each === "@type") {
+								translator[each] = "Framework";
+							}
+						}
+						let e = await translator.recast(
+							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
+							"https://schema.cassproject.org/0.4"
+						);
+						var f = new EcFramework();
+						f.copyFrom(e);
+						if (EcFramework.template != null) {
+							for (var key in EcFramework.template) {
+								if (key.equals("@owner")) {
+									f["owner"] =
+										EcFramework.template[key];
+								} else {
+									f[key] =
+										EcFramework.template[key];
+								}
+							}
+						}
+						if (e["owner"] != null) {
+							var id = new EcIdentity();
+							id.ppk = EcPpk.fromPem(e["owner"]);
+							f.addOwner(id.ppk.toPk());
+							eim.addIdentityQuietly(
+								id
+							);
+						}
+						if (ceo != null) f.addOwner(ceo.ppk.toPk());
 						if (
-							pretranslatedE["@type"] ==
-							"ceasn:CompetencyFramework"
+							EcFramework.template != null &&
+							EcFramework.template[
+								"schema:dateCreated"
+							] != null
 						) {
-							var translator = new EcLinkedData(null, null);
-							translator.copyFrom(pretranslatedE);
-							CTDLASNCSVImport.cleanUpTranslator(
-								translator,
-								endpoint,
-								repo
-							);
-							translator.recast(
-								"https://schema.cassproject.org/0.4/ceasn2cass",
-								"https://schema.cassproject.org/0.4",
-								function(e) {
-									var f = new EcFramework();
-									f.copyFrom(e);
-									if (EcFramework.template != null) {
-										for (var key in EcFramework.template) {
-											if (key.equals("@owner")) {
-												f["owner"] =
-													EcFramework.template[key];
-											} else {
-												f[key] =
-													EcFramework.template[key];
-											}
-										}
-									}
-									if (e["owner"] != null) {
-										var id = new EcIdentity();
-										id.ppk = EcPpk.fromPem(e["owner"]);
-										f.addOwner(id.ppk.toPk());
-										eim.addIdentityQuietly(
-											id
-										);
-									}
-									if (ceo != null) f.addOwner(ceo.ppk.toPk());
-									if (
-										EcFramework.template != null &&
-										EcFramework.template[
-											"schema:dateCreated"
-										] != null
-									) {
-										CTDLASNCSVImport.setDateCreated(e, f);
-									}
-									if (f["ceasn:educationLevelType"] != null) {
-										let val = f["ceasn:educationLevelType"];
-										if (!EcArray.isArray(val)) {
-											val = [val];
-										}
-										for (let i = val.length-1; i >=0; i--) {
-											if (!val[i].startsWith('http')) {
-												if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
-												val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
-												val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
-												val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
-													val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
-												} else {
-													val.splice(i, 1);
-												}
-											}
-										}
-										f["ceasn:educationLevelType"] = val;
-									}
-									frameworks[f.shortId()] = f;
-									frameworkRows[f.shortId()] = e;
-									f["ceasn:hasChild"] = null;
-									f["ceasn:hasTopChild"] = null;
-									frameworkArray.push(f);
-									f.competency = [];
-									f.relation = [];
-									callback0();
-								},
-								failure
-							);
-						} else if (
-							pretranslatedE["@type"] == "ceasn:Competency"
-						) {
-							var translator = new EcLinkedData(null, null);
-							translator.copyFrom(pretranslatedE);
-							CTDLASNCSVImport.cleanUpTranslator(
-								translator,
-								endpoint,
-								repo
-							);
-							translator.recast(
-								"https://schema.cassproject.org/0.4/ceasn2cass",
-								"https://schema.cassproject.org/0.4",
-								function(e) {
-									var f = new EcCompetency();
-									f.copyFrom(e);
-									if (e["id"] == null) {
-										callback0();
-										return;
-									}
-									if (e["ceasn:isPartOf"] != null) {
-										let shortId = EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"]);
-										frameworks[shortId].competency.push(f.shortId());
+							CTDLASNCSVImport.setDateCreated(e, f);
+						}
+						if (f["ceasn:educationLevelType"] != null) {
+							let val = f["ceasn:educationLevelType"];
+							if (!EcArray.isArray(val)) {
+								val = [val];
+							}
+							for (let i = val.length-1; i >=0; i--) {
+								if (!val[i].startsWith('http')) {
+									if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
+									val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
+									val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
+									val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
+										val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
 									} else {
-										var parent = e;
-										var done = false;
-										while (!done && parent != null) {
-											if (
-												parent["ceasn:isChildOf"] !=
-													null &&
-												parent["ceasn:isChildOf"] != ""
-											) {
-												parent =
-													competencyRows[
-														EcRemoteLinkedData.trimVersionFromUrl(
-															parent[
-																"ceasn:isChildOf"
-															]
-														)
-													];
-											} else if (
-												parent["ceasn:isTopChildOf"] !=
-													null &&
-												parent["ceasn:isTopChildOf"] !=
-													""
-											) {
-												parent =
-													frameworkRows[
-														EcRemoteLinkedData.trimVersionFromUrl(
-															parent[
-																"ceasn:isTopChildOf"
-															]
-														)
-													];
-												done = true;
-											}
-										}
-										if (!done) {
-											failure(
-												"Could not find framework:" +
-													e["type"]
-											);
-											return;
-										}
-										if (parent != null) {
-											if (parent["type"] == "Framework") {
-												e[
-													"ceasn:isPartOf"
-												] = EcRemoteLinkedData.trimVersionFromUrl(
-													parent["id"]
-												);
-												frameworks[
-													EcRemoteLinkedData.trimVersionFromUrl(
-														parent["id"]
-													)
-												].competency.push(f.shortId());
-											} else {
-												failure(
-													"Object cannot trace to framework:" +
-														e["type"]
-												);
-												return;
-											}
-										} else {
-											failure(
-												"Object has no framework:" +
-													e["type"]
-											);
-											return;
-										}
+										val.splice(i, 1);
 									}
-									if (
-										EcCompetency.template != null &&
-										EcCompetency.template["@owner"] != null
-									) {
-										f["owner"] =
-											EcCompetency.template["@owner"];
-									}
-									if (e["owner"] == null) {
-										if (
-											frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"])][
-												"owner"
-											] != null
-										)
-											e["owner"] =
-												frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(
-													e["ceasn:isPartOf"]
-												)]["owner"];
-									}
-									var id = new EcIdentity();
-									if (e["owner"] != null) {
-										id.ppk = EcPpk.fromPem(e["owner"]);
-										if (id.ppk != null)
-											f.addOwner(id.ppk.toPk());
-										eim.addIdentityQuietly(
-											id
-										);
-									}
-									if (ceo != null) f.addOwner(ceo.ppk.toPk());
-									if (
-										EcCompetency.template != null &&
-										EcCompetency.template[
-											"schema:dateCreated"
-										] != null
-									) {
-										CTDLASNCSVImport.setDateCreated(e, f);
-									}
-									if (f["ceasn:educationLevelType"] != null) {
-										let val = f["ceasn:educationLevelType"];
-										if (!EcArray.isArray(val)) {
-											val = [val];
-										}
-										for (let i = val.length-1; i >=0; i--) {
-											if (!val[i].startsWith('http')) {
-												if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
-												val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
-												val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
-												val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
-													val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
-												} else {
-													val.splice(i, 1);
-												}
-											}
-										}
-										f["ceasn:educationLevelType"] = val;
-									}
-									if (e["ceasn:isChildOf"] != null) {
-										CTDLASNCSVImport.createEachRelation(
-											e,
-											"ceasn:isChildOf",
-											Relation.NARROWS,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											-1,
-											endpoint
-										);
-									}
-									if (e["ceasn:broadAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:broadAlignment",
-											Relation.NARROWS,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint
-										);
-									}
-									if (e["ceasn:narrowAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:narrowAlignment",
-											Relation.NARROWS,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint
-										);
-									}
-									if (e["sameAs"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"sameAs",
-											Relation.IS_EQUIVALENT_TO,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint
-										);
-									}
-									if (e["ceasn:majorAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:majorAlignment",
-											"majorRelated",
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint
-										);
-									}
-									if (e["ceasn:minorAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:minorAlignment",
-											"minorRelated",
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint
-										);
-									}
-									if (
-										e["ceasn:prerequisiteAlignment"] != null
-									) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:prerequisiteAlignment",
-											Relation.REQUIRES,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint
-										);
-									}
-									f["ceasn:isTopChildOf"] = null;
-									f["ceasn:isChildOf"] = null;
-									f["ceasn:isPartOf"] = null;
-									f["ceasn:broadAlignment"] = null;
-									f["ceasn:narrowAlignment"] = null;
-									f["sameAs"] = null;
-									f["ceasn:majorAlignment"] = null;
-									f["ceasn:minorAlignment"] = null;
-									f["ceasn:prerequisiteAlignment"] = null;
-									f["ceasn:hasChild"] = null;
-									competencies.push(f);
-									competencyRows[f.shortId()] = e;
-									callback0();
-								},
-								failure
-							);
-						} else if (
-							pretranslatedE["@type"] == null ||
-							pretranslatedE["@type"] == ""
-						) {
-							callback0();
-							return;
-						} else {
-							failure(
-								"Found unknown type:" + pretranslatedE["@type"]
-							);
-							callback0();
+								}
+							}
+							f["ceasn:educationLevelType"] = val;
+						}
+						frameworks[f.shortId()] = f;
+						frameworkRows[f.shortId()] = e;
+						f["ceasn:hasChild"] = null;
+						f["ceasn:hasTopChild"] = null;
+						frameworkArray.push(f);
+						f.competency = [];
+						f.relation = [];
+					} else if (
+						pretranslatedE["@type"] == "ceasn:Competency"
+					) {
+						var translator = new EcLinkedData(null, null);
+						translator.copyFrom(pretranslatedE);
+						CTDLASNCSVImport.cleanUpTranslator(
+							translator,
+							endpoint,
+							repo
+						);
+						for (let each in translator) {
+							if (terms[each]) {
+								translator[terms[each]] = translator[each];
+								delete translator[each];
+							}
+							if (each === "type" || each === "@type") {
+								translator[each] = "Competency";
+							}
+						}
+						let e = await translator.recast(
+							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
+							"https://schema.cassproject.org/0.4"
+						);
+						var f = new EcCompetency();
+						f.copyFrom(e);
+						if (e["id"] == null) {
 							return;
 						}
-					},
-					function(strings) {
-						success(frameworkArray, competencies, relations);
+						if (e["ceasn:isPartOf"] != null) {
+							let shortId = EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"]);
+							frameworks[shortId].competency.push(f.shortId());
+						} else {
+							var parent = e;
+							var done = false;
+							while (!done && parent != null) {
+								if (
+									parent["ceasn:isChildOf"] !=
+										null &&
+									parent["ceasn:isChildOf"] != ""
+								) {
+									parent =
+										competencyRows[
+											EcRemoteLinkedData.trimVersionFromUrl(
+												parent[
+													"ceasn:isChildOf"
+												]
+											)
+										];
+								} else if (
+									parent["ceasn:isTopChildOf"] !=
+										null &&
+									parent["ceasn:isTopChildOf"] !=
+										""
+								) {
+									parent =
+										frameworkRows[
+											EcRemoteLinkedData.trimVersionFromUrl(
+												parent[
+													"ceasn:isTopChildOf"
+												]
+											)
+										];
+									done = true;
+								}
+							}
+							if (!done) {
+								failure(
+									"Could not find framework:" +
+										e["type"]
+								);
+								return;
+							}
+							if (parent != null) {
+								if (parent["type"] == "Framework") {
+									e[
+										"ceasn:isPartOf"
+									] = EcRemoteLinkedData.trimVersionFromUrl(
+										parent["id"]
+									);
+									frameworks[
+										EcRemoteLinkedData.trimVersionFromUrl(
+											parent["id"]
+										)
+									].competency.push(f.shortId());
+								} else {
+									failure(
+										"Object cannot trace to framework:" +
+											e["type"]
+									);
+									return;
+								}
+							} else {
+								failure(
+									"Object has no framework:" +
+										e["type"]
+								);
+								return;
+							}
+						}
+						if (
+							EcCompetency.template != null &&
+							EcCompetency.template["@owner"] != null
+						) {
+							f["owner"] =
+								EcCompetency.template["@owner"];
+						}
+						if (e["owner"] == null) {
+							if (
+								frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"])][
+									"owner"
+								] != null
+							)
+								e["owner"] =
+									frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(
+										e["ceasn:isPartOf"]
+									)]["owner"];
+						}
+						var id = new EcIdentity();
+						if (e["owner"] != null) {
+							id.ppk = EcPpk.fromPem(e["owner"]);
+							if (id.ppk != null)
+								f.addOwner(id.ppk.toPk());
+							eim.addIdentityQuietly(
+								id
+							);
+						}
+						if (ceo != null) f.addOwner(ceo.ppk.toPk());
+						if (
+							EcCompetency.template != null &&
+							EcCompetency.template[
+								"schema:dateCreated"
+							] != null
+						) {
+							CTDLASNCSVImport.setDateCreated(e, f);
+						}
+						if (f["ceasn:educationLevelType"] != null) {
+							let val = f["ceasn:educationLevelType"];
+							if (!EcArray.isArray(val)) {
+								val = [val];
+							}
+							for (let i = val.length-1; i >=0; i--) {
+								if (!val[i].startsWith('http')) {
+									if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
+									val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
+									val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
+									val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
+										val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
+									} else {
+										val.splice(i, 1);
+									}
+								}
+							}
+							f["ceasn:educationLevelType"] = val;
+						}
+						if (e["ceasn:isChildOf"] != null) {
+							CTDLASNCSVImport.createEachRelation(
+								e,
+								"ceasn:isChildOf",
+								Relation.NARROWS,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								-1,
+								endpoint
+							);
+						}
+						if (e["ceasn:broadAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:broadAlignment",
+								Relation.NARROWS,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint
+							);
+						}
+						if (e["ceasn:narrowAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:narrowAlignment",
+								Relation.NARROWS,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint
+							);
+						}
+						if (e["sameAs"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"sameAs",
+								Relation.IS_EQUIVALENT_TO,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint
+							);
+						}
+						if (e["ceasn:majorAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:majorAlignment",
+								"majorRelated",
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint
+							);
+						}
+						if (e["ceasn:minorAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:minorAlignment",
+								"minorRelated",
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint
+							);
+						}
+						if (
+							e["ceasn:prerequisiteAlignment"] != null
+						) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:prerequisiteAlignment",
+								Relation.REQUIRES,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint
+							);
+						}
+						f["ceasn:isTopChildOf"] = null;
+						f["ceasn:isChildOf"] = null;
+						f["ceasn:isPartOf"] = null;
+						f["ceasn:broadAlignment"] = null;
+						f["ceasn:narrowAlignment"] = null;
+						f["sameAs"] = null;
+						f["ceasn:majorAlignment"] = null;
+						f["ceasn:minorAlignment"] = null;
+						f["ceasn:prerequisiteAlignment"] = null;
+						f["ceasn:hasChild"] = null;
+						competencies.push(f);
+						competencyRows[f.shortId()] = e;
+					} else if (
+						pretranslatedE["@type"] == null ||
+						pretranslatedE["@type"] == ""
+					) {
+						return;
+					} else {
+						failure(
+							"Found unknown type:" + pretranslatedE["@type"]
+						);
+						return;
 					}
-				);
+				}
+				success(frameworkArray, competencies, relations);
 			},
 			error: failure
 		});
@@ -468,8 +473,9 @@ module.exports = class CTDLASNCSVImport {
 		Papa.parse(file, {
 			header: true,
 			encoding: "UTF-8",
-			complete: function(results) {
+			complete: async function(results) {
 				var tabularData = results["data"];
+				const terms = JSON.parse(JSON.stringify((await EcRemote.getExpectingObject("https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cassTerms"))));
 				var frameworks = {};
 				var frameworkArray = [];
 				var frameworkRows = {};
@@ -477,277 +483,280 @@ module.exports = class CTDLASNCSVImport {
 				var competencyRows = {};
 				var relations = [];
 				var relationById = {};
-				new EcAsyncHelper().each(
-					tabularData,
-					function(pretranslatedE, callback0) {
+				for (let i = 0; i < tabularData.length; i++) {
+					let pretranslatedE = tabularData[i];
+					if (
+						pretranslatedE["@type"] ==
+						"ceterms:Collection"
+					) {
+						var translator = new EcLinkedData(null, null);
+						translator.copyFrom(pretranslatedE);
+						CTDLASNCSVImport.cleanUpTranslator(
+							translator,
+							endpoint,
+							repo
+						);
+						for (let each in translator) {
+							if (terms[each]) {
+								translator[terms[each]] = translator[each];
+								delete translator[each];
+							}
+							if (each === "type" || each === "@type") {
+								translator[each] = "Framework";
+							}
+						}
+						let e = await translator.recast(
+							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
+							"https://schema.cassproject.org/0.4"
+						);
+						var f = new EcFramework();
+						f.copyFrom(e);
+						if (EcFramework.template != null) {
+							for (var key in EcFramework.template) {
+								if (key.equals("@owner")) {
+									f["owner"] =
+										EcFramework.template[key];
+								} else {
+									f[key] =
+										EcFramework.template[key];
+								}
+							}
+						}
+						if (e["owner"] != null) {
+							var id = new EcIdentity();
+							id.ppk = EcPpk.fromPem(e["owner"]);
+							f.addOwner(id.ppk.toPk());
+							eim.addIdentityQuietly(
+								id
+							);
+						}
+						if (ceo != null) f.addOwner(ceo.ppk.toPk());
 						if (
-							pretranslatedE["@type"] ==
-							"ceterms:Collection"
+							EcFramework.template != null &&
+							EcFramework.template[
+								"schema:dateCreated"
+							] != null
 						) {
-							var translator = new EcLinkedData(null, null);
-							translator.copyFrom(pretranslatedE);
-							CTDLASNCSVImport.cleanUpTranslator(
-								translator,
-								endpoint,
-								repo
-							);
-							translator.recast(
-								"https://schema.cassproject.org/0.4/ceasn2cass",
-								"https://schema.cassproject.org/0.4",
-								function(e) {
-									var f = new EcFramework();
-									f.copyFrom(e);
-									if (EcFramework.template != null) {
-										for (var key in EcFramework.template) {
-											if (key.equals("@owner")) {
-												f["owner"] =
-													EcFramework.template[key];
-											} else {
-												f[key] =
-													EcFramework.template[key];
-											}
-										}
-									}
-									if (e["owner"] != null) {
-										var id = new EcIdentity();
-										id.ppk = EcPpk.fromPem(e["owner"]);
-										f.addOwner(id.ppk.toPk());
-										eim.addIdentityQuietly(
-											id
-										);
-									}
-									if (ceo != null) f.addOwner(ceo.ppk.toPk());
-									if (
-										EcFramework.template != null &&
-										EcFramework.template[
-											"schema:dateCreated"
-										] != null
-									) {
-										CTDLASNCSVImport.setDateCreated(e, f);
-									}
-									frameworks[f.shortId()] = f;
-									frameworkRows[f.shortId()] = e;
-									frameworkArray.push(f);
-									f.competency = f["ceterms:hasMember"];
-									delete f["ceterms:hasMember"];
-									f.relation = [];
-									f.subType = "Collection";
-									callback0();
-								},
-								failure
-							);
-						} else if (
-							pretranslatedE["@type"] == "ceasn:Competency"
-						) {
-							var translator = new EcLinkedData(null, null);
-							translator.copyFrom(pretranslatedE);
-							CTDLASNCSVImport.cleanUpTranslator(
-								translator,
-								endpoint,
-								repo
-							);
-							translator.recast(
-								"https://schema.cassproject.org/0.4/ceasn2cass",
-								"https://schema.cassproject.org/0.4",
-								function(e) {
-									var f = new EcCompetency();
-									f.copyFrom(e);
-									if (e["id"] == null) {
-										callback0();
-										return;
-									}
-									if (e["ceterms:isMemberOf"] != null) {
-										if (!EcArray.isArray(e["ceterms:isMemberOf"])) {
-											e["ceterms:isMemberOf"] = [e["ceterms:isMemberOf"]];
-										}
-										for (let each in e["ceterms:isMemberOf"]) {
-											let shortId = EcRemoteLinkedData.trimVersionFromUrl(e["ceterms:isMemberOf"][each]);
-											if (frameworks[shortId]) {
-												EcArray.setAdd(frameworks[shortId].competency, f.shortId());
-											}
-										}
-									}
-									if (
-										EcCompetency.template != null &&
-										EcCompetency.template["@owner"] != null
-									) {
-										f["owner"] =
-											EcCompetency.template["@owner"];
-									}
-									if (e["owner"] == null) {
-										if (
-											frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(e["ceterms:isMemberOf"][0])] &&
-											frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(e["ceterms:isMemberOf"][0])]["owner"] != null
-										)
-											e["owner"] =
-												frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(
-													e["ceterms:isMemberOf"][0]
-												)]["owner"];
-									}
-									var id = new EcIdentity();
-									if (e["owner"] != null) {
-										id.ppk = EcPpk.fromPem(e["owner"]);
-										if (id.ppk != null)
-											f.addOwner(id.ppk.toPk());
-										eim.addIdentityQuietly(
-											id
-										);
-									}
-									if (ceo != null) f.addOwner(ceo.ppk.toPk());
-									if (
-										EcCompetency.template != null &&
-										EcCompetency.template[
-											"schema:dateCreated"
-										] != null
-									) {
-										CTDLASNCSVImport.setDateCreated(e, f);
-									}
-									if (f["ceasn:educationLevelType"] != null) {
-										let val = f["ceasn:educationLevelType"];
-										if (!EcArray.isArray(val)) {
-											val = [val];
-										}
-										for (let i = val.length-1; i >=0; i--) {
-											if (!val[i].startsWith('http')) {
-												if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
-												val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
-												val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
-												val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
-													val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
-												} else {
-													val.splice(i, 1);
-												}
-											}
-										}
-										f["ceasn:educationLevelType"] = val;
-									}
-									if (e["ceasn:broadAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:broadAlignment",
-											Relation.NARROWS,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint,
-											true
-										);
-									}
-									if (e["ceasn:narrowAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:narrowAlignment",
-											Relation.NARROWS,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint,
-											true
-										);
-									}
-									if (e["sameAs"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"sameAs",
-											Relation.IS_EQUIVALENT_TO,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint,
-											true
-										);
-									}
-									if (e["ceasn:majorAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:majorAlignment",
-											"majorRelated",
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint,
-											true
-										);
-									}
-									if (e["ceasn:minorAlignment"] != null) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:minorAlignment",
-											"minorRelated",
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint,
-											true
-										);
-									}
-									if (
-										e["ceasn:prerequisiteAlignment"] != null
-									) {
-										CTDLASNCSVImport.createRelations(
-											e,
-											"ceasn:prerequisiteAlignment",
-											Relation.REQUIRES,
-											repo,
-											ceo,
-											id,
-											relations,
-											relationById,
-											frameworks,
-											endpoint,
-											true
-										);
-									}
-									f["ceasn:isTopChildOf"] = null;
-									f["ceasn:isChildOf"] = null;
-									f["ceasn:isPartOf"] = null;
-									f["ceasn:broadAlignment"] = null;
-									f["ceasn:narrowAlignment"] = null;
-									f["sameAs"] = null;
-									f["ceasn:majorAlignment"] = null;
-									f["ceasn:minorAlignment"] = null;
-									f["ceasn:prerequisiteAlignment"] = null;
-									f["ceasn:hasChild"] = null;
-									f["ceterms:isMemberOf"] = null;
-									competencies.push(f);
-									competencyRows[f.shortId()] = e;
-									callback0();
-								},
-								failure
-							);
-						} else if (
-							pretranslatedE["@type"] == null ||
-							pretranslatedE["@type"] == ""
-						) {
-							callback0();
-							return;
-						} else {
-							failure(
-								"Found unknown type:" + pretranslatedE["@type"]
-							);
-							callback0();
+							CTDLASNCSVImport.setDateCreated(e, f);
+						}
+						frameworks[f.shortId()] = f;
+						frameworkRows[f.shortId()] = e;
+						frameworkArray.push(f);
+						f.competency = f["ceterms:hasMember"];
+						delete f["ceterms:hasMember"];
+						f.relation = [];
+						f.subType = "Collection";
+					} else if (
+						pretranslatedE["@type"] == "ceasn:Competency"
+					) {
+						var translator = new EcLinkedData(null, null);
+						translator.copyFrom(pretranslatedE);
+						CTDLASNCSVImport.cleanUpTranslator(
+							translator,
+							endpoint,
+							repo
+						);
+						for (let each in translator) {
+							if (terms[each]) {
+								translator[terms[each]] = translator[each];
+								delete translator[each];
+							}
+							if (each === "type" || each === "@type") {
+								translator[each] = "Competency";
+							}
+						}
+						let e = await translator.recast(
+							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
+							"https://schema.cassproject.org/0.4"
+						);
+						var f = new EcCompetency();
+						f.copyFrom(e);
+						if (e["id"] == null) {
 							return;
 						}
-					},
-					function(strings) {
-						success(frameworkArray, competencies, relations);
+						if (e["ceterms:isMemberOf"] != null) {
+							if (!EcArray.isArray(e["ceterms:isMemberOf"])) {
+								e["ceterms:isMemberOf"] = [e["ceterms:isMemberOf"]];
+							}
+							for (let each in e["ceterms:isMemberOf"]) {
+								let shortId = EcRemoteLinkedData.trimVersionFromUrl(e["ceterms:isMemberOf"][each]);
+								if (frameworks[shortId]) {
+									EcArray.setAdd(frameworks[shortId].competency, f.shortId());
+								}
+							}
+						}
+						if (
+							EcCompetency.template != null &&
+							EcCompetency.template["@owner"] != null
+						) {
+							f["owner"] =
+								EcCompetency.template["@owner"];
+						}
+						if (e["owner"] == null) {
+							if (
+								frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(e["ceterms:isMemberOf"][0])] &&
+								frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(e["ceterms:isMemberOf"][0])]["owner"] != null
+							)
+								e["owner"] =
+									frameworkRows[EcRemoteLinkedData.trimVersionFromUrl(
+										e["ceterms:isMemberOf"][0]
+									)]["owner"];
+						}
+						var id = new EcIdentity();
+						if (e["owner"] != null) {
+							id.ppk = EcPpk.fromPem(e["owner"]);
+							if (id.ppk != null)
+								f.addOwner(id.ppk.toPk());
+							eim.addIdentityQuietly(
+								id
+							);
+						}
+						if (ceo != null) f.addOwner(ceo.ppk.toPk());
+						if (
+							EcCompetency.template != null &&
+							EcCompetency.template[
+								"schema:dateCreated"
+							] != null
+						) {
+							CTDLASNCSVImport.setDateCreated(e, f);
+						}
+						if (f["ceasn:educationLevelType"] != null) {
+							let val = f["ceasn:educationLevelType"];
+							if (!EcArray.isArray(val)) {
+								val = [val];
+							}
+							for (let i = val.length-1; i >=0; i--) {
+								if (!val[i].startsWith('http')) {
+									if (val[i] === "AdvancedLevel" || val[i] === "AssociatesDegreeLevel" || val[i] === "BachelorsDegreeLevel" || val[i] === "BeginnerLevel" ||
+									val[i] === "DoctoralDegreeLevel" || val[i] === "GraduateLevel" || val[i] === "IntermediateLevel" || val[i] === "LowerDivisionLevel" ||
+									val[i] === "MastersDegreeLevel" || val[i] === "PostSecondaryLevel" || val[i] === "ProfessionalLevel" || val[i] === "SecondaryLevel" ||
+									val[i] === "UndergraduateLevel" || val[i] === "UpperDivisionLevel") {
+										val[i] = "https://credreg.net/ctdl/vocabs/audLevel/" + val[i];
+									} else {
+										val.splice(i, 1);
+									}
+								}
+							}
+							f["ceasn:educationLevelType"] = val;
+						}
+						if (e["ceasn:broadAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:broadAlignment",
+								Relation.NARROWS,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint,
+								true
+							);
+						}
+						if (e["ceasn:narrowAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:narrowAlignment",
+								Relation.NARROWS,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint,
+								true
+							);
+						}
+						if (e["sameAs"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"sameAs",
+								Relation.IS_EQUIVALENT_TO,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint,
+								true
+							);
+						}
+						if (e["ceasn:majorAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:majorAlignment",
+								"majorRelated",
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint,
+								true
+							);
+						}
+						if (e["ceasn:minorAlignment"] != null) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:minorAlignment",
+								"minorRelated",
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint,
+								true
+							);
+						}
+						if (
+							e["ceasn:prerequisiteAlignment"] != null
+						) {
+							CTDLASNCSVImport.createRelations(
+								e,
+								"ceasn:prerequisiteAlignment",
+								Relation.REQUIRES,
+								repo,
+								ceo,
+								id,
+								relations,
+								relationById,
+								frameworks,
+								endpoint,
+								true
+							);
+						}
+						f["ceasn:isTopChildOf"] = null;
+						f["ceasn:isChildOf"] = null;
+						f["ceasn:isPartOf"] = null;
+						f["ceasn:broadAlignment"] = null;
+						f["ceasn:narrowAlignment"] = null;
+						f["sameAs"] = null;
+						f["ceasn:majorAlignment"] = null;
+						f["ceasn:minorAlignment"] = null;
+						f["ceasn:prerequisiteAlignment"] = null;
+						f["ceasn:hasChild"] = null;
+						f["ceterms:isMemberOf"] = null;
+						competencies.push(f);
+						competencyRows[f.shortId()] = e;
+					} else if (
+						pretranslatedE["@type"] == null ||
+						pretranslatedE["@type"] == ""
+					) {
+						return;
+					} else {
+						failure(
+							"Found unknown type:" + pretranslatedE["@type"]
+						);
+						return;
 					}
-				);
+				}
+				success(frameworkArray, competencies, relations);
 			},
 			error: failure
 		});
@@ -854,6 +863,9 @@ module.exports = class CTDLASNCSVImport {
 					translator[trimKey] = translator[key];
 					translator[key] = null;
 				}
+			}
+			if (translator[key] == null) {
+				delete translator[key];
 			}
 		}
 	}

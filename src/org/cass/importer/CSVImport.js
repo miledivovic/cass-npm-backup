@@ -1,3 +1,4 @@
+const EcArray = require("../../../com/eduworks/ec/array/EcArray");
 const EcObject = require("../../../com/eduworks/ec/array/EcObject");
 const EcRepository = require("../../cassproject/ebac/repository/EcRepository");
 
@@ -237,7 +238,11 @@ module.exports = class CSVImport {
 						) {
 							continue;
 						} else {
-							competency[colNames[idx]] = tabularData[i][idx];
+							if ((name === 'owner' || name === 'reader') && !EcArray.isArray(tabularData[i][idx])) {
+								competency[colNames[idx]] = [tabularData[i][idx]];
+							} else {
+								competency[colNames[idx]] = tabularData[i][idx];
+							}
 						}
 					}
 					competencies.push(competency);

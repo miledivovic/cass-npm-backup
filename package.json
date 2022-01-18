@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "0.5.29",
+	"version": "0.5.30",
 	"description": "Competency and Skills Service",
 	"main": "index.js",
 	"scripts": {
@@ -61,6 +61,7 @@
 		"papaparse": "^5.3.1",
 		"pem-jwk": "^2.0.0",
 		"promise-worker": "^2.0.1",
+		"rdf-canonize": "^3.0.0",
 		"web-worker": "^1.1.0"
 	},
 	"files": [

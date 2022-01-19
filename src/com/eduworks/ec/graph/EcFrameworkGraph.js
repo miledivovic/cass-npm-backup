@@ -115,7 +115,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 				}
 				let negative = await assertion.getNegative();
 				if (competencies[assertion.competency] == null)
-				competencies[assertion.competency] = {positives:[],negatives:[]};
+					competencies[assertion.competency] = {positives:[],negatives:[]};
 				if (negative) 
 					competencies[assertion.competency].negatives.push(assertion);
 				else 
@@ -124,23 +124,19 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		)
 		await Promise.all(
 			Object.keys(competencies).map(async (label) => {
-				let competency = await this.getCompetency(label);				
-				let promises = [];
-				if (competencies[label].negatives.length > 0)
-					promises.push(this.processAssertionsBooleanPerAssertion(
-						competencies[label].negatives,
-						true,
-						competency,
-						[]
-					));
-				else if (competencies[label].positives.length > 0)
-					promises.push(this.processAssertionsBooleanPerAssertion(
-						competencies[label].positives,
-						false,
-						competency,
-						[]
-					));
-				await Promise.all(promises);
+				let competency = await this.getCompetency(label);
+				await this.processAssertionsBooleanPerAssertion(
+					competencies[label].negatives,
+					true,
+					competency,
+					[]
+				);
+				await this.processAssertionsBooleanPerAssertion(
+					competencies[label].positives,
+					false,
+					competency,
+					[]
+				);
 			})
 		)
 		if (success != null)
@@ -177,7 +173,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 				)
 			).then(async() =>
 				await Promise.all(
-					this.getInEdges(competency).map(async (alignment) =>
+					await this.getInEdges(competency).map(async (alignment) =>
 						await this.getCompetency(alignment.source).then(async (s) =>
 							await this.processAssertionBooleanInward(
 								alignment,
@@ -198,9 +194,9 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 					assertion
 				);
 			await Promise.all(
-				this.getInEdges(competency).map((alignment) =>
-					this.getCompetency(alignment.source).then((t) =>
-						this.processAssertionBooleanOutward(
+				await this.getInEdges(competency).map(async (alignment) =>
+					await this.getCompetency(alignment.source).then(async (t) =>
+						await this.processAssertionBooleanOutward(
 							alignment,
 							t,
 							assertions,
@@ -211,7 +207,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 				)
 			).then(async () =>
 				await Promise.all(
-					this.getOutEdges(competency).map(async (alignment) =>
+					await this.getOutEdges(competency).map(async (alignment) =>
 						await this.getCompetency(alignment.target).then(async (s) =>
 							await this.processAssertionBooleanInward(
 								alignment,

@@ -248,6 +248,7 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
+                console.log(fg.getMetaStateCompetency(c));
                 result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
                 result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
                 return result;

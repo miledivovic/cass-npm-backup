@@ -44,6 +44,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 0.5.30
+* Optimized performance of EcFrameworkGraph
+* Library Updates
+
 ## 0.5.28
 * Bug fixes and library updates.
 

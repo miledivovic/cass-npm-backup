@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "0.5.30",
+	"version": "0.5.31",
 	"description": "Competency and Skills Service",
 	"main": "index.js",
 	"scripts": {
@@ -21,7 +21,9 @@
 		"autotest": "nodemon test.js",
 		"autoindex": "nodemon index.js",
 		"mocha": "mocha -b src/**/*.test.js",
+		"mochaGraph": "mocha -b src/com/eduworks/ec/graph/**/*.test.js",
 		"automocha": "nodemon --exec \"npm run mocha\"",
+		"automochaGraph": "nodemon --exec \"npm run mochaGraph\"",
 		"automocha:clientSideCertificates": "set CASS_LOOPBACK=https://localhost/api/&& nodemon --exec \"npm run mocha\"",
 		"lint": "eslint src -c .eslintrc.js --ext .js --fix",
 		"docs": "yuidoc -c yuidoc.json -o docs -e .js src",

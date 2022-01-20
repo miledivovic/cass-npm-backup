@@ -6,6 +6,7 @@ const EcRemoteLinkedData = require("../../../../org/cassproject/schema/general/E
 const EcArray = require("../array/EcArray.js");
 const { cassPromisify } = require("../promises/helpers.js");
 const EcDirectedGraph = require("./EcDirectedGraph.js");
+const Triple = require("./Triple.js");
 
 /**
  *  Graph for working with a framework. Additional computed data (such as profile data) can be overlaid on the graph through the use of "metaverticies" and "metaedges" that hold additional information.
@@ -110,7 +111,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		let competencies = {};
 		await Promise.all(
 			assertions.map(async (assertion) => {
-				if (!this.containsVertexById(assertion.competency)) {
+				if (!this.containsVertexById(assertion.competency)) { //O(1)
 					return;
 				}
 				let negative = await assertion.getNegative();
@@ -125,12 +126,14 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		await Promise.all(
 			Object.keys(competencies).map(async (label) => {
 				let competency = await this.getCompetency(label);
+				//if (competencies[label].negatives.length > 0)
 				await this.processAssertionsBooleanPerAssertion(
 					competencies[label].negatives,
 					true,
 					competency,
 					[]
 				);
+				//if (competencies[label].positives.length > 0)
 				await this.processAssertionsBooleanPerAssertion(
 					competencies[label].positives,
 					false,
@@ -356,5 +359,57 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	}
 	getDefaultEdgeType() {
 		return EcAlignment.NARROWS;
+	}	
+	inEdgeCache = {};
+	outEdgeCache = {};
+	getInEdges(vertex) {
+		if (this.inEdgeCache[vertex.shortId()] == null) return [];
+		return [...this.inEdgeCache[vertex.shortId()]];
+	}
+	getOutEdges(vertex) {
+		if (this.outEdgeCache[vertex.shortId()] == null) return [];
+		return [...this.outEdgeCache[vertex.shortId()]];
+	}
+	addEdge(e, v1, v2) {
+		this.addVertexSafely(v1);
+		this.addVertexSafely(v2);
+		var t = new Triple();
+		t.source = v1;
+		t.destination = v2;
+		t.edge = e;
+		this.edges.push(t);
+		this.cacheEdges(t);
+		return true;
+	}
+	addEdgeUnsafely(e, v1, v2) {
+		var t = new Triple();
+		t.source = v1;
+		t.destination = v2;
+		t.edge = e;
+		this.edges.push(t);
+		this.cacheEdges(t);
+		return true;
+	}
+	addEdgeSafely(e, v1, v2) {
+		this.addVertexSafely(v1);
+		this.addVertexSafely(v2);
+		var t = new Triple();
+		t.source = v1;
+		t.destination = v2;
+		t.edge = e;
+		if (EcArray.has(this.edges, t)) return false;
+		this.edges.push(t);
+		this.cacheEdges(t);
+		return true;
+	}
+	cacheEdges(e)
+	{
+		//TODO: Remove cached stuff when edges are removed.
+		if (this.inEdgeCache[e.destination.shortId()] == null)
+			this.inEdgeCache[e.destination.shortId()] = [];
+		this.inEdgeCache[e.destination.shortId()].push(e.edge);
+		if (this.outEdgeCache[e.source.shortId()] == null)
+			this.outEdgeCache[e.source.shortId()] = [];
+		this.outEdgeCache[e.source.shortId()].push(e.edge);
 	}
 };

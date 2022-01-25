@@ -35,6 +35,8 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 ## Publish checklist
 
+ * Review dependencies, autocomplete version numbers
+ * Delete package-lock.json and node_modules, `npm install`
  * `npm test` - Must not fail any tests.
  * Increment version number in package.json and yuidoc.json
  * `npm run docs`

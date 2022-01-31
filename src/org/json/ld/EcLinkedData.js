@@ -301,7 +301,7 @@ global.jsonld = require("jsonld");
 	toSignableJson() {
 		var d = JSON.parse(this.toJson());
 		if (
-			this.type.indexOf("http://schema.eduworks.com/") != -1 &&
+			this.type.indexOf("http://schema.eduworks.com/") == 0 &&
 			this.type.indexOf("/0.1/") != -1
 		) {
 			delete d["signature"];

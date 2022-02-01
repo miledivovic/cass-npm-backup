@@ -147,13 +147,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	async addOrgKey(newOrgPpk) {
 		var orgKeys = await this.getOrgKeys();
 		orgKeys.push(newOrgPpk);
-		var newKeys = await EcEncryptedValue.encryptValue(
-			this.ppkListToPemArrayString(orgKeys),
-			EcOrganization.ORG_PPK_SET_KEY,
-			this.owner,
-			this.reader
-		);
-		this[EcOrganization.ORG_PPK_SET_KEY] = newKeys;
+		this[EcOrganization.ORG_PPK_SET_KEY] = orgKeys;
 	}
 	/**
 	 *  Performs a rekey operation and saves the organization details to the server
@@ -248,13 +242,15 @@ module.exports = class EcOrganization extends schema.Organization {
 	async getOrgKeys(eim) {
 		var orgKeys = [];
 		var o = this[EcOrganization.ORG_PPK_SET_KEY];
-		if (o != null) {
+		if (o != null && (o.type === 'EncryptedValue' || o["@type"] === 'EncryptedValue')) {
 			var ev = new EcEncryptedValue();
 			ev.copyFrom(o);
 			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString(null, null, eim));
 			for (var i = 0; i < orgKeysPPKPems.length; i++) {
 				orgKeys.push(EcPpk.fromPem(orgKeysPPKPems[i]));
 			}
+		} else if (o) {
+			orgKeys = o;
 		}
 		return orgKeys;
 	}

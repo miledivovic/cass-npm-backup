@@ -21,10 +21,10 @@ Running `npm test` requires Docker.
 
 ## Release testing
 
- * `npm test` - Runs unit tests in docker images against the CaSS 0.5, 1.2, 1.3, and 1.4 repositories using Node versions 12-16 and Cypress against Edge, Chrome, Firefox and Electron. Takes some time.
+ * `npm test` - Runs unit tests in docker images against the CaSS 1.5, 1.2, 1.3, and 1.4 repositories using Node versions 12-16 and Cypress against Edge, Chrome, Firefox and Electron. Takes some time.
 
 ## Development unit testing
-Development unit tests presume you have a CaSS Repository running on `localhost:80`. You may get one by running `docker run -d --name cass-test -p80:80 cassproject/cass:0.5.1`
+Development unit tests presume you have a CaSS Repository running on `localhost:80`. You may get one by running `docker run -d --name cass-test -p80:80 cassproject/cass:1.5.0`
 
  * `npm automocha` - Runs mocha unit tests against current Node environment. Will rerun unit tests on-save.
  * `npm mocha` - Runs mocha unit tests.
@@ -36,15 +36,19 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 ## Publish checklist
 
  * Review dependencies, autocomplete version numbers
+ * Increment version number in package.json and yuidoc.json
+ * Update documentation, `npm run docs`
+ * Delete yuidoc elements from devDependencies in package.json
  * Delete package-lock.json and node_modules, `npm install`
  * `npm test` - Must not fail any tests.
- * Increment version number in package.json and yuidoc.json
- * `npm run docs`
  * Commit changes to GitHub.
  * Tag release with semantic version from package.json, push tag.
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.0
+* Version increment
 
 ## 0.5.31
 * Optimized performance of EcFrameworkGraph

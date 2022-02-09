@@ -542,7 +542,7 @@ module.exports = class CTDLASNCSVImport {
 						frameworks[f.shortId()] = f;
 						frameworkRows[f.shortId()] = e;
 						frameworkArray.push(f);
-						f.competency = f["ceterms:hasMember"];
+						f.competency = f["ceterms:hasMember"] || [];
 						delete f["ceterms:hasMember"];
 						f.relation = [];
 						f.subType = "Collection";

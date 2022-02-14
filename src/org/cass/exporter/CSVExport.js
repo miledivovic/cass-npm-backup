@@ -200,7 +200,13 @@ module.exports = class CSVExport extends Exporter {
 					var display = "";
 					var props2 = props[prop];
 					for (var prop2 in props2) {
-						display += props2[prop2] + "|";
+						if (EcArray.isArray(props2[prop2])) {
+							for (var prop3 in props2[prop2]) {
+								display += props2[prop2][prop3] + "|";
+							}
+						} else {
+							display += props2[prop2] + "|";
+						}
 					}
 					display = display.substring(0, display.length - 1);
 					flattenedObject[id] = display;

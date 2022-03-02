@@ -802,7 +802,7 @@ module.exports = class CTDLASNCSVImport {
 		} else if (translator["type"] == "ceasn:Competency") {
 			context = "https://schema.cassproject.org/0.4/";
 			type = "Competency";
-		} else if (translator["type"] == "ceasn:ConceptScheme") {
+		} else if (translator["type"] == "skos:ConceptScheme") {
 			context = "https://schema.cassproject.org/0.4/skos/";
 			type = "ConceptScheme";
 		} else if (translator["type"] == "ceasn:Concept") {

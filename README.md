@@ -38,8 +38,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * Review dependencies, autocomplete version numbers
  * Increment version number in package.json and yuidoc.json
  * Update documentation, `npm run docs`
- * Delete yuidoc elements from devDependencies in package.json
- * Delete package-lock.json and node_modules, `npm install`
+ * `npm install`
  * `npm test` - Must not fail any tests.
  * Commit changes to GitHub.
  * Tag release with semantic version from package.json, push tag.

@@ -14,7 +14,7 @@ if (typeof process === 'object') {
 		let http2 = require("http2-wrapper");
 		function http2AdapterEnhancer(adapter) {
 			return async (config) => {
-				if (config.http2) {
+				if (config.http2 && config.url.startsWith("https")) {
 					let req;
 					config.transport = {
 						request: function request(options, handleResponse) {

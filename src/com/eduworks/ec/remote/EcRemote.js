@@ -1,5 +1,5 @@
 if (global.axios == null)
-	global.axios = require("axios");
+	global.axios = require("haxios").default;
 const { cassPromisify } = require("../promises/helpers");
 
 /**

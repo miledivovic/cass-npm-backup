@@ -1,0 +1,17 @@
+FROM cypress/included:9.4.1
+
+WORKDIR code
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+RUN npm install
+
+COPY ca.crt ca.crt
+COPY client.crt client.crt
+COPY client.key client.key
+COPY index.js index.js
+COPY src src
+COPY cypressWebpack cypressWebpack
+COPY cypressBrowserify cypressBrowserify
+COPY cypressWebpack.json cypressWebpack.json
+COPY cypressBrowserify.json cypressBrowserify.json
+ENTRYPOINT cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressBrowserify.json --browser chrome && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressBrowserify.json --browser firefox && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressBrowserify.json && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.json --browser chrome && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.json --browser firefox && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.json

@@ -127,6 +127,9 @@ describe("EcFrameworkGraph", () => {
     it('init', async () => {
         let newId1;
         EcIdentityManager.default.clearIdentities();
+        if ((typeof Cypress !== 'undefined') && Cypress != null && Cypress.env != null)
+            process.env.CASS_LOOPBACK = Cypress.env('CASS_LOOPBACK');
+        console.log(process.env.CASS_LOOPBACK);
         await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/", null, null, console.log);
         newId1 = null;
         if (EcIdentityManager.default.ids.length > 0)

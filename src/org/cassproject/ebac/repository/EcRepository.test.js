@@ -55,6 +55,11 @@ if (fs.readFileSync != null) {
     https.globalAgent.options.key = fs.readFileSync('client.key');
     https.globalAgent.options.cert = fs.readFileSync('client.crt');
     https.globalAgent.options.ca = fs.readFileSync('ca.crt');
+    // global.axiosOptions.key =  fs.readFileSync('client.key');
+    // global.axiosOptions.cert = fs.readFileSync('client.crt');
+    // global.axiosOptions.ca = fs.readFileSync('ca.crt');
+    //When http2 supports client side self-signed certificates, don't use this.
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 }
 
 let changeNameAndSaveAndCheck = async (rld) => {
@@ -86,6 +91,9 @@ describe("EcRepository", () => {
     let rld = null;
     it('create', async () => {
         EcIdentityManager.default.clearIdentities();
+        if ((typeof Cypress !== 'undefined') && Cypress != null && Cypress.env != null)
+            process.env.CASS_LOOPBACK = Cypress.env('CASS_LOOPBACK');
+        console.log(process.env.CASS_LOOPBACK);
         await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/", null, null, console.log);
         if (EcIdentityManager.default.ids.length > 0)
             newId1 = EcIdentityManager.default.ids[0];

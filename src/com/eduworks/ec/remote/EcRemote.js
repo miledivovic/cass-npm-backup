@@ -1,5 +1,41 @@
-if (global.axios == null)
-	global.axios = require("haxios").default;
+global.axiosOptions = {};
+var isNode = false;    
+if (typeof process === 'object') {
+  if (typeof process.versions === 'object') {
+    if (typeof process.versions.node !== 'undefined') {
+      isNode = true;
+    }
+  }
+}if (global.axios == null)
+{
+	global.axios = require("axios");
+	if (isNode)
+	{
+		let http2 = require("http2-wrapper");
+		function http2AdapterEnhancer(adapter) {
+			return async (config) => {
+				if (config.http2) {
+					let req;
+					config.transport = {
+						request: function request(options, handleResponse) {
+						req = http2.request(options, handleResponse);
+						return req;
+						},
+					};
+					const ret = adapter(config);
+					// Remove the axios action `socket.setKeepAlive` because the HTTP/2 sockets should not be directly manipulated
+					const listeners = req.listeners("socket");
+					if (listeners.length) req.removeListener("socket", listeners[0]);
+					return ret;
+				} else {
+					return adapter(config);
+				}
+			};
+		}
+		axiosOptions.http2 = true;
+		axiosOptions.adapter = http2AdapterEnhancer(axios.defaults.adapter);
+	}
+}
 const { cassPromisify } = require("../promises/helpers");
 
 /**
@@ -121,10 +157,13 @@ module.exports = class EcRemote {
 			postHeaders = {
 				'content-type': 'multipart/form-data'
 			}
+		if (fd.getLengthSync != null)
+			postHeaders["content-length"] = fd.getLengthSync();
 		if (headers !== undefined && headers != null)
 			for (let header in headers) postHeaders[header] = headers[header];
 		let p = axios
 			.post(url, fd, {
+				...axiosOptions,
 				headers: postHeaders,
 				maxContentLength: Infinity,
 				maxBodyLength: Infinity
@@ -178,7 +217,7 @@ module.exports = class EcRemote {
 		var url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = axios
-			.get(url)
+			.get(url,axiosOptions)
 			.then((response) => {
 				return response.data;
 			})
@@ -221,6 +260,7 @@ module.exports = class EcRemote {
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = axios
 			.delete(url, {
+				...axiosOptions,
 				headers: { signatureSheet: signatureSheet }
 			})
 			.then((response) => {

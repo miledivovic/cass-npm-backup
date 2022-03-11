@@ -1,0 +1,17 @@
+FROM cypress/browsers:node14.10.1-edge88
+
+WORKDIR code
+COPY package.json package.json
+COPY package-lock.json package-lock.json
+RUN npm install
+
+COPY ca.crt ca.crt
+COPY client.crt client.crt
+COPY client.key client.key
+COPY index.js index.js
+COPY src src
+COPY cypressWebpack cypressWebpack
+COPY cypressBrowserify cypressBrowserify
+COPY cypressWebpack.json cypressWebpack.json
+COPY cypressBrowserify.json cypressBrowserify.json
+ENTRYPOINT npm run browserify:cypressEdgeHttps && npm run webpack:cypressEdgeHttps

@@ -24,7 +24,10 @@ module.exports = (on, config) => {
 
   on('file:preprocessor', webpackPreprocessor({
       webpackOptions: {
-        plugins: [ new NodePolyfillPlugin() ],  
+        plugins: [ new NodePolyfillPlugin() ],
+        externals: {
+          "http2-wrapper": "http2"
+        },
         resolve: {
             fallback: {
                 "fs": false

@@ -11,7 +11,12 @@ if (typeof process === 'object') {
 	global.axios = require("axios");
 	if (isNode)
 	{
-		let http2 = require("http2-wrapper");
+		let http2;
+		try {
+			http2 = require("http2-wrapper");
+		} catch(e) {
+			console.log(e);
+		}
 		function http2AdapterEnhancer(adapter) {
 			return async (config) => {
 				if (config.http2 && config.url.startsWith("https")) {

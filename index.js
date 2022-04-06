@@ -1,3 +1,7 @@
+if (window && typeof window.global === 'undefined') {
+    window.global = window;
+    window.module = {};
+}
 global.generateUUID = function () {
     var d = new Date().getTime();
     if (typeof window !== "undefined" && window && window.performance && typeof window.performance.now === "function") {
@@ -51,8 +55,8 @@ global.cassReturnNullAsPromise = function (success, failure) {
     return p;
 };
 
-global.crypto = null;
 try {
+    global.crypto = null;
     global.crypto = require('crypto').webcrypto;
 } catch (err) {
     console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
@@ -63,8 +67,7 @@ if (global.forge === undefined)
 else
     var forge = global.forge;
 
-
-JavalikeEquals = function (value) {
+let JavalikeEquals = function (value) {
     if (value == null)
         return false;
     if (value.valueOf)
@@ -72,7 +75,7 @@ JavalikeEquals = function (value) {
     return this === value;
 };
 
-JavalikeGetClass = function () {
+let JavalikeGetClass = function () {
     return this.constructor;
 };
 

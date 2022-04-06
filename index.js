@@ -1,4 +1,4 @@
-if (window && typeof window.global === 'undefined') {
+if (typeof window !== "undefined" && window) {
     window.global = window;
     window.module = {};
 }

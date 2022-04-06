@@ -31,6 +31,7 @@ module.exports = class EcRepository {
 	static cache = {};
 	static fetching = {};
 	static repos = [];
+	static defaultPlugins = [];
 	adminKeys = null;
 	selectedServer = null;
 	selectedServerProxy = null;
@@ -51,6 +52,9 @@ module.exports = class EcRepository {
 					identity.displayName = "SSO Identity";
 					identity.ppk = new EcPpkFacade(EcPk.fromPem(p1.ssoPublicKey));
 					EcIdentityManager.default.addIdentity(identity);
+				}
+				if (p1["plugins"]) {
+					EcRepository.defaultPlugins = JSON.parse(p1["plugins"]);
 				}
 				if (p1["ping"] == "pong") {
 					if (loginObjectCallback != null)

@@ -1,9 +1,12 @@
 var base64 = require("base64-arraybuffer");
 let forge = require("node-forge");
-if (typeof crypto === 'undefined') {
-	var crypto = null;
+if (typeof crypto == 'undefined')
+{
+	if (typeof window !== 'undefined' && window != null && window !== undefined)
+		if (window.crypto != null)
+			var crypto = window.crypto;
 	try {
-		crypto = require('crypto').webcrypto;
+		var crypto = require('crypto').webcrypto;
 	} catch (err) {
 		console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}

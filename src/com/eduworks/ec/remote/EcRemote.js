@@ -6,14 +6,20 @@ if (typeof process === 'object') {
       isNode = true;
     }
   }
-}if (global.axios == null)
+}
+
+global.httpOptions = [];
+global.http2Enabled = {};
+if (global.axios == null)
 {
 	global.axios = require("axios");
 	if (isNode)
 	{
 		let http2;
+		let https;
 		try {
 			http2 = require("http2-wrapper");
+			https = require("https");
 		} catch(e) {
 			console.log(e);
 		}
@@ -23,11 +29,31 @@ if (typeof process === 'object') {
 					let req;
 					config.transport = {
 						request: function request(options, handleResponse) {
-						req = http2.request(options, handleResponse);
+						if (http2Enabled[options.hostname])
+							req = http2.request(options, handleResponse);
+						else
+						{
+							req = https.request(options, handleResponse);
+							if (http2Enabled[options.hostname] == null)					
+								global.httpOptions.push(options);
+						}
 						return req;
 						},
 					};
 					const ret = adapter(config);
+					while (global.httpOptions.length > 0)
+					{
+						let options = global.httpOptions.pop();
+						options.ALPNProtocols = ['h2', 'http/1.1'];
+						if (options.port == null)
+							options.port = 443;
+						let result = await http2.auto.resolveProtocol(options);
+						if (result.alpnProtocol == "http/1.1")
+							http2Enabled[options.hostname] = false;
+						else if (result.alpnProtocol == "h2")
+							http2Enabled[options.hostname] = true;
+					}
+
 					// Remove the axios action `socket.setKeepAlive` because the HTTP/2 sockets should not be directly manipulated
 					const listeners = req.listeners("socket");
 					if (listeners.length) req.removeListener("socket", listeners[0]);

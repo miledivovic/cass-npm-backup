@@ -44,19 +44,29 @@ module.exports = class EcRsaOaepAsyncWorker {
 	}
 	static createWorker(index) {
 		let wkr = null;
+		let me = this;
 		try {
 			wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsync.js')));
 		} catch (e) {
 			console.trace(e);
 			try {
 				wkr = new Worker(path.resolve(__dirname, 'forgeAsync.js'));
+				wkr.onerror = function(event) {
+					wkr = null;
+					console.log(event);
+					wkr = new Worker(path.resolve(__dirname, 'cass-editor/forgeAsync.js'));
+					if (wkr != null) {
+						// replace errored worker at index
+						me.w[index] = (new PromiseWorker(wkr));
+					}
+				}
 			} catch (e) {
 				console.trace(e);
 				// Eat quietly.
 			}
 		}
 		if (wkr != null)
-			this.w.push(new PromiseWorker(wkr));
+			this.w[index] = (new PromiseWorker(wkr));
 	}
 	/**
 	 *  Asynchronous form of {{#crossLink

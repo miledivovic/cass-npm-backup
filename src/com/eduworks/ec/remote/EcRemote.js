@@ -29,6 +29,7 @@ if (global.axios == null)
 					let req;
 					config.transport = {
 						request: function request(options, handleResponse) {
+						options.ca = global.ca;
 						if (http2Enabled[options.hostname])
 							req = http2.request(options, handleResponse);
 						else

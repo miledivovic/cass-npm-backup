@@ -109,6 +109,7 @@
 		"@babel/core": "^7.17.9",
 		"@babel/preset-env": "^7.16.11",
 		"@cypress/browserify-preprocessor": "^3.0.2",
+		"@cypress/vite-dev-server": "^2.2.2",
 		"@cypress/webpack-preprocessor": "^5.11.1",
 		"babel-eslint": "^10.1.0",
 		"babel-loader": "^8.2.4",

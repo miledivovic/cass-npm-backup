@@ -825,6 +825,20 @@ module.exports = class CTDLASNCSVImport {
 								var thisVal = thisKey[i].trim();
 								thisKey[i] = thisVal;
 							}
+							if (typeof thisKey[i] == "string" &&
+								thisKey[i].startsWith("ce-") &&
+								key != "ceterms:ctid"
+							) {
+								var id = CTDLASNCSVImport.getIdFromCtid(
+									thisKey[i],
+									endpoint,
+									repo,
+									context,
+									type,
+									key
+								);
+								thisKey[i] = id;
+							}
 						}
 					} else if (
 						thisKey.startsWith("ce-") &&

@@ -170,6 +170,22 @@ module.exports = class CTDLASNCSVImport {
 							}
 							f["ceasn:educationLevelType"] = val;
 						}
+						if (f["ceasn:publicationStatusType"] != null) {
+							let val = f["ceasn:publicationStatusType"];
+							if (!EcArray.isArray(val)) {
+								val = [val];
+							}
+							for (let i = val.length-1; i >=0; i--) {
+								if (!val[i].startsWith('http')) {
+									if (val[i] === "Deprecated" || val[i] === "Published" || val[i] === "Draft" ) {
+										val[i] = "http://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
+									} else {
+										val.splice(i, 1);
+									}
+								}
+							}
+							f["ceasn:publicationStatusType"] = val;
+						}
 						frameworks[f.shortId()] = f;
 						frameworkRows[f.shortId()] = e;
 						f["ceasn:hasChild"] = null;
@@ -330,6 +346,22 @@ module.exports = class CTDLASNCSVImport {
 								}
 							}
 							f["ceasn:educationLevelType"] = val;
+						}
+						if (f["ceasn:publicationStatusType"] != null) {
+							let val = f["ceasn:publicationStatusType"];
+							if (!EcArray.isArray(val)) {
+								val = [val];
+							}
+							for (let i = val.length-1; i >=0; i--) {
+								if (!val[i].startsWith('http')) {
+									if (val[i] === "Deprecated" || val[i] === "Published" || val[i] === "Draft" ) {
+										val[i] = "http://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
+									} else {
+										val.splice(i, 1);
+									}
+								}
+							}
+							f["ceasn:publicationStatusType"] = val;
 						}
 						if (e["ceasn:isChildOf"] != null) {
 							CTDLASNCSVImport.createEachRelation(
@@ -639,6 +671,22 @@ module.exports = class CTDLASNCSVImport {
 							}
 							f["ceasn:educationLevelType"] = val;
 						}
+						if (f["ceasn:publicationStatusType"] != null) {
+							let val = f["ceasn:publicationStatusType"];
+							if (!EcArray.isArray(val)) {
+								val = [val];
+							}
+							for (let i = val.length-1; i >=0; i--) {
+								if (!val[i].startsWith('http')) {
+									if (val[i] === "Deprecated" || val[i] === "Published" || val[i] === "Draft" ) {
+										val[i] = "http://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
+									} else {
+										val.splice(i, 1);
+									}
+								}
+							}
+							f["ceasn:publicationStatusType"] = val;
+						}
 						if (e["ceasn:broadAlignment"] != null) {
 							CTDLASNCSVImport.createRelations(
 								e,
@@ -824,6 +872,20 @@ module.exports = class CTDLASNCSVImport {
 							if (thisKey[i] != thisKey[i].trim()) {
 								var thisVal = thisKey[i].trim();
 								thisKey[i] = thisVal;
+							}
+							if (typeof thisKey[i] == "string" &&
+								thisKey[i].startsWith("ce-") &&
+								key != "ceterms:ctid"
+							) {
+								var id = CTDLASNCSVImport.getIdFromCtid(
+									thisKey[i],
+									endpoint,
+									repo,
+									context,
+									type,
+									key
+								);
+								thisKey[i] = id;
 							}
 						}
 					} else if (

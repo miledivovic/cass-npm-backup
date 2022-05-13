@@ -29,15 +29,16 @@ if (global.axios == null)
 					let req;
 					config.transport = {
 						request: function request(options, handleResponse) {
-						if (http2Enabled[options.hostname])
-							req = http2.request(options, handleResponse);
-						else
-						{
-							req = https.request(options, handleResponse);
-							if (http2Enabled[options.hostname] == null)					
-								global.httpOptions.push(options);
-						}
-						return req;
+							options.ca = global.ca;
+							if (http2Enabled[options.hostname])
+								req = http2.request(options, handleResponse);
+							else
+							{
+								req = https.request(options, handleResponse);
+								if (http2Enabled[options.hostname] == null)					
+									global.httpOptions.push(options);
+							}
+							return req;
 						},
 					};
 					const ret = adapter(config);
@@ -66,7 +67,37 @@ if (global.axios == null)
 		axiosOptions.http2 = true;
 		axiosOptions.adapter = http2AdapterEnhancer(axios.defaults.adapter);
 	}
+} else {
+	if (isNode)
+	{
+		let https;
+		try {
+			https = require("https");
+		} catch(e) {
+			console.log(e);
+		}
+		function httpsAdapterEnhancer(adapter) {
+			return async (config) => {
+				if (process.env.HTTPS != null ? process.env.HTTPS.trim() == 'true' : false && config.url.startsWith("https")) {
+					let req;
+					config.transport = {
+						request: function request(options, handleResponse) {
+							options.ca = global.ca;
+							req = https.request(options, handleResponse);
+						return req;
+						},
+					};
+					const ret = adapter(config);
+					return ret;
+				} else {
+					return adapter(config);
+				}
+			};
+		}
+		axiosOptions.adapter = httpsAdapterEnhancer(axios.defaults.adapter);
+	}
 }
+
 const { cassPromisify } = require("../promises/helpers");
 
 /**

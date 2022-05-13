@@ -61,12 +61,15 @@ module.exports = class EcAssertion extends Assertion {
 	async setSubject(pk) {
 		var owners = [];
 		var readers = null;
-		if (this.reader == null) readers = [];
-		else readers = JSON.parse(JSON.stringify(this.reader));
+		if (this.reader == null) 
+			readers = [];
+		else 
+			readers = JSON.parse(JSON.stringify(this.reader));
 		if (this.subject != null) {
-			if (this.subject.owner != null) owners.concat(this.subject.owner);
+			if (this.subject.owner != null) 
+				owners = owners.concat(this.subject.owner);
 			if (this.subject.reader != null)
-				readers.concat(this.subject.reader);
+				readers = readers.concat(this.subject.reader);
 		}
 		if (this.owner != null) owners = owners.concat(this.owner);
 		readers.push(pk.toPem());
@@ -82,12 +85,15 @@ module.exports = class EcAssertion extends Assertion {
 		var me = this;
 		var owners = [];
 		var readers = null;
-		if (this.reader == null) readers = [];
-		else readers = JSON.parse(JSON.stringify(this.reader));
+		if (this.reader == null) 
+			readers = [];
+		else 
+			readers = JSON.parse(JSON.stringify(this.reader));
 		if (this.subject != null) {
-			if (this.subject.owner != null) owners.concat(this.subject.owner);
+			if (this.subject.owner != null) 
+				owners = owners.concat(this.subject.owner);
 			if (this.subject.reader != null)
-				readers.concat(this.subject.reader);
+				readers = readers.concat(this.subject.reader);
 		}
 		if (this.owner != null) owners = owners.concat(this.owner);
 		readers.push(pk.toPem());

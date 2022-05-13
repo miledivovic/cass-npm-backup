@@ -73,7 +73,8 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 					failure, this.eim
 				);
 			}).catch((err) => {
-				failure;
+				if (failure != null) 
+					failure(err);
 			});
 	}
 	async handleCacheElement(d, framework) {

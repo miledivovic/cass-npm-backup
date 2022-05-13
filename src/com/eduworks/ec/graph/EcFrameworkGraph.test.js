@@ -873,6 +873,7 @@ describe("EcFrameworkGraph", () => {
             });
             return result;
         }).catch((err) => {
+            console.error(err);
             assert.fail(err);
         }).finally(async () => {
             await deleteById(f.shortId());

@@ -351,19 +351,18 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 					var cs = arg0;
 					me.pad = cs.pad;
 					me.token = cs.token;
-					let shouldCommit = false;
+					var shouldCommit = false;
 					if (cs.credentials != null)
 						for (var i = 0; i < cs.credentials.length; i++) {
 							var c = cs.credentials[i];
 							let identity = null;
-							try
-							{
-								identity = await EcIdentity.fromCredential(
-									c,
-									me.secretWithSalt,
-									me.server
-								);
-							} catch(ex) {
+							identity = await EcIdentity.fromCredential(
+								c,
+								me.secretWithSalt,
+								me.server
+							);
+							if (identity.ppk == null)
+							{						
 								//Try alternate method of getting credential.
 								let newSecretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2('',this.secretSalt,this.secretIterations,32));								
 								identity = await EcIdentity.fromCredential(
@@ -373,20 +372,21 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 								);
 								shouldCommit = true;
 							}
+							if (identity.ppk == null)
+								throw new Error("Could not retreive encrypted ppks from credential packet.")
 							eim.addIdentity(identity);
 						}
 					if (cs.contacts != null)
 						for (var i = 0; i < cs.contacts.length; i++) {
 							var c = cs.contacts[i];
 							let identity = null;
-							try
-							{
-								identity = await EcContact.fromEncryptedContact(
-									c,
-									me.secretWithSalt,
-									me.server
-								);
-							} catch(ex) {
+							identity = await EcContact.fromEncryptedContact(
+								c,
+								me.secretWithSalt,
+								me.server
+							);
+							if (identity.ppk == null)
+							{					
 								//Try alternate method of getting contact.
 								let newSecretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2('',this.secretSalt,this.secretIterations,32));								
 								identity = await EcContact.fromEncryptedContact(
@@ -395,7 +395,9 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 									me.server
 								);
 								shouldCommit = true;
-							}
+							}					
+							if (identity.ppk == null)
+								throw new Error("Could not retreive encrypted pks from credential packet.")		
 							eim.addContact(identity);
 						}
 						if (shouldCommit)

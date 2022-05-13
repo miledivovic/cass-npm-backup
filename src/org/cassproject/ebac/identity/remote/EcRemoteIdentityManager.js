@@ -351,26 +351,55 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 					var cs = arg0;
 					me.pad = cs.pad;
 					me.token = cs.token;
+					let shouldCommit = false;
 					if (cs.credentials != null)
 						for (var i = 0; i < cs.credentials.length; i++) {
 							var c = cs.credentials[i];
-							var identity = await EcIdentity.fromCredential(
-								c,
-								me.secretWithSalt,
-								me.server
-							);
+							let identity = null;
+							try
+							{
+								identity = await EcIdentity.fromCredential(
+									c,
+									me.secretWithSalt,
+									me.server
+								);
+							} catch(ex) {
+								//Try alternate method of getting credential.
+								let newSecretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2('',this.secretSalt,this.secretIterations,32));								
+								identity = await EcIdentity.fromCredential(
+									c,
+									newSecretWithSalt,
+									me.server
+								);
+								shouldCommit = true;
+							}
 							eim.addIdentity(identity);
 						}
 					if (cs.contacts != null)
 						for (var i = 0; i < cs.contacts.length; i++) {
 							var c = cs.contacts[i];
-							var identity = await EcContact.fromEncryptedContact(
-								c,
-								me.secretWithSalt,
-								me.server
-							);
+							let identity = null;
+							try
+							{
+								identity = await EcContact.fromEncryptedContact(
+									c,
+									me.secretWithSalt,
+									me.server
+								);
+							} catch(ex) {
+								//Try alternate method of getting contact.
+								let newSecretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2('',this.secretSalt,this.secretIterations,32));								
+								identity = await EcContact.fromEncryptedContact(
+									c,
+									newSecretWithSalt,
+									me.server
+								);
+								shouldCommit = true;
+							}
 							eim.addContact(identity);
 						}
+						if (shouldCommit)
+							await me.commit(null,null,eim);
 					return eim;
 				},
 				function (arg0) {
@@ -503,8 +532,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 	 */
 	splicePasswords(passwords) {
 		var passwordSplice = "";
-		// eslint-disable-next-line for-direction
-		for (var charIndex = 0; charIndex > 0; charIndex++) {
+		for (var charIndex = 0; true; charIndex++) {
 			var foundAny = false;
 			for (
 				var passwordIndex = 0;

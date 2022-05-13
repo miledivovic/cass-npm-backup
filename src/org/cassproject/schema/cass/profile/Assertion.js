@@ -119,9 +119,10 @@ module.exports = class Assertion extends schema.CreativeWork {
 		var readers = this.reader;
 		if (readers == null) readers = [];
 		if (this.subject != null) {
-			if (this.subject.owner != null) owners.concat(this.subject.owner);
+			if (this.subject.owner != null) 
+				owners = owners.concat(this.subject.owner);
 			if (this.subject.reader != null)
-				readers.concat(this.subject.reader);
+				readers = readers.concat(this.subject.reader);
 		}
 		if (this.owner != null) owners = owners.concat(this.owner);
 		readers.push(pk.toPem());

@@ -18,35 +18,4 @@ describe("EcRemoteIdentityManager", () => {
         assert.equal(rim.splicePasswords(["","123"]),"123");
         assert.equal(rim.splicePasswords(["abc",""]),"abc");
     });
-    
-    let username = EcAes.newIv(6);
-    let password = EcAes.newSecret(6);
-    let name = "Test User";
-    let email = username + "@test.cassproject.org";
-    let ident = null;
-
-    it('create user', async () => {
-        let rld = new EcRemoteIdentityManager();
-        rld.server = "http://localhost/api/";
-        await rld.configureFromServer(null,null);
-        rld.startLogin(username,password);
-        let im = new EcIdentityManager();
-        await rld.create(null,null,im);
-        im = await rld.fetch();
-        ident = new EcIdentity();
-        ident.ppk = await EcPpk.generateKeyAsync(null,null);
-        ident.displayName = name;
-        im.addIdentity(ident);
-        await rld.commit(null,null,im);
-    }).timeout(1000);
-    
-    it('load user', async () => {
-        let rld = new EcRemoteIdentityManager();
-        rld.server = "http://localhost/api/";
-        await rld.configureFromServer(null,null);
-        rld.startLogin(username,password);
-        let im = await rld.fetch();
-        assert.equal(im.ids[0].ppk.toPem(),ident.ppk.toPem());
-    }).timeout(1000);
-
 });

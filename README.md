@@ -41,6 +41,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * Delete yuidocs from package.json, delete package-lock.json
  * `npm install`
  * `npm test` - Must not fail any tests.
+ * Document code coverage output by the previous step.
  * Commit changes to GitHub.
  * Tag release with semantic version from package.json, push tag.
  * `npm publish` (must be `npm login`ed) 

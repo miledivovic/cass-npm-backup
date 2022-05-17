@@ -30,7 +30,7 @@
 		"testCypressEdgeHttps": "docker kill npm-cass & docker rm -f npm-cass & docker build --progress plain -f docker/cypressEdgeHttps -t npm-cass . & docker run --network=\"host\" --name npm-cass npm-cass",
 		"autotest": "nodemon test.js",
 		"autoindex": "nodemon index.js",
-		"mocha": "mocha -b src/**/*.test.js",
+		"mocha": "nyc --reporter=text mocha -b src/**/*.test.js",
 		"mocha:clientSideCertificates": "export CASS_LOOPBACK=https://localhost/api/|| set CASS_LOOPBACK=https://localhost/api/&& mocha -b src/**/*.test.js",
 		"mochaGraph": "mocha -b src/com/eduworks/ec/graph/**/*.test.js",
 		"automocha": "nodemon --exec \"npm run mocha\"",
@@ -121,6 +121,7 @@
 		"mocha": "^10.0.0",
 		"node-polyfill-webpack-plugin": "^1.1.4",
 		"nodemon": "^2.0.16",
+		"nyc": "^15.1.0",
 		"wait-on": "^6.0.1",
 		"webpack": "^5.72.1",
 		"webpack-cli": "^4.9.2"

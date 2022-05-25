@@ -356,12 +356,18 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 						for (var i = 0; i < cs.credentials.length; i++) {
 							var c = cs.credentials[i];
 							let identity = null;
-							identity = await EcIdentity.fromCredential(
-								c,
-								me.secretWithSalt,
-								me.server
-							);
-							if (identity.ppk == null)
+							try{
+								identity = await EcIdentity.fromCredential(
+									c,
+									me.secretWithSalt,
+									me.server
+								);
+							} 
+							catch(ex)
+							{
+								console.error(ex);
+							}
+							if (identity == null || identity.ppk == null)
 							{						
 								//Try alternate method of getting credential.
 								let newSecretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2('',this.secretSalt,this.secretIterations,32));								
@@ -380,12 +386,18 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 						for (var i = 0; i < cs.contacts.length; i++) {
 							var c = cs.contacts[i];
 							let identity = null;
-							identity = await EcContact.fromEncryptedContact(
-								c,
-								me.secretWithSalt,
-								me.server
-							);
-							if (identity.ppk == null)
+							try{
+								identity = await EcContact.fromEncryptedContact(
+									c,
+									me.secretWithSalt,
+									me.server
+								);
+							} 
+							catch(ex)
+							{
+								console.error(ex);
+							}
+							if (identity == null || identity.ppk == null)
 							{					
 								//Try alternate method of getting contact.
 								let newSecretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2('',this.secretSalt,this.secretIterations,32));								

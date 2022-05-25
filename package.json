@@ -31,6 +31,8 @@
 		"autotest": "nodemon test.js",
 		"autoindex": "nodemon index.js",
 		"mocha": "nyc --reporter=text mocha -b src/**/*.test.js",
+		"mocha:httpsNoHttp2": "export CASS_LOOPBACK=https://localhost/api/|| set CASS_LOOPBACK=https://localhost/api/&&export HTTP2=false|| set HTTP2=false&& mocha -b src/**/*.test.js",
+		"mocha:https": "export CASS_LOOPBACK=https://localhost/api/|| set CASS_LOOPBACK=https://localhost/api/&& mocha -b src/**/*.test.js",
 		"mocha:clientSideCertificates": "export CASS_LOOPBACK=https://localhost/api/|| set CASS_LOOPBACK=https://localhost/api/&& mocha -b src/**/*.test.js",
 		"mochaGraph": "mocha -b src/com/eduworks/ec/graph/**/*.test.js",
 		"automocha": "nodemon --exec \"npm run mocha\"",

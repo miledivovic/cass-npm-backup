@@ -20,5 +20,9 @@ module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
 
-  on('file:preprocessor', browserify());
+  on('file:preprocessor', browserify({
+  onBundle (bundle) {
+    bundle.external('node:dns')
+  }
+}));
 };

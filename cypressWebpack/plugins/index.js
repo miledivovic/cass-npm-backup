@@ -26,7 +26,8 @@ module.exports = (on, config) => {
       webpackOptions: {
         plugins: [ new NodePolyfillPlugin() ],
         externals: {
-          "http2-wrapper": "http2"
+          "http2-wrapper": "http2",
+          "node:dns":"commonjs node:dns"
         },
         resolve: {
             fallback: {

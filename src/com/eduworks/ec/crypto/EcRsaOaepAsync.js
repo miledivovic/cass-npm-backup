@@ -1,5 +1,6 @@
 var base64 = require("base64-arraybuffer");
 let forge = require("node-forge");
+const EcAesCtrAsync = require("./EcAesCtrAsync.js");
 if (typeof crypto == 'undefined')
 {
 	if (typeof window !== 'undefined' && window != null && window !== undefined)
@@ -11,6 +12,7 @@ if (typeof crypto == 'undefined')
 		console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}
 }
+
 let EcCrypto = require("./EcCrypto.js");
 let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
@@ -48,6 +50,7 @@ module.exports = class EcRsaOaepAsync {
 				failure
 			);
 		}
+		EcAesCtrAsync.fipsOn();
 		var keyUsages = [];
 		keyUsages.push("encrypt");
 		var algorithm = {};
@@ -73,6 +76,7 @@ module.exports = class EcRsaOaepAsync {
 			);
 		}
 		p = p.then((result) => {
+			EcAesCtrAsync.fipsOff();
 			return base64.encode(result);
 		});
 		return cassPromisify(p, success, failure);
@@ -111,6 +115,7 @@ module.exports = class EcRsaOaepAsync {
 				failure
 			);
 		}
+		EcAesCtrAsync.fipsOn();
 		var algorithm = {};
 		algorithm.name = "RSA-OAEP";
 		algorithm.hash = "SHA-1";
@@ -123,6 +128,7 @@ module.exports = class EcRsaOaepAsync {
 			if (EcCrypto.caching) {
 				EcCrypto.decryptionCache[ppk.toPem() + cipherText] = result;
 			}
+			EcAesCtrAsync.fipsOff();
 			return result;
 		};
 		if (ppk.key == null) {
@@ -141,6 +147,7 @@ module.exports = class EcRsaOaepAsync {
 				.then(afterKeyIsImported)
 				.catch((error) => {
 					console.trace(ppk, cipherText, error);
+					EcAesCtrAsync.fipsOff();
 					return null;
 				});
 			return cassPromisify(p, success, failure);
@@ -150,6 +157,7 @@ module.exports = class EcRsaOaepAsync {
 				.then(afterKeyIsImported)
 				.catch((error) => {
 					console.trace(error);
+					EcAesCtrAsync.fipsOff();
 					return null;
 				});
 			return cassPromisify(p, success, failure);
@@ -180,6 +188,7 @@ module.exports = class EcRsaOaepAsync {
 		if (text == null) {
 			return cassReturnAsPromise(null, success, failure);
 		}
+		//EcAesCtrAsync.fipsOn();// OPENSSL3 signing with this method doesn't seem to work right now.
 		var keyUsages = [];
 		keyUsages.push("sign");
 		var algorithm = {};
@@ -198,6 +207,7 @@ module.exports = class EcRsaOaepAsync {
 								EcCrypto.str2ab(forge.util.encodeUtf8(text))
 							)
 							.then(function (p1) {
+								//EcAesCtrAsync.fipsOff();// OPENSSL3 signing with this method doesn't seem to work right now.
 								return base64.encode(p1);
 							});
 					}),
@@ -241,6 +251,7 @@ module.exports = class EcRsaOaepAsync {
 		) {
 			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
 		}
+		EcAesCtrAsync.fipsOn();
 		var keyUsages = [];
 		keyUsages.push("sign");
 		var algorithm = {};
@@ -265,7 +276,8 @@ module.exports = class EcRsaOaepAsync {
 				EcCrypto.str2ab(forge.util.encodeUtf8(text))
 			);
 
-		p = p.then(function (p1) {
+		p = p.then(function (p1) {								
+			EcAesCtrAsync.fipsOff();
 			return base64.encode(p1);
 		});
 		return cassPromisify(p, success, failure);
@@ -299,6 +311,7 @@ module.exports = class EcRsaOaepAsync {
 				failure
 			);
 		}
+		EcAesCtrAsync.fipsOn();
 		var algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-1";
@@ -315,7 +328,10 @@ module.exports = class EcRsaOaepAsync {
 							key,
 							base64.decode(signature),
 							EcCrypto.str2ab(forge.util.encodeUtf8(text))
-						);
+						).then((result)=>{						
+							EcAesCtrAsync.fipsOff();
+							return result;
+						});
 					}),
 				success,
 				failure
@@ -327,7 +343,10 @@ module.exports = class EcRsaOaepAsync {
 					pk.signKey,
 					base64.decode(signature),
 					EcCrypto.str2ab(forge.util.encodeUtf8(text))
-				),
+				).then((result)=>{						
+					EcAesCtrAsync.fipsOff();
+					return result;
+				}),
 				success,
 				failure
 			);
@@ -362,6 +381,7 @@ module.exports = class EcRsaOaepAsync {
 				failure
 			);
 		}
+		EcAesCtrAsync.fipsOn();
 		var algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-256";
@@ -378,7 +398,10 @@ module.exports = class EcRsaOaepAsync {
 							key,
 							base64.decode(signature),
 							EcCrypto.str2ab(forge.util.encodeUtf8(text))
-						);
+						).then((result)=>{						
+							EcAesCtrAsync.fipsOff();
+							return result;
+						});
 					}),
 				success,
 				failure
@@ -390,7 +413,10 @@ module.exports = class EcRsaOaepAsync {
 					pk.signKey256,
 					base64.decode(signature),
 					EcCrypto.str2ab(forge.util.encodeUtf8(text))
-				),
+				).then((result)=>{						
+					EcAesCtrAsync.fipsOff();
+					return result;
+				}),
 				success,
 				failure
 			);

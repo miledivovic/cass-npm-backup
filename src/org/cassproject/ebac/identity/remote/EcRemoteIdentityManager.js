@@ -397,7 +397,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 							{
 								console.error(ex);
 							}
-							if (identity == null || identity.ppk == null)
+							if (identity == null || identity.pk == null)
 							{					
 								//Try alternate method of getting contact.
 								let newSecretWithSalt = forge.util.encode64(forge.pkcs5.pbkdf2('',this.secretSalt,this.secretIterations,32));								
@@ -408,7 +408,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 								);
 								shouldCommit = true;
 							}					
-							if (identity.ppk == null)
+							if (identity.pk == null)
 								throw new Error("Could not retreive encrypted pks from credential packet.")		
 							eim.addContact(identity);
 						}

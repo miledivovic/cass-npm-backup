@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.11
+* Login fix for folks with contacts.
+
 ## 1.5.10
 * FIPS support on Node 18 with custom Node 18 compilation and compiled OpenSSL library.
 

@@ -7,7 +7,9 @@ if (typeof crypto == 'undefined')
 		if (window.crypto != null)
 			var crypto = window.crypto;
 	try {
-		var crypto = require('crypto').webcrypto;
+		let requireResult = require('crypto').webcrypto;
+		if (requireResult != null)
+			var crypto = requireResult;
 	} catch (err) {
 		console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}

@@ -35,10 +35,11 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 ## Publish checklist
 
- * Review dependencies, autocomplete version numbers
- * Increment version number in package.json and yuidoc.json
+ * Review dependencies, autocomplete version numbers to latest versions.
+ * Increment version number in package.json and yuidoc.json.
+ * Update changelog.
  * Update documentation, `npm run docs`
- * Delete yuidocs from package.json, delete package-lock.json
+ * Delete yuidocs from package.json, delete package-lock.json.
  * `npm install`
  * `npm test` - Must not fail any tests.
  * Document code coverage output by the previous step.
@@ -47,6 +48,46 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.11
+* Login fix for folks with contacts.
+
+## 1.5.10
+* FIPS support on Node 18 with custom Node 18 compilation and compiled OpenSSL library.
+
+## 1.5.9
+* Code coverage documentation
+* Login record migration
+
+## 1.5.8
+* Added additional webworker fallback for forge in web worker mode.
+* Fixes to http2 mode
+* CTDLASN CSV Import fixes.
+* Static analysis fixes.
+
+## 1.5.7
+* Browser crypto module now detected correctly 
+
+## 1.5.6
+* Plugin support now informed by repository
+
+## 1.5.5
+* Compatibility with Vite
+* Directories of private frameworks are no longer encrypted.
+
+## 1.5.4
+* HTTP2 support.
+
+## 1.5.3
+* Library Version Increment
+* CTDL-ASN bug fix.
+
+## 1.5.2
+* Library Version Increment
+* CTDL-ASN bug fix.
+
+## 1.5.1
+* CTDL-ASN bug fix.
 
 ## 1.5.0
 * Version increment

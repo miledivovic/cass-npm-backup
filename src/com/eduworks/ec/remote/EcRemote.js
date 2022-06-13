@@ -8,6 +8,20 @@ if (typeof process === 'object') {
   }
 }
 
+if (isNode)
+{
+	try{
+		const dns = require('node:dns');
+		if (dns && dns.setDefaultResultOrder)
+		{
+			//Support for Node 18 using Docker containers with a network that doesn't support ipv6 loopback.
+			dns.setDefaultResultOrder('ipv4first');
+		}
+	} 
+	catch(ex){
+	}
+}
+
 global.httpOptions = [];
 global.http2Enabled = {};
 if (global.axios == null)

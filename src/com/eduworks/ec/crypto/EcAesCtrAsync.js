@@ -11,16 +11,40 @@ if (typeof crypto == 'undefined')
 		console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}
 }
+
 let EcCrypto = require("./EcCrypto.js");
 let EcAesCtrAsyncWorker = require("./EcAesCtrAsyncWorker.js");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
 let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
+let realCrypto = require('crypto');
 /**
  *  Async version of EcAesCtr that uses browser extensions (window.crypto) to accomplish cryptography much faster.
  *  Falls back to EcAesCtrAsyncWorker, if window.crypto is not available.
  *  @class EcAesCtrAsync
  */
 module.exports = class EcAesCtrAsync {
+	static fipsOn(){		
+		if (process && process.env && process.env.FIPS)
+		if (realCrypto.getFips() == 0)
+			try {
+				realCrypto.setFips(true);
+				//console.log("FIPS compliant crypto provider has been enabled.");
+			} catch (e) {
+				console.log("ERR_CRYPTO_FIPS_UNAVAILABLE",e);
+			}
+	}
+
+	static fipsOff(){	
+		if (process && process.env && process.env.FIPS)	
+		if (realCrypto.getFips() == 1)
+			try {
+				realCrypto.setFips(false);
+				//console.log("FIPS compliant crypto provider has been disabled.");
+			} catch (e) {
+				console.log("ERR_CRYPTO_FIPS_UNAVAILABLE",e);
+			}
+	}
+
 	/**
 	 *  Asynchronous form of {{#crossLink
 	 *  "EcAesCtr/encrypt:method"}}EcAesCtr.encrypt{{/crossLink}}
@@ -50,6 +74,7 @@ module.exports = class EcAesCtrAsync {
 				failure
 			);
 		}
+		this.fipsOn();
 		var keyUsages = [];
 		keyUsages.push("encrypt", "decrypt");
 		var algorithm = {};
@@ -71,6 +96,7 @@ module.exports = class EcAesCtrAsync {
 					return crypto.subtle
 						.encrypt(algorithm, key, data)
 						.then(function (p1) {
+							EcAesCtrAsync.fipsOff();
 							return base64.encode(p1);
 						});
 				}),
@@ -113,6 +139,7 @@ module.exports = class EcAesCtrAsync {
 				failure
 			);
 		}
+		this.fipsOn();
 		var keyUsages = ["encrypt", "decrypt"];
 		var algorithm = {};
 		algorithm.name = "AES-CTR";
@@ -136,6 +163,7 @@ module.exports = class EcAesCtrAsync {
 							EcCrypto.decryptionCache[
 								secret + iv + ciphertext
 							] = EcCrypto.ab2str(p1);
+							EcAesCtrAsync.fipsOff();
 							return EcCrypto.ab2str(p1);
 						});
 				}),

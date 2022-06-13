@@ -374,6 +374,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 							}
 							if (identity.ppk == null)
 								throw new Error("Could not retreive encrypted ppks from credential packet.")
+							identity.lastLogin = cs.lastLogin;
 							eim.addIdentity(identity);
 						}
 					if (cs.contacts != null)

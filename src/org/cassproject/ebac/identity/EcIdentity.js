@@ -38,10 +38,17 @@ module.exports = class EcIdentity {
 	/**
 	 *  String identifying where this identity came from
 	 *
-	 *  @property displayName
+	 *  @property source
 	 *  @type String
 	 */
 	source = null;
+	/**
+	 *  Timestamp of last login
+	 *
+	 *  @property lastLogin
+	 *  @type Number
+	 */
+	 lastLogin = null;
 	/**
 	 *  Helper function to decrypt a credential (storable version of an identity)
 	 *  into an identity)

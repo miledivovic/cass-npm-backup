@@ -96,7 +96,7 @@ module.exports = class EcFile extends GeneralFile {
 		if (this.name == null || this.name == "") {
 			var msg = "File Name can not be empty";
 			if (failure != null) failure(msg);
-			else console.error(msg);
+			else global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcFileSave", msg);
 			return;
 		}
 		return EcRepository.save(this, success, failure, repo, eim);

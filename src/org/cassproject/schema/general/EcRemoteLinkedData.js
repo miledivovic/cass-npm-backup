@@ -281,7 +281,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 								this.toSignableJson(),
 								sig
 							);
-							console.log(verify);
+							global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRemoteLDVerify", verify);
 						} catch (ex) {
 							verify = false;
 						}

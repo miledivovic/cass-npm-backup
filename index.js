@@ -3,6 +3,22 @@ if (typeof window !== "undefined" && window) {
     window.module = {};
 }
 
+if (!global.auditLogger) { // Running client-side
+    global.auditLogger = {
+        report: function(system, severity, message, ...data) {
+            if (severity === 'error') {
+                console.error(data);
+            } else {
+                console.log(data);
+            }
+        },
+        LogCategory: {},
+        Severity: {
+            ERROR: 'error'
+        }
+    }
+}
+
 global.generateUUID = function () {
     var d = new Date().getTime();
     if (typeof window !== "undefined" && window && window.performance && typeof window.performance.now === "function") {

@@ -470,7 +470,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 							JSON.parse(decryptedSecret)
 						);
 					}
-					console.log(JSON.stringify(decryptedSecret, null, 2));
+					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcEncrValIterate", JSON.stringify(decryptedSecret, null, 2));
 					return new Promise(iterate);
 				}
 			);

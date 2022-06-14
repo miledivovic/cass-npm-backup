@@ -165,7 +165,7 @@ module.exports = class EcOrganization extends schema.Organization {
 		if (repo == null) {
 			var msg = "Repository cannot be null for a rekey operation";
 			if (failure != null) failure(msg);
-			else console.error(msg);
+			else global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcOrgRekeyAndSave", msg);
 			return;
 		} else {
 			var oldKey = await this.getCurrentOrgKey();

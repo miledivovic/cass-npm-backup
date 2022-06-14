@@ -9,7 +9,7 @@ if (typeof crypto == 'undefined')
 	try {
 		var crypto = require('crypto').webcrypto;
 	} catch (err) {
-		console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
+		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRsaOaepAsync", "Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}
 }
 
@@ -146,7 +146,7 @@ module.exports = class EcRsaOaepAsync {
 				})
 				.then(afterKeyIsImported)
 				.catch((error) => {
-					console.trace(ppk, cipherText, error);
+					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncDecrypt", ppk, cipherText, error);
 					EcAesCtrAsync.fipsOff();
 					return null;
 				});
@@ -156,7 +156,7 @@ module.exports = class EcRsaOaepAsync {
 				.decrypt(algorithm, ppk.key, base64.decode(cipherText))
 				.then(afterKeyIsImported)
 				.catch((error) => {
-					console.trace(error);
+					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncDecrypt", error);
 					EcAesCtrAsync.fipsOff();
 					return null;
 				});

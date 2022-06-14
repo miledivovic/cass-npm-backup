@@ -274,7 +274,7 @@ global.jsonld = require("jsonld");
 			actual = await jsonld.expand(json);
 		} catch(error) {
 			if (error != null) {
-				console.error(error["message"]);
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcLinkedDataRecast", error["message"]);
 				return;
 			}
 		}
@@ -283,7 +283,7 @@ global.jsonld = require("jsonld");
 			o = await jsonld.compact(actual, finalTargetContext);
 		} catch(s) {
 			if (s != null) {
-				console.error(s);
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcLinkedDataRecast", s);
 				return;
 			}
 		}

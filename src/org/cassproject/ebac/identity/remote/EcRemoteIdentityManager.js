@@ -365,7 +365,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 							} 
 							catch(ex)
 							{
-								console.error(ex);
+								global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRemoIdenManaFetch", ex);
 							}
 							if (identity == null || identity.ppk == null)
 							{						
@@ -396,7 +396,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 							} 
 							catch(ex)
 							{
-								console.error(ex);
+								global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRemoIdenManaFetch", ex);
 							}
 							if (identity == null || identity.pk == null)
 							{					
@@ -418,7 +418,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 					return eim;
 				},
 				function (arg0) {
-					console.trace(arg0);
+					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRemoIdenManaFetch", arg0);
 					throw new Error(arg0);
 				}
 			),

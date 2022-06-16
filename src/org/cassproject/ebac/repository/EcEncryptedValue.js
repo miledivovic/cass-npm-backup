@@ -125,6 +125,12 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		if (d["name"] != null) {
 			v.name = d["name"];
 		}
+		if (d["Classification"] != null) {
+			v.Classification = d["Classification"];
+		}
+		if (d["Markings"] != null) {
+			v.Markings = d["Markings"];
+		}
 		var newIv = EcAes.newIv(16);
 		var newSecret = EcAes.newIv(16);
 		return this.encryptValueActual(

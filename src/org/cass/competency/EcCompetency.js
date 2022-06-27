@@ -384,15 +384,15 @@ module.exports = class EcCompetency extends Competency {
 	 */
 	async _delete(success, failure, repo, eim) {
 		var me = this;
-		if (repo != null) console.log(await this.relations(repo));
+		if (repo != null) global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", await this.relations(repo));
 		if (repo != null) {
-			console.log(JSON.stringify(await this.relations(repo)));
+			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", JSON.stringify(await this.relations(repo)));
 			(await this.relations(repo)).forEach(
 				async (relation) => await EcRepository.DELETE(relation, null, null, repo, eim)
 			);
 		}
 		if (repo != null) {
-			console.log(JSON.stringify(await this.levels(repo)));
+			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", JSON.stringify(await this.levels(repo)));
 			(await this.levels(repo)).forEach(
 				async (level) => await EcRepository.DELETE(level, null, null, repo, eim)
 			);

@@ -65,11 +65,12 @@ module.exports = class EcRepository {
 				}
 			}
 		};
-		var failureCheck = console.trace;
 		EcRemote.timeout = oldTimeout;
 		return EcRemote.getExpectingObject(this.selectedServerProxy != null ? this.selectedServerProxy : this.selectedServer, "ping")
 			.then(successCheck)
-			.catch(failureCheck);
+			.catch((error) => {
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRepoTimeOffset", error);
+			});
 	};
 	buildKeyForwardingTable = function (success, failure, eim) {
 		var params = {size: 10000};
@@ -85,10 +86,7 @@ module.exports = class EcRepository {
 				for (var i = 0; i < rekeyRequests.length; i++) {
 					rekeyRequests[i].addRekeyRequestToForwardingTable();
 				}
-				console.log(
-					EcObject.keys(EcRemoteLinkedData.forwardingTable).length +
-					" records now in forwarding table."
-				);
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRepoBuildKeyForwTable", EcObject.keys(EcRemoteLinkedData.forwardingTable).length + " records now in forwarding table.");
 			}),
 			success,
 			failure

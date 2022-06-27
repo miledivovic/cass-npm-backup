@@ -535,7 +535,7 @@ module.exports = class ExtPerson extends schema.Person {
 		if (url.indexOf("http") > 0) this.additionalType = url;
 		else if (ExtPerson.positionLabelsMap[url] != null)
 			this.additionalType = ExtPerson.positionLabelsMap[url];
-		else console.log("error: " + url + " not a supported position");
+		else global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "ExtPersSetPos", "error: " + url + " not a supported position");
 	}
 	/**
 	 *  Returns position label corresponding to the URL form

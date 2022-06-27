@@ -125,6 +125,12 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		if (d["name"] != null) {
 			v.name = d["name"];
 		}
+		if (d["Classification"] != null) {
+			v.Classification = d["Classification"];
+		}
+		if (d["Markings"] != null) {
+			v.Markings = d["Markings"];
+		}
 		var newIv = EcAes.newIv(16);
 		var newSecret = EcAes.newIv(16);
 		return this.encryptValueActual(
@@ -470,7 +476,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 							JSON.parse(decryptedSecret)
 						);
 					}
-					console.log(JSON.stringify(decryptedSecret, null, 2));
+					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcEncrValIterate", JSON.stringify(decryptedSecret, null, 2));
 					return new Promise(iterate);
 				}
 			);

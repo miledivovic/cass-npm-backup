@@ -48,12 +48,12 @@ module.exports = class EcRsaOaepAsyncWorker {
 		try {
 			wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsync.js')));
 		} catch (e) {
-			console.trace(e);
+			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
 			try {
 				wkr = new Worker(path.resolve(__dirname, 'forgeAsync.js'));
 				wkr.onerror = function(event) {
 					wkr = null;
-					console.log(event);
+					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", event);
 					wkr = new Worker(path.resolve(__dirname, 'cass-editor/forgeAsync.js'));
 					if (wkr != null) {
 						// replace errored worker at index
@@ -61,7 +61,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 					}
 				}
 			} catch (e) {
-				console.trace(e);
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
 				// Eat quietly.
 			}
 		}

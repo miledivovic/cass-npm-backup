@@ -10,7 +10,7 @@ if (typeof crypto == 'undefined')
 		if (requireResult != null)
 			var crypto = requireResult;
 	} catch (err) {
-		console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
+		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsync", "Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}
 }
 
@@ -32,7 +32,7 @@ module.exports = class EcAesCtrAsync {
 				realCrypto.setFips(true);
 				//console.log("FIPS compliant crypto provider has been enabled.");
 			} catch (e) {
-				console.log("ERR_CRYPTO_FIPS_UNAVAILABLE",e);
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS_UNAVAILABLE", e);
 			}
 	}
 
@@ -43,7 +43,7 @@ module.exports = class EcAesCtrAsync {
 				realCrypto.setFips(false);
 				//console.log("FIPS compliant crypto provider has been disabled.");
 			} catch (e) {
-				console.log("ERR_CRYPTO_FIPS_UNAVAILABLE",e);
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS_UNAVAILABLE", e);
 			}
 	}
 

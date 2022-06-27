@@ -47,7 +47,7 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 	 *  @method generateRekeyRequestId
 	 */
 	async finalizeRequest(oldKeyPpk) {
-		console.log("creating: " + this.toSignableJson());
+		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRekeyReqFinalReq", "creating: " + this.toSignableJson());
 		this.rekeySignature = await EcRsaOaepAsync.signSha256(
 			oldKeyPpk,
 			this.toSignableJson()
@@ -81,7 +81,7 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 		delete d["rekeySignature"];
 		var e = new EcLinkedData(d.context, d.type);
 		e.copyFrom(d);
-		console.log("verifying: " + e.toJson());
+		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRekeyReqToSign", "verifying: " + e.toJson());
 		return e.toJson();
 	}
 	/**

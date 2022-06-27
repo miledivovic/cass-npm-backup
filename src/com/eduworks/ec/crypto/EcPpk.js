@@ -33,7 +33,7 @@ module.exports = class EcPpk {
 		try {
 			pk.ppk = forge.pki.privateKeyFromPem(pem);
 		} catch (ex) {
-			console.trace(ex);
+			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcPpkFromPem", ex);
 			return null;
 		}
 		EcPpk.cache[pem] = pk;

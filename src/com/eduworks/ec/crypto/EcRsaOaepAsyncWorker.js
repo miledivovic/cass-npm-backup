@@ -8,6 +8,7 @@ let EcCrypto = require("./EcCrypto.js");
 let forge = require("node-forge");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
 let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
+require("../../../../org/cassproject/general/AuditLogger.js");
 
 /**
  *  Asynchronous implementation of {{#crossLink

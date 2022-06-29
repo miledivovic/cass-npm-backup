@@ -174,7 +174,8 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                    result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -211,7 +212,8 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["negativeAssertion"] != null)
+                    result.push(fg.getMetaStateCompetency(c)["negativeAssertion"].length);
                 return result;
             }).catch((err) => {
                 console.trace(err);
@@ -251,8 +253,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -327,8 +331,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -370,8 +376,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -415,10 +423,14 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -507,9 +519,12 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c3)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -557,7 +572,8 @@ describe("EcFrameworkGraph", () => {
                 let result = [];
                 result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]);
                 result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]);
-                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c3)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -600,8 +616,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -643,8 +661,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -686,8 +706,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -729,8 +751,10 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -776,9 +800,12 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["positiveAssertion"].length);
+                if (fg.getMetaStateCompetency(c3)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c3)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -826,9 +853,12 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"]?.length);
-                result.push(fg.getMetaStateCompetency(c3)["negativeAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["negativeAssertion"].length);
+                if (fg.getMetaStateCompetency(c2)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c2)["negativeAssertion"].length);
+                if (fg.getMetaStateCompetency(c3)["negativeAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c3)["negativeAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);
@@ -866,7 +896,8 @@ describe("EcFrameworkGraph", () => {
                 () => {}
             ).then(() => {
                 let result = [];
-                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"]?.length);
+                if (fg.getMetaStateCompetency(c)["positiveAssertion"] != null)
+                result.push(fg.getMetaStateCompetency(c)["positiveAssertion"].length);
                 return result;
             }).catch((err) => {
                 assert.fail(err);

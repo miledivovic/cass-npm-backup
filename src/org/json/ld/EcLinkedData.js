@@ -1,5 +1,6 @@
 const EcArray = require("../../../com/eduworks/ec/array/EcArray");
 const EcObject = require("../../../com/eduworks/ec/array/EcObject");
+require("../../../org/cassproject/general/AuditLogger.js")
 
 global.jsonld = require("jsonld");
 /**

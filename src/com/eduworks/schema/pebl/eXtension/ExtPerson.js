@@ -1,5 +1,7 @@
 const EcRepository = require("../../../../../org/cassproject/ebac/repository/EcRepository");
 
+require("../../../../../org/cassproject/general/AuditLogger.js");
+
 /**
  *  @author debbie.brown@eduworks.com
  */

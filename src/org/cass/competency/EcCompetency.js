@@ -1,5 +1,6 @@
 const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
 const Competency = require("../../cassproject/schema/cass/competency/Competency.js");
+require("../../cassproject/general/AuditLogger.js");
 /**
  *  Implementation of a Competency object with methods for interacting with CASS
  *  services on a server.

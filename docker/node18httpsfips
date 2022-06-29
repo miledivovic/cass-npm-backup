@@ -10,6 +10,20 @@ RUN openssl version
 RUN git clone https://github.com/nodejs/node.git -b v18.x
 RUN cd node && export OPENSSL_ENABLE_MD5_VERIFY=true && export OPENSSL_CONF=/usr/local/ssl/openssl.cnf && export OPENSSL_MODULES=/usr/local/ssl/lib64/ossl-modules && ./configure --shared-openssl --shared-openssl-libpath=/usr/local/ssl/lib64 --shared-openssl-includes=/usr/local/ssl/include --shared-openssl-libname=crypto,ssl --openssl-is-fips > configure.log && export LD_LIBRARY_PATH=/usr/local/ssl/lib64 && make -j8 > make.log && make install > makeinstall.log && cd ..
 
+ENV OPENSSL_ENABLE_MD5_VERIFY=true
+ENV OPENSSL_CONF=/usr/local/ssl/openssl.cnf
+ENV OPENSSL_MODULES=/usr/local/ssl/lib64/ossl-modules
+ENV LD_LIBRARY_PATH=/usr/local/ssl/lib64
+ENV HTTP2=false
+ENV FIPS=true
+
+RUN echo '.include /usr/local/ssl/fipsmodule.cnf' >> /usr/local/ssl/openssl.cnf
+RUN echo '[provider_sect]' >> /usr/local/ssl/openssl.cnf
+RUN echo 'default = default_sect' >> /usr/local/ssl/openssl.cnf
+RUN echo 'fips = fips_sect' >> /usr/local/ssl/openssl.cnf
+RUN echo '[default_sect]' >> /usr/local/ssl/openssl.cnf
+RUN echo 'activate = 1' >> /usr/local/ssl/openssl.cnf
+
 COPY package.json package.json
 COPY package-lock.json package-lock.json
 RUN npm install
@@ -25,21 +39,6 @@ COPY test.js test.js
 COPY ca.crt ca.crt
 COPY client.crt client.crt
 COPY client.key client.key
-RUN npm i *.tgz
 RUN sed -i '1crequire("cassproject");' test.js
-
-ENV OPENSSL_ENABLE_MD5_VERIFY=true
-ENV OPENSSL_CONF=/usr/local/ssl/openssl.cnf
-ENV OPENSSL_MODULES=/usr/local/ssl/lib64/ossl-modules
-ENV LD_LIBRARY_PATH=/usr/local/ssl/lib64
-ENV HTTP2=false
-ENV FIPS=true
-
-RUN echo '.include /usr/local/ssl/fipsmodule.cnf' >> /usr/local/ssl/openssl.cnf
-RUN echo '[provider_sect]' >> /usr/local/ssl/openssl.cnf
-RUN echo 'default = default_sect' >> /usr/local/ssl/openssl.cnf
-RUN echo 'fips = fips_sect' >> /usr/local/ssl/openssl.cnf
-RUN echo '[default_sect]' >> /usr/local/ssl/openssl.cnf
-RUN echo 'activate = 1' >> /usr/local/ssl/openssl.cnf
 
 ENTRYPOINT npm run mocha:clientSideCertificates

@@ -1,6 +1,7 @@
 var base64 = require("base64-arraybuffer");
 let forge = require("node-forge");
 const EcAesCtrAsync = require("./EcAesCtrAsync.js");
+require("../../../../org/cassproject/general/AuditLogger.js");
 if (typeof crypto == 'undefined')
 {
 	if (typeof window !== 'undefined' && window != null && window !== undefined)

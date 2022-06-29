@@ -16,6 +16,5 @@ COPY ca.crt ca.crt
 COPY client.crt client.crt
 COPY client.key client.key
 ENV CASS_LOOPBACK=https://docker.host.internal/api/
-RUN npm i *.tgz
 RUN sed -i '1crequire("cassproject");' test.js
 ENTRYPOINT npm run mocha:clientSideCertificates

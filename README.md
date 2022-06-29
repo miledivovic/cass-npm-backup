@@ -49,6 +49,14 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.13
+* Audit logging.
+* Classification and Markings remain unencrypted on objects.
+* Last login time field in stored identity object.
+
+## 1.5.12
+* Improved window crypto detection.
+
 ## 1.5.11
 * Login fix for folks with contacts.
 

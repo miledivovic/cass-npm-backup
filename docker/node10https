@@ -1,7 +1,6 @@
 FROM node:10
 WORKDIR code
 COPY package.json package.json
-COPY package-lock.json package-lock.json
 RUN npm install
 
 COPY ca.crt ca.crt
@@ -15,6 +14,5 @@ COPY test.js test.js
 COPY ca.crt ca.crt
 COPY client.crt client.crt
 COPY client.key client.key
-RUN npm i *.tgz
 RUN sed -i '1crequire("cassproject");' test.js
 ENTRYPOINT npm run mocha:clientSideCertificates

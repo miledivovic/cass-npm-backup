@@ -9,6 +9,7 @@ const EcIdentityManager = require("../EcIdentityManager");
 const RemoteIdentityManagerInterface = require("./RemoteIdentityManagerInterface");
 let forge = require("node-forge");
 const EcPpkFacade = require("../../../../../com/eduworks/ec/crypto/EcPpkFacade");
+require("../../../general/AuditLogger.js")
 
 /**
  *  Logs into and stores/retrieves credentials from a compatible remote server.

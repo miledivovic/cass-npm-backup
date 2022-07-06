@@ -1,4 +1,5 @@
 const EcRepository = require("../../ebac/repository/EcRepository");
+require("../AuditLogger.js")
 
 /**
  *  Implementation of a file with methods for communicating with repository services

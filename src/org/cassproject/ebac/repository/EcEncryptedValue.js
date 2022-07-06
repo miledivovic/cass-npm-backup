@@ -12,6 +12,7 @@ const EcLinkedData = require("../../../json/ld/EcLinkedData");
 const EcIdentityManager = require("../identity/EcIdentityManager");
 const base64 = require("base64-arraybuffer");
 const EcRemoteLinkedData = require("../../schema/general/EcRemoteLinkedData");
+require("../../general/AuditLogger.js")
 
 /**
  *  Represents an encrypted piece of data. Provides helper functions for

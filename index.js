@@ -3,21 +3,7 @@ if (typeof window !== "undefined" && window) {
     window.module = {};
 }
 
-if (!global.auditLogger) { // Running client-side
-    global.auditLogger = {
-        report: function(system, severity, message, ...data) {
-            if (severity === 'error') {
-                console.error(data);
-            } else {
-                console.log(data);
-            }
-        },
-        LogCategory: {},
-        Severity: {
-            ERROR: 'error'
-        }
-    }
-}
+require("./src/org/cassproject/general/AuditLogger.js");
 
 global.generateUUID = function () {
     var d = new Date().getTime();

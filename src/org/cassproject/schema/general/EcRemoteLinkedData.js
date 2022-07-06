@@ -6,6 +6,7 @@ const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade.js")
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync.js");
 const EcLinkedData = require("../../../json/ld/EcLinkedData.js");
 const Ebac = require("./Ebac.js");
+require("../../general/AuditLogger.js")
 
 /**
  *  Data wrapper to represent remotely hosted data. Includes necessary KBAC fields for

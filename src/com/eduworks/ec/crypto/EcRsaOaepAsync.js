@@ -1,13 +1,16 @@
 var base64 = require("base64-arraybuffer");
 let forge = require("node-forge");
 const EcAesCtrAsync = require("./EcAesCtrAsync.js");
+require("../../../../org/cassproject/general/AuditLogger.js");
 if (typeof crypto == 'undefined')
 {
 	if (typeof window !== 'undefined' && window != null && window !== undefined)
 		if (window.crypto != null)
 			var crypto = window.crypto;
 	try {
-		var crypto = require('crypto').webcrypto;
+		let requireResult = require('crypto').webcrypto;
+		if (requireResult != null)
+			var crypto = requireResult;
 	} catch (err) {
 		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRsaOaepAsync", "Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}

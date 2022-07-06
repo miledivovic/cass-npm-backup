@@ -1,3 +1,5 @@
+require("../../../../org/cassproject/general/AuditLogger.js");
+
 global.axiosOptions = {};
 var isNode = false;    
 if (typeof process === 'object') {
@@ -245,7 +247,7 @@ module.exports = class EcRemote {
 				maxBodyLength: Infinity
 			})
 			.then((response) => {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemotePostInner", response.request.socket ? response.request.socket.remoteAddress : '', url, postHeaders);
+				//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemotePostInner", response.request.socket ? response.request.socket.remoteAddress : '', url, postHeaders);
 				return response.data;
 			})
 			.catch((err) => {
@@ -258,7 +260,7 @@ module.exports = class EcRemote {
 					}
 					throw err;
 				}
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", "Internal error in Axios?");
+				else global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", "Internal error in Axios?");
 			});
 		return cassPromisify(p, successCallback, failureCallback);
 	}
@@ -344,7 +346,7 @@ module.exports = class EcRemote {
 				headers: { signatureSheet: signatureSheet }
 			})
 			.then((response) => {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteDelete", response.request.socket ? response.request.socket.remoteAddress : '', url, signatureSheet);
+				//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteDelete", response.request.socket ? response.request.socket.remoteAddress : '', url, signatureSheet);
 				return response.data;
 			})
 			.catch((err) => {

@@ -11,6 +11,7 @@ const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto");
 const EcIdentity = require("../identity/EcIdentity");
 const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade");
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
+require("../../general/AuditLogger.js")
 
 /**
  *  Repository object used to interact with the CASS Repository web services.

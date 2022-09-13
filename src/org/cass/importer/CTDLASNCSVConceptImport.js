@@ -74,6 +74,11 @@ module.exports = class CTDLASNCSVConceptImport {
 				var concepts = [];
 				for (let each = 0; each < tabularData.length; each++) {
 					let pretranslatedE = tabularData[each];
+					if (
+						pretranslatedE["@type"].toLowerCase().startsWith('sample')
+					) {
+						continue;
+					}
 					if (pretranslatedE["@type"] == "skos:ConceptScheme") {
 						var translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);

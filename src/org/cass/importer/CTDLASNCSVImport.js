@@ -46,7 +46,7 @@ module.exports = class CTDLASNCSVImport {
 						col[typeCol].trim() == "ceasn:Competency"
 					)
 						competencyCounter++;
-					else if (col[typeCol] == null || col[typeCol] == "")
+					else if (col[typeCol] == null || col[typeCol] == "" || col[typeCol].toLowerCase().startsWith('sample'))
 						continue;
 					else {
 						this.error("Found unknown type:" + col[typeCol]);
@@ -97,6 +97,11 @@ module.exports = class CTDLASNCSVImport {
 				var relationById = {};
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
+					if (
+						pretranslatedE["@type"].toLowerCase().startsWith('sample')
+					) {
+						continue;
+					}
 					if (
 						pretranslatedE["@type"] ==
 						"ceasn:CompetencyFramework"
@@ -517,6 +522,11 @@ module.exports = class CTDLASNCSVImport {
 				var relationById = {};
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
+					if (
+						pretranslatedE["@type"].toLowerCase().startsWith('sample')
+					) {
+						continue;
+					}
 					if (
 						pretranslatedE["@type"] ==
 						"ceterms:Collection"

@@ -80,6 +80,10 @@ module.exports = class CTDLASNCSVConceptImport {
 				var concepts = [];
 				for (let each = 0; each < tabularData.length; each++) {
 					let pretranslatedE = tabularData[each];
+					// Probably an empty newline, skip
+					if (!pretranslatedE["@id"]) {
+						continue;
+					}
 					if (
 						pretranslatedE["@type"].toLowerCase().startsWith('sample')
 					) {

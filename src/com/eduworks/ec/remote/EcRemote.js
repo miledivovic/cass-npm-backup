@@ -253,7 +253,7 @@ module.exports = class EcRemote {
 			})
 			.catch((err) => {
 				if (err != null) {
-					global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", err && err.response && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, postHeaders, err);
+					global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, postHeaders, err);
 					if (err.response != null) {
 						if (err.response.data != null)
 							throw err.response.data;
@@ -304,7 +304,7 @@ module.exports = class EcRemote {
 				return response.data;
 			})
 			.catch((err) => {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", err && err.response && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, err);
+				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, err);
 				if (err) {
 					if (err.response) {
 						if (err.response.data)
@@ -351,7 +351,7 @@ module.exports = class EcRemote {
 				return response.data;
 			})
 			.catch((err) => {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteDelete", err && err.response && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, signatureSheet, err);
+				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteDelete", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, signatureSheet, err);
 				if (err) {
 					if (err.response) {
 						if (err.response.data)

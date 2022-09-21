@@ -3,34 +3,14 @@ const EcRepository = require("../cassproject/ebac/repository/EcRepository");
 
 module.exports = class EcPerson extends schema.Person {
 	static async getByPk(repo, pk, success, failure, eim) {
-		let p = await EcPerson.get(
-			repo.selectedServer +
-			(repo.selectedServer.endsWith("/") ? "" : "/") +
-			"data/" +
-			pk.fingerprint(),
-			null,
-			null, repo, eim
-		);
-		if (p != null)
-			return cassReturnAsPromise(p, success, failure);
-		return EcPerson.search(repo, pk.fingerprint(),
-			(persons)=>{
-                if (persons.length === 0) {
-					if (failure != null)
-						failure("Person not found.");
-					return null;
-				}
-				if (EcRepository.caching)
-					EcRepository.cache[repo.selectedServer +(repo.selectedServer.endsWith("/") ? "" : "/") +"data/" +pk.fingerprint()] = persons[0];
-				return cassReturnAsPromise(persons[0], success, failure);
-			},
-			failure, repo, eim
-		);
+		let p = new EcPerson();
+		p.assignId((repo.selectedServerProxy == null ? repo.selectedServer : repo.selectedServerProxy),pk.fingerprint());
+		let results = await EcPerson.get(p.shortId(),success,failure,repo,eim);
+		return results;
 	}
 	static getByPkBlocking(repo, pk, eim) {
 		return EcPerson.get(
-			repo.selectedServer +
-			(repo.selectedServer.endsWith("/") ? "" : "/") +
+			repo.selectedServerProxy == null ? repo.selectedServer : repo.selectedServerProxy +
 			"data/" +
 			pk.fingerprint(), null, null, repo, eim
 		);

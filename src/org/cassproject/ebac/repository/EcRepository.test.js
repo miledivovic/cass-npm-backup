@@ -1,5 +1,4 @@
 const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
-let chai = require("chai");
 const EcRepository = require("../../../../org/cassproject/ebac/repository/EcRepository.js");
 const EcIdentity = require("../../../../org/cassproject/ebac/identity/EcIdentity.js");
 const EcAssertion = require("../../../../org/cass/profile/EcAssertion.js");
@@ -17,6 +16,8 @@ const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto.js");
 const schema = {
 	"Thing": require("../../../schema/Thing.js")
 };
+
+let chai = require("chai");
 
 let hrtime = function() {
     try {

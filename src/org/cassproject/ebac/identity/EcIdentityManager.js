@@ -1,3 +1,4 @@
+const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto");
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
 const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade");
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
@@ -20,6 +21,7 @@ module.exports = class EcIdentityManager {
 	static default = new this();
 	constructor() {
 	}
+	eimId = EcCrypto.generateUUID();
 	/**
 	 *  The current user's owned identities (keys+displayName)
 	 *

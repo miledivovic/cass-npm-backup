@@ -71,6 +71,8 @@ module.exports = class EcRepository {
 			.then(successCheck)
 			.catch((error) => {
 				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRepoTimeOffset", error);
+				if (failure != null)
+					failure(error);
 			});
 	};
 	buildKeyForwardingTable = function (success, failure, eim) {
@@ -114,8 +116,13 @@ module.exports = class EcRepository {
 		if (url.toLowerCase().indexOf("http") != 0) {
 			throw "URL does not begin with http. Cannot EcRepository.get";
 		}
+		
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
+		if (EcRepository.fetching[url+eim.eimId] != null)
+		{
+			return cassPromisify(EcRepository.fetching[url+eim.eimId],success,failure);
+		}
 		var originalUrl = url;
 		if (EcRepository.caching) {
 			if (EcRepository.cache[url] !== undefined) {
@@ -231,7 +238,13 @@ module.exports = class EcRepository {
 					throw error;
 				});
 			}
-		});
+		}).finally(
+			(result)=>{
+				delete EcRepository.fetching[url+eim.eimId];
+				return result;
+			}
+		);
+		EcRepository.fetching[url+eim.eimId] = p;
 		return p;
 	}
 	static setOffset = function (url) {

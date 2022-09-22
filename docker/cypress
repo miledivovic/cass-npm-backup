@@ -1,4 +1,4 @@
-FROM cypress/included:9.4.1
+FROM cypress/included:10.8.0
 
 WORKDIR code
 COPY package.json package.json
@@ -11,8 +11,8 @@ COPY index.js index.js
 COPY src src
 COPY cypressWebpack cypressWebpack
 COPY cypressBrowserify cypressBrowserify
-COPY cypressWebpack.json cypressWebpack.json
-COPY cypressBrowserify.json cypressBrowserify.json
+COPY cypressWebpack.config.js cypressWebpack.config.js
+COPY cypressBrowserify.config.js cypressBrowserify.config.js
 COPY cypressVite cypressVite
-COPY cypressVite.json cypressVite.json
-ENTRYPOINT cypress run --config-file cypressBrowserify.json --browser chrome && cypress run --config-file cypressBrowserify.json --browser firefox && cypress run --config-file cypressBrowserify.json && cypress run --config-file cypressWebpack.json --browser chrome && cypress run --config-file cypressWebpack.json --browser firefox && cypress run --config-file cypressWebpack.json && cypress run --config-file cypressVite.json --browser chrome && cypress run --config-file cypressVite.json --browser firefox && cypress run --config-file cypressVite.json
+COPY cypressVite.config.js cypressVite.config.js
+ENTRYPOINT cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressBrowserify.config.js --browser edge && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressBrowserify.config.js --browser chrome && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressBrowserify.config.js --browser firefox && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressBrowserify.config.js && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser edge && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser chrome && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser firefox && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressWebpack.config.js && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressVite.config.js --browser edge && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressVite.config.js --browser chrome && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressVite.config.js --browser firefox && cypress run -e CASS_LOOPBACK=http://host.docker.internal/api/ --config-file cypressVite.config.js

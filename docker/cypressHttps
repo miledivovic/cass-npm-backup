@@ -1,4 +1,4 @@
-FROM cypress/included:9.4.1
+FROM cypress/included:10.8.0
 
 WORKDIR code
 COPY package.json package.json
@@ -11,6 +11,6 @@ COPY index.js index.js
 COPY src src
 COPY cypressWebpack cypressWebpack
 COPY cypressBrowserify cypressBrowserify
-COPY cypressWebpack.json cypressWebpack.json
-COPY cypressBrowserify.json cypressBrowserify.json
-ENTRYPOINT cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressBrowserify.json --browser chrome && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressBrowserify.json --browser firefox && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressBrowserify.json && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.json --browser chrome && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.json --browser firefox && cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.json
+COPY cypressWebpack.config.js cypressWebpack.config.js
+COPY cypressBrowserify.config.js cypressBrowserify.config.js
+ENTRYPOINT cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressBrowserify.config.js --browser edge && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressBrowserify.config.js --browser chrome && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressBrowserify.config.js --browser firefox && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressBrowserify.config.js && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser edge && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser chrome && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser firefox && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js

@@ -49,6 +49,15 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.15
+* Fixed issue combining use of client side certificates with HTTP/2
+* Support import of ceasn:ProgressionModel
+* Ignore sample data for CEASN import.
+* Skip empty lines on CSV taxonomy import.
+* Introduced way to debounce EcRepository.get to prevent multiple HTTP requests for the same piece of data in a race condition environment.
+* EcPerson.getByPk now fetches people by their PK more reliably.
+* 
+
 ## 1.5.13
 * Audit logging.
 * Classification and Markings remain unencrypted on objects.

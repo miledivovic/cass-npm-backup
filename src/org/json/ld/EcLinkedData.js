@@ -196,7 +196,7 @@ global.jsonld = require("jsonld");
 	/**
 	 *  Also could be called "upcast", for those in the know.
 	 *  <p>
-	 *  Ghetto method of copying properties from some other object. As freshly
+	 *  A method of copying properties from some other object. As freshly
 	 *  deserialized javascript objects do not inherently attach the functions of
 	 *  their type, it is this or factory hell.
 	 *

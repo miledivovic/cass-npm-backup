@@ -297,6 +297,7 @@ module.exports = class EcRemote {
 	static getExpectingString(server, service, success, failure) {
 		var url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
+		console.log(url,axiosOptions);
 		let p = axios
 			.get(url,axiosOptions)
 			.then((response) => {
@@ -318,7 +319,7 @@ module.exports = class EcRemote {
 	}
 	static urlAppend(server, service) {
 		var url = server;
-		if (!url.endsWith("/") && service != null && service.equals("")) {
+		if (!url.endsWith("/") && service != null && service == "") {
 			url += "/";
 		}
 		if (service != null) {

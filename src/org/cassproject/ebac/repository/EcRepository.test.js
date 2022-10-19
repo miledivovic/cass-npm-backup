@@ -60,7 +60,7 @@ if (fs.readFileSync != null) {
     // global.axiosOptions.cert = fs.readFileSync('client.crt');
     // global.axiosOptions.ca = fs.readFileSync('ca.crt');
     //When http2 supports client side self-signed certificates, don't use this.
-    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+    //process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 }
 
 let changeNameAndSaveAndCheck = async (rld) => {

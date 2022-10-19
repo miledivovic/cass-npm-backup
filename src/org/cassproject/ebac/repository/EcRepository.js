@@ -478,7 +478,7 @@ module.exports = class EcRepository {
 	};
 	/**
 	 *  Attempts to save a piece of data. Does some checks before saving to
-	 *  ensure the data is valid. This version does not send a console warning,
+	*  ensure the data is valid. This version does not send a console warning,
 	 *  <p>
 	 *  Uses a signature sheet informed by the owner field of the data.
 	 *

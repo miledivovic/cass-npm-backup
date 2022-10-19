@@ -1,3 +1,9 @@
+const envHttp2 = process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true;
+if (!envHttp2)
+{
+    global.axios = require("axios"); //Pre-empt http2 use.
+}
+
 let EcFrameworkGraph = require("./EcFrameworkGraph.js");
 const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
 let chai = require("chai");
@@ -50,9 +56,10 @@ var failure = function (p1) {
 };
 
 if (fs.readFileSync != null) {
-    https.globalAgent.options.key = fs.readFileSync('client.key');
-    https.globalAgent.options.cert = fs.readFileSync('client.crt');
-    https.globalAgent.options.ca = fs.readFileSync('ca.crt');
+    // https.globalAgent.options.key = fs.readFileSync('client.key');
+    // https.globalAgent.options.cert = fs.readFileSync('client.crt');
+    // https.globalAgent.options.ca = fs.readFileSync('ca.crt');
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 }
 
 let repo = new EcRepository();
@@ -152,7 +159,7 @@ describe("EcFrameworkGraph", () => {
         var encrypted = await EcRsaOaepAsyncWorker.encrypt(pk, randomString);
         var decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
         assert.isTrue(randomString == decrypted);
-    }).timeout(10000);
+    })
     it('basic true test', async () => {
         let f = await newFramework("basic true framework");
         let c = await newCompetency("Add");
@@ -189,7 +196,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(a.shortId());
         });
         assert.deepEqual(result, [1]);
-    }).timeout(15000);
+    })
     it('basic false test', async () => {
         var f = await newFramework("basic false framework");
         var c = await newCompetency("Add");
@@ -229,7 +236,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(a.shortId());
         });
         assert.deepEqual(result, [1]);
-    }).timeout(10000);
+    })
     it('basic indeterminant test', async () => {
         var f = await newFramework("basic indeterminant framework");
         var c = await newCompetency("Add");
@@ -271,7 +278,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(a2.shortId());
         });
         assert.deepEqual(result, [1, 1]);
-    }).timeout(10000);
+    })
     it('basic unknown test', async () => {
         var f = await newFramework("basic unknown framework");
         var c = await newCompetency("Add");
@@ -305,7 +312,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(c.shortId());
         });
         assert.deepEqual(result, [undefined, undefined]);
-    }).timeout(10000);
+    })
     it('basic equivalence test', async () => {
         var f = await newFramework("basic equivalence framework");
         var c = await newCompetency("Add");
@@ -350,7 +357,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [1, 1]);
-    }).timeout(10000);
+    })
     it('basic equivalence false test', async () => {
         var f = await newFramework("basic equivalence false framework");
         var c = await newCompetency("Add");
@@ -395,7 +402,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [1, 1]);
-    }).timeout(10000);
+    })
     it('basic equivalence indeterminant test', async () => {
         var f = await newFramework("basic equivalence indeterminant framework");
         var c = await newCompetency("Add");
@@ -447,7 +454,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [1, 1, 1, 1]);
-    }).timeout(10000);
+    })
     it('basic equivalence unknown test', async () => {
         var f = await newFramework("basic equivalence unknown framework");
         var c = await newCompetency("Add");
@@ -489,7 +496,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [undefined, undefined, undefined, undefined]);
-    }).timeout(10000);
+    })
     it('basic equivalence equivalence test', async () => {
         var f = await newFramework("basic equivalence equivalence framework");
         var c = await newCompetency("Add");
@@ -542,7 +549,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r2.shortId());
         });
         assert.deepEqual(result, [1, 1, 1]);
-    }).timeout(10000);
+    })
     it('basic equivalence unequivalent test', async () => {
         var f = await newFramework("basic equivalence unequivalent framework");
         var c = await newCompetency("Add");
@@ -590,7 +597,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [undefined, undefined, 1]);
-    }).timeout(10000);
+    })
     it('basic requires satisfied test', async () => {
         var f = await newFramework("basic requires satisfied framework");
         var c = await newCompetency("Add");
@@ -635,7 +642,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [1, 1]);
-    }).timeout(10000);
+    })
     it('basic requires false test', async () => {
         var f = await newFramework("basic requires false framework");
         var c = await newCompetency("Add");
@@ -680,7 +687,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [1, 1]);
-    }).timeout(10000);
+    })
     it('basic narrows true test', async () => {
         var f = await newFramework("basic narrows true framework");
         var c = await newCompetency("Add");
@@ -725,7 +732,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [1, 1]);
-    }).timeout(10000);
+    })
     it('basic narrows false test', async () => {
         var f = await newFramework("basic narrows false framework");
         var c = await newCompetency("Add");
@@ -770,7 +777,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r.shortId());
         });
         assert.deepEqual(result, [1, 1]);
-    }).timeout(10000);
+    })
     it('basic narrows narrows test', async () => {
         var f = await newFramework("basic narrows narrows framework");
         var c = await newCompetency("Add");
@@ -823,7 +830,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r2.shortId());
         });
         assert.deepEqual(result, [1, 1, 1]);
-    }).timeout(10000);
+    })
     it('basic narrows narrows false test', async () => {
         var f = await newFramework("basic narrows narrows false framework");
         var c = await newCompetency("Add");
@@ -876,7 +883,7 @@ describe("EcFrameworkGraph", () => {
             await deleteById(r2.shortId());
         });
         assert.deepEqual(result, [1, 1, 1]);
-    }).timeout(10000);
+    })
     it('callbacks removed test', async () => {
         var f = await newFramework("callbacks removed framework");
         var c = await newCompetency("Add");
@@ -912,5 +919,5 @@ describe("EcFrameworkGraph", () => {
             await deleteById(a.shortId());
         });
         assert.deepEqual(result, [1]);
-    }).timeout(10000);
+    })
 });

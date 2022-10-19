@@ -1,4 +1,4 @@
-let chai = require("chai");
+const chai = require("chai");
 const EcAes = require("../../../../../com/eduworks/ec/crypto/EcAes");
 const EcPpk = require("../../../../../com/eduworks/ec/crypto/EcPpk");
 const EcIdentity = require("../EcIdentity");

@@ -63,7 +63,7 @@ if (global.axios == null)
 						let options = global.httpOptions.pop();
 						options.ca = global.ca;
 						options.ALPNProtocols = ['h2', 'http/1.1'];
-						if (options.port == null)
+						if (options.port == null || options.port == '')
 							options.port = 443;
 						let result = await http2.auto.resolveProtocol(options);
 						if (result.alpnProtocol == "http/1.1")

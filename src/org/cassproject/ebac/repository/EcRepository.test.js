@@ -1,3 +1,4 @@
+const EcRemote = require("../../../../com/eduworks/ec/remote/EcRemote.js");
 const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
 const EcRepository = require("../../../../org/cassproject/ebac/repository/EcRepository.js");
 const EcIdentity = require("../../../../org/cassproject/ebac/identity/EcIdentity.js");

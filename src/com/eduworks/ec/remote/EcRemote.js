@@ -26,9 +26,10 @@ if (isNode)
 
 global.httpOptions = [];
 global.http2Enabled = {};
+let axios = null;
 if (global.axios == null)
 {
-	global.axios = require("axios");
+	global.axios = axios = require("axios");
 	if (isNode)
 	{
 		let http2;
@@ -85,6 +86,7 @@ if (global.axios == null)
 		axiosOptions.adapter = http2AdapterEnhancer(axios.defaults.adapter);
 	}
 } else {
+	axios = global.axios;
 	if (isNode)
 	{
 		let https;
@@ -231,17 +233,19 @@ module.exports = class EcRemote {
 		url = EcRemote.upgradeHttpToHttps(url);
 		let postHeaders = null;
 		if (fd.getHeaders != null)
+		{
 			postHeaders = fd.getHeaders();
-		else
-			postHeaders = {
-				'content-type': 'multipart/form-data'
-			}
+			postHeaders["Content-Type"] = null;
+		}
+		 else
+		  	postHeaders = {
+		  		"Content-Type": null
+		  	}
 		if (fd.getLengthSync != null)
 			postHeaders["content-length"] = fd.getLengthSync();
 		if (headers !== undefined && headers != null)
 			for (let header in headers) postHeaders[header] = headers[header];
-		let p = axios
-			.post(url, fd, {
+		let p = axios.post(url, fd, {
 				...axiosOptions,
 				headers: postHeaders,
 				maxContentLength: Infinity,

@@ -3,7 +3,7 @@ if (!envHttp2)
 {
     global.axios = require("axios"); //Pre-empt http2 use.
 }
-
+const EcRemote = require("../remote/EcRemote.js");
 let EcFrameworkGraph = require("./EcFrameworkGraph.js");
 const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
 let chai = require("chai");
@@ -18,9 +18,6 @@ const EcRsaOaepAsyncWorker = require("../crypto/EcRsaOaepAsyncWorker.js");
 const EcIdentityManager = require("../../../../org/cassproject/ebac/identity/EcIdentityManager");
 const EcAes = require("../crypto/EcAes.js");
 const fs = require('fs');
-const https = require('https');
-const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto.js");
-const EcEncryptedValue = require("../../../../org/cassproject/ebac/repository/EcEncryptedValue.js");
 
 let hrtime = function() {
     try {

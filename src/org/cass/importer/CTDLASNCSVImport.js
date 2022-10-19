@@ -46,7 +46,7 @@ module.exports = class CTDLASNCSVImport {
 						col[typeCol].trim() == "ceasn:Competency"
 					)
 						competencyCounter++;
-					else if (col[typeCol] == null || col[typeCol] == "" || col[typeCol].toLowerCase().startsWith('sample'))
+					else if (col[typeCol] == null || col[typeCol] == "" || col[typeCol].toLowerCase().startsWith('sample') || col[typeCol].toLowerCase().startsWith('instruction'))
 						continue;
 					else {
 						this.error("Found unknown type:" + col[typeCol]);
@@ -98,7 +98,7 @@ module.exports = class CTDLASNCSVImport {
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
 					if (
-						pretranslatedE["@type"].toLowerCase().startsWith('sample')
+						pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction')
 					) {
 						continue;
 					}
@@ -523,7 +523,7 @@ module.exports = class CTDLASNCSVImport {
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
 					if (
-						pretranslatedE["@type"].toLowerCase().startsWith('sample')
+						pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction')
 					) {
 						continue;
 					}

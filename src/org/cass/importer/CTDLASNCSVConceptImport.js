@@ -85,7 +85,7 @@ module.exports = class CTDLASNCSVConceptImport {
 						continue;
 					}
 					if (
-						pretranslatedE["@type"].toLowerCase().startsWith('sample')
+						pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction')
 					) {
 						continue;
 					}

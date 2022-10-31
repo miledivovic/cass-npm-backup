@@ -31,9 +31,9 @@ module.exports = class CTDLASNCSVConceptImport {
 					if (i == 0) continue;
 					var col = tabularData[i];
 					if (col[typeCol] == "skos:ConceptScheme") conceptSchemeCounter++;
-					else if (col[typeCol] == "ceasn:ProgressionModel") progressionCounter++;
+					else if (col[typeCol] == "asn:ProgressionModel") progressionCounter++;
 					else if (col[typeCol] == "skos:Concept") conceptCounter++;
-					else if (col[typeCol] == "ceasn:ProgressionLevel") conceptCounter++;
+					else if (col[typeCol] == "asn:ProgressionLevel") conceptCounter++;
 					else if (col[typeCol] == null || col[typeCol] == "")
 						continue;
 					else {
@@ -325,7 +325,7 @@ module.exports = class CTDLASNCSVConceptImport {
 				var concepts = [];
 				for (let each = 0; each < tabularData.length; each++) {
 					let pretranslatedE = tabularData[each];
-					if (pretranslatedE["@type"] == "ceasn:ProgressionModel") {
+					if (pretranslatedE["@type"] == "asn:ProgressionModel") {
 						var translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);
 						CTDLASNCSVImport.cleanUpTranslator(
@@ -389,7 +389,7 @@ module.exports = class CTDLASNCSVConceptImport {
 						}
 						f.subType = "Progression";
 						schemeArray.push(f);
-					} else if (pretranslatedE["@type"] == "ceasn:ProgressionLevel") {
+					} else if (pretranslatedE["@type"] == "asn:ProgressionLevel") {
 						var translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);
 						CTDLASNCSVImport.cleanUpTranslator(

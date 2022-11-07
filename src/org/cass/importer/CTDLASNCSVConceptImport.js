@@ -34,7 +34,7 @@ module.exports = class CTDLASNCSVConceptImport {
 					else if (col[typeCol] == "asn:ProgressionModel") progressionCounter++;
 					else if (col[typeCol] == "skos:Concept") conceptCounter++;
 					else if (col[typeCol] == "asn:ProgressionLevel") conceptCounter++;
-					else if (col[typeCol] == null || col[typeCol] == "")
+					else if (col[typeCol] == null || col[typeCol] == "" || col[typeCol].toLowerCase().startsWith('sample') || col[typeCol].toLowerCase().startsWith('instruction'))
 						continue;
 					else {
 						this.error("Found unknown type:" + col[typeCol]);
@@ -325,6 +325,11 @@ module.exports = class CTDLASNCSVConceptImport {
 				var concepts = [];
 				for (let each = 0; each < tabularData.length; each++) {
 					let pretranslatedE = tabularData[each];
+					if (
+						pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction')
+					) {
+						continue;
+					}
 					if (pretranslatedE["@type"] == "asn:ProgressionModel") {
 						var translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);

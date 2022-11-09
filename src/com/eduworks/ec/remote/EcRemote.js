@@ -29,7 +29,10 @@ global.http2Enabled = {};
 let axios = null;
 if (global.axios == null)
 {
-	global.axios = axios = require("axios");
+	let axiosModule = require("axios");
+	if (axiosModule.default != null) 
+		axiosModule = axiosModule.default;
+	global.axios = axios = axiosModule;
 	if (isNode)
 	{
 		let http2;
@@ -86,6 +89,8 @@ if (global.axios == null)
 		axiosOptions.adapter = http2AdapterEnhancer(axios.defaults.adapter);
 	}
 } else {
+	if (global.axios.default != null) 
+		global.axios = global.axios.default;
 	axios = global.axios;
 	if (isNode)
 	{

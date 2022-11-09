@@ -49,6 +49,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.18
+* (PR #268) Updated Progression Type from ceasn to asn
+* (PR #264) Ignore sample lines in CEASN import
+
 ## 1.5.15
 * Fixed issue combining use of client side certificates with HTTP/2
 * Support import of ceasn:ProgressionModel

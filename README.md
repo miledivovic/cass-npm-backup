@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.19
+* No longer use the selectedServerProxy URL to communicate in any context.
+
 ## 1.5.18
 * (PR #268) Updated Progression Type from ceasn to asn
 * (PR #264) Ignore sample lines in CEASN import

@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.20
+* Added history fetch (fetches a list of results)
+
 ## 1.5.19
 * No longer use the selectedServerProxy URL to communicate in any context.
 

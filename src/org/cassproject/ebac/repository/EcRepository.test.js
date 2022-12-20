@@ -162,6 +162,10 @@ describe("EcRepository", () => {
         EcEncryptedValue.encryptOnSave(rld.shortId(), false);
         await changeNameAndSaveAndCheck(rld);
     }).timeout(10000);
+    it('history', async () => {
+        let history = await EcRepository.history(rld.shortId(),repo);
+        assert.isTrue(history.length ==6,"History is not populated.");
+    }).timeout(10000);
     it('search', async () => {
         let results = await repo.search(`@id:"${rld.shortId()}"`);
         assert.equal(results.length, 1);
@@ -359,5 +363,9 @@ describe("EcRepository", () => {
         let results = await repo.search(`@id:"${rld.shortId()}"`);
         assert.equal(results.length, 1);
         assert.equal(results[0].shortId(), rld.shortId());
+    }).timeout(10000);
+    it('registered history', async () => {
+        let history = await EcRepository.history(rld.shortId(),repo);
+        assert.isTrue(history.length == 6,"History is not populated.");
     }).timeout(10000);
 });

@@ -1,9 +1,9 @@
 let EcAes = require("./EcAes.js");
 let chai = require("chai");
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 describe("EcAes", () => {
     it('newSecret != null', () => {

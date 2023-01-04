@@ -24,15 +24,16 @@ module.exports = class EcCrypto {
 	 *  @method md5
 	 */
 	static md5(s) {
+		let m = null;
 		if (EcCrypto.caching) {
 			if (EcCrypto.md5Cache[s] === undefined) {
-				var m = forge.md.md5.create();
+				m = forge.md.md5.create();
 				m.update(s);
 				EcCrypto.md5Cache[s] = m.digest().toHex();
 			}
 			return EcCrypto.md5Cache[s];
 		}
-		var m = forge.md.md5.create();
+		m = forge.md.md5.create();
 		m.update(s);
 		return m.digest().toHex();
 	}
@@ -45,15 +46,16 @@ module.exports = class EcCrypto {
 	 *  @method sha256
 	 */
 	static sha256(s) {
+		let m = null;
 		if (EcCrypto.caching) {
 			if (EcCrypto.sha256Cache[s] === undefined) {
-				var m = forge.md.sha256.create();
+				m = forge.md.sha256.create();
 				m.update(s, "utf8");
 				EcCrypto.sha256Cache[s] = m.digest().toHex();
 			}
 			return EcCrypto.sha256Cache[s];
 		}
-		var m = forge.md.sha256.create();
+		m = forge.md.sha256.create();
 		m.update(s, "utf8");
 		return m.digest().toHex();
 	}
@@ -64,12 +66,12 @@ module.exports = class EcCrypto {
 		return new TextEncoder("utf-8").encode(str).buffer;
 	}
 	static generateUUID () {
-		var d = new Date().getTime();
+		let d = new Date().getTime();
 		if (typeof window !== "undefined" && window && window.performance && typeof window.performance.now === "function") {
 			d += performance.now(); // use high-precision timer if available
 		}
-		var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-			var r = (d + Math.random() * 16) % 16 | 0;
+		let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+			let r = (d + Math.random() * 16) % 16 | 0;
 			d = Math.floor(d / 16);
 			return (c == 'x' ? r : r & 0x3 | 0x8).toString(16);
 		});

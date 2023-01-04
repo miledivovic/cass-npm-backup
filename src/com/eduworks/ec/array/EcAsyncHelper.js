@@ -33,11 +33,12 @@ module.exports = class EcAsyncHelper {
 	 *  @memberOf EcAsyncHelper
 	 */
 	each(array, each, after) {
-		var me = this;
 		this.counter = array.length;
 		if (array.length == 0) after(array);
-		for (var i = 0; i < array.length; i++) {
-			if (this.counter > 0) this.execute(array, each, after, me, i);
+		for (let i = 0; i < array.length; i++) {
+			if (this.counter > 0) {
+				this.execute(array, each, after, this, i);
+			}
 		}
 	}
 	/**
@@ -50,11 +51,12 @@ module.exports = class EcAsyncHelper {
 	 *  @memberOf EcAsyncHelper
 	 */
 	eachSet(array, each, after) {
-		var me = this;
 		this.counter = array.length;
 		if (array.length == 0) after(array);
-		for (var i = 0; i < array.length; i++) {
-			if (this.counter > 0) this.executeSet(array, each, after, me, i);
+		for (let i = 0; i < array.length; i++) {
+			if (this.counter > 0) {
+				this.executeSet(array, each, after, this, i);
+			}
 		}
 	}
 	execute(array, each, after, me, i) {
@@ -71,8 +73,8 @@ module.exports = class EcAsyncHelper {
 				array[i] = result;
 				me.counter--;
 				if (me.counter == 0) {
-					var finalArray = [];
-					for (var j = 0; j < array.length; j++)
+					let finalArray = [];
+					for (let j = 0; j < array.length; j++)
 						if (array[j] != null) finalArray.push(array[j]);
 					after(finalArray);
 				}

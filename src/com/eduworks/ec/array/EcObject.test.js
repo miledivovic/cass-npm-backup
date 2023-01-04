@@ -1,9 +1,9 @@
 let EcObject = require("./EcObject.js");
 let chai = require("chai");
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 describe("EcObject", () => {
     describe("isObject", () => {

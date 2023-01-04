@@ -34,14 +34,14 @@ module.exports = class EcAesCtr {
 			forge.util.decode64(iv).length == 16
 		)
 			return aesEncrypt(plaintext, iv, secret);
-		var c = forge.cipher.createCipher(
+		let c = forge.cipher.createCipher(
 			"AES-CTR",
 			forge.util.decode64(secret)
 		);
 		c.start({iv: forge.util.decode64(iv)});
 		c.update(forge.util.createBuffer(forge.util.encodeUtf8(plaintext)));
 		c.finish();
-		var encrypted = c.output;
+		let encrypted = c.output;
 		return forge.util.encode64(encrypted.bytes());
 	}
 	/**
@@ -64,7 +64,7 @@ module.exports = class EcAesCtr {
 			);
 		EcCrypto.deprecationNotice = true;
 		if (EcCrypto.caching) {
-			var cacheGet = EcCrypto.decryptionCache[secret + iv + ciphertext];
+			let cacheGet = EcCrypto.decryptionCache[secret + iv + ciphertext];
 			if (cacheGet != null) return cacheGet;
 		}
 		if (
@@ -72,19 +72,19 @@ module.exports = class EcAesCtr {
 			forge.util.decode64(secret).length == 16 &&
 			forge.util.decode64(iv).length == 16
 		) {
-			var result = aesDecrypt(ciphertext, iv, secret);
+			let result = aesDecrypt(ciphertext, iv, secret);
 			if (EcCrypto.caching)
 				EcCrypto.decryptionCache[secret + iv + ciphertext] = result;
 			return result;
 		}
-		var c = forge.cipher.createDecipher(
+		let c = forge.cipher.createDecipher(
 			"AES-CTR",
 			forge.util.decode64(secret)
 		);
 		c.start({iv: forge.util.decode64(iv)});
 		c.update(forge.util.createBuffer(forge.util.decode64(ciphertext)));
 		c.finish();
-		var decrypted = c.output;
+		let decrypted = c.output;
 		if (EcCrypto.caching)
 			EcCrypto.decryptionCache[
 				secret + iv + ciphertext

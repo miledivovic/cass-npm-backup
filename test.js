@@ -1,6 +1,6 @@
 require(".");
 
-var clog = console.log;
+let clog = console.log;
 console.log = function (s) {
     let e = new Error();
     let frame = e.stack.split("\n")[2];
@@ -13,7 +13,7 @@ process.on("unhandledRejection", (reason, p) => {
     console.trace("Unhandled Rejection at: Promise", p, "reason:", reason);
     // application specific logging, throwing an error, or other logic here
 });
-var Assert = {
+let Assert = {
     assertTrue: function (val, val2) {
         if (val2 == null || val2 === undefined) {
             if (val == false) {
@@ -100,7 +100,7 @@ global.failure = function (val) {
     process.exit(1);
 };
 
-var repo = new EcRepository();
+let repo = new EcRepository();
 repo.selectedServer = "https://dev.cassproject.org/api/";
 EcCrypto.testMode = true;
 
@@ -114,7 +114,7 @@ class EcRandomTest {
 }
 class EcTaskTest {
     createTest = function () {
-        var task = new EcAsyncTask(
+        let task = new EcAsyncTask(
             function (p1) {
                 return "Hello " + p1;
             },
@@ -124,8 +124,8 @@ class EcTaskTest {
             null
         );
         setTimeout(function () {
-            var val = "World";
-            var ret = task.doTask(val);
+            let val = "World";
+            let ret = task.doTask(val);
             console.log(ret);
             Assert.assertTrue(ret == "Hello " + val);
         }, 200);
@@ -133,10 +133,10 @@ class EcTaskTest {
 }
 class EcRemoteLinkedDataTest {
     signableDataTest = function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var f = new EcRemoteLinkedData(General.context, "testType");
+        let f = new EcRemoteLinkedData(General.context, "testType");
         f["name"] = "My_File.txt";
         f["mimeType"] = "text/plain";
         f["data"] = "BASE64ENCODEDDATA";
@@ -144,7 +144,7 @@ class EcRemoteLinkedDataTest {
         f["checksum"] = "ABC123";
         f.addOwner(ppk.toPk());
         f.signWith(ppk);
-        var signableJson = f.toSignableJson();
+        let signableJson = f.toSignableJson();
         console.log("Signable JSON: " + signableJson);
         Assert.assertTrue("No Tabs.", signableJson.indexOf("\t") == -1);
         Assert.assertTrue(
@@ -169,13 +169,13 @@ class EcRemoteLinkedDataTest {
         );
     };
     signAndVerifyTest = async () => {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----"
         );
-        var f = new EcRemoteLinkedData(General.context, "testType");
+        let f = new EcRemoteLinkedData(General.context, "testType");
         f["name"] = "My_File.txt";
         f["mimeType"] = "text/plain";
         f["data"] = "BASE64ENCODEDDATA";
@@ -207,19 +207,19 @@ class EcRemoteLinkedDataTest {
 }
 class EcContactTest {
     encryptContactTest = function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var contact = new EcContact();
+        let contact = new EcContact();
         contact.pk = ppk.toPk();
         contact.displayName = "Test Person";
         contact.source = "http://sandbox.service.cassproject.org";
-        var secret = EcAes.newIv(32);
+        let secret = EcAes.newIv(32);
         console.log("Secret: " + secret);
         console.log("Encrypting contact...");
-        var encryptedContact = contact.toEncryptedContact(secret);
+        let encryptedContact = contact.toEncryptedContact(secret);
         console.log("Decrypting contact...");
-        var decryptedContact = EcContact.fromEncryptedContact(
+        let decryptedContact = EcContact.fromEncryptedContact(
             encryptedContact,
             secret,
             contact.source
@@ -237,9 +237,9 @@ class EcRepositoryTest {
     static server = "http://localhost/api/";
     begin = function () { };
     createPublicObjectTest = async function () {
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
-        var thing = new EcRemoteLinkedData(
+        let thing = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -269,7 +269,7 @@ class EcRepositoryTest {
         thing = await EcRepository.get(
             thing.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 if (retrieved.owner != null)
                     Assert.assertEquals(
                         "File is not Public, has an owner",
@@ -295,7 +295,7 @@ class EcRepositoryTest {
             }
         );
         console.log("thing: " + thing);
-        var thing2 = new EcRemoteLinkedData(
+        let thing2 = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -317,7 +317,7 @@ class EcRepositoryTest {
         await EcRepository.get(
             thing2.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 if (retrieved.owner != null)
                     Assert.assertEquals(
                         "File is not Public, has an owner",
@@ -357,9 +357,9 @@ class EcRepositoryTest {
         );
     };
     createPublicRegisteredObjectTest = async function () {
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
-        var thing = new EcRemoteLinkedData(
+        let thing = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -390,7 +390,7 @@ class EcRepositoryTest {
         await EcRepository.get(
             thing.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 if (retrieved.owner != null)
                     Assert.assertEquals(
                         "File is not Public, has an owner",
@@ -417,7 +417,7 @@ class EcRepositoryTest {
                 );
             }
         );
-        var thing2 = new EcRemoteLinkedData(
+        let thing2 = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -439,7 +439,7 @@ class EcRepositoryTest {
         await EcRepository.get(
             thing2.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 if (retrieved.owner != null)
                     Assert.assertEquals(
                         "File is not Public, has an owner",
@@ -481,10 +481,10 @@ class EcRepositoryTest {
         );
     };
     createAndDeleteSingleOwnedObjectTest = async function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var thing = new EcRemoteLinkedData(
+        let thing = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -492,11 +492,11 @@ class EcRepositoryTest {
         thing["name"] = "Testing Owned Object";
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
         console.log("Saving...");
         await EcRepository.save(
@@ -515,7 +515,7 @@ class EcRepositoryTest {
         await EcRepository.get(
             thing.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 Assert.assertTrue(
                     "Object is not Owned by the Identity that Created It",
                     retrieved.canEdit(newId1.ppk.toPk())
@@ -544,8 +544,8 @@ class EcRepositoryTest {
             null,
             function (p1) {
                 console.log("Searched.");
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId().equals(thing.shortId())) found = true;
                 }
                 Assert.assertTrue("Unable to find object in search. ", found);
@@ -569,7 +569,7 @@ class EcRepositoryTest {
         );
         console.log("After trying to delete...");
         EcIdentityManager.default.addIdentity(newId1);
-        var thing2 = new EcRemoteLinkedData(
+        let thing2 = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -591,7 +591,7 @@ class EcRepositoryTest {
         await EcRepository.get(
             thing2.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 Assert.assertEquals(
                     "Name Does Not Match Saved Object Name",
                     thing2["name"],
@@ -625,13 +625,13 @@ class EcRepositoryTest {
         );
     };
     createAndDeleteTwoOwnerObjectTest = async function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----"
         );
-        var thing = new EcRemoteLinkedData(
+        let thing = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -640,9 +640,9 @@ class EcRepositoryTest {
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
         ppk2.toPk().toPem();
-        var pk2 = EcPk.fromPem(ppk2.toPk().toPem());
+        let pk2 = EcPk.fromPem(ppk2.toPk().toPem());
         thing.addOwner(pk2);
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
@@ -663,7 +663,7 @@ class EcRepositoryTest {
         await EcRepository.get(
             thing.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 Assert.assertTrue(
                     "Object is not Owned by the Identity that Created It",
                     retrieved.canEdit(newId1.ppk.toPk())
@@ -686,15 +686,15 @@ class EcRepositoryTest {
                 Assert.fail("Failed to retrieve object after save.");
             }
         );
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
         console.log("Searching...");
         await r.search(
             '@id:"' + thing.id + '"',
             null,
             function (p1) {
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId().equals(thing.shortId())) found = true;
                 }
                 Assert.assertTrue("Unable to find object in search. ", found);
@@ -705,10 +705,10 @@ class EcRepositoryTest {
                 Assert.fail("Failed to search for object after save.");
             }
         );
-        var newId2 = new EcIdentity();
+        let newId2 = new EcIdentity();
         newId2.ppk = ppk2;
         EcIdentityManager.default.addIdentity(newId2);
-        var thing2 = new EcRemoteLinkedData(
+        let thing2 = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -730,7 +730,7 @@ class EcRepositoryTest {
         await EcRepository.get(
             thing2.shortId(),
             function (p1) {
-                var retrieved = p1;
+                let retrieved = p1;
                 Assert.assertEquals(
                     "Name Does Not Match Saved Object Name",
                     thing2["name"],
@@ -764,9 +764,9 @@ class EcRepositoryTest {
         );
     };
     searchForSomethingThatCantExist = async function () {
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcRepositoryTest.server;
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
         console.log("Searching...");
@@ -785,7 +785,7 @@ class EcRepositoryTest {
                 );
             }
         );
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
@@ -810,17 +810,17 @@ class EcRepositoryTest {
 class EcEncryptedValueTest {
     static server = "http://localhost/api/";
     begin = async function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----"
         );
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        var newId2 = new EcIdentity();
+        let newId2 = new EcIdentity();
         newId2.ppk = ppk2;
         EcIdentityManager.default.addIdentity(newId1);
         EcIdentityManager.default.addIdentity(newId2);
@@ -837,13 +837,13 @@ class EcEncryptedValueTest {
         EcIdentityManager.default.clearIdentities();
     };
     encryptDecryptTest = async function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----"
         );
-        var f = new GeneralFile();
+        let f = new GeneralFile();
         f.name = "My_File.txt";
         f.mimeType = "text/plain";
         f.data = "BASE64ENCODEDDATA";
@@ -851,10 +851,10 @@ class EcEncryptedValueTest {
         f.checksum = "ABC123";
         f.addOwner(ppk.toPk());
         f.signWith(ppk);
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.addIdentity(newId1);
-        var v = null;
+        let v = null;
         console.log("Encrypting: " + f.name);
         v = await EcEncryptedValue.encryptValueOld(
             f.name,
@@ -869,9 +869,9 @@ class EcEncryptedValueTest {
         console.log("Decrypting to verify...");
         let decrypted = await v.decryptIntoString();
         Assert.assertTrue("Owner can decrypt object.", decrypted == f.name);
-        var readers = [];
+        let readers = [];
         readers.push(ppk2.toPk().toPem());
-        var v2 = null;
+        let v2 = null;
         console.log("Encrypting: " + f.name);
         v2 = await EcEncryptedValue.encryptValue(
             f.name,
@@ -880,7 +880,7 @@ class EcEncryptedValueTest {
             readers
         );
         console.log("Encrypted object: " + v2.toJson());
-        var newId2 = new EcIdentity();
+        let newId2 = new EcIdentity();
         newId2.ppk = ppk2;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId2);
@@ -891,13 +891,13 @@ class EcEncryptedValueTest {
     };
     encryptObjectUploadDownloadDecryptTest = async function () {
         console.log("Encrypted Object Upload Download then Decrypt Test.");
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----"
         );
-        var f = new GeneralFile();
+        let f = new GeneralFile();
         f.name = "My_File.txt";
         f.mimeType = "text/plain";
         f.data = "BASE64ENCODEDDATA";
@@ -905,10 +905,10 @@ class EcEncryptedValueTest {
         f.checksum = "ABC123";
         f.addOwner(ppk.toPk());
         f.signWith(ppk);
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.addIdentity(newId1);
-        var v = null;
+        let v = null;
         console.log("Encrypting: " + f.name);
         v = await EcEncryptedValue.toEncryptedValue(f, false);
         console.log("Encrypted object: " + v.toJson());
@@ -931,10 +931,10 @@ class EcEncryptedValueTest {
             v.shortId(),
             async function (p1) {
                 console.log("Read.");
-                var val = new EcEncryptedValue();
+                let val = new EcEncryptedValue();
                 val.copyFrom(p1);
-                var decryptedObject = await val.decryptIntoObject();
-                var file = new GeneralFile();
+                let decryptedObject = await val.decryptIntoObject();
+                let file = new GeneralFile();
                 file.copyFrom(decryptedObject);
                 Assert.assertTrue(file.name == f.name);
             },
@@ -943,7 +943,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to read object.");
             }
         );
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         await EcRepository._delete(
             f,
@@ -955,13 +955,13 @@ class EcEncryptedValueTest {
     };
     encryptValueUploadDownloadDecryptTest = async function () {
         console.log("Encrypted Value Upload Download then Decrypt Test.");
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----"
         );
-        var f = new GeneralFile();
+        let f = new GeneralFile();
         f.name = "My_File.txt";
         f.mimeType = "text/plain";
         f.data = "BASE64ENCODEDDATA";
@@ -969,7 +969,7 @@ class EcEncryptedValueTest {
         f.checksum = "ABC123";
         f.addOwner(ppk.toPk());
         f.signWith(ppk);
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.addIdentity(newId1);
         f["encryptedName"] = await EcEncryptedValue.encryptValue(
@@ -994,14 +994,14 @@ class EcEncryptedValueTest {
             f.shortId(),
             async function (p1) {
                 console.log("Read.");
-                var val = new GeneralFile();
+                let val = new GeneralFile();
                 console.log(p1.toJson());
                 val.copyFrom(p1);
                 console.log(val.toJson());
-                var val1 = new EcEncryptedValue();
+                let val1 = new EcEncryptedValue();
                 val1.copyFrom(val["encryptedName"]);
                 console.log("Encrypted, downloaded = " + val1.toJson());
-                var decryptIntoString = await val1.decryptIntoString();
+                let decryptIntoString = await val1.decryptIntoString();
                 console.log("Decrypted = " + decryptIntoString);
                 Assert.assertTrue(decryptIntoString == "My_File.txt");
             },
@@ -1010,7 +1010,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to read object.");
             }
         );
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         await EcRepository._delete(
             f,
@@ -1024,16 +1024,16 @@ class EcEncryptedValueTest {
         console.log(
             "encryptValueWithReaderUploadSearchByPkWithSignatureTest Test."
         );
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAl4oeWRsroJqAR8UXkmkhDHMcRaDM6a9wsFWNkokyugMevv5TtwHVrm9HMJqVlXn1U1AiVS1rEYB7Iavi2IE7e8WV6GkLrGTrce+YcqhrwF3g104ZEuIC2aFCcLrxvXbSqmmuddS3lRMEwqdWkYIS7MKRSKUBpbydl8wScYxjzUSMNzQrvgUpNc//N7GkpEFXYLjYmVWhYdUp578nw/K9StRqTfku8U+Ub86U0mHXowms4spV8IoOlV53OLpOL+8QwcQYZ+koWL4B0rhz6cvelvBAFygx94t8IzZtRiBniaTF+1nBjyj4+R8PdprxFNnM+S2IQBqUdBKJ3oDoKMqdAwIDAQABAoIBAC3BWmB1P7sCa3FAJVnjvELSDttHLhfxDQlxC4oPOu3HO2VXzVcYirhciRY31qqHZHd/Xp5xVD64mHUWPSw5+QfqJNVDwm6PGjgQq+sSx1YSAm1/+zokW8/yTOlUyOD4G6uwtSiGzdeJIorTk+PjbmtmZA+XIuQ0CzFmQLtgNFIpxRmDKLZrjEO5NSaeStZRgi+WVkgfOnvQvWtFK8/djeXfb4f3BnquCRKjm/cOjtdqBHcFq7Fzlyh0U64XXcJPPgBX3hLNK7mr0ZBCwUDOUs0Xna0a/2FHsjESPX7grZ9J1fbkXRwUrSJ04zbeijqROkjni7wokT+HiWtVcZ/HLOECgYEA0/CykuniBAE+Oqt+qj1OEQSnyiENJffnSzeOOjI17ygxcXYFxprEVjYL1ZVj28appGqs4tueNRoxl7jf4jpD6sDMM32scwmUcCA6K3yqk/F/WVj4MYdn7ETtACCZ9m08EUzksrWOaAb86jqm7k1+mM5xu6lbN3dSua1lKxsNFi0CgYEAtwrwuVupz+GmMna7DtW9S2q0ZwgSoUEcELqcXq2cwAPutrd4rh/xS1xsZZNGqnyT1b3/6vFT2zAyxUiL3o+bhDEEv5HcRJ2rugIhUq2dPAJMYf+kBAFONakir2wHwUUXIkaEHecwxsaI8rsTnXDW+anbJogZSLNcFOBydOaBLe8CgYBKDZknsibxxUlsEI4Ch8cmNR03iBLjCFq9sly0wuSLetzDyzw7Z8pgYSQDbd5lZWXS+B8OaTQ/U7auT7+SeU9P0CvJdgjybQ97mhcZKMclSEV5/5dBHxHVwUOaPsntC7/oP5jNRJjMilyGrxWywEsSs1eT/ZnMqJm0HPzzcdFBxQKBgQAMOkTefQsZAf/yOxA/63NbyGMIxvdHomvXij/L61kfUqPtvM/pAeVCnYf4OSBtXykZDDo+XaS2bb/WggQl9/3xlLy2d235f3brVB0ZwtNQIO8tVMCGK/gniYbxpQvXk1/6QC+vN7SAct7PKEQlLlaOExS6vDjELIcoNd4vhP54LQKBgQAOE7+S2AdjUEVXqWBPnlidZV08HMduy3yZ7mblCX0dA07/ozuM/WOfk92cgqcLddOmsbYdTuqTq1sB98v1QN1RwYe9Eiw0dmfbFlQcXT1YAZVfHNQOMO2xI4gJtkNGUqg1HQsYghOO2wkNHSMCNsoq9GWeIzCF2q6/7oH74jfoaQ==-----END RSA PRIVATE KEY-----"
         );
-        var ppk3 = EcPpk.generateKey();
-        var r = new EcRepository();
+        let ppk3 = EcPpk.generateKey();
+        let r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
-        var f = new GeneralFile();
+        let f = new GeneralFile();
         f.name = "My_File.txt";
         f.mimeType = "text/plain";
         f.data = "BASE64ENCODEDDATA";
@@ -1041,14 +1041,14 @@ class EcEncryptedValueTest {
         f.checksum = "ABC123";
         f.addOwner(ppk.toPk());
         f.signWith(ppk);
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
-        var newId2 = new EcIdentity();
+        let newId2 = new EcIdentity();
         newId2.ppk = ppk2;
-        var newId3 = new EcIdentity();
+        let newId3 = new EcIdentity();
         newId3.ppk = ppk3;
         EcIdentityManager.default.addIdentity(newId1);
-        var readers = [];
+        let readers = [];
         readers.push(ppk2.toPk().toPem());
         f["encryptedName"] = await EcEncryptedValue.encryptValue(
             f.name,
@@ -1068,26 +1068,26 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to save object.");
             }
         );
-        var eachCallback = function (p1) { };
-        var success = function (p1) {
-            var found = false;
-            for (var i = 0; i < p1.length; i++) {
+        let eachCallback = function (p1) { };
+        let success = function (p1) {
+            let found = false;
+            for (let i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == f.shortId()) found = true;
             }
             Assert.assertTrue(found);
         };
-        var successInvert = function (p1) {
-            var found = false;
-            for (var i = 0; i < p1.length; i++) {
+        let successInvert = function (p1) {
+            let found = false;
+            for (let i = 0; i < p1.length; i++) {
                 if (p1[i].shortId() == f.shortId()) found = true;
             }
             Assert.assertTrue(!found);
         };
-        var failure = function (p1) {
+        let failure = function (p1) {
             Assert.fail(p1);
         };
         try {
-            var o = {};
+            let o = {};
             o["size"] = 5000;
             console.log("ID Search, searching with signature 1.");
             await r.searchWithParams(
@@ -1276,10 +1276,10 @@ class EcEncryptedValueTest {
         }
     };
     encryptedValueOneOwnerTest = async function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var thing = new EcRemoteLinkedData(
+        let thing = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -1288,7 +1288,7 @@ class EcEncryptedValueTest {
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
         let encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
@@ -1309,7 +1309,7 @@ class EcEncryptedValueTest {
         await EcRepository.get(
             encThing.shortId(),
             async p1 => {
-                var retrieved = new EcEncryptedValue();
+                let retrieved = new EcEncryptedValue();
                 retrieved.copyFrom(p1);
                 Assert.assertEquals(
                     "ID Does Not Match Saved Object",
@@ -1334,7 +1334,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to retrieve object after save.");
             }
         );
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching...");
         await r.searchWithParams(
@@ -1342,8 +1342,8 @@ class EcEncryptedValueTest {
             { size: 10000 },
             null,
             function (p1) {
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId() == thing.shortId()) found = true;
                 }
                 Assert.assertTrue("Unable to find object in search. ", found);
@@ -1377,8 +1377,8 @@ class EcEncryptedValueTest {
             '\\*encryptedType:"' + thing.type + '"',
             null,
             function (p1) {
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId() == thing.shortId()) found = true;
                 }
                 Assert.assertFalse("Found the encrypted Object", found);
@@ -1401,7 +1401,7 @@ class EcEncryptedValueTest {
             }
         );
         thing["value"] = "Changed Value";
-        var encThing2 = await EcEncryptedValue.toEncryptedValue(thing, false);
+        let encThing2 = await EcEncryptedValue.toEncryptedValue(thing, false);
         console.log("Trying to Update as Public...");
         await EcRepository.save(
             encThing2,
@@ -1430,7 +1430,7 @@ class EcEncryptedValueTest {
         await EcRepository.get(
             encThing.shortId(),
             function (p1) {
-                var retrieved = new EcEncryptedValue();
+                let retrieved = new EcEncryptedValue();
                 retrieved.copyFrom(p1);
                 Assert.assertEquals(
                     "ID Does Not Match Saved Object Name",
@@ -1469,13 +1469,13 @@ class EcEncryptedValueTest {
         );
     };
     encryptedValueTwoOwnerTest = async function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----"
         );
-        var thing = new EcRemoteLinkedData(
+        let thing = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -1485,8 +1485,8 @@ class EcEncryptedValueTest {
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
         thing.addOwner(EcPk.fromPem(ppk2.toPk().toPem()));
-        var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
-        var newId1 = new EcIdentity();
+        let encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
@@ -1506,7 +1506,7 @@ class EcEncryptedValueTest {
         await EcRepository.get(
             encThing.shortId(),
             function (p1) {
-                var retrieved = new EcEncryptedValue();
+                let retrieved = new EcEncryptedValue();
                 retrieved.copyFrom(p1);
                 Assert.assertTrue(
                     "Object is not Owned by the Identity that Created It",
@@ -1538,7 +1538,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to retrieve object as owner 1 after save.");
             }
         );
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching as owner 1...");
         await r.searchWithParams(
@@ -1547,8 +1547,8 @@ class EcEncryptedValueTest {
             null,
             function (p1) {
                 console.log(JSON.stringify(p1, null, 2));
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId() == thing.shortId()) found = true;
                 }
                 Assert.assertTrue(
@@ -1562,7 +1562,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to search for object as owner 1.");
             }
         );
-        var newId2 = new EcIdentity();
+        let newId2 = new EcIdentity();
         newId2.ppk = ppk2;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId2);
@@ -1570,7 +1570,7 @@ class EcEncryptedValueTest {
         await EcRepository.get(
             encThing.shortId(),
             function (p1) {
-                var retrieved = new EcEncryptedValue();
+                let retrieved = new EcEncryptedValue();
                 retrieved.copyFrom(p1);
                 Assert.assertTrue(
                     "Object is not Owned by the Identity that Created It",
@@ -1608,8 +1608,8 @@ class EcEncryptedValueTest {
             { size: 10000 },
             null,
             function (p1) {
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId() == thing.shortId()) found = true;
                 }
                 Assert.assertTrue(
@@ -1641,8 +1641,8 @@ class EcEncryptedValueTest {
             '\\*encryptedType:"' + thing.type + '"',
             null,
             function (p1) {
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId().equals(thing.shortId())) found = true;
                 }
                 Assert.assertFalse("Found the encrypted Object", found);
@@ -1666,7 +1666,7 @@ class EcEncryptedValueTest {
         );
         EcIdentityManager.default.addIdentity(newId2);
         thing["value"] = "Changed Object Value";
-        var encThing2 = await EcEncryptedValue.toEncryptedValue(thing, false);
+        let encThing2 = await EcEncryptedValue.toEncryptedValue(thing, false);
         console.log("Updating as owner 2...");
         await EcRepository.save(
             encThing,
@@ -1683,7 +1683,7 @@ class EcEncryptedValueTest {
         await EcRepository.get(
             encThing.shortId(),
             function (p1) {
-                var retrieved = new EcEncryptedValue();
+                let retrieved = new EcEncryptedValue();
                 retrieved.copyFrom(p1);
                 Assert.assertTrue(
                     "Object is not Owned by the Identity that Created It",
@@ -1730,13 +1730,13 @@ class EcEncryptedValueTest {
         );
     };
     encryptedValueOwnerReaderTest = async function () {
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var ppk2 = EcPpk.fromPem(
+        let ppk2 = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEowIBAAKCAQEAg2cDnkHswuKCvjpFwiXuMoHf9C0qEFupDBalvVscxg7F6qWUSxpISYznkZ/dpXwtrR6w+C5fB+KmTNRUxTl9uT4O1Z4AhJ6b9l6WGQWYlRBZZqXmJwcWnCFcOPGfbVcKHuX7AlIaend7/HC7IudfSiLTcfo6EM7k2xiygrGagW89yEe+Q9DsnruU8UkkT9J7Hzi70RVnc6ovqasqFubECNbIoiFW52AJ2EZYRFCXAAfA2Wb9Tmv170RRjsjBS8TJ+C8WSbtCWOztMnUJlJmQtbiVRnfXRFI9igR4bzpQHmOS1khln9VBo4aiosUeaLNMjs2suEia+6HdLbhZfP26cQIDAQABAoIBAEFu+9tD4t2NJCQMKo6qirn1+IrELs0kh8KwSGpJw8NQuffF6lmXxeVyWCIpJJtygeBShzefB82KbNuXZHstzNCA+awgWQuxW+LMaRwesEOSd6Jo/Hn0yqqG5kCo+YXeMPj/9wXJ0sunUkN784RHCSmGvBpmy6FxFX+RBduVC2ZmPCxsv21HXjGAUled7mzZ/6u7g2Q7nAFd72QLKK3qaLflzfCnqTYqdsIwlR8Lp8F5+FcGQUM9SGv/mdAT9U05ovVuQSB7yToe4d+vV/u+6ixk0TM4RFm7ZWYyXqpuGCy5Logo6aZYWfKWZbKJuGmgwf1przZC3euu91kKR+ui81ECgYEA8QhPYGEG+ExaQ6vQzeLlddxriAQuvfBQR7W82/6UnaBtswolNQdRQ1KeOV8MJ57pYZeZidPq7Xc2tFcrH6FYVF2h+Sxe0jpKFf9CAzqammZjR3c7ddHeif45VeGUM0kdID1baAMvLIJg0e7Q2n/PuEY3FL+5GBlkxJdQnz6r2V0CgYEAi4/ql978ac63ex0Rz898lWMYY60nrJaYBPohpf+CMQ7c/lrretbX2ZoswheVKaho/yn3fpcPnUwh7rTuTLnMjxbl5D7LWfHIA9ZyNqwGZjL525p+pSjPsN3S1NNI8tH8UQ9lMuV/xr3R6vVdZT7UiWr09MUX4DYceKAuoP4/kCUCgYBQq0VVrmOUyokTSPfTUHMXpTPgC/ZQ35MezPZucp/uuXi9iVG2k8Jg08/cx7DbudXGMeTTOjfQTivi46GtLmTPp57ENFNv7M5K2mmPhxejQU1M59zgq+LdMFakJaFiIMA8wAxNnXM2ZFRfLpx75Hby550btqcOJ8GQAkybX3BIiQKBgQCIJGUpr6m1oaTVIV9txC75H4j8Oz7XmrRDLqpCX4TmTGSCb7kExK4dpMuCrzSgRZvfRlYblEr0G/+B99f62sjU0PaD+EmwvS5rp/cUpC095v5cHlLq1Gv+UfXIDTA9R2CGxqjmxIAoJKWxOZfZGziDsOWyHM4Ut1SAy2mRPVROTQKBgD5lboXnZMpRsamgZ5Jwg4bES6npFyPsrNaeJnp6QWz0Q1Ur/dw473VafpeKUZc4/uRRWTtuwooD4x2iCRZzRYAgImyZMeISMOIy8Yt6UZh9AScXsuhOSWiUKj/c1EGjMzMvV59ZzEddXohzMysZ0V/hjVW48HG7ZOcqIAk83Et+-----END RSA PRIVATE KEY-----"
         );
-        var thing = new EcRemoteLinkedData(
+        let thing = new EcRemoteLinkedData(
             General.context,
             General.context + "/test"
         );
@@ -1744,8 +1744,8 @@ class EcEncryptedValueTest {
         thing["value"] = "Private Object Value";
         thing.addOwner(ppk.toPk());
         thing.signWith(ppk);
-        var encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
-        var newId1 = new EcIdentity();
+        let encThing = await EcEncryptedValue.toEncryptedValue(thing, false);
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
@@ -1765,7 +1765,7 @@ class EcEncryptedValueTest {
         await EcRepository.get(
             encThing.shortId(),
             function (p1) {
-                var retrieved = new EcEncryptedValue();
+                let retrieved = new EcEncryptedValue();
                 retrieved.copyFrom(p1);
                 Assert.assertTrue(
                     "Object is not Owned by the Identity that Created It",
@@ -1793,7 +1793,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to retrieve object as owner 1 after save.");
             }
         );
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcEncryptedValueTest.server;
         console.log("Searching as owner ...");
         await r.searchWithParams(
@@ -1801,8 +1801,8 @@ class EcEncryptedValueTest {
             { size: 10000 },
             null,
             function (p1) {
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId().equals(thing.shortId())) found = true;
                 }
                 Assert.assertTrue(
@@ -1816,7 +1816,7 @@ class EcEncryptedValueTest {
                 Assert.fail("Failed to search for object after save.");
             }
         );
-        var newId2 = new EcIdentity();
+        let newId2 = new EcIdentity();
         newId2.ppk = ppk2;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId2);
@@ -1834,7 +1834,7 @@ class EcEncryptedValueTest {
         );
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
-        var encThingWithReader = await EcEncryptedValue.toEncryptedValue(
+        let encThingWithReader = await EcEncryptedValue.toEncryptedValue(
             thing,
             false
         );
@@ -1898,9 +1898,9 @@ class EcEncryptedValueTest {
             { size: 10000 },
             null,
             p1 => {
-                var found = false;
+                let found = false;
                 console.log("?.");
-                for (var i = 0; i < p1.length; i++) {
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId().equals(thing.shortId())) found = true;
                 }
                 console.log("Found." + found);
@@ -1933,8 +1933,8 @@ class EcEncryptedValueTest {
             '\\*encryptedType:"' + thing.type + '"',
             null,
             function (p1) {
-                var found = false;
-                for (var i = 0; i < p1.length; i++) {
+                let found = false;
+                for (let i = 0; i < p1.length; i++) {
                     if (p1[i].shortId().equals(thing.shortId())) found = true;
                 }
                 Assert.assertFalse("Found the encrypted Object", found);
@@ -1972,7 +1972,7 @@ class EcEncryptedValueTest {
         );
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
-        var encThingNoReader = new EcEncryptedValue();
+        let encThingNoReader = new EcEncryptedValue();
         encThingNoReader.copyFrom(encThingWithReader);
         await encThingNoReader.removeReader(EcPk.fromPem(ppk2.toPk().toPem()));
         console.log("removing reader...");
@@ -2022,16 +2022,16 @@ class EcVersioningTest {
     static server = "http://localhost/api/";
     begin = function () { };
     testSaveTwoVersionsBothExist = async function () {
-        var r = new EcRepository();
+        let r = new EcRepository();
         r.selectedServer = EcVersioningTest.server;
-        var ppk = EcPpk.fromPem(
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var newId1 = new EcIdentity();
+        let newId1 = new EcIdentity();
         newId1.ppk = ppk;
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(newId1);
-        var t = new schema.Thing();
+        let t = new schema.Thing();
         t.name = "Foo";
         t.generateId(r.selectedServer);
         t.addOwner(ppk.toPk());
@@ -2046,7 +2046,7 @@ class EcVersioningTest {
             }
         );
         t.name = "Foo2";
-        var oldVersion = t.id;
+        let oldVersion = t.id;
         await EcRepository.save(
             t,
             function (p1) {
@@ -2057,11 +2057,11 @@ class EcVersioningTest {
                 Assert.fail("Couldn't save the object.");
             }
         );
-        var newVersion = t.id;
+        let newVersion = t.id;
         await EcRepository.get(
             oldVersion,
             function (p1) {
-                var t = new schema.Thing();
+                let t = new schema.Thing();
                 t.copyFrom(p1);
                 Assert.assertEquals(t.name, "Foo");
                 Assert.assertEquals(t.id, oldVersion);
@@ -2074,7 +2074,7 @@ class EcVersioningTest {
         await EcRepository.get(
             newVersion,
             function (p1) {
-                var t = new schema.Thing();
+                let t = new schema.Thing();
                 t.copyFrom(p1);
                 Assert.assertEquals(t.name, "Foo2");
                 Assert.assertEquals(t.id, newVersion);
@@ -2128,7 +2128,7 @@ class EcVersioningTest {
         await EcRepository.get(
             oldVersion,
             function (p1) {
-                var t = new schema.Thing();
+                let t = new schema.Thing();
                 t.copyFrom(p1);
                 Assert.assertEquals(t.name, "Foo");
                 Assert.assertEquals(t.id, oldVersion);
@@ -2142,7 +2142,7 @@ class EcVersioningTest {
         await EcRepository.get(
             newVersion,
             function (p1) {
-                var t = new schema.Thing();
+                let t = new schema.Thing();
                 t.copyFrom(p1);
                 Assert.assertEquals(t.name, "Foo2");
                 Assert.assertEquals(t.id, newVersion);
@@ -2167,9 +2167,9 @@ class EcRekeyTest {
     static newestKey = null;
     basicInMemoryForwardingTest = function () {
         EcRemoteLinkedData.forwardingTable = {};
-        var rld = new EcRemoteLinkedData("https://cass.test", "TestObject");
+        let rld = new EcRemoteLinkedData("https://cass.test", "TestObject");
         rld.addOwner(EcPpk.fromPem(EcRekeyTest.oldKey).toPk());
-        var oldestData = rld.toJson();
+        let oldestData = rld.toJson();
         EcRemoteLinkedData.forwardKey(
             EcPpk.fromPem(EcRekeyTest.oldKey).toPk().toPem(),
             EcPpk.fromPem(EcRekeyTest.newerKey).toPk().toPem()
@@ -2198,7 +2198,7 @@ class EcRekeyTest {
         EcIdentityManager.default.ids[0] = new EcIdentity();
         EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemoteLinkedData.forwardingTable = {};
-        var err = await EcRekeyRequest.generateRekeyRequest(
+        let err = await EcRekeyRequest.generateRekeyRequest(
             EcRekeyTest.server,
             EcPpk.fromPem(EcRekeyTest.oldKey),
             EcPpk.fromPem(EcRekeyTest.newerKey)
@@ -2208,11 +2208,11 @@ class EcRekeyTest {
             err,
             async s => {
                 EcIdentityManager.default.clearIdentities();
-                var repo = new EcRepository();
+                let repo = new EcRepository();
                 await repo.init(
                     EcRekeyTest.server,
                     () => {
-                        var rld = new EcRemoteLinkedData(
+                        let rld = new EcRemoteLinkedData(
                             "https://cass.test",
                             "TestObject"
                         );
@@ -2237,7 +2237,7 @@ class EcRekeyTest {
         EcIdentityManager.default.ids[0] = new EcIdentity();
         EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemoteLinkedData.forwardingTable = {};
-        var err = await EcRekeyRequest.generateRekeyRequest(
+        let err = await EcRekeyRequest.generateRekeyRequest(
             EcRekeyTest.server,
             EcPpk.fromPem(EcRekeyTest.oldKey),
             EcPpk.fromPem(EcRekeyTest.newerKey)
@@ -2246,7 +2246,7 @@ class EcRekeyTest {
             err,
             async function (s) {
                 EcIdentityManager.default.clearIdentities();
-                var repo = new EcRepository();
+                let repo = new EcRepository();
                 await repo.init(
                     EcRekeyTest.server,
                     async function () {
@@ -2254,7 +2254,7 @@ class EcRekeyTest {
                         EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(
                             EcRekeyTest.oldKey
                         );
-                        var rld = new EcRemoteLinkedData(
+                        let rld = new EcRemoteLinkedData(
                             "https://cass.test",
                             "TestObject"
                         );
@@ -2264,7 +2264,7 @@ class EcRekeyTest {
                             rld,
                             async function (s) {
                                 EcIdentityManager.default.clearIdentities();
-                                var rld2 = await EcRepository.get(
+                                let rld2 = await EcRepository.get(
                                     rld.shortId()
                                 );
                                 Assert.assertEquals(
@@ -2296,7 +2296,7 @@ class EcRekeyTest {
         EcIdentityManager.default.ids[0] = new EcIdentity();
         EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(EcRekeyTest.newerKey);
         EcRemoteLinkedData.forwardingTable = {};
-        var err = await EcRekeyRequest.generateRekeyRequest(
+        let err = await EcRekeyRequest.generateRekeyRequest(
             EcRekeyTest.server,
             EcPpk.fromPem(EcRekeyTest.oldKey),
             EcPpk.fromPem(EcRekeyTest.newerKey)
@@ -2307,7 +2307,7 @@ class EcRekeyTest {
             err,
             async s => {
                 EcIdentityManager.default.clearIdentities();
-                var repo = new EcRepository();
+                let repo = new EcRepository();
                 await repo.init(
                     EcRekeyTest.server,
                     async () => {
@@ -2315,7 +2315,7 @@ class EcRekeyTest {
                         EcIdentityManager.default.ids[0].ppk = EcPpk.fromPem(
                             EcRekeyTest.oldKey
                         );
-                        var rld = new EcRemoteLinkedData(
+                        let rld = new EcRemoteLinkedData(
                             "https://cass.test",
                             "TestObject"
                         );
@@ -2332,7 +2332,7 @@ class EcRekeyTest {
                                     EcRekeyTest.oldKey
                                 );
                                 console.log("Test 0.");
-                                var rld2 = await EcRepository.get(
+                                let rld2 = await EcRepository.get(
                                     rld.shortId()
                                 );
                                 console.log(JSON.stringify(rld2, null, 2));
@@ -2444,7 +2444,7 @@ class EcAlignmentTest {
         EcAlignmentTest.relation.relationType = "requires";
         EcAlignmentTest.relation.addOwner(EcAlignmentTest.ppk.toPk());
         EcAlignmentTest.relation.validFrom = new Date().toDateString();
-        var end = new Date();
+        let end = new Date();
         end.setFullYear(2017);
         EcAlignmentTest.relation.validThrough = end.toDateString();
         await EcAlignmentTest.sourceComp.save(
@@ -2489,15 +2489,15 @@ class EcAlignmentTest {
         );
     };
     createAlignmentTest = async function () {
-        var paramObj = {};
+        let paramObj = {};
         paramObj["size"] = 10000;
         await EcAlignmentTest.repo.searchWithParams(
             new Relation().getSearchStringByType(),
             paramObj,
             null,
             function (p1) {
-                for (var i = 0; i < p1.length; i++) {
-                    var d = p1[i];
+                for (let i = 0; i < p1.length; i++) {
+                    let d = p1[i];
                     if (d.id == EcAlignmentTest.relation.id) {
                         return;
                     }
@@ -2510,7 +2510,7 @@ class EcAlignmentTest {
         );
     };
     createNoSourceAlignmentTest = async function () {
-        var noSource = new EcAlignment();
+        let noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.target = EcAlignmentTest.targetComp.shortId();
         noSource.relationType = "requires";
@@ -2526,7 +2526,7 @@ class EcAlignmentTest {
         );
     };
     createNoTargetAlignmentTest = async function () {
-        var noSource = new EcAlignment();
+        let noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.source = EcAlignmentTest.sourceComp.shortId();
         noSource.relationType = "requires";
@@ -2542,7 +2542,7 @@ class EcAlignmentTest {
         );
     };
     createNoTypeAlignmentTest = async function () {
-        var noSource = new EcAlignment();
+        let noSource = new EcAlignment();
         noSource.generateId(EcAlignmentTest.server);
         noSource.source = EcAlignmentTest.sourceComp.shortId();
         noSource.target = EcAlignmentTest.targetComp.shortId();
@@ -2561,7 +2561,7 @@ class EcAlignmentTest {
         await EcRepository.get(
             EcAlignmentTest.relation.id,
             function (p1) {
-                var r = new EcAlignment();
+                let r = new EcAlignment();
                 r.copyFrom(p1);
                 Assert.assertEquals(EcAlignmentTest.relation.id, r.id);
                 Assert.assertEquals(
@@ -2606,7 +2606,7 @@ class EcAlignmentTest {
         EcAlignmentTest.relation.description = "changed description";
         EcAlignmentTest.relation.relationType = "required By";
         EcAlignmentTest.relation.validFrom = new Date().toDateString();
-        var end = new Date();
+        let end = new Date();
         end.setFullYear(2017);
         EcAlignmentTest.relation.validThrough = end.toDateString();
         console.log("Updating Relation");
@@ -2623,7 +2623,7 @@ class EcAlignmentTest {
         await EcRepository.get(
             EcAlignmentTest.relation.id,
             function (p1) {
-                var r = new EcAlignment();
+                let r = new EcAlignment();
                 r.copyFrom(p1);
                 Assert.assertEquals(EcAlignmentTest.relation.id, r.id);
                 Assert.assertEquals(
@@ -2693,7 +2693,7 @@ class EcAlignmentTest {
         );
     };
     deleteAlignmentTest = async function () {
-        var toDelete = new EcAlignment();
+        let toDelete = new EcAlignment();
         toDelete.generateId(EcAlignmentTest.server);
         toDelete.name = "Relation To Delete";
         toDelete.source = EcAlignmentTest.sourceComp.shortId();
@@ -2715,8 +2715,8 @@ class EcAlignmentTest {
             '@type:"' + toDelete.myType + '"',
             null,
             function (p1) {
-                for (var i = 0; i < p1.length; i++) {
-                    var d = p1[i];
+                for (let i = 0; i < p1.length; i++) {
+                    let d = p1[i];
                     if (d.id == toDelete.id) {
                         Assert.fail("Shouldnt find relation after delete");
                     }
@@ -2768,15 +2768,15 @@ class EcCompetencyTest {
         );
     };
     createCompetencyTest = async function () {
-        var paramObj = {};
+        let paramObj = {};
         paramObj["size"] = 5000;
         await EcCompetencyTest.repo.searchWithParams(
             new EcCompetency().getSearchStringByType(),
             paramObj,
             null,
             function (p1) {
-                for (var i = 0; i < p1.length; i++) {
-                    var d = p1[i];
+                for (let i = 0; i < p1.length; i++) {
+                    let d = p1[i];
                     if (d.id == EcCompetencyTest.comp.id) {
                         return;
                     }
@@ -2789,7 +2789,7 @@ class EcCompetencyTest {
         );
     };
     createNoNameCompetencyTest = async function () {
-        var noName = new EcCompetency();
+        let noName = new EcCompetency();
         noName.generateId(EcCompetencyTest.server);
         noName.addOwner(EcCompetencyTest.ppk.toPk());
         await noName.save(
@@ -2806,7 +2806,7 @@ class EcCompetencyTest {
         await EcRepository.get(
             EcCompetencyTest.comp.id,
             function (p1) {
-                var c = new EcCompetency();
+                let c = new EcCompetency();
                 c.copyFrom(p1);
                 Assert.assertEquals(
                     "Name not equal to saved name",
@@ -2825,7 +2825,7 @@ class EcCompetencyTest {
         );
     };
     competencyAddRemoveRelationshipTest = async function () {
-        var comp2 = new EcCompetency();
+        let comp2 = new EcCompetency();
         comp2.name = "Relation Target Competency";
         comp2.addOwner(EcCompetencyTest.ppk.toPk());
         comp2.generateId(EcCompetencyTest.server);
@@ -2837,7 +2837,7 @@ class EcCompetencyTest {
             null
         );
         console.log("Creating Relationship..");
-        var rel = await EcCompetencyTest.comp.addAlignment(
+        let rel = await EcCompetencyTest.comp.addAlignment(
             comp2,
             "requires",
             EcCompetencyTest.ppk,
@@ -2908,7 +2908,7 @@ class EcCompetencyTest {
     };
     competencyAddRemoveLevelTest = async function () {
         console.log("Creating Level...");
-        var lev = await EcCompetencyTest.comp.addLevel(
+        let lev = await EcCompetencyTest.comp.addLevel(
             "Level Test",
             "Description of level Test",
             EcCompetencyTest.ppk,
@@ -2983,7 +2983,7 @@ class EcCompetencyTest {
         await EcRepository.get(
             EcCompetencyTest.comp.id,
             function (p1) {
-                var c = new EcCompetency();
+                let c = new EcCompetency();
                 c.copyFrom(p1);
                 Assert.assertEquals(EcCompetencyTest.comp.id, c.id);
                 Assert.assertEquals(EcCompetencyTest.comp.name, c.name);
@@ -2999,7 +2999,7 @@ class EcCompetencyTest {
         );
     };
     deleteCompetencyTest = async function () {
-        var toDelete = new EcCompetency();
+        let toDelete = new EcCompetency();
         toDelete.generateId(EcCompetencyTest.server);
         toDelete.name = "Competency To Delete";
         toDelete.addOwner(EcCompetencyTest.ppk.toPk());
@@ -3024,8 +3024,8 @@ class EcCompetencyTest {
             '@type:"' + toDelete.myType + '"',
             null,
             function (p1) {
-                for (var i = 0; i < p1.length; i++) {
-                    var d = p1[i];
+                for (let i = 0; i < p1.length; i++) {
+                    let d = p1[i];
                     if (d.id == toDelete.id) {
                         Assert.fail("Shouldnt find competency after delete");
                     }
@@ -3037,7 +3037,7 @@ class EcCompetencyTest {
         );
     };
     deleteCompetencyWithRelationshipTest = async function () {
-        var toDelete = new EcCompetency();
+        let toDelete = new EcCompetency();
         toDelete.generateId(EcCompetencyTest.server);
         toDelete.name = "Competency To Delete";
         toDelete.addOwner(EcCompetencyTest.ppk.toPk());
@@ -3049,7 +3049,7 @@ class EcCompetencyTest {
             },
             null
         );
-        var comp2 = new EcCompetency();
+        let comp2 = new EcCompetency();
         comp2.generateId(EcCompetencyTest.server);
         comp2.name = "target Comeptency";
         comp2.addOwner(EcCompetencyTest.ppk.toPk());
@@ -3062,7 +3062,7 @@ class EcCompetencyTest {
             null
         );
         console.log("Creating Relationship...");
-        var rel = await toDelete.addAlignment(
+        let rel = await toDelete.addAlignment(
             comp2,
             "requires",
             EcCompetencyTest.ppk,
@@ -3109,7 +3109,7 @@ class EcCompetencyTest {
         );
     };
     deleteCompetencyWithLevelTest = async function () {
-        var toDelete = new EcCompetency();
+        let toDelete = new EcCompetency();
         toDelete.generateId(EcCompetencyTest.server);
         toDelete.name = "Competency To Delete";
         toDelete.addOwner(EcCompetencyTest.ppk.toPk());
@@ -3122,7 +3122,7 @@ class EcCompetencyTest {
             null
         );
         console.log("Creating Relationship...");
-        var level = await toDelete.addLevel(
+        let level = await toDelete.addLevel(
             "level to be deleted",
             "level description",
             EcCompetencyTest.ppk,
@@ -3223,8 +3223,8 @@ class EcLevelTest {
             ' AND name:"Test Level Name"',
             null,
             function (p1) {
-                for (var i = 0; i < p1.length; i++) {
-                    var d = p1[i];
+                for (let i = 0; i < p1.length; i++) {
+                    let d = p1[i];
                     if (d.id == EcLevelTest.level.id) {
                         return;
                     }
@@ -3237,7 +3237,7 @@ class EcLevelTest {
         );
     };
     createLevelNoNameTest = async function () {
-        var noName = new EcLevel();
+        let noName = new EcLevel();
         noName.generateId(EcLevelTest.server);
         noName.competency = EcLevelTest.comp.shortId();
         await noName.save(
@@ -3249,7 +3249,7 @@ class EcLevelTest {
         );
     };
     createLevelNoCompetencyTest = async function () {
-        var noComp = new EcLevel();
+        let noComp = new EcLevel();
         noComp.generateId(EcLevelTest.server);
         noComp.name = "Test Level Name";
         await noComp.save(
@@ -3266,7 +3266,7 @@ class EcLevelTest {
         await EcRepository.get(
             EcLevelTest.level.id,
             function (p1) {
-                var l = new EcLevel();
+                let l = new EcLevel();
                 l.copyFrom(p1);
                 Assert.assertEquals(EcLevelTest.level.id, l.id);
                 Assert.assertEquals(
@@ -3314,7 +3314,7 @@ class EcLevelTest {
         await EcRepository.get(
             EcLevelTest.level.id,
             function (p1) {
-                var l = new EcLevel();
+                let l = new EcLevel();
                 l.copyFrom(p1);
                 Assert.assertEquals(EcLevelTest.level.id, l.id);
                 Assert.assertEquals(
@@ -3374,7 +3374,7 @@ class EcLevelTest {
         );
     };
     deleteLevelTest = async function () {
-        var toDelete = new EcLevel();
+        let toDelete = new EcLevel();
         toDelete.generateId(EcLevelTest.server);
         toDelete.name = "Competency To Delete";
         toDelete.addOwner(EcLevelTest.ppk.toPk());
@@ -3396,8 +3396,8 @@ class EcLevelTest {
             '@type:"' + toDelete.myType + '"',
             null,
             function (p1) {
-                for (var i = 0; i < p1.length; i++) {
-                    var d = p1[i];
+                for (let i = 0; i < p1.length; i++) {
+                    let d = p1[i];
                     if (d.id == toDelete.id) {
                         Assert.fail("Shouldnt find level after delete");
                     }
@@ -3459,12 +3459,12 @@ class EcAssertionTest {
     assertionEncryptDecryptTest = async function () {
         EcIdentityManager.default.ids = [];
         EcIdentityManager.default.addIdentity(EcAssertionTest.newId1);
-        var assn = new EcAssertion();
-        var agent = EcAssertionTest.ppk1.toPk();
-        var subject = EcAssertionTest.ppk2.toPk();
-        var thirdParty = EcAssertionTest.ppk3.toPk();
-        var assertionDate = Date.now();
-        var expirationDate = Date.now() + 1000 * 60 * 60 * 24 * 30;
+        let assn = new EcAssertion();
+        let agent = EcAssertionTest.ppk1.toPk();
+        let subject = EcAssertionTest.ppk2.toPk();
+        let thirdParty = EcAssertionTest.ppk3.toPk();
+        let assertionDate = Date.now();
+        let expirationDate = Date.now() + 1000 * 60 * 60 * 24 * 30;
         assn.generateId(EcAssertionTest.server);
         assn.addOwner(agent);
         await assn.setSubject(subject);
@@ -3475,7 +3475,7 @@ class EcAssertionTest {
         await assn.setExpirationDate(expirationDate);
         await assn.setDecayFunction("t");
         await assn.setNegative(false);
-        var evidences = [];
+        let evidences = [];
         evidences.push("I saw them do it.");
         await assn.setEvidence(evidences);
         console.log("Setup of assertion");
@@ -3724,15 +3724,15 @@ class EcFrameworkTest {
         });
     };
     createFrameworkTest = async function () {
-        var paramObj = {};
+        let paramObj = {};
         paramObj["size"] = 1000;
         await EcFrameworkTest.repo.searchWithParams(
             new EcFramework().getSearchStringByType(),
             paramObj,
             null,
             function (p1) {
-                for (var i = 0; i < p1.length; i++) {
-                    var d = p1[i];
+                for (let i = 0; i < p1.length; i++) {
+                    let d = p1[i];
                     if (d.id == EcFrameworkTest.framework.id) {
                         return;
                     }
@@ -3745,7 +3745,7 @@ class EcFrameworkTest {
         );
     };
     createNoNameFrameworkTest = async function () {
-        var noName = new EcFramework();
+        let noName = new EcFramework();
         noName.generateId(EcFrameworkTest.server);
         await noName.save(
             function (p1) {
@@ -3763,7 +3763,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             EcFrameworkTest.framework.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 Assert.assertEquals(
                     "Name does not match saved name",
                     EcFrameworkTest.framework.name,
@@ -3781,7 +3781,7 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkInfoTest = async function () {
-        var editedFramework = new EcFramework();
+        let editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.name = "Updated Name";
         editedFramework.description = "Updated Description";
@@ -3798,7 +3798,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             editedFramework.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 Assert.assertEquals(
                     "Name does not match updated name",
                     editedFramework.name,
@@ -3816,7 +3816,7 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkNoNameTest = async function () {
-        var editedFramework = new EcFramework();
+        let editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.name = "";
         editedFramework.description = "Updated Description";
@@ -3835,7 +3835,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             editedFramework.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 Assert.assertNotSame(
                     "Name should not be empty",
                     editedFramework.name,
@@ -3848,7 +3848,7 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkAddRemoveCompetencyTest = async function () {
-        var editedFramework = new EcFramework();
+        let editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addCompetency(EcFrameworkTest.comp.id);
         console.log("Adding Competency to Framework...");
@@ -3864,7 +3864,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             editedFramework.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (f.competency.indexOf(EcFrameworkTest.comp.shortId()) != -1)
                     return;
                 Assert.fail("Unable to find competency in framework");
@@ -3873,7 +3873,7 @@ class EcFrameworkTest {
                 Assert.fail("Unable to Retreive Framework after update");
             }
         );
-        var frameworkCompRemoved = new EcFramework();
+        let frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(editedFramework);
         frameworkCompRemoved.removeCompetency(
             EcFrameworkTest.comp.id,
@@ -3893,7 +3893,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             frameworkCompRemoved.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (f.competency.indexOf(EcFrameworkTest.comp.id) == -1) return;
                 Assert.fail("Competency not removed from framework");
             },
@@ -3903,9 +3903,9 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkRemoveNonCompetencyTest = async function () {
-        var frameworkCompRemoved = new EcFramework();
+        let frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
-        var compSize =
+        let compSize =
             EcFrameworkTest.framework.competency == null
                 ? 0
                 : frameworkCompRemoved.competency.length;
@@ -3927,7 +3927,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             frameworkCompRemoved.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (f.competency == null && compSize == 0 || f.competency.length == compSize)
                     return;
                 Assert.fail("Competency array size did not remain unchanged");
@@ -3938,7 +3938,7 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkAddRemoveLevelTest = async function () {
-        var editedFramework = new EcFramework();
+        let editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addLevel(EcFrameworkTest.level.id);
         console.log("Adding Level to Framework...");
@@ -3954,7 +3954,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             editedFramework.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (f.level.indexOf(EcFrameworkTest.level.shortId()) != -1)
                     return;
                 Assert.fail("Unable to find level in framework");
@@ -3963,7 +3963,7 @@ class EcFrameworkTest {
                 Assert.fail("Unable to Retreive Framework after update");
             }
         );
-        var frameworkLevelRemoved = new EcFramework();
+        let frameworkLevelRemoved = new EcFramework();
         frameworkLevelRemoved.copyFrom(editedFramework);
         frameworkLevelRemoved.removeLevel(EcFrameworkTest.level.id);
         console.log("Updating Framework...");
@@ -3979,7 +3979,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             frameworkLevelRemoved.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (f.level.indexOf(EcFrameworkTest.level.id) == -1) return;
                 Assert.fail("Level not removed from framework");
             },
@@ -3989,9 +3989,9 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkRemoveNonLevelTest = async function () {
-        var frameworkCompRemoved = new EcFramework();
+        let frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
-        var levelSize =
+        let levelSize =
             EcFrameworkTest.framework.level == null
                 ? 0
                 : frameworkCompRemoved.level.length;
@@ -4009,7 +4009,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             frameworkCompRemoved.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (
                     f.level == null && levelSize == 0 ||
                     f.level.length == levelSize
@@ -4023,7 +4023,7 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkAddRemoveRelationTest = async function () {
-        var editedFramework = new EcFramework();
+        let editedFramework = new EcFramework();
         editedFramework.copyFrom(EcFrameworkTest.framework);
         editedFramework.addRelation(EcFrameworkTest.rel.id);
         console.log("Adding Level to Framework...");
@@ -4039,7 +4039,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             editedFramework.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (f.relation.indexOf(EcFrameworkTest.rel.shortId()) != -1)
                     return;
                 Assert.fail("Unable to find relation in framework");
@@ -4048,7 +4048,7 @@ class EcFrameworkTest {
                 Assert.fail("Unable to Retreive Framework after update");
             }
         );
-        var frameworkRelationRemoved = new EcFramework();
+        let frameworkRelationRemoved = new EcFramework();
         frameworkRelationRemoved.copyFrom(editedFramework);
         frameworkRelationRemoved.removeRelation(EcFrameworkTest.rel.id);
         console.log("Updating Framework...");
@@ -4064,7 +4064,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             frameworkRelationRemoved.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (f.relation.indexOf(EcFrameworkTest.rel.id) == -1) return;
                 Assert.fail("relation not removed from framework");
             },
@@ -4074,9 +4074,9 @@ class EcFrameworkTest {
         );
     };
     updateFrameworkRemoveNonRelationTest = async function () {
-        var frameworkCompRemoved = new EcFramework();
+        let frameworkCompRemoved = new EcFramework();
         frameworkCompRemoved.copyFrom(EcFrameworkTest.framework);
-        var relSize =
+        let relSize =
             EcFrameworkTest.framework.relation == null
                 ? 0
                 : frameworkCompRemoved.relation.length;
@@ -4094,7 +4094,7 @@ class EcFrameworkTest {
         await EcRepository.get(
             frameworkCompRemoved.id,
             function (p1) {
-                var f = p1;
+                let f = p1;
                 if (
                     f.relation == null && relSize == 0 ||
                     f.relation.length == relSize
@@ -4108,7 +4108,7 @@ class EcFrameworkTest {
         );
     };
     deleteFramework = async function () {
-        var toDelete = new EcFramework();
+        let toDelete = new EcFramework();
         toDelete.generateId(EcFrameworkTest.server);
         toDelete.name = "Framework to Delete";
         toDelete.addOwner(EcFrameworkTest.ppk.toPk());
@@ -4187,11 +4187,11 @@ class FrameworkCollapserTest {
         try {
             this.repo = new EcRepository();
             this.repo.selectedServer = "https://sandbox.cassproject.org/api/";
-            var fct = this;
-            var framework = await EcFramework.get(this.FRAMEWORK_ID);
+            let fct = this;
+            let framework = await EcFramework.get(this.FRAMEWORK_ID);
             Assert.assertTrue(framework != null);
             console.log("Framework: " + framework.name);
-            var fc = new FrameworkCollapser();
+            let fc = new FrameworkCollapser();
             await fc.collapseFramework(
                 this.repo,
                 framework,
@@ -4254,12 +4254,12 @@ class FrameworkCollapserTest {
             this.urlArray.push(
                 "https://sandbox.cassproject.org/api/custom/data/schema.cassproject.org.0.3.Relation/9bc16b74-dd96-4ba7-b0a4-038e6edb4f50"
             );
-            var fct = this;
+            let fct = this;
             await this.repo.multiget(
                 this.urlArray,
                 function (rlda) {
-                    var rld;
-                    for (var i = 0; i < rlda.length; i++) {
+                    let rld;
+                    for (let i = 0; i < rlda.length; i++) {
                         rld = rlda[i];
                         if ("competency".equals(rld.type.toLowerCase())) {
                             console.log(
@@ -4307,11 +4307,11 @@ class CollapserTest {
     basicCollapseTest = function () {
         console.log("start basicCollapseTest:");
         try {
-            var graph1 = this.buildTest2();
+            let graph1 = this.buildTest2();
             console.log("--================ INPUT GRAPH ================--");
             console.log(graph1.toStringGraphByNode());
-            var cgc = new CyclicGraphCollapser();
-            var npg = cgc.collapseGraph(graph1);
+            let cgc = new CyclicGraphCollapser();
+            let npg = cgc.collapseGraph(graph1);
             if (npg == null) console.log("COLLAPSED GRAPH IS NULL!!!");
             else {
                 console.log(
@@ -4326,10 +4326,10 @@ class CollapserTest {
         console.log("end basicCollapseTest");
     };
     buildTest0 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4340,12 +4340,12 @@ class CollapserTest {
         return graph;
     };
     buildTest1 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
-        var nodeD = new Node("D");
-        var nodeE = new Node("E");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
+        let nodeD = new Node("D");
+        let nodeE = new Node("E");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4360,14 +4360,14 @@ class CollapserTest {
         return graph;
     };
     buildTest2 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
-        var nodeD = new Node("D");
-        var nodeE = new Node("E");
-        var nodeF = new Node("F");
-        var nodeG = new Node("G");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
+        let nodeD = new Node("D");
+        let nodeE = new Node("E");
+        let nodeF = new Node("F");
+        let nodeG = new Node("G");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4402,16 +4402,16 @@ class CollapserTest {
         return graph;
     };
     buildTest3 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
-        var nodeD = new Node("D");
-        var nodeE = new Node("E");
-        var nodeF = new Node("F");
-        var nodeG = new Node("G");
-        var nodeH = new Node("H");
-        var nodeI = new Node("I");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
+        let nodeD = new Node("D");
+        let nodeE = new Node("E");
+        let nodeF = new Node("F");
+        let nodeG = new Node("G");
+        let nodeH = new Node("H");
+        let nodeI = new Node("I");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4467,16 +4467,16 @@ class CollapserTest {
         return graph;
     };
     buildTest4 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
-        var nodeD = new Node("D");
-        var nodeE = new Node("E");
-        var nodeF = new Node("F");
-        var nodeG = new Node("G");
-        var nodeH = new Node("H");
-        var nodeI = new Node("I");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
+        let nodeD = new Node("D");
+        let nodeE = new Node("E");
+        let nodeF = new Node("F");
+        let nodeG = new Node("G");
+        let nodeH = new Node("H");
+        let nodeI = new Node("I");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4533,16 +4533,16 @@ class CollapserTest {
         return graph;
     };
     buildTest5 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
-        var nodeD = new Node("D");
-        var nodeE = new Node("E");
-        var nodeF = new Node("F");
-        var nodeG = new Node("G");
-        var nodeH = new Node("H");
-        var nodeI = new Node("I");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
+        let nodeD = new Node("D");
+        let nodeE = new Node("E");
+        let nodeF = new Node("F");
+        let nodeG = new Node("G");
+        let nodeH = new Node("H");
+        let nodeI = new Node("I");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4574,16 +4574,16 @@ class CollapserTest {
         return graph;
     };
     buildTest6 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
-        var nodeD = new Node("D");
-        var nodeE = new Node("E");
-        var nodeF = new Node("F");
-        var nodeG = new Node("G");
-        var nodeH = new Node("H");
-        var nodeI = new Node("I");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
+        let nodeD = new Node("D");
+        let nodeE = new Node("E");
+        let nodeF = new Node("F");
+        let nodeG = new Node("G");
+        let nodeH = new Node("H");
+        let nodeI = new Node("I");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4619,13 +4619,13 @@ class CollapserTest {
         return graph;
     };
     buildTest7 = function () {
-        var graph = new NodeGraph();
-        var nodeA = new Node("A");
-        var nodeB = new Node("B");
-        var nodeC = new Node("C");
-        var nodeD = new Node("D");
-        var nodeE = new Node("E");
-        var nodeF = new Node("F");
+        let graph = new NodeGraph();
+        let nodeA = new Node("A");
+        let nodeB = new Node("B");
+        let nodeC = new Node("C");
+        let nodeD = new Node("D");
+        let nodeE = new Node("E");
+        let nodeF = new Node("F");
         graph.addNode(nodeA);
         graph.addNode(nodeB);
         graph.addNode(nodeC);
@@ -4696,7 +4696,7 @@ class ImportTestBase {
         EcIdentityManager.default.addIdentity(this.newId1);
     };
     newAssertion = function (competencyToAssert) {
-        var a = new EcAssertion();
+        let a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
@@ -4710,7 +4710,7 @@ class ImportTestBase {
         return a;
     };
     newFalseAssertion = function (competencyToAssert) {
-        var a = new EcAssertion();
+        let a = new EcAssertion();
         a.generateId(this.repo.selectedServer);
         a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
@@ -4725,7 +4725,7 @@ class ImportTestBase {
         return a;
     };
     newCompetency = function (competencyName) {
-        var competency = new EcCompetency();
+        let competency = new EcCompetency();
         competency.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         competency.name = competencyName;
         competency.generateId(this.repo.selectedServer);
@@ -4733,7 +4733,7 @@ class ImportTestBase {
         return competency;
     };
     newRollupRule = function (competency, rule) {
-        var rr = new EcRollupRule();
+        let rr = new EcRollupRule();
         rr.competency = competency.shortId();
         rr.rule = rule;
         rr.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
@@ -4742,7 +4742,7 @@ class ImportTestBase {
         return rr;
     };
     newRelation = function (c, c2, relationType) {
-        var r = new EcAlignment();
+        let r = new EcAlignment();
         r.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         r.generateId(this.repo.selectedServer);
         r.relationType = relationType;
@@ -4752,7 +4752,7 @@ class ImportTestBase {
         return r;
     };
     newFramework = function (frameworkName) {
-        var framework = new EcFramework();
+        let framework = new EcFramework();
         framework.name = frameworkName;
         framework.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
         framework.generateId(this.repo.selectedServer);
@@ -4762,23 +4762,23 @@ class ImportTestBase {
 }
 class TabStructuredImportTest extends ImportTestBase {
     basicTabStructuredImport = async () => {
-        var me = this;
+        let me = this;
         await TabStructuredImport.importCompetencies(
             "A\n\tA.1\n\t\tA.1.1\n\tA.2\n\t\tA.2.1\n\t\tA.2.2\n\t\t\tA.2.2.1\nB\n\tB.1\n\t\tB.1.1\n\tB.2\n\t\tB.2.1\n\t\tB.2.2\n\t\t\tB.2.2.1\nC\nD\n D.1\n D.2\n  D.2.1\n  D.2.2\n D.3\n  D.3.1\nE",
             this.repo.selectedServer,
             this.newId1,
             async (competencies, alignments) => {
-                var f = new EcFramework();
+                let f = new EcFramework();
                 f.setName("Tab Structured Import Test Framework");
                 f.generateId(me.repo.selectedServer);
                 f.competency = [];
                 f.relation = [];
-                var everything = [];
-                for (var i = 0; i < competencies.length; i++) {
+                let everything = [];
+                for (let i = 0; i < competencies.length; i++) {
                     f.competency.push(competencies[i].shortId());
                     everything.push(competencies[i]);
                 }
-                for (var i = 0; i < alignments.length; i++) {
+                for (let i = 0; i < alignments.length; i++) {
                     f.relation.push(alignments[i].shortId());
                     everything.push(alignments[i]);
                 }
@@ -4786,7 +4786,7 @@ class TabStructuredImportTest extends ImportTestBase {
                 await me.repo.multiput(
                     everything,
                     async s => {
-                        for (var i = 0; i < everything.length; i++)
+                        for (let i = 0; i < everything.length; i++)
                             await me.repo.deleteRegistered(
                                 everything[i],
                                 null,

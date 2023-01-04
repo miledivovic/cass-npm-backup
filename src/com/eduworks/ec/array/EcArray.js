@@ -29,8 +29,8 @@ module.exports = class EcArray {
 	 *  @memberOf EcArray
 	 */
 	static removeDuplicates = function (a) {
-		for (var i = 0; i < a.length; i++)
-			for (var j = i; j < a.length; j++) {
+		for (let i = 0; i < a.length; i++)
+			for (let j = i; j < a.length; j++) {
 				if (j == i) continue;
 				if (a[i] == a[j]) a.splice(j, 1);
 			}
@@ -70,7 +70,7 @@ module.exports = class EcArray {
 	 */
 	static has = function (a, o) {
 		if (EcObject.isObject(o))
-			for (var i = 0; i < a.length; i++) {
+			for (let i = 0; i < a.length; i++) {
 				if (a[i] === o) return true;
 				try {
 					if (a[i].equals(o)) return true;
@@ -79,7 +79,7 @@ module.exports = class EcArray {
 				}
 			}
 		else
-			for (var i = 0; i < a.length; i++) {
+			for (let i = 0; i < a.length; i++) {
 				if (a[i] === o) {
 					return true;
 				}
@@ -98,7 +98,7 @@ module.exports = class EcArray {
 	 */
 	static indexOf = function (a, o) {
 		if (EcObject.isObject(o))
-			for (var i = 0; i < a.length; i++) {
+			for (let i = 0; i < a.length; i++) {
 				if (a[i] === o) return i;
 				try {
 					if (a[i].equals(o)) return i;
@@ -107,7 +107,7 @@ module.exports = class EcArray {
 				}
 			}
 		else
-			for (var i = 0; i < a.length; i++) {
+			for (let i = 0; i < a.length; i++) {
 				if (a[i] === o) {
 					return i;
 				}

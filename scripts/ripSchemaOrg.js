@@ -1,6 +1,6 @@
 //Generates code from RDFa
 
-var fs = require('fs');
+let fs = require('fs');
 
 const https = require('https');
 
@@ -17,10 +17,10 @@ https.get("https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/relea
             data = data.replace("https://schema.org/", "schema:");
         while (data != data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf:"))
             data = data.replace("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "rdf:");
-        var graph = JSON.parse(data)["@graph"];
-        for (var i = 0; i < graph.length; i++) {
-            var node = graph[i];
-            var type = node["@type"];
+        let graph = JSON.parse(data)["@graph"];
+        for (let i = 0; i < graph.length; i++) {
+            let node = graph[i];
+            let type = node["@type"];
             if (type == "rdfs:Class") {
                 if (node["@id"] == "schema:DataType") continue;
                 if (node["@id"] == "schema:Number") continue;
@@ -36,10 +36,10 @@ https.get("https://raw.githubusercontent.com/schemaorg/schemaorg/main/data/relea
 });
 
 function codeGenerate(graph, node) {
-    var classId = node["@id"];
-    var className = classId.split(":")[1];
+    let classId = node["@id"];
+    let className = classId.split(":")[1];
     //console.log(node);
-    var text = "";
+    let text = "";
     text += "";
     text += "/**\n";
     text += " * " + classId.replace("schema:", "Schema.org/") + "\n";
@@ -78,8 +78,8 @@ function codeGenerate(graph, node) {
     text += "\t\tthis.setContextAndType(\"http://schema.org/\",\"" + className + "\");\n";
     text += "\t}\n\n";
 
-    for (var i = 0; i < graph.length; i++) {
-        var gn = graph[i];            
+    for (let i = 0; i < graph.length; i++) {
+        let gn = graph[i];            
         if (gn["schema:rangeIncludes"] != null)
         if (!Array.isArray(gn["schema:rangeIncludes"]))
             gn["schema:rangeIncludes"] = [gn["schema:rangeIncludes"]];
@@ -91,9 +91,9 @@ function codeGenerate(graph, node) {
         if (gn["rdfs:comment"] != null && gn["rdfs:comment"]["@value"] != null)
             gn["rdfs:comment"] = gn["rdfs:comment"]["@value"]
 
-        var gi = gn["@id"];
-        var gt = gn["@type"];
-        var gd = gn["schema:domainIncludes"];
+        let gi = gn["@id"];
+        let gt = gn["@type"];
+        let gd = gn["schema:domainIncludes"];
         if (gt != "rdf:Property")
             continue;
         //console.log(gn);
@@ -101,8 +101,8 @@ function codeGenerate(graph, node) {
             continue;
         //console.log(gd);
         {
-            var ok = false;
-            for (var j = 0; j < gd.length; j++) {
+            let ok = false;
+            for (let j = 0; j < gd.length; j++) {
                 if (gd[j]["@id"] == classId)
                     ok = true;
             }
@@ -114,12 +114,12 @@ function codeGenerate(graph, node) {
         text += "\t *" + "\n";
         text += "\t * @property " + gn["rdfs:label"] + "\n";
         text += "\t * @type ";
-        var gr = gn["schema:rangeIncludes"][0];
+        let gr = gn["schema:rangeIncludes"][0];
         //console.log(gr.toString());
         if (gr.toString().indexOf(",") == -1) {
             text += gr["@id"].split(":")[1] + "\n";
         } else {
-            for (var j = 0; j < gr.length; j++) {
+            for (let j = 0; j < gr.length; j++) {
                 if (j > 0)
                     text += " | ";
                 text += gr[j]["@id"].split(":");

@@ -1,15 +1,16 @@
-var base64 = require("base64-arraybuffer");
+let base64 = require("base64-arraybuffer");
 let forge = require("node-forge");
 require("../../../../org/cassproject/general/AuditLogger.js");
+let crypto = null;
 if (typeof crypto == 'undefined')
 {
 	if (typeof window !== 'undefined' && window != null && window !== undefined)
 		if (window.crypto != null)
-			var crypto = window.crypto;
+			crypto = window.crypto;
 	try {
 		let requireResult = require('crypto').webcrypto;
 		if (requireResult != null)
-			var crypto = requireResult;
+			crypto = requireResult;
 	} catch (err) {
 		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsync", "Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}
@@ -78,13 +79,13 @@ module.exports = class EcAesCtrAsync {
 			);
 		}
 		this.fipsOn();
-		var keyUsages = [];
+		let keyUsages = [];
 		keyUsages.push("encrypt", "decrypt");
-		var algorithm = {};
+		let algorithm = {};
 		algorithm.name = "AES-CTR";
 		algorithm.counter = base64.decode(iv);
 		algorithm.length = 128;
-		var data;
+		let data;
 		data = EcCrypto.str2ab(plaintext);
 		return cassPromisify(
 			crypto.subtle
@@ -123,7 +124,7 @@ module.exports = class EcAesCtrAsync {
 	 */
 	static decrypt(ciphertext, secret, iv, success, failure) {
 		if (EcCrypto.caching) {
-			var cacheGet = EcCrypto.decryptionCache[secret + iv + ciphertext];
+			let cacheGet = EcCrypto.decryptionCache[secret + iv + ciphertext];
 			if (cacheGet != null) {
 				return cassReturnAsPromise(cacheGet, success, failure);
 			}
@@ -143,12 +144,12 @@ module.exports = class EcAesCtrAsync {
 			);
 		}
 		this.fipsOn();
-		var keyUsages = ["encrypt", "decrypt"];
-		var algorithm = {};
+		let keyUsages = ["encrypt", "decrypt"];
+		let algorithm = {};
 		algorithm.name = "AES-CTR";
 		algorithm.counter = base64.decode(iv);
 		algorithm.length = 128;
-		var data;
+		let data;
 		data = base64.decode(ciphertext);
 		return cassPromisify(
 			crypto.subtle

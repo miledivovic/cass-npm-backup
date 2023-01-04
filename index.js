@@ -6,12 +6,12 @@ if (typeof window !== "undefined" && window) {
 require("./src/org/cassproject/general/AuditLogger.js");
 
 global.generateUUID = function () {
-    var d = new Date().getTime();
+    let d = new Date().getTime();
     if (typeof window !== "undefined" && window && window.performance && typeof window.performance.now === "function") {
         d += performance.now(); // use high-precision timer if available
     }
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
+    let uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        let r = (d + Math.random() * 16) % 16 | 0;
         d = Math.floor(d / 16);
         return (c == 'x' ? r : r & 0x3 | 0x8).toString(16);
     });
@@ -67,8 +67,6 @@ try {
 
 if (global.forge === undefined)
     global.forge = require("node-forge");
-else
-    var forge = global.forge;
 
 let JavalikeEquals = function (value) {
     if (value == null)
@@ -88,7 +86,7 @@ if (!String.prototype.equals) {
 }
 if (!String.prototype.startsWith) {
     String.prototype.startsWith = function (start, from) {
-        var f = from != null ? from : 0;
+        let f = from != null ? from : 0;
         return this.substring(f, f + start.length) == start;
     };
 }
@@ -166,8 +164,8 @@ if (!String.prototype.regionMatches) {
         }
         if (toffset < 0 || ooffset < 0 || other == null || toffset + len > this.length || ooffset + len > other.length)
             return false;
-        var s1 = this.substring(toffset, toffset + len);
-        var s2 = other.substring(ooffset, ooffset + len);
+        let s1 = this.substring(toffset, toffset + len);
+        let s2 = other.substring(ooffset, ooffset + len);
         return ignoreCase ? s1.equalsIgnoreCase(s2) : s1 === s2;
     };
 }
@@ -189,12 +187,12 @@ String.valueOf = function (value) {
 };
 
 /* Number */
-var Byte = Number;
-var Double = Number;
-var Float = Number;
-var Integer = Number;
-var Long = Number;
-var Short = Number;
+let Byte = Number;
+let Double = Number;
+let Float = Number;
+let Integer = Number;
+let Long = Number;
+let Short = Number;
 
 /* type conversion - approximative as Javascript only has integers and doubles */
 if (!Number.prototype.intValue) {

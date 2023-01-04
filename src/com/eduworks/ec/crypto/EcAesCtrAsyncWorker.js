@@ -37,9 +37,9 @@ module.exports = class EcAesCtrAsyncWorker {
 				failure
 			);
 		}
-		var worker = EcRsaOaepAsyncWorker.rotator++;
+		let worker = EcRsaOaepAsyncWorker.rotator++;
 		EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-		var o = {};
+		let o = {};
 		o["secret"] = secret;
 		o["iv"] = iv;
 		o["text"] = forge.util.encodeUtf8(plaintext);
@@ -62,7 +62,7 @@ module.exports = class EcAesCtrAsyncWorker {
 	 */
 	static decrypt(ciphertext, secret, iv, success, failure) {
 		if (EcCrypto.caching) {
-			var cacheGet = null;
+			let cacheGet = null;
 			cacheGet = EcCrypto.decryptionCache[secret + iv + ciphertext];
 			if (cacheGet != null) {
 				return cassReturnAsPromise(cacheGet, success, failure);
@@ -76,9 +76,9 @@ module.exports = class EcAesCtrAsyncWorker {
 				failure
 			);
 		}
-		var worker = EcRsaOaepAsyncWorker.rotator++;
+		let worker = EcRsaOaepAsyncWorker.rotator++;
 		EcRsaOaepAsyncWorker.rotator = EcRsaOaepAsyncWorker.rotator % 8;
-		var o = {};
+		let o = {};
 		o["secret"] = secret;
 		o["iv"] = iv;
 		o["text"] = ciphertext;

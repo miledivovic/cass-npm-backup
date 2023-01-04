@@ -1,9 +1,9 @@
 let EcArray = require("./EcArray.js");
 let chai = require("chai");
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 describe("EcArray", () => {
     describe("isArray", () => {
@@ -19,9 +19,6 @@ describe("EcArray", () => {
     });
     it('Duplicates are removed', () => {
         let ary = [1, 1, 2, 3, 4];
-        console.log((eval("var __temp = null"), (typeof __temp === "undefined")) ? 
-    "strict": 
-    "non-strict");
         EcArray.removeDuplicates(ary);
         expect(ary.length).to.equal(4);
     });

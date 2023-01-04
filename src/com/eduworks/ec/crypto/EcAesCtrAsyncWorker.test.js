@@ -14,41 +14,41 @@ let hrtime = function() {
     return process.hrtime();
 };
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 after(()=>EcRsaOaepAsyncWorker.teardown());
 
 describe("EcAesCtrAsyncWorker", () => {
     it('await encryption then await decryption', async () => {
-        var randomString = EcAes.newIv(1024);
-        var secret = EcAes.newSecret(16);
-        var iv = EcAes.newIv(16);
-        var encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
-        var decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
+        let randomString = EcAes.newIv(1024);
+        let secret = EcAes.newSecret(16);
+        let iv = EcAes.newIv(16);
+        let encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
+        let decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
         assert.isTrue(randomString == decrypted);
     });
     it('encryption then decryption (utf-8)', async () => {
-        var randomString =
+        let randomString =
             "abc\u16a0\u16c7\u16bb\u16eb\u16d2\u16e6\u16a6\u16eb\u16a0\u16b1\u16a9\u16a0\u16a2\u16b1\u16eb\u16a0\u16c1\u16b1\u16aa\u16eb\u16b7\u16d6\u16bb\u16b9\u16e6\u16da\u16b3\u16a2\u16d7";
-        var secret = EcAes.newSecret(16);
-        var iv = EcAes.newIv(16);
-        var encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
-        var decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
+        let secret = EcAes.newSecret(16);
+        let iv = EcAes.newIv(16);
+        let encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
+        let decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
         assert.isTrue(randomString == decrypted);
     });
     it('large encryption then decryption w/caching', async () => {
-        var randomString = EcAes.newIv(4096*4);
-        var secret = EcAes.newSecret(16);
-        var iv = EcAes.newIv(16);
-        var hrTime = hrtime();
-        var encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
+        let randomString = EcAes.newIv(4096*4);
+        let secret = EcAes.newSecret(16);
+        let iv = EcAes.newIv(16);
+        let hrTime = hrtime();
+        let encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
         let elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log(randomString.length/1024+"KB encryption speed: " + elapsed+"ms");
         hrTime = hrtime();
         EcCrypto.caching = true;
-        var decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
+        let decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
         elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
         console.log("decryption wout/caching speed: " + elapsed+"ms");
         hrTime = hrtime();
@@ -80,19 +80,19 @@ describe("EcAesCtrAsyncWorker", () => {
         }
     }).timeout(10000);
     it('EcAesCtrAsyncWorker encryption then EcAesCtr decryption', async () => {
-        var randomString = EcAes.newIv(1024);
-        var secret = EcAes.newSecret(16);
-        var iv = EcAes.newIv(16);
-        var encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
-        var decrypted = EcAesCtr.decrypt(encrypted, secret, iv);
+        let randomString = EcAes.newIv(1024);
+        let secret = EcAes.newSecret(16);
+        let iv = EcAes.newIv(16);
+        let encrypted = await EcAesCtrAsyncWorker.encrypt(randomString, secret, iv);
+        let decrypted = EcAesCtr.decrypt(encrypted, secret, iv);
         assert.isTrue(randomString == decrypted);
     });
     it('EcAesCtr encryption then EcAesCtrAsyncWorker decryption', async () => {
-        var randomString = EcAes.newIv(1024);
-        var secret = EcAes.newSecret(16);
-        var iv = EcAes.newIv(16);
-        var encrypted = EcAesCtr.encrypt(randomString, secret, iv);
-        var decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
+        let randomString = EcAes.newIv(1024);
+        let secret = EcAes.newSecret(16);
+        let iv = EcAes.newIv(16);
+        let encrypted = EcAesCtr.encrypt(randomString, secret, iv);
+        let decrypted = await EcAesCtrAsyncWorker.decrypt(encrypted, secret, iv);
         assert.isTrue(randomString == decrypted);
     });
 });

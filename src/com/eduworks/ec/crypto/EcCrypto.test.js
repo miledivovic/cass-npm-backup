@@ -2,6 +2,13 @@ let EcCrypto = require("./EcCrypto.js");
 let EcAes = require("./EcAes.js");
 let chai = require("chai");
 
+try {
+    global.crypto = null;
+    global.crypto = require('crypto').webcrypto;
+} catch (err) {
+    console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
+}
+
 let hrtime = function() {
     try {
         return [Math.round(performance.now()/1000), performance.now() * 1000];
@@ -16,6 +23,12 @@ let expect = chai.expect;
 let assert = chai.assert;
 
 describe("EcPpk", () => {
+    it('random', ()=>{
+        let one = EcCrypto.generateUUID();
+        let two = EcCrypto.generateUUID();
+        console.log(one,two);
+        assert.isTrue(one != two);
+    });
     it('md5', async () => {
         let randomString = EcAes.newIv(4096*4);
         let hrTime = hrtime();

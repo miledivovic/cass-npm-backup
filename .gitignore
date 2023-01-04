@@ -21,3 +21,5 @@ cass-npm.iml
 .node-xmlhttprequest*
 
 docs/
+
+.nyc_output/

@@ -52,7 +52,7 @@ module.exports = class EcContact {
 	 *  @static
 	 */
 	static fromEncryptedContact(contact, secret, source) {
-		var i = new EcContact();
+		let i = new EcContact();
 		i.pk = EcPk.fromPem(EcAesCtr.decrypt(contact.pk, secret, contact.iv));
 		i.source = source;
 		if (contact.displayName != null && contact.displayNameIv != null)
@@ -104,7 +104,7 @@ module.exports = class EcContact {
 	 *  @method toEncryptedContact
 	 */
 	toEncryptedContact(secret) {
-		var c = new EbacContact();
+		let c = new EbacContact();
 		c.iv = EcAes.newIv(16);
 		c.pk = EcAesCtr.encrypt(this.pk.toPem(), secret, c.iv);
 		c.displayNameIv = EcAes.newIv(16);

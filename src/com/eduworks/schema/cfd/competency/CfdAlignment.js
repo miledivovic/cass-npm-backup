@@ -120,12 +120,12 @@ module.exports = class CfdAlignment extends schema.AlignmentObject {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.targetUrl == null || this.targetUrl == "") {
-			var msg = "Target Competency cannot be missing";
+			let msg = "Target Competency cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.alignmentType == null || this.alignmentType == "") {
-			var msg = "Relation Type cannot be missing";
+			let msg = "Relation Type cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

@@ -89,22 +89,22 @@ module.exports = class ExtContent extends schema.CreativeWork {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.getId() == null || this.getId() == "") {
-			var msg = "ID cannot be missing";
+			let msg = "ID cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getTitle() == null || this.getTitle() == "") {
-			var msg = "Title cannot be missing";
+			let msg = "Title cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getDescription() == null || this.getDescription() == "") {
-			var msg = "Description cannot be missing";
+			let msg = "Description cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getLaunchURL() == null || this.getLaunchURL() == "") {
-			var msg = "Launch URL cannot be missing";
+			let msg = "Launch URL cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
@@ -113,7 +113,7 @@ module.exports = class ExtContent extends schema.CreativeWork {
 			this.getInstitution().name == null ||
 			this.getInstitution().name == ""
 		) {
-			var msg = "Institution name cannot be missing";
+			let msg = "Institution name cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

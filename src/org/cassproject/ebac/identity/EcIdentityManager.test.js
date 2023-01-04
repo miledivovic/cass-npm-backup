@@ -11,9 +11,9 @@ let hrtime = function() {
     return process.hrtime();
 };
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 after(()=>EcRsaOaepAsyncWorker.teardown());
 

@@ -69,9 +69,9 @@ module.exports = class EcOrganization extends schema.Organization {
 		if (this.employee == null) this["employee"] = [];
 		if (!EcArray.isArray(this.employee))
 			throw new Error("Employee is not Array");
-		var ary = this.employee;
-		var psid = person.shortId();
-		for (var i = 0; i < ary.length; i++) {
+		let ary = this.employee;
+		let psid = person.shortId();
+		for (let i = 0; i < ary.length; i++) {
 			if (ary[i] == psid) return;
 		}
 		ary.push(psid);
@@ -86,8 +86,8 @@ module.exports = class EcOrganization extends schema.Organization {
 		if (this.employee == null) return;
 		if (!EcArray.isArray(this.employee))
 			throw new Error("Employee is not Array");
-		var ary = this.employee;
-		for (var i = 0; i < ary.length; i++) {
+		let ary = this.employee;
+		for (let i = 0; i < ary.length; i++) {
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(ary[i]) ==
 				EcRemoteLinkedData.trimVersionFromUrl(id)
@@ -106,10 +106,10 @@ module.exports = class EcOrganization extends schema.Organization {
 		if (this.employee == null) this["employee"] = [];
 		if (!EcArray.isArray(this.employee) || !EcArray.isArray(this.member))
 			return;
-		var membAry = this.member;
-		var empAry = this.employee;
-		for (var i = 0; i < membAry.length; i++) {
-			var id = membAry[i];
+		let membAry = this.member;
+		let empAry = this.employee;
+		for (let i = 0; i < membAry.length; i++) {
+			let id = membAry[i];
 			if (id.toLowerCase().indexOf("person") > -1) {
 				if (empAry.indexOf(id) <= -1) {
 					empAry.push(id);
@@ -131,8 +131,8 @@ module.exports = class EcOrganization extends schema.Organization {
 	ppkListToPemArrayString(ppkList) {
 		if (ppkList == null) return JSON.stringify([]);
 		else {
-			var pemArray = [];
-			for (var i = 0; i < ppkList.length; i++) {
+			let pemArray = [];
+			for (let i = 0; i < ppkList.length; i++) {
 				pemArray.push(ppkList[i].toPem());
 			}
 			return JSON.stringify(pemArray);
@@ -146,7 +146,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method addOrgKey
 	 */
 	async addOrgKey(newOrgPpk) {
-		var orgKeys = await this.getOrgKeys();
+		let orgKeys = await this.getOrgKeys();
 		orgKeys.push(newOrgPpk);
 		this[EcOrganization.ORG_PPK_SET_KEY] = orgKeys;
 	}
@@ -164,24 +164,24 @@ module.exports = class EcOrganization extends schema.Organization {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (repo == null) {
-			var msg = "Repository cannot be null for a rekey operation";
+			let msg = "Repository cannot be null for a rekey operation";
 			if (failure != null) failure(msg);
 			else global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcOrgRekeyAndSave", msg);
 			return;
 		} else {
-			var oldKey = await this.getCurrentOrgKey();
-			var newKey = EcPpk.generateKey();
-			var identity = new EcIdentity();
+			let oldKey = await this.getCurrentOrgKey();
+			let newKey = EcPpk.generateKey();
+			let identity = new EcIdentity();
 			identity.ppk = newKey;
 			identity.displayName = "Organization Rekey New Key";
 			eim.addIdentity(identity);
-			var rekeyRequest = await EcRekeyRequest.generateRekeyRequest(
+			let rekeyRequest = await EcRekeyRequest.generateRekeyRequest(
 				repo.selectedServer,
 				oldKey,
 				newKey
 			);
 			this.addOrgKey(newKey);
-			var newKeys = await EcEncryptedValue.encryptValue(
+			let newKeys = await EcEncryptedValue.encryptValue(
 				this.ppkListToPemArrayString(await this.getOrgKeys()),
 				EcOrganization.ORG_PPK_SET_KEY,
 				this.owner,
@@ -208,7 +208,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method save
 	 */
 	async save(success, failure, repo, eim) {
-		var newKeys = await EcEncryptedValue.encryptValue(
+		let newKeys = await EcEncryptedValue.encryptValue(
 			this.ppkListToPemArrayString(await this.getOrgKeys()),
 			EcOrganization.ORG_PPK_SET_KEY,
 			this.owner,
@@ -227,7 +227,7 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method getCurrentOrgKey
 	 */
 	async getCurrentOrgKey() {
-		var orgKeys = await this.getOrgKeys();
+		let orgKeys = await this.getOrgKeys();
 		if (orgKeys.length >= 1) {
 			return orgKeys[orgKeys.length - 1];
 		} else return null;
@@ -241,13 +241,13 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method getOrgKeys
 	 */
 	async getOrgKeys(eim) {
-		var orgKeys = [];
-		var o = this[EcOrganization.ORG_PPK_SET_KEY];
+		let orgKeys = [];
+		let o = this[EcOrganization.ORG_PPK_SET_KEY];
 		if (o != null && (o.type === 'EncryptedValue' || o["@type"] === 'EncryptedValue')) {
-			var ev = new EcEncryptedValue();
+			let ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var orgKeysPPKPems = JSON.parse(await ev.decryptIntoString(null, null, eim));
-			for (var i = 0; i < orgKeysPPKPems.length; i++) {
+			let orgKeysPPKPems = JSON.parse(await ev.decryptIntoString(null, null, eim));
+			for (let i = 0; i < orgKeysPPKPems.length; i++) {
 				orgKeys.push(EcPpk.fromPem(orgKeysPPKPems[i]));
 			}
 		} else if (o) {
@@ -261,14 +261,14 @@ module.exports = class EcOrganization extends schema.Organization {
 	 *  @method moveKeyField
 	 */
 	async moveKeyField(eim) {
-		var o = this["https://schema.cassproject.org/0.3/ppk"];
+		let o = this["https://schema.cassproject.org/0.3/ppk"];
 		if (o != null) {
-			var ev = new EcEncryptedValue();
+			let ev = new EcEncryptedValue();
 			ev.copyFrom(o);
-			var currentGroupPpkPem = await ev.decryptIntoString(null, null, eim);
-			var keyArray = [];
+			let currentGroupPpkPem = await ev.decryptIntoString(null, null, eim);
+			let keyArray = [];
 			keyArray.push(currentGroupPpkPem);
-			var newKey = await EcEncryptedValue.encryptValue(
+			let newKey = await EcEncryptedValue.encryptValue(
 				JSON.stringify(keyArray),
 				EcOrganization.ORG_PPK_SET_KEY,
 				this.owner,

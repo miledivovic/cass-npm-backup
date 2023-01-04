@@ -113,17 +113,17 @@ module.exports = class ExtInstitution extends schema.Organization {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.getId() == null || this.getId() == "") {
-			var msg = "ID cannot be missing";
+			let msg = "ID cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getName() == null || this.getName() == "") {
-			var msg = "Name cannot be missing";
+			let msg = "Name cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getWebPage() == null || this.getWebPage() == "") {
-			var msg = "Official web page cannot be missing";
+			let msg = "Official web page cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
@@ -475,7 +475,7 @@ module.exports = class ExtInstitution extends schema.Organization {
 		addrCityState,
 		addrZip
 	) {
-		var addr = new PostalAddress();
+		let addr = new PostalAddress();
 		if (
 			addr1 != null &&
 			addr1 != "" &&
@@ -509,7 +509,7 @@ module.exports = class ExtInstitution extends schema.Organization {
 			type.equals(ExtInstitution.EMPLOYEE_TYPE_ADMINISTRATOR) ||
 			type.equals(ExtInstitution.EMPLOYEE_TYPE_ASSISTANT)
 		) {
-			var poc = new Person();
+			let poc = new Person();
 			if (name != null && name != "") poc.name = name.trim();
 			if (title != null && title != "") poc.jobTitle = title.trim();
 			if (phone != null && phone != "") poc.telephone = phone.trim();
@@ -524,13 +524,13 @@ module.exports = class ExtInstitution extends schema.Organization {
 			)
 				poc.address = addr;
 			if (type.equals(ExtInstitution.EMPLOYEE_TYPE_ADMINISTRATOR)) {
-				var o = new Organization();
+				let o = new Organization();
 				o.employee = poc;
 				this.setAdminPOC(o);
 			} else if (type.equals(ExtInstitution.EMPLOYEE_TYPE_ASSISTANT))
 				this.setAssistantPOC(poc);
 		} else if (type.equals(ExtInstitution.EMPLOYEE_TYPE_IT)) {
-			var poc = new ContactPoint();
+			let poc = new ContactPoint();
 			if (name != null && name != "") poc.name = name.trim();
 			if (title != null && title != "") poc.contactType = title.trim();
 			if (phone != null && phone != "") poc.telephone = phone.trim();

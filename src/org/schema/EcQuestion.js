@@ -39,7 +39,7 @@ module.exports = class EcQuestion extends schema.Question {
 	getQuestionType(eim) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
-		var acceptedAnswers = this.acceptedAnswers();
+		let acceptedAnswers = this.acceptedAnswers();
 		if (acceptedAnswers == null) {
 			if (this.canEdit(eim.ids[0].ppk.toPk())) {
 				return EcQuestion.HAND_GRADED_ESSAY;
@@ -47,7 +47,7 @@ module.exports = class EcQuestion extends schema.Question {
 				return EcQuestion.ESSAY_OR_SHORT_ANSWER;
 			}
 		}
-		var m = acceptedAnswers.length;
+		let m = acceptedAnswers.length;
 		if (m == 0) {
 			return EcQuestion.HAND_GRADED_ESSAY;
 		}
@@ -57,7 +57,7 @@ module.exports = class EcQuestion extends schema.Question {
 			}
 			return EcQuestion.SHORT_ANSWER;
 		}
-		var l = this.suggestedAnswer.length;
+		let l = this.suggestedAnswer.length;
 		if (l == 0) {
 			if (this.text != null && this.text.indexOf("__") != -1) {
 				return EcQuestion.FILL_IN_THE_BLANK;
@@ -77,8 +77,8 @@ module.exports = class EcQuestion extends schema.Question {
 			if (!EcArray.isArray(this.acceptedAnswer)) {
 				throw new Error("Accepted Answer is not Array");
 			}
-			var ary = this.acceptedAnswer;
-			for (var i = 0; i < ary.length; i++) {
+			let ary = this.acceptedAnswer;
+			for (let i = 0; i < ary.length; i++) {
 				if (
 					EcRemoteLinkedData.trimVersionFromUrl(ary[i]) ==
 					EcRemoteLinkedData.trimVersionFromUrl(id)
@@ -91,8 +91,8 @@ module.exports = class EcQuestion extends schema.Question {
 			if (!EcArray.isArray(this.suggestedAnswer)) {
 				throw new Error("Suggested Answer is not Array");
 			}
-			var ary = this.suggestedAnswer;
-			for (var i = 0; i < ary.length; i++) {
+			let ary = this.suggestedAnswer;
+			for (let i = 0; i < ary.length; i++) {
 				if (
 					EcRemoteLinkedData.trimVersionFromUrl(ary[i]) ==
 					EcRemoteLinkedData.trimVersionFromUrl(id)
@@ -121,7 +121,7 @@ module.exports = class EcQuestion extends schema.Question {
 		if (!EcArray.isArray(this.acceptedAnswer)) {
 			throw new Error("Accepted Answer is not Array");
 		}
-		var ary = this.acceptedAnswer;
+		let ary = this.acceptedAnswer;
 		ary.push(answer.id);
 	}
 	addSuggestedAnswer(answer) {
@@ -131,7 +131,7 @@ module.exports = class EcQuestion extends schema.Question {
 		if (!EcArray.isArray(this.suggestedAnswer)) {
 			throw new Error("Suggested Answer is not Array");
 		}
-		var ary = this.suggestedAnswer;
+		let ary = this.suggestedAnswer;
 		ary.push(answer.id);
 	}
 	removeSuggestedAnswerById(id) {
@@ -141,8 +141,8 @@ module.exports = class EcQuestion extends schema.Question {
 		if (!EcArray.isArray(this.suggestedAnswer)) {
 			throw new Error("Suggested Answer is not Array");
 		}
-		var ary = this.suggestedAnswer;
-		for (var i = 0; i < ary.length; i++) {
+		let ary = this.suggestedAnswer;
+		for (let i = 0; i < ary.length; i++) {
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(ary[i]) ==
 				EcRemoteLinkedData.trimVersionFromUrl(id)
@@ -158,8 +158,8 @@ module.exports = class EcQuestion extends schema.Question {
 		if (!EcArray.isArray(this.acceptedAnswer)) {
 			throw new Error("Accepted Answer is not Array");
 		}
-		var ary = this.acceptedAnswer;
-		for (var i = 0; i < ary.length; i++) {
+		let ary = this.acceptedAnswer;
+		for (let i = 0; i < ary.length; i++) {
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(ary[i]) ==
 				EcRemoteLinkedData.trimVersionFromUrl(id)

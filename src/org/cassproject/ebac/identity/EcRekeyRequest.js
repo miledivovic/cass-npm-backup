@@ -63,7 +63,7 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 	 *  @method generateRekeyRequest
 	 */
 	static async generateRekeyRequest(server, oldKey, newKey) {
-		var err = new EcRekeyRequest();
+		let err = new EcRekeyRequest();
 		err.addOwner(newKey.toPk());
 		err.rekeyPk = oldKey.toPk().toPem();
 		err.generateRekeyRequestId(server, oldKey.toPk());
@@ -78,9 +78,9 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 	 *  @method toSignableJson
 	 */
 	toSignableRekeyJson() {
-		var d = JSON.parse(this.toSignableJson());
+		let d = JSON.parse(this.toSignableJson());
 		delete d["rekeySignature"];
-		var e = new EcLinkedData(d.context, d.type);
+		let e = new EcLinkedData(d.context, d.type);
 		e.copyFrom(d);
 		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRekeyReqToSign", "verifying: " + e.toJson());
 		return e.toJson();

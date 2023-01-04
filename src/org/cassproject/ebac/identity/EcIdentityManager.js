@@ -91,20 +91,20 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	readContacts() {
-		var localStore = localStorage["contacts"];
+		let localStore = localStorage["contacts"];
 		if (localStore == null) {
 			return;
 		}
-		var c = JSON.parse(localStore);
-		for (var i = 0; i < c.length; i++) {
-			var contact = new EcContact();
-			var o = c[i];
-			var props = o;
+		let c = JSON.parse(localStore);
+		for (let i = 0; i < c.length; i++) {
+			let contact = new EcContact();
+			let o = c[i];
+			let props = o;
 			contact.displayName = props["displayName"];
 			contact.pk = EcPk.fromPem(props["pk"]);
 			contact.source = props["source"];
-			var cont = false;
-			for (var j = 0; j < this.contacts.length; j++) {
+			let cont = false;
+			for (let j = 0; j < this.contacts.length; j++) {
 				if (
 					this.contacts[j].pk.toPem() ==
 					contact.pk.toPem()
@@ -126,11 +126,11 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	saveContacts() {
-		var c = [];
-		for (var i = 0; i < this.contacts.length; i++) {
-			var o = {};
-			var props = o;
-			var contact = this.contacts[i];
+		let c = [];
+		for (let i = 0; i < this.contacts.length; i++) {
+			let o = {};
+			let props = o;
+			let contact = this.contacts[i];
 			props["displayName"] = contact.displayName;
 			props["pk"] = contact.pk.toPem();
 			props["source"] = contact.source;
@@ -147,20 +147,20 @@ module.exports = class EcIdentityManager {
 	 */
 	readIdentities() {
 		if (typeof localStorage === "undefined") return;
-		var localStore = localStorage["identities"];
+		let localStore = localStorage["identities"];
 		if (localStore == null) {
 			return;
 		}
-		var c = JSON.parse(localStore);
-		for (var i = 0; i < c.length; i++) {
-			var identity = new EcIdentity();
-			var o = c[i];
-			var props = o;
+		let c = JSON.parse(localStore);
+		for (let i = 0; i < c.length; i++) {
+			let identity = new EcIdentity();
+			let o = c[i];
+			let props = o;
 			identity.displayName = props["displayName"];
 			identity.ppk = EcPpk.fromPem(props["ppk"]);
 			identity.source = props["source"];
-			var cont = false;
-			for (var j = 0; j < this.ids.length; j++) {
+			let cont = false;
+			for (let j = 0; j < this.ids.length; j++) {
 				if (
 					this.ids[j].ppk.toPem() == identity.ppk.toPem()
 				) {
@@ -181,11 +181,11 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	saveIdentities() {
-		var c = [];
-		for (var i = 0; i < this.ids.length; i++) {
-			var o = {};
-			var props = o;
-			var identity = this.ids[i];
+		let c = [];
+		for (let i = 0; i < this.ids.length; i++) {
+			let o = {};
+			let props = o;
+			let identity = this.ids[i];
 			props["displayName"] = identity.displayName;
 			props["ppk"] = identity.ppk.toPem();
 			props["source"] = identity.source;
@@ -228,7 +228,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	addIdentity(identity) {
-		for (var i = 0; i < this.ids.length; i++) {
+		for (let i = 0; i < this.ids.length; i++) {
 			if (this.ids[i].equals(identity)) {
 				return;
 			}
@@ -246,7 +246,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	addIdentityQuietly(identity) {
-		for (var i = 0; i < this.ids.length; i++) {
+		for (let i = 0; i < this.ids.length; i++) {
 			if (this.ids[i].equals(identity)) {
 				return;
 			}
@@ -263,7 +263,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	addContact(contact) {
-		for (var i = 0; i < this.ids.length; i++) {
+		for (let i = 0; i < this.ids.length; i++) {
 			if (
 				this.ids[i].ppk
 					.toPk()
@@ -274,7 +274,7 @@ module.exports = class EcIdentityManager {
 				this.identityChanged(this.ids[i]);
 			}
 		}
-		for (var i = 0; i < this.contacts.length; i++) {
+		for (let i = 0; i < this.contacts.length; i++) {
 			if (
 				this.contacts[i].pk
 					.toPem()
@@ -284,7 +284,7 @@ module.exports = class EcIdentityManager {
 				this.contactChanged(this.contacts[i]);
 			}
 		}
-		for (var i = 0; i < this.contacts.length; i++) {
+		for (let i = 0; i < this.contacts.length; i++) {
 			if (this.contacts[i].equals(contact)) {
 				return;
 			}
@@ -302,7 +302,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	addContactQuietly(contact) {
-		for (var i = 0; i < this.ids.length; i++) {
+		for (let i = 0; i < this.ids.length; i++) {
 			if (
 				this.ids[i].ppk
 					.toPk()
@@ -312,7 +312,7 @@ module.exports = class EcIdentityManager {
 				this.ids[i].displayName = contact.displayName;
 			}
 		}
-		for (var i = 0; i < this.contacts.length; i++) {
+		for (let i = 0; i < this.contacts.length; i++) {
 			if (
 				this.contacts[i].pk
 					.toPem()
@@ -321,7 +321,7 @@ module.exports = class EcIdentityManager {
 				this.contacts[i].displayName = contact.displayName;
 			}
 		}
-		for (var i = 0; i < this.contacts.length; i++) {
+		for (let i = 0; i < this.contacts.length; i++) {
 			if (this.contacts[i].equals(contact)) {
 				return;
 			}
@@ -350,7 +350,7 @@ module.exports = class EcIdentityManager {
 		success,
 		failure
 	) {
-		var cache = null;
+		let cache = null;
 		if (this.signatureSheetCaching) {
 			cache = this.signatureSheetCache[server];
 			if (cache != null) {
@@ -360,7 +360,7 @@ module.exports = class EcIdentityManager {
 			}
 			duration += 20000;
 		}
-		var finalDuration = duration;
+		let finalDuration = duration;
 		let promises = identityPksinPem
 			.map((pk) => this.getPpk(EcPk.fromPem(pk)))
 			.filter((x) => x != null)
@@ -370,8 +370,8 @@ module.exports = class EcIdentityManager {
 		let p = Promise.all(promises);
 		p = p.then((signatureCandidates) => {
 			let signatures = signatureCandidates.filter(x=>x);
-			var cache = null;
-			var stringified = JSON.stringify(signatures);
+			let cache = null;
+			let stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
 				cache = [];
 				cache[0] = new Date().getTime() + finalDuration;
@@ -395,7 +395,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	signatureSheet(duration, server, success, failure) {
-		var cache = null;
+		let cache = null;
 		if (this.signatureSheetCaching) {
 			cache = this.signatureSheetCache[server];
 			if (cache != null) {
@@ -405,16 +405,16 @@ module.exports = class EcIdentityManager {
 			}
 			duration += 20000;
 		}
-		var finalDuration = duration;
+		let finalDuration = duration;
 		let promises = this.ids.map((ident) =>
 			this.createSignature(finalDuration, server, ident.ppk)
 		);
 		let p = Promise.all(promises);
 		p = p.then((signatureCandidates) => {
 			let signatures = signatureCandidates.filter(x=>x);
-			var stringified = JSON.stringify(signatures);
+			let stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
-				var cache = null;
+				let cache = null;
 				cache = [];
 				cache[0] = new Date().getTime() + finalDuration;
 				cache[1] = stringified;
@@ -441,7 +441,7 @@ module.exports = class EcIdentityManager {
 		if (ppk instanceof EcPpkFacade) {
 			return null;
 		}
-		var s = new EbacSignature();
+		let s = new EbacSignature();
 		s.expiry = new Date().getTime() + duration;
 		s.server = server;
 		delete s.owner;
@@ -462,8 +462,8 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	getPpk(fromPem) {
-		var pem = fromPem.toPem();
-		for (var i = 0; i < this.ids.length; i++) {
+		let pem = fromPem.toPem();
+		for (let i = 0; i < this.ids.length; i++) {
 			if (pem == this.ids[i].ppk.toPk().toPem()) {
 				return this.ids[i].ppk;
 			}
@@ -480,7 +480,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	getContact(pk) {
-		for (var i = 0; i < this.contacts.length; i++) {
+		for (let i = 0; i < this.contacts.length; i++) {
 			if (pk.equals(this.contacts[i].pk)) {
 				return this.contacts[i];
 			}
@@ -497,7 +497,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	getIdentity(pk) {
-		for (var i = 0; i < this.ids.length; i++) {
+		for (let i = 0; i < this.ids.length; i++) {
 			if (pk.equals(this.ids[i].ppk.toPk())) {
 				return this.ids[i];
 			}
@@ -515,8 +515,8 @@ module.exports = class EcIdentityManager {
 	async sign(d) {
 		let promises = [];
 		if (d.owner != null) {
-			for (var i = 0; i < d.owner.length; i++) {
-				var attempt = this.getPpk(
+			for (let i = 0; i < d.owner.length; i++) {
+				let attempt = this.getPpk(
 					EcPk.fromPem(d.owner[i])
 				);
 				if (attempt != null) {
@@ -533,8 +533,8 @@ module.exports = class EcIdentityManager {
 		});
 	}
 	myIdentitiesSearchString() {
-		var searchString = "";
-		for (var i = 0; i < this.ids.length; i++) {
+		let searchString = "";
+		for (let i = 0; i < this.ids.length; i++) {
 			if (i > 0) {
 				searchString += " OR ";
 			}
@@ -551,9 +551,9 @@ module.exports = class EcIdentityManager {
 		return searchString;
 	}
 	getMyPks() {
-		var pks = [];
+		let pks = [];
 		if (this.ids == null) return pks;
-		for (var i = 0; i < this.ids.length; i++)
+		for (let i = 0; i < this.ids.length; i++)
 			pks.push(this.ids[i].ppk.toPk());
 		return pks;
 	}

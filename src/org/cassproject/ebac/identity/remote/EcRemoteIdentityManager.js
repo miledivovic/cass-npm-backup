@@ -113,7 +113,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 	 *  @method configureFromServer
 	 */
 	async configureFromServer(success, failure) {
-		var me = this;
+		let me = this;
 		return cassPromisify(
 			EcRemote.getExpectingObject(
 				this.server,
@@ -234,9 +234,9 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 				this.passwordWidth
 			)
 		);
-		var arys = [];
+		let arys = [];
 		arys.push(username, password);
-		var secret = this.splicePasswords(arys);
+		let secret = this.splicePasswords(arys);
 		this.secretWithSalt = forge.util.encode64(
 			forge.pkcs5.pbkdf2(
 				secret,
@@ -263,7 +263,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 	 *  @method changePassword
 	 */
 	changePassword(username, oldPassword, newPassword) {
-		var usernameHash = forge.util.encode64(
+		let usernameHash = forge.util.encode64(
 			forge.pkcs5.pbkdf2(
 				username,
 				this.usernameSalt,
@@ -276,7 +276,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 				"Username does not match. Aborting password change."
 			);
 		}
-		var oldPasswordHash = forge.util.encode64(
+		let oldPasswordHash = forge.util.encode64(
 			forge.pkcs5.pbkdf2(
 				oldPassword,
 				this.passwordSalt,
@@ -297,9 +297,9 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 				this.passwordWidth
 			)
 		);
-		var arys = [];
+		let arys = [];
 		arys.push(username, newPassword);
-		var secret = this.splicePasswords(arys);
+		let secret = this.splicePasswords(arys);
 		this.secretWithSalt = forge.util.encode64(
 			forge.pkcs5.pbkdf2(
 				secret,
@@ -336,12 +336,12 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 			failure("Please log in before performing this operation.");
 			return;
 		}
-		var r = new EbacCredentialRequest();
+		let r = new EbacCredentialRequest();
 		r.username = this.usernameWithSalt;
 		r.password = this.passwordWithSalt;
-		var fd = new FormData();
+		let fd = new FormData();
 		fd.append("credentialRequest", r.toJson());
-		var me = this;
+		let me = this;
 		return cassPromisify(
 			EcRemote.postExpectingObject(
 				this.server,
@@ -349,13 +349,13 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 				fd,
 				async (arg0) => {
 					let eim = new EcIdentityManager();
-					var cs = arg0;
+					let cs = arg0;
 					me.pad = cs.pad;
 					me.token = cs.token;
-					var shouldCommit = false;
+					let shouldCommit = false;
 					if (cs.credentials != null)
-						for (var i = 0; i < cs.credentials.length; i++) {
-							var c = cs.credentials[i];
+						for (let i = 0; i < cs.credentials.length; i++) {
+							let c = cs.credentials[i];
 							let identity = null;
 							try{
 								identity = await EcIdentity.fromCredential(
@@ -385,8 +385,8 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 							eim.addIdentity(identity);
 						}
 					if (cs.contacts != null)
-						for (var i = 0; i < cs.contacts.length; i++) {
-							var c = cs.contacts[i];
+						for (let i = 0; i < cs.contacts.length; i++) {
+							let c = cs.contacts[i];
 							let identity = null;
 							try{
 								identity = await EcContact.fromEncryptedContact(
@@ -438,7 +438,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 	 *  @method commit
 	 */
 	async commit(success, failure, eim) {
-		var service = "sky/id/commit";
+		let service = "sky/id/commit";
 		return this.sendCredentials(success, failure, service, eim);
 	}
 	/**
@@ -459,7 +459,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 	 *  @method create
 	 */
 	async create(success, failure, eim) {
-		var service = "sky/id/create";
+		let service = "sky/id/create";
 		return this.sendCredentials(success, failure, service, eim);
 	}
 	/**
@@ -485,30 +485,30 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 		) {
 			throw new Error("Please log in before performing this operation.");
 		}
-		var credentials = [];
-		var contacts = [];
-		for (var i = 0; i < eim.ids.length; i++) {
-			var id = eim.ids[i];
+		let credentials = [];
+		let contacts = [];
+		for (let i = 0; i < eim.ids.length; i++) {
+			let id = eim.ids[i];
 			if (id.source != null && id.source != this.server) continue;
 			id.source = this.server;
 			credentials.push(await id.toCredential(this.secretWithSalt));
 		}
-		for (var i = 0; i < eim.contacts.length; i++) {
-			var id = eim.contacts[i];
+		for (let i = 0; i < eim.contacts.length; i++) {
+			let id = eim.contacts[i];
 			if (id.source != null && id.source != this.server) continue;
 			id.source = this.server;
 			contacts.push(await id.toEncryptedContact(this.secretWithSalt));
 		}
-		var commit = new EbacCredentialCommit();
+		let commit = new EbacCredentialCommit();
 		commit.username = this.usernameWithSalt;
 		commit.password = this.passwordWithSalt;
 		commit.token = this.token;
 		commit.credentials.pad = this.pad;
 		commit.credentials.credentials = credentials;
 		commit.credentials.contacts = contacts;
-		var fd = new FormData();
+		let fd = new FormData();
 		fd.append("credentialCommit", commit.toJson());
-		var me = this;
+		let me = this;
 		return cassPromisify(
 			eim.signatureSheet(
 				60000,
@@ -547,11 +547,11 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 	 *  @method splicePasswords
 	 */
 	splicePasswords(passwords) {
-		var passwordSplice = "";
-		for (var charIndex = 0; true; charIndex++) {
-			var foundAny = false;
+		let passwordSplice = "";
+		for (let charIndex = 0; true; charIndex++) {
+			let foundAny = false;
 			for (
-				var passwordIndex = 0;
+				let passwordIndex = 0;
 				passwordIndex < passwords.length;
 				passwordIndex++
 			) {

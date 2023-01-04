@@ -26,7 +26,7 @@ module.exports = class EcAsyncTask {
 	}
 	setArguments(_arguments) {
 		this.args = [];
-		for (var i = 0; i < arguments.length; i++) {
+		for (let i = 0; i < arguments.length; i++) {
 			this.args[i] = arguments[i];
 		}
 	}
@@ -53,7 +53,7 @@ module.exports = class EcAsyncTask {
 		return this.start;
 	}
 	doTask(_arguments) {
-		var ret = undefined;
+		let ret = undefined;
 		if (!this.isStarted) {
 			this.start = new Date();
 			this.isStarted = true;
@@ -90,36 +90,36 @@ module.exports = class EcAsyncTask {
 		return ret;
 	}
 	invoke0 = function() {
-		var that = this;
-		var ret = this.job.call(this, function() {
+		let that = this;
+		let ret = this.job.call(this, function() {
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke1 = function(arg1) {
-		var that = this;
-		var ret = this.job.call(this, arg1, function() {
+		let that = this;
+		let ret = this.job.call(this, arg1, function() {
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke2 = function(arg1, arg2) {
-		var that = this;
-		var ret = this.job.call(this, arg1, arg2, function() {
+		let that = this;
+		let ret = this.job.call(this, arg1, arg2, function() {
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke3 = function(arg1, arg2, arg3) {
-		var that = this;
-		var ret = this.job.call(this, arg1, arg2, arg3, function() {
+		let that = this;
+		let ret = this.job.call(this, arg1, arg2, arg3, function() {
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke4 = function(arg1, arg2, arg3, arg4) {
-		var that = this;
-		var ret = this.job.call(this, arg1, arg2, arg3, arg4, function() {
+		let that = this;
+		let ret = this.job.call(this, arg1, arg2, arg3, arg4, function() {
 			that.setComplete();
 		});
 		return ret;

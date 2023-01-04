@@ -1,4 +1,4 @@
-var pemJwk = require("pem-jwk");
+let pemJwk = require("pem-jwk");
 let forge = require("node-forge");
 let EcPk = require("./EcPk.js");
 let EcPpk = require("./EcPpk.js");
@@ -28,7 +28,7 @@ module.exports = class EcPpkFacade extends EcPpk {
 	 *  @static
 	 */
 	static fromPem(pem) {
-		var pk = EcPk.cache[pem];
+		let pk = EcPk.cache[pem];
 		if (pk != null)
 			return new EcPpkFacade(pk);
 		return new EcPpkFacade(EcPk.fromPem(pem));
@@ -101,7 +101,7 @@ module.exports = class EcPpkFacade extends EcPpk {
 	 *  @method inArray
 	 */
 	inArray(ppks) {
-		for (var i = 0; i < ppks.length; i++) {
+		for (let i = 0; i < ppks.length; i++) {
 			if (ppks[i].equals(this)) return true;
 		}
 		return false;

@@ -47,7 +47,7 @@ global.jsonld = require("jsonld");
 	 *  @method isAtProperty
 	 */
 	static isAtProperty(key) {
-		for (var i = 0; i < EcLinkedData.atProperties.length; i++)
+		for (let i = 0; i < EcLinkedData.atProperties.length; i++)
 			if (EcLinkedData.atProperties[i] == key) return true;
 		return false;
 	}
@@ -88,7 +88,7 @@ global.jsonld = require("jsonld");
 	 *  @method toJson
 	 */
 	toJson() {
-		var o = this.atIfy();
+		let o = this.atIfy();
 		return JSON.stringify(o);
 	}
 	/**
@@ -104,8 +104,8 @@ global.jsonld = require("jsonld");
 		return this.atIfyObject(this);
 	}
 	atIfyArray(o) {
-		var a = [];
-		for (var i = 0; i < o.length; i++) {
+		let a = [];
+		for (let i = 0; i < o.length; i++) {
 			if (EcObject.isObject(o[i])) {
 				if (o[i] instanceof EcLinkedData) a[i] = this.atIfyObject(o[i]);
 				else {
@@ -117,9 +117,9 @@ global.jsonld = require("jsonld");
 		return a;
 	}
 	atIfyObject(o) {
-		var keys = [];
-		var me = o;
-		for (var key in me) {
+		let keys = [];
+		let me = o;
+		for (let key in me) {
 			if (me["type"] != null)
 				if (EcLinkedData.isAtProperty(key)) key = "@" + key;
 			keys.push(key);
@@ -127,10 +127,10 @@ global.jsonld = require("jsonld");
 		keys.sort(function (a, b) {
 			return a.localeCompare(b);
 		});
-		var op = {};
-		for (var i = 0; i < keys.length; i++) {
-			var key = keys[i];
-			var value = me[key.replace("@", "")];
+		let op = {};
+		for (let i = 0; i < keys.length; i++) {
+			let key = keys[i];
+			let value = me[key.replace("@", "")];
 			if (value != null)
 				if (value instanceof EcLinkedData) value = value.atIfy();
 				else if (EcArray.isArray(value)) value = this.atIfyArray(value);
@@ -149,7 +149,7 @@ global.jsonld = require("jsonld");
 	 *  @method isA
 	 */
 	isA(type) {
-		var computedType = this.getFullType();
+		let computedType = this.getFullType();
 		return computedType.equals(type) || this.type.equals(type);
 	}
 	/**
@@ -161,9 +161,9 @@ global.jsonld = require("jsonld");
 	 *  @method isAny
 	 */
 	isAny(type) {
-		var computedType = this.getFullType();
+		let computedType = this.getFullType();
 		if (type.length == 0) return true;
-		for (var i = 0; i < type.length; i++)
+		for (let i = 0; i < type.length; i++)
 			if (type[i] == computedType || type[i] == this.type)
 				return true;
 		return false;
@@ -178,9 +178,9 @@ global.jsonld = require("jsonld");
 	getFullType() {
 		if (this.context == null) return this.type;
 		if (this.type.indexOf("http") != -1) return this.type;
-		var computedType = this.context;
+		let computedType = this.context;
 		if (EcObject.isObject(this.context)) {
-			var typeParts = this.type.split(":");
+			let typeParts = this.type.split(":");
 			if (typeParts.length == 2) {
 				computedType = this.context[typeParts[0]];
 				if (!computedType.endsWith("/")) computedType += "/";
@@ -204,25 +204,25 @@ global.jsonld = require("jsonld");
 	 *  @method copyFrom
 	 */
 	copyFrom(that, eim) {
-		var me = this;
-		for (var key in me) {
+		let me = this;
+		for (let key in me) {
 			if (typeof me[key] != "function") delete me[key];
 		}
-		var you = that;
-		for (var key in you) {
+		let you = that;
+		for (let key in you) {
 			if (typeof you[key] != "function") {
 				if (you["@type"] != null) me[key.replace("@", "")] = you[key];
 				else me[key] = you[key];
 			}
 		}
-		var stripNamespace = null;
-		var newContext = null;
+		let stripNamespace = null;
+		let newContext = null;
 		if (
 			this.type != null &&
 			this.context != null &&
 			EcObject.isObject(this.context)
 		) {
-			var typeParts = this.type.split(":");
+			let typeParts = this.type.split(":");
 			if (typeParts.length == 2) {
 				newContext = this.context[typeParts[0]];
 				stripNamespace = typeParts[0];
@@ -231,7 +231,7 @@ global.jsonld = require("jsonld");
 				newContext = this.context["@vocab"];
 		}
 		if (stripNamespace != null)
-			for (var key in me) {
+			for (let key in me) {
 				if (typeof me[key] != "function") {
 					if (key.startsWith(stripNamespace + ":")) {
 						if (EcArray.isArray(me[key])) {
@@ -265,11 +265,11 @@ global.jsonld = require("jsonld");
 		return this;
 	}
 	async recast(translationContext, targetContext) {
-		var me = this;
-		var json = JSON.parse(this.toJson());
+		let me = this;
+		let json = JSON.parse(this.toJson());
 		if (targetContext == null) targetContext = json["@context"];
 		json["@context"] = translationContext;
-		var finalTargetContext = targetContext;
+		let finalTargetContext = targetContext;
 		let actual;
 		try {
 			actual = await jsonld.expand(json);
@@ -300,7 +300,7 @@ global.jsonld = require("jsonld");
 	 *  @method toSignableJson
 	 */
 	toSignableJson() {
-		var d = JSON.parse(this.toJson());
+		let d = JSON.parse(this.toJson());
 		if (
 			this.type.indexOf("http://schema.eduworks.com/") == 0 &&
 			this.type.indexOf("/0.1/") != -1
@@ -317,7 +317,7 @@ global.jsonld = require("jsonld");
 			delete d["@signature"];
 			delete d["@id"];
 		}
-		var e = new EcLinkedData(d.context, d.type);
+		let e = new EcLinkedData(d.context, d.type);
 		e.copyFrom(d);
 		return e.toJson();
 	}
@@ -336,19 +336,19 @@ global.jsonld = require("jsonld");
 	 *  @internal
 	 */
 	deAtify() {
-		var me = this;
-		var typeFound = false;
+		let me = this;
+		let typeFound = false;
 		if (me["@type"] != null) typeFound = true;
-		for (var key in me) {
+		for (let key in me) {
 			if (me[key] == null) {
 				if (typeFound) {
-					var value = me[key];
+					let value = me[key];
 					if (value != null)
 						if (value instanceof EcLinkedData)
 							value = value.deAtify();
 					me[key.replace("@", "")] = value;
 				} else {
-					var value = me[key];
+					let value = me[key];
 					if (value != null)
 						if (value instanceof EcLinkedData)
 							value = value.deAtify();
@@ -365,10 +365,10 @@ global.jsonld = require("jsonld");
 	 *  @method getTypes
 	 */
 	getTypes() {
-		var a = [];
+		let a = [];
 		if (this.context != null && this.type != null) {
 			if (!EcObject.isObject(this.context)) {
-				var context = !this.context.endsWith("/")
+				let context = !this.context.endsWith("/")
 					? this.context + "/"
 					: this.context;
 				if (this.type.indexOf(context) == 0) a.push(this.type);
@@ -378,7 +378,7 @@ global.jsonld = require("jsonld");
 		return a;
 	}
 	async compact(remoteContextUrl, success, failure) {
-		var me = this;
+		let me = this;
 		try {
 			let compacted = await jsonld.compact(this.toJson(),	remoteContextUrl);
 			me.copyFrom(compacted);

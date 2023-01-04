@@ -99,27 +99,27 @@ module.exports = class ExtPerson extends schema.Person {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.getId() == null || this.getId() == "") {
-			var msg = "ID cannot be missing";
+			let msg = "ID cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getFirstName() == null || this.getFirstName() == "") {
-			var msg = "First name cannot be missing";
+			let msg = "First name cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getLastName() == null || this.getLastName() == "") {
-			var msg = "Last name cannot be missing";
+			let msg = "Last name cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getUserName() == null || this.getUserName() == "") {
-			var msg = "Username cannot be missing";
+			let msg = "Username cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.getEmail() == null || this.getEmail() == "") {
-			var msg = "Email cannot be missing";
+			let msg = "Email cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

@@ -41,7 +41,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 	 */
 	removeAssertionByShortId(assertionShortIdToRemove) {
 		if (this.assertion != null) {
-			for (var i = 0; i < this.assertion.length; i++) {
+			for (let i = 0; i < this.assertion.length; i++) {
 				if (
 					this.getAssertion(i)
 						.shortId()
@@ -53,7 +53,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 			}
 		}
 		if (this.codebook != null) {
-			for (var i = 0; i < this.codebook.length; i++) {
+			for (let i = 0; i < this.codebook.length; i++) {
 				if (
 					this.codebook[i].assertionShortId.equals(
 						assertionShortIdToRemove
@@ -75,7 +75,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 		if (this.assertion != null)
 			if (index < this.assertion.length) {
 				if (Assertion.codebooks == null) Assertion.codebooks = {};
-				var a = new Assertion();
+				let a = new Assertion();
 				a.copyFrom(this.assertion[index]);
 				Assertion.codebooks[a.id] = this.codebook[index];
 				return a;
@@ -88,8 +88,8 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 	 *  @method addAssertion
 	 */
 	async addAssertion(a, eim) {
-		var me = this;
-		var ac = new AssertionCodebook();
+		let me = this;
+		let ac = new AssertionCodebook();
 		if (this.assertion == null) this.assertion = [];
 		this.assertion.push(a);
 		if (this.codebook == null) this.codebook = [];
@@ -105,9 +105,9 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 			ac.decayFunction = await a.decayFunction.decryptSecret(eim);
 		if (a.negative != null) ac.negative = await a.negative.decryptSecret(eim);
 		if (a.evidence != null)
-			for (var i = 0; i < a.evidence.length; i++) {
+			for (let i = 0; i < a.evidence.length; i++) {
 				if (ac.evidence == null) ac.evidence = [];
-				var ecEncryptedValue = a.evidence[i];
+				let ecEncryptedValue = a.evidence[i];
 				ac.evidence.push(await ecEncryptedValue.decryptSecret(eim));
 			}
 	}
@@ -119,7 +119,7 @@ module.exports = class AssertionEnvelope extends schema.CreativeWork {
 	 */
 	validate() {
 		if (this.assertion != null)
-			for (var i = 0; i < this.assertion.length; i++)
+			for (let i = 0; i < this.assertion.length; i++)
 				if (this.assertion[i].invalid()) return false;
 		return true;
 	}

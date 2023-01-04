@@ -11,14 +11,14 @@ let hrtime = function() {
     return process.hrtime();
 };
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 describe("EcPpk", () => {
     it('md5', async () => {
-        var randomString = EcAes.newIv(4096*4);
-        var hrTime = hrtime();
+        let randomString = EcAes.newIv(4096*4);
+        let hrTime = hrtime();
         EcCrypto.caching = true;
         EcCrypto.md5(randomString);
         let elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;
@@ -31,8 +31,8 @@ describe("EcPpk", () => {
         EcCrypto.caching = false;
     });
     it('sha256', async () => {
-        var randomString = EcAes.newIv(4096*4);
-        var hrTime = hrtime();
+        let randomString = EcAes.newIv(4096*4);
+        let hrTime = hrtime();
         EcCrypto.caching = true;
         EcCrypto.sha256(randomString);
         let elapsed = (hrtime()[0]*1000000 + hrtime()[1]/1000 - hrTime[0] * 1000000 - hrTime[1] / 1000)/1000;

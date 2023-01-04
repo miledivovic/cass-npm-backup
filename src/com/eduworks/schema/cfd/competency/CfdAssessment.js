@@ -100,7 +100,7 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 *  @static
 	 */
 	static searchWithFramework(repo, framework, success, failure, paramObj, eim) {
-		var query = new CfdAssessment().getSearchStringByType();
+		let query = new CfdAssessment().getSearchStringByType();
 		query =
 			"(" +
 			query +
@@ -115,16 +115,16 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 			null,
 			async (p1) => {
 				if (success != null) {
-					var ret = [];
-					for (var i = 0; i < p1.length; i++) {
-						var assessment = new CfdAssessment();
+					let ret = [];
+					for (let i = 0; i < p1.length; i++) {
+						let assessment = new CfdAssessment();
 						if (p1[i].isAny(assessment.getTypes())) {
 							assessment.copyFrom(p1[i]);
 						} else if (p1[i].isA(EcEncryptedValue.myType)) {
-							var val = new EcEncryptedValue();
+							let val = new EcEncryptedValue();
 							val.copyFrom(p1[i]);
 							if (val.isAnEncrypted(CfdAssessment.myType)) {
-								var obj = await val.decryptIntoObject(null, null, eim);
+								let obj = await val.decryptIntoObject(null, null, eim);
 								assessment.copyFrom(obj);
 							}
 						}
@@ -192,12 +192,12 @@ module.exports = class CfdAssessment extends schema.CreativeWork {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
-			var msg = "Name cannot be missing";
+			let msg = "Name cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.educationalAlignment == null) {
-			var msg = "Educational Alignment cannot be missing";
+			let msg = "Educational Alignment cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

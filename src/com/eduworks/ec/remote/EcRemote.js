@@ -1,7 +1,7 @@
 require("../../../../org/cassproject/general/AuditLogger.js");
 
 global.axiosOptions = {};
-var isNode = false;    
+let isNode = false;    
 if (typeof process === 'object') {
   if (typeof process.versions === 'object') {
     if (typeof process.versions.node !== 'undefined') {
@@ -228,7 +228,7 @@ module.exports = class EcRemote {
 		successCallback,
 		failureCallback
 	) {
-		var url = server;
+		let url = server;
 		if (!url.endsWith("/") && service != null && !("" == service)) {
 			url += "/";
 		}
@@ -304,7 +304,7 @@ module.exports = class EcRemote {
 	 *  @static
 	 */
 	static getExpectingString(server, service, success, failure) {
-		var url = EcRemote.urlAppend(server, service);
+		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = axios
 			.get(url,axiosOptions)
@@ -326,7 +326,7 @@ module.exports = class EcRemote {
 		return cassPromisify(p, success, failure);
 	}
 	static urlAppend(server, service) {
-		var url = server;
+		let url = server;
 		if (!url.endsWith("/") && service != null && service == "") {
 			url += "/";
 		}

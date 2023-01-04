@@ -101,8 +101,8 @@ module.exports = class EcAlignment extends Relation {
 	 *  @static
 	 */
 	static searchBySource(repo, sourceId, success, failure, paramObj, eim) {
-		var query = "";
-		var noVersion = EcRemoteLinkedData.trimVersionFromUrl(sourceId);
+		let query = "";
+		let noVersion = EcRemoteLinkedData.trimVersionFromUrl(sourceId);
 		if (noVersion == sourceId) {
 			query += 'source:"' + sourceId + '"';
 		} else {
@@ -128,13 +128,13 @@ module.exports = class EcAlignment extends Relation {
 	 *  @static
 	 */
 	static searchBySources(repo, sourceIds, success, failure, paramObj, eim) {
-		var query = "";
+		let query = "";
 		query = "(source:";
-		var noVersions = [];
-		for (var i = 0; i < sourceIds.length; i++) {
-			var sourceId = sourceIds[i];
+		let noVersions = [];
+		for (let i = 0; i < sourceIds.length; i++) {
+			let sourceId = sourceIds[i];
 			if (i != 0) query += " OR ";
-			var noVersion = EcRemoteLinkedData.trimVersionFromUrl(sourceId);
+			let noVersion = EcRemoteLinkedData.trimVersionFromUrl(sourceId);
 			if (noVersion == sourceId) {
 				query += '"' + sourceId + '"';
 			} else {
@@ -163,8 +163,8 @@ module.exports = class EcAlignment extends Relation {
 	 *  @static
 	 */
 	static searchByCompetency(repo, competencyId, success, failure, paramObj, eim) {
-		var query = "";
-		var noVersion = EcRemoteLinkedData.trimVersionFromUrl(competencyId);
+		let query = "";
+		let noVersion = EcRemoteLinkedData.trimVersionFromUrl(competencyId);
 		if (noVersion == competencyId) {
 			query +=
 				' AND (source:"' +
@@ -220,17 +220,17 @@ module.exports = class EcAlignment extends Relation {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.source == null || this.source == "") {
-			var msg = "Source Competency cannot be missing";
+			let msg = "Source Competency cannot be missing";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.target == null || this.target == "") {
-			var msg = "Target Competency cannot be missing";
+			let msg = "Target Competency cannot be missing";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.relationType == null || this.relationType == "") {
-			var msg = "Relation Type cannot be missing";
+			let msg = "Relation Type cannot be missing";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

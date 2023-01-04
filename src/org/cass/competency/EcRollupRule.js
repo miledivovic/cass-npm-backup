@@ -107,12 +107,12 @@ module.exports = class EcRollupRule extends RollupRule {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.rule == null || this.rule == "") {
-			var msg = "RollupRule Rule cannot be empty";
+			let msg = "RollupRule Rule cannot be empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.competency == null || this.competency == "") {
-			var msg = "RollupRule's Competency cannot be empty";
+			let msg = "RollupRule's Competency cannot be empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

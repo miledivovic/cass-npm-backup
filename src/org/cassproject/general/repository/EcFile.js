@@ -27,7 +27,7 @@ module.exports = class EcFile extends GeneralFile {
 	 *  @static
 	 */
 	static create(name, base64Data, mimeType) {
-		var f = new EcFile();
+		let f = new EcFile();
 		f.data = base64Data;
 		f.name = name;
 		f.mimeType = mimeType;
@@ -95,7 +95,7 @@ module.exports = class EcFile extends GeneralFile {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
-			var msg = "File Name can not be empty";
+			let msg = "File Name can not be empty";
 			if (failure != null) failure(msg);
 			else global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcFileSave", msg);
 			return;

@@ -28,7 +28,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	static encryptOnSaveMap = null;
 	static revive(partiallyRehydratedObject) {
 		if (partiallyRehydratedObject == null) return null;
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(partiallyRehydratedObject);
 		return v;
 	}
@@ -44,7 +44,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		if (!d.isAny(new EcEncryptedValue().getTypes())) {
 			return cassReturnAsPromise(d, success, failure);
 		} else {
-			var eev = new EcEncryptedValue();
+			let eev = new EcEncryptedValue();
 			eev.copyFrom(d);
 			EcEncryptedValue.encryptOnSave(d.id, true);
 			EcEncryptedValue.encryptOnSave(d.shortId(), true);
@@ -83,9 +83,9 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	getEncryptedFullType() {
 		if (this.encryptedContext == null) return this.encryptedType;
 		if (this.encryptedType.indexOf("http") != -1) return this.encryptedType;
-		var computedType = this.encryptedContext;
+		let computedType = this.encryptedContext;
 		if (EcObject.isObject(this.encryptedContext)) {
-			var typeParts = this.encryptedType.split(":");
+			let typeParts = this.encryptedType.split(":");
 			if (typeParts.length == 2) {
 				computedType = this.encryptedContext[typeParts[0]];
 				if (!computedType.endsWith("/")) computedType += "/";
@@ -132,8 +132,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		if (d["Markings"] != null) {
 			v.Markings = d["Markings"];
 		}
-		var newIv = EcAes.newIv(16);
-		var newSecret = EcAes.newIv(16);
+		let newIv = EcAes.newIv(16);
+		let newSecret = EcAes.newIv(16);
 		return this.encryptValueActual(
 			v,
 			d.toJson(),
@@ -181,8 +181,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @deprecated
 	 */
 	static encryptValueOld(text, id, owner) {
-		var newIv = EcAes.newIv(16);
-		var newSecret = EcAes.newIv(16);
+		let newIv = EcAes.newIv(16);
+		let newSecret = EcAes.newIv(16);
 		return this.encryptValueActual(
 			new EcEncryptedValue(),
 			text,
@@ -208,9 +208,9 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 */
 	static encryptValue(text, id, owners, readers) {
-		var v = new EcEncryptedValue();
-		var newIv = EcAes.newIv(16);
-		var newSecret = EcAes.newIv(16);
+		let v = new EcEncryptedValue();
+		let newIv = EcAes.newIv(16);
+		let newSecret = EcAes.newIv(16);
 		return this.encryptValueActual(
 			v,
 			text,
@@ -236,9 +236,9 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 	 *  @static
 	 */
 	static encryptValueAsync(text, id, owners, readers, success, failure) {
-		var v = new EcEncryptedValue();
-		var newIv = EcAes.newIv(16);
-		var newSecret = EcAes.newIv(16);
+		let v = new EcEncryptedValue();
+		let newIv = EcAes.newIv(16);
+		let newSecret = EcAes.newIv(16);
 		return this.encryptValueActual(
 			v,
 			text,
@@ -271,7 +271,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 				v.id = id;
 				let promises = [];
 				let insertSecret = (pk, newIv, newSecret) => {
-					var eSecret = new EbacEncryptedSecret();
+					let eSecret = new EbacEncryptedSecret();
 					eSecret.iv = newIv;
 					eSecret.secret = newSecret;
 					return EcRsaOaepAsync.encrypt(
@@ -373,7 +373,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 				if (!EcLinkedData.isProbablyJson(decryptRaw)) {
 					return null;
 				}
-				var decrypted = new EcRemoteLinkedData("", "");
+				let decrypted = new EcRemoteLinkedData("", "");
 				decrypted.copyFrom(JSON.parse(decryptRaw));
 				EcEncryptedValue.encryptOnSave(decrypted.id, true);
 				decrypted.id = this.id;
@@ -433,11 +433,11 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		}
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
-		var ppks = [];
-		var estimatedIndices = [];
+		let ppks = [];
+		let estimatedIndices = [];
 		if (this.owner != null) {
-			for (var i = 0; i < this.owner.length; i++) {
-				var decryptionKey = eim.getPpk(
+			for (let i = 0; i < this.owner.length; i++) {
+				let decryptionKey = eim.getPpk(
 					EcPk.fromPem(this.owner[i])
 				);
 				if (decryptionKey != null) {
@@ -449,8 +449,8 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 			}
 		}
 		if (this.reader != null) {
-			for (var i = 0; i < this.reader.length; i++) {
-				var decryptionKey = eim.getPpk(
+			for (let i = 0; i < this.reader.length; i++) {
+				let decryptionKey = eim.getPpk(
 					EcPk.fromPem(this.reader[i])
 				);
 				if (decryptionKey != null) {
@@ -499,7 +499,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 		if (this.encryptedType == null) {
 			return false;
 		}
-		var typeSplit = type.split("/");
+		let typeSplit = type.split("/");
 		return (
 			this.encryptedType == type ||
 			this.encryptedType == typeSplit[typeSplit.length - 1]

@@ -52,7 +52,7 @@ module.exports = class RollupRule extends schema.CreativeWork {
 		}
 	}
 	getTypes() {
-		var a = [];
+		let a = [];
 		a.push(RollupRule.TYPE_0_6);
 		a.push(RollupRule.TYPE_0_5);
 		a.push(RollupRule.TYPE_0_4);

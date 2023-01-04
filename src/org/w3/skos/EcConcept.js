@@ -6,10 +6,10 @@ const EcRepository = require("../../cassproject/ebac/repository/EcRepository");
 module.exports = class EcConcept extends Concept {
 	constructor() {
 		super();
-		var me = this;
+		let me = this;
 		if (EcConcept.template != null) {
-			var you = EcConcept.template;
-			for (var key in you) {
+			let you = EcConcept.template;
+			for (let key in you) {
 				if (typeof you[key] != "function")
 					me[key.replace("@", "")] = you[key];
 			}

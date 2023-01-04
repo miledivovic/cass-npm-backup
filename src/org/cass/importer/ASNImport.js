@@ -38,22 +38,22 @@ module.exports = class ASNImport extends Importer {
 	 *  @static
 	 */
 	static asnJsonPrime(obj, key) {
-		var value = obj[key];
+		let value = obj[key];
 		if (Importer.isObject(value)) {
 			if (
 				value["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"] != null
 			) {
-				var stringVal =
+				let stringVal =
 					value["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"][
 						"0"
 					]["value"];
 				if (stringVal == "http://purl.org/ASN/schema/core/Statement") {
 					ASNImport.jsonCompetencies[key] = value;
 					ASNImport.competencyCount++;
-					var children =
+					let children =
 						value["http://purl.org/gem/qualifiers/hasChild"];
 					if (children != null)
-						for (var j = 0; j < children.length; j++) {
+						for (let j = 0; j < children.length; j++) {
 							ASNImport.relationCount++;
 							ASNImport.asnJsonPrime(obj, EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"]));
 						}
@@ -77,14 +77,14 @@ module.exports = class ASNImport extends Importer {
 	static lookThroughSource(obj) {
 		ASNImport.competencyCount = 0;
 		ASNImport.relationCount = 0;
-		for (var key in obj) {
-			var value = obj[key];
+		for (let key in obj) {
+			let value = obj[key];
 			if (Importer.isObject(value)) {
 				if (
 					value["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"] !=
 					null
 				) {
-					var stringVal =
+					let stringVal =
 						value[
 							"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
 						]["0"]["value"];
@@ -94,10 +94,10 @@ module.exports = class ASNImport extends Importer {
 					) {
 						ASNImport.jsonFramework = value;
 						ASNImport.frameworkUrl = key;
-						var children =
+						let children =
 							value["http://purl.org/gem/qualifiers/hasChild"];
 						if (children != null)
-							for (var j = 0; j < children.length; j++) {
+							for (let j = 0; j < children.length; j++) {
 								ASNImport.asnJsonPrime(
 									obj,
 									EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"])
@@ -136,10 +136,10 @@ module.exports = class ASNImport extends Importer {
 			failure("Invalid file type");
 			return;
 		}
-		var reader = new FileReader();
+		let reader = new FileReader();
 		reader.onload = function(e) {
-			var result = e["target"]["result"];
-			var jsonObj = JSON.parse(result);
+			let result = e["target"]["result"];
+			let jsonObj = JSON.parse(result);
 			ASNImport.jsonCompetencies = {};
 			ASNImport.jsonFramework = null;
 			ASNImport.frameworkUrl = "";
@@ -222,8 +222,8 @@ module.exports = class ASNImport extends Importer {
 								eim
 							);
 						} else {
-							var compList = [];
-							for (var key in ASNImport.competencies) {
+							let compList = [];
+							for (let key in ASNImport.competencies) {
 								compList.push(ASNImport.competencies[key]);
 							}
 							if (success != null) success(compList, null);
@@ -270,9 +270,9 @@ module.exports = class ASNImport extends Importer {
 		eim
 	) {
 		ASNImport.savedCompetencies = 0;
-		for (var key in ASNImport.jsonCompetencies) {
-			var comp = new EcCompetency();
-			var jsonComp = ASNImport.jsonCompetencies[key];
+		for (let key in ASNImport.jsonCompetencies) {
+			let comp = new EcCompetency();
+			let jsonComp = ASNImport.jsonCompetencies[key];
 			if (jsonComp["http://purl.org/dc/elements/1.1/title"] == null)
 				comp.name =
 					jsonComp["http://purl.org/dc/terms/description"]["0"][
@@ -306,7 +306,7 @@ module.exports = class ASNImport extends Importer {
 	}
 	static saveCompetency(success, failure, incremental, comp, repo, eim) {
 		Task.asyncImmediate(function(o) {
-			var keepGoing = o;
+			let keepGoing = o;
 			comp.save(
 				function(p1) {
 					ASNImport.savedCompetencies++;
@@ -378,12 +378,12 @@ module.exports = class ASNImport extends Importer {
 		if (ASNImport.relationCount == 0) {
 			success();
 		}
-		var children = node["http://purl.org/gem/qualifiers/hasChild"];
+		let children = node["http://purl.org/gem/qualifiers/hasChild"];
 		if (children != null)
-			for (var j = 0; j < children.length; j++) {
+			for (let j = 0; j < children.length; j++) {
 				let sourceId = EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"]);
 				if (nodeId != null) {
-					var relation = new EcAlignment();
+					let relation = new EcAlignment();
 					relation.target = EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[nodeId].id);
 					relation.source =
 						EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[sourceId].id);
@@ -425,7 +425,7 @@ module.exports = class ASNImport extends Importer {
 	}
 	static saveRelation(success, failure, incremental, relation, repo, eim) {
 		Task.asyncImmediate(function(o) {
-			var keepGoing = o;
+			let keepGoing = o;
 			relation.save(
 				function(p1) {
 					ASNImport.savedRelations++;
@@ -489,8 +489,8 @@ module.exports = class ASNImport extends Importer {
 			ASNImport.importedFramework.addOwner(owner.ppk.toPk());
 		ASNImport.importedFramework.save(
 			function(p1) {
-				var compList = [];
-				for (var key in ASNImport.competencies) {
+				let compList = [];
+				for (let key in ASNImport.competencies) {
 					compList.push(ASNImport.competencies[key]);
 				}
 				if (success != null)

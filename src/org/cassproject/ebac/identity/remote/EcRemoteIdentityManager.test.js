@@ -5,9 +5,9 @@ const EcIdentity = require("../EcIdentity");
 const EcIdentityManager = require("../EcIdentityManager");
 const EcRemoteIdentityManager = require("./EcRemoteIdentityManager");
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 describe("EcRemoteIdentityManager", () => {    
     it('splicePasswords', async () => {

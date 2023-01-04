@@ -1,16 +1,17 @@
-var base64 = require("base64-arraybuffer");
+let base64 = require("base64-arraybuffer");
 let forge = require("node-forge");
 const EcAesCtrAsync = require("./EcAesCtrAsync.js");
 require("../../../../org/cassproject/general/AuditLogger.js");
+let crypto = undefined;
 if (typeof crypto == 'undefined')
 {
 	if (typeof window !== 'undefined' && window != null && window !== undefined)
 		if (window.crypto != null)
-			var crypto = window.crypto;
+			crypto = window.crypto;
 	try {
 		let requireResult = require('crypto').webcrypto;
 		if (requireResult != null)
-			var crypto = requireResult;
+			crypto = requireResult;
 	} catch (err) {
 		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRsaOaepAsync", "Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 	}
@@ -54,9 +55,9 @@ module.exports = class EcRsaOaepAsync {
 			);
 		}
 		EcAesCtrAsync.fipsOn();
-		var keyUsages = [];
+		let keyUsages = [];
 		keyUsages.push("encrypt");
-		var algorithm = {};
+		let algorithm = {};
 		algorithm.name = "RSA-OAEP";
 		algorithm.hash = "SHA-1";
 		let p = null;
@@ -99,7 +100,7 @@ module.exports = class EcRsaOaepAsync {
 	 */
 	static decrypt(ppk, cipherText, success, failure) {
 		if (EcCrypto.caching) {
-			var cacheGet = null;
+			let cacheGet = null;
 			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + cipherText];
 			if (cacheGet != null) {
 				return cassReturnAsPromise(cacheGet, success, failure);
@@ -119,14 +120,15 @@ module.exports = class EcRsaOaepAsync {
 			);
 		}
 		EcAesCtrAsync.fipsOn();
-		var algorithm = {};
+		let algorithm = {};
 		algorithm.name = "RSA-OAEP";
 		algorithm.hash = "SHA-1";
+		let result;
 		let afterKeyIsImported = (p1) => {
 			try {
-				var result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
+				result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
 			} catch (ex) {
-				var result = EcCrypto.ab2str(p1);
+				result = EcCrypto.ab2str(p1);
 			}
 			if (EcCrypto.caching) {
 				EcCrypto.decryptionCache[ppk.toPem() + cipherText] = result;
@@ -135,7 +137,7 @@ module.exports = class EcRsaOaepAsync {
 			return result;
 		};
 		if (ppk.key == null) {
-			var keyUsages = [];
+			let keyUsages = [];
 			keyUsages.push("decrypt");
 			let p = crypto.subtle
 				.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages)
@@ -192,9 +194,9 @@ module.exports = class EcRsaOaepAsync {
 			return cassReturnAsPromise(null, success, failure);
 		}
 		//EcAesCtrAsync.fipsOn();// OPENSSL3 signing with this method doesn't seem to work right now.
-		var keyUsages = [];
+		let keyUsages = [];
 		keyUsages.push("sign");
-		var algorithm = {};
+		let algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-1";
 		if (ppk.signKey == null)
@@ -255,9 +257,9 @@ module.exports = class EcRsaOaepAsync {
 			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
 		}
 		EcAesCtrAsync.fipsOn();
-		var keyUsages = [];
+		let keyUsages = [];
 		keyUsages.push("sign");
-		var algorithm = {};
+		let algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-256";
 		let p = null;
@@ -315,11 +317,11 @@ module.exports = class EcRsaOaepAsync {
 			);
 		}
 		EcAesCtrAsync.fipsOn();
-		var algorithm = {};
+		let algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-1";
 		if (pk.signKey == null) {
-			var keyUsages = [];
+			let keyUsages = [];
 			keyUsages.push("verify");
 			return cassPromisify(
 				crypto.subtle
@@ -385,11 +387,11 @@ module.exports = class EcRsaOaepAsync {
 			);
 		}
 		EcAesCtrAsync.fipsOn();
-		var algorithm = {};
+		let algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-256";
 		if (pk.signKey256 == null) {
-			var keyUsages = [];
+			let keyUsages = [];
 			keyUsages.push("verify");
 			return cassPromisify(
 				crypto.subtle

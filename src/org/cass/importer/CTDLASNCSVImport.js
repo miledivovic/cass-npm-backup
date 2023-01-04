@@ -15,22 +15,22 @@ module.exports = class CTDLASNCSVImport {
 		Papa.parse(file, {
 			encoding: "UTF-8",
 			complete: function(results) {
-				var tabularData = results["data"];
-				var colNames = tabularData[0];
-				var nameToCol = {};
-				for (var i = 0; i < colNames.length; i++)
+				let tabularData = results["data"];
+				let colNames = tabularData[0];
+				let nameToCol = {};
+				for (let i = 0; i < colNames.length; i++)
 					nameToCol[colNames[i]] = i;
-				var frameworkCounter = 0;
-				var competencyCounter = 0;
-				var collectionCounter = 0;
-				var typeCol = nameToCol["@type"];
+				let frameworkCounter = 0;
+				let competencyCounter = 0;
+				let collectionCounter = 0;
+				let typeCol = nameToCol["@type"];
 				if (typeCol == null) {
 					this.error("No @type in CSV.");
 					return;
 				}
-				for (var i = 0; i < tabularData.length; i++) {
+				for (let i = 0; i < tabularData.length; i++) {
 					if (i == 0) continue;
-					var col = tabularData[i];
+					let col = tabularData[i];
 					if (
 						col[typeCol] != null &&
 						col[typeCol].trim() == "ceasn:CompetencyFramework"
@@ -86,15 +86,15 @@ module.exports = class CTDLASNCSVImport {
 			header: true,
 			encoding: "UTF-8",
 			complete: async function(results) {
-				var tabularData = results["data"];
+				let tabularData = results["data"];
 				const terms = JSON.parse(JSON.stringify((await EcRemote.getExpectingObject("https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cassTerms"))));
-				var frameworks = {};
-				var frameworkArray = [];
-				var frameworkRows = {};
-				var competencies = [];
-				var competencyRows = {};
-				var relations = [];
-				var relationById = {};
+				let frameworks = {};
+				let frameworkArray = [];
+				let frameworkRows = {};
+				let competencies = [];
+				let competencyRows = {};
+				let relations = [];
+				let relationById = {};
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
 					if (
@@ -106,7 +106,7 @@ module.exports = class CTDLASNCSVImport {
 						pretranslatedE["@type"] ==
 						"ceasn:CompetencyFramework"
 					) {
-						var translator = new EcLinkedData(null, null);
+						let translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);
 						CTDLASNCSVImport.cleanUpTranslator(
 							translator,
@@ -126,10 +126,10 @@ module.exports = class CTDLASNCSVImport {
 							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
 							"https://schema.cassproject.org/0.4"
 						);
-						var f = new EcFramework();
+						let f = new EcFramework();
 						f.copyFrom(e);
 						if (EcFramework.template != null) {
-							for (var key in EcFramework.template) {
+							for (let key in EcFramework.template) {
 								if (key.equals("@owner")) {
 									f["owner"] =
 										EcFramework.template[key];
@@ -140,7 +140,7 @@ module.exports = class CTDLASNCSVImport {
 							}
 						}
 						if (e["owner"] != null) {
-							var id = new EcIdentity();
+							let id = new EcIdentity();
 							id.ppk = EcPpk.fromPem(e["owner"]);
 							f.addOwner(id.ppk.toPk());
 							eim.addIdentityQuietly(
@@ -201,7 +201,7 @@ module.exports = class CTDLASNCSVImport {
 					} else if (
 						pretranslatedE["@type"] == "ceasn:Competency"
 					) {
-						var translator = new EcLinkedData(null, null);
+						let translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);
 						CTDLASNCSVImport.cleanUpTranslator(
 							translator,
@@ -221,7 +221,7 @@ module.exports = class CTDLASNCSVImport {
 							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
 							"https://schema.cassproject.org/0.4"
 						);
-						var f = new EcCompetency();
+						let f = new EcCompetency();
 						f.copyFrom(e);
 						if (e["id"] == null) {
 							return;
@@ -230,8 +230,8 @@ module.exports = class CTDLASNCSVImport {
 							let shortId = EcRemoteLinkedData.trimVersionFromUrl(e["ceasn:isPartOf"]);
 							frameworks[shortId].competency.push(f.shortId());
 						} else {
-							var parent = e;
-							var done = false;
+							let parent = e;
+							let done = false;
 							while (!done && parent != null) {
 								if (
 									parent["ceasn:isChildOf"] !=
@@ -315,7 +315,7 @@ module.exports = class CTDLASNCSVImport {
 										e["ceasn:isPartOf"]
 									)]["owner"];
 						}
-						var id = new EcIdentity();
+						let id = new EcIdentity();
 						if (e["owner"] != null) {
 							id.ppk = EcPpk.fromPem(e["owner"]);
 							if (id.ppk != null)
@@ -511,15 +511,15 @@ module.exports = class CTDLASNCSVImport {
 			header: true,
 			encoding: "UTF-8",
 			complete: async function(results) {
-				var tabularData = results["data"];
+				let tabularData = results["data"];
 				const terms = JSON.parse(JSON.stringify((await EcRemote.getExpectingObject("https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cassTerms"))));
-				var frameworks = {};
-				var frameworkArray = [];
-				var frameworkRows = {};
-				var competencies = [];
-				var competencyRows = {};
-				var relations = [];
-				var relationById = {};
+				let frameworks = {};
+				let frameworkArray = [];
+				let frameworkRows = {};
+				let competencies = [];
+				let competencyRows = {};
+				let relations = [];
+				let relationById = {};
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
 					if (
@@ -531,7 +531,7 @@ module.exports = class CTDLASNCSVImport {
 						pretranslatedE["@type"] ==
 						"ceterms:Collection"
 					) {
-						var translator = new EcLinkedData(null, null);
+						let translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);
 						CTDLASNCSVImport.cleanUpTranslator(
 							translator,
@@ -551,10 +551,10 @@ module.exports = class CTDLASNCSVImport {
 							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
 							"https://schema.cassproject.org/0.4"
 						);
-						var f = new EcFramework();
+						let f = new EcFramework();
 						f.copyFrom(e);
 						if (EcFramework.template != null) {
-							for (var key in EcFramework.template) {
+							for (let key in EcFramework.template) {
 								if (key.equals("@owner")) {
 									f["owner"] =
 										EcFramework.template[key];
@@ -565,7 +565,7 @@ module.exports = class CTDLASNCSVImport {
 							}
 						}
 						if (e["owner"] != null) {
-							var id = new EcIdentity();
+							let id = new EcIdentity();
 							id.ppk = EcPpk.fromPem(e["owner"]);
 							f.addOwner(id.ppk.toPk());
 							eim.addIdentityQuietly(
@@ -591,7 +591,7 @@ module.exports = class CTDLASNCSVImport {
 					} else if (
 						pretranslatedE["@type"] == "ceasn:Competency"
 					) {
-						var translator = new EcLinkedData(null, null);
+						let translator = new EcLinkedData(null, null);
 						translator.copyFrom(pretranslatedE);
 						CTDLASNCSVImport.cleanUpTranslator(
 							translator,
@@ -611,7 +611,7 @@ module.exports = class CTDLASNCSVImport {
 							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cass.json",
 							"https://schema.cassproject.org/0.4"
 						);
-						var f = new EcCompetency();
+						let f = new EcCompetency();
 						f.copyFrom(e);
 						if (e["id"] == null) {
 							return;
@@ -644,7 +644,7 @@ module.exports = class CTDLASNCSVImport {
 										e["ceterms:isMemberOf"][0]
 									)]["owner"];
 						}
-						var id = new EcIdentity();
+						let id = new EcIdentity();
 						if (e["owner"] != null) {
 							id.ppk = EcPpk.fromPem(e["owner"]);
 							if (id.ppk != null)
@@ -842,7 +842,7 @@ module.exports = class CTDLASNCSVImport {
 			return endpoint + ctid;
 		} else {
 			ctid = ctid.substring(3);
-			var obj = new EcRemoteLinkedData(context, type);
+			let obj = new EcRemoteLinkedData(context, type);
 			obj.assignId(repo.selectedServer, ctid);
 			if (key == "id") {
 				return obj.id;
@@ -852,8 +852,8 @@ module.exports = class CTDLASNCSVImport {
 		}
 	}
 	static cleanUpTranslator(translator, endpoint, repo) {
-		var context = null;
-		var type = null;
+		let context = null;
+		let type = null;
 		if (translator["type"] == "ceasn:CompetencyFramework" || translator["type"] == "ceterms:Collection") {
 			context = "https://schema.cassproject.org/0.4/";
 			type = "Framework";
@@ -867,27 +867,27 @@ module.exports = class CTDLASNCSVImport {
 			context = "https://schema.cassproject.org/0.4/skos/";
 			type = "Concept";
 		}
-		for (var key in translator) {
+		for (let key in translator) {
 			if (translator[key] == "") {
 				translator[key] = null;
 			} else if (translator[key] != null) {
-				var thisKey = translator[key];
+				let thisKey = translator[key];
 				if (typeof thisKey == "string") {
 					if (translator[key].trim().length == 0) {
 						translator[key] = null;
 					} else if (thisKey.indexOf("|") != -1) {
 						thisKey = thisKey.split("|");
 						translator[key] = thisKey;
-						for (var i = 0; i < thisKey.length; i++) {
+						for (let i = 0; i < thisKey.length; i++) {
 							if (thisKey[i] != thisKey[i].trim()) {
-								var thisVal = thisKey[i].trim();
+								let thisVal = thisKey[i].trim();
 								thisKey[i] = thisVal;
 							}
 							if (typeof thisKey[i] == "string" &&
 								thisKey[i].startsWith("ce-") &&
 								key != "ceterms:ctid"
 							) {
-								var id = CTDLASNCSVImport.getIdFromCtid(
+								let id = CTDLASNCSVImport.getIdFromCtid(
 									thisKey[i],
 									endpoint,
 									repo,
@@ -902,7 +902,7 @@ module.exports = class CTDLASNCSVImport {
 						thisKey.startsWith("ce-") &&
 						key != "ceterms:ctid"
 					) {
-						var id = CTDLASNCSVImport.getIdFromCtid(
+						let id = CTDLASNCSVImport.getIdFromCtid(
 							thisKey,
 							endpoint,
 							repo,
@@ -913,12 +913,12 @@ module.exports = class CTDLASNCSVImport {
 						translator[key] = id;
 					}
 				} else if (EcArray.isArray(thisKey)) {
-					for (var i = 0; i < thisKey.length; i++) {
+					for (let i = 0; i < thisKey.length; i++) {
 						if (
 							typeof thisKey[i] == "string" &&
 							thisKey[i].startsWith("ce-")
 						) {
-							var id = CTDLASNCSVImport.getIdFromCtid(
+							let id = CTDLASNCSVImport.getIdFromCtid(
 								thisKey[i],
 								endpoint,
 								repo,
@@ -931,7 +931,7 @@ module.exports = class CTDLASNCSVImport {
 					}
 				}
 				if (key != key.trim()) {
-					var trimKey = key.trim();
+					let trimKey = key.trim();
 					translator[trimKey] = translator[key];
 					translator[key] = null;
 				}
@@ -955,10 +955,10 @@ module.exports = class CTDLASNCSVImport {
 		collectionFlag
 	) {
 		if (!EcArray.isArray(e[field])) {
-			var makeArray = Array(e[field]);
+			let makeArray = Array(e[field]);
 			e[field] = makeArray;
 		}
-		for (var i = 0; i < e[field].length; i++) {
+		for (let i = 0; i < e[field].length; i++) {
 			CTDLASNCSVImport.createEachRelation(
 				e,
 				field,
@@ -989,7 +989,7 @@ module.exports = class CTDLASNCSVImport {
 		endpoint,
 		collectionFlag
 	) {
-		var r = new EcAlignment();
+		let r = new EcAlignment();
 		if (endpoint != null) {
 			r.generateShortId(endpoint);
 		} else {
@@ -999,7 +999,7 @@ module.exports = class CTDLASNCSVImport {
 		if (id.ppk != null) r.addOwner(id.ppk.toPk());
 		r.relationType = type;
 		if (field == "ceasn:narrowAlignment") {
-			var sourceId = e[field][i];
+			let sourceId = e[field][i];
 			if (sourceId.startsWith("ce-")) {
 				sourceId = CTDLASNCSVImport.getIdFromCtid(
 					sourceId,
@@ -1015,7 +1015,7 @@ module.exports = class CTDLASNCSVImport {
 		} else {
 			r.source = EcRemoteLinkedData.trimVersionFromUrl(e["id"]);
 			if (i != -1) {
-				var targetId = e[field][i];
+				let targetId = e[field][i];
 				if (targetId.startsWith("ce-")) {
 					targetId = CTDLASNCSVImport.getIdFromCtid(
 						targetId,
@@ -1028,7 +1028,7 @@ module.exports = class CTDLASNCSVImport {
 				}
 				r.target = EcRemoteLinkedData.trimVersionFromUrl(targetId);
 			} else {
-				var targetId = e[field];
+				let targetId = e[field];
 				if (targetId.startsWith("ce-")) {
 					targetId = CTDLASNCSVImport.getIdFromCtid(
 						targetId,
@@ -1063,8 +1063,8 @@ module.exports = class CTDLASNCSVImport {
 			importObject["ceasn:dateCreated"] == null &&
 			importObject["schema:dateCreated"] == null
 		) {
-			var timestamp = object.getTimestamp();
-			var date;
+			let timestamp = object.getTimestamp();
+			let date;
 			if (timestamp != null) {
 				date = new Date(parseInt(timestamp)).toISOString();
 			} else {

@@ -1,7 +1,7 @@
 module.exports = class EcAsyncTaskWorker {
 	constructor() {
 		this.assignedList = [];
-		var that = this;
+		let that = this;
 		this.intervalHandler = setInterval(function() {
 			that.run();
 		}, this.checkWorkInterval);
@@ -27,7 +27,7 @@ module.exports = class EcAsyncTaskWorker {
 	}
 	invoke() {
 		if (!this.currentTask.getIsComplete()) {
-			var args = this.currentTask.getArguments();
+			let args = this.currentTask.getArguments();
 			if (args == null || args == undefined || args.length == 0) {
 				this.currentTask.doTask();
 			} else if (args.length == 1) {
@@ -42,7 +42,7 @@ module.exports = class EcAsyncTaskWorker {
 		}
 	}
 	run() {
-		var that = this;
+		let that = this;
 		this.taskHandler = Task.immediate(function() {
 			if (
 				that.currentTask != undefined &&

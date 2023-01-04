@@ -189,17 +189,17 @@ module.exports = class CfdReference extends schema.CreativeWork {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
-			var msg = "Name cannot be missing";
+			let msg = "Name cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.url == null || this.url == "") {
-			var msg = "Url cannot be missing";
+			let msg = "Url cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.educationalAlignment == null) {
-			var msg = "Educational Alignment cannot be missing";
+			let msg = "Educational Alignment cannot be missing";
 			if (failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

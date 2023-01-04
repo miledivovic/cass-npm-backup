@@ -37,7 +37,7 @@ module.exports = class Triple {
 	equals(obj) {
 		if (Object.equals.call(this, obj)) return true;
 		if (obj instanceof Triple) {
-			var t = obj;
+			let t = obj;
 			if (
 				this.source == t.source &&
 				this.destination == t.destination &&

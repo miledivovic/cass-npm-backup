@@ -67,12 +67,12 @@ module.exports = class FrameworkImport {
 			FrameworkImport.compMap = {};
 			FrameworkImport.savedComp = 0;
 			FrameworkImport.savedRel = 0;
-			for (var i = 0; i < source.competency.length; i++) {
-				var id = source.competency[i];
+			for (let i = 0; i < source.competency.length; i++) {
+				let id = source.competency[i];
 				EcCompetency.get(
 					id,
 					function (comp) {
-						var competency = new EcCompetency();
+						let competency = new EcCompetency();
 						competency.copyFrom(comp);
 						if (
 							repo == null ||
@@ -85,9 +85,9 @@ module.exports = class FrameworkImport {
 						] = competency.shortId();
 						if (owner != null)
 							competency.addOwner(owner.ppk.toPk());
-						var id = competency.id;
+						let id = competency.id;
 						Task.asyncImmediate(function (o) {
-							var keepGoing = o;
+							let keepGoing = o;
 							competency.save(
 								function (str) {
 									FrameworkImport.savedComp++;
@@ -101,15 +101,15 @@ module.exports = class FrameworkImport {
 										FrameworkImport.targetUsable.save(
 											function (p1) {
 												for (
-													var i = 0;
+													let i = 0;
 													i < source.relation.length;
 													i++
 												) {
-													var id = source.relation[i];
+													let id = source.relation[i];
 													EcAlignment.get(
 														id,
 														function (rel) {
-															var relation = new EcAlignment();
+															let relation = new EcAlignment();
 															relation.copyFrom(
 																rel
 															);
@@ -138,11 +138,11 @@ module.exports = class FrameworkImport {
 																relation.addOwner(
 																	owner.ppk.toPk()
 																);
-															var id =
+															let id =
 																relation.id;
 															Task.asyncImmediate(
 																function (o) {
-																	var keepGoing2 = o;
+																	let keepGoing2 = o;
 																	relation.save(
 																		function (
 																			str
@@ -223,7 +223,7 @@ module.exports = class FrameworkImport {
 				);
 			}
 		} else {
-			for (var i = 0; i < source.competency.length; i++) {
+			for (let i = 0; i < source.competency.length; i++) {
 				if (
 					target.competency == null ||
 					target.competency.indexOf(source.competency[i]) == -1 &&
@@ -248,7 +248,7 @@ module.exports = class FrameworkImport {
 								FrameworkImport.targetUsable.save(
 									function (p1) {
 										for (
-											var i = 0;
+											let i = 0;
 											i < source.relation.length;
 											i++
 										) {
@@ -285,7 +285,7 @@ module.exports = class FrameworkImport {
 																];
 															Task.asyncImmediate(
 																function (o) {
-																	var keepGoing = o;
+																	let keepGoing = o;
 																	FrameworkImport.targetUsable.save(
 																		function (
 																			p1

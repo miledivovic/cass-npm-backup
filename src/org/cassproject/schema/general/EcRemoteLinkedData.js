@@ -87,7 +87,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		)
 			return id;
 		if (!id.substring(id.lastIndexOf("/")).match("^\\/[0-9]+$")) return id;
-		var rawId = id.substring(0, id.lastIndexOf("/"));
+		let rawId = id.substring(0, id.lastIndexOf("/"));
 		if (rawId.endsWith("/")) rawId = rawId.substring(0, rawId.length - 1);
 		return rawId;
 	}
@@ -153,7 +153,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method assignId
 	 */
 	static veryShortId(server, uniqueIdentifier) {
-		var id;
+		let id;
 		id = server;
 		if (!id.endsWith("/")) id += "/";
 		id += "data/";
@@ -189,8 +189,8 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 */
 	hasOwner(pk) {
 		if (this.owner == null) return false;
-		var pkPem = pk.toPem();
-		for (var i = 0; i < this.owner.length; i++)
+		let pkPem = pk.toPem();
+		for (let i = 0; i < this.owner.length; i++)
 			if (pkPem == EcPk.fromPem(this.owner[i]).toPem()) return true;
 		return false;
 	}
@@ -205,8 +205,8 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 */
 	hasReader(pk) {
 		if (this.reader == null) return false;
-		var pkPem = pk.toPem();
-		for (var i = 0; i < this.reader.length; i++)
+		let pkPem = pk.toPem();
+		for (let i = 0; i < this.reader.length; i++)
 			if (pkPem == EcPk.fromPem(this.reader[i]).toPem()) return true;
 		return false;
 	}
@@ -235,7 +235,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	canEditAny(ids) {
 		if (this.owner == null || this.owner.length == 0) return true;
 		if (ids == null) return false;
-		for (var i = 0; i < ids.length; i++)
+		for (let i = 0; i < ids.length; i++)
 			if (this.hasOwner(ids[i])) return true;
 		return false;
 	}
@@ -249,10 +249,10 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	async signWith(ppk) {
 		if (ppk instanceof EcPpkFacade)
 			return;
-		var signableJson = this.toSignableJson();
-		var signed = await EcRsaOaepAsync.sign(ppk, signableJson);
+		let signableJson = this.toSignableJson();
+		let signed = await EcRsaOaepAsync.sign(ppk, signableJson);
 		if (this.signature != null) {
-			for (var i = 0; i < this.signature.length; i++)
+			for (let i = 0; i < this.signature.length; i++)
 				if (this.signature[i] == signed) return;
 		} else {
 			this.signature = [];
@@ -268,14 +268,14 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 */
 	async verify() {
 		if (this.signature != null) {
-			for (var i = 0; i < this.signature.length; ) {
-				var works = false;
-				var sig = this.signature[i];
+			for (let i = 0; i < this.signature.length; ) {
+				let works = false;
+				let sig = this.signature[i];
 				if (this.owner != null) {
-					for (var j = 0; j < this.owner.length; j++) {
-						var own = this.owner[j];
-						var pk = EcPk.fromPem(own);
-						var verify = false;
+					for (let j = 0; j < this.owner.length; j++) {
+						let own = this.owner[j];
+						let pk = EcPk.fromPem(own);
+						let verify = false;
 						try {
 							verify = await EcRsaOaepAsync.verify(
 								pk,
@@ -308,9 +308,9 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method addOwner
 	 */
 	addOwner(newOwner) {
-		var pem = newOwner.toPem();
+		let pem = newOwner.toPem();
 		if (this.owner == null) this.owner = [];
-		for (var i = 0; i < this.owner.length; i++)
+		for (let i = 0; i < this.owner.length; i++)
 			if (this.owner[i] == pem) return;
 		this.owner.push(pem);
 		this.signature = null;
@@ -323,9 +323,9 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method removeOwner
 	 */
 	removeOwner(oldOwner) {
-		var pem = oldOwner.toPem();
+		let pem = oldOwner.toPem();
 		if (this.owner == null) this.owner = [];
-		for (var i = 0; i < this.owner.length; i++)
+		for (let i = 0; i < this.owner.length; i++)
 			if (this.owner[i] == pem) this.owner.splice(i, 1);
 		this.signature = null;
 	}
@@ -337,7 +337,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method addReader
 	 */
 	addReader(newReader) {
-		var pem = newReader.toPem();
+		let pem = newReader.toPem();
 		if (this.reader == null) this.reader = [];
 		EcArray.setAdd(this.reader, pem);
 		this.signature = null;
@@ -350,7 +350,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method removeReader
 	 */
 	removeReader(oldReader) {
-		var pem = oldReader.toPem();
+		let pem = oldReader.toPem();
 		if (this.reader == null) this.reader = [];
 		EcArray.setRemove(this.reader, pem);
 		this.signature = null;
@@ -379,7 +379,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 */
 	updateTimestamp() {
 		if (this.getTimestamp() == null) return;
-		var rawId = this.id.substring(0, this.id.lastIndexOf("/"));
+		let rawId = this.id.substring(0, this.id.lastIndexOf("/"));
 		if (rawId.endsWith("/") == false) rawId += "/";
 		rawId += new Date().getTime();
 		this.id = rawId;
@@ -390,7 +390,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getTimestamp
 	 */
 	getTimestamp() {
-		var timestamp = this.id.substring(this.id.lastIndexOf("/") + 1);
+		let timestamp = this.id.substring(this.id.lastIndexOf("/") + 1);
 		if (timestamp.match("^[0-9]+$")) {
 			return parseInt(timestamp);
 		} else {
@@ -428,8 +428,8 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getGuid
 	 */
 	getGuid() {
-		var shortId = EcRemoteLinkedData.trimVersionFromUrl(this.id);
-		var parts = shortId.split("/");
+		let shortId = EcRemoteLinkedData.trimVersionFromUrl(this.id);
+		let parts = shortId.split("/");
 		return parts[parts.length - 1];
 	}
 	/**
@@ -439,8 +439,8 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getServerBaseUrl
 	 */
 	getServerBaseUrl() {
-		var shortId = EcRemoteLinkedData.trimVersionFromUrl(this.id);
-		var parts = shortId.split("/");
+		let shortId = EcRemoteLinkedData.trimVersionFromUrl(this.id);
+		let parts = shortId.split("/");
 		return parts.slice(0, parts.indexOf("data")).join("/");
 	}
 	/**
@@ -450,12 +450,12 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getSearchStringByType
 	 */
 	getSearchStringByType() {
-		var types = this.getTypes();
-		var result = "";
-		for (var i = 0; i < types.length; i++) {
+		let types = this.getTypes();
+		let result = "";
+		for (let i = 0; i < types.length; i++) {
 			if (i != 0) result += " OR ";
 			result += '@type:"' + types[i] + '"';
-			var lastSlash = types[i].lastIndexOf("/");
+			let lastSlash = types[i].lastIndexOf("/");
 			result +=
 				' OR (@context:"' +
 				types[i].substring(0, lastSlash + 1) +
@@ -463,10 +463,10 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 				types[i].substring(lastSlash + 1) +
 				'")';
 		}
-		for (var i = 0; i < types.length; i++) {
+		for (let i = 0; i < types.length; i++) {
 			if (result != "") result += " OR ";
 			result += '\\*encryptedType:"' + types[i] + '"';
-			var lastSlash = types[i].lastIndexOf("/");
+			let lastSlash = types[i].lastIndexOf("/");
 			result +=
 				' OR (@context:"' +
 				Ebac.context +
@@ -477,11 +477,11 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		return "(" + result + ")";
 	}
 	asRdfXml(success, failure, signatureSheet) {
-		var fd = new FormData();
-		var id = this.id;
+		let fd = new FormData();
+		let id = this.id;
 		if (signatureSheet != null || signatureSheet != undefined)
 			fd.append("signatureSheet", signatureSheet);
-		var headers = {};
+		let headers = {};
 		headers["Accept"] = "application/rdf+xml";
 		return EcRemote.postWithHeadersExpectingString(
 			id,
@@ -493,11 +493,11 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		);
 	}
 	asNQuads(success, failure, signatureSheet) {
-		var fd = new FormData();
-		var id = this.id;
+		let fd = new FormData();
+		let id = this.id;
 		if (signatureSheet != null || signatureSheet != undefined)
 			fd.append("signatureSheet", signatureSheet);
-		var headers = {};
+		let headers = {};
 		headers["Accept"] = "text/n4";
 		return EcRemote.postWithHeadersExpectingString(
 			id,
@@ -509,11 +509,11 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		);
 	}
 	asTurtle(success, failure, signatureSheet) {
-		var fd = new FormData();
-		var id = this.id;
+		let fd = new FormData();
+		let id = this.id;
 		if (signatureSheet != null || signatureSheet != undefined)
 			fd.append("signatureSheet", signatureSheet);
-		var headers = {};
+		let headers = {};
 		headers["Accept"] = "text/turtle";
 		return EcRemote.postWithHeadersExpectingString(
 			id,
@@ -530,7 +530,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method upgrade
 	 */
 	upgrade() {
-		var me = this;
+		let me = this;
 		if (me["@owner"] != null) {
 			me["owner"] = me["@owner"];
 		}
@@ -551,10 +551,10 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	static forwardingTable = {};
 	handleForwarding() {
 		if (this.owner != null) {
-			for (var i = 0; i < this.owner.length; i++) {
-				var forwardTo = "";
+			for (let i = 0; i < this.owner.length; i++) {
+				let forwardTo = "";
 				while (forwardTo != null) {
-					var homogenizedPk = EcPk.fromPem(this.owner[i]).toPem();
+					let homogenizedPk = EcPk.fromPem(this.owner[i]).toPem();
 					forwardTo =
 						EcRemoteLinkedData.forwardingTable[homogenizedPk];
 					if (forwardTo != null) this.owner[i] = forwardTo;
@@ -562,10 +562,10 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 			}
 		}
 		if (this.reader != null) {
-			for (var i = 0; i < this.reader.length; i++) {
-				var forwardTo = "";
+			for (let i = 0; i < this.reader.length; i++) {
+				let forwardTo = "";
 				while (forwardTo != null) {
-					var homogenizedPk = EcPk.fromPem(this.reader[i]).toPem();
+					let homogenizedPk = EcPk.fromPem(this.reader[i]).toPem();
 					forwardTo =
 						EcRemoteLinkedData.forwardingTable[homogenizedPk];
 					if (forwardTo != null) this.reader[i] = forwardTo;
@@ -585,7 +585,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getName
 	 */
 	getName() {
-		var n = this.name;
+		let n = this.name;
 		return EcRemoteLinkedData.getDisplayStringFrom(n);
 	}
 	/**
@@ -602,7 +602,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 			EcObject.isObject(this.name) &&
 			this.name["@value"] !== undefined
 		) {
-			var obj = this["name"];
+			let obj = this["name"];
 			obj["@value"] = name;
 			this["name"] = obj;
 		} else {
@@ -617,7 +617,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getDescription
 	 */
 	getDescription() {
-		var n = this.description;
+		let n = this.description;
 		return schema.Thing.getDisplayStringFrom(n);
 	}
 	static getDisplayStringFrom(n) {
@@ -643,7 +643,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 			EcObject.isObject(this.description) &&
 			this.description["@value"] !== undefined
 		) {
-			var obj = this["description"];
+			let obj = this["description"];
 			obj["@value"] = description;
 			this["description"] = obj;
 		} else {

@@ -15,10 +15,10 @@ const EcRemoteLinkedData = require("../../cassproject/schema/general/EcRemoteLin
 module.exports = class EcFramework extends Framework {
 	constructor() {
 		super();
-		var me = this;
+		let me = this;
 		if (EcFramework.template != null) {
-			var you = EcFramework.template;
-			for (var key in you) {
+			let you = EcFramework.template;
+			for (let key in you) {
 				if (typeof you[key] != "function")
 					me[key.replace("@", "")] = you[key];
 			}
@@ -104,7 +104,7 @@ module.exports = class EcFramework extends Framework {
 	addCompetency(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.competency == null) this.competency = [];
-		for (var i = 0; i < this.competency.length; i++)
+		for (let i = 0; i < this.competency.length; i++)
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(
 					this.competency[i]
@@ -129,9 +129,9 @@ module.exports = class EcFramework extends Framework {
 	 *  @method removeCompetency
 	 */
 	removeCompetency(id, success, failure) {
-		var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
+		let shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.competency == null) this.competency = [];
-		for (var i = 0; i < this.competency.length; i++)
+		for (let i = 0; i < this.competency.length; i++)
 			if (
 				this.competency[i].equals(shortId) ||
 				this.competency[i].equals(id)
@@ -196,8 +196,8 @@ module.exports = class EcFramework extends Framework {
 	 *  @private
 	 */
 	removeRelationshipsThatInclude(id, i, success, failure, repo, eim) {
-		var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
-		var me = this;
+		let shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
+		let me = this;
 		if (i >= this.relation.length && success != null) success("");
 		else
 			return EcAlignment.get(
@@ -250,8 +250,8 @@ module.exports = class EcFramework extends Framework {
 	 *  @private
 	 */
 	removeLevelsThatInclude(id, i, success, failure, repo, eim) {
-		var shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
-		var me = this;
+		let shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
+		let me = this;
 		if (i >= this.level.length && success != null) success("");
 		else
 			return EcLevel.get(
@@ -294,7 +294,7 @@ module.exports = class EcFramework extends Framework {
 	addRelation(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.relation == null) this.relation = [];
-		for (var i = 0; i < this.relation.length; i++)
+		for (let i = 0; i < this.relation.length; i++)
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]) == id
 			)
@@ -312,7 +312,7 @@ module.exports = class EcFramework extends Framework {
 	removeRelation(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.relation == null) this.relation = [];
-		for (var i = 0; i < this.relation.length; i++)
+		for (let i = 0; i < this.relation.length; i++)
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]).equals(
 					id
@@ -331,7 +331,7 @@ module.exports = class EcFramework extends Framework {
 	addLevel(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.level == null) this.level = [];
-		for (var i = 0; i < this.level.length; i++)
+		for (let i = 0; i < this.level.length; i++)
 			if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]).equals(id))
 				return;
 		this.level.push(id);
@@ -347,7 +347,7 @@ module.exports = class EcFramework extends Framework {
 	removeLevel(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.level == null) this.level = [];
-		for (var i = 0; i < this.level.length; i++)
+		for (let i = 0; i < this.level.length; i++)
 			if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]).equals(id))
 				this.level.splice(i, 1);
 	}
@@ -362,7 +362,7 @@ module.exports = class EcFramework extends Framework {
 	addRollupRule(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.rollupRule == null) this.rollupRule = [];
-		for (var i = 0; i < this.rollupRule.length; i++)
+		for (let i = 0; i < this.rollupRule.length; i++)
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(
 					this.rollupRule[i]
@@ -382,7 +382,7 @@ module.exports = class EcFramework extends Framework {
 	removeRollupRule(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.rollupRule == null) this.rollupRule = [];
-		for (var i = 0; i < this.rollupRule.length; i++)
+		for (let i = 0; i < this.rollupRule.length; i++)
 			if (
 				EcRemoteLinkedData.trimVersionFromUrl(
 					this.rollupRule[i]
@@ -402,7 +402,7 @@ module.exports = class EcFramework extends Framework {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
-			var msg = "Framework Name Cannot be Empty";
+			let msg = "Framework Name Cannot be Empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
@@ -423,8 +423,8 @@ module.exports = class EcFramework extends Framework {
 		return EcRepository.DELETE(this, success, failure, repo, eim);
 	};
 	asAsnJson(success, failure, fallbackServerUrl) {
-		var id = this.id;
-		var server = this.getServerBaseUrl();
+		let id = this.id;
+		let server = this.getServerBaseUrl();
 		if (server != null && server != undefined && !server.endsWith("/")) {
 			server = server + "/";
 		}
@@ -437,7 +437,7 @@ module.exports = class EcFramework extends Framework {
 					fallbackServerUrl != null &&
 					fallbackServerUrl != undefined
 				) {
-					var server = fallbackServerUrl;
+					let server = fallbackServerUrl;
 					if (!server.endsWith("/")) {
 						server = server + "/";
 					}

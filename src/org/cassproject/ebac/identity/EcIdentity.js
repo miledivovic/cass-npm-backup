@@ -67,7 +67,7 @@ module.exports = class EcIdentity {
 	 *  @static
 	 */
 	static async fromCredential(credential, secret, source) {
-		var i = new EcIdentity();
+		let i = new EcIdentity();
 		i.ppk = EcPpk.fromPem(
 			await EcAesCtrAsync.decrypt(credential.ppk, secret, credential.iv)
 		);
@@ -100,7 +100,7 @@ module.exports = class EcIdentity {
 	 *  @method toCredential
 	 */
 	async toCredential(secret) {
-		var c = new EbacCredential();
+		let c = new EbacCredential();
 		c.iv = EcAes.newIv(16);
 		c.ppk = await EcAesCtrAsync.encrypt(this.ppk.toPem(), secret, c.iv);
 		c.displayNameIv = EcAes.newIv(16);
@@ -120,7 +120,7 @@ module.exports = class EcIdentity {
 	 *  @method toContact
 	 */
 	toContact() {
-		var c = new EcContact();
+		let c = new EcContact();
 		c.displayName = this.displayName;
 		c.pk = this.ppk.toPk();
 		c.source = this.source;

@@ -26,7 +26,7 @@ module.exports = class MedbiqImport extends Importer {
 	 */
 	static medbiqXmlLookForCompetencyObject(obj) {
 		if (Importer.isObject(obj) || Importer.isArray(obj))
-			for (var key in obj) {
+			for (let key in obj) {
 				if (key == "CompetencyObject")
 					MedbiqImport.medbiqXmlParseCompetencyObject(obj[key]);
 				else MedbiqImport.medbiqXmlLookForCompetencyObject(obj[key]);
@@ -44,11 +44,11 @@ module.exports = class MedbiqImport extends Importer {
 	 */
 	static medbiqXmlParseCompetencyObject(obj) {
 		if (Importer.isArray(obj)) {
-			for (var key in obj) {
+			for (let key in obj) {
 				MedbiqImport.medbiqXmlParseCompetencyObject(obj[key]);
 			}
 		} else {
-			var newCompetency = new EcCompetency();
+			let newCompetency = new EcCompetency();
 			if (obj["lom"] != null && obj["lom"]["general"] != null) {
 				newCompetency.name = obj["lom"]["general"]["title"][
 					"string"
@@ -93,10 +93,10 @@ module.exports = class MedbiqImport extends Importer {
 			failure("Invalid file type");
 			return;
 		}
-		var reader = new FileReader();
+		let reader = new FileReader();
 		reader.onload = function(e) {
-			var result = e["target"]["result"];
-			var jsonObject = new X2JS().xml_str2json(result);
+			let result = e["target"]["result"];
+			let jsonObject = new X2JS().xml_str2json(result);
 			MedbiqImport.medbiqXmlCompetencies = [];
 			MedbiqImport.medbiqXmlLookForCompetencyObject(jsonObject);
 			success(MedbiqImport.medbiqXmlCompetencies);
@@ -135,8 +135,8 @@ module.exports = class MedbiqImport extends Importer {
 	) {
 		MedbiqImport.progressObject = null;
 		MedbiqImport.saved = 0;
-		for (var i = 0; i < MedbiqImport.medbiqXmlCompetencies.length; i++) {
-			var comp = MedbiqImport.medbiqXmlCompetencies[i];
+		for (let i = 0; i < MedbiqImport.medbiqXmlCompetencies.length; i++) {
+			let comp = MedbiqImport.medbiqXmlCompetencies[i];
 			if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
 				comp.generateId(serverUrl);
 			else comp.generateShortId(serverUrl);
@@ -152,8 +152,8 @@ module.exports = class MedbiqImport extends Importer {
 	}
 	static saveCompetency(success, failure, incremental, comp, repo, eim) {
 		Task.asyncImmediate(function(o) {
-			var keepGoing = o;
-			var scs = function(p1) {
+			let keepGoing = o;
+			let scs = function(p1) {
 				MedbiqImport.saved++;
 				if (MedbiqImport.saved % MedbiqImport.INCREMENTAL_STEP == 0) {
 					if (MedbiqImport.progressObject == null)
@@ -175,7 +175,7 @@ module.exports = class MedbiqImport extends Importer {
 				}
 				keepGoing();
 			};
-			var err = function(p1) {
+			let err = function(p1) {
 				failure("Failed to Save Competency");
 				keepGoing();
 			};

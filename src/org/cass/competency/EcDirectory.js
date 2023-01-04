@@ -13,10 +13,10 @@ const Directory = require("../../cassproject/schema/cass/competency/Directory.js
 module.exports = class EcDirectory extends Directory {
 	constructor() {
 		super();
-		var me = this;
+		let me = this;
 		if (EcDirectory.template != null) {
-			var you = EcDirectory.template;
-			for (var key in you) {
+			let you = EcDirectory.template;
+			for (let key in you) {
 				if (typeof you[key] != "function")
 					me[key.replace("@", "")] = you[key];
 			}
@@ -103,7 +103,7 @@ module.exports = class EcDirectory extends Directory {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
-			var msg = "Directory Name Cannot be Empty";
+			let msg = "Directory Name Cannot be Empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

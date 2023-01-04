@@ -61,7 +61,7 @@ module.exports = class Framework extends schema.CreativeWork {
 	upgrade() {
 		super.upgrade();
 		if (Framework.TYPE_0_1 == (this.type)) {
-			var me = this;
+			let me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(Cass.context_0_2, Framework.TYPE_0_2);
@@ -80,7 +80,7 @@ module.exports = class Framework extends schema.CreativeWork {
 		}
 	}
 	getTypes() {
-		var a = [];
+		let a = [];
 		a.push(Framework.TYPE_0_6);
 		a.push(Framework.TYPE_0_5);
 		a.push(Framework.TYPE_0_4);

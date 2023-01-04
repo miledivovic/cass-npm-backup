@@ -15,10 +15,10 @@ require("../../cassproject/general/AuditLogger.js");
 module.exports = class EcCompetency extends Competency {
 	constructor() {
 		super();
-		var me = this;
+		let me = this;
 		if (EcCompetency.template != null) {
-			var you = EcCompetency.template;
-			for (var key in you) {
+			let you = EcCompetency.template;
+			for (let key in you) {
 				if (typeof you[key] != "function")
 					me[key.replace("@", "")] = you[key];
 			}
@@ -121,7 +121,7 @@ module.exports = class EcCompetency extends Competency {
 		repo,
 		eim
 	) {
-		var a = new EcAlignment();
+		let a = new EcAlignment();
 		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
 			a.generateId(serverUrl);
 		else a.generateShortId(serverUrl);
@@ -178,7 +178,7 @@ module.exports = class EcCompetency extends Competency {
 			'"',
 			async (results) => {
 				if (eachSuccess !== undefined && eachSuccess != null)
-					for (var i = 0; i < results.length; i++)
+					for (let i = 0; i < results.length; i++)
 						await eachSuccess(results[i]);
 				if (successAll !== undefined && successAll != null)
 					await successAll(results);
@@ -218,7 +218,7 @@ module.exports = class EcCompetency extends Competency {
 		repo,
 		eim
 	) {
-		var l = new EcLevel();
+		let l = new EcLevel();
 		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
 			l.generateId(serverUrl);
 		else l.generateShortId(serverUrl);
@@ -244,7 +244,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method levels
 	 */
 	levels(repo, eachSuccess, failure, successAll, eim) {
-		var query =
+		let query =
 			'competency:"' +
 			this.id +
 			'" OR competency:"' +
@@ -254,7 +254,7 @@ module.exports = class EcCompetency extends Competency {
 			repo,
 			query,
 			async (results) => {
-				for (var i = 0; i < results.length; i++)
+				for (let i = 0; i < results.length; i++)
 					if (eachSuccess !== undefined && eachSuccess != null)
 						await eachSuccess(results[i]);
 				if (successAll !== undefined && successAll != null)
@@ -294,7 +294,7 @@ module.exports = class EcCompetency extends Competency {
 		failure,
 		repo, eim
 	) {
-		var r = new EcRollupRule();
+		let r = new EcRollupRule();
 		if (repo == null)
 			if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
 				r.generateId(serverUrl);
@@ -321,7 +321,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method rollupRules
 	 */
 	rollupRules(repo, eachSuccess, failure, successAll, eim) {
-		var query =
+		let query =
 			'competency:"' +
 			this.id +
 			'" OR competency:"' +
@@ -331,7 +331,7 @@ module.exports = class EcCompetency extends Competency {
 			repo,
 			query,
 			async (results) => {
-				for (var i = 0; i < results.length; i++)
+				for (let i = 0; i < results.length; i++)
 					await eachSuccess(results[i]);
 				await successAll(results);
 			},
@@ -362,7 +362,7 @@ module.exports = class EcCompetency extends Competency {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
-			var msg = "Competency Name can not be empty";
+			let msg = "Competency Name can not be empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
@@ -384,7 +384,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method _delete
 	 */
 	async _delete(success, failure, repo, eim) {
-		var me = this;
+		let me = this;
 		if (repo != null) global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", await this.relations(repo));
 		if (repo != null) {
 			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", JSON.stringify(await this.relations(repo)));

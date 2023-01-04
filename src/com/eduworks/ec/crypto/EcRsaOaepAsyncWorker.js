@@ -1,7 +1,7 @@
 
 if (global.Worker === undefined || global.Worker == null)
 	global.Worker = require("web-worker");
-var PromiseWorker = require("promise-worker");
+let PromiseWorker = require("promise-worker");
 const path = require('path');
 const url = require('url');
 let EcCrypto = require("./EcCrypto.js");
@@ -39,7 +39,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		}
 		this.rotator = 0;
 		this.w = [];
-		for (var index = 0; index < 8; index++) {
+		for (let index = 0; index < 8; index++) {
 			this.createWorker(index);
 		}
 	}
@@ -91,9 +91,9 @@ module.exports = class EcRsaOaepAsyncWorker {
 				});
 				return cassPromisify(p, success, failure);
 			}
-		var worker = this.rotator++;
+		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
-		var o = {};
+		let o = {};
 		o["pk"] = pk.toPem();
 		o["text"] = forge.util.encodeUtf8(plaintext);
 		o["cmd"] = "encryptRsaOaep";
@@ -116,7 +116,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	 */
 	static decrypt(ppk, ciphertext, success, failure) {
 		if (EcCrypto.caching) {
-			var cacheGet = null;
+			let cacheGet = null;
 			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + ciphertext];
 			if (cacheGet != null) {
 				return cassReturnAsPromise(cacheGet, success, failure);
@@ -130,9 +130,9 @@ module.exports = class EcRsaOaepAsyncWorker {
 				});
 				return cassPromisify(p, success, failure);
 			}
-		var worker = this.rotator++;
+		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
-		var o = {};
+		let o = {};
 		o["ppk"] = ppk.toPem();
 		o["text"] = ciphertext;
 		o["cmd"] = "decryptRsaOaep";
@@ -170,9 +170,9 @@ module.exports = class EcRsaOaepAsyncWorker {
 				});
 				return cassPromisify(p, success, failure);
 			}
-		var worker = this.rotator++;
+		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
-		var o = {};
+		let o = {};
 		o["ppk"] = ppk.toPem();
 		o["text"] = forge.util.encodeUtf8(text);
 		o["cmd"] = "signRsaOaep";
@@ -201,9 +201,9 @@ module.exports = class EcRsaOaepAsyncWorker {
 				});
 				return cassPromisify(p, success, failure);
 			}
-		var worker = this.rotator++;
+		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
-		var o = {};
+		let o = {};
 		o["ppk"] = ppk.toPem();
 		o["text"] = forge.util.encodeUtf8(text);
 		o["cmd"] = "signSha256RsaOaep";
@@ -232,9 +232,9 @@ module.exports = class EcRsaOaepAsyncWorker {
 			});
 			return cassPromisify(p, success, failure);
 		}
-		var worker = this.rotator++;
+		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
-		var o = {};
+		let o = {};
 		o["pk"] = pk.toPem();
 		o["text"] = forge.util.encodeUtf8(text);
 		o["signature"] = signature;
@@ -264,9 +264,9 @@ module.exports = class EcRsaOaepAsyncWorker {
 			});
 			return cassPromisify(p, success, failure);
 		}
-		var worker = this.rotator++;
+		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
-		var o = {};
+		let o = {};
 		o["pk"] = pk.toPem();
 		o["text"] = forge.util.encodeUtf8(text);
 		o["signature"] = signature;

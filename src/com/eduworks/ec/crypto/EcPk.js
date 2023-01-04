@@ -1,4 +1,4 @@
-var pemJwk = require("pem-jwk");
+let pemJwk = require("pem-jwk");
 let forge = require("node-forge");
 /**
  *  Helper classes for dealing with RSA Public Keys.
@@ -24,8 +24,9 @@ module.exports = class EcPk {
 	 *  @static
 	 */
 	static fromPem(pem) {
-		var pk = EcPk.cache[pem];
-		if (pk != null) return pk;
+		let pk = EcPk.cache[pem];
+		if (pk != null) 
+			return pk;
 		pk = new EcPk();
 		try {
 			pk.pk = forge.pki.publicKeyFromPem(pem);
@@ -100,9 +101,7 @@ module.exports = class EcPk {
 	 *  @method fingerprint
 	 */
 	fingerprint() {
-		var o = {};
-		o["encoding"] = "hex";
-		return forge.ssh.getPublicKeyFingerprint(this.pk, o);
+		return forge.ssh.getPublicKeyFingerprint(this.pk, {encoding:"hex"});
 	}
 	verify(bytes, decode64) {
 		return this.pk.verify(bytes, decode64);

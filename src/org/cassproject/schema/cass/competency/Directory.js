@@ -23,7 +23,7 @@ module.exports = class Directory extends schema.CreativeWork {
 		super.upgrade();
 	}
 	getTypes() {
-		var a = [];
+		let a = [];
 		a.push(Directory.TYPE_0_6);
 		return a;
 	}

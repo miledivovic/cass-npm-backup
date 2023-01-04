@@ -1,4 +1,4 @@
-var pemJwk = require("pem-jwk");
+let pemJwk = require("pem-jwk");
 let forge = require("node-forge");
 let EcPk = require("./EcPk.js");
 require("../../../../org/cassproject/general/AuditLogger.js");
@@ -27,7 +27,7 @@ module.exports = class EcPpk {
 	 *  @static
 	 */
 	static fromPem(pem) {
-		var pk = EcPpk.cache[pem];
+		let pk = EcPpk.cache[pem];
 		if (pk != null)
 			return pk;
 		pk = new EcPpk();
@@ -49,10 +49,8 @@ module.exports = class EcPpk {
 	 */
 	static generateKeyAsync(callback) {
 		return new Promise((resolve,reject)=>{
-			var o = {};
-			o["workers"] = -1;
-			forge.pki.rsa.generateKeyPair(o, function(err, keypair) {
-				var ppk = new EcPpk();
+			forge.pki.rsa.generateKeyPair({workers:-1}, function(err, keypair) {
+				let ppk = new EcPpk();
 				ppk.ppk = keypair.privateKey;
 				if (callback != null)
 					callback(ppk);
@@ -68,10 +66,8 @@ module.exports = class EcPpk {
 	 *  @static
 	 */
 	static generateKey() {
-		var o = {};
-		o["workers"] = -1;
-		var keypair = forge.pki.rsa.generateKeyPair(o, null);
-		var ppk = new EcPpk();
+		let keypair = forge.pki.rsa.generateKeyPair({workers:-1}, null);
+		let ppk = new EcPpk();
 		ppk.ppk = keypair.privateKey;
 		return ppk;
 	}
@@ -153,7 +149,7 @@ module.exports = class EcPpk {
 	 */
 	toPk() {
 		if (this.defaultPk != null) return this.defaultPk;
-		var pk = this.defaultPk = new EcPk();
+		let pk = this.defaultPk = new EcPk();
 		pk.pk = forge.pki.rsa.setPublicKey(this.ppk.n, this.ppk.e);
 		return pk;
 	}
@@ -165,7 +161,7 @@ module.exports = class EcPpk {
 	 *  @method inArray
 	 */
 	inArray(ppks) {
-		for (var i = 0; i < ppks.length; i++) {
+		for (let i = 0; i < ppks.length; i++) {
 			if (ppks[i].equals(this)) return true;
 		}
 		return false;

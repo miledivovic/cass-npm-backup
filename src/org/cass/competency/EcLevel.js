@@ -94,7 +94,7 @@ module.exports = class EcLevel extends Level {
 			failure("No Competency Specified");
 			return;
 		}
-		var query =
+		let query =
 			'competency:"' +
 			competencyId +
 			'" OR competency:"' +
@@ -126,7 +126,7 @@ module.exports = class EcLevel extends Level {
 		failure,
 		repo, eim
 	) {
-		var a = new EcAlignment();
+		let a = new EcAlignment();
 		a.source = this.id;
 		a.target = targetLevel.id;
 		a.relationType = alignmentType;
@@ -171,12 +171,12 @@ module.exports = class EcLevel extends Level {
 	 */
 	save(success, failure, repo, eim) {
 		if (this.name == null || this.name == "") {
-			var msg = "Level name cannot be empty";
+			let msg = "Level name cannot be empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}
 		if (this.competency == null || this.competency == "") {
-			var msg = "Level's Competency cannot be empty";
+			let msg = "Level's Competency cannot be empty";
 			if (failure !== undefined && failure != null) return failure(msg);
 			else throw new Error(msg);
 		}

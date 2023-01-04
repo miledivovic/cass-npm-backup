@@ -80,19 +80,19 @@ module.exports = class CfdFramework extends EcFramework {
 	 */
 	_delete = function (success, failure, repo, eim) {
 		if (CfdFramework.toRemove == null) CfdFramework.toRemove = {};
-		var remove = 0;
+		let remove = 0;
 		remove += this.competency == null ? 0 : this.competency.length;
 		remove += this.relation == null ? 0 : this.relation.length;
 		CfdFramework.toRemove[this.shortId()] = remove;
 		if (CfdFramework.removed == null) CfdFramework.removed = {};
 		CfdFramework.removed[this.shortId()] = 0;
-		var that = this;
-		var onAllRemove = function () {
+		let that = this;
+		let onAllRemove = function () {
 			EcRepository.DELETE(that, success, failure, repo, eim);
 		};
 		if (remove == 0) onAllRemove();
 		if (this.competency != null && this.competency.length > 0) {
-			for (var x = 0; x < this.competency.length; x++) {
+			for (let x = 0; x < this.competency.length; x++) {
 				CfdCompetency.get(
 					this.competency[x],
 					function (comp) {
@@ -107,7 +107,7 @@ module.exports = class CfdFramework extends EcFramework {
 									onAllRemove();
 							},
 							function (err) {
-								var error =
+								let error =
 									"Error deleting competency (" +
 									comp.id +
 									"): " +
@@ -125,7 +125,7 @@ module.exports = class CfdFramework extends EcFramework {
 						);
 					},
 					function (err) {
-						var error =
+						let error =
 							"Error retrieving competency to delete: " + err;
 						failure(error);
 						CfdFramework.removed[that.shortId()] =
@@ -140,7 +140,7 @@ module.exports = class CfdFramework extends EcFramework {
 			}
 		}
 		if (this.relation != null && this.relation.length > 0) {
-			for (var x = 0; x < this.relation.length; x++) {
+			for (let x = 0; x < this.relation.length; x++) {
 				EcAlignment.get(
 					this.relation[x],
 					function (rel) {
@@ -155,7 +155,7 @@ module.exports = class CfdFramework extends EcFramework {
 									onAllRemove();
 							},
 							function (err) {
-								var error =
+								let error =
 									"Error deleting relation (" +
 									rel.id +
 									"): " +
@@ -172,7 +172,7 @@ module.exports = class CfdFramework extends EcFramework {
 						);
 					},
 					function (err) {
-						var error =
+						let error =
 							"Error retrieving relationship to delete: " + err;
 						failure(error);
 						CfdFramework.removed[that.shortId()] =

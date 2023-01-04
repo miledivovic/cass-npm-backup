@@ -50,20 +50,20 @@ module.exports = class GeneralFile extends EcRemoteLinkedData {
 	 *  @method download
 	 */
 	download() {
-		var blob = base64ToBlob(this.data, this.mimeType);
+		let blob = base64ToBlob(this.data, this.mimeType);
 		saveAs(blob, this.name);
 	}
 	upgrade() {
 		super.upgrade();
 		if (GeneralFile.TYPE_0_1 == (this.type)) {
-			var me = this;
+			let me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(General.context_0_2, GeneralFile.TYPE_0_2);
 		}
 	}
 	getTypes() {
-		var a = [];
+		let a = [];
 		a.push(GeneralFile.TYPE_0_2);
 		a.push(GeneralFile.TYPE_0_1);
 		return a;

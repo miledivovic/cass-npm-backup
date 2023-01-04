@@ -45,7 +45,7 @@ module.exports = class CSVImport {
 		Papa.parse(file, {
 			encoding: "UTF-8",
 			complete: function(results) {
-				var tabularData = results["data"];
+				let tabularData = results["data"];
 				success(tabularData);
 			},
 			error: failure
@@ -138,13 +138,13 @@ module.exports = class CSVImport {
 			failure("Name Index not Set");
 			return;
 		}
-		var competencies = [];
+		let competencies = [];
 		Papa.parse(file, {
 			encoding: "UTF-8",
 			complete: function(results) {
-				var tabularData = results["data"];
-				var colNames = tabularData[0];
-				for (var i = 1; i < tabularData.length; i++) {
+				let tabularData = results["data"];
+				let colNames = tabularData[0];
+				for (let i = 1; i < tabularData.length; i++) {
 					if (
 						tabularData[i].length == 0 ||
 						tabularData[i].length == 1 &&
@@ -161,7 +161,7 @@ module.exports = class CSVImport {
 					) {
 						continue;
 					}
-					var competency = new EcCompetency();
+					let competency = new EcCompetency();
 					competency.name = tabularData[i][nameIndex];
 					if (descriptionIndex >= 0)
 						competency.description =
@@ -192,13 +192,13 @@ module.exports = class CSVImport {
 					}
 					if (owner != undefined && owner != null)
 						competency.addOwner(owner.ppk.toPk());
-					var shortId = null;
+					let shortId = null;
 					if (
 						idIndex != null &&
 						idIndex != undefined &&
 						idIndex >= 0
 					) {
-						var oldId = tabularData[i][idIndex];
+						let oldId = tabularData[i][idIndex];
 						shortId = EcRemoteLinkedData.trimVersionFromUrl(oldId);
 						CSVImport.importCsvLookup[
 							shortId
@@ -223,8 +223,8 @@ module.exports = class CSVImport {
 					CSVImport.importCsvLookup[
 						competency.getName()
 					] = competency.shortId();
-					for (var idx = 0; idx < tabularData[i].length; idx++) {
-						var name = colNames[idx];
+					for (let idx = 0; idx < tabularData[i].length; idx++) {
+						let name = colNames[idx];
 						if (
 							name == null ||
 							name.trim() == "" ||
@@ -248,8 +248,8 @@ module.exports = class CSVImport {
 					competencies.push(competency);
 				}
 				CSVImport.saved = 0;
-				for (var i = 0; i < competencies.length; i++) {
-					var comp = competencies[i];
+				for (let i = 0; i < competencies.length; i++) {
+					let comp = competencies[i];
 					CSVImport.saveCompetency(
 						comp,
 						incremental,
@@ -284,8 +284,8 @@ module.exports = class CSVImport {
 		repo, eim
 	) {
 		Task.asyncImmediate(function(o) {
-			var keepGoing = o;
-			var saveDone = function(results) {
+			let keepGoing = o;
+			let saveDone = function(results) {
 				CSVImport.saved++;
 				if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0) {
 					if (CSVImport.progressObject == null)
@@ -356,7 +356,7 @@ module.exports = class CSVImport {
 		incremental,
 		repo
 	) {
-		var relations = [];
+		let relations = [];
 		if (sourceIndex == null || sourceIndex < 0) {
 			failure("Source Index not Set");
 			return;
@@ -372,12 +372,12 @@ module.exports = class CSVImport {
 		Papa.parse(file, {
 			encoding: "UTF-8",
 			complete: function(results) {
-				var tabularData = results["data"];
-				for (var i = 1; i < tabularData.length; i++) {
-					var alignment = new EcAlignment();
-					var sourceKey = tabularData[i][sourceIndex];
-					var relationTypeKey = tabularData[i][relationTypeIndex];
-					var destKey = tabularData[i][destIndex];
+				let tabularData = results["data"];
+				for (let i = 1; i < tabularData.length; i++) {
+					let alignment = new EcAlignment();
+					let sourceKey = tabularData[i][sourceIndex];
+					let relationTypeKey = tabularData[i][relationTypeIndex];
+					let destKey = tabularData[i][destIndex];
 					if (CSVImport.importCsvLookup[sourceKey] == null)
 						alignment.source = sourceKey;
 					else
@@ -396,8 +396,8 @@ module.exports = class CSVImport {
 					relations.push(alignment);
 				}
 				CSVImport.saved = 0;
-				for (var i = 0; i < relations.length; i++) {
-					var relation = relations[i];
+				for (let i = 0; i < relations.length; i++) {
+					let relation = relations[i];
 					CSVImport.saveRelation(
 						relation,
 						incremental,
@@ -428,7 +428,7 @@ module.exports = class CSVImport {
 		repo, eim
 	) {
 		Task.asyncImmediate(function(o) {
-			var keepGoing = o;
+			let keepGoing = o;
 			relation.save(
 				function(results) {
 					CSVImport.saved++;
@@ -446,10 +446,10 @@ module.exports = class CSVImport {
 				},
 				function(results) {
 					failure("Failed to save competency or relation");
-					for (var j = 0; j < competencies.length; j++) {
+					for (let j = 0; j < competencies.length; j++) {
 						competencies[j]._delete(null, null, repo, eim);
 					}
-					for (var j = 0; j < relations.length; j++) {
+					for (let j = 0; j < relations.length; j++) {
 						relations[j]._delete(null, null, repo, eim);
 					}
 					keepGoing();
@@ -459,7 +459,7 @@ module.exports = class CSVImport {
 		});
 	}
 	static hasContextColumn(colNames) {
-		for (var idx = 0; idx < colNames.length; idx++) {
+		for (let idx = 0; idx < colNames.length; idx++) {
 			if (colNames[idx] == "@context") {
 				return idx;
 			}
@@ -467,7 +467,7 @@ module.exports = class CSVImport {
 		return -1;
 	}
 	static hasTypeColumn(colNames) {
-		for (var idx = 0; idx < colNames.length; idx++) {
+		for (let idx = 0; idx < colNames.length; idx++) {
 			if (colNames[idx] == "@type") {
 				return idx;
 			}
@@ -480,7 +480,7 @@ module.exports = class CSVImport {
 		} else if (nestedFields.length == 1) {
 			nestedObj[nestedFields[0]] = value;
 		} else {
-			var key = nestedFields[0];
+			let key = nestedFields[0];
 			if (nestedObj[key] == null || nestedObj[key] == undefined)
 				nestedObj[key] = {};
 			nestedFields.splice(0, 1);
@@ -488,21 +488,21 @@ module.exports = class CSVImport {
 		}
 	}
 	static transformReferences(data) {
-		var props = data;
-		for (var prop in props) {
+		let props = data;
+		for (let prop in props) {
 			if (
 				props[prop] == null ||
 				props[prop] == undefined ||
 				Object.toString.call(props[prop]).indexOf("String") == -1
 			) {
 				if (EcObject.isObject(props[prop])) {
-					var nested = props[prop];
+					let nested = props[prop];
 					CSVImport.transformReferences(nested);
 					data[prop] = nested;
 				}
 				continue;
 			}
-			var oldVal = props[prop];
+			let oldVal = props[prop];
 			if (
 				CSVImport.importCsvLookup[oldVal] != null &&
 				CSVImport.importCsvLookup[oldVal] != undefined &&
@@ -524,12 +524,12 @@ module.exports = class CSVImport {
 		assignedType,
 		repo
 	) {
-		var objects = [];
-		var hasAssignedContext =
+		let objects = [];
+		let hasAssignedContext =
 			assignedContext != undefined &&
 			assignedContext != null &&
 			assignedContext.trim() != "";
-		var hasAssignedType =
+		let hasAssignedType =
 			assignedType != undefined &&
 			assignedType != null &&
 			assignedType.trim() != "";
@@ -537,10 +537,10 @@ module.exports = class CSVImport {
 		Papa.parse(file, {
 			encoding: "UTF-8",
 			complete: function(results) {
-				var tabularData = results["data"];
-				var colNames = tabularData[0];
-				var contextIdx = -1;
-				var typeIdx = -1;
+				let tabularData = results["data"];
+				let colNames = tabularData[0];
+				let contextIdx = -1;
+				let typeIdx = -1;
 				if (
 					!hasAssignedContext &&
 					(contextIdx = CSVImport.hasContextColumn(colNames)) == -1
@@ -556,7 +556,7 @@ module.exports = class CSVImport {
 						"Was not passed and cannot find column with data type"
 					);
 				}
-				for (var i = 1; i < tabularData.length; i++) {
+				for (let i = 1; i < tabularData.length; i++) {
 					if (
 						tabularData[i].length == 0 ||
 						tabularData[i].length == 1 &&
@@ -566,16 +566,16 @@ module.exports = class CSVImport {
 					) {
 						continue;
 					}
-					var context = null;
-					var type = null;
+					let context = null;
+					let type = null;
 					if (hasAssignedContext) context = assignedContext;
 					else context = tabularData[i][contextIdx];
 					if (hasAssignedType) type = assignedType;
 					else type = tabularData[i][typeIdx];
-					var data = new EcRemoteLinkedData(context, type);
-					var nestedObjs = {};
-					for (var idx = 0; idx < tabularData[i].length; idx++) {
-						var name = colNames[idx];
+					let data = new EcRemoteLinkedData(context, type);
+					let nestedObjs = {};
+					for (let idx = 0; idx < tabularData[i].length; idx++) {
+						let name = colNames[idx];
 						if (name == "@id" || name == "id") {
 							data.id = tabularData[i][idx];
 							continue;
@@ -589,9 +589,9 @@ module.exports = class CSVImport {
 						) {
 							continue;
 						} else if (name.indexOf(".") != -1) {
-							var split = name.split(".");
+							let split = name.split(".");
 							if (split.length > 1) {
-								var key = split[0];
+								let key = split[0];
 								if (
 									nestedObjs[key] == null ||
 									nestedObjs[key] == undefined
@@ -607,14 +607,14 @@ module.exports = class CSVImport {
 							}
 							name = split[0];
 						}
-						var val = tabularData[i][idx];
+						let val = tabularData[i][idx];
 						data[name] = val;
 					}
-					for (var key in nestedObjs) {
+					for (let key in nestedObjs) {
 						data[key] = nestedObjs[key];
 					}
 					if (owner != null) data.addOwner(owner.ppk.toPk());
-					var fileId = data.id;
+					let fileId = data.id;
 					if (
 						idIndex != undefined &&
 						idIndex != null &&
@@ -635,13 +635,13 @@ module.exports = class CSVImport {
 							data.generateId(serverUrl);
 						else data.generateShortId(serverUrl);
 					}
-					var shortId;
+					let shortId;
 					if (
 						idIndex != null &&
 						idIndex != undefined &&
 						idIndex >= 0
 					) {
-						var oldId = tabularData[i][idIndex];
+						let oldId = tabularData[i][idIndex];
 						shortId = EcRemoteLinkedData.trimVersionFromUrl(oldId);
 						CSVImport.importCsvLookup[shortId] = data.shortId();
 					}
@@ -674,8 +674,8 @@ module.exports = class CSVImport {
 					objects.push(data);
 				}
 				CSVImport.saved = 0;
-				for (var i = 0; i < objects.length; i++) {
-					var data = objects[i];
+				for (let i = 0; i < objects.length; i++) {
+					let data = objects[i];
 					CSVImport.transformReferences(data);
 					CSVImport.saveTransformedData(
 						data,
@@ -700,15 +700,15 @@ module.exports = class CSVImport {
 		eim
 	) {
 		Task.asyncImmediate(function(o) {
-			var keepGoing = o;
-			var scs = function(results) {
+			let keepGoing = o;
+			let scs = function(results) {
 				CSVImport.saved++;
 				if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0)
 					incremental(CSVImport.saved);
 				if (CSVImport.saved == objects.length) success(objects);
 				keepGoing();
 			};
-			var err = function(results) {
+			let err = function(results) {
 				failure("Failed to save object");
 				keepGoing();
 			};

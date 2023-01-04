@@ -29,9 +29,9 @@ let hrtime = function() {
     return process.hrtime();
 };
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 after(()=>EcRsaOaepAsyncWorker.teardown());
 
@@ -48,7 +48,7 @@ let deleteById = async function (id) {
         }
     );
 };
-var failure = function (p1) {
+let failure = function (p1) {
     console.trace(p1);
     assert.fail();
 };

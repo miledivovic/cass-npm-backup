@@ -43,8 +43,8 @@ module.exports = Task = class Task {
 	 *  @return Timeout Handler, can use clearTimeout on it if needed.
 	 */
 	static immediate(c) {
-		var currentMs = Date.now();
-		var nextFrameMs = Math.trunc(1000 / Task.desiredFps);
+		let currentMs = Date.now();
+		let nextFrameMs = Math.trunc(1000 / Task.desiredFps);
 		Task.calledFunctions++;
 		if (
 			Task.lastFrame == null ||
@@ -78,11 +78,11 @@ module.exports = Task = class Task {
 		return null;
 	}
 	static asyncContinue() {
-		var keepGoing = function() {
+		let keepGoing = function() {
 			Task.asyncContinue();
 		};
 		if (Task.tasks.length > 0) {
-			var c = Task.tasks.pop();
+			let c = Task.tasks.pop();
 			c(keepGoing);
 		} else Task.runningAsyncFunctions--;
 	}

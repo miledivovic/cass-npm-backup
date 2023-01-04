@@ -115,8 +115,8 @@ module.exports = class Assertion extends schema.CreativeWork {
 	 *  @param pk
 	 */
 	setSubject(pk) {
-		var owners = [];
-		var readers = this.reader;
+		let owners = [];
+		let readers = this.reader;
 		if (readers == null) readers = [];
 		if (this.subject != null) {
 			if (this.subject.owner != null) 
@@ -144,11 +144,11 @@ module.exports = class Assertion extends schema.CreativeWork {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (this.subject == null) return "Nobody";
-		var subjectPk = this.getSubject();
-		var identity = eim.getIdentity(subjectPk);
+		let subjectPk = this.getSubject();
+		let identity = eim.getIdentity(subjectPk);
 		if (identity != null && identity.displayName != null)
 			return identity.displayName + " (You)";
-		var contact = eim.getContact(subjectPk);
+		let contact = eim.getContact(subjectPk);
 		if (contact == null || contact.displayName == null)
 			return "Unknown Subject";
 		return contact.displayName;
@@ -161,12 +161,12 @@ module.exports = class Assertion extends schema.CreativeWork {
 			return;
 		}
 		this.getSubjectAsync(function(subjectPk) {
-			var identity = eim.getIdentity(subjectPk);
+			let identity = eim.getIdentity(subjectPk);
 			if (identity != null && identity.displayName != null) {
 				success(identity.displayName + " (You)");
 				return;
 			}
-			var contact = eim.getContact(subjectPk);
+			let contact = eim.getContact(subjectPk);
 			if (contact == null || contact.displayName == null) {
 				success("Unknown Subject");
 				return;
@@ -178,11 +178,11 @@ module.exports = class Assertion extends schema.CreativeWork {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (this.agent == null) return "Nobody";
-		var agentPk = this.getAgent();
-		var identity = eim.getIdentity(agentPk);
+		let agentPk = this.getAgent();
+		let identity = eim.getIdentity(agentPk);
 		if (identity != null && identity.displayName != null)
 			return identity.displayName + " (You)";
-		var contact = eim.getContact(agentPk);
+		let contact = eim.getContact(agentPk);
 		if (contact == null || contact.displayName == null)
 			return "Unknown Agent";
 		return contact.displayName;
@@ -195,12 +195,12 @@ module.exports = class Assertion extends schema.CreativeWork {
 			return;
 		}
 		this.getAgentAsync(function(subjectPk) {
-			var identity = eim.getIdentity(subjectPk);
+			let identity = eim.getIdentity(subjectPk);
 			if (identity != null && identity.displayName != null) {
 				success(identity.displayName + " (You)");
 				return;
 			}
-			var contact = eim.getContact(subjectPk);
+			let contact = eim.getContact(subjectPk);
 			if (contact == null || contact.displayName == null) {
 				success("Unknown Agent");
 				return;
@@ -269,7 +269,7 @@ module.exports = class Assertion extends schema.CreativeWork {
 	upgrade() {
 		super.upgrade();
 		if (Assertion.TYPE_0_1 == (this.type)) {
-			var me = this;
+			let me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(Cass.context_0_2, Assertion.TYPE_0_2);
@@ -293,12 +293,12 @@ module.exports = class Assertion extends schema.CreativeWork {
 		this.decayFunction = EcEncryptedValue.revive(this.decayFunction);
 		this.negative = EcEncryptedValue.revive(this.negative);
 		if (this.evidence != null)
-			for (var i = 0; i < this.evidence.length; i++) {
+			for (let i = 0; i < this.evidence.length; i++) {
 				this.evidence[i] = EcEncryptedValue.revive(this.evidence[i]);
 			}
 	}
 	getTypes() {
-		var a = [];
+		let a = [];
 		a.push(Assertion.TYPE_0_6);
 		a.push(Assertion.TYPE_0_5);
 		a.push(Assertion.TYPE_0_4);

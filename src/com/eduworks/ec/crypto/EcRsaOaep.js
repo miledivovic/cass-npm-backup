@@ -51,13 +51,13 @@ module.exports = class EcRsaOaep {
 			);
 		EcCrypto.deprecationNotice = true;
 		if (EcCrypto.caching) {
-			var cacheGet = null;
+			let cacheGet = null;
 			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + ciphertext];
 			if (cacheGet != null) {
 				return cacheGet;
 			}
 		}
-		var result;
+		let result;
 		if (typeof httpStatus != "undefined") {
 			result = rsaDecrypt(ciphertext, ppk.toPem());
 		} else {
@@ -91,7 +91,7 @@ module.exports = class EcRsaOaep {
 		if (typeof httpStatus != "undefined") {
 			return rsaSign(text, ppk.toPem());
 		}
-		var s = forge.md.sha1.create();
+		let s = forge.md.sha1.create();
 		s.update(forge.util.encodeUtf8(text), "utf8");
 		return forge.util.encode64(ppk.ppk.sign(s));
 	}
@@ -113,7 +113,7 @@ module.exports = class EcRsaOaep {
 				"This method is deprecated. Please use await on EcRsaOaepAsync."
 			);
 		EcCrypto.deprecationNotice = true;
-		var s = forge.md.sha256.create();
+		let s = forge.md.sha256.create();
 		s.update(forge.util.encodeUtf8(text), "utf8");
 		return forge.util.encode64(ppk.ppk.sign(s));
 	};
@@ -138,7 +138,7 @@ module.exports = class EcRsaOaep {
 		if (typeof httpStatus != "undefined") {
 			return rsaVerify(signature, pk.toPem(), text);
 		}
-		var s = forge.md.sha1.create();
+		let s = forge.md.sha1.create();
 		s.update(forge.util.encodeUtf8(text), "utf8");
 		try {
 			return pk.verify(
@@ -170,7 +170,7 @@ module.exports = class EcRsaOaep {
 		if (typeof httpStatus != "undefined") {
 			return rsaVerifySha256(signature, pk.toPem(), text);
 		}
-		var s = forge.md.sha256.create();
+		let s = forge.md.sha256.create();
 		s.update(forge.util.encodeUtf8(text), "utf8");
 		try {
 			return pk.verify(

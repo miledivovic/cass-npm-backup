@@ -58,10 +58,10 @@ module.exports = class EbacEncryptedValue extends EcRemoteLinkedData {
 	 */
 	secret = null;
 	copyFrom(that) {
-		var me = this;
-		for (var key in me) delete me[key];
-		var you = that;
-		for (var key in you) {
+		let me = this;
+		for (let key in me) delete me[key];
+		let you = that;
+		for (let key in you) {
 			if (me[key] == null) me[key.replace("@", "")] = you[key];
 		}
 		if (!this.isAny(this.getTypes()))
@@ -70,7 +70,7 @@ module.exports = class EbacEncryptedValue extends EcRemoteLinkedData {
 	upgrade() {
 		super.upgrade();
 		if (EbacEncryptedValue.TYPE_0_1 == this.type) {
-			var me = this;
+			let me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(
@@ -92,7 +92,7 @@ module.exports = class EbacEncryptedValue extends EcRemoteLinkedData {
 		}
 	}
 	getTypes() {
-		var a = [];
+		let a = [];
 		a.push(EbacEncryptedValue.TYPE_0_4);
 		a.push(EbacEncryptedValue.TYPE_0_3);
 		a.push(EbacEncryptedValue.TYPE_0_2);

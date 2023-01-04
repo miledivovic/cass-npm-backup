@@ -28,9 +28,9 @@ let hrtime = function() {
     return process.hrtime();
 };
 
-var should = chai.should();
-var expect = chai.expect;
-var assert = chai.assert;
+let should = chai.should();
+let expect = chai.expect;
+let assert = chai.assert;
 
 after(()=>EcRsaOaepAsyncWorker.teardown());
 
@@ -47,7 +47,7 @@ let deleteById = async function (id) {
         }
     );
 };
-var failure = function (p1) {
+let failure = function (p1) {
     console.trace(p1);
     assert.fail();
 };
@@ -63,7 +63,7 @@ let repo = new EcRepository();
 repo.selectedServer = process.env.CASS_LOOPBACK || "http://localhost/api/";
 repo.selectedServerProxy = process.env.CASS_LOOPBACK_PROXY || null;
 async function newAssertion(competencyToAssert) {
-    var a = new EcAssertion();
+    let a = new EcAssertion();
     a.generateId(repo.selectedServer);
     a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     await a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
@@ -77,7 +77,7 @@ async function newAssertion(competencyToAssert) {
     return a;
 }
 async function newFalseAssertion(competencyToAssert) {
-    var a = new EcAssertion();
+    let a = new EcAssertion();
     a.generateId(repo.selectedServer);
     a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     await a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
@@ -92,7 +92,7 @@ async function newFalseAssertion(competencyToAssert) {
     return a;
 }
 async function newCompetency(competencyName) {
-    var competency = new EcCompetency();
+    let competency = new EcCompetency();
     competency.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     competency.name = competencyName;
     competency.generateId(repo.selectedServer);
@@ -100,7 +100,7 @@ async function newCompetency(competencyName) {
     return competency;
 }
 async function newRollupRule(competency, rule) {
-    var rr = new EcRollupRule();
+    let rr = new EcRollupRule();
     rr.competency = competency.shortId();
     rr.rule = rule;
     rr.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
@@ -109,7 +109,7 @@ async function newRollupRule(competency, rule) {
     return rr;
 }
 async function newRelation(c, c2, relationType) {
-    var r = new EcAlignment();
+    let r = new EcAlignment();
     r.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     r.generateId(repo.selectedServer);
     r.relationType = relationType;
@@ -119,7 +119,7 @@ async function newRelation(c, c2, relationType) {
     return r;
 }
 async function newFramework(frameworkName) {
-    var framework = new EcFramework();
+    let framework = new EcFramework();
     framework.name = frameworkName;
     framework.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
     framework.generateId(repo.selectedServer);
@@ -148,13 +148,13 @@ describe("EcFrameworkGraph", () => {
         }
     });
     it('encryption then decryption', async () => {
-        var randomString = EcAes.newIv(256).substring(0, 190);
-        var ppk = EcPpk.fromPem(
+        let randomString = EcAes.newIv(256).substring(0, 190);
+        let ppk = EcPpk.fromPem(
             "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
         );
-        var pk = ppk.toPk();
-        var encrypted = await EcRsaOaepAsyncWorker.encrypt(pk, randomString);
-        var decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
+        let pk = ppk.toPk();
+        let encrypted = await EcRsaOaepAsyncWorker.encrypt(pk, randomString);
+        let decrypted = await EcRsaOaepAsyncWorker.decrypt(ppk, encrypted);
         assert.isTrue(randomString == decrypted);
     })
     it('basic true test', async () => {
@@ -195,12 +195,12 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1]);
     })
     it('basic false test', async () => {
-        var f = await newFramework("basic false framework");
-        var c = await newCompetency("Add");
+        let f = await newFramework("basic false framework");
+        let c = await newCompetency("Add");
         f.addCompetency(c.shortId());
         await f.save(null, failure, repo);
-        var a = await newFalseAssertion(c);
-        var fg = new EcFrameworkGraph();
+        let a = await newFalseAssertion(c);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -235,13 +235,13 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1]);
     })
     it('basic indeterminant test', async () => {
-        var f = await newFramework("basic indeterminant framework");
-        var c = await newCompetency("Add");
+        let f = await newFramework("basic indeterminant framework");
+        let c = await newCompetency("Add");
         f.addCompetency(c.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c);
-        var a2 = await newFalseAssertion(c);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c);
+        let a2 = await newFalseAssertion(c);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -277,11 +277,11 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1]);
     })
     it('basic unknown test', async () => {
-        var f = await newFramework("basic unknown framework");
-        var c = await newCompetency("Add");
+        let f = await newFramework("basic unknown framework");
+        let c = await newCompetency("Add");
         f.addCompetency(c.shortId());
         await f.save(null, failure, repo);
-        var fg = new EcFrameworkGraph();
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -311,16 +311,16 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [undefined, undefined]);
     })
     it('basic equivalence test', async () => {
-        var f = await newFramework("basic equivalence framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic equivalence framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        let r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c2);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c2);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -356,16 +356,16 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1]);
     })
     it('basic equivalence false test', async () => {
-        var f = await newFramework("basic equivalence false framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic equivalence false framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        let r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newFalseAssertion(c2);
-        var fg = new EcFrameworkGraph();
+        let a = await newFalseAssertion(c2);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -401,17 +401,17 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1]);
     })
     it('basic equivalence indeterminant test', async () => {
-        var f = await newFramework("basic equivalence indeterminant framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic equivalence indeterminant framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        let r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c);
-        var a2 = await newFalseAssertion(c2);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c);
+        let a2 = await newFalseAssertion(c2);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -453,15 +453,15 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1, 1, 1]);
     })
     it('basic equivalence unknown test', async () => {
-        var f = await newFramework("basic equivalence unknown framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic equivalence unknown framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        let r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         f.save(null, failure, repo);
-        var fg = new EcFrameworkGraph();
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -495,20 +495,20 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [undefined, undefined, undefined, undefined]);
     })
     it('basic equivalence equivalence test', async () => {
-        var f = await newFramework("basic equivalence equivalence framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
-        var c3 = await newCompetency("Amass");
+        let f = await newFramework("basic equivalence equivalence framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
+        let c3 = await newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
-        var r2 = await newRelation(c2, c3, EcAlignment.IS_EQUIVALENT_TO);
+        let r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        let r2 = await newRelation(c2, c3, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c3);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c3);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -548,18 +548,18 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1, 1]);
     })
     it('basic equivalence unequivalent test', async () => {
-        var f = await newFramework("basic equivalence unequivalent framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
-        var c3 = await newCompetency("Amass");
+        let f = await newFramework("basic equivalence unequivalent framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
+        let c3 = await newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
+        let r = await newRelation(c, c2, EcAlignment.IS_EQUIVALENT_TO);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c3);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c3);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -596,16 +596,16 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [undefined, undefined, 1]);
     })
     it('basic requires satisfied test', async () => {
-        var f = await newFramework("basic requires satisfied framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic requires satisfied framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.REQUIRES);
+        let r = await newRelation(c, c2, EcAlignment.REQUIRES);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -641,16 +641,16 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1]);
     })
     it('basic requires false test', async () => {
-        var f = await newFramework("basic requires false framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic requires false framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.REQUIRES);
+        let r = await newRelation(c, c2, EcAlignment.REQUIRES);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newFalseAssertion(c2);
-        var fg = new EcFrameworkGraph();
+        let a = await newFalseAssertion(c2);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -686,16 +686,16 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1]);
     })
     it('basic narrows true test', async () => {
-        var f = await newFramework("basic narrows true framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic narrows true framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.NARROWS);
+        let r = await newRelation(c, c2, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c2);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c2);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -731,16 +731,16 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1]);
     })
     it('basic narrows false test', async () => {
-        var f = await newFramework("basic narrows false framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
+        let f = await newFramework("basic narrows false framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
-        var r = await newRelation(c, c2, EcAlignment.NARROWS);
+        let r = await newRelation(c, c2, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         await f.save(null, failure, repo);
-        var a = await newFalseAssertion(c);
-        var fg = new EcFrameworkGraph();
+        let a = await newFalseAssertion(c);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -776,20 +776,20 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1]);
     })
     it('basic narrows narrows test', async () => {
-        var f = await newFramework("basic narrows narrows framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
-        var c3 = await newCompetency("Amass");
+        let f = await newFramework("basic narrows narrows framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
+        let c3 = await newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = await newRelation(c, c2, EcAlignment.NARROWS);
-        var r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
+        let r = await newRelation(c, c2, EcAlignment.NARROWS);
+        let r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c3);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c3);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -829,20 +829,20 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1, 1]);
     })
     it('basic narrows narrows false test', async () => {
-        var f = await newFramework("basic narrows narrows false framework");
-        var c = await newCompetency("Add");
-        var c2 = await newCompetency("Sum");
-        var c3 = await newCompetency("Amass");
+        let f = await newFramework("basic narrows narrows false framework");
+        let c = await newCompetency("Add");
+        let c2 = await newCompetency("Sum");
+        let c3 = await newCompetency("Amass");
         f.addCompetency(c.shortId());
         f.addCompetency(c2.shortId());
         f.addCompetency(c3.shortId());
-        var r = await newRelation(c, c2, EcAlignment.NARROWS);
-        var r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
+        let r = await newRelation(c, c2, EcAlignment.NARROWS);
+        let r2 = await newRelation(c2, c3, EcAlignment.NARROWS);
         f.addRelation(r.shortId());
         f.addRelation(r2.shortId());
         await f.save(null, failure, repo);
-        var a = await newFalseAssertion(c);
-        var fg = new EcFrameworkGraph();
+        let a = await newFalseAssertion(c);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo,
@@ -882,17 +882,17 @@ describe("EcFrameworkGraph", () => {
         assert.deepEqual(result, [1, 1, 1]);
     })
     it('callbacks removed test', async () => {
-        var f = await newFramework("callbacks removed framework");
-        var c = await newCompetency("Add");
+        let f = await newFramework("callbacks removed framework");
+        let c = await newCompetency("Add");
         f.addCompetency(c.shortId());
         await f.save(null, failure, repo);
-        var a = await newAssertion(c);
-        var fg = new EcFrameworkGraph();
+        let a = await newAssertion(c);
+        let fg = new EcFrameworkGraph();
         let result = await fg.addFramework(
             f,
             repo
         ).then(async () => {
-            var assertions = [];
+            let assertions = [];
             assertions.push(a);
             let result = await fg.processAssertionsBoolean(
                 assertions,

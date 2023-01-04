@@ -33,10 +33,10 @@ module.exports = class TabStructuredImport {
 		repo,
 		hashNameForId
 	) {
-		var lines = text.split("\n");
-		var competencies = [];
-		var alignments = [];
-		for (var i = 0; i < lines.length; i++)
+		let lines = text.split("\n");
+		let competencies = [];
+		let alignments = [];
+		for (let i = 0; i < lines.length; i++)
 			TabStructuredImport.parseLinesIntoHierarchy(
 				lines,
 				competencies,
@@ -57,8 +57,8 @@ module.exports = class TabStructuredImport {
 		hashNameForId,
 		repo
 	) {
-		var parentI = -1;
-		for (var i = index - 1; i >= 0; i--) {
+		let parentI = -1;
+		for (let i = index - 1; i >= 0; i--) {
 			if (
 				TabStructuredImport.tabs(lines[i]) <
 				TabStructuredImport.tabs(lines[index])
@@ -67,8 +67,8 @@ module.exports = class TabStructuredImport {
 				break;
 			}
 		}
-		var c = null;
-		for (var i = 0; i < competencies.length; i++) {
+		let c = null;
+		for (let i = 0; i < competencies.length; i++) {
 			if (competencies[i].getName().trim() == lines[index].trim()) {
 				c = competencies[i];
 				break;
@@ -85,15 +85,15 @@ module.exports = class TabStructuredImport {
 			competencies.push(c);
 		}
 		if (parentI != -1) {
-			var parent = null;
-			for (var i = 0; i < competencies.length; i++) {
+			let parent = null;
+			for (let i = 0; i < competencies.length; i++) {
 				if (competencies[i].getName().trim() == lines[parentI].trim()) {
 					parent = competencies[i];
 					break;
 				}
 			}
 			if (parent != null && parent.shortId() != c.shortId()) {
-				var a = new EcAlignment();
+				let a = new EcAlignment();
 				if (serverUrl != repo.selectedServer)
 					a.generateShortId(serverUrl);
 				else a.generateId(serverUrl);
@@ -105,9 +105,9 @@ module.exports = class TabStructuredImport {
 		}
 	}
 	static tabs(line) {
-		var tabs = 0;
-		for (var i = 0; i < line.length; i++) {
-			var c = line.charAt(i);
+		let tabs = 0;
+		for (let i = 0; i < line.length; i++) {
+			let c = line.charAt(i);
 			if (c == "\t" || c == " ") tabs++;
 			else return tabs;
 		}

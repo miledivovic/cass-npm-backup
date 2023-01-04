@@ -35,10 +35,10 @@ module.exports = class EcAssertion extends Assertion {
 		if (!eim) {
 			eim = EcIdentityManager.default;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.subject);
-		var codebook = Assertion.getCodebook(this);
-		var decryptedString;
+		let codebook = Assertion.getCodebook(this);
+		let decryptedString;
 		if (codebook != null)
 			decryptedString = await v
 				.decryptIntoStringUsingSecret(codebook.subject)
@@ -59,8 +59,8 @@ module.exports = class EcAssertion extends Assertion {
 	 *  @param pk
 	 */
 	async setSubject(pk) {
-		var owners = [];
-		var readers = null;
+		let owners = [];
+		let readers = null;
 		if (this.reader == null) 
 			readers = [];
 		else 
@@ -82,9 +82,9 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	// @deprecated
 	setSubjectAsync(pk, success, failure) {
-		var me = this;
-		var owners = [];
-		var readers = null;
+		let me = this;
+		let owners = [];
+		let readers = null;
 		if (this.reader == null) 
 			readers = [];
 		else 
@@ -115,13 +115,13 @@ module.exports = class EcAssertion extends Assertion {
 			success(null);
 			return;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.subject);
-		var decrypted = function (decryptedString) {
+		let decrypted = function (decryptedString) {
 			if (decryptedString == null) failure("Could not decrypt subject.");
 			else success(EcPk.fromPem(decryptedString));
 		};
-		var codebook = Assertion.getCodebook(this);
+		let codebook = Assertion.getCodebook(this);
 		if (codebook != null)
 			return v.decryptIntoStringUsingSecretAsync(
 				codebook.subject,
@@ -135,10 +135,10 @@ module.exports = class EcAssertion extends Assertion {
 		if (!eim) {
 			eim = EcIdentityManager.default;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.agent);
-		var codebook = Assertion.getCodebook(this);
-		var decryptedString;
+		let codebook = Assertion.getCodebook(this);
+		let decryptedString;
 		if (codebook != null)
 			decryptedString = await v
 				.decryptIntoStringUsingSecret(codebook.agent)
@@ -161,7 +161,7 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	// @deprecated
 	setAgentAsync(pk, success, failure) {
-		var me = this;
+		let me = this;
 		return EcEncryptedValue.encryptValueAsync(
 			pk.toPem(),
 			this.id,
@@ -180,13 +180,13 @@ module.exports = class EcAssertion extends Assertion {
 			success(null);
 			return;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.agent);
-		var decrypted = function (decryptedString) {
+		let decrypted = function (decryptedString) {
 			if (decryptedString == null) failure("Could not decrypt agent.");
 			else success(EcPk.fromPem(decryptedString));
 		};
-		var codebook = Assertion.getCodebook(this);
+		let codebook = Assertion.getCodebook(this);
 		if (codebook != null)
 			return v.decryptIntoStringUsingSecretAsync(
 				codebook.agent,
@@ -197,9 +197,9 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async getSubjectName(repo, eim) {
 		if (this.subject == null) return "Nobody";
-		var subjectPk = await this.getSubject(eim);
+		let subjectPk = await this.getSubject(eim);
 		if (subjectPk) {
-			var name = await EcAssertion.getNameByPk(repo, subjectPk);
+			let name = await EcAssertion.getNameByPk(repo, subjectPk);
 			if (name != null) return name;
 		}
 		return "Unknown Subject";
@@ -218,9 +218,9 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async getAgentName(repo, eim) {
 		if (this.agent == null) return "Nobody";
-		var agentPk = await this.getAgent(eim);
+		let agentPk = await this.getAgent(eim);
 		if (agentPk) {
-			var name = await EcAssertion.getNameByPk(repo, agentPk, "Unknown Agent");
+			let name = await EcAssertion.getNameByPk(repo, agentPk, "Unknown Agent");
 			if (name != null) return name;
 		}
 		return "Unknown Agent";
@@ -244,10 +244,10 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async getAssertionDate(eim) {
 		if (this.assertionDate == null) return null;
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.assertionDate);
-		var codebook = Assertion.getCodebook(this);
-		var decryptedString;
+		let codebook = Assertion.getCodebook(this);
+		let decryptedString;
 		if (codebook != null)
 			decryptedString = await v
 				.decryptIntoStringUsingSecret(codebook.assertionDate)
@@ -270,7 +270,7 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	// @deprecated
 	setAssertionDateAsync(assertionDateMs, success, failure) {
-		var me = this;
+		let me = this;
 		return EcEncryptedValue.encryptValueAsync(
 			assertionDateMs.toString(),
 			this.id,
@@ -289,14 +289,14 @@ module.exports = class EcAssertion extends Assertion {
 			success(null);
 			return;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.assertionDate);
-		var decrypted = function (decryptedString) {
+		let decrypted = function (decryptedString) {
 			if (decryptedString == null)
 				failure("Could not decrypt assertion date.");
 			else success(parseInt(decryptedString));
 		};
-		var codebook = Assertion.getCodebook(this);
+		let codebook = Assertion.getCodebook(this);
 		if (codebook != null)
 			return v.decryptIntoStringUsingSecretAsync(
 				codebook.assertionDate,
@@ -307,9 +307,9 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async getExpirationDate(eim) {
 		if (this.expirationDate == null) return null;
-		var v = new EcEncryptedValue();
-		var codebook = Assertion.getCodebook(this);
-		var decryptedString;
+		let v = new EcEncryptedValue();
+		let codebook = Assertion.getCodebook(this);
+		let decryptedString;
 		v.copyFrom(this.expirationDate);
 		if (codebook != null)
 			decryptedString = await v
@@ -333,7 +333,7 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	// @deprecated
 	setExpirationDateAsync(expirationDateMs, success, failure) {
-		var me = this;
+		let me = this;
 		return EcEncryptedValue.encryptValueAsync(
 			expirationDateMs.toString(),
 			this.id,
@@ -352,14 +352,14 @@ module.exports = class EcAssertion extends Assertion {
 			success(null);
 			return;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.expirationDate);
-		var decrypted = function (decryptedString) {
+		let decrypted = function (decryptedString) {
 			if (decryptedString == null)
 				failure("Could not decrypt expiration date.");
 			else success(parseInt(decryptedString));
 		};
-		var codebook = Assertion.getCodebook(this);
+		let codebook = Assertion.getCodebook(this);
 		if (codebook != null)
 			return v.decryptIntoStringUsingSecretAsync(
 				codebook.expirationDate,
@@ -375,10 +375,10 @@ module.exports = class EcAssertion extends Assertion {
 	async getEvidence(index, eim) {
 		if (this.evidence === undefined || this.evidence == null)
 			return null;
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.evidence[index]);
-		var codebook = Assertion.getCodebook(this);
-		var decryptedString;
+		let codebook = Assertion.getCodebook(this);
+		let decryptedString;
 		if (codebook != null)
 			decryptedString = await v
 				.decryptIntoStringUsingSecret(codebook.evidence[index])
@@ -394,10 +394,10 @@ module.exports = class EcAssertion extends Assertion {
 		if (this.evidence === undefined || this.evidence == null)
 			return null;
 		return Promise.all(this.evidence.map(async ev => {
-			var v = new EcEncryptedValue();
+			let v = new EcEncryptedValue();
 			v.copyFrom(ev);
-			var codebook = Assertion.getCodebook(this);
-			var decryptedString;
+			let codebook = Assertion.getCodebook(this);
+			let decryptedString;
 			if (codebook != null)
 				decryptedString = await v
 					.decryptIntoStringUsingSecret(codebook.evidence[index])
@@ -412,7 +412,7 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	// @deprecated
 	getEvidencesAsync(success, failure, eim) {
-		var evidences = this.evidence;
+		let evidences = this.evidence;
 		if (evidences === undefined || evidences == null) evidences = [];
 		return cassPromisify(
 			Promise.all(
@@ -428,13 +428,13 @@ module.exports = class EcAssertion extends Assertion {
 			success(null);
 			return;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.evidence[index]);
-		var decrypted = function (decryptedString) {
+		let decrypted = function (decryptedString) {
 			if (decryptedString == null) failure("Could not decrypt evidence.");
 			else success(decryptedString);
 		};
-		var codebook = Assertion.getCodebook(this);
+		let codebook = Assertion.getCodebook(this);
 		if (codebook != null)
 			return v.decryptIntoStringUsingSecretAsync(
 				codebook.evidence[index],
@@ -445,10 +445,10 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async getDecayFunction(eim) {
 		if (this.decayFunction == null) return null;
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.decayFunction);
-		var codebook = Assertion.getCodebook(this);
-		var decryptedString;
+		let codebook = Assertion.getCodebook(this);
+		let decryptedString;
 		if (codebook != null)
 			decryptedString = await v
 				.decryptIntoStringUsingSecret(codebook.decayFunction)
@@ -471,7 +471,7 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	// @deprecated
 	setDecayFunctionAsync(decayFunctionText, success, failure) {
-		var me = this;
+		let me = this;
 		return EcEncryptedValue.encryptValueAsync(
 			decayFunctionText,
 			this.id,
@@ -490,14 +490,14 @@ module.exports = class EcAssertion extends Assertion {
 			success(null);
 			return;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.decayFunction);
-		var decrypted = function (decryptedString) {
+		let decrypted = function (decryptedString) {
 			if (decryptedString == null)
 				failure("Could not decrypt decay function.");
 			else success(decryptedString);
 		};
-		var codebook = Assertion.getCodebook(this);
+		let codebook = Assertion.getCodebook(this);
 		if (codebook != null)
 			return v.decryptIntoStringUsingSecretAsync(
 				codebook.decayFunction,
@@ -508,10 +508,10 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async getNegative(eim) {
 		if (this.negative == null) return false;
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.negative);
-		var codebook = Assertion.getCodebook(this);
-		var decryptedString;
+		let codebook = Assertion.getCodebook(this);
+		let decryptedString;
 		if (codebook != null)
 			decryptedString = await v
 				.decryptIntoStringUsingSecret(codebook.negative)
@@ -534,7 +534,7 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	// @deprecated
 	setNegativeAsync(negativeB, success, failure) {
-		var me = this;
+		let me = this;
 		return EcEncryptedValue.encryptValueAsync(
 			negativeB.toString(),
 			this.id,
@@ -553,9 +553,9 @@ module.exports = class EcAssertion extends Assertion {
 			success(null);
 			return;
 		}
-		var v = new EcEncryptedValue();
+		let v = new EcEncryptedValue();
 		v.copyFrom(this.negative);
-		var decrypted = function (decryptedString) {
+		let decrypted = function (decryptedString) {
 			if (decryptedString == null)
 				if (decryptedString == null) {
 					failure("Could not decrypt negative.");
@@ -564,7 +564,7 @@ module.exports = class EcAssertion extends Assertion {
 			if (decryptedString != null) decryptedString.toLowerCase();
 			success("true".equals(decryptedString));
 		};
-		var codebook = Assertion.getCodebook(this);
+		let codebook = Assertion.getCodebook(this);
 		if (codebook != null)
 			return v.decryptIntoStringUsingSecretAsync(
 				codebook.negative,
@@ -583,8 +583,8 @@ module.exports = class EcAssertion extends Assertion {
 		this.confidence = confidenceZeroToOne;
 	}
 	async setEvidence(evidences) {
-		var encryptedValues = [];
-		for (var i = 0; i < evidences.length; i++)
+		let encryptedValues = [];
+		for (let i = 0; i < evidences.length; i++)
 			encryptedValues.push(
 				await EcEncryptedValue.encryptValue(
 					evidences[i],
@@ -616,25 +616,25 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	save(success, failure, repo, eim) {
 		if (this.competency == null || this.competency == "") {
-			var msg = "Failing to save: Competency cannot be missing";
+			let msg = "Failing to save: Competency cannot be missing";
 			if (failure !== undefined && failure != null) failure(msg);
 			else throw new Error(msg);
 			return;
 		}
 		if (this.subject == null) {
-			var msg = "Failing to save: Subject cannot be missing";
+			let msg = "Failing to save: Subject cannot be missing";
 			if (failure !== undefined && failure != null) failure(msg);
 			else throw new Error(msg);
 			return;
 		}
 		if (this.agent == null) {
-			var msg = "Failing to save: Agent cannot be missing";
+			let msg = "Failing to save: Agent cannot be missing";
 			if (failure !== undefined && failure != null) failure(msg);
 			else throw new Error(msg);
 			return;
 		}
 		if (this.assertionDate == null) {
-			var msg = "Failing to save: Assertion Date cannot be missing";
+			let msg = "Failing to save: Assertion Date cannot be missing";
 			if (failure !== undefined && failure != null) failure(msg);
 			else throw new Error(msg);
 			return;
@@ -653,7 +653,7 @@ module.exports = class EcAssertion extends Assertion {
 			await this.decayFunction.addReader(newReader, eim);
 		}
 		if (this.evidence != null)
-			for (var i = 0; i < this.evidence.length; i++) {
+			for (let i = 0; i < this.evidence.length; i++) {
 				await this.evidence[i].addReader(newReader, eim);
 			}
 		if (this.expirationDate != null) {
@@ -678,7 +678,7 @@ module.exports = class EcAssertion extends Assertion {
 			await this.decayFunction.removeReader(newReader, eim);
 		}
 		if (this.evidence != null)
-			for (var i = 0; i < this.evidence.length; i++) {
+			for (let i = 0; i < this.evidence.length; i++) {
 				await this.evidence[i].removeReader(newReader, eim);
 			}
 		if (this.expirationDate != null) {

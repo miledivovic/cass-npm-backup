@@ -62,8 +62,8 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData {
 	 *  @static
 	 */
 	static fromEncryptableJson(obj) {
-		var secret = new EbacEncryptedSecret();
-		var o = obj;
+		let secret = new EbacEncryptedSecret();
+		let o = obj;
 		secret.iv = o["v"];
 		if (o["d"] != null) secret.id = o["d"];
 		secret.secret = o["s"];
@@ -77,7 +77,7 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData {
 	 *  @method toEncryptableJson
 	 */
 	toEncryptableJson() {
-		var o = {};
+		let o = {};
 		o["v"] = this.iv;
 		if (this.id != null) o["d"] = this.id;
 		o["s"] = this.secret;
@@ -87,7 +87,7 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData {
 	upgrade() {
 		super.upgrade();
 		if (EbacEncryptedSecret.TYPE_0_1 == this.type) {
-			var me = this;
+			let me = this;
 			if (me["@context"] == null && me["@schema"] != null)
 				me["@context"] = me["@schema"];
 			this.setContextAndType(
@@ -109,7 +109,7 @@ module.exports = class EbacEncryptedSecret extends EcLinkedData {
 		}
 	}
 	getTypes() {
-		var a = [];
+		let a = [];
 		a.push(EbacEncryptedSecret.TYPE_0_4);
 		a.push(EbacEncryptedSecret.TYPE_0_3);
 		a.push(EbacEncryptedSecret.TYPE_0_2);

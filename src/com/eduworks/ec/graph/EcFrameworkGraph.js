@@ -284,7 +284,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	 *  @memberOf EcFrameworkGraph
 	 */
 	getMetaStateCompetency(c) {
-		var result = this.metaVerticies[c.shortId()];
+		let result = this.metaVerticies[c.shortId()];
 		if (result === undefined || result == null) {
 			if (this.containsVertex(c) == false) return null;
 			if (this.metaVerticies[c.shortId()] == null)
@@ -293,7 +293,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		return result;
 	}
 	getMetaStateAlignment(a) {
-		var result = this.metaEdges[a.shortId()];
+		let result = this.metaEdges[a.shortId()];
 		if (result == null) {
 			if (this.containsEdge(a) == false) return null;
 			if (this.metaEdges[a.shortId()] == null)
@@ -316,13 +316,13 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		return this.edgeMap[alignment.shortId()] != null;
 	}
 	async getCompetency(competencyId) {
-		var c = null;
+		let c = null;
 		c = this.competencyMap[competencyId];
 		if (c == null) c = await EcCompetency.get(competencyId, null, null, this.repo, this.eim);
 		return c;
 	}
 	getCompetencySoft(competencyId) {
-		var c = null;
+		let c = null;
 		c = this.competencyMap[competencyId];
 		return c;
 	}
@@ -337,14 +337,14 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		if (alignment == null) return false;
 		if (this.containsEdge(alignment)) return false;
 		this.edgeMap[alignment.shortId()] = alignment;
-		var source = this.competencyMap[
+		let source = this.competencyMap[
 			EcRemoteLinkedData.trimVersionFromUrl(alignment.source)
 		];
 		if (source == null && this.dontTryAnyMore[alignment.source] != null)
 			return false;
 		if (source == null) source = await this.getCompetency(alignment.source);
 		if (source == null) this.dontTryAnyMore[alignment.source] = "";
-		var target = this.competencyMap[alignment.target];
+		let target = this.competencyMap[alignment.target];
 		if (target == null && this.dontTryAnyMore[alignment.target] != null)
 			return false;
 		if (target == null) target = await this.getCompetency(alignment.target);
@@ -374,7 +374,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	addEdge(e, v1, v2) {
 		this.addVertexSafely(v1);
 		this.addVertexSafely(v2);
-		var t = new Triple();
+		let t = new Triple();
 		t.source = v1;
 		t.destination = v2;
 		t.edge = e;
@@ -383,7 +383,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		return true;
 	}
 	addEdgeUnsafely(e, v1, v2) {
-		var t = new Triple();
+		let t = new Triple();
 		t.source = v1;
 		t.destination = v2;
 		t.edge = e;
@@ -394,7 +394,7 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	addEdgeSafely(e, v1, v2) {
 		this.addVertexSafely(v1);
 		this.addVertexSafely(v2);
-		var t = new Triple();
+		let t = new Triple();
 		t.source = v1;
 		t.destination = v2;
 		t.edge = e;

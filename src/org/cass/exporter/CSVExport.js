@@ -18,28 +18,28 @@ module.exports = class CSVExport extends Exporter {
 	static frameworkCompetencies = null;
 	static frameworkRelations = null;
 	static exportObjects(objects, fileName, piped) {
-		var compExport = new CSVExport.CSVExportProcess();
+		let compExport = new CSVExport.CSVExportProcess();
 		compExport.buildExport(objects, piped);
 		compExport.downloadCSV(fileName);
 	}
 	static exportCTDLASN(json, name) {
-		var objects = [];
+		let objects = [];
 		CSVExport.findGraphs(json, objects);
 		CSVExport.exportObjects(objects, name + ".csv", true);
 	}
 	static findGraphs(json, objects) {
-		var jsonArray;
+		let jsonArray;
 		if (!EcArray.isArray(json)) {
 			jsonArray = [json];
 		} else {
 			jsonArray = json;
 		}
-		for (var j = 0; j < jsonArray.length; j++) {
-			var framework = jsonArray[j];
-			var graph = framework["@graph"];
+		for (let j = 0; j < jsonArray.length; j++) {
+			let framework = jsonArray[j];
+			let graph = framework["@graph"];
 			if (graph != null) {
-				for (var i = 0; i < graph.length; i++) {
-					var rld = new EcRemoteLinkedData(
+				for (let i = 0; i < graph.length; i++) {
+					let rld = new EcRemoteLinkedData(
 						"https://credreg.net/ctdlasn/schema/context/json",
 						graph[i]["@type"]
 					);
@@ -76,12 +76,12 @@ module.exports = class CSVExport extends Exporter {
 			frameworkId,
 			function (data) {
 				if (data.isAny(new EcFramework().getTypes())) {
-					var fw = new EcFramework();
+					let fw = new EcFramework();
 					fw.copyFrom(data);
 					if (fw.competency == null || fw.competency.length == 0)
 						failure("No Competencies in Framework");
-					for (var i = 0; i < fw.competency.length; i++) {
-						var competencyUrl = fw.competency[i];
+					for (let i = 0; i < fw.competency.length; i++) {
+						let competencyUrl = fw.competency[i];
 						EcRepository.get(
 							competencyUrl,
 							function (competency) {
@@ -92,7 +92,7 @@ module.exports = class CSVExport extends Exporter {
 									CSVExport.frameworkCompetencies.length ==
 									fw.competency.length
 								) {
-									var compExport = new CSVExport.CSVExportProcess();
+									let compExport = new CSVExport.CSVExportProcess();
 									compExport.buildExport(
 										CSVExport.frameworkCompetencies,
 										false
@@ -108,7 +108,7 @@ module.exports = class CSVExport extends Exporter {
 									CSVExport.frameworkCompetencies.length ==
 									fw.competency.length
 								) {
-									var compExport = new CSVExport.CSVExportProcess();
+									let compExport = new CSVExport.CSVExportProcess();
 									compExport.buildExport(
 										CSVExport.frameworkCompetencies,
 										false
@@ -119,8 +119,8 @@ module.exports = class CSVExport extends Exporter {
 								}
 							}, repo, eim);
 					}
-					for (var i = 0; i < fw.relation.length; i++) {
-						var relationUrl = fw.relation[i];
+					for (let i = 0; i < fw.relation.length; i++) {
+						let relationUrl = fw.relation[i];
 						EcRepository.get(
 							relationUrl,
 							function (relation) {
@@ -129,7 +129,7 @@ module.exports = class CSVExport extends Exporter {
 									CSVExport.frameworkRelations.length ==
 									fw.relation.length
 								) {
-									var compExport = new CSVExport.CSVExportProcess();
+									let compExport = new CSVExport.CSVExportProcess();
 									compExport.buildExport(
 										CSVExport.frameworkRelations,
 										false
@@ -147,7 +147,7 @@ module.exports = class CSVExport extends Exporter {
 									CSVExport.frameworkRelations.length ==
 									fw.relation.length
 								) {
-									var compExport = new CSVExport.CSVExportProcess();
+									let compExport = new CSVExport.CSVExportProcess();
 									compExport.buildExport(
 										CSVExport.frameworkRelations,
 										false
@@ -171,15 +171,15 @@ module.exports = class CSVExport extends Exporter {
 			this.csvOutput = [];
 		}
 		flattenObject(flattenedObject, object, prefix, piped) {
-			var data = new EcRemoteLinkedData(
+			let data = new EcRemoteLinkedData(
 				object["@context"],
 				object["@type"]
 			);
 			data.copyFrom(object);
-			var tempObj = JSON.parse(data.toJson());
-			var props = tempObj;
-			for (var prop in props) {
-				var id;
+			let tempObj = JSON.parse(data.toJson());
+			let props = tempObj;
+			for (let prop in props) {
+				let id;
 				if (prefix != null && prefix != undefined && !piped)
 					id = prefix + "." + prop;
 				else id = prop;
@@ -197,11 +197,11 @@ module.exports = class CSVExport extends Exporter {
 						EcArray.isArray(props[prop])) &&
 					piped
 				) {
-					var display = "";
-					var props2 = props[prop];
-					for (var prop2 in props2) {
+					let display = "";
+					let props2 = props[prop];
+					for (let prop2 in props2) {
 						if (EcArray.isArray(props2[prop2])) {
-							for (var prop3 in props2[prop2]) {
+							for (let prop3 in props2[prop2]) {
 								display += props2[prop2][prop3] + "|";
 							}
 						} else {
@@ -211,23 +211,23 @@ module.exports = class CSVExport extends Exporter {
 					display = display.substring(0, display.length - 1);
 					flattenedObject[id] = display;
 				} else {
-					var display = schema.Thing.getDisplayStringFrom(props[prop]);
+					let display = schema.Thing.getDisplayStringFrom(props[prop]);
 					flattenedObject[id] = display;
 				}
 			}
 		}
 		addCSVRow(object, piped) {
-			var flattenedObject = new EcRemoteLinkedData(
+			let flattenedObject = new EcRemoteLinkedData(
 				object.context,
 				object.type
 			);
 			this.flattenObject(flattenedObject, object, null, piped);
 			this.csvOutput.push(JSON.parse(flattenedObject.toJson()));
-			var props = JSON.parse(flattenedObject.toJson());
-			for (var prop in props) {
+			let props = JSON.parse(flattenedObject.toJson());
+			for (let prop in props) {
 				if (props[prop] != null && props[prop] != "") {
-					for (var i = 0; i < this.csvOutput.length; i++) {
-						var row = this.csvOutput[i];
+					for (let i = 0; i < this.csvOutput.length; i++) {
+						let row = this.csvOutput[i];
 						if (row[prop] === undefined) {
 							row[prop] = "";
 						}
@@ -236,22 +236,22 @@ module.exports = class CSVExport extends Exporter {
 			}
 		}
 		buildExport(objects, piped) {
-			for (var i = 0; i < objects.length; i++)
+			for (let i = 0; i < objects.length; i++)
 				if (objects[i] != null) {
-					var object = objects[i];
+					let object = objects[i];
 					this.addCSVRow(object, piped);
 				}
 		}
 		downloadCSV(name) {
-			var csv = Papa.unparse(this.csvOutput);
-			var pom = window.document.createElement("a");
+			let csv = Papa.unparse(this.csvOutput);
+			let pom = window.document.createElement("a");
 			pom.setAttribute(
 				"href",
 				"data:text/csv;charset=utf-8," + encodeURIComponent(csv)
 			);
 			pom.setAttribute("download", name);
 			if (window.document["createEvent"] != null) {
-				var event = window.document["createEvent"].call(
+				let event = window.document["createEvent"].call(
 					window.document,
 					"MouseEvents"
 				);

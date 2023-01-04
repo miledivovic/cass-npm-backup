@@ -23,3 +23,5 @@ cass-npm.iml
 docs/
 
 .nyc_output/
+
+coverage/lcov-report/

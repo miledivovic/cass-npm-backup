@@ -73,10 +73,7 @@ module.exports = class EcAsyncHelper {
 				array[i] = result;
 				me.counter--;
 				if (me.counter == 0) {
-					let finalArray = [];
-					for (let j = 0; j < array.length; j++)
-						if (array[j] != null) finalArray.push(array[j]);
-					after(finalArray);
+					after([...array].filter(n=>n));
 				}
 			});
 		});

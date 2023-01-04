@@ -161,8 +161,11 @@ module.exports = class EcPpk {
 	 *  @method inArray
 	 */
 	inArray(ppks) {
-		for (let i = 0; i < ppks.length; i++) {
-			if (ppks[i].equals(this)) return true;
+		for (let ppk of ppks) {
+			if (ppk.equals(this))
+			{
+				return true;
+			}
 		}
 		return false;
 	}

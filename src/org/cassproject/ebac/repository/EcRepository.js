@@ -103,14 +103,14 @@ module.exports = class EcRepository {
 	static history(url,repo,eim)
 	{
 		if (url == null) {
-			throw "URL is null. Cannot EcRepository.history";
+			throw new Error("URL is null. Cannot EcRepository.history");
 		}
 		if (url.toLowerCase().indexOf("http") != 0) {
-			throw "URL does not begin with http. Cannot EcRepository.history";
+			throw new Error("URL does not begin with http. Cannot EcRepository.history");
 		}
-		if (eim === undefined || eim == null)
+		if (eim == null)
 			eim = EcIdentityManager.default;
-		if (repo !== undefined && repo !== null) {
+		if (repo != null) {
 			url = EcRemoteLinkedData.veryShortId(
 				repo.selectedServer,
 				EcCrypto.md5(url)
@@ -140,16 +140,16 @@ module.exports = class EcRepository {
 			return data.map(d=>{let rld = new EcRemoteLinkedData();rld.copyFrom(d);return rld;});
 		}).catch((error) => {
 			if (
-				error !== undefined &&
 				error != null &&
-				error.toString !== undefined
-			)
+				error.toString != undefined
+			){
 				if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1) {
 					return null;
 				}
 				if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1) {
 					return null;
 				}
+			}
 			throw error;
 		});
 		return p;

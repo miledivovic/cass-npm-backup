@@ -82,7 +82,6 @@ let changeNameAndSaveAndCheckMultiput = async (rld) => {
     let newName = "Some Thing " + EcCrypto.generateUUID();
     rld.setName(newName);
     await repo.multiput([rld]);
-    await setTimeout(()=>{},1000);
     assert.equal((await EcEncryptedValue.fromEncryptedValue(await EcRepository.get(rld.shortId(), null, null, repo))).getName(), newName);
 };
 

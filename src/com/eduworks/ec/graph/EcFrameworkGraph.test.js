@@ -53,9 +53,6 @@ let failure = function (p1) {
 };
 
 if (fs.readFileSync != null) {
-    // https.globalAgent.options.key = fs.readFileSync('client.key');
-    // https.globalAgent.options.cert = fs.readFileSync('client.crt');
-    // https.globalAgent.options.ca = fs.readFileSync('ca.crt');
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 }
 

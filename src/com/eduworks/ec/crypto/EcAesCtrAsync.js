@@ -32,7 +32,6 @@ module.exports = class EcAesCtrAsync {
 		if (realCrypto.getFips() == 0)
 			try {
 				realCrypto.setFips(true);
-				//console.log("FIPS compliant crypto provider has been enabled.");
 			} catch (e) {
 				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS_UNAVAILABLE", e);
 			}
@@ -43,7 +42,6 @@ module.exports = class EcAesCtrAsync {
 		if (realCrypto.getFips() == 1)
 			try {
 				realCrypto.setFips(false);
-				//console.log("FIPS compliant crypto provider has been disabled.");
 			} catch (e) {
 				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS_UNAVAILABLE", e);
 			}

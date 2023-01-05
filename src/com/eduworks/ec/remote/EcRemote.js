@@ -257,7 +257,6 @@ module.exports = class EcRemote {
 				maxBodyLength: Infinity
 			})
 			.then((response) => {
-				//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemotePostInner", response.request.socket ? response.request.socket.remoteAddress : '', url, postHeaders);
 				return response.data;
 			})
 			.catch((err) => {
@@ -356,7 +355,6 @@ module.exports = class EcRemote {
 				headers: { signatureSheet: signatureSheet }
 			})
 			.then((response) => {
-				//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteDelete", response.request.socket ? response.request.socket.remoteAddress : '', url, signatureSheet);
 				return response.data;
 			})
 			.catch((err) => {

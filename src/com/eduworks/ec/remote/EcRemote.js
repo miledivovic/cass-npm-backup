@@ -47,9 +47,12 @@ if (global.axios == null)
 			return async (config) => {
 				if (config.http2 && config.url.startsWith("https")) {
 					let req;
+					if (global.ca != null)
+						config.ca = global.ca;
 					config.transport = {
 						request: function request(options, handleResponse) {
-							options.ca = global.ca;
+							if (global.ca != null)
+								options.ca = global.ca;
 							if (http2Enabled[options.hostname])
 								req = http2.request(options, handleResponse);
 							else
@@ -65,10 +68,13 @@ if (global.axios == null)
 					while (global.httpOptions.length > 0)
 					{
 						let options = global.httpOptions.pop();
-						options.ca = global.ca;
+						if (global.ca != null)
+							options.cert = global.ca;
 						options.ALPNProtocols = ['h2', 'http/1.1'];
 						if (options.port == null || options.port == '')
 							options.port = 443;
+						if (options.host == null && options.hostname != null)
+							options.host = options.hostname;
 						let result = await http2.auto.resolveProtocol(options);
 						if (result.alpnProtocol == "http/1.1")
 							http2Enabled[options.hostname] = false;
@@ -106,7 +112,8 @@ if (global.axios == null)
 					let req;
 					config.transport = {
 						request: function request(options, handleResponse) {
-							options.ca = global.ca;
+							if (global.ca != null)
+								options.ca = global.ca;
 							req = https.request(options, handleResponse);
 						return req;
 						},

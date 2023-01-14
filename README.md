@@ -49,6 +49,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.22
+* Code cleanup
+* Better certificate authority support by setting global.ca
+
 ## 1.5.20
 * Added history fetch (fetches a list of results)
 

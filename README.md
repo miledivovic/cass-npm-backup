@@ -38,8 +38,6 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * Review dependencies, autocomplete version numbers to latest versions.
  * Increment version number in package.json and yuidoc.json.
  * Update changelog.
- * Update documentation, `npm run docs`
- * Delete yuidocs from package.json, delete package-lock.json.
  * `npm install`
  * `npm test` - Must not fail any tests.
  * Document code coverage output by the previous step.
@@ -48,6 +46,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.23
+* Fixed issue that was preventing use of webcrypto module.
 
 ## 1.5.22
 * Code cleanup

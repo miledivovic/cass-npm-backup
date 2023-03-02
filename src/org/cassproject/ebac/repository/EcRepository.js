@@ -43,6 +43,7 @@ module.exports = class EcRepository {
 	selectedServerProxy = null;
 	autoDetectFound = false;
 	timeOffset = 0;
+	postMaxSize = null;
 	init(selectedServer, success, failure, loginObjectCallback) {
 		this.selectedServer = selectedServer;
 		return this.negotiateTimeOffset(success, failure, loginObjectCallback);
@@ -61,6 +62,9 @@ module.exports = class EcRepository {
 				}
 				if (p1["plugins"]) {
 					EcRepository.defaultPlugins = JSON.parse(p1["plugins"]);
+				}
+				if (p1["postMaxSize"]) {
+					me.postMaxSize = p1["postMaxSize"];
 				}
 				if (p1["ping"] == "pong") {
 					if (loginObjectCallback != null)
@@ -914,16 +918,28 @@ module.exports = class EcRepository {
 			})
 			.then((signatureSheet) => {
 				let fd = new FormData();
-				fd.append("data", JSON.stringify(preparedData));
-				fd.append("signatureSheet", signatureSheet);
-				let server = this.selectedServer;
-				return EcRemote.postExpectingString(
-					server,
-					"sky/repo/multiPut",
-					fd,
-					success,
-					failure
-				);
+				let stringifiedData = JSON.stringify(preparedData);
+				if (this.postMaxSize && (stringifiedData.length >= this.postMaxSize || signatureSheet.length >= this.postMaxSize) && data.length > 1) {
+					let arr1 = data.slice(0, Math.floor(data.length / 2));
+					let arr2 = data.slice(Math.floor(data.length / 2), data.length);
+
+					let promise1 = this.multiput(arr1, null, null, eim);
+					let promise2 = this.multiput(arr2, null, null, eim);
+
+					let promise = Promise.all([promise1, promise2]);
+					return cassPromisify(promise, success, failure);
+				} else {
+					fd.append("data", stringifiedData);
+					fd.append("signatureSheet", signatureSheet);
+					let server = this.selectedServer;
+					return EcRemote.postExpectingString(
+						server,
+						"sky/repo/multiPut",
+						fd,
+						success,
+						failure
+					);
+				}
 			});
 	};
 	/**

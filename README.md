@@ -21,7 +21,7 @@ Running `npm test` requires Docker.
 
 ## Release testing
 
- * `npm test` - Runs unit tests in docker images against the CaSS 1.5, 1.2, 1.3, and 1.4 repositories using Node versions 12-16 and Cypress against Edge, Chrome, Firefox and Electron. Takes some time.
+ * `npm test` - Runs unit tests in docker images against the CaSS 1.5 repositories using Node versions 12-16 and Cypress against Edge, Chrome, Firefox and Electron. Takes some time.
 
 ## Development unit testing
 Development unit tests presume you have a CaSS Repository running on `localhost:80`. You may get one by running `docker run -d --name cass-test -p80:80 cassproject/cass:1.5.0`
@@ -39,6 +39,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * Increment version number in package.json and yuidoc.json.
  * Update changelog.
  * `npm install`
+ * `npm audit` and fix any audit issues.
  * `npm test` - Must not fail any tests.
  * Document code coverage output by the previous step.
  * Commit changes to GitHub.
@@ -46,6 +47,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.25
+* Repo init now fetches max length of posts. Multiput now uses multiple requests if the POST length is too long.
 
 ## 1.5.23
 * Fixed issue that was preventing use of webcrypto module.

@@ -919,7 +919,7 @@ module.exports = class EcRepository {
 			.then((signatureSheet) => {
 				let fd = new FormData();
 				let stringifiedData = JSON.stringify(preparedData);
-				if (this.postMaxSize && stringifiedData.length >= this.postMaxSize && data.length > 1) {
+				if (this.postMaxSize && (stringifiedData.length >= this.postMaxSize || signatureSheet.length >= this.postMaxSize) && data.length > 1) {
 					let arr1 = data.slice(0, Math.floor(data.length / 2));
 					let arr2 = data.slice(Math.floor(data.length / 2), data.length);
 

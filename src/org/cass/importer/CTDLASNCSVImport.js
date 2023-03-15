@@ -97,8 +97,12 @@ module.exports = class CTDLASNCSVImport {
 				let relationById = {};
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
-					if (
-						pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction')
+					// Skip extra lines if found in file
+					if (!pretranslatedE || !pretranslatedE["@type"]) {
+						continue;
+					}
+					if (pretranslatedE["@type"].toLowerCase() && 
+						(pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction'))
 					) {
 						continue;
 					}
@@ -522,6 +526,10 @@ module.exports = class CTDLASNCSVImport {
 				let relationById = {};
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
+					// Skip extra lines if found in file
+					if (!pretranslatedE || !pretranslatedE["@type"]) {
+						continue;
+					}
 					if (
 						pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction')
 					) {

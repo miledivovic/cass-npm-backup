@@ -1,6 +1,7 @@
 require("../../../../org/cassproject/general/AuditLogger.js");
 
 global.axiosOptions = {};
+global.corsOrigins = [];
 let isNode = false;    
 if (typeof process === 'object') {
   if (typeof process.versions === 'object') {
@@ -131,6 +132,13 @@ if (global.axios == null)
 
 const { cassPromisify } = require("../promises/helpers");
 
+getAxiosOptions = function(url) {
+	let newOptions = Object.assign({}, axiosOptions);
+	if (corsOrigins.findIndex((x) => url.startsWith(x)) > -1)
+		newOptions.withCredentials = true;
+	return newOptions;
+}
+
 /**
  *  Wrapper to handle all remote web service invocations.
  *
@@ -257,8 +265,9 @@ module.exports = class EcRemote {
 			postHeaders["content-length"] = fd.getLengthSync();
 		if (headers !== undefined && headers != null)
 			for (let header in headers) postHeaders[header] = headers[header];
+
 		let p = axios.post(url, fd, {
-				...axiosOptions,
+				...getAxiosOptions(url),
 				headers: postHeaders,
 				maxContentLength: Infinity,
 				maxBodyLength: Infinity
@@ -313,7 +322,7 @@ module.exports = class EcRemote {
 		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = axios
-			.get(url,axiosOptions)
+			.get(url,getAxiosOptions(url))
 			.then((response) => {
 				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", response.request.socket ? response.request.socket.remoteAddress : '', url);
 				return response.data;
@@ -358,7 +367,7 @@ module.exports = class EcRemote {
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = axios
 			.delete(url, {
-				...axiosOptions,
+				...getAxiosOptions(url),
 				headers: { signatureSheet: signatureSheet }
 			})
 			.then((response) => {

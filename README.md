@@ -48,6 +48,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.26
+* CORS Origins and CORS requests are now sent with credentials to enable cross origin credentialing. 
+* Extra lines in CSV import are ignored.
+
 ## 1.5.25
 * Repo init now fetches max length of posts. Multiput now uses multiple requests if the POST length is too long.
 

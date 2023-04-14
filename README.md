@@ -48,7 +48,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
-## 1.5.26
+## 1.5.28
+* Library updates.
+
+## 1.5.27
 * CORS Origins and CORS requests are now sent with credentials to enable cross origin credentialing. 
 * Extra lines in CSV import are ignored.
 

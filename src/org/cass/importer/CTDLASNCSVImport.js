@@ -96,6 +96,9 @@ module.exports = class CTDLASNCSVImport {
 				let relations = [];
 				let relationById = {};
 				for (let i = 0; i < tabularData.length; i++) {
+					if (!tabularData[i]) {
+						continue;
+					}
 					let pretranslatedE = tabularData[i];
 					// Skip extra lines if found in file
 					if (!pretranslatedE || !pretranslatedE["@type"]) {

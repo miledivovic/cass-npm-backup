@@ -109,6 +109,10 @@ module.exports = class CTDLASNCSVImport {
 					) {
 						continue;
 					}
+					if (pretranslatedE["ceterms:CTID"]) {
+						pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
+						delete pretranslatedE["ceterms:CTID"];
+					}
 					if (
 						pretranslatedE["@type"] ==
 						"ceasn:CompetencyFramework"
@@ -537,6 +541,10 @@ module.exports = class CTDLASNCSVImport {
 						pretranslatedE["@type"].toLowerCase().startsWith('sample') || pretranslatedE["@type"].toLowerCase().startsWith('instruction')
 					) {
 						continue;
+					}
+					if (pretranslatedE["ceterms:CTID"]) {
+						pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
+						delete pretranslatedE["ceterms:CTID"];
 					}
 					if (
 						pretranslatedE["@type"] ==

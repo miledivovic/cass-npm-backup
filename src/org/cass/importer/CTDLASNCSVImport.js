@@ -110,7 +110,9 @@ module.exports = class CTDLASNCSVImport {
 						continue;
 					}
 					if (pretranslatedE["ceterms:CTID"]) {
-						pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
+						if (!pretranslatedE["ceterms:ctid"]) {
+							pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
+						}
 						delete pretranslatedE["ceterms:CTID"];
 					}
 					if (
@@ -543,7 +545,9 @@ module.exports = class CTDLASNCSVImport {
 						continue;
 					}
 					if (pretranslatedE["ceterms:CTID"]) {
-						pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
+						if (!pretranslatedE["ceterms:ctid"]) {
+							pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
+						}
 						delete pretranslatedE["ceterms:CTID"];
 					}
 					if (

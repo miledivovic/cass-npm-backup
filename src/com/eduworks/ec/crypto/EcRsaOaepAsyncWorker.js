@@ -117,7 +117,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	static decrypt(ppk, ciphertext, success, failure) {
 		if (EcCrypto.caching) {
 			let cacheGet = null;
-			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + ciphertext];
+			cacheGet = EcCrypto.decryptionCache[ppk.toPk().fingerprint() + ciphertext];
 			if (cacheGet != null) {
 				return cassReturnAsPromise(cacheGet, success, failure);
 			}
@@ -143,7 +143,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		if (EcCrypto.caching)
 			p = p.then(function (decrypted) {
 				return EcCrypto.decryptionCache[
-					ppk.toPem() + ciphertext
+					ppk.toPk().fingerprint() + ciphertext
 				] = decrypted;
 			});
 		return cassPromisify(p, success, failure);

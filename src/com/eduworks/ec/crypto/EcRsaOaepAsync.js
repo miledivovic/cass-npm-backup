@@ -101,7 +101,7 @@ module.exports = class EcRsaOaepAsync {
 	static decrypt(ppk, cipherText, success, failure) {
 		if (EcCrypto.caching) {
 			let cacheGet = null;
-			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + cipherText];
+			cacheGet = EcCrypto.decryptionCache[ppk.toPk().fingerprint() + cipherText];
 			if (cacheGet != null) {
 				return cassReturnAsPromise(cacheGet, success, failure);
 			}
@@ -131,7 +131,7 @@ module.exports = class EcRsaOaepAsync {
 				result = EcCrypto.ab2str(p1);
 			}
 			if (EcCrypto.caching) {
-				EcCrypto.decryptionCache[ppk.toPem() + cipherText] = result;
+				EcCrypto.decryptionCache[ppk.toPk().fingerprint() + cipherText] = result;
 			}
 			EcAesCtrAsync.fipsOff();
 			return result;

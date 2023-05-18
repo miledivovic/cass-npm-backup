@@ -52,7 +52,7 @@ module.exports = class EcRsaOaep {
 		EcCrypto.deprecationNotice = true;
 		if (EcCrypto.caching) {
 			let cacheGet = null;
-			cacheGet = EcCrypto.decryptionCache[ppk.toPem() + ciphertext];
+			cacheGet = EcCrypto.decryptionCache[ppk.toPk().fingerprint() + ciphertext];
 			if (cacheGet != null) {
 				return cacheGet;
 			}
@@ -66,7 +66,7 @@ module.exports = class EcRsaOaep {
 			);
 		}
 		if (EcCrypto.caching) {
-			EcCrypto.decryptionCache[ppk.toPem() + ciphertext] = result;
+			EcCrypto.decryptionCache[ppk.toPk().fingerprint() + ciphertext] = result;
 		}
 		return result;
 	}

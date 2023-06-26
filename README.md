@@ -39,7 +39,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * Increment version number in package.json and yuidoc.json.
  * Update changelog.
  * `npm install`
- * `npm audit` and fix any audit issues.
+ * `npm audit --production` and fix any audit issues.
  * `npm test` - Must not fail any tests.
  * Document code coverage output by the previous step.
  * Commit changes to GitHub.
@@ -47,6 +47,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.30
+* Library updates.
+* Using less memory for keys in decryption cache.
 
 ## 1.5.28
 * Library updates.

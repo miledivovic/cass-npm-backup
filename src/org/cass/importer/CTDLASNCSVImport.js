@@ -24,13 +24,26 @@ module.exports = class CTDLASNCSVImport {
 				let competencyCounter = 0;
 				let collectionCounter = 0;
 				let typeCol = nameToCol["@type"];
+				let competencyTextCol = nameToCol["ceasn:competencyText"];
+				let uniqueTabularData = [];
 				if (typeCol == null) {
 					this.error("No @type in CSV.");
 					return;
 				}
+				console.log('analyze import...');
 				for (let i = 0; i < tabularData.length; i++) {
 					if (i == 0) continue;
 					let col = tabularData[i];
+					if (uniqueTabularData.find((value) => (value["@type"] === col[typeCol]) &&
+								(value["ceasn:competencyText"] === col[competencyTextCol]))) {
+						console.log("Found possible duplicate: " + col[typeCol] + ": " + col[competencyTextCol]);
+					} else {
+						uniqueTabularData.push({
+							"@type": col[typeCol],
+							"ceasn:competencyText": col[competencyTextCol]
+						});
+					}
+
 					if (
 						col[typeCol] != null &&
 						col[typeCol].trim() == "ceasn:CompetencyFramework"
@@ -53,6 +66,8 @@ module.exports = class CTDLASNCSVImport {
 						return;
 					}
 				}
+				console.log(uniqueTabularData);
+
 				success(frameworkCounter, competencyCounter, collectionCounter);
 			},
 			error: failure

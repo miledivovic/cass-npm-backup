@@ -48,7 +48,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
-## 1.5.31
+## 1.5.32
 * Library updates.
 * Skip empty rows in Relation import.
 

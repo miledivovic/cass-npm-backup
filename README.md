@@ -48,6 +48,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.31
+* Library updates.
+* Skip empty rows in Relation import.
+
 ## 1.5.30
 * Library updates.
 * Using less memory for keys in decryption cache.

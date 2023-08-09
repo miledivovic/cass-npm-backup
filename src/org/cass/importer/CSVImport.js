@@ -374,6 +374,9 @@ module.exports = class CSVImport {
 			complete: function(results) {
 				let tabularData = results["data"];
 				for (let i = 1; i < tabularData.length; i++) {
+					// Skip empty rows in the csv
+					if (tabularData[i].every(x=>x===''))
+						continue;
 					let alignment = new EcAlignment();
 					let sourceKey = tabularData[i][sourceIndex];
 					let relationTypeKey = tabularData[i][relationTypeIndex];

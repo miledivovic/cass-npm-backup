@@ -23,27 +23,37 @@ module.exports = class CTDLASNCSVImport {
 				let frameworkCounter = 0;
 				let competencyCounter = 0;
 				let collectionCounter = 0;
+				let duplicates = [];
 				let typeCol = nameToCol["@type"];
-				let competencyTextCol = nameToCol["ceasn:competencyText"];
-				let uniqueTabularData = [];
+				let unique = [];
 				if (typeCol == null) {
 					this.error("No @type in CSV.");
 					return;
 				}
-				console.log('analyze import...');
+				// Search for duplicates
+				if (tabularData[0]) {
+					const colCtid = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceterms:ctid"));
+					const colId = tabularData[0].findIndex((element) => element.toLowerCase().contains("@id"));
+					const colCompetencyText = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceasn:competencytext"));
+					if (colCtid >= 0) {
+						for (let i = 1; i < tabularData.length; i++) {
+							const row = tabularData[i].filter((element, j) => (j !== colCtid) && (j !== colId));
+							if (!unique.find((uniqueRow) => uniqueRow.every((each, k) => each === row[k]))) {
+								unique.push(row);
+							} else if (tabularData[i][colCtid]) {
+								duplicates.push({
+									competencyText: colCompetencyText >= 0 ? tabularData[i][colCompetencyText] : undefined,
+									id: colId >= 0 ? tabularData[i][colId] : undefined,
+									ctid: tabularData[i][colCtid],
+									line: i
+								});
+							}
+						}		
+					}
+				}
 				for (let i = 0; i < tabularData.length; i++) {
 					if (i == 0) continue;
 					let col = tabularData[i];
-					if (uniqueTabularData.find((value) => (value["@type"] === col[typeCol]) &&
-								(value["ceasn:competencyText"] === col[competencyTextCol]))) {
-						console.log("Found possible duplicate: " + col[typeCol] + ": " + col[competencyTextCol]);
-					} else {
-						uniqueTabularData.push({
-							"@type": col[typeCol],
-							"ceasn:competencyText": col[competencyTextCol]
-						});
-					}
-
 					if (
 						col[typeCol] != null &&
 						col[typeCol].trim() == "ceasn:CompetencyFramework"
@@ -66,9 +76,7 @@ module.exports = class CTDLASNCSVImport {
 						return;
 					}
 				}
-				console.log(uniqueTabularData);
-
-				success(frameworkCounter, competencyCounter, collectionCounter);
+				success(frameworkCounter, competencyCounter, collectionCounter, duplicates);
 			},
 			error: failure
 		});
@@ -81,7 +89,8 @@ module.exports = class CTDLASNCSVImport {
 		ceo,
 		endpoint,
 		eim,
-		collectionsFlag
+		collectionsFlag,
+		skip
 	) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
@@ -95,7 +104,7 @@ module.exports = class CTDLASNCSVImport {
 			failure("Invalid file type");
 		}
 		if (collectionsFlag) {
-			return this.importCollectionsAndCompetencies(repo, file, success, failure, ceo, endpoint, eim);
+			return this.importCollectionsAndCompetencies(repo, file, success, failure, ceo, endpoint, eim, skip);
 		}
 		Papa.parse(file, {
 			header: true,
@@ -533,7 +542,8 @@ module.exports = class CTDLASNCSVImport {
 		failure,
 		ceo,
 		endpoint,
-		eim
+		eim,
+		skipCtids
 	) {
 		Papa.parse(file, {
 			header: true,
@@ -548,6 +558,8 @@ module.exports = class CTDLASNCSVImport {
 				let competencyRows = {};
 				let relations = [];
 				let relationById = {};
+				console.log('skip ctids');
+				console.log(skipCtids);
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
 					// Skip extra lines if found in file
@@ -564,6 +576,10 @@ module.exports = class CTDLASNCSVImport {
 							pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
 						}
 						delete pretranslatedE["ceterms:CTID"];
+					}
+					// Skip competency if ctid is specified
+					if (skipCtids && Array.isArray(skipCtids) && skipCtids.includes(pretranslatedE["ceterms:ctid"])) {
+						continue;
 					}
 					if (
 						pretranslatedE["@type"] ==

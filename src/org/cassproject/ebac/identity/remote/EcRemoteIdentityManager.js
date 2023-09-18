@@ -50,6 +50,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 	secretSalt = null;
 	secretIterations = 0;
 	configured = false;
+	signatureSheetAlgorithm;
 	/**
 	 *  Returns true if the identity manager is global. Returns false if the identity manager is local to the server.
 	 *
@@ -165,6 +166,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 							"Insufficient iterations on Secret Hash"
 						);
 					}
+					me.signatureSheetAlgorithm = p1["signatureSheetAlgorithm"];
 					me.configured = true;
 					return p1;
 				},
@@ -529,7 +531,7 @@ module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInte
 				},
 				function (arg0) {
 					throw new Error(arg0);
-				}
+				}, this.signatureSheetAlgorithm
 			),
 			success,
 			failure

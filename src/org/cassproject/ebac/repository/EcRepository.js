@@ -42,6 +42,7 @@ module.exports = class EcRepository {
 	selectedServer = null;
 	selectedServerProxy = null;
 	autoDetectFound = false;
+	signatureSheetAlgorithm = "SHA-1";
 	timeOffset = 0;
 	postMaxSize = null;
 	init(selectedServer, success, failure, loginObjectCallback) {
@@ -65,6 +66,9 @@ module.exports = class EcRepository {
 				}
 				if (p1["postMaxSize"]) {
 					me.postMaxSize = p1["postMaxSize"];
+				}
+				if (p1["signatureSheetAlgorithm"]) {
+					me.signatureSheetAlgorithm = p1["signatureSheetAlgorithm"];
 				}
 				if (p1["ping"] == "pong") {
 					if (loginObjectCallback != null)
@@ -132,7 +136,7 @@ module.exports = class EcRepository {
 			p = EcRemote.getExpectingObject(finalUrl);
 		} else {
 			let offset = this.setOffset(url);
-			p = eim.signatureSheet(60000 + offset, url).then(
+			p = eim.signatureSheet(60000 + offset, url, null, null, repo != null ? repo.signatureSheetAlgorithm : null).then(
 				(signatureSheet) => {
 					let fd = new FormData();
 					fd.append("signatureSheet", signatureSheet);
@@ -247,7 +251,7 @@ module.exports = class EcRepository {
 			p = EcRemote.getExpectingObject(finalUrl);
 		} else {
 			let offset = this.setOffset(url);
-			p = eim.signatureSheet(60000 + offset, url).then(
+			p = eim.signatureSheet(60000 + offset, url, null, null, repo != null ? repo.signatureSheetAlgorithm : null).then(
 				(signatureSheet) => {
 					let fd = new FormData();
 					fd.append("signatureSheet", signatureSheet);
@@ -653,10 +657,11 @@ module.exports = class EcRepository {
 			p = eim.signatureSheetFor(
 				data.owner,
 				60000 + offset,
-				data.id
+				data.id,
+				null, null, repo != null ? repo.signatureSheetAlgorithm : null
 			);
 		} else {
-			p = eim.signatureSheet(60000 + offset, data.id);
+			p = eim.signatureSheet(60000 + offset, data.id, null, null, repo != null ? repo.signatureSheetAlgorithm : null);
 		}
 		p = p.then((signatureSheet) => {
 			let fd = new FormData();
@@ -752,7 +757,8 @@ module.exports = class EcRepository {
 			return eim.signatureSheetFor(
 				data.owner,
 				60000 + offset,
-				data.id
+				data.id,
+				null, null, repo != null ? repo.signatureSheetAlgorithm : null
 			).then((signatureSheet) => {
 				return EcRemote._delete(
 					targetUrl,
@@ -821,7 +827,8 @@ module.exports = class EcRepository {
 			return eim.signatureSheetFor(
 				data.owner,
 				60000 + offset,
-				data.id
+				data.id,
+				null, null, repo != null ? repo.signatureSheetAlgorithm : null
 			).then((signatureSheet) => {
 				return EcRemote._delete(
 					targetUrl,
@@ -907,12 +914,13 @@ module.exports = class EcRepository {
 					return eim.signatureSheetFor(
 						allOwners,
 						60000 + this.timeOffset,
-						this.selectedServer
+						this.selectedServer,
+						null, null, this.signatureSheetAlgorithm
 					);
 				} else {
 					return eim.signatureSheet(
 						60000 + this.timeOffset,
-						this.selectedServer
+						this.selectedServer, null, null, this.signatureSheetAlgorithm
 					);
 				}
 			})
@@ -980,7 +988,7 @@ module.exports = class EcRepository {
 			p = p.then(() => {
 				return eim.signatureSheet(
 					60000 + this.timeOffset,
-					this.selectedServer
+					this.selectedServer, null, null, this.signatureSheetAlgorithm
 				).then((signatureSheet) => {
 					fd.append("signatureSheet", signatureSheet);
 				});
@@ -1124,7 +1132,7 @@ module.exports = class EcRepository {
 			p = p.then(() =>
 				eim.signatureSheet(
 					60000 + this.timeOffset,
-					this.selectedServer
+					this.selectedServer, null, null, this.signatureSheetAlgorithm
 				).then((signatureSheet) => {
 					fd.append("signatureSheet", signatureSheet);
 				})
@@ -1546,7 +1554,7 @@ module.exports = class EcRepository {
 			"signatureSheet",
 			eim.signatureSheet(
 				60000 + this.timeOffset,
-				this.selectedServer
+				this.selectedServer, null, null, this.signatureSheetAlgorithm
 			)
 		);
 		EcRemote.postExpectingObject(

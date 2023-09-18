@@ -250,15 +250,23 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		if (ppk instanceof EcPpkFacade)
 			return;
 		let signableJson = this.toSignableJson();
-		let signed = await EcRsaOaepAsync.signSha256(ppk, signableJson);
-		if (this.signature != null) {
-			for (let i = 0; i < this.signature.length; i++)
-				if (this.signature[i] == signed) return;
+		// let signed = await EcRsaOaepAsync.sign(ppk, signableJson);
+		// if (this.signature != null) {
+		// 	for (let i = 0; i < this.signature.length; i++)
+		// 		if (this.signature[i] == signed) return;
+		// } else {
+		// 	this.signature = [];
+		// }
+		// this.signature.push(signed);
+		let signedSha256 = await EcRsaOaepAsync.signSha256(ppk, signableJson);
+		if (this.signatureSha256 != null) {
+			for (let i = 0; i < this.signatureSha256.length; i++)
+				if (this.signatureSha256[i] == signedSha256) return;
 		} else {
-			this.signature = [];
+			this.signatureSha256 = [];
 		}
-		this.signature.push(signed);
-		return signed;
+		this.signatureSha256.push(signedSha256);
+		return signedSha256;
 	}
 	/**
 	 *  Verifies the object's signatures.
@@ -267,9 +275,11 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method verify
 	 */
 	async verify() {
+		let works = null;
+		let works256 = null;
 		if (this.signature != null) {
 			for (let i = 0; i < this.signature.length; ) {
-				let works = false;
+				works = false;
 				let sig = this.signature[i];
 				if (this.owner != null) {
 					for (let j = 0; j < this.owner.length; j++) {
@@ -277,15 +287,11 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 						let pk = EcPk.fromPem(own);
 						let verify = false;
 						try {
-							verify = (await EcRsaOaepAsync.verify(
+							verify = await EcRsaOaepAsync.verify(
 								pk,
 								this.toSignableJson(),
 								sig
-							)) || (await EcRsaOaepAsync.verifySha256(
-								pk,
-								this.toSignableJson(),
-								sig
-							));
+							);
 							global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRemoteLDVerify", verify);
 						} catch (ex) {
 							verify = false;
@@ -299,10 +305,41 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 				if (!works) return false;
 				else i++;
 			}
-			if (this.signature.length == 0) return false;
-			return true;
 		}
-		return false;
+		console.log(works);
+		if (this.signatureSha256 != null) {
+			for (let i = 0; i < this.signatureSha256.length; ) {
+				works256 = false;
+				let sig = this.signatureSha256[i];
+				if (this.owner != null) {
+					for (let j = 0; j < this.owner.length; j++) {
+						let own = this.owner[j];
+						let pk = EcPk.fromPem(own);
+						let verify = false;
+						try {
+							verify = await EcRsaOaepAsync.verifySha256(
+								pk,
+								this.toSignableJson(),
+								sig
+							);
+							global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRemoteLDVer256", verify);
+						} catch (ex) {
+							verify = false;
+						}
+						if (verify == true) {
+							works256 = true;
+							break;
+						}
+					}
+				}
+				if (!works256) return false;
+				else i++;
+			}
+		}
+		if (works == null && works256 == null) return false;
+		if (works == null) return works256;
+		if (works256 == null) return works;
+		return true;
 	}
 	/**
 	 *  Adds an owner to the object, if the owner does not exist.
@@ -543,6 +580,9 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		}
 		if (me["@signature"] != null) {
 			me["signature"] = me["@signature"];
+		}
+		if (me["@signatureSha256"] != null) {
+			me["signatureSha256"] = me["@signatureSha256"];
 		}
 		if (me["@encryptedType"] != null) {
 			me["encryptedType"] = me["@encryptedType"];

@@ -309,12 +309,14 @@ global.jsonld = require("jsonld");
 			delete d["owner"];
 			delete d["reader"];
 			delete d["@signature"];
+			delete d["@signatureSha256"];
 			delete d["@owner"];
 			delete d["@reader"];
 			delete d["@id"];
 		} else {
 			delete d["signature"];
 			delete d["@signature"];
+			delete d["@signatureSha256"];
 			delete d["@id"];
 		}
 		let e = new EcLinkedData(d.context, d.type);

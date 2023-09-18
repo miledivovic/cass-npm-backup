@@ -32,7 +32,9 @@ module.exports = class EcAesCtrAsync {
 			try {
 				realCrypto.setFips(true);
 			} catch (e) {
-				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS_UNAVAILABLE", e);
+				if (e.toString().indexOf("ERR_CRYPTO_FIPS_FORCED") != -1)
+					return;
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS", e);
 			}
 	}
 
@@ -42,7 +44,9 @@ module.exports = class EcAesCtrAsync {
 			try {
 				realCrypto.setFips(false);
 			} catch (e) {
-				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS_UNAVAILABLE", e);
+				if (e.toString().indexOf("ERR_CRYPTO_FIPS_FORCED") != -1)
+					return;
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS", e);
 			}
 	}
 

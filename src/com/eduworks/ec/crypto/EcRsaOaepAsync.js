@@ -41,6 +41,8 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static encrypt(pk, plainText, success, failure) {
+		if (EcCrypto.testMode)
+			console.log("encrypt: " + plainText)
 		if (
 			crypto == null ||
 			crypto === undefined ||
@@ -99,6 +101,8 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static decrypt(ppk, cipherText, success, failure) {
+		if (EcCrypto.testMode)
+			console.log("decrypt: " + cipherText)
 		if (EcCrypto.caching) {
 			let cacheGet = null;
 			cacheGet = EcCrypto.decryptionCache[ppk.toPk().fingerprint() + cipherText];
@@ -182,6 +186,8 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static sign(ppk, text, success, failure) {
+		if (EcCrypto.testMode)
+			console.log("sign (sha1): " + text)
 		if (
 			crypto == null ||
 			crypto === undefined ||
@@ -193,7 +199,7 @@ module.exports = class EcRsaOaepAsync {
 		if (text == null) {
 			return cassReturnAsPromise(null, success, failure);
 		}
-		//EcAesCtrAsync.fipsOn();// OPENSSL3 signing with this method not allowed. See https://github.com/Lomilar/node-fips-rsassa-pkcs1-15-sha1/tree/main
+		EcAesCtrAsync.fipsOff();// OPENSSL3 signing with this method not allowed. See https://github.com/Lomilar/node-fips-rsassa-pkcs1-15-sha1/tree/main
 		let keyUsages = [];
 		keyUsages.push("sign");
 		let algorithm = {};
@@ -248,6 +254,8 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static signSha256 = function (ppk, text, success, failure) {
+		if (EcCrypto.testMode)
+			console.log("sign (sha256): " + text)
 		if (
 			crypto == null ||
 			crypto === undefined ||
@@ -302,6 +310,8 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static verify(pk, text, signature, success, failure) {
+		if (EcCrypto.testMode)
+			console.log("verify (sha1): " + text)
 		if (
 			crypto == null ||
 			crypto === undefined ||
@@ -372,6 +382,8 @@ module.exports = class EcRsaOaepAsync {
 	 *  @static
 	 */
 	static verifySha256(pk, text, signature, success, failure) {
+		if (EcCrypto.testMode)
+			console.log("verify (sha256): " + text)
 		if (
 			crypto == null ||
 			crypto === undefined ||

@@ -39,4 +39,4 @@ COPY client.crt client.crt
 COPY client.key client.key
 RUN sed -i '1crequire("cassproject");' test.js
 
-ENTRYPOINT npm run mocha
+ENTRYPOINT npm run mochaFips:clientSideCertificates

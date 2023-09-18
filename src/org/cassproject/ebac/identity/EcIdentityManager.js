@@ -348,7 +348,8 @@ module.exports = class EcIdentityManager {
 		duration,
 		server,
 		success,
-		failure
+		failure,
+		signatureSheetAlgorithm
 	) {
 		let cache = null;
 		if (this.signatureSheetCaching) {
@@ -365,7 +366,7 @@ module.exports = class EcIdentityManager {
 			.map((pk) => this.getPpk(EcPk.fromPem(pk)))
 			.filter((x) => x != null)
 			.map((ppk) =>
-				this.createSignature(finalDuration, server, ppk)
+				this.createSignature(finalDuration, server, ppk, signatureSheetAlgorithm)
 			);
 		let p = Promise.all(promises);
 		p = p.then((signatureCandidates) => {
@@ -394,7 +395,7 @@ module.exports = class EcIdentityManager {
 	 *  @method signatureSheet
 	 *  @static
 	 */
-	signatureSheet(duration, server, success, failure) {
+	signatureSheet(duration, server, success, failure, signatureSheetAlgorithm) {
 		let cache = null;
 		if (this.signatureSheetCaching) {
 			cache = this.signatureSheetCache[server];
@@ -407,10 +408,11 @@ module.exports = class EcIdentityManager {
 		}
 		let finalDuration = duration;
 		let promises = this.ids.map((ident) =>
-			this.createSignature(finalDuration, server, ident.ppk)
+			this.createSignature(finalDuration, server, ident.ppk, signatureSheetAlgorithm)
 		);
 		let p = Promise.all(promises);
 		p = p.then((signatureCandidates) => {
+			console.log(signatureCandidates);
 			let signatures = signatureCandidates.filter(x=>x);
 			let stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
@@ -437,7 +439,8 @@ module.exports = class EcIdentityManager {
 	 *  @method createSignature
 	 *  @static
 	 */
-	createSignature(duration, server, ppk) {
+	createSignature(duration, server, ppk, algorithm) {
+		console.log("algorithm: " + algorithm)
 		if (ppk instanceof EcPpkFacade) {
 			return null;
 		}
@@ -446,11 +449,17 @@ module.exports = class EcIdentityManager {
 		s.server = server;
 		delete s.owner;
 		delete s.signature;
+		delete s.signatureSha256;
 		s["@owner"] = ppk.toPk().toPem();
-		return EcRsaOaepAsync.signSha256(ppk, s.toJson()).then((signature) => {
+		if (algorithm != null && algorithm == "SHA-256")
+			return EcRsaOaepAsync.signSha256(ppk, s.toJson()).then((signatureSha256) => {
+				s["@signatureSha256"] = signatureSha256;
+				return s;
+			});
+		return EcRsaOaepAsync.sign(ppk, s.toJson()).then((signature) => {
 			s["@signature"] = signature;
 			return s;
-		});
+		});	
 	}
 	/**
 	 *  Get PPK from PK (if we have it)
@@ -525,8 +534,9 @@ module.exports = class EcIdentityManager {
 			}
 		}
 		return Promise.all(promises).then((signatures) => {
-			d.signature = signatures.filter(x=>x);
-			if (d.signature != null && d.signature.length == 0) {
+			d.signatureSha256 = signatures.filter(x=>x);
+			if (d.signatureSha256 != null && d.signatureSha256.length == 0) {
+				delete d["signatureSha256"];
 				delete d["signature"];
 			}
 			return d;

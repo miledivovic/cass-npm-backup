@@ -11,7 +11,7 @@ module.exports = class EcCrypto {
 	 *  @type boolean
 	 */
 	static caching = false;
-	static testMode = false;
+	static testMode = true;
 	static deprecationNotice = false;
 	static decryptionCache = {};
 	static md5Cache = {};
@@ -25,6 +25,8 @@ module.exports = class EcCrypto {
 	 *  @method md5
 	 */
 	static md5(s) {
+		if (EcCrypto.testMode)
+			console.log("md5: " + s)
 		let m = null;
 		if (EcCrypto.caching) {
 			if (EcCrypto.md5Cache[s] === undefined) {
@@ -47,6 +49,8 @@ module.exports = class EcCrypto {
 	 *  @method sha256
 	 */
 	static sha256(s) {
+		if (EcCrypto.testMode)
+			console.log("sha256: " + s)
 		let m = null;
 		if (EcCrypto.caching) {
 			if (EcCrypto.sha256Cache[s] === undefined) {

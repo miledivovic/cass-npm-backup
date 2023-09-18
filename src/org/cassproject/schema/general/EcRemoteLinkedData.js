@@ -250,7 +250,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		if (ppk instanceof EcPpkFacade)
 			return;
 		let signableJson = this.toSignableJson();
-		let signed = await EcRsaOaepAsync.sign(ppk, signableJson);
+		let signed = await EcRsaOaepAsync.signSha256(ppk, signableJson);
 		if (this.signature != null) {
 			for (let i = 0; i < this.signature.length; i++)
 				if (this.signature[i] == signed) return;
@@ -277,11 +277,15 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 						let pk = EcPk.fromPem(own);
 						let verify = false;
 						try {
-							verify = await EcRsaOaepAsync.verify(
+							verify = (await EcRsaOaepAsync.verify(
 								pk,
 								this.toSignableJson(),
 								sig
-							);
+							)) || (await EcRsaOaepAsync.verifySha256(
+								pk,
+								this.toSignableJson(),
+								sig
+							));
 							global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRemoteLDVerify", verify);
 						} catch (ex) {
 							verify = false;

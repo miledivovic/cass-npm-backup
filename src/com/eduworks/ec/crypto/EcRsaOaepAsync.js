@@ -193,7 +193,7 @@ module.exports = class EcRsaOaepAsync {
 		if (text == null) {
 			return cassReturnAsPromise(null, success, failure);
 		}
-		//EcAesCtrAsync.fipsOn();// OPENSSL3 signing with this method doesn't seem to work right now.
+		//EcAesCtrAsync.fipsOn();// OPENSSL3 signing with this method not allowed. See https://github.com/Lomilar/node-fips-rsassa-pkcs1-15-sha1/tree/main
 		let keyUsages = [];
 		keyUsages.push("sign");
 		let algorithm = {};
@@ -212,7 +212,7 @@ module.exports = class EcRsaOaepAsync {
 								EcCrypto.str2ab(forge.util.encodeUtf8(text))
 							)
 							.then(function (p1) {
-								//EcAesCtrAsync.fipsOff();// OPENSSL3 signing with this method doesn't seem to work right now.
+								//EcAesCtrAsync.fipsOff();// OPENSSL3 signing with this method not allowed. See https://github.com/Lomilar/node-fips-rsassa-pkcs1-15-sha1/tree/main
 								return base64.encode(p1);
 							});
 					}),

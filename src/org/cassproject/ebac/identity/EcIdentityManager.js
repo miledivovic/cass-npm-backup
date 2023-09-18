@@ -447,7 +447,7 @@ module.exports = class EcIdentityManager {
 		delete s.owner;
 		delete s.signature;
 		s["@owner"] = ppk.toPk().toPem();
-		return EcRsaOaepAsync.sign(ppk, s.toJson()).then((signature) => {
+		return EcRsaOaepAsync.signSha256(ppk, s.toJson()).then((signature) => {
 			s["@signature"] = signature;
 			return s;
 		});

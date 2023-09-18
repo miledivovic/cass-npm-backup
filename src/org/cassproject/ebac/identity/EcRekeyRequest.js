@@ -91,11 +91,15 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 	 */
 	async verify() {
 		if (!await super.verify()) return false;
-		return await EcRsaOaepAsync.verifySha256(
+		return (await EcRsaOaepAsync.verifySha256(
 			EcPk.fromPem(this.rekeyPk),
 			this.toSignableRekeyJson(),
 			this.rekeySignature
-		);
+		) || (await EcRsaOaepAsync.verify(
+			EcPk.fromPem(this.rekeyPk),
+			this.toSignableRekeyJson(),
+			this.rekeySignature
+		)));
 	}
 	addRekeyRequestToForwardingTable() {
 		if (!this.verify()) return;

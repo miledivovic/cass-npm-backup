@@ -48,6 +48,31 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.35
+* If --force-fips is enabled, always tries to use SHA-256 instead of crashing.
+
+### FIPS:
+FIPS is supported both client-side and server-side in CaSS. Here is the relevant compatibility table.
+
+Sources: https://www.openssl.org/blog/blog/2023/05/29/FIPS-3-0-8/
+
+| --> Server --> | < 1.5.35 | >= 1.5.35 with <br> OpenSSL 3.0.8 and<br> --force-fips | >= 1.5.35 with <br>OpenSSL 3.0.8 and<br> --force-fips and<br> env REJECT_SHA1=true |
+| - | - | - | - |
+| **Client/Library** | |
+| < 1.5.35 | SHA-1 (no FIPS) | SHA-1 (Verify only) | Incompatible
+| < 1.5.35 and<br> OpenSSL 3.0.8 and<br> env FIPS=true | SHA-1 (partial FIPS) | SHA-1 (Verify only) | Incompatible
+| >= 1.5.35 | SHA-1 (no FIPS) | SHA-1 (Verify only*), SHA-256 (FIPS) | SHA-256 (FIPS)
+| >= 1.5.35 and<br> env FIPS=true | SHA-1 (partial FIPS) | SHA-1 (Verify only*), SHA-256 (FIPS) | SHA-256 (FIPS)
+| >= 1.5.35 and<br> --force-fips | Incompatible | SHA-256 (FIPS) | SHA-256 (FIPS)
+
+To get FIPS, it is recommended to use the docker container builds.
+
+Partial FIPS means that we are still violating FIPS by using SHA-1 hashing. All other cryptographic operations are using the FIPS module.
+
+Verify only uses the exception that permits SHA-1 verification but not generation.
+
+Verify only* may fall back to SHA-1 verification if SHA-256 negotiation failed, but typically will not use SHA-1.
+
 ## 1.5.34
 * FIPS support (Does not support SHA-1)
 * Default signature method is now SHA-256

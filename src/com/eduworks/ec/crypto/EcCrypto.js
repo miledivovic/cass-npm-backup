@@ -11,7 +11,7 @@ module.exports = class EcCrypto {
 	 *  @type boolean
 	 */
 	static caching = false;
-	static testMode = false;
+	static testMode = true;
 	static deprecationNotice = false;
 	static decryptionCache = {};
 	static md5Cache = {};

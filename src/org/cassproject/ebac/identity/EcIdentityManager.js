@@ -4,6 +4,7 @@ const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade");
 const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
 const {cassReturnAsPromise, cassPromisify} = require("../../../../com/eduworks/ec/promises/helpers");
 const EbacSignature = require("../../../../com/eduworks/schema/ebac/EbacSignature");
+let realCrypto = require('crypto');
 
 /**
  *  Manages identities and contacts, provides hooks to respond to identity and
@@ -439,6 +440,10 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	createSignature(duration, server, ppk, algorithm) {
+		if (process && process.env && process.env.FIPS == null && realCrypto.getFips && realCrypto.getFips() == 1)
+		{
+			algorithm = "SHA-256";
+		}
 		if (ppk instanceof EcPpkFacade) {
 			return null;
 		}

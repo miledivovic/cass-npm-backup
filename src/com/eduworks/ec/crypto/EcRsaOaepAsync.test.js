@@ -95,7 +95,9 @@ describe("EcRsaOaepAsync", () => {
         );
         let pk = ppk.toPk();
         let signature = await EcRsaOaepAsync.signSha256(ppk, randomString);
+        console.log(signature);
         let verified = await EcRsaOaepAsync.verifySha256(pk, randomString, signature);
+        console.log(verified);
         assert.isTrue(verified);
     });
     it('signing then verifying w/caching (sha256)', async () => {

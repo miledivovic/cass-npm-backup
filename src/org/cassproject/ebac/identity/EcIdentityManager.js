@@ -349,7 +349,7 @@ module.exports = class EcIdentityManager {
 		server,
 		success,
 		failure,
-		signatureSheetAlgorithm
+		signatureSheetHashAlgorithm
 	) {
 		let cache = null;
 		if (this.signatureSheetCaching) {
@@ -366,7 +366,7 @@ module.exports = class EcIdentityManager {
 			.map((pk) => this.getPpk(EcPk.fromPem(pk)))
 			.filter((x) => x != null)
 			.map((ppk) =>
-				this.createSignature(finalDuration, server, ppk, signatureSheetAlgorithm)
+				this.createSignature(finalDuration, server, ppk, signatureSheetHashAlgorithm)
 			);
 		let p = Promise.all(promises);
 		p = p.then((signatureCandidates) => {
@@ -395,7 +395,7 @@ module.exports = class EcIdentityManager {
 	 *  @method signatureSheet
 	 *  @static
 	 */
-	signatureSheet(duration, server, success, failure, signatureSheetAlgorithm) {
+	signatureSheet(duration, server, success, failure, signatureSheetHashAlgorithm) {
 		let cache = null;
 		if (this.signatureSheetCaching) {
 			cache = this.signatureSheetCache[server];
@@ -408,11 +408,10 @@ module.exports = class EcIdentityManager {
 		}
 		let finalDuration = duration;
 		let promises = this.ids.map((ident) =>
-			this.createSignature(finalDuration, server, ident.ppk, signatureSheetAlgorithm)
+			this.createSignature(finalDuration, server, ident.ppk, signatureSheetHashAlgorithm)
 		);
 		let p = Promise.all(promises);
 		p = p.then((signatureCandidates) => {
-			console.log(signatureCandidates);
 			let signatures = signatureCandidates.filter(x=>x);
 			let stringified = JSON.stringify(signatures);
 			if (this.signatureSheetCaching) {
@@ -440,7 +439,6 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	createSignature(duration, server, ppk, algorithm) {
-		console.log("algorithm: " + algorithm)
 		if (ppk instanceof EcPpkFacade) {
 			return null;
 		}

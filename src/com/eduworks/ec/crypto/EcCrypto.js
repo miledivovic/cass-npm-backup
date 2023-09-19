@@ -6,12 +6,12 @@ let forge = require("node-forge");
  */
 module.exports = class EcCrypto {
 	/**
-	 *  Turn on (defualt off) caching of decrypted data.
+	 *  Turn on (default off) caching of decrypted data.
 	 *  @property caching
 	 *  @type boolean
 	 */
 	static caching = false;
-	static testMode = true;
+	static testMode = false;
 	static deprecationNotice = false;
 	static decryptionCache = {};
 	static md5Cache = {};

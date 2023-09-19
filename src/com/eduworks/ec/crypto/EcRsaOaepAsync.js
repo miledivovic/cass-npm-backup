@@ -68,6 +68,7 @@ module.exports = class EcRsaOaepAsync {
 				.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages)
 				.then(function (key) {
 					pk.key = key;
+					EcAesCtrAsync.fipsOn();
 					return crypto.subtle.encrypt(
 						algorithm,
 						key,
@@ -129,6 +130,7 @@ module.exports = class EcRsaOaepAsync {
 		algorithm.hash = "SHA-1";
 		let result;
 		let afterKeyIsImported = (p1) => {
+			EcAesCtrAsync.fipsOn();
 			try {
 				result = forge.util.decodeUtf8(EcCrypto.ab2str(p1));
 			} catch (ex) {
@@ -146,6 +148,7 @@ module.exports = class EcRsaOaepAsync {
 			let p = crypto.subtle
 				.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages)
 				.then(function (key) {
+					EcAesCtrAsync.fipsOn();
 					ppk.key = key;
 					return crypto.subtle.decrypt(
 						algorithm,
@@ -161,14 +164,16 @@ module.exports = class EcRsaOaepAsync {
 				});
 			return cassPromisify(p, success, failure);
 		} else {
-			let p = crypto.subtle
+			let p = new Promise((resolve,reject)=>{
+				EcAesCtrAsync.fipsOn();
+				resolve(crypto.subtle
 				.decrypt(algorithm, ppk.key, base64.decode(cipherText))
 				.then(afterKeyIsImported)
 				.catch((error) => {
 					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncDecrypt", error);
 					EcAesCtrAsync.fipsOff();
 					return null;
-				});
+				}))});
 			return cassPromisify(p, success, failure);
 		}
 	}
@@ -192,7 +197,8 @@ module.exports = class EcRsaOaepAsync {
 			crypto == null ||
 			crypto === undefined ||
 			crypto.subtle == null ||
-			crypto.subtle === undefined
+			crypto.subtle === undefined || 
+			(process && process.env && process.env.FIPS)
 		) {
 			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
 		}
@@ -210,6 +216,7 @@ module.exports = class EcRsaOaepAsync {
 				crypto.subtle
 					.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages)
 					.then(function (key) {
+						EcAesCtrAsync.fipsOff();// OPENSSL3 signing with this method not allowed. See https://github.com/Lomilar/node-fips-rsassa-pkcs1-15-sha1/tree/main
 						ppk.signKey = key;
 						return crypto.subtle
 							.sign(
@@ -226,8 +233,9 @@ module.exports = class EcRsaOaepAsync {
 				failure
 			);
 		else
-			return cassPromisify(
-				crypto.subtle
+			return cassPromisify(new Promise((resolve,reject)=>{
+				EcAesCtrAsync.fipsOff();// OPENSSL3 signing with this method not allowed. See https://github.com/Lomilar/node-fips-rsassa-pkcs1-15-sha1/tree/main
+				resolve(crypto.subtle
 					.sign(
 						algorithm,
 						ppk.signKey,
@@ -235,7 +243,7 @@ module.exports = class EcRsaOaepAsync {
 					)
 					.then(function (p1) {
 						return base64.encode(p1);
-					}),
+					}))}),
 				success,
 				failure
 			);
@@ -275,6 +283,7 @@ module.exports = class EcRsaOaepAsync {
 			p = crypto.subtle
 				.importKey("jwk", ppk.toJwk(), algorithm, false, keyUsages)
 				.then(function (key) {
+					EcAesCtrAsync.fipsOn();
 					ppk.signKey256 = key;
 					return crypto.subtle.sign(
 						algorithm,
@@ -337,6 +346,7 @@ module.exports = class EcRsaOaepAsync {
 				crypto.subtle
 					.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages)
 					.then((key) => {
+						EcAesCtrAsync.fipsOn();
 						pk.signKey = key;
 						return crypto.subtle.verify(
 							algorithm,
@@ -352,8 +362,9 @@ module.exports = class EcRsaOaepAsync {
 				failure
 			);
 		} else {
-			return cassPromisify(
-				crypto.subtle.verify(
+			return cassPromisify(new Promise((resolve,reject)=>{				
+				EcAesCtrAsync.fipsOn();
+				resolve(crypto.subtle.verify(
 					algorithm,
 					pk.signKey,
 					base64.decode(signature),
@@ -361,7 +372,8 @@ module.exports = class EcRsaOaepAsync {
 				).then((result)=>{						
 					EcAesCtrAsync.fipsOff();
 					return result;
-				}),
+				}))})
+			,
 				success,
 				failure
 			);
@@ -408,7 +420,8 @@ module.exports = class EcRsaOaepAsync {
 			return cassPromisify(
 				crypto.subtle
 					.importKey("jwk", pk.toJwk(), algorithm, false, keyUsages)
-					.then(function (key) {
+					.then(function (key) {			
+						EcAesCtrAsync.fipsOn();
 						pk.signKey256 = key;
 						return crypto.subtle.verify(
 							algorithm,
@@ -424,8 +437,9 @@ module.exports = class EcRsaOaepAsync {
 				failure
 			);
 		} else {
-			return cassPromisify(
-				crypto.subtle.verify(
+			return cassPromisify(new Promise((resolve,reject)=>{
+				EcAesCtrAsync.fipsOn();
+				resolve(crypto.subtle.verify(
 					algorithm,
 					pk.signKey256,
 					base64.decode(signature),
@@ -433,7 +447,7 @@ module.exports = class EcRsaOaepAsync {
 				).then((result)=>{						
 					EcAesCtrAsync.fipsOff();
 					return result;
-				}),
+				}))}),
 				success,
 				failure
 			);

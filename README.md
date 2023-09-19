@@ -48,10 +48,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
-## 1.5.33
-* FIPS support
-* Introduced backwards compatible method of using SHA-256 signatures with servers where the feature is detected.
-
+## 1.5.34
+* FIPS support (Does not support SHA-1)
+* Default signature method is now SHA-256
+* Introduced backwards compatible method of using SHA-1 signatures with servers where the feature is not detected (1.5.34 and behind).
 
 ## 1.5.32
 * Library updates.

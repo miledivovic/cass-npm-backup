@@ -24,31 +24,45 @@ module.exports = class CTDLASNCSVImport {
 				let competencyCounter = 0;
 				let collectionCounter = 0;
 				let duplicates = [];
+				let uniqueRows = [];
 				let typeCol = nameToCol["@type"];
-				let unique = [];
+				let uniqueRowIndexes = [];
 				if (typeCol == null) {
 					this.error("No @type in CSV.");
 					return;
 				}
-				// Search for duplicates
+				// Search for duplicate competencies with different CTIDs
 				if (tabularData[0]) {
-					const colCtid = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceterms:ctid"));
 					const colId = tabularData[0].findIndex((element) => element.toLowerCase().contains("@id"));
+					const colCtid = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceterms:ctid"));
 					const colCompetencyText = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceasn:competencytext"));
+					const colCodedNotation = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceasn:codednotation"));
 					if (colCtid >= 0) {
 						for (let i = 1; i < tabularData.length; i++) {
 							const row = tabularData[i].filter((element, j) => (j !== colCtid) && (j !== colId));
-							if (!unique.find((uniqueRow) => uniqueRow.every((each, k) => each === row[k]))) {
-								unique.push(row);
-							} else if (tabularData[i][colCtid]) {
+							const existing = uniqueRowIndexes.findIndex((uniqueRow) => uniqueRow.every((each, k) => each === row[k]))
+							if (existing < 0) {
+								uniqueRowIndexes.push(row);
+								uniqueRows.push({
+									competencyText: colCompetencyText >= 0 ? tabularData[i][colCompetencyText] : undefined,
+									ctid: tabularData[i][colCtid],
+									codedNotation: colCodedNotation >= 0 ? tabularData[i][colCodedNotation] : undefined,
+									line: i
+								});
+							} else {
+								const originalAlreadyAdded = duplicates.find((duplicate) => duplicate.line === uniqueRows[existing].line);
+								if (!originalAlreadyAdded) {
+									duplicates.push(uniqueRows[existing]);
+								}
 								duplicates.push({
 									competencyText: colCompetencyText >= 0 ? tabularData[i][colCompetencyText] : undefined,
-									id: colId >= 0 ? tabularData[i][colId] : undefined,
 									ctid: tabularData[i][colCtid],
+									codedNotation: colCodedNotation >= 0 ? tabularData[i][colCodedNotation] : undefined,
 									line: i
 								});
 							}
-						}		
+						}
+						duplicates.sort((a, b) => a.competencyText < b.competencyText ? -1 : 1);
 					}
 				}
 				for (let i = 0; i < tabularData.length; i++) {
@@ -558,8 +572,6 @@ module.exports = class CTDLASNCSVImport {
 				let competencyRows = {};
 				let relations = [];
 				let relationById = {};
-				console.log('skip ctids');
-				console.log(skipCtids);
 				for (let i = 0; i < tabularData.length; i++) {
 					let pretranslatedE = tabularData[i];
 					// Skip extra lines if found in file

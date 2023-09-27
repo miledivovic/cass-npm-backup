@@ -557,7 +557,7 @@ module.exports = class CTDLASNCSVImport {
 		ceo,
 		endpoint,
 		eim,
-		skipCtids
+		skip
 	) {
 		Papa.parse(file, {
 			header: true,
@@ -590,8 +590,10 @@ module.exports = class CTDLASNCSVImport {
 						delete pretranslatedE["ceterms:CTID"];
 					}
 					// Skip competency if ctid is specified
-					if (skipCtids && Array.isArray(skipCtids) && skipCtids.includes(pretranslatedE["ceterms:ctid"])) {
-						continue;
+					if (skip && Array.isArray(skip) && skip.length > 0) {
+						if (skip.find((element) => element.ctid ? element.ctid.includes(pretranslatedE["ceterms:ctid"]) : element === pretranslatedE["ceterms:ctid"])) {
+							continue;
+						}
 					}
 					if (
 						pretranslatedE["@type"] ==
@@ -651,6 +653,16 @@ module.exports = class CTDLASNCSVImport {
 						frameworkRows[f.shortId()] = e;
 						frameworkArray.push(f);
 						f.competency = f["ceterms:hasMember"] || [];
+						// Remove skipped competencies
+						if (skip && Array.isArray(skip) && skip.length > 0 && f.competency) {
+							skip.forEach((element) => {
+								const id = (element.ctid ? element.ctid : element).replace('ce-', '');								
+								const index = f.competency.findIndex((comp) => comp.includes(id));
+								if (index) {
+									f.competency.splice(index, 1);
+								}
+							});
+						}
 						delete f["ceterms:hasMember"];
 						f.relation = [];
 						f.subType = "Collection";

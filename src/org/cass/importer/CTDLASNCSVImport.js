@@ -23,10 +23,47 @@ module.exports = class CTDLASNCSVImport {
 				let frameworkCounter = 0;
 				let competencyCounter = 0;
 				let collectionCounter = 0;
+				let duplicates = [];
+				let uniqueRows = [];
 				let typeCol = nameToCol["@type"];
+				let uniqueRowIndexes = [];
 				if (typeCol == null) {
 					this.error("No @type in CSV.");
 					return;
+				}
+				// Search for duplicate competencies with different CTIDs
+				if (tabularData[0]) {
+					const colId = tabularData[0].findIndex((element) => element.toLowerCase().contains("@id"));
+					const colCtid = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceterms:ctid"));
+					const colCompetencyText = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceasn:competencytext"));
+					const colCodedNotation = tabularData[0].findIndex((element) => element.toLowerCase().contains("ceasn:codednotation"));
+					if (colCtid >= 0) {
+						for (let i = 1; i < tabularData.length; i++) {
+							const row = tabularData[i].filter((element, j) => (j !== colCtid) && (j !== colId));
+							const existing = uniqueRowIndexes.findIndex((uniqueRow) => uniqueRow.every((each, k) => each === row[k]))
+							if (existing < 0) {
+								uniqueRowIndexes.push(row);
+								uniqueRows.push({
+									competencyText: colCompetencyText >= 0 ? tabularData[i][colCompetencyText] : undefined,
+									ctid: tabularData[i][colCtid],
+									codedNotation: colCodedNotation >= 0 ? tabularData[i][colCodedNotation] : undefined,
+									line: i
+								});
+							} else {
+								const originalAlreadyAdded = duplicates.find((duplicate) => duplicate.line === uniqueRows[existing].line);
+								if (!originalAlreadyAdded) {
+									duplicates.push(uniqueRows[existing]);
+								}
+								duplicates.push({
+									competencyText: colCompetencyText >= 0 ? tabularData[i][colCompetencyText] : undefined,
+									ctid: tabularData[i][colCtid],
+									codedNotation: colCodedNotation >= 0 ? tabularData[i][colCodedNotation] : undefined,
+									line: i
+								});
+							}
+						}
+						duplicates.sort((a, b) => a.competencyText < b.competencyText ? -1 : 1);
+					}
 				}
 				for (let i = 0; i < tabularData.length; i++) {
 					if (i == 0) continue;
@@ -53,7 +90,7 @@ module.exports = class CTDLASNCSVImport {
 						return;
 					}
 				}
-				success(frameworkCounter, competencyCounter, collectionCounter);
+				success(frameworkCounter, competencyCounter, collectionCounter, duplicates);
 			},
 			error: failure
 		});
@@ -66,7 +103,8 @@ module.exports = class CTDLASNCSVImport {
 		ceo,
 		endpoint,
 		eim,
-		collectionsFlag
+		collectionsFlag,
+		skip
 	) {
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
@@ -80,7 +118,7 @@ module.exports = class CTDLASNCSVImport {
 			failure("Invalid file type");
 		}
 		if (collectionsFlag) {
-			return this.importCollectionsAndCompetencies(repo, file, success, failure, ceo, endpoint, eim);
+			return this.importCollectionsAndCompetencies(repo, file, success, failure, ceo, endpoint, eim, skip);
 		}
 		Papa.parse(file, {
 			header: true,
@@ -518,7 +556,8 @@ module.exports = class CTDLASNCSVImport {
 		failure,
 		ceo,
 		endpoint,
-		eim
+		eim,
+		skip
 	) {
 		Papa.parse(file, {
 			header: true,
@@ -549,6 +588,12 @@ module.exports = class CTDLASNCSVImport {
 							pretranslatedE["ceterms:ctid"] = pretranslatedE["ceterms:CTID"];
 						}
 						delete pretranslatedE["ceterms:CTID"];
+					}
+					// Skip competency if ctid is specified
+					if (skip && Array.isArray(skip) && skip.length > 0) {
+						if (skip.find((element) => element.ctid ? element.ctid.includes(pretranslatedE["ceterms:ctid"]) : element === pretranslatedE["ceterms:ctid"])) {
+							continue;
+						}
 					}
 					if (
 						pretranslatedE["@type"] ==
@@ -608,6 +653,16 @@ module.exports = class CTDLASNCSVImport {
 						frameworkRows[f.shortId()] = e;
 						frameworkArray.push(f);
 						f.competency = f["ceterms:hasMember"] || [];
+						// Remove skipped competencies
+						if (skip && Array.isArray(skip) && skip.length > 0 && f.competency) {
+							skip.forEach((element) => {
+								const id = (element.ctid ? element.ctid : element).replace('ce-', '');								
+								const index = f.competency.findIndex((comp) => comp.includes(id));
+								if (index) {
+									f.competency.splice(index, 1);
+								}
+							});
+						}
 						delete f["ceterms:hasMember"];
 						f.relation = [];
 						f.subType = "Collection";

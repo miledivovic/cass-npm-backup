@@ -35,7 +35,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 ## Publish checklist
 
- * Review dependencies, autocomplete version numbers to latest versions.
+ * `npm upgrade --save` Review dependencies, autocomplete version numbers to latest versions.
  * Increment version number in package.json and yuidoc.json.
  * Update changelog.
  * `npm install`
@@ -47,6 +47,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.37
+* Can now search for and de-duplicate competencies on import.
 
 ## 1.5.35
 * If --force-fips is enabled, always tries to use SHA-256 instead of crashing.

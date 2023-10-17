@@ -153,6 +153,12 @@ module.exports = class CTDLASNCSVImport {
 						}
 						delete pretranslatedE["ceterms:CTID"];
 					}
+					// Skip competency if ctid is specified
+					if (skip && Array.isArray(skip) && skip.length > 0) {
+						if (skip.find((element) => element.ctid ? element.ctid.includes(pretranslatedE["ceterms:ctid"]) : element === pretranslatedE["ceterms:ctid"])) {
+							continue;
+						}
+					}
 					if (
 						pretranslatedE["@type"] ==
 						"ceasn:CompetencyFramework"
@@ -164,6 +170,18 @@ module.exports = class CTDLASNCSVImport {
 							endpoint,
 							repo
 						);
+						for (let each in translator) {
+							// Make replacements for skipped duplicates
+							if (skip && Array.isArray(skip) && skip.length > 0) {
+								skip.forEach((element) => {
+									if (typeof translator[each] === 'string' && element.ctid && element.replaceWith) {
+										if (translator[each].contains(element.ctid.replace('ce-', ''))) {
+											translator[each] = translator[each].replace(element.ctid.replace('ce-', ''), element.replaceWith.replace('ce-', ''));
+										}
+									}
+								});
+							}
+						}
 						for (let each in translator) {
 							if (terms[each]) {
 								translator[terms[each]] = translator[each];
@@ -246,6 +264,16 @@ module.exports = class CTDLASNCSVImport {
 						frameworkRows[f.shortId()] = e;
 						f["ceasn:hasChild"] = null;
 						f["ceasn:hasTopChild"] = null;
+						// Remove skipped competencies
+						if (skip && Array.isArray(skip) && skip.length > 0 && f.competency) {
+							skip.forEach((element) => {
+								const id = (element.ctid ? element.ctid : element).replace('ce-', '');								
+								const index = f.competency.findIndex((comp) => comp.includes(id));
+								if (index) {
+									f.competency.splice(index, 1);
+								}
+							});
+						}
 						frameworkArray.push(f);
 						f.competency = [];
 						f.relation = [];
@@ -259,6 +287,18 @@ module.exports = class CTDLASNCSVImport {
 							endpoint,
 							repo
 						);
+						for (let each in translator) {
+							// Make replacements for skipped duplicates
+							if (skip && Array.isArray(skip) && skip.length > 0) {
+								skip.forEach((element) => {
+									if (typeof translator[each] === 'string' && element.ctid && element.replaceWith) {
+										if (translator[each].contains(element.ctid.replace('ce-', ''))) {
+											translator[each] = translator[each].replace(element.ctid.replace('ce-', ''), element.replaceWith.replace('ce-', ''));
+										}
+									}
+								});
+							}
+						}
 						for (let each in translator) {
 							if (terms[each]) {
 								translator[terms[each]] = translator[each];

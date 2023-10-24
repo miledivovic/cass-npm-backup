@@ -48,6 +48,12 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.38
+* Fixed issue with CTDL-ASN import.
+* Use of cassproject library with Vite.js now has appropriate mitigations in place. You will need to include the following libraries
+  * `"buffer": "^6.0.3"`
+  * `"stream": "npm:stream-browserify@^3.0.0"`
+
 ## 1.5.37
 * Can now search for and de-duplicate competencies on import.
 

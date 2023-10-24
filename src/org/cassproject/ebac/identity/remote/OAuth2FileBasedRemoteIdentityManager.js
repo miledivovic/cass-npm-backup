@@ -38,7 +38,7 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 	configuration = null;
 	oauthLoginResponse = null;
 	network = null;
-	global = null;
+	// global = null;
 	/**
 	 *  Returns true if the identity manager is global. Returns false if the identity manager is local to the server.
 	 *

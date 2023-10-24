@@ -35,7 +35,7 @@ require("../../../general/AuditLogger.js")
  */
 module.exports = class EcRemoteIdentityManager extends RemoteIdentityManagerInterface {
 	server = null;
-	global = null;
+	// global = null;
 	usernameWithSalt = null;
 	passwordWithSalt = null;
 	secretWithSalt = null;

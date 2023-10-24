@@ -132,7 +132,7 @@ if (global.axios == null)
 
 const { cassPromisify } = require("../promises/helpers");
 
-getAxiosOptions = function(url) {
+let getAxiosOptions = function(url) {
 	let newOptions = Object.assign({}, axiosOptions);
 	if (corsOrigins.findIndex((x) => url.startsWith(x)) > -1)
 		newOptions.withCredentials = true;

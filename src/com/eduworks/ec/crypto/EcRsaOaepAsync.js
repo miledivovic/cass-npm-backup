@@ -198,7 +198,7 @@ module.exports = class EcRsaOaepAsync {
 			crypto === undefined ||
 			crypto.subtle == null ||
 			crypto.subtle === undefined || 
-			(process && process.env && process.env.FIPS)
+			(typeof process !== 'undefined' && process && process.env && process.env.FIPS)
 		) {
 			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
 		}

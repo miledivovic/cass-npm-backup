@@ -27,7 +27,7 @@ let realCrypto = require('crypto');
  */
 module.exports = class EcAesCtrAsync {
 	static fipsOn(){		
-		if (process && process.env && process.env.FIPS)
+		if (typeof process !== 'undefined' && process && process.env && process.env.FIPS)
 		if (realCrypto.getFips() == 0)
 			try {
 				realCrypto.setFips(true);
@@ -39,7 +39,7 @@ module.exports = class EcAesCtrAsync {
 	}
 
 	static fipsOff(){	
-		if (process && process.env && process.env.FIPS)	
+		if (typeof process !== 'undefined' && process && process.env && process.env.FIPS)	
 		if (realCrypto.getFips() == 1)
 			try {
 				realCrypto.setFips(false);

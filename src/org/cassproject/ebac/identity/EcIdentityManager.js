@@ -440,7 +440,7 @@ module.exports = class EcIdentityManager {
 	 *  @static
 	 */
 	createSignature(duration, server, ppk, algorithm) {
-		if (process && process.env && process.env.FIPS == null && realCrypto.getFips && realCrypto.getFips() == 1)
+		if (typeof process !== 'undefined' && process && process.env && process.env.FIPS == null && realCrypto.getFips && realCrypto.getFips() == 1)
 		{
 			algorithm = "SHA-256";
 		}

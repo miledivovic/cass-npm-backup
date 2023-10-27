@@ -1,4 +1,4 @@
-let FormData = require("form-data");
+
 const {cassPromisify} = require("../../../../../com/eduworks/ec/promises/helpers");
 const EcRemote = require("../../../../../com/eduworks/ec/remote/EcRemote");
 const EbacCredentialCommit = require("../../../../../com/eduworks/schema/ebac/EbacCredentialCommit");

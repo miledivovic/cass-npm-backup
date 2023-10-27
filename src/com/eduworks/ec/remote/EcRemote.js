@@ -27,117 +27,141 @@ if (isNode)
 
 global.httpOptions = [];
 global.http2Enabled = {};
-let axios = null;
-if (global.axios == null)
-{
-	let axiosModule = require("axios");
-	if (axiosModule.default != null) 
-		axiosModule = axiosModule.default;
-	global.axios = axios = axiosModule;
-	if (isNode)
-	{
-		let http2;
-		let https;
-		try {
-			http2 = require("http2-wrapper");
-			https = require("https");
-		} catch(e) {
-			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteInitHttp2", e);
-		}
-		function http2AdapterEnhancer(adapter) {
-			return async (config) => {
-				if (config.http2 && config.url.startsWith("https")) {
-					let req;
-					if (global.ca != null)
-						config.ca = global.ca;
-					config.transport = {
-						request: function request(options, handleResponse) {
-							if (global.ca != null)
-								options.ca = global.ca;
-							if (http2Enabled[options.hostname])
-								req = http2.request(options, handleResponse);
-							else
-							{
-								req = https.request(options, handleResponse);
-								if (http2Enabled[options.hostname] == null)					
-									global.httpOptions.push(options);
-							}
-							return req;
-						},
-					};
-					const ret = adapter(config);
-					while (global.httpOptions.length > 0)
-					{
-						let options = global.httpOptions.pop();
-						if (global.ca != null)
-							options.cert = global.ca;
-						options.ALPNProtocols = ['h2', 'http/1.1'];
-						if (options.port == null || options.port == '')
-							options.port = 443;
-						if (options.host == null && options.hostname != null)
-							options.host = options.hostname;
-						let result = await http2.auto.resolveProtocol(options);
-						if (result.alpnProtocol == "http/1.1")
-							http2Enabled[options.hostname] = false;
-						else if (result.alpnProtocol == "h2")
-							http2Enabled[options.hostname] = true;
-					}
 
-					// Remove the axios action `socket.setKeepAlive` because the HTTP/2 sockets should not be directly manipulated
-					const listeners = req.listeners("socket");
-					if (listeners.length) req.removeListener("socket", listeners[0]);
-					return ret;
-				} else {
-					return adapter(config);
-				}
-			};
-		}
-		axiosOptions.http2 = true;
-		axiosOptions.adapter = http2AdapterEnhancer(axios.defaults.adapter);
-	}
-} else {
-	if (global.axios.default != null) 
-		global.axios = global.axios.default;
-	axios = global.axios;
-	if (isNode)
-	{
-		let https;
-		try {
-			https = require("https");
-		} catch(e) {
-			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteInitHttps", e);
-		}
-		function httpsAdapterEnhancer(adapter) {
-			return async (config) => {
-				if (process.env.HTTPS != null ? process.env.HTTPS.trim() == 'true' : false && config.url.startsWith("https")) {
-					let req;
-					config.transport = {
-						request: function request(options, handleResponse) {
-							if (global.ca != null)
-								options.ca = global.ca;
-							req = https.request(options, handleResponse);
-						return req;
-						},
-					};
-					const ret = adapter(config);
-					return ret;
-				} else {
-					return adapter(config);
-				}
-			};
-		}
-		axiosOptions.adapter = httpsAdapterEnhancer(axios.defaults.adapter);
+
+const {fetch: origFetch} = global;
+global.fetch = async (...args) => {
+	console.log('fetch called with args: ', args);
+	const response = await origFetch(...args);
+	return response;
+}
+
+let newFormData = class newFormData extends FormData {
+	constructor() {
+		super();
+		console.log(new Error().stack);
+		// var stack = new Error().stack;
+		// var lastLine = stack.split('\n').pop();
+		// var startIndex = lastLine.indexOf('/src/');
+		// var endIndex = lastLine.indexOf('.js:') + 3;
+		// return '.' + lastLine.substring(startIndex, endIndex);
 	}
 }
+
+new newFormData();
+
+
+let axios = {};
+// if (global.axios == null)
+// {
+// 	let axiosModule = require("axios");
+// 	if (axiosModule.default != null) 
+// 		axiosModule = axiosModule.default;
+// 	global.axios = axios = axiosModule;
+// 	if (isNode)
+// 	{
+// 		let http2;
+// 		let https;
+// 		try {
+// 			http2 = require("http2-wrapper");
+// 			https = require("https");
+// 		} catch(e) {
+// 			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteInitHttp2", e);
+// 		}
+// 		function http2AdapterEnhancer(adapter) {
+// 			return async (config) => {
+// 				if (config.http2 && config.url.startsWith("https")) {
+// 					let req;
+// 					if (global.ca != null)
+// 						config.ca = global.ca;
+// 					config.transport = {
+// 						request: function request(options, handleResponse) {
+// 							if (global.ca != null)
+// 								options.ca = global.ca;
+// 							if (http2Enabled[options.hostname])
+// 								req = http2.request(options, handleResponse);
+// 							else
+// 							{
+// 								req = https.request(options, handleResponse);
+// 								if (http2Enabled[options.hostname] == null)					
+// 									global.httpOptions.push(options);
+// 							}
+// 							return req;
+// 						},
+// 					};
+// 					const ret = adapter(config);
+// 					while (global.httpOptions.length > 0)
+// 					{
+// 						let options = global.httpOptions.pop();
+// 						if (global.ca != null)
+// 							options.cert = global.ca;
+// 						options.ALPNProtocols = ['h2', 'http/1.1'];
+// 						if (options.port == null || options.port == '')
+// 							options.port = 443;
+// 						if (options.host == null && options.hostname != null)
+// 							options.host = options.hostname;
+// 						let result = await http2.auto.resolveProtocol(options);
+// 						if (result.alpnProtocol == "http/1.1")
+// 							http2Enabled[options.hostname] = false;
+// 						else if (result.alpnProtocol == "h2")
+// 							http2Enabled[options.hostname] = true;
+// 					}
+
+// 					// Remove the axios action `socket.setKeepAlive` because the HTTP/2 sockets should not be directly manipulated
+// 					const listeners = req.listeners("socket");
+// 					if (listeners.length) req.removeListener("socket", listeners[0]);
+// 					return ret;
+// 				} else {
+// 					return adapter(config);
+// 				}
+// 			};
+// 		}
+// 		axiosOptions.http2 = true;
+// 		axiosOptions.adapter = http2AdapterEnhancer(axios.defaults.adapter);
+// 	}
+// } else {
+// 	if (global.axios.default != null) 
+// 		global.axios = global.axios.default;
+// 	axios = global.axios;
+// 	if (isNode)
+// 	{
+// 		let https;
+// 		try {
+// 			https = require("https");
+// 		} catch(e) {
+// 			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteInitHttps", e);
+// 		}
+// 		function httpsAdapterEnhancer(adapter) {
+// 			return async (config) => {
+// 				if (process.env.HTTPS != null ? process.env.HTTPS.trim() == 'true' : false && config.url.startsWith("https")) {
+// 					let req;
+// 					config.transport = {
+// 						request: function request(options, handleResponse) {
+// 							if (global.ca != null)
+// 								options.ca = global.ca;
+// 							req = https.request(options, handleResponse);
+// 						return req;
+// 						},
+// 					};
+// 					const ret = adapter(config);
+// 					return ret;
+// 				} else {
+// 					return adapter(config);
+// 				}
+// 			};
+// 		}
+// 		axiosOptions.adapter = httpsAdapterEnhancer(axios.defaults.adapter);
+// 	}
+// }
 
 const { cassPromisify } = require("../promises/helpers");
 
-let getAxiosOptions = function(url) {
-	let newOptions = Object.assign({}, axiosOptions);
-	if (corsOrigins.findIndex((x) => url.startsWith(x)) > -1)
-		newOptions.withCredentials = true;
-	return newOptions;
-}
+// let getAxiosOptions = function(url) {
+// 	let newOptions = Object.assign({}, axiosOptions);
+// 	if (corsOrigins.findIndex((x) => url.startsWith(x)) > -1)
+// 		newOptions.withCredentials = true;
+// 	return newOptions;
+// }
 
 /**
  *  Wrapper to handle all remote web service invocations.
@@ -254,39 +278,65 @@ module.exports = class EcRemote {
 		let postHeaders = null;
 		if (fd.getHeaders != null)
 		{
-			postHeaders = fd.getHeaders();
-			postHeaders["Content-Type"] = null;
+			console.log('setting headers');
+			// postHeaders = fd.getHeaders();
+			postHeaders = {
+				'content-type': 'multipart/form-data'
+			}
+			console.log('headers', postHeaders);
+			// postHeaders["Content-Type"] = null;
 		}
 		 else
 		  	postHeaders = {
 		  		"Content-Type": null
 		  	}
-		if (fd.getLengthSync != null)
-			postHeaders["content-length"] = fd.getLengthSync();
+		if (fd.getLengthSync != null) {
+			//postHeaders["content-length"] = fd.getLengthSync();
+			console.log('has getlength sync')
+		}
 		if (headers !== undefined && headers != null)
 			for (let header in headers) postHeaders[header] = headers[header];
 
-		let p = axios.post(url, fd, {
-				...getAxiosOptions(url),
-				headers: postHeaders,
-				maxContentLength: Infinity,
-				maxBodyLength: Infinity
-			})
-			.then((response) => {
-				return response.data;
-			})
-			.catch((err) => {
-				if (err != null) {
-					global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, postHeaders, err);
-					if (err.response != null) {
-						if (err.response.data != null)
-							throw err.response.data;
-						throw err;
-					}
-					throw err;
-				}
-				else global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", "Internal error in Axios?");
-			});
+		console.log('postheaders', postHeaders);
+		console.log('FormData', FormData);
+
+		let p = fetch(url, {
+			method: 'POST',
+			body: fd,
+			// headers: postHeaders,
+		}).then((response) => {
+			console.log('fetch response', response);
+			return response.json()
+		}).catch((err) => {
+			console.log('fetch error: ', err);
+			//console.log(err.response);
+			//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, postHeaders, err);
+			throw err;
+		})
+
+		
+		// let p = axios.post(url, fd, {
+		// 		...getAxiosOptions(url),
+		// 		headers: postHeaders,
+		// 		maxContentLength: Infinity,
+		// 		maxBodyLength: Infinity
+		// 	})
+		// 	.then((response) => {
+				
+		// 		return response.data;
+		// 	})
+		// 	.catch((err) => {
+		// 		if (err != null) {
+		// 			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, postHeaders, err);
+		// 			if (err.response != null) {
+		// 				if (err.response.data != null)
+		// 					throw err.response.data;
+		// 				throw err;
+		// 			}
+		// 			throw err;
+		// 		}
+		// 		else global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", "Internal error in Axios?");
+		// 	});
 		return cassPromisify(p, successCallback, failureCallback);
 	}
 	/**
@@ -321,23 +371,33 @@ module.exports = class EcRemote {
 	static getExpectingString(server, service, success, failure) {
 		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
-		let p = axios
-			.get(url,getAxiosOptions(url))
-			.then((response) => {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", response.request.socket ? response.request.socket.remoteAddress : '', url);
-				return response.data;
-			})
-			.catch((err) => {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, err);
-				if (err) {
-					if (err.response) {
-						if (err.response.data)
-							throw err.response.data;
-					}
-					throw err.response;
-				}
-				throw err;
-			});
+		let p = fetch(url).then((response) => {
+			console.log('response: ', response.url);
+			//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", response.request.socket ? response.request.socket.remoteAddress : '', url);
+			return response.json();
+		}).catch((err) => {
+			console.log('fetch err 2: ', err);
+			console.log(err.response);
+			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, err);
+			throw err;
+		})
+		// let p = axios
+		// 	.get(url,getAxiosOptions(url))
+		// 	.then((response) => {
+		// 		global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", response.request.socket ? response.request.socket.remoteAddress : '', url);
+		// 		return response.data;
+		// 	})
+		// 	.catch((err) => {
+		// 		global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, err);
+		// 		if (err) {
+		// 			if (err.response) {
+		// 				if (err.response.data)
+		// 					throw err.response.data;
+		// 			}
+		// 			throw err.response;
+		// 		}
+		// 		throw err;
+		// 	});
 		return cassPromisify(p, success, failure);
 	}
 	static urlAppend(server, service) {

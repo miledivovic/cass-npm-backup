@@ -3,7 +3,6 @@ if (!envHttp2)
 {
     global.axios = require("axios"); //Pre-empt http2 use.
 }
-let FormData = require("form-data");
 const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
 const EcEncryptedValue = require("./EcEncryptedValue");
 const EcIdentityManager = require("../identity/EcIdentityManager");

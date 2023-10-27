@@ -36,21 +36,6 @@ global.fetch = async (...args) => {
 	return response;
 }
 
-let newFormData = class newFormData extends FormData {
-	constructor() {
-		super();
-		console.log(new Error().stack);
-		// var stack = new Error().stack;
-		// var lastLine = stack.split('\n').pop();
-		// var startIndex = lastLine.indexOf('/src/');
-		// var endIndex = lastLine.indexOf('.js:') + 3;
-		// return '.' + lastLine.substring(startIndex, endIndex);
-	}
-}
-
-new newFormData();
-
-
 let axios = {};
 // if (global.axios == null)
 // {
@@ -275,38 +260,30 @@ module.exports = class EcRemote {
 			url += service;
 		}
 		url = EcRemote.upgradeHttpToHttps(url);
-		let postHeaders = null;
-		if (fd.getHeaders != null)
-		{
-			console.log('setting headers');
-			// postHeaders = fd.getHeaders();
-			postHeaders = {
-				'content-type': 'multipart/form-data'
-			}
-			console.log('headers', postHeaders);
-			// postHeaders["Content-Type"] = null;
-		}
-		 else
-		  	postHeaders = {
-		  		"Content-Type": null
-		  	}
-		if (fd.getLengthSync != null) {
-			//postHeaders["content-length"] = fd.getLengthSync();
-			console.log('has getlength sync')
-		}
-		if (headers !== undefined && headers != null)
-			for (let header in headers) postHeaders[header] = headers[header];
-
-		console.log('postheaders', postHeaders);
-		console.log('FormData', FormData);
-
+		
 		let p = fetch(url, {
 			method: 'POST',
 			body: fd,
-			// headers: postHeaders,
-		}).then((response) => {
+			headers: headers || {},
+		}).then(async (response) => {
 			console.log('fetch response', response);
-			return response.json()
+ 			const contentType = response.headers.get("content-type");
+			let result = null;
+			if (contentType && contentType.indexOf("application/json") !== -1) {
+				result = await response.json();
+				console.log("is json");
+			} else {
+				result = await response.text();
+				console.log("is text");
+				try{
+					result = JSON.parse(result);
+				}
+				catch(ex) {
+					console.log("text is not json");
+				}
+			}		
+			console.log(result);
+			return result;
 		}).catch((err) => {
 			console.log('fetch error: ', err);
 			//console.log(err.response);

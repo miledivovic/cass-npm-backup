@@ -20,7 +20,6 @@ RUN echo 'fips = fips_sect' >> /usr/local/ssl/nodejs.cnf
 RUN echo '[default_sect]' >> /usr/local/ssl/nodejs.cnf
 RUN echo 'activate = 1' >> /usr/local/ssl/nodejs.cnf
 
-ENV HTTP2=false
 ENV FIPS=true
 
 COPY package.json package.json

@@ -50,6 +50,7 @@ let failure = function (p1) {
 };
 
 if (fs.readFileSync != null) {
+    process.env['NODE_EXTRA_CA_CERTS'] = "ca.crt";
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 }
 

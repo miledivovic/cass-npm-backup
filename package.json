@@ -9,7 +9,7 @@
 		"multitest": "concurrently --kill-others --kill-others-on-fail \"npm run test15\" \"npm run test14\" \"npm run test13\" \"npm run test12\"",
 		"testCassTest": "npm run testkill && docker run -d --name cass-test -p80:80 -e CASS_LOOPBACK cass-test && wait-on http://localhost/api/ping && npm run testNode18 && npm run testNode18Fips && npm run testNode16 && npm run testNode15 && npm run testNode14 && npm run testNode13 && npm run testNode12 && npm run testCypressEdge && npm run testCypress && npm run testkill",
 		"testDevHttps": "npm run testkill && docker run -d --name cass-test -p443:80 -e CASS_LOOPBACK -e HTTPS=true cassproject/cass:dev && wait-on https://localhost/api/ping && npm run testNode18HttpsFips && npm run testNode18Https && npm run testNode16Https && npm run testNode15Https && npm run testNode14Https && npm run testNode13Https && npm run testNode12Https && npm run testCypressEdgeHttps && npm run testCypressHttps",
-		"test15HttpsFips": "npm run testkill && docker run -d --name cass-test -p443:443 -e CASS_LOOPBACK -e HTTPS=true cassproject/cass:1.5.35 && wait-on https://localhost/api/ping && concurrently --kill-others-on-fail \"npm run testCypressHttps\" \"npm run testNode20Https\" \"npm run testNode20HttpsFips\" \"npm run testNode20HttpsForceFips\" \"npm run testNode18Https\" \"npm run testNode18HttpsFips\" \"npm run testNode16Https\" && npm run testkill",
+		"test15HttpsFips": "npm run testkill && docker run -d --name cass-test -p443:443 -e CASS_LOOPBACK -e HTTPS=true cassproject/cass:1.5.37 && wait-on https://localhost/api/ping && concurrently --kill-others-on-fail \"npm run testCypressHttps\" \"npm run testNode20Https\" \"npm run testNode20HttpsFips\" \"npm run testNode20HttpsForceFips\" \"npm run testNode18Https\" \"npm run testNode18HttpsFips\" \"npm run testNode16Https\" && npm run testkill",
 		"test15Https11Fips": "npm run testkill && docker run -d --name cass-test -p443:443 -e CASS_LOOPBACK -e HTTPS=true -e HTTP2=false cassproject/cass:1.5.35 && wait-on https://localhost/api/ping && concurrently --kill-others-on-fail \"npm run testCypressHttps\" \"npm run testNode20Https\" \"npm run testNode20HttpsFips\" \"npm run testNode20HttpsForceFips\" \"npm run testNode18Https\" \"npm run testNode18HttpsFips\" \"npm run testNode16Https\" && npm run testkill",
 		"test15Https": "npm run testkill && docker run -d --name cass-test -p443:443 -e CASS_LOOPBACK -e HTTPS=true cassproject/cass:1.5.32 && wait-on https://localhost/api/ping && concurrently --kill-others-on-fail \"npm run testCypressHttps\" \"npm run testNode20Https\" \"npm run testNode20HttpsFips\" \"npm run testNode18Https\" \"npm run testNode18HttpsFips\" \"npm run testNode16Https\" && npm run testkill",
 		"test15Https11": "npm run testkill && docker run -d --name cass-test -p443:443 -e CASS_LOOPBACK -e HTTPS=true -e HTTP2=false cassproject/cass:1.5.32 && wait-on https://localhost/api/ping && concurrently --kill-others-on-fail \"npm run testCypressHttps\" \"npm run testNode20Https\" \"npm run testNode20HttpsFips\" \"npm run testNode18Https\" \"npm run testNode18HttpsFips\" \"npm run testNode16Https\" && npm run testkill",
@@ -23,6 +23,7 @@
 		"testkill13": "docker kill cass-test13 | exit 0 && docker rm cass-test13 | exit 0",
 		"testkill12": "docker kill cass-test12 | exit 0 && docker rm cass-test12 | exit 0",
 		"testkill": "docker kill cass-test | exit 0 && docker rm cass-test | exit 0",
+		"testNode21Https": "docker build --progress plain -f docker/node21https -t npm-cass21https . & docker run -e CASS_LOOPBACK  --rm --network=\"host\" npm-cass21https",
 		"testNode20": "docker build --progress plain -f docker/node20 -t npm-cass20 . & docker run -e CASS_LOOPBACK --rm --network=\"host\" npm-cass20",
 		"testNode20Https": "docker build --progress plain -f docker/node20https -t npm-cass20https . & docker run -e CASS_LOOPBACK  --rm --network=\"host\" npm-cass20https",
 		"testNode20HttpsFips": "docker build --progress plain -f docker/node20httpsfips -t npm-cass20httpsfips . & docker run -e CASS_LOOPBACK  --rm --network=\"host\" npm-cass20httpsfips",
@@ -52,6 +53,7 @@
 		"mocha:httpsNoHttp2": "export HTTP2=false|| set HTTP2=false&& mocha --timeout 15000 -b src/**/*.test.js",
 		"mocha:https": "mocha --timeout 15000 -b src/**/*.test.js",
 		"mocha:clientSideCertificates": "export CASS_LOOPBACK=https://localhost/api/|| set CASS_LOOPBACK=https://localhost/api/&& mocha --timeout 15000 -b src/**/*.test.js",
+		"mocha:clientSideCertificatesDangerMouse": "export NODE_EXTRA_CA_CERTS=ca.crt|| set NODE_EXTRA_CA_CERTS=ca.crt&&export CASS_LOOPBACK=https://localhost/api/|| set CASS_LOOPBACK=https://localhost/api/&&export HTTP2=false|| set HTTP2=false&& mocha --timeout 15000 -b src/**/*.test.js",
 		"mocha:custom": "export CASS_LOOPBACK=https://tides.eduworks.us/api/|| set CASS_LOOPBACK=https://tides.eduworks.us/api/&& export HTTP2=false|| set HTTP2=false&& mocha --timeout 300000 -b src/**/*.test.js",
 		"mocha:dev": "export CASS_LOOPBACK=https://dev.cassproject.org/api/|| set CASS_LOOPBACK=https://dev.cassproject.org/api/&& export HTTP2=false|| set HTTP2=false&& mocha --timeout 300000 -b src/**/*.test.js",
 		"mocha:demo": "export CASS_LOOPBACK=https://demo.cassproject.org/api/|| set CASS_LOOPBACK=https://demo.cassproject.org/api/&& export HTTP2=false|| set HTTP2=false&& mocha --timeout 300000 -b src/**/*.test.js",
@@ -112,6 +114,7 @@
 		"pem-jwk": "^2.0.0",
 		"promise-worker": "^2.0.1",
 		"rdf-canonize": "^3.4.0",
+		"undici": "^5.27.0",
 		"web-worker": "^1.2.0"
 	},
 	"files": [

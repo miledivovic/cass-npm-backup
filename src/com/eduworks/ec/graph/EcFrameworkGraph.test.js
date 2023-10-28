@@ -32,17 +32,8 @@ let assert = chai.assert;
 after(()=>EcRsaOaepAsyncWorker.teardown());
 
 let deleteById = async function (id) {
-    await EcRepository.get(
-        id,
-        function (p1) {
-            EcRepository._delete(p1, null, function (p1) {
-                console.log(p1);
-            });
-        },
-        function (p1) {
-            console.log(p1);
-        }
-    );
+    let p1 = await EcRepository.get(id);
+    await EcRepository._delete(p1);
 };
 let failure = function (p1) {
     console.trace(p1);
@@ -50,7 +41,6 @@ let failure = function (p1) {
 };
 
 if (fs.readFileSync != null) {
-    process.env['NODE_EXTRA_CA_CERTS'] = "ca.crt";
     process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
 }
 

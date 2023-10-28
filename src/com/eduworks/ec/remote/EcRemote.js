@@ -1,7 +1,5 @@
 require("../../../../org/cassproject/general/AuditLogger.js");
 
-global.axiosOptions = {};
-global.corsOrigins = [];
 let isNode = false;    
 if (typeof process === 'object') {
   if (typeof process.versions === 'object') {
@@ -152,54 +150,37 @@ module.exports = class EcRemote {
 			body: fd,
 			headers: headers || {},
 		}).then(async (response) => {
-			console.log('fetch response', response);
  			const contentType = response.headers.get("content-type");
 			let result = null;
 			if (contentType && contentType.indexOf("application/json") !== -1) {
 				result = await response.json();
-				console.log("is json");
 			} else {
 				result = await response.text();
-				console.log("is text");
 				try{
 					result = JSON.parse(result);
 				}
 				catch(ex) {
-					console.log("text is not json");
+					// Text is not json
 				}
 			}		
-			console.log(result);
 			return result;
 		}).catch((err) => {
-			console.log('fetch error: ', err);
-			//console.log(err.response);
-			//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, postHeaders, err);
+			if (isNode) {
+				dns.lookup(new URL(url).hostname, ((error, address) => {
+					if (error) {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, error);
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", url, postHeaders, err);
+					} else {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", address, url, postHeaders, err);
+					}
+				}))
+			} else {
+				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", url, postHeaders, err);
+			}
+			
 			throw err;
 		})
 
-		
-		// let p = axios.post(url, fd, {
-		// 		...getAxiosOptions(url),
-		// 		headers: postHeaders,
-		// 		maxContentLength: Infinity,
-		// 		maxBodyLength: Infinity
-		// 	})
-		// 	.then((response) => {
-				
-		// 		return response.data;
-		// 	})
-		// 	.catch((err) => {
-		// 		if (err != null) {
-		// 			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, postHeaders, err);
-		// 			if (err.response != null) {
-		// 				if (err.response.data != null)
-		// 					throw err.response.data;
-		// 				throw err;
-		// 			}
-		// 			throw err;
-		// 		}
-		// 		else global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", "Internal error in Axios?");
-		// 	});
 		return cassPromisify(p, successCallback, failureCallback);
 	}
 	/**
@@ -234,33 +215,49 @@ module.exports = class EcRemote {
 	static getExpectingString(server, service, success, failure) {
 		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
-		let p = fetch(url).then((response) => {
-			console.log('response: ', response.url);
-			//global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", response.request.socket ? response.request.socket.remoteAddress : '', url);
-			return response.json();
-		}).catch((err) => {
-			console.log('fetch err 2: ', err);
-			console.log(err.response);
-			global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, err);
+		let p = fetch(url).then(async (response) => {
+			const contentType = response.headers.get("content-type");
+			let result = null;
+			if (contentType && contentType.indexOf("application/json") !== -1) {
+				result = await response.json();
+			} else {
+				result = await response.text();
+				try{
+					result = JSON.parse(result);
+				}
+				catch(ex) {
+					// Text is not json
+				}
+			}
+			if (isNode) {
+				dns.lookup(new URL(url).hostname, ((error, address) => {
+					if (error) {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, error);
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", url);
+					} else {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", address, url);
+					}
+				}))
+			} else {
+				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", url);
+			}
+			return result;
+	   }).catch((err) => {
+			if (isNode) {
+				dns.lookup(new URL(url).hostname, ((error, address) => {
+					if (error) {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, error);
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", url, err);
+					} else {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", address, url, err);
+					}
+				}))
+			} else {
+				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", url, err);
+			}
 			throw err;
 		})
-		// let p = axios
-		// 	.get(url,getAxiosOptions(url))
-		// 	.then((response) => {
-		// 		global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteGetExpectString", response.request.socket ? response.request.socket.remoteAddress : '', url);
-		// 		return response.data;
-		// 	})
-		// 	.catch((err) => {
-		// 		global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteGetExpectString", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, err);
-		// 		if (err) {
-		// 			if (err.response) {
-		// 				if (err.response.data)
-		// 					throw err.response.data;
-		// 			}
-		// 			throw err.response;
-		// 		}
-		// 		throw err;
-		// 	});
+
 		return cassPromisify(p, success, failure);
 	}
 	static urlAppend(server, service) {
@@ -288,25 +285,40 @@ module.exports = class EcRemote {
 	 */
 	static _delete(url, signatureSheet, success, failure) {
 		url = EcRemote.upgradeHttpToHttps(url);
-		let p = axios
-			.delete(url, {
-				...getAxiosOptions(url),
-				headers: { signatureSheet: signatureSheet }
-			})
-			.then((response) => {
-				return response.data;
-			})
-			.catch((err) => {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteDelete", err && err.response && err.response.request && err.response.request.socket ? err.response.request.socket.remoteAddress : '', url, signatureSheet, err);
-				if (err) {
-					if (err.response) {
-						if (err.response.data)
-							throw err.response.data;
-					}
-					throw err.response;
+
+		let p = fetch(url, {
+			method: 'DELETE',
+			headers: { signatureSheet: signatureSheet }
+		}).then(async (response) => {
+			const contentType = response.headers.get("content-type");
+			let result = null;
+			if (contentType && contentType.indexOf("application/json") !== -1) {
+				result = await response.json();
+			} else {
+				result = await response.text();
+				try{
+					result = JSON.parse(result);
 				}
-				throw err;
-			});
+				catch(ex) {
+					// Text is not json
+				}
+			}		
+			return result;
+		}).catch((err) => {
+			if (isNode) {
+				dns.lookup(new URL(url).hostname, ((error, address) => {
+					if (error) {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, signatureSheet, error);
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemoteDelete", url, signatureSheet, err);
+					} else {
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteDelete", address, url, signatureSheet, err);
+					}
+				}))
+			} else {
+				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.INFO, "EcRemoteDelete", url, signatureSheet, err);
+			}
+			throw err;
+		})
 		return cassPromisify(p, success, failure);
 	}
 	static upgradeHttpToHttps(url) {

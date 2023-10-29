@@ -1,8 +1,5 @@
-const envHttp2 = process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true;
-if (!envHttp2)
-{
-    global.axios = require("axios"); //Pre-empt http2 use.
-}
+
+
 const EcRemote = require("../remote/EcRemote.js");
 let EcFrameworkGraph = require("./EcFrameworkGraph.js");
 const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
@@ -35,17 +32,8 @@ let assert = chai.assert;
 after(()=>EcRsaOaepAsyncWorker.teardown());
 
 let deleteById = async function (id) {
-    await EcRepository.get(
-        id,
-        function (p1) {
-            EcRepository._delete(p1, null, function (p1) {
-                console.log(p1);
-            });
-        },
-        function (p1) {
-            console.log(p1);
-        }
-    );
+    let p1 = await EcRepository.get(id);
+    await EcRepository._delete(p1);
 };
 let failure = function (p1) {
     console.trace(p1);

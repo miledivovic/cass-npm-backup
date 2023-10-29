@@ -1,3 +1,8 @@
+if (typeof process !== 'undefined' && process.version.startsWith("v16"))
+{
+	console.log("Loading polyfill for FormData.");
+	FormData = eval("require('undici').FormData");
+}
 const EcObject = require("../../../../com/eduworks/ec/array/EcObject");
 const EcEncryptedValue = require("./EcEncryptedValue");
 const EcIdentityManager = require("../identity/EcIdentityManager");
@@ -1141,6 +1146,7 @@ module.exports = class EcRepository {
 				if (results == null) {
 					throw "Error in search. See HTTP request for more details.";
 				}
+				console.log(results,originalQuery);
 				results = results
 					.map((result) => {
 						let d = new EcRemoteLinkedData(null, null);

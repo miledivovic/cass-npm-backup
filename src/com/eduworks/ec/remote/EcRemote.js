@@ -1,5 +1,7 @@
 require("../../../../org/cassproject/general/AuditLogger.js");
 
+let DEBUG = false;
+
 let isNode = false;    
 if (typeof process === 'object') {
   if (typeof process.versions === 'object') {
@@ -10,7 +12,7 @@ if (typeof process === 'object') {
 }
 if (isNode)
 {	
-	var {setGlobalDispatcher,Agent,fetch} = require('undici');
+	var {setGlobalDispatcher,Agent,fetch} = eval("require('undici')");
 	setGlobalDispatcher(new Agent({
 		allowH2: process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true
 	}))
@@ -19,7 +21,7 @@ if (isNode)
 if (isNode)
 {
 	try{
-		const dns = require('node:dns');
+		var dns = require('node:dns');
 		if (dns && dns.setDefaultResultOrder)
 		{
 			//Support for Node 18 using Docker containers with a network that doesn't support ipv6 loopback.
@@ -27,6 +29,7 @@ if (isNode)
 		}
 	} 
 	catch(ex){
+		console.log(ex);
 	}
 }
 
@@ -136,6 +139,8 @@ module.exports = class EcRemote {
 		successCallback,
 		failureCallback
 	) {
+		if (DEBUG)
+			console.log("POST " + server + "" + (service || "") + " " + headers + fd);
 		let url = server;
 		if (!url.endsWith("/") && service != null && !("" == service)) {
 			url += "/";
@@ -165,7 +170,7 @@ module.exports = class EcRemote {
 			}		
 			return result;
 		}).catch((err) => {
-			if (isNode) {
+			if (isNode && typeof dns !== 'undefined') {
 				dns.lookup(new URL(url).hostname, ((error, address) => {
 					if (error) {
 						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, error);
@@ -213,6 +218,8 @@ module.exports = class EcRemote {
 	 *  @static
 	 */
 	static getExpectingString(server, service, success, failure) {
+		if (DEBUG)
+			console.log("GET " + server + "" + (service || ""));
 		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = fetch(url).then(async (response) => {
@@ -229,7 +236,7 @@ module.exports = class EcRemote {
 					// Text is not json
 				}
 			}
-			if (isNode) {
+			if (isNode && typeof dns !== 'undefined') {
 				dns.lookup(new URL(url).hostname, ((error, address) => {
 					if (error) {
 						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, error);
@@ -243,7 +250,7 @@ module.exports = class EcRemote {
 			}
 			return result;
 	   }).catch((err) => {
-			if (isNode) {
+			if (isNode && typeof dns !== 'undefined') {
 				dns.lookup(new URL(url).hostname, ((error, address) => {
 					if (error) {
 						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, error);
@@ -284,6 +291,8 @@ module.exports = class EcRemote {
 	 *  @static
 	 */
 	static _delete(url, signatureSheet, success, failure) {
+		if (DEBUG)
+			console.log("DELETE " + url);
 		url = EcRemote.upgradeHttpToHttps(url);
 
 		let p = fetch(url, {
@@ -305,7 +314,7 @@ module.exports = class EcRemote {
 			}		
 			return result;
 		}).catch((err) => {
-			if (isNode) {
+			if (isNode && typeof dns !== 'undefined') {
 				dns.lookup(new URL(url).hostname, ((error, address) => {
 					if (error) {
 						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, signatureSheet, error);

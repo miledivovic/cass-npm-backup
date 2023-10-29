@@ -14,5 +14,5 @@ module.exports = defineConfig({
     },
     specPattern: 'src//**/*.test.js',
     supportFile: 'cypressWebpack/support',
-  },
+  }
 })

@@ -114,7 +114,6 @@
 		"pem-jwk": "^2.0.0",
 		"promise-worker": "^2.0.1",
 		"rdf-canonize": "^3.4.0",
-		"undici": "^5.27.0",
 		"web-worker": "^1.2.0"
 	},
 	"files": [
@@ -149,7 +148,7 @@
 		"chai": "^4.3.10",
 		"concurrently": "^8.2.2",
 		"convert-hrtime": "^5.0.0",
-		"cypress": "^13.3.2",
+		"cypress": "^13.3.3",
 		"eslint": "^8.52.0",
 		"mocha": "^10.2.0",
 		"node-polyfill-webpack-plugin": "^2.0.1",

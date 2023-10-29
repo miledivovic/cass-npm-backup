@@ -12,7 +12,7 @@ module.exports = {
     cassReturnAsPromise: function (o, success, failure, error) {
         let p = new Promise((resolve, reject) => {
             if (o === undefined || o == null) {
-                // console.trace(error);
+                //  console.trace(error);
                 reject(new Error(error));
             } else
                 resolve(o);

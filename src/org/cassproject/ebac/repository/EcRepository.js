@@ -1,4 +1,4 @@
-if (typeof process !== 'undefined' && process.version.startsWith("v16"))
+if (typeof process !== 'undefined' && process.version && process.version.startsWith("v16"))
 {
 	console.log("Loading polyfill for FormData.");
 	FormData = eval("require('undici').FormData");

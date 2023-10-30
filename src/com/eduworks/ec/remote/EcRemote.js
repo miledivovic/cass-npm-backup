@@ -16,6 +16,8 @@ if (isNode)
 	setGlobalDispatcher(new Agent({
 		allowH2: process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true
 	}))
+} else {
+	var fetch = global.fetch;
 }
 
 if (isNode)
@@ -155,6 +157,9 @@ module.exports = class EcRemote {
 			body: fd,
 			headers: headers || {},
 		}).then(async (response) => {
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
  			const contentType = response.headers.get("content-type");
 			let result = null;
 			if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -174,13 +179,13 @@ module.exports = class EcRemote {
 				dns.lookup(new URL(url).hostname, ((error, address) => {
 					if (error) {
 						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "DNSLookup", url, error);
-						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", url, postHeaders, err);
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", url, headers, err);
 					} else {
-						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", address, url, postHeaders, err);
+						global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", address, url, headers, err);
 					}
 				}))
 			} else {
-				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", url, postHeaders, err);
+				global.auditLogger.report(global.auditLogger.LogCategory.NETWORK, global.auditLogger.Severity.ERROR, "EcRemotePostInner", url, headers, err);
 			}
 			
 			throw err;
@@ -223,6 +228,9 @@ module.exports = class EcRemote {
 		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = fetch(url).then(async (response) => {
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
 			const contentType = response.headers.get("content-type");
 			let result = null;
 			if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -299,6 +307,9 @@ module.exports = class EcRemote {
 			method: 'DELETE',
 			headers: { signatureSheet: signatureSheet }
 		}).then(async (response) => {
+			if (!response.ok) {
+				throw new Error(response.statusText);
+			}
 			const contentType = response.headers.get("content-type");
 			let result = null;
 			if (contentType && contentType.indexOf("application/json") !== -1) {

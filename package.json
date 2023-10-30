@@ -77,7 +77,7 @@
 		"webpack:cypress": "cypress run --config-file cypressWebpack.config.js --headless --browser chrome",
 		"webpack:cypressHttps": "cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.config.js --headless --browser chrome",
 		"webpack:cypressEdge": "cypress run --config-file cypressWebpack.config.js --headless --browser edge",
-		"webpack:cypressEdgeHttps": "cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.config.js --headless --browser edge"
+		"webpack:cypressEdgeHttps": "cypress run -e CASS_LOOPBACK=https://localhost/api/ --config-file cypressWebpack.config.js --browser edge"
 	},
 	"contributors": [
 		{

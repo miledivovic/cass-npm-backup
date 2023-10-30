@@ -12,13 +12,18 @@ if (typeof process === 'object') {
 }
 if (isNode)
 {	
-	var {setGlobalDispatcher,Agent,fetch} = eval("require('undici')");
-	setGlobalDispatcher(new Agent({
-		allowH2: process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true
-	}))
-} else {
-	var fetch = global.fetch;
+	let undici = eval("require('undici');");
+	if (undici != null)
+	{
+		console.log(undici);
+		var {setGlobalDispatcher,Agent,fetch} = undici;
+		setGlobalDispatcher(new Agent({
+			allowH2: process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true
+		}))
+	}
 }
+if (typeof window !== 'undefined' && window.fetch != null)
+	var fetch = window.fetch;
 
 if (isNode)
 {

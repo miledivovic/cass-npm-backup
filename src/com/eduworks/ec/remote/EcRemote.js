@@ -15,7 +15,6 @@ if (isNode)
 	let undici = eval("require('undici');");
 	if (undici != null)
 	{
-		console.log(undici);
 		var {setGlobalDispatcher,Agent,fetch} = undici;
 		setGlobalDispatcher(new Agent({
 			allowH2: process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true

@@ -1146,7 +1146,6 @@ module.exports = class EcRepository {
 				if (results == null) {
 					throw "Error in search. See HTTP request for more details.";
 				}
-				console.log(results,originalQuery);
 				results = results
 					.map((result) => {
 						let d = new EcRemoteLinkedData(null, null);

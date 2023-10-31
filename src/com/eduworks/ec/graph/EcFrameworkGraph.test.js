@@ -1,5 +1,3 @@
-
-
 const EcRemote = require("../remote/EcRemote.js");
 let EcFrameworkGraph = require("./EcFrameworkGraph.js");
 const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
@@ -33,7 +31,8 @@ after(()=>EcRsaOaepAsyncWorker.teardown());
 
 let deleteById = async function (id) {
     let p1 = await EcRepository.get(id);
-    await EcRepository._delete(p1);
+    if (p1 != null)
+        await EcRepository._delete(p1);
 };
 let failure = function (p1) {
     console.trace(p1);

@@ -39,7 +39,7 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * Increment version number in package.json and yuidoc.json.
  * Update changelog.
  * `npm install`
- * `npm audit --production` and fix any audit issues.
+ * `npm audit` and fix any audit issues.
  * `npm test` - Must not fail any tests.
  * Document code coverage output by the previous step.
  * Commit changes to GitHub.
@@ -47,6 +47,12 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.39
+* Removed axios due to incompatibility with http2 and security findings.
+* Now uses fetch for http/s traffic.
+* To use fetch with http2 compatibility or on node 16, `npm install undici` (node's native fetch library, but with more features)
+* Started investigating node 21 compatibility.
 
 ## 1.5.38
 * Fixed issue with CTDL-ASN import.

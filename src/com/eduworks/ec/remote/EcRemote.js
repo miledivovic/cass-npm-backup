@@ -157,9 +157,7 @@ module.exports = class EcRemote {
 			body: fd,
 			headers: headers || {},
 		}).then(async (response) => {
-			if (!response.ok) {
-				throw new Error(response.statusText);
-			}
+			
  			const contentType = response.headers.get("content-type");
 			let result = null;
 			if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -172,7 +170,13 @@ module.exports = class EcRemote {
 				catch(ex) {
 					// Text is not json
 				}
-			}		
+			}
+			if (!response.ok) {
+				if (result)
+					throw new Error(result);
+				else
+					throw new Error(response.statusText);
+			}
 			return result;
 		}).catch((err) => {
 			if (isNode && typeof dns !== 'undefined') {
@@ -228,9 +232,7 @@ module.exports = class EcRemote {
 		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
 		let p = fetch(url).then(async (response) => {
-			if (!response.ok) {
-				throw new Error(response.statusText);
-			}
+			
 			const contentType = response.headers.get("content-type");
 			let result = null;
 			if (contentType && contentType.indexOf("application/json") !== -1) {
@@ -243,6 +245,12 @@ module.exports = class EcRemote {
 				catch(ex) {
 					// Text is not json
 				}
+			}
+			if (!response.ok) {
+				if (result)
+					throw new Error(result);
+				else
+					throw new Error(response.statusText);
 			}
 			if (isNode && typeof dns !== 'undefined') {
 				dns.lookup(new URL(url).hostname, ((error, address) => {

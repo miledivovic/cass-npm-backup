@@ -1,6 +1,6 @@
 {
 	"name": "cassproject",
-	"version": "1.5.39",
+	"version": "1.5.40",
 	"description": "Competency and Skills Service",
 	"main": "index.js",
 	"scripts": {
@@ -148,7 +148,7 @@
 		"chai": "^4.3.10",
 		"concurrently": "^8.2.2",
 		"convert-hrtime": "^5.0.0",
-		"cypress": "^13.3.3",
+		"cypress": "^13.4.0",
 		"eslint": "^8.52.0",
 		"mocha": "^10.2.0",
 		"node-polyfill-webpack-plugin": "^2.0.1",

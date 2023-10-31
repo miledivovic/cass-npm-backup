@@ -48,6 +48,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.40
+* Fixed an issue found in downstream unit tests.
+
 ## 1.5.39
 * Removed axios due to incompatibility with http2 and security findings.
 * Now uses fetch for http/s traffic.

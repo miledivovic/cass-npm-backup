@@ -113,6 +113,10 @@ module.exports = class CTDLASNCSVConceptImport {
 							"https://schema.cassproject.org/0.4/jsonld1.1/ceasn2cassConcepts.json",
 							"https://schema.cassproject.org/0.4/skos"
 						);
+						if (e["ceterms:AgentSector"] != null) {
+							e["https://purl.org/ctdl/terms/AgentSector"] = e["ceterms:AgentSector"];
+							delete e["ceterms:AgentSector"];
+						}
 						e.type = "ConceptScheme";
 						let f = new EcConceptScheme();
 						f.copyFrom(e);

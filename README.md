@@ -48,6 +48,11 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.41
+* Updates to CEASN Concept Scheme import
+* Updated libraries
+* Failing to log an error message now logs an error message.
+
 ## 1.5.40
 * Fixed an issue found in downstream unit tests.
 

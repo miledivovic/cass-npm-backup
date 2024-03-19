@@ -31,7 +31,7 @@ module.exports = (on, config) => {
         },
         resolve: {
             fallback: {
-                "fs": false
+              "fs": false,
             },
         }
       }

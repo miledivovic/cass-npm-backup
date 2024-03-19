@@ -30,7 +30,7 @@ module.exports = class EcAesCtrAsyncWorker {
 	 */
 	static encrypt(plaintext, secret, iv, success, failure) {
 		EcRsaOaepAsyncWorker.initWorker();
-		if (!EcAesCtrAsyncWorker.w == null) {
+		if (!EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
 			return cassReturnAsPromise(
 				EcAesCtr.encrypt(plaintext, secret, iv),
 				success,
@@ -69,7 +69,7 @@ module.exports = class EcAesCtrAsyncWorker {
 			}
 		}
 		EcRsaOaepAsyncWorker.initWorker();
-		if (!EcRsaOaepAsyncWorker.w == null) {
+		if (!EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
 			return cassReturnAsPromise(
 				EcAesCtr.decrypt(ciphertext, secret, iv),
 				success,

@@ -9,6 +9,7 @@ let forge = require("node-forge");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
 let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 require("../../../../org/cassproject/general/AuditLogger.js");
+let EcRsaOaep = require("./EcRsaOaep.js")
 
 /**
  *  Asynchronous implementation of {{#crossLink
@@ -52,7 +53,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
 			try {
 				wkr = new Worker(path.resolve(__dirname, 'forgeAsync.js'));
-				wkr.onerror = function(event) {
+				wkr.onerror = function (event) {
 					wkr = null;
 					global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", event);
 					wkr = new Worker(path.resolve(__dirname, 'cass-editor/forgeAsync.js'));
@@ -85,7 +86,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	static encrypt(pk, plaintext, success, failure) {
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null) {
+			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
 					resolve(EcRsaOaep.encrypt(pk, plaintext));
 				});
@@ -124,7 +125,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		}
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null) {
+			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
 					resolve(EcRsaOaep.decrypt(ppk, ciphertext));
 				});
@@ -164,7 +165,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	static sign(ppk, text, success, failure) {
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null) {
+			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
 					resolve(EcRsaOaep.sign(ppk, text));
 				});
@@ -195,7 +196,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	static signSha256 = function (ppk, text, success, failure) {
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null) {
+			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
 					resolve(EcRsaOaep.signSha256(ppk, text));
 				});
@@ -226,7 +227,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	 */
 	static verify(pk, text, signature, success, failure) {
 		this.initWorker();
-		if (this.w == null) {
+		if (this.w == null || this.w[this.rotator] == null) {
 			let p = new Promise((resolve, reject) => {
 				resolve(EcRsaOaep.verify(pk, text, signature));
 			});
@@ -258,7 +259,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 	 */
 	static verifySha256(pk, text, signature, success, failure) {
 		this.initWorker();
-		if (this.w == null) {
+		if (this.w == null || this.w[this.rotator] == null) {
 			let p = new Promise((resolve, reject) => {
 				resolve(EcRsaOaep.verify(pk, text, signature));
 			});

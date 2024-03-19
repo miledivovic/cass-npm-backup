@@ -1,4 +1,4 @@
-FROM cypress/included:10.8.0
+FROM cypress/included:13.7.0
 
 WORKDIR code
 COPY package.json package.json
@@ -13,4 +13,4 @@ COPY cypressWebpack cypressWebpack
 COPY cypressBrowserify cypressBrowserify
 COPY cypressWebpack.config.js cypressWebpack.config.js
 COPY cypressBrowserify.config.js cypressBrowserify.config.js
-ENTRYPOINT cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser edge && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser chrome && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser firefox && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js
+ENTRYPOINT cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser edge && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js --browser chrome && cypress run -e CASS_LOOPBACK=https://host.docker.internal/api/ --config-file cypressWebpack.config.js

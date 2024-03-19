@@ -41,12 +41,17 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
  * `npm install`
  * `npm audit` and fix any audit issues.
  * `npm test` - Must not fail any tests.
+ * `npm run webpack:cypressFirefoxHttps` See if the firefox test case has changed.
  * Document code coverage output by the previous step.
  * Commit changes to GitHub.
  * Tag release with semantic version from package.json, push tag.
  * `npm publish` (must be `npm login`ed) 
 
 # Changelog
+
+## 1.5.45
+* Fixed an issue with caching registered data.
+* Updated libraries
 
 ## 1.5.41
 * Updates to CEASN Concept Scheme import

@@ -316,6 +316,7 @@ global.jsonld = require("jsonld");
 		} else {
 			delete d["signature"];
 			delete d["@signature"];
+			delete d["signatureSha256"];
 			delete d["@signatureSha256"];
 			delete d["@id"];
 		}

@@ -243,7 +243,22 @@ module.exports = class EcRepository {
 				});
 			}
 		}
-
+		if (EcRepository.caching) {
+			if (EcRepository.cache[url] !== undefined) {
+				if (EcRepository.cache[url] === null) {
+					return cassReturnNullAsPromise(
+						success,
+						failure
+					);
+				} else {
+					return cassReturnAsPromise(
+						EcRepository.cache[originalUrl],
+						success,
+						failure
+					);
+				}
+			}
+		}
 		let finalUrl = url;
 		let p = null;
 		if (this.unsigned) {
@@ -357,6 +372,8 @@ module.exports = class EcRepository {
 		}
 		if (this.caching) {
 			this.cache[finalUrl] = d;
+			if (originalUrl != null && originalUrl != finalUrl)
+				this.cache[originalUrl] = d;
 			if (d.id != null) this.cache[d.id] = d;
 		}
 		return cassReturnAsPromise(d, success, failure).then(defaultFunc);

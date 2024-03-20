@@ -56,26 +56,67 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 			null,
 			null,
 			this.eim
-			).then(async (data) => {
-				await Promise.all(
-					data.map((d) => this.handleCacheElement(d, framework))
-				);
-				await repo.multiget(
-					framework.relation,
-					async (data2) => {
-						await Promise.all(
-							data2.map((d2) =>
-								this.handleCacheElement(d2, framework)
-							)
-						);
-						success();
-					},
-					failure, this.eim
-				);
-			}).catch((err) => {
-				if (failure != null) 
-					failure(err);
-			});
+		).then(async (data) => {
+			await Promise.all(
+				data.map((d) => this.handleCacheElement(d, framework))
+			);
+			await repo.multiget(
+				framework.relation,
+				async (data2) => {
+					await Promise.all(
+						data2.map((d2) =>
+							this.handleCacheElement(d2, framework)
+						)
+					);
+					success();
+				},
+				failure, this.eim
+			);
+		}).catch((err) => {
+			if (failure != null)
+				failure(err);
+		});
+	}
+	/**
+	 *  Adds a framework to the graph with only bulk operations, and creates the edges to connect the competencies in the framework.
+	 *
+	 *  @param {EcFramework}     framework Framework to add to the graph.
+	 *  @param {EcRepository}    repo Repository to fetch data from that exists in the framework.
+	 *  @param {function()}      success Method to invoke when done adding the framework.
+	 *  @param {function(error)} failure Method to invoke when things go badly.
+	 *  @method addFrameworkSoft
+	 *  @memberOf EcFrameworkGraph
+	 */
+	async addFrameworkSoft(framework, repo, success, failure) {
+		this.repo = repo;
+		this.frameworks.push(framework);
+		if (framework.competency == null) framework.competency = [];
+		if (framework.relation == null) framework.relation = [];
+		await repo.precache(
+			framework.competency,
+			null,
+			null,
+			this.eim
+		).then(async (data) => {
+			await Promise.all(
+				data.map((d) => this.handleCacheElement(d, framework))
+			);
+			await repo.precache(
+				framework.relation,
+				async (data2) => {
+					await Promise.all(
+						data2.map((d2) =>
+							this.handleCacheElement(d2, framework)
+						)
+					);
+					success();
+				},
+				failure, this.eim
+			);
+		}).catch((err) => {
+			if (failure != null)
+				failure(err);
+		});
 	}
 	async handleCacheElement(d, framework) {
 		if (d.isAny(new EcEncryptedValue().getTypes()))

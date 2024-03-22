@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.47
+* Fixed bug with EcRepository.get and registered data.
+
 ## 1.5.46
 * Added addFrameworkSoft to EcFrameworkGraph -- works better with large, poor frameworks.
 

@@ -199,7 +199,7 @@ module.exports = class EcRepository {
 					);
 				} else {
 					return cassReturnAsPromise(
-						EcRepository.cache[originalUrl],
+						EcRepository.cache[url],
 						success,
 						failure
 					);
@@ -252,7 +252,7 @@ module.exports = class EcRepository {
 					);
 				} else {
 					return cassReturnAsPromise(
-						EcRepository.cache[originalUrl],
+						EcRepository.cache[url],
 						success,
 						failure
 					);

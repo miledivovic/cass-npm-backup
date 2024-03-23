@@ -978,12 +978,12 @@ module.exports = class EcRepository {
 	 *  @method precache
 	 */
 	precache = function (urls, success, failure, eim) {
-		let originals = [...urls];
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (urls == null) {
 			throw new Error("urls not defined.");
 		}
+		let originals = [...urls];
 		if (EcRepository.caching == true)
 			urls = urls.filter(url => EcRepository.cache[url] === undefined);
 		urls = urls.map(
@@ -996,7 +996,7 @@ module.exports = class EcRepository {
 		if (EcRepository.caching == true)
 			urls = urls.filter(url => EcRepository.cache[url] === undefined);
 		if (urls.length == 0) {
-			return new Promise((resolve, reject) => resolve());
+			return new Promise((resolve, reject) => resolve()).then(()=>originals.map(url=>EcRepository.cache[url]).filter(x=>x));
 		}
 		let fd = new FormData();
 		fd.append("data", JSON.stringify(urls));

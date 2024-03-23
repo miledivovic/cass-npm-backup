@@ -49,6 +49,12 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.49
+* Fixed bug in precache.
+
+## 1.5.48
+* EcRepository.precache now returns all urls it can, regardless of whether they were fetched from the server.
+
 ## 1.5.47
 * Fixed bug with EcRepository.get and registered data.
 

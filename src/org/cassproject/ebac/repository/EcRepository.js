@@ -978,6 +978,7 @@ module.exports = class EcRepository {
 	 *  @method precache
 	 */
 	precache = function (urls, success, failure, eim) {
+		let originals = [...urls];
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (urls == null) {
@@ -1035,7 +1036,7 @@ module.exports = class EcRepository {
 						] = d;
 					}
 				}
-				return results;
+				return originals.map(url=>EcRepository.cache[url]).filter(x=>x);
 			});
 		return cassPromisify(p, success, failure);
 	};

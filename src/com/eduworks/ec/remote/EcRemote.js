@@ -50,6 +50,12 @@ const { cassPromisify } = require("../promises/helpers");
  *  @module com.eduworks.ec
  */
 module.exports = class EcRemote {
+	//See https://github.com/nodejs/node/issues/47130 -- This is a workaround for a bug that causes http 1.1 keep-alive from throwing an error.
+	static leTired() {
+		if (isNode)
+			return new Promise(resolve => setTimeout(resolve, 1));
+		return new Promise(resolve => resolve());
+	}
 	static set async(value) {
 		console.trace(
 			"DISCONTINUED: Instead of setting EcRemote.async, please use await."
@@ -156,11 +162,12 @@ module.exports = class EcRemote {
 		}
 		url = EcRemote.upgradeHttpToHttps(url);
 		
-		let p = fetch(url, {
+		let p = EcRemote.leTired().then(()=>
+		fetch(url, {
 			method: 'POST',
 			body: fd,
 			headers: headers || {},
-		}).then(async (response) => {
+		})).then(async (response) => {
 			
  			const contentType = response.headers.get("content-type");
 			let result = null;
@@ -235,7 +242,7 @@ module.exports = class EcRemote {
 			console.log("GET " + server + "" + (service || ""));
 		let url = EcRemote.urlAppend(server, service);
 		url = EcRemote.upgradeHttpToHttps(url);
-		let p = fetch(url).then(async (response) => {
+		let p = EcRemote.leTired().then(() => fetch(url)).then(async (response) => {
 			
 			const contentType = response.headers.get("content-type");
 			let result = null;
@@ -315,10 +322,10 @@ module.exports = class EcRemote {
 			console.log("DELETE " + url);
 		url = EcRemote.upgradeHttpToHttps(url);
 
-		let p = fetch(url, {
+		let p = EcRemote.leTired().then(() => fetch(url, {
 			method: 'DELETE',
 			headers: { signatureSheet: signatureSheet }
-		}).then(async (response) => {
+		})).then(async (response) => {
 			if (!response.ok) {
 				throw new Error(response.statusText);
 			}

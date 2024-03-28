@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.51
+* Fixed bug in node causing EPIPE and ENOTFOUND under heavy load.
+
 ## 1.5.49
 * Fixed bug in precache.
 

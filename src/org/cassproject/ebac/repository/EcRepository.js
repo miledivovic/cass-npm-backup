@@ -844,7 +844,7 @@ module.exports = class EcRepository {
 				data.owner,
 				60000 + offset,
 				data.id,
-				null, null, repo != null ? repo.signatureSheetHashAlgorithm : null
+				null, null, this != null ? this.signatureSheetHashAlgorithm : null
 			).then((signatureSheet) => {
 				return EcRemote._delete(
 					targetUrl,

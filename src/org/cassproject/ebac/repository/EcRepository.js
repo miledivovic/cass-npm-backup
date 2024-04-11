@@ -996,7 +996,7 @@ module.exports = class EcRepository {
 		if (EcRepository.caching == true)
 			urls = urls.filter(url => EcRepository.cache[url] === undefined);
 		if (urls.length == 0) {
-			return new Promise((resolve, reject) => resolve()).then(()=>originals.map(url=>EcRepository.cache[url]).filter(x=>x));
+			return cassPromisify(originals.map(url => EcRepository.cache[url]).filter(x => x), success, failure);
 		}
 		let fd = new FormData();
 		fd.append("data", JSON.stringify(urls));

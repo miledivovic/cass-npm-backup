@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.53
+* EcRepository precache no longer fails to invoke success/failure on precache with cached values.
+
 ## 1.5.52
 * Fixed bug in EcRepository.deleteRegistered with owned objects -- ReferenceError.
 

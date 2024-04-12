@@ -1036,7 +1036,7 @@ module.exports = class EcRepository {
 						] = d;
 					}
 				}
-				return originals.map(url=>EcRepository.cache[url]).filter(x=>x);
+				return cassPromisify(originals.map(url=>EcRepository.cache[url]).filter(x=>x), success, failure);
 			});
 		return cassPromisify(p, success, failure);
 	};

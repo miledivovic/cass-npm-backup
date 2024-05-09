@@ -252,7 +252,7 @@ module.exports = class CTDLASNCSVImport {
 							for (let i = val.length-1; i >=0; i--) {
 								if (!val[i].startsWith('http')) {
 									if (val[i] === "Deprecated" || val[i] === "Published" || val[i] === "Draft" ) {
-										val[i] = "http://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
+										val[i] = "https://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
 									} else {
 										val.splice(i, 1);
 									}
@@ -451,7 +451,7 @@ module.exports = class CTDLASNCSVImport {
 							for (let i = val.length-1; i >=0; i--) {
 								if (!val[i].startsWith('http')) {
 									if (val[i] === "Deprecated" || val[i] === "Published" || val[i] === "Draft" ) {
-										val[i] = "http://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
+										val[i] = "https://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
 									} else {
 										val.splice(i, 1);
 									}
@@ -807,7 +807,7 @@ module.exports = class CTDLASNCSVImport {
 							for (let i = val.length-1; i >=0; i--) {
 								if (!val[i].startsWith('http')) {
 									if (val[i] === "Deprecated" || val[i] === "Published" || val[i] === "Draft" ) {
-										val[i] = "http://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
+										val[i] = "https://credreg.net/ctdlasn/vocabs/publicationStatus/" + val[i];
 									} else {
 										val.splice(i, 1);
 									}

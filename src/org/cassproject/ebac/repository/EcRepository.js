@@ -1048,7 +1048,6 @@ module.exports = class EcRepository {
 						);
 						// Do not cache requested versioned urls as anything other than the versioned url
 						if (!versionedUrls[`${md5Id}/${timestamp}`] && !versionedUrls[d.id] && !versionedUrls[`${veryShortId}/${timestamp}`]) {
-							console.log('not versioned', d);
 							if (!d.shortId().startsWith(this.selectedServer))
 								EcRepository.cache[md5Id] = d;
 							EcRepository.cache[shortId] = d;

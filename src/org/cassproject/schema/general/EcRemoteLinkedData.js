@@ -150,14 +150,20 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *
 	 *  @param {string} server Base URL of the server's repository functionality.
 	 *  @param {string} uniqueIdentifier Canonical identifier. Must contain a letter or symbol.
+	 *  @param {string} version Optional version parameter
 	 *  @method assignId
 	 */
-	static veryShortId(server, uniqueIdentifier) {
+	static veryShortId(server, uniqueIdentifier, version) {
 		let id;
 		id = server;
 		if (!id.endsWith("/")) id += "/";
 		id += "data/";
+		// Double slash is intentional to make versioned url gets work
+		if (version)
+		 id += "/"
 		id += uniqueIdentifier;
+		if (version)
+			id += ("/" + version)
 		return id;
 	}
 	/**
@@ -431,7 +437,17 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getTimestamp
 	 */
 	getTimestamp() {
-		let timestamp = this.id.substring(this.id.lastIndexOf("/") + 1);
+		return EcRemoteLinkedData.getTimestampFromId(this.id);
+	}
+	/**
+	 *  Returns the timestamp of the id, if any.
+	 *
+	 *  @method getVersionFromUrl
+	 *  @static
+	 */
+	static getVersionFromUrl(id) {
+		if (!id) return null;
+		let timestamp = id.substring(id.lastIndexOf("/") + 1);
 		if (timestamp.match("^[0-9]+$")) {
 			return parseInt(timestamp);
 		} else {

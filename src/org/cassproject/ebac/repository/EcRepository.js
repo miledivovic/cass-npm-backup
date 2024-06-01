@@ -288,18 +288,23 @@ module.exports = class EcRepository {
 				}
 			}
 		}
+		let version = EcRemoteLinkedData.getVersionFromUrl(url);
+		let trimmedUrl = EcRemoteLinkedData.trimVersionFromUrl(url);
+		
 		if (!this.shouldTryUrl(url)) {
 			if (this.repos.length == 1) {
 				if (!url.startsWith(this.repos[0].selectedServer))
 					url = EcRemoteLinkedData.veryShortId(
 						this.repos[0].selectedServer,
-						EcCrypto.md5(url)
-					);
+						EcCrypto.md5(trimmedUrl),
+						version
+					)
 			} else if (repo !== undefined && repo !== null) {
 				if (!url.startsWith(repo.selectedServer))
 					url = EcRemoteLinkedData.veryShortId(
 						repo.selectedServer,
-						EcCrypto.md5(url)
+						EcCrypto.md5(trimmedUrl),
+						version
 					);
 			} else {
 				return this.find(
@@ -1073,11 +1078,17 @@ module.exports = class EcRepository {
 				if (await EcRepository.cacheGet(urls[i]) !== undefined)
 					urls.splice(i--,1);
 		}
+		let versionedUrls = {};
 		urls = urls.map(
 			url => {
+				let version = EcRemoteLinkedData.getVersionFromUrl(url);
+				if (version) {
+					versionedUrls[url] = true;
+				}
 				if (url.startsWith(this.selectedServer))
 					return url.replace(this.selectedServer, "").replace("custom/", "");
-				return "data/" + EcCrypto.md5(url);
+				// This double slash is intentional to support parsing the versioned url
+				return "data//" + EcCrypto.md5(EcRemoteLinkedData.trimVersionFromUrl(url)) + (version != null ? ("/" + version) : "");
 			}
 		);
 		if (EcRepository.caching == true) {
@@ -1088,6 +1099,7 @@ module.exports = class EcRepository {
 		if (urls.length == 0) {
 			return cassPromisify(new Promise((resolve, reject) => {resolve(Promise.all(originals.map(url => EcRepository.cacheGet(url))).then(c=>c.filter(x => x)))}), success, failure);
 		}
+
 		let fd = new FormData();
 		fd.append("data", JSON.stringify(urls));
 		if (EcRepository.cachingL2 && skipIds != true)
@@ -1122,16 +1134,21 @@ module.exports = class EcRepository {
 					d.copyFrom(results[i]);
 					results[i] = d;
 					if (EcRepository.caching) {
-						if (!d.shortId().startsWith(this.selectedServer))
-							EcRepository.cache[this.selectedServer + "data/" + EcCrypto.md5(d.shortId())] = d;
-						EcRepository.cache[d.shortId()] = d;
+						let timestamp = d.getTimestamp();
+						let md5Id = this.selectedServer + "data/" + EcCrypto.md5(d.shortId());
+						let shortId = d.shortId();
+						let veryShortId = EcRemoteLinkedData.veryShortId(
+							this.selectedServer,
+							d.getGuid()
+						);
+						// Do not cache requested versioned urls as anything other than the versioned url
+						if (!versionedUrls[`${md5Id}/${timestamp}`] && !versionedUrls[d.id] && !versionedUrls[`${veryShortId}/${timestamp}`]) {
+							if (!d.shortId().startsWith(this.selectedServer))
+								EcRepository.cache[md5Id] = d;
+							EcRepository.cache[shortId] = d;
+							EcRepository.cache[veryShortId] = d;
+						}
 						EcRepository.cache[d.id] = d;
-						EcRepository.cache[
-							EcRemoteLinkedData.veryShortId(
-								this.selectedServer,
-								d.getGuid()
-							)
-						] = d;
 					}
 				}
 				return cassPromisify(new Promise((resolve, reject) => { resolve(Promise.all(originals.map(url => EcRepository.cacheGet(url))).then(c => c.filter(x => x))) }), success, failure);

@@ -26,14 +26,95 @@ require("../../general/AuditLogger.js")
  *  @class EcRepository
  */
 module.exports = class EcRepository {
+	static LONGIDS = "longIds";
+	static static() {
+		EcRepository.cacheDBHandle = typeof window !== 'undefined' ? window?.indexedDB?.open("EcRepositoryCache", 3) : null;
+		if (EcRepository.cacheDBHandle != null)
+		{
+			EcRepository.cacheDBHandle.onerror = (event) => {
+				console.error(event);
+			};
+			EcRepository.cacheDBHandle.onsuccess = (event) => {
+				EcRepository.cacheDB = event.target.result;
+			};
+			EcRepository.cacheDBHandle.onupgradeneeded = (event) => {
+				console.log(event);
+				for (let version = event.oldVersion;version <= event.newVersion;version++)
+				{
+					if (version == 3)
+					{
+						const objectStore = event.target.result.createObjectStore(EcRepository.LONGIDS, { keyPath: "id" });
+
+						// Use transaction oncomplete to make sure the objectStore creation is
+						// finished before adding data into it.
+						objectStore.transaction.oncomplete = (event) => {
+							EcRepository.cacheDB = event.target.result;
+						};
+					}
+				}
+			};
+		}
+	}
 	constructor() {
 		this.constructor.repos.push(this);
 	}
 	static caching = false;
+	static cachingL2 = false;
 	static cachingSearch = false;
 	static unsigned = false;
 	static alwaysTryUrl = false;
-	static cache = {};
+	static cacheDBHandle = null;
+	static cacheDB = null;
+	static cacheGet = async (prop) => {
+		if (EcRepository.cachingL2 == false)
+			return EcRepository.cache[prop];
+		if (EcRepository.cacheDB == null)
+			return EcRepository.cache[prop];
+		if (EcRemoteLinkedData.trimVersionFromUrl(prop) == prop)
+			return EcRepository.cache[prop];
+		return new Promise(function (resolve, reject) {
+			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
+			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
+			const request = objectStore.get(prop);
+			request.onerror = function (event) {
+				resolve(EcRepository.cache[prop]);
+			};
+			request.onsuccess = function (event) {
+				if (request.result != null)
+					resolve(new EcRemoteLinkedData().copyFrom(request.result));
+				resolve(EcRepository.cache[prop]);
+			};
+		})
+	}
+	static cache = new Proxy({},{
+		get: function(target,prop){
+			return Reflect.get(...arguments);
+		},
+		set: function (target, prop, value) {
+			if (EcRepository.cachingL2 == false)
+				return Reflect.set(...arguments);
+			if (EcRepository.cacheDB == null)
+				return Reflect.set(...arguments);
+			if (EcRemoteLinkedData.trimVersionFromUrl(prop) == prop)
+				return Reflect.set(...arguments);
+			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readwrite");
+			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
+			if (value instanceof EcRemoteLinkedData)
+				objectStore.add(value);
+			return value;
+		},
+		deleteProperty: function (target, prop) {
+			if (EcRepository.cachingL2 == false)
+				return Reflect.deleteProperty(...arguments);
+			if (EcRepository.cacheDB == null)
+				return Reflect.deleteProperty(...arguments);
+			if (EcRemoteLinkedData.trimVersionFromUrl(prop) == prop)
+				return Reflect.deleteProperty(...arguments);
+			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readwrite");
+			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
+			objectStore.delete(prop);
+		}
+	});
 	static fetching = {};
 	static repos = [];
 	static defaultPlugins = [];
@@ -175,7 +256,7 @@ module.exports = class EcRepository {
 	 *  @method get
 	 *  @static
 	 */
-	static get(url, success, failure, repo, eim) {
+	static async get(url, success, failure, repo, eim) {
 		if (url == null) {
 			throw "URL is null. Cannot EcRepository.get";
 		}
@@ -191,15 +272,16 @@ module.exports = class EcRepository {
 		}
 		let originalUrl = url;
 		if (EcRepository.caching) {
-			if (EcRepository.cache[url] !== undefined) {
-				if (EcRepository.cache[url] === null) {
+			let cached = await EcRepository.cacheGet(url);
+			if (cached !== undefined) {
+				if (cached === null) {
 					return cassReturnNullAsPromise(
 						success,
 						failure
 					);
 				} else {
 					return cassReturnAsPromise(
-						EcRepository.cache[url],
+						cached,
 						success,
 						failure
 					);
@@ -244,15 +326,16 @@ module.exports = class EcRepository {
 			}
 		}
 		if (EcRepository.caching) {
-			if (EcRepository.cache[url] !== undefined) {
-				if (EcRepository.cache[url] === null) {
+			let cached = await EcRepository.cacheGet(url);
+			if (cached !== undefined) {
+				if (cached === null) {
 					return cassReturnNullAsPromise(
 						success,
 						failure
 					);
 				} else {
 					return cassReturnAsPromise(
-						EcRepository.cache[url],
+						cached,
 						success,
 						failure
 					);
@@ -977,15 +1060,19 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method precache
 	 */
-	precache = function (urls, success, failure, eim) {
+	precache = async function (urls, success, failure, eim, skipIds) {
+		let me = this;
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		if (urls == null) {
 			throw new Error("urls not defined.");
 		}
 		let originals = [...urls];
-		if (EcRepository.caching == true)
-			urls = urls.filter(url => EcRepository.cache[url] === undefined);
+		if (EcRepository.caching == true) {
+			for (let i = 0; i < urls.length; i++)
+				if (await EcRepository.cacheGet(urls[i]) !== undefined)
+					urls.splice(i--,1);
+		}
 		urls = urls.map(
 			url => {
 				if (url.startsWith(this.selectedServer))
@@ -993,13 +1080,20 @@ module.exports = class EcRepository {
 				return "data/" + EcCrypto.md5(url);
 			}
 		);
-		if (EcRepository.caching == true)
-			urls = urls.filter(url => EcRepository.cache[url] === undefined);
+		if (EcRepository.caching == true) {
+			for (let i = 0; i < urls.length; i++)
+				if (await EcRepository.cacheGet(urls[i]) !== undefined)
+					urls.splice(i--, 1);
+		}
 		if (urls.length == 0) {
-			return cassPromisify(new Promise((resolve, reject) => {resolve(originals.map(url => EcRepository.cache[url]).filter(x => x))}), success, failure);
+			return cassPromisify(new Promise((resolve, reject) => {resolve(Promise.all(originals.map(url => EcRepository.cacheGet(url))).then(c=>c.filter(x => x)))}), success, failure);
 		}
 		let fd = new FormData();
 		fd.append("data", JSON.stringify(urls));
+		if (EcRepository.cachingL2 && skipIds != true)
+		{
+			fd.append("ids","true");
+		}
 		let p = new Promise((resolve, reject) => resolve());
 		if (EcRepository.unsigned == false)
 			p = p.then(() => {
@@ -1019,6 +1113,10 @@ module.exports = class EcRepository {
 				);
 			})
 			.then((results) => {
+				//If we got an array of strings, multiget it.
+				if (results.length > 0 && typeof (results[0]) == 'string') {
+					return me.precache.call(me, results, true);
+				}
 				for (let i = 0; i < results.length; i++) {
 					let d = new EcRemoteLinkedData(null, null);
 					d.copyFrom(results[i]);
@@ -1036,7 +1134,7 @@ module.exports = class EcRepository {
 						] = d;
 					}
 				}
-				return cassPromisify(new Promise((resolve, reject) => {resolve(originals.map(url=>EcRepository.cache[url]).filter(x=>x))}), success, failure);
+				return cassPromisify(new Promise((resolve, reject) => { resolve(Promise.all(originals.map(url => EcRepository.cacheGet(url))).then(c => c.filter(x => x))) }), success, failure);
 			});
 		return cassPromisify(p, success, failure);
 	};
@@ -1105,7 +1203,7 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method searchWithParams
 	 */
-	searchWithParams = function (
+	searchWithParams = async function (
 		originalQuery,
 		originalParamObj,
 		eachSuccess,
@@ -1113,6 +1211,7 @@ module.exports = class EcRepository {
 		failure,
 		eim
 	) {
+		let me = this;
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
 		let query = originalQuery;
@@ -1137,6 +1236,8 @@ module.exports = class EcRepository {
 		}
 		let fd = new FormData();
 		fd.append("data", query);
+		if (EcRepository.cachingL2) 
+			params.ids = true;
 		if (params != null) {
 			fd.append("searchParams", JSON.stringify(params));
 		}
@@ -1164,23 +1265,31 @@ module.exports = class EcRepository {
 				if (results == null) {
 					throw "Error in search. See HTTP request for more details.";
 				}
-				results = results
-					.map((result) => {
-						let d = new EcRemoteLinkedData(null, null);
-						d.copyFrom(result);
-						if (EcRepository.caching) {
-							EcRepository.cache[d.shortId()] = EcRepository.cache[d.id] = EcRepository.cache[EcRemoteLinkedData.veryShortId(this.selectedServer, d.getGuid())] = d;
-						}
-						if (eachSuccess != null) {
-							eachSuccess(d);
-						}
-						return d;
-					})
-					.filter((n) => n);
-				if (EcRepository.cachingSearch) {
-					EcRepository.cache[cacheKey] = results;
+				//If we got an array of strings, multiget it.
+				if (results.length > 0 && typeof (results[0]) == 'string')
+				{
+					return me.precache.call(me, results, true);
 				}
-				return results;
+				else
+				{
+					results = results
+						.map((result) => {
+							let d = new EcRemoteLinkedData(null, null);
+							d.copyFrom(result);
+							if (EcRepository.caching) {
+								EcRepository.cache[d.shortId()] = EcRepository.cache[d.id] = EcRepository.cache[EcRemoteLinkedData.veryShortId(this.selectedServer, d.getGuid())] = d;
+							}
+							if (eachSuccess != null) {
+								eachSuccess(d);
+							}
+							return d;
+						})
+						.filter((n) => n);
+					if (EcRepository.cachingSearch) {
+						EcRepository.cache[cacheKey] = results;
+					}
+					return results;
+				}
 			});
 		});
 		return cassPromisify(p, success, failure);
@@ -1738,3 +1847,4 @@ module.exports = class EcRepository {
 		);
 	}
 };
+module.exports.static();

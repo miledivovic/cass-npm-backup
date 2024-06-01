@@ -150,6 +150,15 @@ describe("EcRepository", () => {
         assert.equal(results.length, 1);
         assert.equal(results[0].shortId(), rld.shortId());
     }).timeout(10000);
+    it('searchCache', async () => {
+        EcRepository.caching = true;
+        let results = await repo.search(`@id:"${rld.shortId()}"`);
+        assert.equal(results.length, 1);
+        assert.equal(results[0].shortId(), rld.shortId());
+        results = await EcRepository.get(rld.shortId());
+        console.log(EcRepository.cacheDB);
+        EcRepository.caching = false;
+    }).timeout(10000);
     it('encrypt and save (to)', async () => {
         EcEncryptedValue.encryptOnSave(rld.shortId(), true);
         await changeNameAndSaveAndCheck(rld);

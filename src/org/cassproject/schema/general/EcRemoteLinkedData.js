@@ -437,7 +437,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method getTimestamp
 	 */
 	getTimestamp() {
-		return EcRemoteLinkedData.getTimestampFromId(this.id);
+		return EcRemoteLinkedData.getVersionFromUrl(this.id);
 	}
 	/**
 	 *  Returns the timestamp of the id, if any.

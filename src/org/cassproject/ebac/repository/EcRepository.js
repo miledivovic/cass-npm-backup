@@ -100,7 +100,13 @@ module.exports = class EcRepository {
 			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readwrite");
 			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
 			if (value instanceof EcRemoteLinkedData)
-				objectStore.add(value);
+			{
+				let o = JSON.parse(value.toJson());
+				for (let prop of EcLinkedData.atProperties)
+					if (o[prop] == null)
+						o[prop] = o['@'+prop];
+				objectStore.add(o);
+			}
 			return value;
 		},
 		deleteProperty: function (target, prop) {
@@ -1127,7 +1133,7 @@ module.exports = class EcRepository {
 			.then((results) => {
 				//If we got an array of strings, multiget it.
 				if (results.length > 0 && typeof (results[0]) == 'string') {
-					return me.precache.call(me, results, true);
+					return me.precache.call(me, results, success, failure, eim, true);
 				}
 				for (let i = 0; i < results.length; i++) {
 					let d = new EcRemoteLinkedData(null, null);

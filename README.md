@@ -49,6 +49,12 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.59
+* Fixed bug with EcRepository.precache with CachingL2.
+
+## 1.5.58
+* Added L2 Caching (persists over F5 using IndexedDB)
+
 ## 1.5.54
 * Fix bug in EcRepository.precache where a promise was not being returned.
 

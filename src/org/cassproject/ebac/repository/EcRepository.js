@@ -1071,7 +1071,7 @@ module.exports = class EcRepository {
 	 *  @memberOf EcRepository
 	 *  @method precache
 	 */
-	precache = async function (urls, success, failure, eim, skipIds) {
+	precache = async function (urls, success, failure, eim, skipIds, versionedUrls) {
 		let me = this;
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
@@ -1084,11 +1084,12 @@ module.exports = class EcRepository {
 				if (await EcRepository.cacheGet(urls[i]) !== undefined)
 					urls.splice(i--,1);
 		}
-		let versionedUrls = {};
+		let versionedUrlsPassedIn = versionedUrls != null;
+		versionedUrls = versionedUrls || {};
 		urls = urls.map(
 			url => {
 				let version = EcRemoteLinkedData.getVersionFromUrl(url);
-				if (version) {
+				if (!versionedUrlsPassedIn && version) {
 					versionedUrls[url] = true;
 				}
 				if (url.startsWith(this.selectedServer))
@@ -1130,10 +1131,29 @@ module.exports = class EcRepository {
 					fd
 				);
 			})
-			.then((results) => {
+			.then(async (results) => {
 				//If we got an array of strings, multiget it.
 				if (results.length > 0 && typeof (results[0]) == 'string') {
-					return me.precache.call(me, results, success, failure, eim, true);
+					for (let result of results)
+					{
+						//If we have something in the L2 cache that we requested using a short ID, we need to put it into the L1 cache.
+						if (EcRemoteLinkedData.trimVersionFromUrl(result) == result) continue;
+						let cached = await EcRepository.cacheGet(result);
+						if (cached != null)
+						{
+							let md5Id = this.selectedServer + "data/" + EcCrypto.md5(cached.shortId());
+							let shortId = cached.shortId();
+							let veryShortId = EcRemoteLinkedData.veryShortId(
+								this.selectedServer,
+								cached.getGuid()
+							);
+							if (!cached.shortId().startsWith(this.selectedServer))
+								EcRepository.cache[md5Id] = cached;
+							EcRepository.cache[shortId] = cached;
+							EcRepository.cache[veryShortId] = cached;
+						}
+					}
+					return me.precache.call(me, results, success, failure, eim, true, versionedUrls);
 				}
 				for (let i = 0; i < results.length; i++) {
 					let d = new EcRemoteLinkedData(null, null);
@@ -1291,7 +1311,7 @@ module.exports = class EcRepository {
 				//If we got an array of strings, multiget it.
 				if (results.length > 0 && typeof (results[0]) == 'string')
 				{
-					return me.precache.call(me, results, true);
+					return me.precache.call(me, results, success, failure, eim, true);
 				}
 				else
 				{

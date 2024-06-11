@@ -1078,6 +1078,7 @@ module.exports = class EcRepository {
 		if (urls == null) {
 			throw new Error("urls not defined.");
 		}
+		urls = [...urls];
 		let originals = [...urls];
 		if (EcRepository.caching == true) {
 			for (let i = 0; i < urls.length; i++)

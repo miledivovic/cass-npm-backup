@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.61
+* Fixed bug where EcRepository.precache was modifying array of urls passed in.
+
 ## 1.5.59
 * Fixed bug with EcRepository.precache with CachingL2.
 

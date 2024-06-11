@@ -79,16 +79,29 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @method trimVersionFromUrl
 	 *  @static
 	 */
+	static tvfuCache = {};
+	static caching = false;
 	static trimVersionFromUrl(id) {
 		if (id == null) return null;
+		if (EcRemoteLinkedData.caching == true && EcRemoteLinkedData.tvfuCache[id] != null)
+			return EcRemoteLinkedData.tvfuCache[id];
 		if (
 			id.indexOf("/api/data/") == -1 &&
 			id.indexOf("/api/custom/data/") == -1
-		)
+		) {
+			if (EcRemoteLinkedData.caching == true)
+				EcRemoteLinkedData.tvfuCache[id] = id;
 			return id;
-		if (!id.substring(id.lastIndexOf("/")).match("^\\/[0-9]+$")) return id;
+		}
+		if (!id.substring(id.lastIndexOf("/")).match("^\\/[0-9]+$")) {
+			if (EcRemoteLinkedData.caching == true)
+				EcRemoteLinkedData.tvfuCache[id] = id;
+			return id;
+		}
 		let rawId = id.substring(0, id.lastIndexOf("/"));
 		if (rawId.endsWith("/")) rawId = rawId.substring(0, rawId.length - 1);
+		if (EcRemoteLinkedData.caching == true)
+			EcRemoteLinkedData.tvfuCache[id] = rawId;
 		return rawId;
 	}
 	/**
@@ -160,7 +173,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		id += "data/";
 		// Double slash is intentional to make versioned url gets work
 		if (version)
-		 id += "/"
+			id += "/"
 		id += uniqueIdentifier;
 		if (version)
 			id += ("/" + version)
@@ -284,7 +297,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		let works = null;
 		let works256 = null;
 		if (this.signature != null) {
-			for (let i = 0; i < this.signature.length; ) {
+			for (let i = 0; i < this.signature.length;) {
 				works = false;
 				let sig = this.signature[i];
 				if (this.owner != null) {
@@ -314,7 +327,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		}
 		console.log(works);
 		if (this.signatureSha256 != null) {
-			for (let i = 0; i < this.signatureSha256.length; ) {
+			for (let i = 0; i < this.signatureSha256.length;) {
 				works256 = false;
 				let sig = this.signatureSha256[i];
 				if (this.owner != null) {

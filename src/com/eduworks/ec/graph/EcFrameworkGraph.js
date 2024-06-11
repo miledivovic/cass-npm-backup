@@ -36,6 +36,9 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 	addFrameworkFailureCallback = null;
 	repo = null;
 	eim = null;
+	competencyPrototype = new EcCompetency();
+	alignmentPrototype = new EcAlignment();
+	encryptedValuePrototype = new EcEncryptedValue();
 	/**
 	 *  Adds a framework to the graph, and creates the edges to connect the competencies in the framework.
 	 *
@@ -119,11 +122,15 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		});
 	}
 	async handleCacheElement(d, framework) {
-		if (d.isAny(new EcEncryptedValue().getTypes()))
+		if (d.isAny(this.encryptedValuePrototype.getTypes()))
 			d = await EcEncryptedValue.fromEncryptedValue(d, null, null, this.eim);
 		if (d == null) return;
-		if (d.isAny(new EcCompetency().getTypes())) {
-			let c = new EcCompetency().copyFrom(d);
+		if (d.isAny(this.competencyPrototype.getTypes())) {
+			let c = null;
+			if (d instanceof EcCompetency)
+				c = d;
+			else
+				c = new EcCompetency().copyFrom(d);
 			if (c == null) return;
 			this.addToMetaStateArray(
 				this.getMetaStateCompetency(c),
@@ -131,8 +138,12 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 				framework
 			);
 			this.addCompetency(c);
-		} else if (d.isAny(new EcAlignment().getTypes())) {
-			let alignment = new EcAlignment().copyFrom(d);
+		} else if (d.isAny(this.alignmentPrototype.getTypes())) {
+			let alignment = null;
+			if (d instanceof EcAlignment)
+				alignment = d;
+			else
+				alignment = new EcAlignment().copyFrom(d);
 			if (alignment == null) return;
 			await this.addRelation(alignment);
 			this.addToMetaStateArray(

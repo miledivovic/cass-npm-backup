@@ -15,6 +15,20 @@ module.exports = class EcAssertion extends Assertion {
 	equals(obj) {
 		return this.isId(obj.id);
 	}
+	async decrypt() {
+		let a = new Assertion().copyFrom(this);
+		a.setSubject(await this.getSubject());
+		a.setAgent(await this.getAgent());
+		a.setAssertionDate(await this.getAssertionDate());
+		a.setExpirationDate(await this.getExpirationDate());
+		a.setEvidence(await this.getEvidences());
+		a.setNegative(await this.getNegative());
+		a.setDecayFunction(await this.getDecayFunction());
+		a.setCompetency(this.competency);
+		a.setLevel(this.level);
+		a.setConfidence(this.confidence);
+		return a;
+	}
 	static get(id, success, failure, repo, eim) {
 		return EcRepository.getAs(id, new EcAssertion(), success, failure, repo, eim);
 	}

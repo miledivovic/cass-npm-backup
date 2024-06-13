@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.62
+* Fixed bug where setting a cache value to null was returning falsish.
+
 ## 1.5.61
 * Fixed bug where EcRepository.precache was modifying array of urls passed in.
 

@@ -82,7 +82,8 @@ module.exports = class EcRepository {
 			request.onsuccess = function (event) {
 				if (request.result != null)
 					resolve(new EcRemoteLinkedData().copyFrom(request.result));
-				resolve(EcRepository.cache[prop]);
+				else
+					resolve(EcRepository.cache[prop]);
 			};
 		})
 	}
@@ -107,7 +108,11 @@ module.exports = class EcRepository {
 						o[prop] = o['@'+prop];
 				objectStore.add(o);
 			}
-			return value;
+			if (value == null)
+			{
+				objectStore.delete(prop);
+			}
+			return Reflect.set(...arguments);
 		},
 		deleteProperty: function (target, prop) {
 			if (EcRepository.cachingL2 == false)
@@ -119,6 +124,7 @@ module.exports = class EcRepository {
 			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readwrite");
 			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
 			objectStore.delete(prop);
+			return Reflect.deleteProperty(...arguments);
 		}
 	});
 	static fetching = {};

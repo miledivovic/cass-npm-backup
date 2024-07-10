@@ -1318,7 +1318,7 @@ module.exports = class EcRepository {
 				//If we got an array of strings, multiget it.
 				if (results.length > 0 && typeof (results[0]) == 'string')
 				{
-					return me.precache.call(me, results, success, failure, eim, true);
+					return me.precache.call(me, results, null, null, eim, true);
 				}
 				else
 				{

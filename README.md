@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.63
+* Prevent search from running success more than once.
+
 ## 1.5.62
 * Fixed bug where setting a cache value to null was returning falsish.
 

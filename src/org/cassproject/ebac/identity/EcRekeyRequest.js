@@ -49,7 +49,7 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 	 */
 	async finalizeRequest(oldKeyPpk) {
 		global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRekeyReqFinalReq", "creating: " + this.toSignableJson());
-		this.rekeySignature = await EcRsaOaepAsync.signSha256(
+		this.rekeySignature = await EcRsaOaepAsyncWorker.signSha256(
 			oldKeyPpk,
 			this.toSignableJson()
 		);
@@ -91,11 +91,11 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 	 */
 	async verify() {
 		if (!await super.verify()) return false;
-		return (await EcRsaOaepAsync.verifySha256(
+		return (await EcRsaOaepAsyncWorker.verifySha256(
 			EcPk.fromPem(this.rekeyPk),
 			this.toSignableRekeyJson(),
 			this.rekeySignature
-		) || (await EcRsaOaepAsync.verify(
+		) || (await EcRsaOaepAsyncWorker.verify(
 			EcPk.fromPem(this.rekeyPk),
 			this.toSignableRekeyJson(),
 			this.rekeySignature

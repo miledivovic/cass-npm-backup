@@ -93,11 +93,12 @@ function registerPromiseWorker (callback) {
 
 registerPromiseWorker(function (e) {
     var data = e;
+    let result = null;
     try {
         switch (data.cmd) {
-            case 'encryptRsaOaep':
+          case 'encryptRsaOaep':
                 return forge.util.encode64(forge.pki.publicKeyFromPem(data.pk)
-                    .encrypt(data.text, "RSA-OAEP"));
+                  .encrypt(forge.util.encodeUtf8(data.text), "RSA-OAEP"));
             case 'decryptRsaOaep':
                 return forge.pki.privateKeyFromPem(data.ppk).decrypt(
                     forge.util.decode64(data.text), "RSA-OAEP");
@@ -142,6 +143,7 @@ registerPromiseWorker(function (e) {
                 return 'Unknown command: ' + data.msg;
         }
     } catch (ex) {
+        console.log(ex);
         return {
             error: ex.message
         };

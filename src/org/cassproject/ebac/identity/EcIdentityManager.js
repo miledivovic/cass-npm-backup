@@ -455,11 +455,11 @@ module.exports = class EcIdentityManager {
 		delete s.signatureSha256;
 		s["@owner"] = ppk.toPk().toPem();
 		if (algorithm != null && algorithm == "SHA-256")
-			return EcRsaOaepAsync.signSha256(ppk, s.toJson()).then((signatureSha256) => {
+			return EcRsaOaepAsyncWorker.signSha256(ppk, s.toJson()).then((signatureSha256) => {
 				s["@signatureSha256"] = signatureSha256;
 				return s;
 			});
-		return EcRsaOaepAsync.sign(ppk, s.toJson()).then((signature) => {
+		return EcRsaOaepAsyncWorker.sign(ppk, s.toJson()).then((signature) => {
 			s["@signature"] = signature;
 			return s;
 		});	

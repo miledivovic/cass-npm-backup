@@ -75,6 +75,8 @@ module.exports = class EcRepository {
 			return EcRepository.cache[prop];
 		if (EcRemoteLinkedData.trimVersionFromUrl(prop) == prop)
 			return EcRepository.cache[prop];
+		if (EcRepository.cache[prop] != null)
+			return EcRepository.cache[prop];
 		return new Promise(function (resolve, reject) {
 			if (transaction == null)
 				transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");

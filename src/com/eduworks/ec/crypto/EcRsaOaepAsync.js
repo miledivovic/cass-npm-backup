@@ -18,7 +18,7 @@ if (typeof crypto == 'undefined')
 }
 
 let EcCrypto = require("./EcCrypto.js");
-let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
+let EcRsaOaep = require("./EcRsaOaep.js");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
 let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 /**
@@ -49,7 +49,7 @@ module.exports = class EcRsaOaepAsync {
 			crypto.subtle == null ||
 			crypto.subtle === undefined
 		) {
-			return EcRsaOaepAsyncWorker.encrypt(
+			return EcRsaOaep.encrypt(
 				pk,
 				plainText,
 				success,
@@ -117,7 +117,7 @@ module.exports = class EcRsaOaepAsync {
 			crypto.subtle == null ||
 			crypto.subtle === undefined
 		) {
-			return EcRsaOaepAsyncWorker.decrypt(
+			return EcRsaOaep.decrypt(
 				ppk,
 				cipherText,
 				success,
@@ -200,7 +200,7 @@ module.exports = class EcRsaOaepAsync {
 			crypto.subtle === undefined || 
 			(typeof process !== 'undefined' && process && process.env && process.env.FIPS)
 		) {
-			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
+			return EcRsaOaep.sign(ppk, text, success, failure);
 		}
 		if (text == null) {
 			return cassReturnAsPromise(null, success, failure);
@@ -270,7 +270,7 @@ module.exports = class EcRsaOaepAsync {
 			crypto.subtle == null ||
 			crypto.subtle === undefined
 		) {
-			return EcRsaOaepAsyncWorker.sign(ppk, text, success, failure);
+			return EcRsaOaep.sign(ppk, text, success, failure);
 		}
 		EcAesCtrAsync.fipsOn();
 		let keyUsages = [];
@@ -327,7 +327,7 @@ module.exports = class EcRsaOaepAsync {
 			crypto.subtle == null ||
 			crypto.subtle === undefined
 		) {
-			return EcRsaOaepAsyncWorker.verify(
+			return EcRsaOaep.verify(
 				pk,
 				text,
 				signature,
@@ -402,7 +402,7 @@ module.exports = class EcRsaOaepAsync {
 			crypto.subtle == null ||
 			crypto.subtle === undefined
 		) {
-			return EcRsaOaepAsyncWorker.verify(
+			return EcRsaOaep.verify(
 				pk,
 				text,
 				signature,

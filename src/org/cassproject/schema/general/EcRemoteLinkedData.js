@@ -277,7 +277,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		// 	this.signature = [];
 		// }
 		// this.signature.push(signed);
-		let signedSha256 = await EcRsaOaepAsync.signSha256(ppk, signableJson);
+		let signedSha256 = await EcRsaOaepAsyncWorker.signSha256(ppk, signableJson);
 		if (this.signatureSha256 != null) {
 			for (let i = 0; i < this.signatureSha256.length; i++)
 				if (this.signatureSha256[i] == signedSha256) return;
@@ -306,7 +306,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 						let pk = EcPk.fromPem(own);
 						let verify = false;
 						try {
-							verify = await EcRsaOaepAsync.verify(
+							verify = await EcRsaOaepAsyncWorker.verify(
 								pk,
 								this.toSignableJson(),
 								sig
@@ -336,7 +336,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 						let pk = EcPk.fromPem(own);
 						let verify = false;
 						try {
-							verify = await EcRsaOaepAsync.verifySha256(
+							verify = await EcRsaOaepAsyncWorker.verifySha256(
 								pk,
 								this.toSignableJson(),
 								sig

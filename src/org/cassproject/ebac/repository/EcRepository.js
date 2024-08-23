@@ -1,5 +1,4 @@
-if (typeof process !== 'undefined' && process.version && process.version.startsWith("v16"))
-{
+if (typeof process !== 'undefined' && process.version && process.version.startsWith("v16")) {
 	console.log("Loading polyfill for FormData.");
 	FormData = eval("require('undici').FormData");
 }
@@ -9,7 +8,7 @@ const EcIdentityManager = require("../identity/EcIdentityManager");
 const EcRekeyRequest = require("../identity/EcRekeyRequest");
 const EcArray = require("../../../../com/eduworks/ec/array/EcArray");
 const EcRemote = require("../../../../com/eduworks/ec/remote/EcRemote");
-const {cassPromisify, cassReturnAsPromise} = require("../../../../com/eduworks/ec/promises/helpers");
+const { cassPromisify, cassReturnAsPromise } = require("../../../../com/eduworks/ec/promises/helpers");
 const EcRemoteLinkedData = require("../../schema/general/EcRemoteLinkedData");
 const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto");
 const EcIdentity = require("../identity/EcIdentity");
@@ -29,8 +28,7 @@ module.exports = class EcRepository {
 	static LONGIDS = "longIds";
 	static static() {
 		EcRepository.cacheDBHandle = typeof window !== 'undefined' ? window?.indexedDB?.open("EcRepositoryCache", 3) : null;
-		if (EcRepository.cacheDBHandle != null)
-		{
+		if (EcRepository.cacheDBHandle != null) {
 			EcRepository.cacheDBHandle.onerror = (event) => {
 				console.error(event);
 			};
@@ -39,10 +37,8 @@ module.exports = class EcRepository {
 			};
 			EcRepository.cacheDBHandle.onupgradeneeded = (event) => {
 				console.log(event);
-				for (let version = event.oldVersion;version <= event.newVersion;version++)
-				{
-					if (version == 3)
-					{
+				for (let version = event.oldVersion; version <= event.newVersion; version++) {
+					if (version == 3) {
 						const objectStore = event.target.result.createObjectStore(EcRepository.LONGIDS, { keyPath: "id" });
 
 						// Use transaction oncomplete to make sure the objectStore creation is
@@ -65,7 +61,14 @@ module.exports = class EcRepository {
 	static alwaysTryUrl = false;
 	static cacheDBHandle = null;
 	static cacheDB = null;
-	static cacheGet = async (prop) => {
+	static cacheGet = async (prop, transaction, objectStore) => {
+		if (EcArray.isArray(prop)) {
+			if (transaction == null)
+				transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
+			if (objectStore == null)
+				objectStore = transaction.objectStore(EcRepository.LONGIDS);
+			return await Promise.all(prop.map(p => EcRepository.cacheGet(p, transaction, objectStore)));
+		}
 		if (EcRepository.cachingL2 == false)
 			return EcRepository.cache[prop];
 		if (EcRepository.cacheDB == null)
@@ -73,8 +76,10 @@ module.exports = class EcRepository {
 		if (EcRemoteLinkedData.trimVersionFromUrl(prop) == prop)
 			return EcRepository.cache[prop];
 		return new Promise(function (resolve, reject) {
-			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
-			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
+			if (transaction == null)
+				transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
+			if (objectStore == null)
+				objectStore = transaction.objectStore(EcRepository.LONGIDS);
 			const request = objectStore.get(prop);
 			request.onerror = function (event) {
 				resolve(EcRepository.cache[prop]);
@@ -87,8 +92,9 @@ module.exports = class EcRepository {
 			};
 		})
 	}
-	static cache = new Proxy({},{
-		get: function(target,prop){
+	static cacheBacking = {};
+	static cache = new Proxy(EcRepository.cacheBacking, {
+		get: function (target, prop) {
 			return Reflect.get(...arguments);
 		},
 		set: function (target, prop, value) {
@@ -100,16 +106,14 @@ module.exports = class EcRepository {
 				return Reflect.set(...arguments);
 			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readwrite");
 			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
-			if (value instanceof EcRemoteLinkedData)
-			{
+			if (value instanceof EcRemoteLinkedData) {
 				let o = JSON.parse(value.toJson());
 				for (let prop of EcLinkedData.atProperties)
 					if (o[prop] == null)
-						o[prop] = o['@'+prop];
+						o[prop] = o['@' + prop];
 				objectStore.add(o);
 			}
-			if (value == null)
-			{
+			if (value == null) {
 				objectStore.delete(prop);
 			}
 			return Reflect.set(...arguments);
@@ -181,7 +185,7 @@ module.exports = class EcRepository {
 			});
 	};
 	buildKeyForwardingTable = function (success, failure, eim) {
-		let params = {size: 10000};
+		let params = { size: 10000 };
 		return cassPromisify(
 			EcRepository.searchAs(
 				this,
@@ -200,8 +204,7 @@ module.exports = class EcRepository {
 			failure
 		);
 	};
-	static history(url,repo,eim)
-	{
+	static history(url, repo, eim) {
 		if (url == null) {
 			throw new Error("URL is null. Cannot EcRepository.history");
 		}
@@ -221,14 +224,14 @@ module.exports = class EcRepository {
 				EcCrypto.md5(url)
 			);
 		}
-		
+
 		let finalUrl = url + "?history=true";
 		let p = null;
 		if (this.unsigned) {
 			p = EcRemote.getExpectingObject(finalUrl);
 		} else {
 			let offset = this.setOffset(url);
-			p = eim.signatureSheet(60000 + offset, url, null, null, repo != null ? repo.signatureSheetHashAlgorithm : null).then(
+			p = eim.signatureSheet(300000 + offset, url, null, null, repo != null ? repo.signatureSheetHashAlgorithm : null).then(
 				(signatureSheet) => {
 					let fd = new FormData();
 					fd.append("signatureSheet", signatureSheet);
@@ -237,12 +240,12 @@ module.exports = class EcRepository {
 			);
 		}
 		p = p.then((data) => {
-			return data.map(d=>{let rld = new EcRemoteLinkedData();rld.copyFrom(d);return rld;});
+			return data.map(d => { let rld = new EcRemoteLinkedData(); rld.copyFrom(d); return rld; });
 		}).catch((error) => {
 			if (
 				error != null &&
 				error.toString != undefined
-			){
+			) {
 				if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1) {
 					return null;
 				}
@@ -275,12 +278,11 @@ module.exports = class EcRepository {
 		if (url.toLowerCase().indexOf("http") != 0) {
 			throw "URL does not begin with http. Cannot EcRepository.get";
 		}
-		
+
 		if (eim === undefined || eim == null)
 			eim = EcIdentityManager.default;
-		if (EcRepository.fetching[url+eim.eimId] != null)
-		{
-			return cassPromisify(EcRepository.fetching[url+eim.eimId],success,failure);
+		if (EcRepository.fetching[url + eim.eimId] != null) {
+			return cassPromisify(EcRepository.fetching[url + eim.eimId], success, failure);
 		}
 		let originalUrl = url;
 		if (EcRepository.caching) {
@@ -302,7 +304,7 @@ module.exports = class EcRepository {
 		}
 		let version = EcRemoteLinkedData.getVersionFromUrl(url);
 		let trimmedUrl = EcRemoteLinkedData.trimVersionFromUrl(url);
-		
+
 		if (!this.shouldTryUrl(url)) {
 			if (this.repos.length == 1) {
 				if (!url.startsWith(this.repos[0].selectedServer))
@@ -335,9 +337,9 @@ module.exports = class EcRepository {
 						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1) {
 							return null;
 						}
-						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1) {
-							return null;
-						}
+					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1) {
+						return null;
+					}
 					throw error;
 				});
 			}
@@ -365,7 +367,7 @@ module.exports = class EcRepository {
 			p = EcRemote.getExpectingObject(finalUrl);
 		} else {
 			let offset = this.setOffset(url);
-			p = eim.signatureSheet(60000 + offset, url, null, null, repo != null ? repo.signatureSheetHashAlgorithm : null).then(
+			p = eim.signatureSheet(300000 + offset, url, null, null, repo != null ? repo.signatureSheetHashAlgorithm : null).then(
 				(signatureSheet) => {
 					let fd = new FormData();
 					fd.append("signatureSheet", signatureSheet);
@@ -399,9 +401,9 @@ module.exports = class EcRepository {
 						if (error.toString().indexOf("Could not locate object. May be due to EcRepository.alwaysTryUrl flag.") != -1) {
 							return null;
 						}
-						if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1) {
-							return null;
-						}
+					if (error.toString().indexOf("Object not found or you did not supply sufficient permissions to access the object.") != -1) {
+						return null;
+					}
 					throw error;
 				});
 			} else {
@@ -420,12 +422,12 @@ module.exports = class EcRepository {
 				});
 			}
 		}).finally(
-			(result)=>{
-				delete EcRepository.fetching[url+eim.eimId];
+			(result) => {
+				delete EcRepository.fetching[url + eim.eimId];
 				return result;
 			}
 		);
-		EcRepository.fetching[url+eim.eimId] = p;
+		EcRepository.fetching[url + eim.eimId] = p;
 		return p;
 	}
 	static setOffset = function (url) {
@@ -772,12 +774,12 @@ module.exports = class EcRepository {
 		if (data.owner != null && data.owner.length > 0) {
 			p = eim.signatureSheetFor(
 				data.owner,
-				60000 + offset,
+				300000 + offset,
 				data.id,
 				null, null, repo != null ? repo.signatureSheetHashAlgorithm : null
 			);
 		} else {
-			p = eim.signatureSheet(60000 + offset, data.id, null, null, repo != null ? repo.signatureSheetHashAlgorithm : null);
+			p = eim.signatureSheet(300000 + offset, data.id, null, null, repo != null ? repo.signatureSheetHashAlgorithm : null);
 		}
 		p = p.then((signatureSheet) => {
 			let fd = new FormData();
@@ -872,7 +874,7 @@ module.exports = class EcRepository {
 		if (data.owner != null && data.owner.length > 0) {
 			return eim.signatureSheetFor(
 				data.owner,
-				60000 + offset,
+				300000 + offset,
 				data.id,
 				null, null, repo != null ? repo.signatureSheetHashAlgorithm : null
 			).then((signatureSheet) => {
@@ -942,7 +944,7 @@ module.exports = class EcRepository {
 		if (data.owner != null && data.owner.length > 0) {
 			return eim.signatureSheetFor(
 				data.owner,
-				60000 + offset,
+				300000 + offset,
 				data.id,
 				null, null, this != null ? this.signatureSheetHashAlgorithm : null
 			).then((signatureSheet) => {
@@ -1029,13 +1031,13 @@ module.exports = class EcRepository {
 				if (allOwners != null && allOwners.length > 0) {
 					return eim.signatureSheetFor(
 						allOwners,
-						60000 + this.timeOffset,
+						300000 + this.timeOffset,
 						this.selectedServer,
 						null, null, this.signatureSheetHashAlgorithm
 					);
 				} else {
 					return eim.signatureSheet(
-						60000 + this.timeOffset,
+						300000 + this.timeOffset,
 						this.selectedServer, null, null, this.signatureSheetHashAlgorithm
 					);
 				}
@@ -1089,7 +1091,7 @@ module.exports = class EcRepository {
 		if (EcRepository.caching == true) {
 			for (let i = 0; i < urls.length; i++)
 				if (await EcRepository.cacheGet(urls[i]) !== undefined)
-					urls.splice(i--,1);
+					urls.splice(i--, 1);
 		}
 		let versionedUrlsPassedIn = versionedUrls != null;
 		versionedUrls = versionedUrls || {};
@@ -1111,20 +1113,23 @@ module.exports = class EcRepository {
 					urls.splice(i--, 1);
 		}
 		if (urls.length == 0) {
-			return cassPromisify(new Promise((resolve, reject) => {resolve(Promise.all(originals.map(url => EcRepository.cacheGet(url))).then(c=>c.filter(x => x)))}), success, failure);
+			return cassPromisify(new Promise((resolve, reject) => {
+				resolve(
+					EcRepository.cacheGet(originals).then(c => c.filter(x => x))
+				)
+			}), success, failure);
 		}
 
 		let fd = new FormData();
 		fd.append("data", JSON.stringify(urls));
-		if (EcRepository.cachingL2 && skipIds != true)
-		{
-			fd.append("ids","true");
+		if (EcRepository.cachingL2 && skipIds != true) {
+			fd.append("ids", "true");
 		}
 		let p = new Promise((resolve, reject) => resolve());
 		if (EcRepository.unsigned == false)
 			p = p.then(() => {
 				return eim.signatureSheet(
-					60000 + this.timeOffset,
+					300000 + this.timeOffset,
 					this.selectedServer, null, null, this.signatureSheetHashAlgorithm
 				).then((signatureSheet) => {
 					fd.append("signatureSheet", signatureSheet);
@@ -1141,13 +1146,11 @@ module.exports = class EcRepository {
 			.then(async (results) => {
 				//If we got an array of strings, multiget it.
 				if (results.length > 0 && typeof (results[0]) == 'string') {
-					for (let result of results)
-					{
+					for (let result of results) {
 						//If we have something in the L2 cache that we requested using a short ID, we need to put it into the L1 cache.
 						if (EcRemoteLinkedData.trimVersionFromUrl(result) == result) continue;
 						let cached = await EcRepository.cacheGet(result);
-						if (cached != null)
-						{
+						if (cached != null) {
 							let md5Id = this.selectedServer + "data/" + EcCrypto.md5(cached.shortId());
 							let shortId = cached.shortId();
 							let veryShortId = EcRemoteLinkedData.veryShortId(
@@ -1155,13 +1158,14 @@ module.exports = class EcRepository {
 								cached.getGuid()
 							);
 							if (!cached.shortId().startsWith(this.selectedServer))
-								EcRepository.cache[md5Id] = cached;
-							EcRepository.cache[shortId] = cached;
-							EcRepository.cache[veryShortId] = cached;
+								EcRepository.cacheBacking[md5Id] = cached;
+							EcRepository.cacheBacking[shortId] = cached;
+							EcRepository.cacheBacking[veryShortId] = cached;
+							EcRepository.cacheBacking[cached.id] = cached;
 						}
 					}
 					return me.precache.call(me, results, success, failure, eim, true, versionedUrls);
-				}
+				} 
 				for (let i = 0; i < results.length; i++) {
 					let d = new EcRemoteLinkedData(null, null);
 					d.copyFrom(results[i]);
@@ -1174,11 +1178,11 @@ module.exports = class EcRepository {
 							this.selectedServer,
 							d.getGuid()
 						);
-						// Do not cache requested versioned urls as anything other than the versioned url
-						if (!versionedUrls[`${md5Id}/${timestamp}`] && !versionedUrls[d.id] && !versionedUrls[`${veryShortId}/${timestamp}`]) {
+					// Do not cache requested versioned urls as anything other than the versioned url
+					if (!versionedUrls[`${md5Id}/${timestamp}`] && !versionedUrls[d.id] && !versionedUrls[`${veryShortId}/${timestamp}`]) {
 							if (!d.shortId().startsWith(this.selectedServer))
 								EcRepository.cache[md5Id] = d;
-							EcRepository.cache[shortId] = d;
+							EcRepository.cache[shortId] = d; 
 							EcRepository.cache[veryShortId] = d;
 						}
 						EcRepository.cache[d.id] = d;
@@ -1286,7 +1290,7 @@ module.exports = class EcRepository {
 		}
 		let fd = new FormData();
 		fd.append("data", query);
-		if (EcRepository.cachingL2) 
+		if (EcRepository.cachingL2)
 			params.ids = true;
 		if (params != null) {
 			fd.append("searchParams", JSON.stringify(params));
@@ -1299,7 +1303,7 @@ module.exports = class EcRepository {
 		} else {
 			p = p.then(() =>
 				eim.signatureSheet(
-					60000 + this.timeOffset,
+					300000 + this.timeOffset,
 					this.selectedServer, null, null, this.signatureSheetHashAlgorithm
 				).then((signatureSheet) => {
 					fd.append("signatureSheet", signatureSheet);
@@ -1316,12 +1320,10 @@ module.exports = class EcRepository {
 					throw "Error in search. See HTTP request for more details.";
 				}
 				//If we got an array of strings, multiget it.
-				if (results.length > 0 && typeof (results[0]) == 'string')
-				{
+				if (results.length > 0 && typeof (results[0]) == 'string') {
 					return me.precache.call(me, results, null, null, eim, true);
 				}
-				else
-				{
+				else {
 					results = results
 						.map((result) => {
 							let d = new EcRemoteLinkedData(null, null);
@@ -1729,7 +1731,7 @@ module.exports = class EcRepository {
 		fd.append(
 			"signatureSheet",
 			eim.signatureSheet(
-				60000 + this.timeOffset,
+				300000 + this.timeOffset,
 				this.selectedServer, null, null, this.signatureSheetHashAlgorithm
 			)
 		);

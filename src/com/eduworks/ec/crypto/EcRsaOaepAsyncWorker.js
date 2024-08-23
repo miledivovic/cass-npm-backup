@@ -48,9 +48,17 @@ module.exports = class EcRsaOaepAsyncWorker {
 		let wkr = null;
 		let me = this;
 		try {
-			wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsync.js')));
+			wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsyncNode.js')));
 		} catch (e) {
 			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
+		}
+		if (wkr == null)
+			try {
+				wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsync.js')));
+			} catch (e) {
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
+				}
+		if (wkr == null)
 			try {
 				wkr = new Worker(path.resolve(__dirname, 'forgeAsync.js'));
 				wkr.onerror = function (event) {
@@ -62,10 +70,9 @@ module.exports = class EcRsaOaepAsyncWorker {
 						me.w[index] = (new PromiseWorker(wkr));
 					}
 				}
-			} catch (e) {
-				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
-				// Eat quietly.
-			}
+		} catch (e) {
+			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
+			// Eat quietly.
 		}
 		if (wkr != null)
 			this.w[index] = (new PromiseWorker(wkr));
@@ -88,7 +95,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		if (!EcCrypto.testMode)
 			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaep.encrypt(pk, plaintext));
+					resolve(EcRsaOaepAsync.encrypt(pk, plaintext));
 				});
 				return cassPromisify(p, success, failure);
 			}
@@ -96,7 +103,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		this.rotator = this.rotator % 8;
 		let o = {};
 		o["pk"] = pk.toPem();
-		o["text"] = forge.util.encodeUtf8(plaintext);
+		o["text"] = plaintext;
 		o["cmd"] = "encryptRsaOaep";
 
 		let p = this.w[worker].postMessage(o);
@@ -127,7 +134,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		if (!EcCrypto.testMode)
 			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaep.decrypt(ppk, ciphertext));
+					resolve(EcRsaOaepAsync.decrypt(ppk, ciphertext));
 				});
 				return cassPromisify(p, success, failure);
 			}
@@ -137,7 +144,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["ppk"] = ppk.toPem();
 		o["text"] = ciphertext;
 		o["cmd"] = "decryptRsaOaep";
-		let p = this.w[worker].postMessage(o);
+		let p = this.w[worker].postMessage(o); 
 		p = p.then(function (decrypted) {
 			return forge.util.decodeUtf8(decrypted);
 		});
@@ -167,7 +174,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		if (!EcCrypto.testMode)
 			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaep.sign(ppk, text));
+					resolve(EcRsaOaepAsync.sign(ppk, text));
 				});
 				return cassPromisify(p, success, failure);
 			}
@@ -198,7 +205,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		if (!EcCrypto.testMode)
 			if (this.w == null || this.w[this.rotator] == null) {
 				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaep.signSha256(ppk, text));
+					resolve(EcRsaOaepAsync.signSha256(ppk, text));
 				});
 				return cassPromisify(p, success, failure);
 			}
@@ -229,7 +236,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		this.initWorker();
 		if (this.w == null || this.w[this.rotator] == null) {
 			let p = new Promise((resolve, reject) => {
-				resolve(EcRsaOaep.verify(pk, text, signature));
+				resolve(EcRsaOaepAsync.verify(pk, text, signature));
 			});
 			return cassPromisify(p, success, failure);
 		}
@@ -261,7 +268,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		this.initWorker();
 		if (this.w == null || this.w[this.rotator] == null) {
 			let p = new Promise((resolve, reject) => {
-				resolve(EcRsaOaep.verify(pk, text, signature));
+				resolve(EcRsaOaepAsync.verify(pk, text, signature));
 			});
 			return cassPromisify(p, success, failure);
 		}

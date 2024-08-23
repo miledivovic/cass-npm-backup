@@ -65,15 +65,24 @@ module.exports = class EcRepository {
 	static alwaysTryUrl = false;
 	static cacheDBHandle = null;
 	static cacheDB = null;
-	static cacheGet = async (prop) => {
+	static cacheGet = async (prop, transaction) => {
+		if (EcArray.isArray(prop))
+		{
+			if (transaction == null)
+				transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
+			return await Promise.all(prop.map(p=>EcRepository.cacheGet(p,transaction)));
+		}
 		if (EcRepository.cachingL2 == false)
 			return EcRepository.cache[prop];
 		if (EcRepository.cacheDB == null)
 			return EcRepository.cache[prop];
 		if (EcRemoteLinkedData.trimVersionFromUrl(prop) == prop)
 			return EcRepository.cache[prop];
+		if (EcRepository.cache[prop] != null)
+			return EcRepository.cache[prop];
 		return new Promise(function (resolve, reject) {
-			const transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
+			if (transaction == null)
+				transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
 			const objectStore = transaction.objectStore(EcRepository.LONGIDS);
 			const request = objectStore.get(prop);
 			request.onerror = function (event) {
@@ -87,7 +96,8 @@ module.exports = class EcRepository {
 			};
 		})
 	}
-	static cache = new Proxy({},{
+	static cacheBacking = {};
+	static cache = new Proxy(cacheBacking,{
 		get: function(target,prop){
 			return Reflect.get(...arguments);
 		},
@@ -1111,7 +1121,10 @@ module.exports = class EcRepository {
 					urls.splice(i--, 1);
 		}
 		if (urls.length == 0) {
-			return cassPromisify(new Promise((resolve, reject) => {resolve(Promise.all(originals.map(url => EcRepository.cacheGet(url))).then(c=>c.filter(x => x)))}), success, failure);
+			return cassPromisify(new Promise((resolve, reject) => {
+				resolve(
+					EcRepository.cacheGet(originals).then(c=>c.filter(x => x))
+				)}), success, failure);
 		}
 
 		let fd = new FormData();
@@ -1155,9 +1168,10 @@ module.exports = class EcRepository {
 								cached.getGuid()
 							);
 							if (!cached.shortId().startsWith(this.selectedServer))
-								EcRepository.cache[md5Id] = cached;
-							EcRepository.cache[shortId] = cached;
-							EcRepository.cache[veryShortId] = cached;
+								EcRepository.cacheBacking[md5Id] = cached;
+							EcRepository.cacheBacking[shortId] = cached;
+							EcRepository.cacheBacking[veryShortId] = cached;
+							EcRepository.cacheBacking[cached.id] = cached;
 						}
 					}
 					return me.precache.call(me, results, success, failure, eim, true, versionedUrls);

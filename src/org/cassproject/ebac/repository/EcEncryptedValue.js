@@ -274,7 +274,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 					let eSecret = new EbacEncryptedSecret();
 					eSecret.iv = newIv;
 					eSecret.secret = newSecret;
-					return EcRsaOaepAsync.encrypt(
+					return EcRsaOaepAsyncWorker.encrypt(
 						EcPk.fromPem(pk),
 						eSecret.toEncryptableJson()
 					);
@@ -467,7 +467,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 			let ppk = ppks.pop();
 			let estimatedIndex = estimatedIndices.pop();
 			let encryptedSecret = this.secret[estimatedIndex];
-			let p = EcRsaOaepAsync.decrypt(ppk, encryptedSecret).then(
+			let p = EcRsaOaepAsyncWorker.decrypt(ppk, encryptedSecret).then(
 				(decryptedSecret) => {
 					if (
 						decryptedSecret != null &&
@@ -518,7 +518,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 			if (decryptedSecret == null) {
 				throw "Cannot add a Reader if you don't know the secret";
 			}
-			return EcRsaOaepAsync.encrypt(
+			return EcRsaOaepAsyncWorker.encrypt(
 				newReader,
 				decryptedSecret.toEncryptableJson()
 			).then((encryptedSecret) =>
@@ -543,7 +543,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 			if (this.owner != null)
 				promises = promises.concat(
 					this.owner.map((pk) =>
-						EcRsaOaepAsync.encrypt(
+						EcRsaOaepAsyncWorker.encrypt(
 							EcPk.fromPem(pk),
 							decryptedSecret.toEncryptableJson()
 						)
@@ -552,7 +552,7 @@ module.exports = class EcEncryptedValue extends EbacEncryptedValue {
 			if (this.reader != null)
 				promises = promises.concat(
 					this.reader.map((pk) =>
-						EcRsaOaepAsync.encrypt(
+						EcRsaOaepAsyncWorker.encrypt(
 							EcPk.fromPem(pk),
 							decryptedSecret.toEncryptableJson()
 						)

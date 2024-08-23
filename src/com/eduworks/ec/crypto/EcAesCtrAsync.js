@@ -71,7 +71,7 @@ module.exports = class EcAesCtrAsync {
 			crypto.subtle == null ||
 			crypto.subtle === undefined
 		) {
-			return EcAesCtrAsyncWorker.encrypt(
+			return EcAesCtr.encrypt(
 				plaintext,
 				secret,
 				iv,
@@ -136,7 +136,7 @@ module.exports = class EcAesCtrAsync {
 			crypto.subtle == null ||
 			crypto.subtle === undefined
 		) {
-			return EcAesCtrAsyncWorker.decrypt(
+			return EcAesCtr.decrypt(
 				ciphertext,
 				secret,
 				iv,
@@ -166,9 +166,9 @@ module.exports = class EcAesCtrAsync {
 						.decrypt(algorithm, key, data)
 						.then(function (p1) {
 							if (EcCrypto.caching)
-							EcCrypto.decryptionCache[
-								secret + iv + ciphertext
-							] = EcCrypto.ab2str(p1);
+								EcCrypto.decryptionCache[
+									secret + iv + ciphertext
+								] = EcCrypto.ab2str(p1);
 							EcAesCtrAsync.fipsOff();
 							return EcCrypto.ab2str(p1);
 						});

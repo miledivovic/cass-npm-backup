@@ -165,6 +165,7 @@ module.exports = class EcAesCtrAsync {
 					return crypto.subtle
 						.decrypt(algorithm, key, data)
 						.then(function (p1) {
+							if (EcCrypto.caching)
 							EcCrypto.decryptionCache[
 								secret + iv + ciphertext
 							] = EcCrypto.ab2str(p1);

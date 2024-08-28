@@ -1285,7 +1285,13 @@ module.exports = class EcRepository {
 		if (EcRepository.cachingSearch) {
 			cacheKey = JSON.stringify(paramProps) + query;
 			if (EcRepository.cache[cacheKey] != null) {
-				return cassReturnAsPromise(EcRepository.cache[cacheKey], success, failure);
+				let results = EcRepository.cache[cacheKey];
+				if (eachSuccess) {
+					for (let each of results) {
+						eachSuccess(each);
+					}
+				}
+				return cassReturnAsPromise(results, success, failure);
 			}
 		} else {
 			cacheKey = null;
@@ -1317,13 +1323,20 @@ module.exports = class EcRepository {
 				this.selectedServer,
 				"sky/repo/search",
 				fd
-			).then((results) => {
+			).then(async (results) => {
 				if (results == null) {
 					throw "Error in search. See HTTP request for more details.";
 				}
 				//If we got an array of strings, multiget it.
-				if (results.length > 0 && typeof (results[0]) == 'string') {
-					return me.precache.call(me, results, null, null, eim, true);
+				if (results.length > 0 && typeof (results[0]) == 'string')
+				{
+					let objResults = await me.precache.call(me, results, null, null, eim, true);
+					if (eachSuccess) {
+						for (let each of objResults) {
+							eachSuccess(each);
+						}
+					}
+					return objResults;
 				}
 				else {
 					results = results

@@ -3,7 +3,7 @@ const EcObject = require("../../../../com/eduworks/ec/array/EcObject.js");
 const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto.js");
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk.js");
 const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade.js");
-const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync.js");
+const EcRsaOaepAsyncWorker = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker.js");
 const EcLinkedData = require("../../../json/ld/EcLinkedData.js");
 const Ebac = require("./Ebac.js");
 require("../../general/AuditLogger.js")

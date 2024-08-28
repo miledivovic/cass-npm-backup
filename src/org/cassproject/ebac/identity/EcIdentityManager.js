@@ -1,7 +1,7 @@
 const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto");
 const EcPk = require("../../../../com/eduworks/ec/crypto/EcPk");
 const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade");
-const EcRsaOaepAsync = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsync");
+const EcRsaOaepAsyncWorker = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker");
 const {cassReturnAsPromise, cassPromisify} = require("../../../../com/eduworks/ec/promises/helpers");
 const EbacSignature = require("../../../../com/eduworks/schema/ebac/EbacSignature");
 let realCrypto = require('crypto');

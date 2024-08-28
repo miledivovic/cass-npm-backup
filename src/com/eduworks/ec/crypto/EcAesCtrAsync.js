@@ -20,32 +20,50 @@ let EcAesCtrAsyncWorker = require("./EcAesCtrAsyncWorker.js");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
 let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 let realCrypto = require('crypto');
+let inWorker = false;
+let fipsForced = false;
 /**
  *  Async version of EcAesCtr that uses browser extensions (window.crypto) to accomplish cryptography much faster.
  *  Falls back to EcAesCtrAsyncWorker, if window.crypto is not available.
  *  @class EcAesCtrAsync
  */
 module.exports = class EcAesCtrAsync {
-	static fipsOn(){		
+	static fipsOn() {
+		if (inWorker || fipsForced)
+			return;
 		if (typeof process !== 'undefined' && process && process.env && process.env.FIPS)
 		if (realCrypto.getFips() == 0)
 			try {
 				realCrypto.setFips(true);
 			} catch (e) {
-				if (e.toString().indexOf("ERR_CRYPTO_FIPS_FORCED") != -1)
+				if (e.toString().indexOf("ERR_CRYPTO_FIPS_FORCED") != -1) {
+					fipsForced = true;
 					return;
+				}
+				if (e.toString().indexOf("ERR_WORKER_UNSUPPORTED_OPERATION") != -1) {
+					inWorker = true;
+					return;
+				}
 				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS", e);
 			}
 	}
 
-	static fipsOff(){	
+	static fipsOff() {
+		if (inWorker || fipsForced)
+			return;
 		if (typeof process !== 'undefined' && process && process.env && process.env.FIPS)	
 		if (realCrypto.getFips() == 1)
 			try {
 				realCrypto.setFips(false);
 			} catch (e) {
-				if (e.toString().indexOf("ERR_CRYPTO_FIPS_FORCED") != -1)
+				if (e.toString().indexOf("ERR_CRYPTO_FIPS_FORCED") != -1) {
+					fipsForced = true;
 					return;
+				}
+				if (e.toString().indexOf("ERR_WORKER_UNSUPPORTED_OPERATION") != -1) {
+					inWorker = true;
+					return;
+				}
 				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcAesCtrAsyncFips", "ERR_CRYPTO_FIPS", e);
 			}
 	}

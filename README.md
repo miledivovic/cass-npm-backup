@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.66
+* Fixed null pointer in L2 caching with arrays.
+
 ## 1.5.65
 * Removed memory leak in EcCrypto when caching is off.
 * Implemented multithreaded subtlecrypto decryption in Node.

@@ -63,9 +63,9 @@ module.exports = class EcRepository {
 	static cacheDB = null;
 	static cacheGet = async (prop, transaction, objectStore) => {
 		if (EcArray.isArray(prop)) {
-			if (transaction == null)
+			if (EcRepository.cachingL2 == true && EcRepository.cacheDB != null && transaction == null)
 				transaction = EcRepository.cacheDB.transaction(EcRepository.LONGIDS, "readonly");
-			if (objectStore == null)
+			if (EcRepository.cachingL2 == true && transaction != null && objectStore == null)
 				objectStore = transaction.objectStore(EcRepository.LONGIDS);
 			return await Promise.all(prop.map(p => EcRepository.cacheGet(p, transaction, objectStore)));
 		}

@@ -74,7 +74,6 @@ function registerPromiseWorker(callback) {
 }
 
 require('../../../../../');
-console.log("WE ARE HIGH SPEED BABY!");
 
 registerPromiseWorker(function (e) {
   var data = e;

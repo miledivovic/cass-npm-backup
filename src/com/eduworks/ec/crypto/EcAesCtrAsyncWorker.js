@@ -1,5 +1,4 @@
 let forge = require("node-forge");
-
 let EcCrypto = require("./EcCrypto.js");
 let EcAesCtr = require("./EcAesCtr.js");
 let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
@@ -30,7 +29,7 @@ module.exports = class EcAesCtrAsyncWorker {
 	 */
 	static encrypt(plaintext, secret, iv, success, failure) {
 		EcRsaOaepAsyncWorker.initWorker();
-		if (!EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
+		if (EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
 			return cassReturnAsPromise(
 				EcAesCtrAsync.encrypt(plaintext, secret, iv),
 				success,
@@ -69,7 +68,7 @@ module.exports = class EcAesCtrAsyncWorker {
 			}
 		}
 		EcRsaOaepAsyncWorker.initWorker();
-		if (!EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
+		if (EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
 			return cassReturnAsPromise(
 				EcAesCtrAsync.decrypt(ciphertext, secret, iv),
 				success,

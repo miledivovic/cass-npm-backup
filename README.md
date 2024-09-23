@@ -57,7 +57,6 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 * Implemented multithreaded subtlecrypto decryption in Node.
 * Improved L2 cache retrieval to avoid transactions and handles.
 * Fixed bug with EcRepository.searchWithParams not calling eachSuccess.
-* 
 
 ## 1.5.63
 * Prevent search from running success more than once.

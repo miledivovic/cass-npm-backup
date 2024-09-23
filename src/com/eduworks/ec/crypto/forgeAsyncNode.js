@@ -54,7 +54,7 @@ function registerPromiseWorker(callback) {
   }
 
   function onIncomingMessage(e) {
-    if (e.origin != 'cassproject') return;
+    if (e.origin != 'cassproject' && e.data?.origin != 'cassproject' && e.data?.[1]?.origin != 'cassproject') { console.log("Origin does not match.", e.origin);return;}
 
     var payload = e.data
     if (!Array.isArray(payload) || payload.length !== 2) {
@@ -109,6 +109,3 @@ registerPromiseWorker(function (e) {
     };
   }
 });
-
-self.addEventListener('message', function (e) {
-}, false);

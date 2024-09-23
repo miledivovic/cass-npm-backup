@@ -43,7 +43,8 @@ module.exports = class EcAesCtrAsyncWorker {
 		o["iv"] = iv;
 		o["text"] = forge.util.encodeUtf8(plaintext);
 		o["cmd"] = "encryptAesCtr";
-		return EcRsaOaepAsyncWorker.w[worker].postMessage(o,'cassproject');
+		o["origin"] = "cassproject";
+		return EcRsaOaepAsyncWorker.w[worker].postMessage(o, 'cassproject');
 	}
 	/**
 	 *  Asynchronous form of {{#crossLink
@@ -82,6 +83,7 @@ module.exports = class EcAesCtrAsyncWorker {
 		o["iv"] = iv;
 		o["text"] = ciphertext;
 		o["cmd"] = "decryptAesCtr";
+		o["origin"] = "cassproject";
 		let p = EcRsaOaepAsyncWorker.w[worker].postMessage(o,'cassproject');
 		p = p.then((decrypted) => {
 			return forge.util.decodeUtf8(decrypted);

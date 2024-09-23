@@ -105,6 +105,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["pk"] = pk.toPem();
 		o["text"] = plaintext;
 		o["cmd"] = "encryptRsaOaep";
+		o["origin"] = "cassproject";
 
 		let p = this.w[worker].postMessage(o, 'cassproject');
 		return cassPromisify(p, success, failure);
@@ -144,6 +145,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["ppk"] = ppk.toPem();
 		o["text"] = ciphertext;
 		o["cmd"] = "decryptRsaOaep";
+		o["origin"] = "cassproject";
 		let p = this.w[worker].postMessage(o, 'cassproject'); 
 		p = p.then(function (decrypted) {
 			return forge.util.decodeUtf8(decrypted);
@@ -184,6 +186,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["ppk"] = ppk.toPem();
 		o["text"] = forge.util.encodeUtf8(text);
 		o["cmd"] = "signRsaOaep";
+		o["origin"] = "cassproject";
 		let p = this.w[worker].postMessage(o, 'cassproject');
 		return cassPromisify(p, success, failure);
 	}
@@ -215,6 +218,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["ppk"] = ppk.toPem();
 		o["text"] = forge.util.encodeUtf8(text);
 		o["cmd"] = "signSha256RsaOaep";
+		o["origin"] = "cassproject";
 		let p = this.w[worker].postMessage(o,'cassproject');
 		return cassPromisify(p, success, failure);
 	};
@@ -247,6 +251,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["text"] = forge.util.encodeUtf8(text);
 		o["signature"] = signature;
 		o["cmd"] = "verifyRsaOaep";
+		o["origin"] = "cassproject";
 		let p = this.w[worker].postMessage(o, 'cassproject');
 		return cassPromisify(p, success, failure);
 	}
@@ -279,6 +284,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["text"] = forge.util.encodeUtf8(text);
 		o["signature"] = signature;
 		o["cmd"] = "verifyRsaOaepSha256";
+		o["origin"] = "cassproject";
 		let p = this.w[worker].postMessage(o, 'cassproject');
 		return cassPromisify(p, success, failure);
 	}

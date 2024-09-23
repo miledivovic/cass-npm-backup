@@ -13,10 +13,10 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master,"1.5","1.6" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ master ]
+    branches: [ master,"1.5","1.6" ]
   schedule:
     - cron: '16 9 * * 1'
 
@@ -68,3 +68,13 @@ jobs:
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
+      
+    - name: Analyze with SonarCloud
+      uses: SonarSource/sonarcloud-github-action@latest
+      env:
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+      with:
+        args:
+          -Dsonar.projectKey=cassproject_cass-npm
+          -Dsonar.organization=cassproject
+        projectBaseDir: .

@@ -1,0 +1,6 @@
+on:
+  push:
+    branches:
+      - master
+      - '1.5'
+      - '1.6'

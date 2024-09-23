@@ -71,7 +71,9 @@ function registerPromiseWorker (callback) {
     }
   }
 
-  function onIncomingMessage (e) {
+  function onIncomingMessage(e) {
+    if (e.origin != 'cassproject') return;
+    
     var payload = e.data
     if (!Array.isArray(payload) || payload.length !== 2) {
       // message doens't match communication format; ignore

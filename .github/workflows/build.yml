@@ -58,7 +58,7 @@ jobs:
         args:
           -Dsonar.projectKey=cassproject_cass-npm
           -Dsonar.organization=cassproject
-        projectBaseDir: .
+        projectBaseDir: src
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2

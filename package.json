@@ -153,6 +153,7 @@
 		"concurrently": "^9.0.1",
 		"convert-hrtime": "^5.0.0",
 		"cypress": "^13.14.2",
+		"cypress-fail-fast": "^7.1.1",
 		"eslint": "^9.11.0",
 		"mocha": "^10.7.3",
 		"node-polyfill-webpack-plugin": "^2.0.1",

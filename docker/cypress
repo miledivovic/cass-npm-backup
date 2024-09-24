@@ -15,4 +15,4 @@ COPY cypressWebpack.config.js cypressWebpack.config.js
 COPY cypressBrowserify.config.js cypressBrowserify.config.js
 COPY cypressVite cypressVite
 COPY cypressVite.config.js cypressVite.config.js
-ENTRYPOINT cypress run -e --config-file cypressWebpack.config.js --browser edge && cypress run -e --config-file cypressWebpack.config.js --browser chrome && cypress run -e --config-file cypressWebpack.config.js
+ENTRYPOINT cypress run --config-file cypressWebpack.config.js --browser edge && cypress run --config-file cypressWebpack.config.js --browser chrome && cypress run --config-file cypressWebpack.config.js

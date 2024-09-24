@@ -156,7 +156,7 @@
 		"cypress-fail-fast": "^7.1.1",
 		"eslint": "^9.11.0",
 		"mocha": "^10.7.3",
-		"node-polyfill-webpack-plugin": "^2.0.1",
+		"node-polyfill-webpack-plugin": "^4.0.0",
 		"nodemon": "^3.1.7",
 		"nyc": "^15.1.0",
 		"url-polyfill": "^1.1.12",

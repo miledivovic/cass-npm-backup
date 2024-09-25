@@ -1,5 +1,5 @@
-let EcAes = require("./EcAes.js");
 let chai = require("chai");
+const EcAes = require("../com/eduworks/ec/crypto/EcAes");
 
 let should = chai.should();
 let expect = chai.expect;

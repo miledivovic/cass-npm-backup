@@ -1,5 +1,5 @@
-let EcObject = require("./EcObject.js");
 let chai = require("chai");
+const EcObject = require("../com/eduworks/ec/array/EcObject");
 
 let should = chai.should();
 let expect = chai.expect;

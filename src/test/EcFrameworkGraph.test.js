@@ -1,18 +1,17 @@
-const EcRemote = require("../remote/EcRemote.js");
-let EcFrameworkGraph = require("./EcFrameworkGraph.js");
-const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
+const EcPpk = require("../com/eduworks/ec/crypto/EcPpk.js");
+const EcAes = require("../com/eduworks/ec/crypto/EcAes.js");
 let chai = require("chai");
-const EcRepository = require("../../../../org/cassproject/ebac/repository/EcRepository.js");
-const EcIdentity = require("../../../../org/cassproject/ebac/identity/EcIdentity.js");
-const EcPpk = require("../crypto/EcPpk.js");
-const EcAssertion = require("../../../../org/cass/profile/EcAssertion.js");
-const EcCompetency = require("../../../../org/cass/competency/EcCompetency.js");
-const EcRollupRule = require("../../../../org/cass/competency/EcRollupRule.js");
-const EcAlignment = require("../../../../org/cass/competency/EcAlignment.js");
-const EcRsaOaepAsyncWorker = require("../crypto/EcRsaOaepAsyncWorker.js");
-const EcIdentityManager = require("../../../../org/cassproject/ebac/identity/EcIdentityManager");
-const EcAes = require("../crypto/EcAes.js");
 const fs = require('fs');
+const EcRsaOaepAsyncWorker = require("../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker");
+const EcRepository = require("../org/cassproject/ebac/repository/EcRepository");
+const EcAssertion = require("../org/cass/profile/EcAssertion");
+const EcIdentityManager = require("../org/cassproject/ebac/identity/EcIdentityManager");
+const EcCompetency = require("../org/cass/competency/EcCompetency");
+const EcRollupRule = require("../org/cass/competency/EcRollupRule");
+const EcAlignment = require("../org/cass/competency/EcAlignment");
+const EcFramework = require("../org/cass/competency/EcFramework");
+const EcIdentity = require("../org/cassproject/ebac/identity/EcIdentity");
+const EcFrameworkGraph = require("../com/eduworks/ec/graph/EcFrameworkGraph");
 
 let hrtime = function() {
     try {

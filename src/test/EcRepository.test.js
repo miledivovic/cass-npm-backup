@@ -1,25 +1,18 @@
-
-const EcRemote = require("../../../../com/eduworks/ec/remote/EcRemote.js");
-const EcFramework = require("../../../../org/cass/competency/EcFramework.js");
-const EcRepository = require("../../../../org/cassproject/ebac/repository/EcRepository.js");
-const EcIdentity = require("../../../../org/cassproject/ebac/identity/EcIdentity.js");
-const EcAssertion = require("../../../../org/cass/profile/EcAssertion.js");
-const EcCompetency = require("../../../../org/cass/competency/EcCompetency.js");
-const EcRollupRule = require("../../../../org/cass/competency/EcRollupRule.js");
-const EcAlignment = require("../../../../org/cass/competency/EcAlignment.js");
-const EcIdentityManager = require("../../../../org/cassproject/ebac/identity/EcIdentityManager");
-const EcPpk = require("../../../../com/eduworks/ec/crypto/EcPpk.js");
-const EcRsaOaepAsyncWorker = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker.js");
-const EcEncryptedValue = require("./EcEncryptedValue.js");
 const fs = require('fs');
 const https = require('https');
-const EcCrypto = require("../../../../com/eduworks/ec/crypto/EcCrypto.js");
 
 const schema = {
-	"Thing": require("../../../schema/Thing.js")
+    "Thing": require('../org/schema/Thing.js')
 };
 
 let chai = require("chai");
+const EcRsaOaepAsyncWorker = require('../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker.js');
+const EcRepository = require('../org/cassproject/ebac/repository/EcRepository.js');
+const EcCrypto = require('../com/eduworks/ec/crypto/EcCrypto.js');
+const EcEncryptedValue = require('../org/cassproject/ebac/repository/EcEncryptedValue.js');
+const EcIdentityManager = require('../org/cassproject/ebac/identity/EcIdentityManager.js');
+const EcIdentity = require('../org/cassproject/ebac/identity/EcIdentity.js');
+const EcPpk = require('../com/eduworks/ec/crypto/EcPpk.js');
 
 let hrtime = function() {
     try {

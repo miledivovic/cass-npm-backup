@@ -1,5 +1,5 @@
-let EcArray = require("./EcArray.js");
 let chai = require("chai");
+const EcArray = require("../com/eduworks/ec/array/EcArray.js");
 
 let should = chai.should();
 let expect = chai.expect;

@@ -1,6 +1,6 @@
 const chai = require("chai");
-const EcPpkFacade = require("../../../../com/eduworks/ec/crypto/EcPpkFacade");
-const EcRsaOaepAsyncWorker = require("../../../../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker");
+const EcRsaOaepAsyncWorker = require("../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker");
+const EcPpkFacade = require("../com/eduworks/ec/crypto/EcPpkFacade");
 
 let hrtime = function() {
     try {
@@ -22,9 +22,9 @@ describe("EcIdentityManager", () => {
         assert.isTrue(new EcPpkFacade() instanceof EcPpkFacade);
     })
     it('real simple stuff 2', () => {
-        assert.isTrue(new EcPpkFacade() instanceof require("../../../../com/eduworks/ec/crypto/EcPpkFacade"));
+        assert.isTrue(new EcPpkFacade() instanceof require("../com/eduworks/ec/crypto/EcPpkFacade"));
     })
     it('real simple stuff 3', () => {
-        assert.isTrue(new (require("../../../../com/eduworks/ec/crypto/EcPpkFacade"))() instanceof require("../../../../com/eduworks/ec/crypto/EcPpkFacade"));
+        assert.isTrue(new (require("../com/eduworks/ec/crypto/EcPpkFacade"))() instanceof require("../com/eduworks/ec/crypto/EcPpkFacade"));
     })
 }); 

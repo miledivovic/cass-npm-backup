@@ -1,6 +1,6 @@
-let EcPk = require("./EcPk.js");
-let EcPpk = require("./EcPpk.js");
 let chai = require("chai");
+const EcPpk = require("../com/eduworks/ec/crypto/EcPpk");
+const EcPk = require("../com/eduworks/ec/crypto/EcPk");
 
 let should = chai.should();
 let expect = chai.expect;

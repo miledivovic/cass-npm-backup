@@ -1,8 +1,8 @@
-let EcRsaOaep = require("./EcRsaOaep.js");
-let EcAes = require("./EcAes.js");
-let EcCrypto = require("./EcCrypto.js");
-let EcPpk = require("./EcPpk.js");
 let chai = require("chai");
+const EcRsaOaep = require("../com/eduworks/ec/crypto/EcRsaOaep");
+const EcAes = require("../com/eduworks/ec/crypto/EcAes");
+const EcCrypto = require("../com/eduworks/ec/crypto/EcCrypto");
+const EcPpk = require("../com/eduworks/ec/crypto/EcPpk");
 
 let hrtime = function() {
     try {

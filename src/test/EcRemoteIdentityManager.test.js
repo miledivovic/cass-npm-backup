@@ -1,9 +1,5 @@
 const chai = require("chai");
-const EcAes = require("../../../../../com/eduworks/ec/crypto/EcAes");
-const EcPpk = require("../../../../../com/eduworks/ec/crypto/EcPpk");
-const EcIdentity = require("../EcIdentity");
-const EcIdentityManager = require("../EcIdentityManager");
-const EcRemoteIdentityManager = require("./EcRemoteIdentityManager");
+const EcRemoteIdentityManager = require("../org/cassproject/ebac/identity/remote/EcRemoteIdentityManager");
 
 let should = chai.should();
 let expect = chai.expect;

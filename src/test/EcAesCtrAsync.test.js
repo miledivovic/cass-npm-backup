@@ -1,9 +1,9 @@
-let EcAesCtr = require("./EcAesCtr.js");
-let EcAesCtrAsync = require("./EcAesCtrAsync.js");
-let EcAesCtrAsyncWorker = require("./EcAesCtrAsyncWorker.js");
-let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
-let EcAes = require("./EcAes.js");
-let EcCrypto = require("./EcCrypto.js");
+let EcAesCtr = require("../com/eduworks/ec/crypto/EcAesCtr.js");
+let EcAesCtrAsync = require("../com/eduworks/ec/crypto/EcAesCtrAsync.js");
+let EcAesCtrAsyncWorker = require("../com/eduworks/ec/crypto/EcAesCtrAsyncWorker.js");
+let EcRsaOaepAsyncWorker = require("../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker.js");
+let EcAes = require("../com/eduworks/ec/crypto/EcAes.js");
+let EcCrypto = require("../com/eduworks/ec/crypto/EcCrypto.js");
 let chai = require("chai");
 
 let hrtime = function() {

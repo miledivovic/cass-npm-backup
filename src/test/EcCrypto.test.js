@@ -1,5 +1,5 @@
-let EcCrypto = require("./EcCrypto.js");
-let EcAes = require("./EcAes.js");
+let EcCrypto = require("../com/eduworks/ec/crypto/EcCrypto.js");
+let EcAes = require("../com/eduworks/ec/crypto/EcAes.js");
 let chai = require("chai");
 
 try {

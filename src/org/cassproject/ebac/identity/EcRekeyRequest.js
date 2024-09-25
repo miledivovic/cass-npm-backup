@@ -101,8 +101,8 @@ module.exports = class EcRekeyRequest extends EcRemoteLinkedData {
 			this.rekeySignature
 		)));
 	}
-	addRekeyRequestToForwardingTable() {
-		if (!this.verify()) return;
+	async addRekeyRequestToForwardingTable() {
+		if (!(await this.verify())) return;
 		if (this.owner != null)
 			EcRemoteLinkedData.forwardKey(this.rekeyPk, this.owner[0]);
 	}

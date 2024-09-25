@@ -196,9 +196,9 @@ module.exports = class EcRepository {
 				null,
 				null,
 				params, eim
-			).then((rekeyRequests) => {
+			).then(async (rekeyRequests) => {
 				for (let i = 0; i < rekeyRequests.length; i++) {
-					rekeyRequests[i].addRekeyRequestToForwardingTable();
+					await rekeyRequests[i].addRekeyRequestToForwardingTable();
 				}
 				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcRepoBuildKeyForwTable", EcObject.keys(EcRemoteLinkedData.forwardingTable).length + " records now in forwarding table.");
 			}),

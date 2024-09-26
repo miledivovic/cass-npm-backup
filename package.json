@@ -165,7 +165,7 @@
 		"mocha": "^10.7.3",
 		"node-polyfill-webpack-plugin": "^4.0.0",
 		"nodemon": "^3.1.7",
-		"nyc": "^15.1.0",
+		"nyc": "^17.1.0",
 		"url-polyfill": "^1.1.12",
 		"wait-on": "^8.0.1",
 		"webpack": "^5.94.0",

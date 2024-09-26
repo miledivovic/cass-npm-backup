@@ -13,6 +13,7 @@
 // the project's config changing)
 const webpackPreprocessor = require('@cypress/webpack-preprocessor')
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin")
+const webpack = require('webpack');
 
 /**
  * @type {Cypress.PluginConfig}
@@ -24,7 +25,11 @@ module.exports = (on, config) => {
 
   on('file:preprocessor', webpackPreprocessor({
       webpackOptions: {
-        plugins: [ new NodePolyfillPlugin() ],
+      plugins: [new NodePolyfillPlugin(),
+        new webpack.ProvidePlugin({
+          process: 'process/browser',
+        }), 
+      ],
         externals: {
           "http2-wrapper": "http2",
           "node:dns":"commonjs node:dns"

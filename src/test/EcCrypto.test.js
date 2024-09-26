@@ -9,13 +9,19 @@ try {
     console.log("Webcrypto not available. Tests will fail. Please upgrade, if possible, to Node 16. Non-test mode will fallback to slower cryptograpy methods.: " + err);
 }
 
-let hrtime = function() {
+let hrtime = function () {
     try {
-        return [Math.round(performance.now()/1000), performance.now() * 1000];
+        return [Math.round(performance.now() / 1000), performance.now() * 1000];
     } catch (e) {
-        // Eat quietly.
+        try {
+            if (typeof process !== 'undefined')
+                return process.hrtime();
+            return [new Date().getTime(), new Date().getTime() * 1000];
+        }
+        catch (ex) {
+            return [new Date().getTime(), new Date().getTime() * 1000];
+        }
     }
-    return process.hrtime();
 };
 
 let should = chai.should();

@@ -2,13 +2,19 @@ const chai = require("chai");
 const EcRsaOaepAsyncWorker = require("../com/eduworks/ec/crypto/EcRsaOaepAsyncWorker");
 const EcPpkFacade = require("../com/eduworks/ec/crypto/EcPpkFacade");
 
-let hrtime = function() {
+let hrtime = function () {
     try {
-        return [Math.round(performance.now()/1000), performance.now() * 1000];
+        return [Math.round(performance.now() / 1000), performance.now() * 1000];
     } catch (e) {
-        // Eat quietly.
+        try {
+            if (typeof process !== 'undefined')
+                return process.hrtime();
+            return [new Date().getTime(), new Date().getTime() * 1000];
+        }
+        catch (ex) {
+            return [new Date().getTime(), new Date().getTime() * 1000];
+        }
     }
-    return process.hrtime();
 };
 
 let should = chai.should();

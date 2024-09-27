@@ -1,5 +1,5 @@
-let forge = require("node-forge");
-let EcCrypto = require("./EcCrypto.js");
+const forge = require("node-forge");
+const EcCrypto = require("./EcCrypto.js");
 /**
  *  Encrypts data synchronously using AES-256-CTR. Requires secret and iv to be 32 bytes.
  *  Output is encoded in base64 for easier handling.
@@ -23,7 +23,7 @@ module.exports = class EcAesCtr {
 	 *  @deprecated For backup use only. Instead, use await on EcAesCtrAsync.
 	 */
 	static encrypt(plaintext, secret, iv) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcAesCtrAsync."
 			);
@@ -58,7 +58,7 @@ module.exports = class EcAesCtr {
 	 *  @deprecated For backup use only. Instead, use await on EcAesCtrAsync.
 	 */
 	static decrypt(ciphertext, secret, iv) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcAesCtrAsync."
 			);

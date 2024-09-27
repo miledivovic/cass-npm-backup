@@ -4,7 +4,6 @@ module.exports = {
 		es6: true,
 		node: true
 	},
-	parser: "babel-eslint",
 	rules: {
 		// These rules assume eslint recommended, if the rules is accepted from
 		// eslint:recommended settings it is commented out and noted to the right of

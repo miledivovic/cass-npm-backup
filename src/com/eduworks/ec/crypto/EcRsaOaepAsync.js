@@ -2,7 +2,6 @@ let base64 = require("base64-arraybuffer");
 let forge = require("node-forge");
 const EcAesCtrAsync = require("./EcAesCtrAsync.js");
 require("../../../../org/cassproject/general/AuditLogger.js");
-let crypto = undefined;
 if (typeof crypto == 'undefined')
 {
 	if (typeof window !== 'undefined' && window != null && window !== undefined)
@@ -43,12 +42,7 @@ module.exports = class EcRsaOaepAsync {
 	static encrypt(pk, plainText, success, failure) {
 		if (EcCrypto.testMode)
 			console.log("encrypt: " + plainText)
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined
-		) {
+		if (crypto?.subtle == null) {
 			return EcRsaOaep.encrypt(
 				pk,
 				plainText,
@@ -57,8 +51,7 @@ module.exports = class EcRsaOaepAsync {
 			);
 		}
 		EcAesCtrAsync.fipsOn();
-		let keyUsages = [];
-		keyUsages.push("encrypt");
+		let keyUsages = ["encrypt"];
 		let algorithm = {};
 		algorithm.name = "RSA-OAEP";
 		algorithm.hash = "SHA-1";
@@ -111,12 +104,7 @@ module.exports = class EcRsaOaepAsync {
 				return cassReturnAsPromise(cacheGet, success, failure);
 			}
 		}
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined
-		) {
+		if (crypto?.subtle == null) {
 			return EcRsaOaep.decrypt(
 				ppk,
 				cipherText,
@@ -193,21 +181,14 @@ module.exports = class EcRsaOaepAsync {
 	static sign(ppk, text, success, failure) {
 		if (EcCrypto.testMode)
 			console.log("sign (sha1): " + text)
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined || 
-			(typeof process !== 'undefined' && process && process.env && process.env.FIPS)
-		) {
+		if (crypto?.subtle == null || (typeof process !== 'undefined' && process?.env?.FIPS)) {
 			return EcRsaOaep.sign(ppk, text, success, failure);
 		}
 		if (text == null) {
 			return cassReturnAsPromise(null, success, failure);
 		}
 		EcAesCtrAsync.fipsOff();// OPENSSL3 signing with this method not allowed. See https://github.com/Lomilar/node-fips-rsassa-pkcs1-15-sha1/tree/main
-		let keyUsages = [];
-		keyUsages.push("sign");
+		let keyUsages = ["sign"];
 		let algorithm = {};
 		algorithm.name = "RSASSA-PKCS1-v1_5";
 		algorithm.hash = "SHA-1";
@@ -264,12 +245,7 @@ module.exports = class EcRsaOaepAsync {
 	static signSha256 = function (ppk, text, success, failure) {
 		if (EcCrypto.testMode)
 			console.log("sign (sha256): " + text)
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined
-		) {
+		if (crypto?.subtle == null) {
 			return EcRsaOaep.sign(ppk, text, success, failure);
 		}
 		EcAesCtrAsync.fipsOn();
@@ -321,12 +297,7 @@ module.exports = class EcRsaOaepAsync {
 	static verify(pk, text, signature, success, failure) {
 		if (EcCrypto.testMode)
 			console.log("verify (sha1): " + text)
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined
-		) {
+		if (crypto?.subtle == null) {
 			return EcRsaOaep.verify(
 				pk,
 				text,
@@ -396,12 +367,7 @@ module.exports = class EcRsaOaepAsync {
 	static verifySha256(pk, text, signature, success, failure) {
 		if (EcCrypto.testMode)
 			console.log("verify (sha256): " + text)
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined
-		) {
+		if (crypto?.subtle == null) {
 			return EcRsaOaep.verify(
 				pk,
 				text,

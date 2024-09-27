@@ -27,13 +27,13 @@ module.exports = class EcDirectedGraph extends Graph {
 		return results;
 	}
 	containsVertex(vertex) {
-		for (let i = 0; i < this.verticies.length; i++)
-			if (vertex.equals(this.verticies[i])) return true;
+		for (let vertex2 of this.vertices)
+			if (vertex.equals(vertex2)) return true;
 		return false;
 	}
 	containsEdge(edge) {
-		for (let i = 0; i < this.edges.length; i++)
-			if (edge.equals(this.edges[i].edge)) return true;
+		for (let edge2 of this.edges)
+			if (edge.equals(edge2.edge)) return true;
 		return false;
 	}
 	getEdgeCount() {
@@ -44,65 +44,63 @@ module.exports = class EcDirectedGraph extends Graph {
 	}
 	getNeighbors(vertex) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (vertex.equals(this.edges[i].source))
-				results.push(this.edges[i].destination);
-			else if (vertex.equals(this.edges[i].destination))
-				results.push(this.edges[i].source);
+		for (let edge2 of this.edges) {
+			if (vertex.equals(edge2.source))
+				results.push(edge2.destination);
+			else if (vertex.equals(edge2.destination))
+				results.push(edge2.source);
 		}
 		EcArray.removeDuplicates(results);
 		return results;
 	}
 	getIncidentEdges(vertex) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (vertex.equals(this.edges[i].source))
-				results.push(this.edges[i].edge);
-			else if (vertex.equals(this.edges[i].destination))
-				results.push(this.edges[i].edge);
+		for (let edge2 of this.edges) {
+			if (vertex.equals(edge2.source) || vertex.equals(edge2.destination))
+				results.push(edge2.edge);
 		}
 		EcArray.removeDuplicates(results);
 		return results;
 	}
 	getIncidentVertices(edge) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (edge.equals(this.edges[i].edge)) {
-				results.push(this.edges[i].source);
-				results.push(this.edges[i].destination);
+		for (let edge2 of this.edges) {
+			if (edge.equals(edge2.edge)) {
+				results.push(edge2.source);
+				results.push(edge2.destination);
 			}
 		}
 		EcArray.removeDuplicates(results);
 		return results;
 	}
 	findEdge(v1, v2) {
-		for (let i = 0; i < this.edges.length; i++) {
+		for (let edge2 of this.edges) {
 			if (
-				v1.equals(this.edges[i].source) &&
-				v2.equals(this.edges[i].destination)
+				v1.equals(edge2.source) &&
+				v2.equals(edge2.destination)
 			)
-				return this.edges[i].edge;
+				return edge2.edge;
 			if (
-				v1.equals(this.edges[i].destination) &&
-				v2.equals(this.edges[i].source)
+				v1.equals(edge2.destination) &&
+				v2.equals(edge2.source)
 			)
-				return this.edges[i].edge;
+				return edge2.edge;
 		}
 		return null;
 	}
 	findEdgeSet(v1, v2) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
+		for (let edge2 of this.edges) {
 			if (
-				v1.equals(this.edges[i].source) &&
-				v2.equals(this.edges[i].destination)
+				v1.equals(edge2.source) &&
+				v2.equals(edge2.destination)
 			)
-				results.push(this.edges[i].edge);
+				results.push(edge2.edge);
 			if (
-				v1.equals(this.edges[i].destination) &&
-				v2.equals(this.edges[i].source)
+				v1.equals(edge2.destination) &&
+				v2.equals(edge2.source)
 			)
-				results.push(this.edges[i].edge);
+				results.push(edge2.edge);
 		}
 		return results;
 	}
@@ -123,8 +121,7 @@ module.exports = class EcDirectedGraph extends Graph {
 					this.edges[i].source.equals(vertex) ||
 					this.edges[i].destination.equals(vertex)
 				) {
-					this.edges.splice(i, 1);
-					i--;
+					this.edges.splice(i--, 1); //NOSONAR It's fine.
 				}
 			}
 			this.verticies.splice(indexOf, 1);
@@ -136,34 +133,25 @@ module.exports = class EcDirectedGraph extends Graph {
 		let success = false;
 		for (let i = 0; i < this.edges.length; i++) {
 			if (this.edges[i].edge.equals(edge)) {
-				this.edges.splice(i, 1);
-				i--;
+				this.edges.splice(i--, 1); //NOSONAR It's fine.
 				success = true;
 			}
 		}
 		return success;
 	}
 	isNeighbor(v1, v2) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (
-				v1.equals(this.edges[i].source) &&
-				v2.equals(this.edges[i].destination)
-			)
-				return true;
-			else if (
-				v1.equals(this.edges[i].destination) &&
-				v2.equals(this.edges[i].source)
-			)
+		for (let edge2 of this.edges) {
+			if ((v1.equals(edge2.source) && v2.equals(edge2.destination)) || (v1.equals(edge2.destination) && v2.equals(edge2.source)))
 				return true;
 		}
 		return false;
 	}
 	isIncident(vertex, edge) {
-		for (let i = 0; i < this.edges.length; i++) {
+		for (let edge2 of this.edges) {
 			if (
-				(vertex.equals(this.edges[i].source) ||
-					vertex.equals(this.edges[i].destination)) &&
-				edge.equals(this.edges[i].edge)
+				(vertex.equals(edge2.source) ||
+					vertex.equals(edge2.destination)) &&
+				edge.equals(edge2.edge)
 			)
 				return true;
 		}
@@ -171,10 +159,10 @@ module.exports = class EcDirectedGraph extends Graph {
 	}
 	degree(vertex) {
 		let count = 0;
-		for (let i = 0; i < this.edges.length; i++) {
+		for (let edge2 of this.edges) {
 			if (
-				vertex.equals(this.edges[i].source) ||
-				vertex.equals(this.edges[i].destination)
+				vertex.equals(edge2.source) ||
+				vertex.equals(edge2.destination)
 			)
 				count++;
 		}
@@ -186,13 +174,13 @@ module.exports = class EcDirectedGraph extends Graph {
 	getIncidentCount(edge) {
 		return this.getIncidentVertices(edge).length;
 	}
-	getEdgeType(edge) {}
-	getDefaultEdgeType() {}
+	getEdgeType(edge) { } //NOSONAR -- This is a stub method.
+	getDefaultEdgeType() { } //NOSONAR -- This is a stub method.
 	getEdgesOfType(edge_type) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (this.getEdgeType(this.edges[i].edge) == edge_type)
-				results.push(this.edges[i].edge);
+		for (let edge2 of this.edges) {
+			if (this.getEdgeType(edge2.edge) == edge_type)
+				results.push(edge2.edge);
 		}
 		return results;
 	}
@@ -201,18 +189,18 @@ module.exports = class EcDirectedGraph extends Graph {
 	}
 	getInEdges(vertex) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (vertex.equals(this.edges[i].destination))
-				results.push(this.edges[i].edge);
+		for (let edge2 of this.edges) {
+			if (vertex.equals(edge2.destination))
+				results.push(edge2.edge);
 		}
 		EcArray.removeDuplicates(results);
 		return results;
 	}
 	getOutEdges(vertex) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (vertex.equals(this.edges[i].source))
-				results.push(this.edges[i].edge);
+		for (let edge2 of this.edges) {
+			if (vertex.equals(edge2.source))
+				results.push(edge2.edge);
 		}
 		EcArray.removeDuplicates(results);
 		return results;
@@ -224,48 +212,48 @@ module.exports = class EcDirectedGraph extends Graph {
 		return this.getOutEdges(vertex).length;
 	}
 	getSource(directed_edge) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (directed_edge.equals(this.edges[i].edge))
+		for (let edge2 of this.edges) {
+			if (directed_edge.equals(edge2.edge))
 				return this.edges[i].source;
 		}
 		return null;
 	}
 	getDest(directed_edge) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (directed_edge.equals(this.edges[i].edge))
+		for (let edge2 of this.edges) {
+			if (directed_edge.equals(edge2.edge))
 				return this.edges[i].destination;
 		}
 		return null;
 	}
 	getPredecessors(vertex) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (vertex.equals(this.edges[i].destination))
-				results.push(this.edges[i].source);
+		for (let edge2 of this.edges) {
+			if (vertex.equals(edge2.destination))
+				results.push(edge2.source);
 		}
 		EcArray.removeDuplicates(results);
 		return results;
 	}
 	getSuccessors(vertex) {
 		let results = [];
-		for (let i = 0; i < this.edges.length; i++) {
-			if (vertex.equals(this.edges[i].source))
-				results.push(this.edges[i].destination);
+		for (let edge2 of this.edges) {
+			if (vertex.equals(edge2.source))
+				results.push(edge2.destination);
 		}
 		EcArray.removeDuplicates(results);
 		return results;
 	}
 	isPredecessor(v1, v2) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (v1.equals(this.edges[i].destination))
-				if (v2.equals(this.edges[i].source)) return true;
+		for (let edge2 of this.edges) {
+			if (v1.equals(edge2.destination))
+				if (v2.equals(edge2.source)) return true;
 		}
 		return false;
 	}
 	isSuccessor(v1, v2) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (v2.equals(this.edges[i].destination))
-				if (v1.equals(this.edges[i].source)) return true;
+		for (let edge2 of this.edges) {
+			if (v2.equals(edge2.destination))
+				if (v1.equals(edge2.source)) return true;
 		}
 		return false;
 	}
@@ -276,16 +264,16 @@ module.exports = class EcDirectedGraph extends Graph {
 		return this.getSuccessors(vertex).length;
 	}
 	isSource(vertex, edge) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (edge.equals(this.edges[i].edge))
-				if (vertex.equals(this.edges[i].source)) return true;
+		for (let edge2 of this.edges) {
+			if (edge.equals(edge2.edge))
+				if (vertex.equals(edge2.source)) return true;
 		}
 		return false;
 	}
 	isDest(vertex, edge) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (edge.equals(this.edges[i].edge))
-				if (vertex.equals(this.edges[i].destination)) return true;
+		for (let edge2 of this.edges) {
+			if (edge.equals(edge2.edge))
+				if (vertex.equals(edge2.destination)) return true;
 		}
 		return false;
 	}
@@ -319,12 +307,12 @@ module.exports = class EcDirectedGraph extends Graph {
 		return true;
 	}
 	getOpposite(vertex, edge) {
-		for (let i = 0; i < this.edges.length; i++) {
-			if (edge.equals(this.edges[i].edge))
-				if (vertex.equals(this.edges[i].destination))
-					return this.edges[i].source;
-				else if (vertex.equals(this.edges[i].source))
-					return this.edges[i].destination;
+		for (let edge2 of this.edges) {
+			if (edge.equals(edge2.edge))
+				if (vertex.equals(edge2.destination))
+					return edge2.source;
+				else if (vertex.equals(edge2.source))
+					return edge2.destination;
 		}
 		return null;
 	}

@@ -43,12 +43,7 @@ module.exports = class EcRsaOaepAsync {
 		if (EcCrypto.testMode)
 			console.log("encrypt: " + plainText)
 		if (crypto?.subtle == null) {
-			return EcRsaOaep.encrypt(
-				pk,
-				plainText,
-				success,
-				failure
-			);
+			return EcRsaOaep.encrypt(pk, plainText, success, failure); //NOSONAR -- This is a Fallback method.
 		}
 		EcAesCtrAsync.fipsOn();
 		let keyUsages = ["encrypt"];
@@ -105,12 +100,7 @@ module.exports = class EcRsaOaepAsync {
 			}
 		}
 		if (crypto?.subtle == null) {
-			return EcRsaOaep.decrypt(
-				ppk,
-				cipherText,
-				success,
-				failure
-			);
+			return EcRsaOaep.decrypt(ppk, cipherText, success, failure);  //NOSONAR -- This is a Fallback method.
 		}
 		EcAesCtrAsync.fipsOn();
 		let algorithm = {};
@@ -182,7 +172,7 @@ module.exports = class EcRsaOaepAsync {
 		if (EcCrypto.testMode)
 			console.log("sign (sha1): " + text)
 		if (crypto?.subtle == null || (typeof process !== 'undefined' && process?.env?.FIPS)) {
-			return EcRsaOaep.sign(ppk, text, success, failure);
+			return EcRsaOaep.sign(ppk, text, success, failure); //NOSONAR -- This is a Fallback method.
 		}
 		if (text == null) {
 			return cassReturnAsPromise(null, success, failure);
@@ -246,7 +236,7 @@ module.exports = class EcRsaOaepAsync {
 		if (EcCrypto.testMode)
 			console.log("sign (sha256): " + text)
 		if (crypto?.subtle == null) {
-			return EcRsaOaep.sign(ppk, text, success, failure);
+			return EcRsaOaep.sign(ppk, text, success, failure); //NOSONAR -- This is a Fallback method.
 		}
 		EcAesCtrAsync.fipsOn();
 		let keyUsages = [];
@@ -298,13 +288,7 @@ module.exports = class EcRsaOaepAsync {
 		if (EcCrypto.testMode)
 			console.log("verify (sha1): " + text)
 		if (crypto?.subtle == null) {
-			return EcRsaOaep.verify(
-				pk,
-				text,
-				signature,
-				success,
-				failure
-			);
+			return EcRsaOaep.verify(pk, text, signature, success, failure); //NOSONAR -- This is a Fallback method.
 		}
 		EcAesCtrAsync.fipsOn();
 		let algorithm = {};
@@ -368,13 +352,7 @@ module.exports = class EcRsaOaepAsync {
 		if (EcCrypto.testMode)
 			console.log("verify (sha256): " + text)
 		if (crypto?.subtle == null) {
-			return EcRsaOaep.verify(
-				pk,
-				text,
-				signature,
-				success,
-				failure
-			);
+			return EcRsaOaep.verify(pk, text, signature, success, failure); //NOSONAR -- This is a Fallback method.
 		}
 		EcAesCtrAsync.fipsOn();
 		let algorithm = {};

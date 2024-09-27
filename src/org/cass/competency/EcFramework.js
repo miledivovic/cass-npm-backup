@@ -304,12 +304,8 @@ module.exports = class EcFramework extends Framework {
 	removeRelation(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.relation == null) this.relation = [];
-		for (let i = 0; i < this.relation.length; i++)
-			if (
-				EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]).equals(
-					id
-				)
-			)
+		for (let relationId of this.relation)
+			if (EcRemoteLinkedData.trimVersionFromUrl(relationId).equals(id))
 				this.relation.splice(i, 1);
 	}
 	/**

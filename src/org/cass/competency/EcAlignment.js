@@ -1,5 +1,6 @@
 const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
 const Relation = require("../../cassproject/schema/cass/competency/Relation.js");
+const EcRemoteLinkedData = require("../../cassproject/schema/general/EcRemoteLinkedData.js");
 /**
  *  Implementation of an alignment object with methods for interacting with CASS
  *  services on a server.

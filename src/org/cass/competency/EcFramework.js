@@ -126,10 +126,7 @@ module.exports = class EcFramework extends Framework {
 		let shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.competency == null) this.competency = [];
 		for (let i = 0; i < this.competency.length; i++)
-			if (
-				this.competency[i].equals(shortId) ||
-				this.competency[i].equals(id)
-			)
+			if (this.competency[i] == shortId || this.competency[i] == id)
 				this.competency.splice(i, 1);
 		if (
 			(this.relation == null || this.relation.length == 0) &&
@@ -304,8 +301,8 @@ module.exports = class EcFramework extends Framework {
 	removeRelation(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.relation == null) this.relation = [];
-		for (let relationId of this.relation)
-			if (EcRemoteLinkedData.trimVersionFromUrl(relationId).equals(id))
+		for (let i = 0;i < this.relation.length;i++)
+			if (EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]) == id)
 				this.relation.splice(i, 1);
 	}
 	/**
@@ -320,7 +317,7 @@ module.exports = class EcFramework extends Framework {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.level == null) this.level = [];
 		for (let levelId of this.level)
-			if (EcRemoteLinkedData.trimVersionFromUrl(levelId).equals(id))
+			if (EcRemoteLinkedData.trimVersionFromUrl(levelId) == id)
 				return;
 		this.level.push(id);
 	}
@@ -336,7 +333,7 @@ module.exports = class EcFramework extends Framework {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.level == null) this.level = [];
 		for (let i = 0; i < this.level.length; i++)
-			if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]).equals(id))
+			if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]) == id)
 				this.level.splice(i, 1);
 	}
 	/**
@@ -351,7 +348,7 @@ module.exports = class EcFramework extends Framework {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.rollupRule == null) this.rollupRule = [];
 		for (let rollupRuleId of this.rollupRule)
-			if (EcRemoteLinkedData.trimVersionFromUrl(rollupRuleId).equals(id))
+			if (EcRemoteLinkedData.trimVersionFromUrl(rollupRuleId) == id)
 				return;
 		this.rollupRule.push(id);
 	}
@@ -367,11 +364,7 @@ module.exports = class EcFramework extends Framework {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.rollupRule == null) this.rollupRule = [];
 		for (let i = 0; i < this.rollupRule.length; i++)
-			if (
-				EcRemoteLinkedData.trimVersionFromUrl(
-					this.rollupRule[i]
-				).equals(id)
-			)
+			if (EcRemoteLinkedData.trimVersionFromUrl(this.rollupRule[i]) == id)
 				this.rollupRule.splice(i, 1);
 	}
 	/**

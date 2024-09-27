@@ -27,7 +27,7 @@ module.exports = class EcDirectedGraph extends Graph {
 		return results;
 	}
 	containsVertex(vertex) {
-		for (let vertex2 of this.vertices)
+		for (let vertex2 of this.verticies)
 			if (vertex.equals(vertex2)) return true;
 		return false;
 	}
@@ -109,7 +109,8 @@ module.exports = class EcDirectedGraph extends Graph {
 		return true;
 	}
 	addVertexSafely(vertex) {
-		if (EcArray.has(this.verticies, vertex)) return false;
+		if (EcArray.has(this.verticies, vertex)) 
+			return false;
 		this.verticies.push(vertex);
 		return true;
 	}
@@ -214,14 +215,14 @@ module.exports = class EcDirectedGraph extends Graph {
 	getSource(directed_edge) {
 		for (let edge2 of this.edges) {
 			if (directed_edge.equals(edge2.edge))
-				return this.edges[i].source;
+				return edge2.source;
 		}
 		return null;
 	}
 	getDest(directed_edge) {
 		for (let edge2 of this.edges) {
 			if (directed_edge.equals(edge2.edge))
-				return this.edges[i].destination;
+				return edge2.destination;
 		}
 		return null;
 	}

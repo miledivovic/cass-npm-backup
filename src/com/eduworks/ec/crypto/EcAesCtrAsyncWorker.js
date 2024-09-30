@@ -1,6 +1,5 @@
 let forge = require("node-forge");
 let EcCrypto = require("./EcCrypto.js");
-let EcAesCtr = require("./EcAesCtr.js");
 let EcRsaOaepAsyncWorker = require("./EcRsaOaepAsyncWorker.js");
 let cassPromisify = require("../promises/helpers.js").cassPromisify;
 let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;

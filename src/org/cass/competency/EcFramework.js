@@ -104,20 +104,14 @@ module.exports = class EcFramework extends Framework {
 	addCompetency(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.competency == null) this.competency = [];
-		for (let i = 0; i < this.competency.length; i++)
-			if (
-				EcRemoteLinkedData.trimVersionFromUrl(
-					this.competency[i]
-				) == id
-			)
+		for (let compId of this.competency)
+			if (EcRemoteLinkedData.trimVersionFromUrl(compId) == id)
 				return;
 		this.competency.push(id);
 	}
 	/**
 	 *  Removes a competency ID from the framework's list, also removes any
 	 *  levels and relations associated with that competency
-	 *  <p>
-	 *  TODO: remove rollup rules? should we add flag to remove these extras
 	 *
 	 *  @param {String}            id
 	 *                             ID of the competency to remove
@@ -132,10 +126,7 @@ module.exports = class EcFramework extends Framework {
 		let shortId = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.competency == null) this.competency = [];
 		for (let i = 0; i < this.competency.length; i++)
-			if (
-				this.competency[i].equals(shortId) ||
-				this.competency[i].equals(id)
-			)
+			if (this.competency[i] == shortId || this.competency[i] == id)
 				this.competency.splice(i, 1);
 		if (
 			(this.relation == null || this.relation.length == 0) &&
@@ -294,10 +285,8 @@ module.exports = class EcFramework extends Framework {
 	addRelation(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.relation == null) this.relation = [];
-		for (let i = 0; i < this.relation.length; i++)
-			if (
-				EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]) == id
-			)
+		for (let relationId of this.relation)
+			if (EcRemoteLinkedData.trimVersionFromUrl(relationId) == id)
 				return;
 		this.relation.push(id);
 	}
@@ -312,12 +301,8 @@ module.exports = class EcFramework extends Framework {
 	removeRelation(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.relation == null) this.relation = [];
-		for (let i = 0; i < this.relation.length; i++)
-			if (
-				EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]).equals(
-					id
-				)
-			)
+		for (let i = 0;i < this.relation.length;i++)
+			if (EcRemoteLinkedData.trimVersionFromUrl(this.relation[i]) == id)
 				this.relation.splice(i, 1);
 	}
 	/**
@@ -331,8 +316,8 @@ module.exports = class EcFramework extends Framework {
 	addLevel(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.level == null) this.level = [];
-		for (let i = 0; i < this.level.length; i++)
-			if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]).equals(id))
+		for (let levelId of this.level)
+			if (EcRemoteLinkedData.trimVersionFromUrl(levelId) == id)
 				return;
 		this.level.push(id);
 	}
@@ -348,7 +333,7 @@ module.exports = class EcFramework extends Framework {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.level == null) this.level = [];
 		for (let i = 0; i < this.level.length; i++)
-			if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]).equals(id))
+			if (EcRemoteLinkedData.trimVersionFromUrl(this.level[i]) == id)
 				this.level.splice(i, 1);
 	}
 	/**
@@ -362,12 +347,8 @@ module.exports = class EcFramework extends Framework {
 	addRollupRule(id) {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.rollupRule == null) this.rollupRule = [];
-		for (let i = 0; i < this.rollupRule.length; i++)
-			if (
-				EcRemoteLinkedData.trimVersionFromUrl(
-					this.rollupRule[i]
-				).equals(id)
-			)
+		for (let rollupRuleId of this.rollupRule)
+			if (EcRemoteLinkedData.trimVersionFromUrl(rollupRuleId) == id)
 				return;
 		this.rollupRule.push(id);
 	}
@@ -383,11 +364,7 @@ module.exports = class EcFramework extends Framework {
 		id = EcRemoteLinkedData.trimVersionFromUrl(id);
 		if (this.rollupRule == null) this.rollupRule = [];
 		for (let i = 0; i < this.rollupRule.length; i++)
-			if (
-				EcRemoteLinkedData.trimVersionFromUrl(
-					this.rollupRule[i]
-				).equals(id)
-			)
+			if (EcRemoteLinkedData.trimVersionFromUrl(this.rollupRule[i]) == id)
 				this.rollupRule.splice(i, 1);
 	}
 	/**

@@ -53,7 +53,7 @@ module.exports = class EcAsyncTask {
 		return this.start;
 	}
 	doTask(_arguments) {
-		let ret = undefined;
+		let ret;
 		if (!this.isStarted) {
 			this.start = new Date();
 			this.isStarted = true;
@@ -91,35 +91,35 @@ module.exports = class EcAsyncTask {
 	}
 	invoke0 = function() {
 		let that = this;
-		let ret = this.job.call(this, function() {
+		let ret = this.job.call(this, function() { //NOSONAR -- Not taking that chance.
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke1 = function(arg1) {
 		let that = this;
-		let ret = this.job.call(this, arg1, function() {
+		let ret = this.job.call(this, arg1, function () { //NOSONAR -- Not taking that chance.
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke2 = function(arg1, arg2) {
 		let that = this;
-		let ret = this.job.call(this, arg1, arg2, function() {
+		let ret = this.job.call(this, arg1, arg2, function () { //NOSONAR -- Not taking that chance.
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke3 = function(arg1, arg2, arg3) {
 		let that = this;
-		let ret = this.job.call(this, arg1, arg2, arg3, function() {
+		let ret = this.job.call(this, arg1, arg2, arg3, function () { //NOSONAR -- Not taking that chance.
 			that.setComplete();
 		});
 		return ret;
 	};
 	invoke4 = function(arg1, arg2, arg3, arg4) {
 		let that = this;
-		let ret = this.job.call(this, arg1, arg2, arg3, arg4, function() {
+		let ret = this.job.call(this, arg1, arg2, arg3, arg4, function() { //NOSONAR -- Not taking that chance.
 			that.setComplete();
 		});
 		return ret;

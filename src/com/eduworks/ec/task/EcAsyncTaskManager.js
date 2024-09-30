@@ -18,8 +18,7 @@ module.exports = class EcAsyncTaskManager {
 	addTasks(tasks) {
 		let retMap = {};
 		if (tasks != undefined) {
-			for (let i = 0; i < tasks.length; i++) {
-				let task = tasks[i];
+			for (let task of tasks) {
 				let key = this.addTask(task);
 				retMap[key] = task;
 			}
@@ -62,9 +61,9 @@ module.exports = class EcAsyncTaskManager {
 	assignNewTask(task) {
 		let min = 10000;
 		let theGuy = null;
-		for (let i = 0; i < this.workerList.length; i++) {
-			if (this.workerList[i].getAssignedCount() < min) {
-				theGuy = this.workerList[i];
+		for (let worker of this.workerList) {
+			if (worker.getAssignedCount() < min) {
+				theGuy = worker;
 				min = theGuy.getAssignedCount();
 			}
 		}

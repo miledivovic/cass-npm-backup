@@ -7,7 +7,7 @@
  */
 let Task = null;
 module.exports = Task = class Task {
-	static constructor() {
+	static() {
 		Task.updateFrame();
 	}
 	static desiredFps = 2;

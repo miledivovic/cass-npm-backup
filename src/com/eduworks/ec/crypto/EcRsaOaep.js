@@ -21,7 +21,7 @@ module.exports = class EcRsaOaep {
 	 *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
 	 */
 	static encrypt(pk, plaintext) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcRsaOaepAsync."
 			);
@@ -45,7 +45,7 @@ module.exports = class EcRsaOaep {
 	 *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
 	 */
 	static decrypt(ppk, ciphertext) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcRsaOaepAsync."
 			);
@@ -83,7 +83,7 @@ module.exports = class EcRsaOaep {
 	 *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
 	 */
 	static sign(ppk, text) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcRsaOaepAsync."
 			);
@@ -108,7 +108,7 @@ module.exports = class EcRsaOaep {
 	 *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
 	 */
 	static signSha256 = function(ppk, text) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcRsaOaepAsync."
 			);
@@ -130,7 +130,7 @@ module.exports = class EcRsaOaep {
 	 *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
 	 */
 	static verify(pk, text, signature) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcRsaOaepAsync."
 			);
@@ -162,7 +162,7 @@ module.exports = class EcRsaOaep {
 	 *  @deprecated For backup use only. Instead, use await on EcRsaOaepAsync.
 	 */
 	static verifySha256 = function(pk, text, signature) {
-		if (EcCrypto.deprecationNotice == false)
+		if (!EcCrypto.deprecationNotice)
 			console.trace(
 				"This method is deprecated. Please use await on EcRsaOaepAsync."
 			);

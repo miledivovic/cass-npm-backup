@@ -54,6 +54,7 @@
 		"testCypressHttps": "docker build --progress plain -f docker/cypressHttps -t npm-casscypresshttps . && docker run --network cass-net -e CASS_LOOPBACK --rm npm-casscypresshttps",
 		"autotest": "nodemon test.js",
 		"autoindex": "nodemon index.js",
+		"nyc": "nyc --reporter lcov npm run mocha",
 		"mocha": "mocha --timeout 30000 -b src/**/*.test.js",
 		"mochaFips": "mocha -n 'force-fips' --timeout 30000 -b src/**/*.test.js",
 		"mocha:httpsNoHttp2": "export HTTP2=false|| set HTTP2=false&& mocha --timeout 30000 -b src/**/*.test.js",

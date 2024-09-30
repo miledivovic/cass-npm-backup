@@ -3,6 +3,8 @@ const sinon = require('sinon');
 const EcRemote = require('../com/eduworks/ec/remote/EcRemote');
 
 const { expect } = chai;
+if ((typeof Cypress !== 'undefined') && Cypress != null && Cypress.env != null)
+    process.env.CASS_LOOPBACK = Cypress.env('CASS_LOOPBACK');
 
 describe('EcRemote', function () {
     describe('postExpectingObject', function () {

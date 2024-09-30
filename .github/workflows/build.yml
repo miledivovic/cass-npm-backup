@@ -55,6 +55,7 @@ jobs:
       with:
         cache: 'npm'
     - run: npm ci
+    - run: docker network create cass-net
     - run: docker run -d --network cass-net --name cass-nyc -p80:80 cassproject/cass:dev
     - run: npm run nyc
 

@@ -1,18 +1,19 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskRequirementDate extends EcRemoteLinkedData {
 
-date;
+    date;
 
- getDate() {
-        return date;
+    getDate() {
+        return this.date;
     }
 
- setDate( value) {
+    setDate(value) {
         this.date = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementDate");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementDate");
+    }
 
 }

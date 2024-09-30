@@ -1,99 +1,100 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class RectifyingTask extends EcRemoteLinkedData {
-taskId;
-packTask;
-taskRev;
-secs;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    taskId;
+    packTask;
+    taskRev;
+    secs;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getTaskId() {
+    getTaskId() {
         if (this.taskId == null) {
             this.taskId = [];
         }
         return this.taskId;
     }
 
- getPackTask() {
-        return packTask;
+    getPackTask() {
+        return this.packTask;
     }
 
- setPackTask( value) {
+    setPackTask(value) {
         this.packTask = value;
     }
 
- getTaskRev() {
+    getTaskRev() {
         if (this.taskRev == null) {
             this.taskRev = [];
         }
         return this.taskRev;
     }
 
- getSecs() {
-        return secs;
+    getSecs() {
+        return this.secs;
     }
 
- setSecs( value) {
+    setSecs(value) {
         this.secs = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "RectifyingTask");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "RectifyingTask");
+    }
 };

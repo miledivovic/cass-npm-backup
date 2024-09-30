@@ -1,123 +1,124 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class LearningObjectiveRevision extends EcRemoteLinkedData {
-loRevId;
-loRevRtnle;
-loDescr;
-loPerfStd;
-loTrainStrat;
-relLO;
-assessmnts;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    loRevId;
+    loRevRtnle;
+    loDescr;
+    loPerfStd;
+    loTrainStrat;
+    relLO;
+    assessmnts;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getLoRevId() {
-        return loRevId;
+    getLoRevId() {
+        return this.loRevId;
     }
 
- setLoRevId( value) {
+    setLoRevId(value) {
         this.loRevId = value;
     }
 
- getLoRevRtnle() {
+    getLoRevRtnle() {
         if (this.loRevRtnle == null) {
             this.loRevRtnle = [];
         }
         return this.loRevRtnle;
     }
 
- getLoDescr() {
+    getLoDescr() {
         if (this.loDescr == null) {
             this.loDescr = [];
         }
         return this.loDescr;
     }
 
- getLoPerfStd() {
+    getLoPerfStd() {
         if (this.loPerfStd == null) {
             this.loPerfStd = [];
         }
         return this.loPerfStd;
     }
 
- getLoTrainStrat() {
+    getLoTrainStrat() {
         if (this.loTrainStrat == null) {
             this.loTrainStrat = [];
         }
         return this.loTrainStrat;
     }
 
- getRelLO() {
+    getRelLO() {
         if (this.relLO == null) {
             this.relLO = [];
         }
         return this.relLO;
     }
 
- getAssessmnts() {
-        return assessmnts;
+    getAssessmnts() {
+        return this.assessmnts;
     }
 
- setAssessmnts( value) {
+    setAssessmnts(value) {
         this.assessmnts = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "LearningObjectiveRevision");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "LearningObjectiveRevision");
+    }
 };

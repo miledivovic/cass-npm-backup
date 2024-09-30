@@ -1,52 +1,53 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskPerformanceObjectiveStatement extends EcRemoteLinkedData {
-descr;
-lang;
-date;
-providedBy;
-applic;
+    descr;
+    lang;
+    date;
+    providedBy;
+    applic;
 
- getDescr() {
-        return descr;
+    getDescr() {
+        return this.descr;
     }
 
- setDescr( value) {
+    setDescr(value) {
         this.descr = value;
     }
 
- getLang() {
-        return lang;
+    getLang() {
+        return this.lang;
     }
 
- setLang( value) {
+    setLang(value) {
         this.lang = value;
     }
 
- getDate() {
-        return date;
+    getDate() {
+        return this.date;
     }
 
- setDate( value) {
+    setDate(value) {
         this.date = value;
     }
 
- getProvidedBy() {
-        return providedBy;
+    getProvidedBy() {
+        return this.providedBy;
     }
 
- setProvidedBy( value) {
+    setProvidedBy(value) {
         this.providedBy = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskPerformanceObjectiveStatement");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskPerformanceObjectiveStatement");
+    }
 };

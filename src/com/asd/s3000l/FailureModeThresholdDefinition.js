@@ -1,65 +1,67 @@
 
-module.exports = class FailureModeThresholdDefinition extends EcRemoteLinkedData {
-nrOfEvnts;
-fmRef;
-rmks;
-applic;
-uid;
-crud;
 
- getNrOfEvnts() {
-        return nrOfEvnts;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class FailureModeThresholdDefinition extends EcRemoteLinkedData {
+    nrOfEvnts;
+    fmRef;
+    rmks;
+    applic;
+    uid;
+    crud;
+
+    getNrOfEvnts() {
+        return this.nrOfEvnts;
     }
 
- setNrOfEvnts( value) {
+    setNrOfEvnts(value) {
         this.nrOfEvnts = value;
     }
 
- getFmRef() {
-        return fmRef;
+    getFmRef() {
+        return this.fmRef;
     }
 
- setFmRef( value) {
+    setFmRef(value) {
         this.fmRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "FailureModeThresholdDefinition");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "FailureModeThresholdDefinition");
+    }
 };

@@ -1,4 +1,5 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = {
     EUN: "EUN",
     REM: "REM",

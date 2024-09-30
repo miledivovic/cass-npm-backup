@@ -1,82 +1,83 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class KnowledgeSkillAttitudeLearningObjective extends EcRemoteLinkedData {
-loRtnle;
-loRef;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    loRtnle;
+    loRef;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getLoRtnle() {
+    getLoRtnle() {
         if (this.loRtnle == null) {
             this.loRtnle = [];
         }
         return this.loRtnle;
     }
 
- getLoRef() {
-        return loRef;
+    getLoRef() {
+        return this.loRef;
     }
 
- setLoRef( value) {
+    setLoRef(value) {
         this.loRef = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "KnowledgeSkillAttitudeLearningObjective");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "KnowledgeSkillAttitudeLearningObjective");
+    }
 };

@@ -1,92 +1,93 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskRequirementJustification extends EcRemoteLinkedData {
-sEvntRef;
-fmRef;
-dmgRef;
-analysisRef;
-funcFailRef;
-docs;
-rmks;
-uid;
-crud;
+    sEvntRef;
+    fmRef;
+    dmgRef;
+    analysisRef;
+    funcFailRef;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getSEvntRef() {
-        return sEvntRef;
+    getSEvntRef() {
+        return this.sEvntRef;
     }
 
- setSEvntRef( value) {
+    setSEvntRef(value) {
         this.sEvntRef = value;
     }
 
- getFmRef() {
-        return fmRef;
+    getFmRef() {
+        return this.fmRef;
     }
 
- setFmRef( value) {
+    setFmRef(value) {
         this.fmRef = value;
     }
 
- getDmgRef() {
-        return dmgRef;
+    getDmgRef() {
+        return this.dmgRef;
     }
 
- setDmgRef( value) {
+    setDmgRef(value) {
         this.dmgRef = value;
     }
 
- getAnalysisRef() {
-        return analysisRef;
+    getAnalysisRef() {
+        return this.analysisRef;
     }
 
- setAnalysisRef( value) {
+    setAnalysisRef(value) {
         this.analysisRef = value;
     }
 
- getFuncFailRef() {
-        return funcFailRef;
+    getFuncFailRef() {
+        return this.funcFailRef;
     }
 
- setFuncFailRef( value) {
+    setFuncFailRef(value) {
         this.funcFailRef = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementJustification");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementJustification");
+    }
 };

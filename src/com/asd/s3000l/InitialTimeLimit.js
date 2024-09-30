@@ -1,103 +1,104 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class InitialTimeLimit extends EcRemoteLinkedData {
-thld;
-samplByDef;
-samplByValue;
-samplByRo;
-uid;
-crud;
+    thld;
+    samplByDef;
+    samplByValue;
+    samplByRo;
+    uid;
+    crud;
 
- getThld() {
+    getThld() {
         if (this.thld == null) {
             this.thld = [];
         }
         return this.thld;
     }
 
- getSamplByDef() {
-        return samplByDef;
+    getSamplByDef() {
+        return this.samplByDef;
     }
 
- setSamplByDef( value) {
+    setSamplByDef(value) {
         this.samplByDef = value;
     }
 
- getSamplByValue() {
-        return samplByValue;
+    getSamplByValue() {
+        return this.samplByValue;
     }
 
- setSamplByValue( value) {
+    setSamplByValue(value) {
         this.samplByValue = value;
     }
 
- getSamplByRo() {
-        return samplByRo;
+    getSamplByRo() {
+        return this.samplByRo;
     }
 
- setSamplByRo( value) {
+    setSamplByRo(value) {
         this.samplByRo = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     Thld = class Thld {
-paramThld;
-taskThld;
-sEvntThld;
-fmThld;
+        paramThld;
+        taskThld;
+        sEvntThld;
+        fmThld;
 
- getParamThld() {
-            return paramThld;
+        getParamThld() {
+            return this.paramThld;
         }
 
- setParamThld( value) {
+        setParamThld(value) {
             this.paramThld = value;
         }
 
- getTaskThld() {
-            return taskThld;
+        getTaskThld() {
+            return this.taskThld;
         }
 
- setTaskThld( value) {
+        setTaskThld(value) {
             this.taskThld = value;
         }
 
- getSEvntThld() {
-            return sEvntThld;
+        getSEvntThld() {
+            return this.sEvntThld;
         }
 
- setSEvntThld( value) {
+        setSEvntThld(value) {
             this.sEvntThld = value;
         }
 
- getFmThld() {
-            return fmThld;
+        getFmThld() {
+            return this.fmThld;
         }
 
- setFmThld( value) {
+        setFmThld(value) {
             this.fmThld = value;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "InitialTimeLimit");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "InitialTimeLimit");
+    }
 };

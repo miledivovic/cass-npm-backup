@@ -1435,7 +1435,6 @@ let should = chai.should();
 let expect = chai.expect;
 let assert = chai.assert;
 
-
 describe("Schema", () => {
     for (let type in global.schema) {
         describe(type, async () => {
@@ -1451,6 +1450,8 @@ describe("Schema", () => {
             });
         });
     }
+});
+describe("CE", () => {
     for (let type in global.ce) {
         describe(type, async () => {
             let obj = new global.ce[type]();
@@ -1464,10 +1465,53 @@ describe("Schema", () => {
                 expect(JSON.parse(obj.toJson())).to.be.an('object');
             });
         });
-    }
+        }
+});
+function getAllFuncs(toCheck) {
+    const props = [];
+    let obj = toCheck;
+    do {
+        props.push(...Object.getOwnPropertyNames(obj));
+    } while (obj = Object.getPrototypeOf(obj));
+
+    return props.sort().filter((e, i, arr) => {
+        if (e != arr[i + 1] && typeof toCheck[e] == 'function') return true;
+    });
+}
+describe("S3000L", () => {
     for (let type in global.s3000l) {
         describe(type, async () => {
             let obj = new global.s3000l[type]();
+            for (let fun in obj) {
+                if (obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined)
+                {
+                    if (obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined)
+                    {
+                        it(fun + " set then get.", () => {
+                            {
+                                obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
+                                obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
+                                expect(obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]()).to.eql('foo');
+                            }
+                        });
+                    }
+                }
+                else
+                {
+                    if (obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined) {
+                        it(fun + " get (array).", () => {
+                            {
+                                let result = obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]();
+                                expect(result).to.be.a('array');
+                            }
+                        });
+                    }
+                }
+            }
+            // for (let fun of getAllFuncs(obj))
+            // {
+            //     console.log(fun);
+            // }
             it('should have a constructor', () => {
                 expect(obj).to.be.an.instanceof(global.s3000l[type]);
             });

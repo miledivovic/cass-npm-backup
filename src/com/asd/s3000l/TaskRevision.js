@@ -1,186 +1,187 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskRevision extends EcRemoteLinkedData {
-taskRevId;
-name;
-status;
-revChangeDescr;
-infoCode;
-persSafety;
-prodIntegr;
-opImpact;
-duration;
-laborTime;
-subtaskNonAbstractClasses;
-taskTrainDecisionNonAbstractClasses;
-wcn;
-taskJust;
-dm;
-resources;
-docs;
-rmks;
-uid;
-crud;
+    taskRevId;
+    name;
+    status;
+    revChangeDescr;
+    infoCode;
+    persSafety;
+    prodIntegr;
+    opImpact;
+    duration;
+    laborTime;
+    subtaskNonAbstractClasses;
+    taskTrainDecisionNonAbstractClasses;
+    wcn;
+    taskJust;
+    dm;
+    resources;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getTaskRevId() {
-        return taskRevId;
+    getTaskRevId() {
+        return this.taskRevId;
     }
 
- setTaskRevId( value) {
+    setTaskRevId(value) {
         this.taskRevId = value;
     }
 
- getName() {
+    getName() {
         if (this.name == null) {
             this.name = [];
         }
         return this.name;
     }
 
- getStatus() {
-        return status;
+    getStatus() {
+        return this.status;
     }
 
- setStatus( value) {
+    setStatus(value) {
         this.status = value;
     }
 
- getRevChangeDescr() {
-        return revChangeDescr;
+    getRevChangeDescr() {
+        return this.revChangeDescr;
     }
 
- setRevChangeDescr( value) {
+    setRevChangeDescr(value) {
         this.revChangeDescr = value;
     }
 
- getInfoCode() {
-        return infoCode;
+    getInfoCode() {
+        return this.infoCode;
     }
 
- setInfoCode( value) {
+    setInfoCode(value) {
         this.infoCode = value;
     }
 
- getPersSafety() {
-        return persSafety;
+    getPersSafety() {
+        return this.persSafety;
     }
 
- setPersSafety( value) {
+    setPersSafety(value) {
         this.persSafety = value;
     }
 
- getProdIntegr() {
-        return prodIntegr;
+    getProdIntegr() {
+        return this.prodIntegr;
     }
 
- setProdIntegr( value) {
+    setProdIntegr(value) {
         this.prodIntegr = value;
     }
 
- getOpImpact() {
-        return opImpact;
+    getOpImpact() {
+        return this.opImpact;
     }
 
- setOpImpact( value) {
+    setOpImpact(value) {
         this.opImpact = value;
     }
 
- getDuration() {
+    getDuration() {
         if (this.duration == null) {
             this.duration = [];
         }
         return this.duration;
     }
 
- getLaborTime() {
+    getLaborTime() {
         if (this.laborTime == null) {
             this.laborTime = [];
         }
         return this.laborTime;
     }
 
- getSubtaskNonAbstractClasses() {
+    getSubtaskNonAbstractClasses() {
         if (this.subtaskNonAbstractClasses == null) {
             this.subtaskNonAbstractClasses = [];
         }
         return this.subtaskNonAbstractClasses;
     }
 
- getTaskTrainDecisionNonAbstractClasses() {
+    getTaskTrainDecisionNonAbstractClasses() {
         if (this.taskTrainDecisionNonAbstractClasses == null) {
             this.taskTrainDecisionNonAbstractClasses = [];
         }
         return this.taskTrainDecisionNonAbstractClasses;
     }
 
- getWcn() {
+    getWcn() {
         if (this.wcn == null) {
             this.wcn = [];
         }
         return this.wcn;
     }
 
- getTaskJust() {
+    getTaskJust() {
         if (this.taskJust == null) {
             this.taskJust = [];
         }
         return this.taskJust;
     }
 
- getDm() {
+    getDm() {
         if (this.dm == null) {
             this.dm = [];
         }
         return this.dm;
     }
 
- getResources() {
-        return resources;
+    getResources() {
+        return this.resources;
     }
 
- setResources( value) {
+    setResources(value) {
         this.resources = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     Resources = class Resources {
-taskResourceNonAbstractClasses;
+        taskResourceNonAbstractClasses;
 
- getTaskResourceNonAbstractClasses() {
+        getTaskResourceNonAbstractClasses() {
             if (this.taskResourceNonAbstractClasses == null) {
                 this.taskResourceNonAbstractClasses = [];
             }
@@ -188,7 +189,7 @@ taskResourceNonAbstractClasses;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskRevision");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskRevision");
+    }
 };

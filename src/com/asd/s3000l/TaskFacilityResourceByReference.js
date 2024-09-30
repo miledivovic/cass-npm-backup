@@ -1,108 +1,109 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskFacilityResourceByReference extends EcRemoteLinkedData {
-fixed;
-duration;
-qty;
-relRes;
-beRef;
-partRef;
-docs;
-rmks;
-applic;
-uid;
-crud;
+    fixed;
+    duration;
+    qty;
+    relRes;
+    beRef;
+    partRef;
+    docs;
+    rmks;
+    applic;
+    uid;
+    crud;
 
- getFixed() {
-        return fixed;
+    getFixed() {
+        return this.fixed;
     }
 
- setFixed( value) {
+    setFixed(value) {
         this.fixed = value;
     }
 
- getDuration() {
+    getDuration() {
         if (this.duration == null) {
             this.duration = [];
         }
         return this.duration;
     }
 
- getQty() {
-        return qty;
+    getQty() {
+        return this.qty;
     }
 
- setQty( value) {
+    setQty(value) {
         this.qty = value;
     }
 
- getRelRes() {
+    getRelRes() {
         if (this.relRes == null) {
             this.relRes = [];
         }
         return this.relRes;
     }
 
- getBeRef() {
-        return beRef;
+    getBeRef() {
+        return this.beRef;
     }
 
- setBeRef( value) {
+    setBeRef(value) {
         this.beRef = value;
     }
 
- getPartRef() {
-        return partRef;
+    getPartRef() {
+        return this.partRef;
     }
 
- setPartRef( value) {
+    setPartRef(value) {
         this.partRef = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskFacilityResourceByReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskFacilityResourceByReference");
+    }
 };

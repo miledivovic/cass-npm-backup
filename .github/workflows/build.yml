@@ -50,6 +50,14 @@ jobs:
     - name: Autobuild
       uses: github/codeql-action/autobuild@v3
 
+    - name: Build lcov.info
+      uses: actions/setup-node@v4
+      with:
+        cache: 'npm'
+    - run: npm ci
+    - run: docker run -d --network cass-net --name cass-nyc -p80:80 cassproject/cass:dev
+    - run: npm run nyc
+
     - name: Analyze with SonarCloud
       uses: SonarSource/sonarcloud-github-action@v3.0.0
       env:

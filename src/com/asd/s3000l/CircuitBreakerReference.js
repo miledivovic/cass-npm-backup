@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class CircuitBreakerReference extends EcRemoteLinkedData {
-cbId;
-uidRef;
+    cbId;
+    uidRef;
 
- getCbId() {
-        return cbId;
+    getCbId() {
+        return this.cbId;
     }
 
- setCbId( value) {
+    setCbId(value) {
         this.cbId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "CircuitBreakerReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "CircuitBreakerReference");
+    }
 };

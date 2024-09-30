@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SpecialEventReference extends EcRemoteLinkedData {
-evntTitle;
-uidRef;
+    evntTitle;
+    uidRef;
 
- getEvntTitle() {
-        return evntTitle;
+    getEvntTitle() {
+        return this.evntTitle;
     }
 
- setEvntTitle( value) {
+    setEvntTitle(value) {
         this.evntTitle = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SpecialEventReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SpecialEventReference");
+    }
 };

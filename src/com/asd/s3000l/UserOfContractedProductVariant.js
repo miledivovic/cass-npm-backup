@@ -1,47 +1,48 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class UserOfContractedProductVariant extends EcRemoteLinkedData {
-orgRef;
-customerCxt;
-uid;
-crud;
+    orgRef;
+    customerCxt;
+    uid;
+    crud;
 
- getOrgRef() {
-        return orgRef;
+    getOrgRef() {
+        return this.orgRef;
     }
 
- setOrgRef( value) {
+    setOrgRef(value) {
         this.orgRef = value;
     }
 
- getCustomerCxt() {
-        return customerCxt;
+    getCustomerCxt() {
+        return this.customerCxt;
     }
 
- setCustomerCxt( value) {
+    setCustomerCxt(value) {
         this.customerCxt = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "UserOfContractedProductVariant");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "UserOfContractedProductVariant");
+    }
 };

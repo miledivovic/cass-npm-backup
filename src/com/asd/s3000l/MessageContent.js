@@ -1,106 +1,107 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class MessageContent extends EcRemoteLinkedData {
-messageContentItems;
-supportingContentItems;
-uid;
-crud;
+    messageContentItems;
+    supportingContentItems;
+    uid;
+    crud;
 
- getMessageContentItems() {
-        return messageContentItems;
+    getMessageContentItems() {
+        return this.messageContentItems;
     }
 
- setMessageContentItems( value) {
+    setMessageContentItems(value) {
         this.messageContentItems = value;
     }
 
- getSupportingContentItems() {
-        return supportingContentItems;
+    getSupportingContentItems() {
+        return this.supportingContentItems;
     }
 
- setSupportingContentItems( value) {
+    setSupportingContentItems(value) {
         this.supportingContentItems = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     MessageContentItems = class MessageContentItems {
-tasks;
-learningObjectives;
-warningCautionNotes;
-trades;
-skills;
-jobPosns;
+        tasks;
+        learningObjectives;
+        warningCautionNotes;
+        trades;
+        skills;
+        jobPosns;
 
- getTasks() {
-            return tasks;
+        getTasks() {
+            return this.tasks;
         }
 
- setTasks( value) {
+        setTasks(value) {
             this.tasks = value;
         }
 
- getLearningObjectives() {
-            return learningObjectives;
+        getLearningObjectives() {
+            return this.learningObjectives;
         }
 
- setLearningObjectives( value) {
+        setLearningObjectives(value) {
             this.learningObjectives = value;
         }
 
- getWarningCautionNotes() {
-            return warningCautionNotes;
+        getWarningCautionNotes() {
+            return this.warningCautionNotes;
         }
 
- setWarningCautionNotes( value) {
+        setWarningCautionNotes(value) {
             this.warningCautionNotes = value;
         }
 
- getTrades() {
-            return trades;
+        getTrades() {
+            return this.trades;
         }
 
- setTrades( value) {
+        setTrades(value) {
             this.trades = value;
         }
 
- getSkills() {
-            return skills;
+        getSkills() {
+            return this.skills;
         }
 
- setSkills( value) {
+        setSkills(value) {
             this.skills = value;
         }
 
- getJobPosns() {
-            return jobPosns;
+        getJobPosns() {
+            return this.jobPosns;
         }
 
- setJobPosns( value) {
+        setJobPosns(value) {
             this.jobPosns = value;
         }
 
         JobPosns = class JobPosns {
-jobPos;
+            jobPos;
 
- getJobPos() {
+            getJobPos() {
                 if (this.jobPos == null) {
                     this.jobPos = [];
                 }
@@ -109,9 +110,9 @@ jobPos;
         }
 
         LearningObjectives = class LearningObjectives {
-learnObj;
+            learnObj;
 
- getLearnObj() {
+            getLearnObj() {
                 if (this.learnObj == null) {
                     this.learnObj = [];
                 }
@@ -120,9 +121,9 @@ learnObj;
         }
 
         Skills = class Skills {
-skill;
+            skill;
 
- getSkill() {
+            getSkill() {
                 if (this.skill == null) {
                     this.skill = [];
                 }
@@ -131,9 +132,9 @@ skill;
         }
 
         Tasks = class Tasks {
-taskNonAbstractClasses;
+            taskNonAbstractClasses;
 
- getTaskNonAbstractClasses() {
+            getTaskNonAbstractClasses() {
                 if (this.taskNonAbstractClasses == null) {
                     this.taskNonAbstractClasses = [];
                 }
@@ -142,9 +143,9 @@ taskNonAbstractClasses;
         }
 
         Trades = class Trades {
-trade;
+            trade;
 
- getTrade() {
+            getTrade() {
                 if (this.trade == null) {
                     this.trade = [];
                 }
@@ -153,9 +154,9 @@ trade;
         }
 
         WarningCautionNotes = class WarningCautionNotes {
-wcn;
+            wcn;
 
- getWcn() {
+            getWcn() {
                 if (this.wcn == null) {
                     this.wcn = [];
                 }
@@ -165,182 +166,182 @@ wcn;
     }
 
     SupportingContentItems = class SupportingContentItems {
-products;
-breakdownElements;
-parts;
-taskRequirements;
-maintenanceLevels;
-maintenanceLocations;
-operatingLocationTypes;
-operatingLocations;
-substances;
-specialEvents;
-productUsagePhases;
-resourceSpecifications;
-changeRequests;
-circuitBreakers;
-securityClasses;
-documents;
-organizations;
-applicabilityStatements;
-applicabilityConditions;
+        products;
+        breakdownElements;
+        parts;
+        taskRequirements;
+        maintenanceLevels;
+        maintenanceLocations;
+        operatingLocationTypes;
+        operatingLocations;
+        substances;
+        specialEvents;
+        productUsagePhases;
+        resourceSpecifications;
+        changeRequests;
+        circuitBreakers;
+        securityClasses;
+        documents;
+        organizations;
+        applicabilityStatements;
+        applicabilityConditions;
 
- getProducts() {
-            return products;
+        getProducts() {
+            return this.products;
         }
 
- setProducts( value) {
+        setProducts(value) {
             this.products = value;
         }
 
- getBreakdownElements() {
-            return breakdownElements;
+        getBreakdownElements() {
+            return this.breakdownElements;
         }
 
- setBreakdownElements( value) {
+        setBreakdownElements(value) {
             this.breakdownElements = value;
         }
 
- getParts() {
-            return parts;
+        getParts() {
+            return this.parts;
         }
 
- setParts( value) {
+        setParts(value) {
             this.parts = value;
         }
 
- getTaskRequirements() {
-            return taskRequirements;
+        getTaskRequirements() {
+            return this.taskRequirements;
         }
 
- setTaskRequirements( value) {
+        setTaskRequirements(value) {
             this.taskRequirements = value;
         }
 
- getMaintenanceLevels() {
-            return maintenanceLevels;
+        getMaintenanceLevels() {
+            return this.maintenanceLevels;
         }
 
- setMaintenanceLevels( value) {
+        setMaintenanceLevels(value) {
             this.maintenanceLevels = value;
         }
 
- getMaintenanceLocations() {
-            return maintenanceLocations;
+        getMaintenanceLocations() {
+            return this.maintenanceLocations;
         }
 
- setMaintenanceLocations( value) {
+        setMaintenanceLocations(value) {
             this.maintenanceLocations = value;
         }
 
- getOperatingLocationTypes() {
-            return operatingLocationTypes;
+        getOperatingLocationTypes() {
+            return this.operatingLocationTypes;
         }
 
- setOperatingLocationTypes( value) {
+        setOperatingLocationTypes(value) {
             this.operatingLocationTypes = value;
         }
 
- getOperatingLocations() {
-            return operatingLocations;
+        getOperatingLocations() {
+            return this.operatingLocations;
         }
 
- setOperatingLocations( value) {
+        setOperatingLocations(value) {
             this.operatingLocations = value;
         }
 
- getSubstances() {
-            return substances;
+        getSubstances() {
+            return this.substances;
         }
 
- setSubstances( value) {
+        setSubstances(value) {
             this.substances = value;
         }
 
- getSpecialEvents() {
-            return specialEvents;
+        getSpecialEvents() {
+            return this.specialEvents;
         }
 
- setSpecialEvents( value) {
+        setSpecialEvents(value) {
             this.specialEvents = value;
         }
 
- getProductUsagePhases() {
-            return productUsagePhases;
+        getProductUsagePhases() {
+            return this.productUsagePhases;
         }
 
- setProductUsagePhases( value) {
+        setProductUsagePhases(value) {
             this.productUsagePhases = value;
         }
 
- getResourceSpecifications() {
-            return resourceSpecifications;
+        getResourceSpecifications() {
+            return this.resourceSpecifications;
         }
 
- setResourceSpecifications( value) {
+        setResourceSpecifications(value) {
             this.resourceSpecifications = value;
         }
 
- getChangeRequests() {
-            return changeRequests;
+        getChangeRequests() {
+            return this.changeRequests;
         }
 
- setChangeRequests( value) {
+        setChangeRequests(value) {
             this.changeRequests = value;
         }
 
- getCircuitBreakers() {
-            return circuitBreakers;
+        getCircuitBreakers() {
+            return this.circuitBreakers;
         }
 
- setCircuitBreakers( value) {
+        setCircuitBreakers(value) {
             this.circuitBreakers = value;
         }
 
- getSecurityClasses() {
-            return securityClasses;
+        getSecurityClasses() {
+            return this.securityClasses;
         }
 
- setSecurityClasses( value) {
+        setSecurityClasses(value) {
             this.securityClasses = value;
         }
 
- getDocuments() {
-            return documents;
+        getDocuments() {
+            return this.documents;
         }
 
- setDocuments( value) {
+        setDocuments(value) {
             this.documents = value;
         }
 
- getOrganizations() {
-            return organizations;
+        getOrganizations() {
+            return this.organizations;
         }
 
- setOrganizations( value) {
+        setOrganizations(value) {
             this.organizations = value;
         }
 
- getApplicabilityStatements() {
-            return applicabilityStatements;
+        getApplicabilityStatements() {
+            return this.applicabilityStatements;
         }
 
- setApplicabilityStatements( value) {
+        setApplicabilityStatements(value) {
             this.applicabilityStatements = value;
         }
 
- getApplicabilityConditions() {
-            return applicabilityConditions;
+        getApplicabilityConditions() {
+            return this.applicabilityConditions;
         }
 
- setApplicabilityConditions( value) {
+        setApplicabilityConditions(value) {
             this.applicabilityConditions = value;
         }
 
         ApplicabilityConditions = class ApplicabilityConditions {
-cond;
+            cond;
 
- getCond() {
+            getCond() {
                 if (this.cond == null) {
                     this.cond = [];
                 }
@@ -349,9 +350,9 @@ cond;
         }
 
         ApplicabilityStatements = class ApplicabilityStatements {
-applicabilityStatementNonAbstractClasses;
+            applicabilityStatementNonAbstractClasses;
 
- getApplicabilityStatementNonAbstractClasses() {
+            getApplicabilityStatementNonAbstractClasses() {
                 if (this.applicabilityStatementNonAbstractClasses == null) {
                     this.applicabilityStatementNonAbstractClasses = [];
                 }
@@ -360,9 +361,9 @@ applicabilityStatementNonAbstractClasses;
         }
 
         BreakdownElements = class BreakdownElements {
-breakdownElementNonAbstractClasses;
+            breakdownElementNonAbstractClasses;
 
- getBreakdownElementNonAbstractClasses() {
+            getBreakdownElementNonAbstractClasses() {
                 if (this.breakdownElementNonAbstractClasses == null) {
                     this.breakdownElementNonAbstractClasses = [];
                 }
@@ -371,9 +372,9 @@ breakdownElementNonAbstractClasses;
         }
 
         ChangeRequests = class ChangeRequests {
-cr;
+            cr;
 
- getCr() {
+            getCr() {
                 if (this.cr == null) {
                     this.cr = [];
                 }
@@ -382,9 +383,9 @@ cr;
         }
 
         CircuitBreakers = class CircuitBreakers {
-cb;
+            cb;
 
- getCb() {
+            getCb() {
                 if (this.cb == null) {
                     this.cb = [];
                 }
@@ -393,9 +394,9 @@ cb;
         }
 
         Documents = class Documents {
-documentNonAbstractClasses;
+            documentNonAbstractClasses;
 
- getDocumentNonAbstractClasses() {
+            getDocumentNonAbstractClasses() {
                 if (this.documentNonAbstractClasses == null) {
                     this.documentNonAbstractClasses = [];
                 }
@@ -404,9 +405,9 @@ documentNonAbstractClasses;
         }
 
         MaintenanceLevels = class MaintenanceLevels {
-mlv;
+            mlv;
 
- getMlv() {
+            getMlv() {
                 if (this.mlv == null) {
                     this.mlv = [];
                 }
@@ -415,9 +416,9 @@ mlv;
         }
 
         MaintenanceLocations = class MaintenanceLocations {
-mLoc;
+            mLoc;
 
- getMLoc() {
+            getMLoc() {
                 if (this.mLoc == null) {
                     this.mLoc = [];
                 }
@@ -426,9 +427,9 @@ mLoc;
         }
 
         OperatingLocationTypes = class OperatingLocationTypes {
-opLocType;
+            opLocType;
 
- getOpLocType() {
+            getOpLocType() {
                 if (this.opLocType == null) {
                     this.opLocType = [];
                 }
@@ -437,9 +438,9 @@ opLocType;
         }
 
         OperatingLocations = class OperatingLocations {
-opLoc;
+            opLoc;
 
- getOpLoc() {
+            getOpLoc() {
                 if (this.opLoc == null) {
                     this.opLoc = [];
                 }
@@ -448,9 +449,9 @@ opLoc;
         }
 
         Organizations = class Organizations {
-org;
+            org;
 
- getOrg() {
+            getOrg() {
                 if (this.org == null) {
                     this.org = [];
                 }
@@ -459,9 +460,9 @@ org;
         }
 
         Parts = class Parts {
-partAsDesignedNonAbstractClasses;
+            partAsDesignedNonAbstractClasses;
 
- getPartAsDesignedNonAbstractClasses() {
+            getPartAsDesignedNonAbstractClasses() {
                 if (this.partAsDesignedNonAbstractClasses == null) {
                     this.partAsDesignedNonAbstractClasses = [];
                 }
@@ -470,9 +471,9 @@ partAsDesignedNonAbstractClasses;
         }
 
         ProductUsagePhases = class ProductUsagePhases {
-usagePhaseDef;
+            usagePhaseDef;
 
- getUsagePhaseDef() {
+            getUsagePhaseDef() {
                 if (this.usagePhaseDef == null) {
                     this.usagePhaseDef = [];
                 }
@@ -481,9 +482,9 @@ usagePhaseDef;
         }
 
         Products = class Products {
-prod;
+            prod;
 
- getProd() {
+            getProd() {
                 if (this.prod == null) {
                     this.prod = [];
                 }
@@ -492,9 +493,9 @@ prod;
         }
 
         ResourceSpecifications = class ResourceSpecifications {
-resourceSpecificationNonAbstractClasses;
+            resourceSpecificationNonAbstractClasses;
 
- getResourceSpecificationNonAbstractClasses() {
+            getResourceSpecificationNonAbstractClasses() {
                 if (this.resourceSpecificationNonAbstractClasses == null) {
                     this.resourceSpecificationNonAbstractClasses = [];
                 }
@@ -503,9 +504,9 @@ resourceSpecificationNonAbstractClasses;
         }
 
         SecurityClasses = class SecurityClasses {
-secClassDef;
+            secClassDef;
 
- getSecClassDef() {
+            getSecClassDef() {
                 if (this.secClassDef == null) {
                     this.secClassDef = [];
                 }
@@ -514,9 +515,9 @@ secClassDef;
         }
 
         SpecialEvents = class SpecialEvents {
-sEvnt;
+            sEvnt;
 
- getSEvnt() {
+            getSEvnt() {
                 if (this.sEvnt == null) {
                     this.sEvnt = [];
                 }
@@ -525,9 +526,9 @@ sEvnt;
         }
 
         Substances = class Substances {
-subs;
+            subs;
 
- getSubs() {
+            getSubs() {
                 if (this.subs == null) {
                     this.subs = [];
                 }
@@ -536,9 +537,9 @@ subs;
         }
 
         TaskRequirements = class TaskRequirements {
-taskRequirementNonAbstractClasses;
+            taskRequirementNonAbstractClasses;
 
- getTaskRequirementNonAbstractClasses() {
+            getTaskRequirementNonAbstractClasses() {
                 if (this.taskRequirementNonAbstractClasses == null) {
                     this.taskRequirementNonAbstractClasses = [];
                 }
@@ -547,7 +548,7 @@ taskRequirementNonAbstractClasses;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "MessageContent");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "MessageContent");
+    }
 };

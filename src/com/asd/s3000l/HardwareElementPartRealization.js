@@ -1,77 +1,78 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class HardwareElementPartRealization extends EcRemoteLinkedData {
-partRef;
-usableOnList;
-apcEfys;
-docs;
-rmks;
-uid;
-crud;
+    partRef;
+    usableOnList;
+    apcEfys;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getPartRef() {
-        return partRef;
+    getPartRef() {
+        return this.partRef;
     }
 
- setPartRef( value) {
+    setPartRef(value) {
         this.partRef = value;
     }
 
- getUsableOnList() {
-        return usableOnList;
+    getUsableOnList() {
+        return this.usableOnList;
     }
 
- setUsableOnList( value) {
+    setUsableOnList(value) {
         this.usableOnList = value;
     }
 
- getApcEfys() {
-        return apcEfys;
+    getApcEfys() {
+        return this.apcEfys;
     }
 
- setApcEfys( value) {
+    setApcEfys(value) {
         this.apcEfys = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     UsableOnList = class UsableOnList {
-usableOn;
+        usableOn;
 
- getUsableOn() {
+        getUsableOn() {
             if (this.usableOn == null) {
                 this.usableOn = [];
             }
@@ -79,7 +80,7 @@ usableOn;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "HardwareElementPartRealization");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "HardwareElementPartRealization");
+    }
 };

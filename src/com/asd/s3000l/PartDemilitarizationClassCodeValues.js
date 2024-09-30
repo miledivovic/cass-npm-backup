@@ -1,4 +1,5 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = {
     N_A: "N_A",
     TSC: "TSC",

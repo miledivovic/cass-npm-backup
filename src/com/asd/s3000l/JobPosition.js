@@ -1,99 +1,100 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class JobPosition extends EcRemoteLinkedData {
-jobPosName;
-jobPosDescr;
-trainPopDef;
-ksaGaps;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    jobPosName;
+    jobPosDescr;
+    trainPopDef;
+    ksaGaps;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getJobPosName() {
+    getJobPosName() {
         if (this.jobPosName == null) {
             this.jobPosName = [];
         }
         return this.jobPosName;
     }
 
- getJobPosDescr() {
+    getJobPosDescr() {
         if (this.jobPosDescr == null) {
             this.jobPosDescr = [];
         }
         return this.jobPosDescr;
     }
 
- getTrainPopDef() {
-        return trainPopDef;
+    getTrainPopDef() {
+        return this.trainPopDef;
     }
 
- setTrainPopDef( value) {
+    setTrainPopDef(value) {
         this.trainPopDef = value;
     }
 
- getKsaGaps() {
-        return ksaGaps;
+    getKsaGaps() {
+        return this.ksaGaps;
     }
 
- setKsaGaps( value) {
+    setKsaGaps(value) {
         this.ksaGaps = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "JobPosition");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "JobPosition");
+    }
 };

@@ -1,116 +1,117 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskRequirementRevision extends EcRemoteLinkedData {
-trRevId;
-revChangeDescr;
-revDate;
-trDescr;
-trDecision;
-specResReq;
-trJust;
-changeReq;
-docs;
-rmks;
-uid;
-crud;
+    trRevId;
+    revChangeDescr;
+    revDate;
+    trDescr;
+    trDecision;
+    specResReq;
+    trJust;
+    changeReq;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getTrRevId() {
-        return trRevId;
+    getTrRevId() {
+        return this.trRevId;
     }
 
- setTrRevId( value) {
+    setTrRevId(value) {
         this.trRevId = value;
     }
 
- getRevChangeDescr() {
-        return revChangeDescr;
+    getRevChangeDescr() {
+        return this.revChangeDescr;
     }
 
- setRevChangeDescr( value) {
+    setRevChangeDescr(value) {
         this.revChangeDescr = value;
     }
 
- getRevDate() {
-        return revDate;
+    getRevDate() {
+        return this.revDate;
     }
 
- setRevDate( value) {
+    setRevDate(value) {
         this.revDate = value;
     }
 
- getTrDescr() {
-        return trDescr;
+    getTrDescr() {
+        return this.trDescr;
     }
 
- setTrDescr( value) {
+    setTrDescr(value) {
         this.trDescr = value;
     }
 
- getTrDecision() {
-        return trDecision;
+    getTrDecision() {
+        return this.trDecision;
     }
 
- setTrDecision( value) {
+    setTrDecision(value) {
         this.trDecision = value;
     }
 
- getSpecResReq() {
+    getSpecResReq() {
         if (this.specResReq == null) {
             this.specResReq = [];
         }
         return this.specResReq;
     }
 
- getTrJust() {
+    getTrJust() {
         if (this.trJust == null) {
             this.trJust = [];
         }
         return this.trJust;
     }
 
- getChangeReq() {
+    getChangeReq() {
         if (this.changeReq == null) {
             this.changeReq = [];
         }
         return this.changeReq;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementRevision");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementRevision");
+    }
 };

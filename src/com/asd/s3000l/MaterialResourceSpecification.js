@@ -1,91 +1,92 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class MaterialResourceSpecification extends EcRemoteLinkedData {
-resSpecId;
-name;
-resDescr;
-partReal;
-orgInfos;
-docs;
-rmks;
-uid;
-crud;
+    resSpecId;
+    name;
+    resDescr;
+    partReal;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getResSpecId() {
-        return resSpecId;
+    getResSpecId() {
+        return this.resSpecId;
     }
 
- setResSpecId( value) {
+    setResSpecId(value) {
         this.resSpecId = value;
     }
 
- getName() {
-        return name;
+    getName() {
+        return this.name;
     }
 
- setName( value) {
+    setName(value) {
         this.name = value;
     }
 
- getResDescr() {
-        return resDescr;
+    getResDescr() {
+        return this.resDescr;
     }
 
- setResDescr( value) {
+    setResDescr(value) {
         this.resDescr = value;
     }
 
- getPartReal() {
+    getPartReal() {
         if (this.partReal == null) {
             this.partReal = [];
         }
         return this.partReal;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "MaterialResourceSpecification");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "MaterialResourceSpecification");
+    }
 };

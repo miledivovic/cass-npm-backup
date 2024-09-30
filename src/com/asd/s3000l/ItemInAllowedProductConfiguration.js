@@ -1,103 +1,104 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class ItemInAllowedProductConfiguration extends EcRemoteLinkedData {
-nonConf;
-hwConfPartRef;
-prodConfRef;
-rangeEfys;
-docs;
-rmks;
-uid;
-crud;
+    nonConf;
+    hwConfPartRef;
+    prodConfRef;
+    rangeEfys;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getNonConf() {
+    getNonConf() {
         if (this.nonConf == null) {
             this.nonConf = [];
         }
         return this.nonConf;
     }
 
- getHwConfPartRef() {
-        return hwConfPartRef;
+    getHwConfPartRef() {
+        return this.hwConfPartRef;
     }
 
- setHwConfPartRef( value) {
+    setHwConfPartRef(value) {
         this.hwConfPartRef = value;
     }
 
- getProdConfRef() {
-        return prodConfRef;
+    getProdConfRef() {
+        return this.prodConfRef;
     }
 
- setProdConfRef( value) {
+    setProdConfRef(value) {
         this.prodConfRef = value;
     }
 
- getRangeEfys() {
-        return rangeEfys;
+    getRangeEfys() {
+        return this.rangeEfys;
     }
 
- setRangeEfys( value) {
+    setRangeEfys(value) {
         this.rangeEfys = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     NonConf = class NonConf {
-nonConfType;
-nonConfDescr;
-nonConfRestr;
+        nonConfType;
+        nonConfDescr;
+        nonConfRestr;
 
- getNonConfType() {
-            return nonConfType;
+        getNonConfType() {
+            return this.nonConfType;
         }
 
- setNonConfType( value) {
+        setNonConfType(value) {
             this.nonConfType = value;
         }
 
- getNonConfDescr() {
-            return nonConfDescr;
+        getNonConfDescr() {
+            return this.nonConfDescr;
         }
 
- setNonConfDescr( value) {
+        setNonConfDescr(value) {
             this.nonConfDescr = value;
         }
 
- getNonConfRestr() {
+        getNonConfRestr() {
             if (this.nonConfRestr == null) {
                 this.nonConfRestr = [];
             }
@@ -105,7 +106,7 @@ nonConfRestr;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ItemInAllowedProductConfiguration");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ItemInAllowedProductConfiguration");
+    }
 };

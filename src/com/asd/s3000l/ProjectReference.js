@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class ProjectReference extends EcRemoteLinkedData {
-projId;
-uidRef;
+    projId;
+    uidRef;
 
- getProjId() {
-        return projId;
+    getProjId() {
+        return this.projId;
     }
 
- setProjId( value) {
+    setProjId(value) {
         this.projId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ProjectReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ProjectReference");
+    }
 };

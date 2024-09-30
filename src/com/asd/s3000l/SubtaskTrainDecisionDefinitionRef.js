@@ -1,61 +1,62 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskTrainDecisionDefinitionRef extends EcRemoteLinkedData {
-taskId;
-taskRevId;
-iterationId;
-subtTrainId;
-uidRef;
-uriRef;
+    taskId;
+    taskRevId;
+    iterationId;
+    subtTrainId;
+    uidRef;
+    uriRef;
 
- getTaskId() {
-        return taskId;
+    getTaskId() {
+        return this.taskId;
     }
 
- setTaskId( value) {
+    setTaskId(value) {
         this.taskId = value;
     }
 
- getTaskRevId() {
-        return taskRevId;
+    getTaskRevId() {
+        return this.taskRevId;
     }
 
- setTaskRevId( value) {
+    setTaskRevId(value) {
         this.taskRevId = value;
     }
 
- getIterationId() {
-        return iterationId;
+    getIterationId() {
+        return this.iterationId;
     }
 
- setIterationId( value) {
+    setIterationId(value) {
         this.iterationId = value;
     }
 
- getSubtTrainId() {
-        return subtTrainId;
+    getSubtTrainId() {
+        return this.subtTrainId;
     }
 
- setSubtTrainId( value) {
+    setSubtTrainId(value) {
         this.subtTrainId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
- getUriRef() {
-        return uriRef;
+    getUriRef() {
+        return this.uriRef;
     }
 
- setUriRef( value) {
+    setUriRef(value) {
         this.uriRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainDecisionDefinitionRef");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainDecisionDefinitionRef");
+    }
 };

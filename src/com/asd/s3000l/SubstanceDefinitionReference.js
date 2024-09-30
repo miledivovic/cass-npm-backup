@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubstanceDefinitionReference extends EcRemoteLinkedData {
-subsId;
-uidRef;
+    subsId;
+    uidRef;
 
- getSubsId() {
-        return subsId;
+    getSubsId() {
+        return this.subsId;
     }
 
- setSubsId( value) {
+    setSubsId(value) {
         this.subsId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubstanceDefinitionReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubstanceDefinitionReference");
+    }
 };

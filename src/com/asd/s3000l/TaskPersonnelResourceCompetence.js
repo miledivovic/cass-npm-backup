@@ -1,121 +1,122 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskPersonnelResourceCompetence extends EcRemoteLinkedData {
-addTrain;
-tradeRef;
-skillLevelRef;
-skillRef;
-jobPosRef;
-applic;
-uid;
-crud;
+    addTrain;
+    tradeRef;
+    skillLevelRef;
+    skillRef;
+    jobPosRef;
+    applic;
+    uid;
+    crud;
 
- getAddTrain() {
+    getAddTrain() {
         if (this.addTrain == null) {
             this.addTrain = [];
         }
         return this.addTrain;
     }
 
- getTradeRef() {
-        return tradeRef;
+    getTradeRef() {
+        return this.tradeRef;
     }
 
- setTradeRef( value) {
+    setTradeRef(value) {
         this.tradeRef = value;
     }
 
- getSkillLevelRef() {
-        return skillLevelRef;
+    getSkillLevelRef() {
+        return this.skillLevelRef;
     }
 
- setSkillLevelRef( value) {
+    setSkillLevelRef(value) {
         this.skillLevelRef = value;
     }
 
- getSkillRef() {
-        return skillRef;
+    getSkillRef() {
+        return this.skillRef;
     }
 
- setSkillRef( value) {
+    setSkillRef(value) {
         this.skillRef = value;
     }
 
- getJobPosRef() {
-        return jobPosRef;
+    getJobPosRef() {
+        return this.jobPosRef;
     }
 
- setJobPosRef( value) {
+    setJobPosRef(value) {
         this.jobPosRef = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     AddTrain = class AddTrain {
-trainDescr;
-trainMeth;
-docs;
-rmks;
+        trainDescr;
+        trainMeth;
+        docs;
+        rmks;
 
- getTrainDescr() {
-            return trainDescr;
+        getTrainDescr() {
+            return this.trainDescr;
         }
 
- setTrainDescr( value) {
+        setTrainDescr(value) {
             this.trainDescr = value;
         }
 
- getTrainMeth() {
-            return trainMeth;
+        getTrainMeth() {
+            return this.trainMeth;
         }
 
- setTrainMeth( value) {
+        setTrainMeth(value) {
             this.trainMeth = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskPersonnelResourceCompetence");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskPersonnelResourceCompetence");
+    }
 };

@@ -1,4 +1,5 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = {
     MAN_A: "MAN_A",
     MAN_B: "MAN_B",

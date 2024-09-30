@@ -1,47 +1,48 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubstitutePartAsDesignedRelationship extends EcRemoteLinkedData {
-pListEntryRef;
-rmks;
-uid;
-crud;
+    pListEntryRef;
+    rmks;
+    uid;
+    crud;
 
- getPListEntryRef() {
-        return pListEntryRef;
+    getPListEntryRef() {
+        return this.pListEntryRef;
     }
 
- setPListEntryRef( value) {
+    setPListEntryRef(value) {
         this.pListEntryRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubstitutePartAsDesignedRelationship");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubstitutePartAsDesignedRelationship");
+    }
 };

@@ -1,38 +1,40 @@
 
-module.exports = class ChangeRequestSource extends EcRemoteLinkedData {
-crRef;
-uid;
-crud;
 
- getCrRef() {
-        return crRef;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ChangeRequestSource extends EcRemoteLinkedData {
+    crRef;
+    uid;
+    crud;
+
+    getCrRef() {
+        return this.crRef;
     }
 
- setCrRef( value) {
+    setCrRef(value) {
         this.crRef = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ChangeRequestSource");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ChangeRequestSource");
+    }
 };

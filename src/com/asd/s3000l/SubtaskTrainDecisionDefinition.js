@@ -1,187 +1,188 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskTrainDecisionDefinition extends EcRemoteLinkedData {
-subtTrainId;
-coordCat;
-subtDiff;
-subtImp;
-subtFreq;
-subtTrainLvl;
-subtTrainLvlRtnle;
-trainDiff;
-trainLvl;
-trainLvlRtnle;
-perfObj;
-subtaskTrainStepNonAbstractClasses;
-subtRef;
-orgInfos;
-docs;
-rmks;
-ksaReqs;
-uid;
-uri;
-crud;
+    subtTrainId;
+    coordCat;
+    subtDiff;
+    subtImp;
+    subtFreq;
+    subtTrainLvl;
+    subtTrainLvlRtnle;
+    trainDiff;
+    trainLvl;
+    trainLvlRtnle;
+    perfObj;
+    subtaskTrainStepNonAbstractClasses;
+    subtRef;
+    orgInfos;
+    docs;
+    rmks;
+    ksaReqs;
+    uid;
+    uri;
+    crud;
 
- getSubtTrainId() {
-        return subtTrainId;
+    getSubtTrainId() {
+        return this.subtTrainId;
     }
 
- setSubtTrainId( value) {
+    setSubtTrainId(value) {
         this.subtTrainId = value;
     }
 
- getCoordCat() {
-        return coordCat;
+    getCoordCat() {
+        return this.coordCat;
     }
 
- setCoordCat( value) {
+    setCoordCat(value) {
         this.coordCat = value;
     }
 
- getSubtDiff() {
-        return subtDiff;
+    getSubtDiff() {
+        return this.subtDiff;
     }
 
- setSubtDiff( value) {
+    setSubtDiff(value) {
         this.subtDiff = value;
     }
 
- getSubtImp() {
-        return subtImp;
+    getSubtImp() {
+        return this.subtImp;
     }
 
- setSubtImp( value) {
+    setSubtImp(value) {
         this.subtImp = value;
     }
 
- getSubtFreq() {
-        return subtFreq;
+    getSubtFreq() {
+        return this.subtFreq;
     }
 
- setSubtFreq( value) {
+    setSubtFreq(value) {
         this.subtFreq = value;
     }
 
- getSubtTrainLvl() {
-        return subtTrainLvl;
+    getSubtTrainLvl() {
+        return this.subtTrainLvl;
     }
 
- setSubtTrainLvl( value) {
+    setSubtTrainLvl(value) {
         this.subtTrainLvl = value;
     }
 
- getSubtTrainLvlRtnle() {
+    getSubtTrainLvlRtnle() {
         if (this.subtTrainLvlRtnle == null) {
             this.subtTrainLvlRtnle = [];
         }
         return this.subtTrainLvlRtnle;
     }
 
- getTrainDiff() {
-        return trainDiff;
+    getTrainDiff() {
+        return this.trainDiff;
     }
 
- setTrainDiff( value) {
+    setTrainDiff(value) {
         this.trainDiff = value;
     }
 
- getTrainLvl() {
-        return trainLvl;
+    getTrainLvl() {
+        return this.trainLvl;
     }
 
- setTrainLvl( value) {
+    setTrainLvl(value) {
         this.trainLvl = value;
     }
 
- getTrainLvlRtnle() {
+    getTrainLvlRtnle() {
         if (this.trainLvlRtnle == null) {
             this.trainLvlRtnle = [];
         }
         return this.trainLvlRtnle;
     }
 
- getPerfObj() {
+    getPerfObj() {
         if (this.perfObj == null) {
             this.perfObj = [];
         }
         return this.perfObj;
     }
 
- getSubtaskTrainStepNonAbstractClasses() {
+    getSubtaskTrainStepNonAbstractClasses() {
         if (this.subtaskTrainStepNonAbstractClasses == null) {
             this.subtaskTrainStepNonAbstractClasses = [];
         }
         return this.subtaskTrainStepNonAbstractClasses;
     }
 
- getSubtRef() {
-        return subtRef;
+    getSubtRef() {
+        return this.subtRef;
     }
 
- setSubtRef( value) {
+    setSubtRef(value) {
         this.subtRef = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getKsaReqs() {
-        return ksaReqs;
+    getKsaReqs() {
+        return this.ksaReqs;
     }
 
- setKsaReqs( value) {
+    setKsaReqs(value) {
         this.ksaReqs = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainDecisionDefinition");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainDecisionDefinition");
+    }
 };

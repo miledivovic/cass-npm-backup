@@ -1,52 +1,53 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class PartAsDesignedPartsListEntryReference extends EcRemoteLinkedData {
-partId;
-pListType;
-pListRevId;
-posId;
-uidRef;
+    partId;
+    pListType;
+    pListRevId;
+    posId;
+    uidRef;
 
- getPartId() {
-        return partId;
+    getPartId() {
+        return this.partId;
     }
 
- setPartId( value) {
+    setPartId(value) {
         this.partId = value;
     }
 
- getPListType() {
-        return pListType;
+    getPListType() {
+        return this.pListType;
     }
 
- setPListType( value) {
+    setPListType(value) {
         this.pListType = value;
     }
 
- getPListRevId() {
-        return pListRevId;
+    getPListRevId() {
+        return this.pListRevId;
     }
 
- setPListRevId( value) {
+    setPListRevId(value) {
         this.pListRevId = value;
     }
 
- getPosId() {
-        return posId;
+    getPosId() {
+        return this.posId;
     }
 
- setPosId( value) {
+    setPosId(value) {
         this.posId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedPartsListEntryReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedPartsListEntryReference");
+    }
 };

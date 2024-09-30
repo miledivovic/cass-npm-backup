@@ -1,74 +1,76 @@
 
-module.exports = class CircuitBreaker extends EcRemoteLinkedData {
-cbId;
-name;
-cbType;
-docs;
-rmks;
-uid;
-crud;
 
- getCbId() {
-        return cbId;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class CircuitBreaker extends EcRemoteLinkedData {
+    cbId;
+    name;
+    cbType;
+    docs;
+    rmks;
+    uid;
+    crud;
+
+    getCbId() {
+        return this.cbId;
     }
 
- setCbId( value) {
+    setCbId(value) {
         this.cbId = value;
     }
 
- getName() {
-        return name;
+    getName() {
+        return this.name;
     }
 
- setName( value) {
+    setName(value) {
         this.name = value;
     }
 
- getCbType() {
-        return cbType;
+    getCbType() {
+        return this.cbType;
     }
 
- setCbType( value) {
+    setCbType(value) {
         this.cbType = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "CircuitBreaker");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "CircuitBreaker");
+    }
 };

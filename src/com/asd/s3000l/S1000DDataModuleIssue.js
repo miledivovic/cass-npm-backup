@@ -1,47 +1,48 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class S1000DDataModuleIssue extends EcRemoteLinkedData {
-dmIssId;
-rmks;
-uid;
-crud;
+    dmIssId;
+    rmks;
+    uid;
+    crud;
 
- getDmIssId() {
-        return dmIssId;
+    getDmIssId() {
+        return this.dmIssId;
     }
 
- setDmIssId( value) {
+    setDmIssId(value) {
         this.dmIssId = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "S1000DDataModuleIssue");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "S1000DDataModuleIssue");
+    }
 };

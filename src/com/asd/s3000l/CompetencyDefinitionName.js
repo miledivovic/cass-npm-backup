@@ -1,34 +1,35 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class CompetencyDefinitionName extends EcRemoteLinkedData {
-name;
-lang;
-providedBy;
+    name;
+    lang;
+    providedBy;
 
- getName() {
-        return name;
+    getName() {
+        return this.name;
     }
 
- setName( value) {
+    setName(value) {
         this.name = value;
     }
 
- getLang() {
-        return lang;
+    getLang() {
+        return this.lang;
     }
 
- setLang( value) {
+    setLang(value) {
         this.lang = value;
     }
 
- getProvidedBy() {
-        return providedBy;
+    getProvidedBy() {
+        return this.providedBy;
     }
 
- setProvidedBy( value) {
+    setProvidedBy(value) {
         this.providedBy = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "CompetencyDefinitionName");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "CompetencyDefinitionName");
+    }
 };

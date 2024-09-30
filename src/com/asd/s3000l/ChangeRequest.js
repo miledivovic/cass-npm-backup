@@ -1,82 +1,84 @@
 
-module.exports = class ChangeRequest extends EcRemoteLinkedData {
-crId;
-crDescr;
-crObject;
-orgInfos;
-docs;
-rmks;
-uid;
-crud;
 
- getCrId() {
-        return crId;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ChangeRequest extends EcRemoteLinkedData {
+    crId;
+    crDescr;
+    crObject;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    crud;
+
+    getCrId() {
+        return this.crId;
     }
 
- setCrId( value) {
+    setCrId(value) {
         this.crId = value;
     }
 
- getCrDescr() {
-        return crDescr;
+    getCrDescr() {
+        return this.crDescr;
     }
 
- setCrDescr( value) {
+    setCrDescr(value) {
         this.crDescr = value;
     }
 
- getCrObject() {
+    getCrObject() {
         if (this.crObject == null) {
             this.crObject = [];
         }
         return this.crObject;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ChangeRequest");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ChangeRequest");
+    }
 };

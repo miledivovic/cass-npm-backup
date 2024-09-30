@@ -1,85 +1,86 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class PartAsDesignedPartsList extends EcRemoteLinkedData {
-pListType;
-pListRevId;
-pListEntry;
-apcEfys;
-docs;
-rmks;
-uid;
-crud;
+    pListType;
+    pListRevId;
+    pListEntry;
+    apcEfys;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getPListType() {
-        return pListType;
+    getPListType() {
+        return this.pListType;
     }
 
- setPListType( value) {
+    setPListType(value) {
         this.pListType = value;
     }
 
- getPListRevId() {
-        return pListRevId;
+    getPListRevId() {
+        return this.pListRevId;
     }
 
- setPListRevId( value) {
+    setPListRevId(value) {
         this.pListRevId = value;
     }
 
- getPListEntry() {
+    getPListEntry() {
         if (this.pListEntry == null) {
             this.pListEntry = [];
         }
         return this.pListEntry;
     }
 
- getApcEfys() {
-        return apcEfys;
+    getApcEfys() {
+        return this.apcEfys;
     }
 
- setApcEfys( value) {
+    setApcEfys(value) {
         this.apcEfys = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     ApcEfys = class ApcEfys {
-apcEfy;
+        apcEfy;
 
- getApcEfy() {
+        getApcEfy() {
             if (this.apcEfy == null) {
                 this.apcEfy = [];
             }
@@ -87,7 +88,7 @@ apcEfy;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedPartsList");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedPartsList");
+    }
 };

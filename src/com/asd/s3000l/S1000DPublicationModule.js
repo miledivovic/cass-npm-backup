@@ -1,73 +1,74 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class S1000DPublicationModule extends EcRemoteLinkedData {
-pmc;
-pmTitle;
-pmIss;
-orgInfos;
-rmks;
-uid;
-crud;
+    pmc;
+    pmTitle;
+    pmIss;
+    orgInfos;
+    rmks;
+    uid;
+    crud;
 
- getPmc() {
-        return pmc;
+    getPmc() {
+        return this.pmc;
     }
 
- setPmc( value) {
+    setPmc(value) {
         this.pmc = value;
     }
 
- getPmTitle() {
-        return pmTitle;
+    getPmTitle() {
+        return this.pmTitle;
     }
 
- setPmTitle( value) {
+    setPmTitle(value) {
         this.pmTitle = value;
     }
 
- getPmIss() {
+    getPmIss() {
         if (this.pmIss == null) {
             this.pmIss = [];
         }
         return this.pmIss;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "S1000DPublicationModule");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "S1000DPublicationModule");
+    }
 };

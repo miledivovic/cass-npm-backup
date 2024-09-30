@@ -1,56 +1,58 @@
 
-module.exports = class ContractRelationship extends EcRemoteLinkedData {
-relType;
-contrRef;
-rmks;
-uid;
-crud;
 
- getRelType() {
-        return relType;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ContractRelationship extends EcRemoteLinkedData {
+    relType;
+    contrRef;
+    rmks;
+    uid;
+    crud;
+
+    getRelType() {
+        return this.relType;
     }
 
- setRelType( value) {
+    setRelType(value) {
         this.relType = value;
     }
 
- getContrRef() {
-        return contrRef;
+    getContrRef() {
+        return this.contrRef;
     }
 
- setContrRef( value) {
+    setContrRef(value) {
         this.contrRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ContractRelationship");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ContractRelationship");
+    }
 };

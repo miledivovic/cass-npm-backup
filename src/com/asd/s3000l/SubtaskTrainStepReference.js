@@ -1,83 +1,84 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskTrainStepReference extends EcRemoteLinkedData {
-stepId;
-subtTrainRef;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    stepId;
+    subtTrainRef;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getStepId() {
-        return stepId;
+    getStepId() {
+        return this.stepId;
     }
 
- setStepId( value) {
+    setStepId(value) {
         this.stepId = value;
     }
 
- getSubtTrainRef() {
-        return subtTrainRef;
+    getSubtTrainRef() {
+        return this.subtTrainRef;
     }
 
- setSubtTrainRef( value) {
+    setSubtTrainRef(value) {
         this.subtTrainRef = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainStepReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainStepReference");
+    }
 };

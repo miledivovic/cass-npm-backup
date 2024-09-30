@@ -1,125 +1,126 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class Message extends EcRemoteLinkedData {
-msgId;
-msgDate;
-msgLang;
-msgStatus;
-msgSend;
-msgReceive;
-msgContext;
-msgContent;
-relatedMsg;
-secs;
-rmks;
-uid;
-crud;
+    msgId;
+    msgDate;
+    msgLang;
+    msgStatus;
+    msgSend;
+    msgReceive;
+    msgContext;
+    msgContent;
+    relatedMsg;
+    secs;
+    rmks;
+    uid;
+    crud;
 
- getMsgId() {
-        return msgId;
+    getMsgId() {
+        return this.msgId;
     }
 
- setMsgId( value) {
+    setMsgId(value) {
         this.msgId = value;
     }
 
- getMsgDate() {
-        return msgDate;
+    getMsgDate() {
+        return this.msgDate;
     }
 
- setMsgDate( value) {
+    setMsgDate(value) {
         this.msgDate = value;
     }
 
- getMsgLang() {
-        return msgLang;
+    getMsgLang() {
+        return this.msgLang;
     }
 
- setMsgLang( value) {
+    setMsgLang(value) {
         this.msgLang = value;
     }
 
- getMsgStatus() {
-        return msgStatus;
+    getMsgStatus() {
+        return this.msgStatus;
     }
 
- setMsgStatus( value) {
+    setMsgStatus(value) {
         this.msgStatus = value;
     }
 
- getMsgSend() {
+    getMsgSend() {
         if (this.msgSend == null) {
             this.msgSend = [];
         }
         return this.msgSend;
     }
 
- getMsgReceive() {
+    getMsgReceive() {
         if (this.msgReceive == null) {
             this.msgReceive = [];
         }
         return this.msgReceive;
     }
 
- getMsgContext() {
-        return msgContext;
+    getMsgContext() {
+        return this.msgContext;
     }
 
- setMsgContext( value) {
+    setMsgContext(value) {
         this.msgContext = value;
     }
 
- getMsgContent() {
-        return msgContent;
+    getMsgContent() {
+        return this.msgContent;
     }
 
- setMsgContent( value) {
+    setMsgContent(value) {
         this.msgContent = value;
     }
 
- getRelatedMsg() {
+    getRelatedMsg() {
         if (this.relatedMsg == null) {
             this.relatedMsg = [];
         }
         return this.relatedMsg;
     }
 
- getSecs() {
-        return secs;
+    getSecs() {
+        return this.secs;
     }
 
- setSecs( value) {
+    setSecs(value) {
         this.secs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "Message");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "Message");
+    }
 };

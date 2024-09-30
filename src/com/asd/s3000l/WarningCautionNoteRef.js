@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class WarningCautionNoteRef extends EcRemoteLinkedData {
-wcnId;
-uidRef;
+    wcnId;
+    uidRef;
 
- getWcnId() {
-        return wcnId;
+    getWcnId() {
+        return this.wcnId;
     }
 
- setWcnId( value) {
+    setWcnId(value) {
         this.wcnId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "WarningCautionNoteRef");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "WarningCautionNoteRef");
+    }
 };

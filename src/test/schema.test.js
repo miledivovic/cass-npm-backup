@@ -1479,9 +1479,9 @@ function getAllFuncs(toCheck) {
     });
 }
 describe("S3000L", () => {
-    for (let type in global.s3000l) {
+    for (let type in s3000l) {
         describe(type, async () => {
-            let obj = new global.s3000l[type]();
+            let obj = new s3000l[type]();
             for (let fun in obj) {
                 if (obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined)
                 {
@@ -1489,6 +1489,7 @@ describe("S3000L", () => {
                     {
                         it(fun + " set then get.", () => {
                             {
+                                obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
                                 obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
                                 obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
                                 expect(obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]()).to.eql('foo');
@@ -1503,6 +1504,8 @@ describe("S3000L", () => {
                             {
                                 let result = obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]();
                                 expect(result).to.be.a('array');
+                                result = obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]();
+                                expect(result).to.be.a('array');
                             }
                         });
                     }
@@ -1513,7 +1516,7 @@ describe("S3000L", () => {
             //     console.log(fun);
             // }
             it('should have a constructor', () => {
-                expect(obj).to.be.an.instanceof(global.s3000l[type]);
+                expect(obj).to.be.an.instanceof(s3000l[type]);
             });
             it('should have a toString', () => {
                 expect(obj.toString()).to.be.a('string');

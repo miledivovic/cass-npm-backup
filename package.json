@@ -152,6 +152,7 @@
 	"homepage": "https://github.com/cassproject/cass-npm#readme",
 	"devDependencies": {
 		"@cypress/browserify-preprocessor": "^3.0.2",
+		"@cypress/code-coverage": "^3.13.2",
 		"@cypress/vite-dev-server": "^5.2.0",
 		"@cypress/webpack-preprocessor": "^6.0.2",
 		"chai": "4.5.0",

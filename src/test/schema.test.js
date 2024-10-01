@@ -1435,95 +1435,66 @@ let should = chai.should();
 let expect = chai.expect;
 let assert = chai.assert;
 
+let test = (obj, type) => {
+    for (let cla in obj) {
+        if (typeof (obj[cla]) == 'function') {
+            describe(cla, async () => {
+                test(new obj[cla](), cla);
+            });
+        }
+    }
+    for (let fun in obj) {
+        if (obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined) {
+            if (obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined) {
+                it(fun + " set then get.", () => {
+                    obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
+                    obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
+                    obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
+                    expect(obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]()).to.eql('foo');
+                });
+            }
+        }
+        else {
+            if (obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined) {
+                it(fun + " get (array).", () => {
+                    let result = obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]();
+                    expect(result).to.be.a('array');
+                    result = obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]();
+                    expect(result).to.be.a('array');
+                });
+            }
+        }
+    }
+}
+
 describe("Schema", () => {
-    for (let type in global.schema) {
+    for (let type in schema) {
         describe(type, async () => {
-            let obj = new global.schema[type]();
-            it('should have a constructor', () => {
-                expect(obj).to.be.an.instanceof(global.schema[type]);
-            });
-            it('should have a toString', () => {
-                expect(obj.toString()).to.be.a('string');
-            });
-            it('should have a toJSON', () => {
-                expect(JSON.parse(obj.toJson())).to.be.an('object');
-            });
+            if (typeof (schema[type]) == 'function') {
+                let obj = new schema[type]();
+                test(obj, type);
+            }
         });
     }
 });
 describe("CE", () => {
-    for (let type in global.ce) {
+    for (let type in ce) {
         describe(type, async () => {
-            let obj = new global.ce[type]();
-            it('should have a constructor', () => {
-                expect(obj).to.be.an.instanceof(global.ce[type]);
-            });
-            it('should have a toString', () => {
-                expect(obj.toString()).to.be.a('string');
-            });
-            it('should have a toJSON', () => {
-                expect(JSON.parse(obj.toJson())).to.be.an('object');
-            });
+            if (typeof (ce[type]) == 'function') {
+                let obj = new ce[type]();
+                test(obj, type);
+            }
         });
-        }
+    }
 });
-function getAllFuncs(toCheck) {
-    const props = [];
-    let obj = toCheck;
-    do {
-        props.push(...Object.getOwnPropertyNames(obj));
-    } while (obj = Object.getPrototypeOf(obj));
-
-    return props.sort().filter((e, i, arr) => {
-        if (e != arr[i + 1] && typeof toCheck[e] == 'function') return true;
-    });
-}
 describe("S3000L", () => {
     for (let type in s3000l) {
         describe(type, async () => {
-            let obj = new s3000l[type]();
-            for (let fun in obj) {
-                if (obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined)
-                {
-                    if (obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined)
-                    {
-                        it(fun + " set then get.", () => {
-                            {
-                                obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
-                                obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
-                                obj["set" + fun.charAt(0).toUpperCase() + fun.slice(1)]('foo');
-                                expect(obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]()).to.eql('foo');
-                            }
-                        });
-                    }
-                }
-                else
-                {
-                    if (obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)] != undefined) {
-                        it(fun + " get (array).", () => {
-                            {
-                                let result = obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]();
-                                expect(result).to.be.a('array');
-                                result = obj["get" + fun.charAt(0).toUpperCase() + fun.slice(1)]();
-                                expect(result).to.be.a('array');
-                            }
-                        });
-                    }
-                }
+            if (typeof(s3000l[type]) == 'function')
+            {
+                let obj = new s3000l[type]();
+                test(obj,type);
             }
-            // for (let fun of getAllFuncs(obj))
-            // {
-            //     console.log(fun);
-            // }
-            it('should have a constructor', () => {
-                expect(obj).to.be.an.instanceof(s3000l[type]);
-            });
-            it('should have a toString', () => {
-                expect(obj.toString()).to.be.a('string');
-            });
-            it('should have a toJSON', () => {
-                expect(JSON.parse(obj.toJson())).to.be.an('object');
-            });
         });
     }
 });

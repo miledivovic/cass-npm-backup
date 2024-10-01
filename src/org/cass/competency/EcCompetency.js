@@ -334,9 +334,11 @@ module.exports = class EcCompetency extends Competency {
 			repo,
 			query,
 			async (results) => {
-				for (let i = 0; i < results.length; i++)
-					await eachSuccess(results[i]);
-				await successAll(results);
+				if (eachSuccess != null)
+					for (let i = 0; i < results.length; i++)
+						await eachSuccess(results[i]);
+				if (successAll != null)
+					await successAll(results);
 			},
 			failure,
 			{}, eim

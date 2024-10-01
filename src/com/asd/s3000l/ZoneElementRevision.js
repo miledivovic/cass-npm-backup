@@ -1242,7 +1242,7 @@ module.exports = class ZoneElementRevision extends EcRemoteLinkedData {
 
         getInt() {
             if (this._int == null) {
-                _int = [];
+                this._int = [];
             }
             return this._int;
         }

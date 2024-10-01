@@ -1,5 +1,3 @@
-
-const CrudCodeValues = require("./CrudCodeValues");
 module.exports = {
     I: "I",
     D: "D",

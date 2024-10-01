@@ -65,7 +65,7 @@ describe('EcCompetency', function () {
         const target = new EcCompetency();
         const owner = EcPpk.generateKey();
 
-        const alignment = await competency.addAlignment(target, 'alignmentType', owner, 'serverUrl');
+        const alignment = await competency.addAlignment(target, 'alignmentType', owner);
         expect(alignment).to.be.instanceOf(EcAlignment);
         stub.restore();
     });
@@ -86,7 +86,10 @@ describe('EcCompetency', function () {
         const stub = sinon.stub(EcLevel.prototype, 'save').resolves();
         const owner = EcPpk.generateKey();
 
-        const level = await competency.addLevel('name', 'description', owner, 'serverUrl');
+        const repo = new EcRepository();
+        await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/");
+
+        const level = await competency.addLevel('name', 'description', owner,null,null,repo);
         expect(level).to.be.instanceOf(EcLevel);
         stub.restore();
     });

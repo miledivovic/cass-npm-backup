@@ -98,30 +98,27 @@ module.exports = class ExtPerson extends schema.Person {
 	 *  @method save
 	 */
 	save(success, failure, repo, eim) {
-		if (this.getId() == null || this.getId() == "") {
-			let msg = "ID cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
+		let invalid = (it) => { return it == null || it != "" };
+		let fail = (msg) => {
+			if (failure != null)
+				return failure(msg);
+			else
+				throw new Error(msg);
 		}
-		if (this.getFirstName() == null || this.getFirstName() == "") {
-			let msg = "First name cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
+		if (invalid(this.getId())) {
+			return fail("ID cannot be missing");
 		}
-		if (this.getLastName() == null || this.getLastName() == "") {
-			let msg = "Last name cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
+		if (invalid(this.getFirstName())) {
+			return fail("First name cannot be missing");
 		}
-		if (this.getUserName() == null || this.getUserName() == "") {
-			let msg = "Username cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
+		if (invalid(this.getLastName())) {
+			return fail("Last name cannot be missing");
 		}
-		if (this.getEmail() == null || this.getEmail() == "") {
-			let msg = "Email cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
+		if (invalid(this.getUserName())) {
+			return fail("Username cannot be missing");
+		}
+		if (invalid(this.getEmail())) {
+			return fail("Email cannot be missing");
 		}
 		return EcRepository.save(this, success, failure, repo, eim);
 	}

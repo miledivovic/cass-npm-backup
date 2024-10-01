@@ -92,9 +92,9 @@ module.exports = class CfdFramework extends EcFramework {
 		};
 		if (remove == 0) onAllRemove();
 		if (this.competency != null && this.competency.length > 0) {
-			for (let x = 0; x < this.competency.length; x++) {
+			for (let comp of this.competency) {
 				CfdCompetency.get(
-					this.competency[x],
+					comp,
 					function (comp) {
 						comp._delete(
 							function (p1) {
@@ -140,9 +140,9 @@ module.exports = class CfdFramework extends EcFramework {
 			}
 		}
 		if (this.relation != null && this.relation.length > 0) {
-			for (let x = 0; x < this.relation.length; x++) {
+			for (let rel of this.relation) {
 				EcAlignment.get(
-					this.relation[x],
+					rel,
 					function (rel) {
 						rel._delete(
 							function (p1) {

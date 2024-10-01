@@ -441,9 +441,13 @@ module.exports = class EcFrameworkGraph extends EcDirectedGraph {
 		this.cacheEdges(t);
 		return true;
 	}
+	removeVertex(vertex) {
+		delete this.inEdgeCache[vertex.shortId()];
+		delete this.outEdgeCache[vertex.shortId()];
+		return super.removeVertex(vertex);
+	}
 	cacheEdges(e)
 	{
-		//TODO: Remove cached stuff when edges are removed.
 		if (this.inEdgeCache[e.destination.shortId()] == null)
 			this.inEdgeCache[e.destination.shortId()] = [];
 		this.inEdgeCache[e.destination.shortId()].push(e.edge);

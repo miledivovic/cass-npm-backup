@@ -7,8 +7,6 @@ const EcRemoteLinkedData = require("../../cassproject/schema/general/EcRemoteLin
  *
  *  @author fritz.ray@eduworks.com
  *  @author devlin.junker@eduworks.com
- *  <p>
- *  TODO: Test case where an absent relation is in the framework.
  *  @module org.cassproject
  *  @class EcAlignment
  *  @constructor
@@ -131,7 +129,6 @@ module.exports = class EcAlignment extends Relation {
 	static searchBySources(repo, sourceIds, success, failure, paramObj, eim) {
 		let query = "";
 		query = "(source:";
-		let noVersions = [];
 		for (let i = 0; i < sourceIds.length; i++) {
 			let sourceId = sourceIds[i];
 			if (i != 0) query += " OR ";
@@ -141,7 +138,6 @@ module.exports = class EcAlignment extends Relation {
 			} else {
 				query += '"' + sourceId + '" OR source:"' + noVersion + '"';
 			}
-			noVersions.push(noVersion);
 		}
 		query += ")";
 		return EcAlignment.search(repo, query, success, failure, paramObj, eim);
@@ -220,23 +216,26 @@ module.exports = class EcAlignment extends Relation {
 	 *  @method save
 	 */
 	save(success, failure, repo, eim) {
-		if (this.source == null || this.source == "") {
-			let msg = "Source Competency cannot be missing";
-			if (failure !== undefined && failure != null) return failure(msg);
-			else throw new Error(msg);
+		let invalid = (it) => { return it == null || it == "" };
+		let fail = (msg) => {
+			if (failure != null)
+				return failure(msg);
+			else
+				throw new Error(msg);
 		}
-		if (this.target == null || this.target == "") {
-			let msg = "Target Competency cannot be missing";
-			if (failure !== undefined && failure != null) return failure(msg);
-			else throw new Error(msg);
+		if (invalid(this.source)) {
+			return fail("Source Competency cannot be missing");
 		}
-		if (this.relationType == null || this.relationType == "") {
-			let msg = "Relation Type cannot be missing";
-			if (failure !== undefined && failure != null) return failure(msg);
-			else throw new Error(msg);
+		if (invalid(this.target)) {
+			return fail("Target Competency cannot be missing");
 		}
-		if (repo == null) return EcRepository.save(this, success, failure, repo, eim);
-		else return repo.saveTo(this, success, failure, eim);
+		if (invalid(this.relationType)) {
+			return fail("Relation Type cannot be missing");
+		}
+		if (repo == null) 
+			return EcRepository.save(this, success, failure, repo, eim);
+		else 
+			return repo.saveTo(this, success, failure, eim);
 	}
 	/**
 	 *  Deletes the alignment from the server corresponding to its ID

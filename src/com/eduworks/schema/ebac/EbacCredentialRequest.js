@@ -3,8 +3,6 @@ const EcLinkedData = require("../../../../org/json/ld/EcLinkedData");
 
 /**
  *  Message used to retrieve credentials from a remote system.
- *  <p>
- *  TODO: Vulnerable to replay attacks.
  *
  *  @author fritz.ray@eduworks.com
  *  @class EbacCredentialRequest

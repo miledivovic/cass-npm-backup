@@ -10,7 +10,6 @@ module.exports = defineConfig({
     // We've imported your old cypress plugins here.
     // You may want to clean this up later by importing these.
     setupNodeEvents(on, config) {
-      require('@cypress/code-coverage/task')(on, config)
       require("cypress-fail-fast/plugin")(on, config);
       return require('./cypressWebpack/plugins/index.js')(on, config)
     },

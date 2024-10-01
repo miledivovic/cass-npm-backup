@@ -28,7 +28,7 @@ module.exports = class EcAesCtrAsyncWorker {
 	 */
 	static encrypt(plaintext, secret, iv, success, failure) {
 		EcRsaOaepAsyncWorker.initWorker();
-		if (EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
+		if (EcRsaOaepAsyncWorker.w?.[EcRsaOaepAsyncWorker.rotator] == null) {
 			return cassReturnAsPromise(
 				EcAesCtrAsync.encrypt(plaintext, secret, iv),
 				success,
@@ -68,7 +68,7 @@ module.exports = class EcAesCtrAsyncWorker {
 			}
 		}
 		EcRsaOaepAsyncWorker.initWorker();
-		if (EcRsaOaepAsyncWorker.w == null || EcRsaOaepAsyncWorker.w[EcRsaOaepAsyncWorker.rotator] == null) {
+		if (EcRsaOaepAsyncWorker.w?.[EcRsaOaepAsyncWorker.rotator] == null) {
 			return cassReturnAsPromise(
 				EcAesCtrAsync.decrypt(ciphertext, secret, iv),
 				success,
@@ -89,9 +89,8 @@ module.exports = class EcAesCtrAsyncWorker {
 		});
 		if (EcCrypto.caching)
 			p = p.then((decrypted) => {
-				return EcCrypto.decryptionCache[
-					secret + iv + ciphertext
-				] = decrypted;
+				EcCrypto.decryptionCache[secret + iv + ciphertext] = decrypted;
+				return decrypted;
 			});
 		return cassPromisify(p, success, failure);
 	}

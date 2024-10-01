@@ -118,16 +118,14 @@ module.exports = class EcCompetency extends Competency {
 		target,
 		alignmentType,
 		owner,
-		serverUrl,
 		success,
 		failure,
 		repo,
 		eim
 	) {
 		let a = new EcAlignment();
-		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
-			a.generateId(serverUrl);
-		else a.generateShortId(serverUrl);
+		if (repo != null)
+			a.generateId(repo.selectedServer);
 		a.source = this.shortId();
 		a.target = target.shortId();
 		a.relationType = alignmentType;
@@ -150,7 +148,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method relations
 	 */
 	relations(repo, eachSuccess, failure, successAll) {
-		return this.relationships(repo, eachSuccess, failure, successAll);
+		return this.relationships(repo, eachSuccess, failure, successAll); //NOSONAR - Renamed function is intentional
 	}
 	/**
 	 *  Searches the repository given for any relationships that contain this competency
@@ -181,8 +179,8 @@ module.exports = class EcCompetency extends Competency {
 			'"',
 			async (results) => {
 				if (eachSuccess !== undefined && eachSuccess != null)
-					for (let i = 0; i < results.length; i++)
-						await eachSuccess(results[i]);
+					for (let result of results)
+						await eachSuccess(result);
 				if (successAll !== undefined && successAll != null)
 					await successAll(results);
 				return results;
@@ -215,16 +213,14 @@ module.exports = class EcCompetency extends Competency {
 		name,
 		description,
 		owner,
-		serverUrl,
 		success,
 		failure,
 		repo,
 		eim
 	) {
 		let l = new EcLevel();
-		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
-			l.generateId(serverUrl);
-		else l.generateShortId(serverUrl);
+		if (repo == null) throw new Error("Repo must not be null.");
+		l.generateId(repo.selectedServer);
 		l.competency = this.shortId();
 		l.description = description;
 		l.name = name;

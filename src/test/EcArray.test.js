@@ -22,29 +22,80 @@ describe("EcArray", () => {
         EcArray.removeDuplicates(ary);
         expect(ary.length).to.equal(4);
     });
-    it('SetAdd works', () => {
-        let ary = [2, 3, 4];
-        EcArray.setAdd(ary, 1);
-        expect(ary.length).to.equal(4);
+    describe("removeDuplicates", () => {
+        it('Removes duplicates from the array', () => {
+            let ary = [1, 1, 2, 3, 4];
+            EcArray.removeDuplicates(ary);
+            expect(ary).to.deep.equal([1, 2, 3, 4]);
+        });
+        it('Does not modify the array if there are no duplicates', () => {
+            let ary = [1, 2, 3, 4];
+            EcArray.removeDuplicates(ary);
+            expect(ary).to.deep.equal([1, 2, 3, 4]);
+        });
+        it('Handles empty array correctly', () => {
+            let ary = [];
+            EcArray.removeDuplicates(ary);
+            expect(ary).to.deep.equal([]);
+        });
     });
-    it('SetAdd doesnt duplicate', () => {
-        let ary = [1, 1, 2, 3, 4];
-        EcArray.setAdd(ary, 1);
-        expect(ary.length).to.equal(5);
+    describe("setAdd", () => {
+        it('SetAdd works', () => {
+            let ary = [2, 3, 4];
+            EcArray.setAdd(ary, 1);
+            expect(ary.length).to.equal(4);
+        });
+        it('SetAdd doesnt duplicate', () => {
+            let ary = [1, 1, 2, 3, 4];
+            EcArray.setAdd(ary, 1);
+            expect(ary.length).to.equal(5);
+        });
+        it('Adds a value to the array if it is not already present', () => {
+            let ary = [2, 3, 4];
+            EcArray.setAdd(ary, 1);
+            expect(ary).to.deep.equal([2, 3, 4, 1]);
+        });
+        it('Does not add a value to the array if it is already present', () => {
+            let ary = [1, 2, 3, 4];
+            EcArray.setAdd(ary, 1);
+            expect(ary).to.deep.equal([1, 2, 3, 4]);
+        });
     });
-    it('SetRemove works', () => {
-        let ary = [1, 2, 3, 4];
-        EcArray.setRemove(ary, 1);
-        expect(ary.length).to.equal(3);
-    });
-    it('SetRemove doesnt remove things of different types', () => {
-        let ary = ['1', 2, 3, 4];
-        EcArray.setRemove(ary, 1);
-        expect(ary.length).to.equal(4);
-    });
-    it('SetRemove removes all of something', () => {
-        let ary = [1, 1, 2, 3, 4];
-        EcArray.setRemove(ary, 1);
-        expect(ary.length).to.equal(3);
+    describe("setRemove", () => {
+        it('Removes a value from the array', () => {
+            let ary = [1, 2, 3, 4];
+            EcArray.setRemove(ary, 2);
+            expect(ary).to.deep.equal([1, 3, 4]);
+        });
+        it('Does not modify the array if the value is not present', () => {
+            let ary = [1, 2, 3, 4];
+            EcArray.setRemove(ary, 5);
+            expect(ary).to.deep.equal([1, 2, 3, 4]);
+        });
+        it('Removes all occurrences of a value from the array', () => {
+            let ary = [1, 2, 2, 3, 4];
+            EcArray.setRemove(ary, 2);
+            expect(ary).to.deep.equal([1, 3, 4]);
+        });
+        it('Handles empty array correctly', () => {
+            let ary = [];
+            EcArray.setRemove(ary, 1);
+            expect(ary).to.deep.equal([]);
+        });
+        it('SetRemove works', () => {
+            let ary = [1, 2, 3, 4];
+            EcArray.setRemove(ary, 1);
+            expect(ary.length).to.equal(3);
+        });
+        it('SetRemove doesnt remove things of different types', () => {
+            let ary = ['1', 2, 3, 4];
+            EcArray.setRemove(ary, 1);
+            expect(ary.length).to.equal(4);
+        });
+        it('SetRemove removes all of something', () => {
+            let ary = [1, 1, 2, 3, 4];
+            EcArray.setRemove(ary, 1);
+            expect(ary.length).to.equal(3);
+        });
     });
 });

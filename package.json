@@ -56,7 +56,7 @@
 		"autoindex": "nodemon index.js",
 		"autonyc": "nodemon --exec \"npm run nyc\"",
 		"nyc": "nyc --reporter lcov npm run mocha",
-		"mocha": "mocha --timeout 30000 -b src/**/schema.test.js",
+		"mocha": "mocha --timeout 30000 -b src/**/*.test.js",
 		"mochaFips": "mocha -n 'force-fips' --timeout 30000 -b src/**/*.test.js",
 		"mocha:httpsNoHttp2": "export HTTP2=false|| set HTTP2=false&& mocha --timeout 30000 -b src/**/*.test.js",
 		"mocha:https": "mocha --timeout 30000 -b src/**/*.test.js",

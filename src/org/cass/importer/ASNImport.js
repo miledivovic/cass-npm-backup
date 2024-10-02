@@ -1,5 +1,4 @@
 const EcRemoteLinkedData = require("../../cassproject/schema/general/EcRemoteLinkedData");
-
 /**
  *  Import methods to handle an ASN JSON file containing a framework,
  *  competencies and relationships, and store them in a CASS instance
@@ -53,9 +52,9 @@ module.exports = class ASNImport extends Importer {
 					let children =
 						value["http://purl.org/gem/qualifiers/hasChild"];
 					if (children != null)
-						for (let j = 0; j < children.length; j++) {
+						for (let child of children) {
 							ASNImport.relationCount++;
-							ASNImport.asnJsonPrime(obj, EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"]));
+							ASNImport.asnJsonPrime(obj, EcRemoteLinkedData.trimVersionFromUrl(child["value"]));
 						}
 				}
 			}
@@ -79,33 +78,19 @@ module.exports = class ASNImport extends Importer {
 		ASNImport.relationCount = 0;
 		for (let key in obj) {
 			let value = obj[key];
-			if (Importer.isObject(value)) {
-				if (
-					value["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"] !=
-					null
-				) {
-					let stringVal =
-						value[
-							"http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-						]["0"]["value"];
-					if (
-						stringVal ==
-						"http://purl.org/ASN/schema/core/StandardDocument"
-					) {
-						ASNImport.jsonFramework = value;
-						ASNImport.frameworkUrl = key;
-						let children =
-							value["http://purl.org/gem/qualifiers/hasChild"];
-						if (children != null)
-							for (let j = 0; j < children.length; j++) {
-								ASNImport.asnJsonPrime(
-									obj,
-									EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"])
-								);
-							}
-					}
+			if (!Importer.isObject(value)) 
+				continue;
+			if (value["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"] == null) 
+				continue;
+			if (value["http://www.w3.org/1999/02/22-rdf-syntax-ns#type"]["0"]["value"] != "http://purl.org/ASN/schema/core/StandardDocument") 
+				continue;
+			ASNImport.jsonFramework = value;
+			ASNImport.frameworkUrl = key;
+			let children = value["http://purl.org/gem/qualifiers/hasChild"];
+			if (children != null)
+				for (let child of children) {
+					ASNImport.asnJsonPrime(obj,EcRemoteLinkedData.trimVersionFromUrl(child["value"]));
 				}
-			}
 		}
 	}
 	/**

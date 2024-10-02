@@ -96,12 +96,6 @@ module.exports = class EcLevel extends Level {
 			failure("No Competency Specified");
 			return;
 		}
-		let query =
-			'competency:"' +
-			competencyId +
-			'" OR competency:"' +
-			EcRemoteLinkedData.trimVersionFromUrl(competencyId) +
-			'"';
 		return EcLevel.search(repo, competencyId, success, failure, paramObj, eim);
 	}
 	/**

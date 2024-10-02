@@ -9,8 +9,11 @@ const EcPpk = require('../com/eduworks/ec/crypto/EcPpk');
 
 const expect = chai.expect;
 
-describe('EcCompetency', function () {
+describe('EcCompetency', async function () {
     let competency;
+
+    const repo = new EcRepository();
+    await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/");
 
     beforeEach(function () {
         competency = new EcCompetency();
@@ -86,9 +89,6 @@ describe('EcCompetency', function () {
         const stub = sinon.stub(EcLevel.prototype, 'save').resolves();
         const owner = EcPpk.generateKey();
 
-        const repo = new EcRepository();
-        await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/");
-
         const level = await competency.addLevel('name', 'description', owner,null,null,repo);
         expect(level).to.be.instanceOf(EcLevel);
         stub.restore();
@@ -110,7 +110,7 @@ describe('EcCompetency', function () {
         const stub = sinon.stub(EcRollupRule.prototype, 'save').resolves();
         const owner = EcPpk.generateKey();
 
-        const rollupRule = await competency.addRollupRule('name', 'description', owner, 'serverUrl');
+        const rollupRule = await competency.addRollupRule('name', 'description', owner,null,null,repo);
         expect(rollupRule).to.be.instanceOf(EcRollupRule);
         stub.restore();
     });

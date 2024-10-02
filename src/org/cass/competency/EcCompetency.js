@@ -253,10 +253,10 @@ module.exports = class EcCompetency extends Competency {
 			repo,
 			query,
 			async (results) => {
-				for (let i = 0; i < results.length; i++)
-					if (eachSuccess !== undefined && eachSuccess != null)
-						await eachSuccess(results[i]);
-				if (successAll !== undefined && successAll != null)
+				if (eachSuccess != null)
+					for (let result of results)
+						await eachSuccess(result);
+				if (successAll != null)
 					await successAll(results);
 				return results;
 			},
@@ -288,16 +288,14 @@ module.exports = class EcCompetency extends Competency {
 		name,
 		description,
 		owner,
-		serverUrl,
 		success,
 		failure,
 		repo, eim
 	) {
 		let r = new EcRollupRule();
 		if (repo == null)
-			if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
-				r.generateId(serverUrl);
-			else r.generateShortId(serverUrl);
+			throw new Error("Repo is required.");
+		r.generateId(repo.selectedServer);
 		r.competency = this.shortId();
 		r.description = description;
 		r.name = name;
@@ -331,8 +329,8 @@ module.exports = class EcCompetency extends Competency {
 			query,
 			async (results) => {
 				if (eachSuccess != null)
-					for (let i = 0; i < results.length; i++)
-						await eachSuccess(results[i]);
+					for (let result of results)
+						await eachSuccess(result);
 				if (successAll != null)
 					await successAll(results);
 			},
@@ -372,8 +370,6 @@ module.exports = class EcCompetency extends Competency {
 	}
 	/**
 	 *  Deletes the competency from the server
-	 *  <p>
-	 *  TODO: Delete rollup rules?
 	 *
 	 *  @param {Callback1<String>} success
 	 *                             Callback triggered on successful deleting the competency
@@ -385,7 +381,6 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method _delete
 	 */
 	async _delete(success, failure, repo, eim) {
-		let me = this;
 		if (repo != null) global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", await this.relations(repo));
 		if (repo != null) {
 			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", JSON.stringify(await this.relations(repo)));

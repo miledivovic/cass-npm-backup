@@ -1,4 +1,5 @@
 const EcPk = require("../../../com/eduworks/ec/crypto/EcPk");
+const EcIdentityManager = require("../../cassproject/ebac/identity/EcIdentityManager");
 const EcEncryptedValue = require("../../cassproject/ebac/repository/EcEncryptedValue");
 const EcRepository = require("../../cassproject/ebac/repository/EcRepository");
 const Assertion = require("../../cassproject/schema/cass/profile/Assertion");

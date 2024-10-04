@@ -165,16 +165,7 @@ module.exports = class ASNImport extends Importer {
 	 *  @method importCompetencies
 	 *  @static
 	 */
-	static importCompetencies(
-		serverUrl,
-		owner,
-		createFramework,
-		success,
-		failure,
-		incremental,
-		repo,
-		eim
-	) {
+	static importCompetencies(serverUrl,owner,createFramework,success,failure,incremental,repo,eim) {
 		ASNImport.competencies = {};
 		if (eim === undefined || eim == null) {
 			eim = EcIdentityManager.default;
@@ -245,15 +236,7 @@ module.exports = class ASNImport extends Importer {
 	 *  @private
 	 *  @static
 	 */
-	static createCompetencies(
-		serverUrl,
-		owner,
-		success,
-		failure,
-		incremental,
-		repo,
-		eim
-	) {
+	static createCompetencies(serverUrl,owner,success,failure,incremental,repo,eim) {
 		ASNImport.savedCompetencies = 0;
 		for (let key in ASNImport.jsonCompetencies) {
 			let comp = new EcCompetency();
@@ -348,65 +331,51 @@ module.exports = class ASNImport extends Importer {
 	 *  @private
 	 *  @static
 	 */
-	static createRelationships(
-		serverUrl,
-		owner,
-		node,
-		nodeId,
-		success,
-		failure,
-		incremental,
-		repo,
-		eim
-	) {
+	static createRelationships(serverUrl,owner,node,nodeId,success,failure,incremental,repo,eim) {
 		ASNImport.savedRelations = 0;
 		if (ASNImport.relationCount == 0) {
 			success();
 		}
 		let children = node["http://purl.org/gem/qualifiers/hasChild"];
-		if (children != null)
-			for (let j = 0; j < children.length; j++) {
-				let sourceId = EcRemoteLinkedData.trimVersionFromUrl(children[j]["value"]);
-				if (nodeId != null) {
-					let relation = new EcAlignment();
-					relation.target = EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[nodeId].id);
-					relation.source =
-						EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[sourceId].id);
-					relation.relationType = "narrows";
-					relation.name = "";
-					relation.description = "";
-					if (
-						repo == null ||
-						repo.selectedServer.indexOf(serverUrl) != -1
-					)
-						relation.generateId(serverUrl);
-					else relation.generateShortId(serverUrl);
-					if (owner != null) relation.addOwner(owner.ppk.toPk());
-					if (ASNImport.importedFramework != null)
-						ASNImport.importedFramework.addRelation(
-							relation.shortId()
-						);
-					ASNImport.saveRelation(
-						success,
-						failure,
-						incremental,
-						relation,
-						repo,
-						eim
-					);
-				}
-				ASNImport.createRelationships(
-					serverUrl,
-					owner,
-					ASNImport.jsonCompetencies[sourceId],
-					sourceId,
+		if (children == null) return;
+		for (let child of children) {
+			let sourceId = EcRemoteLinkedData.trimVersionFromUrl(child["value"]);
+			if (nodeId != null) {
+				let relation = new EcAlignment();
+				relation.target = EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[nodeId].id);
+				relation.source = EcRemoteLinkedData.trimVersionFromUrl(ASNImport.competencies[sourceId].id);
+				relation.relationType = "narrows";
+				relation.name = "";
+				relation.description = "";
+				if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
+					relation.generateId(serverUrl);
+				else 
+					relation.generateShortId(serverUrl);
+				if (owner != null) 
+					relation.addOwner(owner.ppk.toPk());
+				if (ASNImport.importedFramework != null)
+					ASNImport.importedFramework.addRelation(relation.shortId());
+				ASNImport.saveRelation(
 					success,
 					failure,
 					incremental,
+					relation,
 					repo,
 					eim
 				);
 			}
+			ASNImport.createRelationships(
+				serverUrl,
+				owner,
+				ASNImport.jsonCompetencies[sourceId],
+				sourceId,
+				success,
+				failure,
+				incremental,
+				repo,
+				eim
+			);
+		}
 	}
 	static saveRelation(success, failure, incremental, relation, repo, eim) {
 		Task.asyncImmediate(function(o) {
@@ -414,14 +383,10 @@ module.exports = class ASNImport extends Importer {
 			relation.save(
 				function(p1) {
 					ASNImport.savedRelations++;
-					if (
-						ASNImport.savedRelations % ASNImport.INCREMENTAL_STEP ==
-						0
-					) {
+					if (ASNImport.savedRelations % ASNImport.INCREMENTAL_STEP == 0) {
 						if (ASNImport.progressObject == null)
 							ASNImport.progressObject = {};
-						ASNImport.progressObject["relations"] =
-							ASNImport.savedRelations;
+						ASNImport.progressObject["relations"] = ASNImport.savedRelations;
 						incremental(ASNImport.progressObject);
 					}
 					if (ASNImport.savedRelations == ASNImport.relationCount) {
@@ -454,21 +419,15 @@ module.exports = class ASNImport extends Importer {
 	 *  @static
 	 */
 	static createFramework(serverUrl, owner, success, failure, repo, eim) {
-		ASNImport.importedFramework.name =
-			ASNImport.jsonFramework["http://purl.org/dc/elements/1.1/title"][
-				"0"
-			]["value"];
-		if (ASNImport.jsonFramework["http://purl.org/dc/terms/description"]) {
-			ASNImport.importedFramework.description =
-				ASNImport.jsonFramework["http://purl.org/dc/terms/description"][
-					"0"
-				]["value"];
-		}
+		ASNImport.importedFramework.name = ASNImport.jsonFramework["http://purl.org/dc/elements/1.1/title"]["0"]["value"];
+		if (ASNImport.jsonFramework["http://purl.org/dc/terms/description"])
+			ASNImport.importedFramework.description = ASNImport.jsonFramework["http://purl.org/dc/terms/description"]["0"]["value"];
 		ASNImport.importedFramework.id = ASNImport.frameworkUrl;
 		if (ASNImport.importedFramework.id == null) {
 			if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
 				ASNImport.importedFramework.generateId(serverUrl);
-			else ASNImport.importedFramework.generateShortId(serverUrl);
+			else 
+				ASNImport.importedFramework.generateShortId(serverUrl);
 		}
 		if (owner != null)
 			ASNImport.importedFramework.addOwner(owner.ppk.toPk());

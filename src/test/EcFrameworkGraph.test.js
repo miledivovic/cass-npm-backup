@@ -1,3 +1,4 @@
+const EcPk = require("../com/eduworks/ec/crypto/EcPk.js");
 const EcPpk = require("../com/eduworks/ec/crypto/EcPpk.js");
 const EcAes = require("../com/eduworks/ec/crypto/EcAes.js");
 let chai = require("chai");
@@ -54,25 +55,35 @@ repo.selectedServerProxy = process.env.CASS_LOOPBACK_PROXY || null;
 async function newAssertion(competencyToAssert) {
     let a = new EcAssertion();
     a.generateId(repo.selectedServer);
-    a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+    await a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+    assert.equal(a.owner[0], EcIdentityManager.default.ids[0].ppk.toPk().toPem())
+    await a.addReader(EcIdentityManager.default.ids[1].ppk.toPk());
+    assert.equal(a.reader[0], EcIdentityManager.default.ids[1].ppk.toPk().toPem())
     await a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
+    assert.equal((await a.getSubject()).toPem(), EcIdentityManager.default.ids[0].ppk.toPk().toPem());
     await a.setAgent(EcIdentityManager.default.ids[0].ppk.toPk());
-    await a.setCompetency(competencyToAssert.shortId());
-    await a.setConfidence(1.0);
-    await a.setAssertionDate(new Date().getTime());
-    await a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
+    assert.equal((await a.getAgent()).toPem(), EcIdentityManager.default.ids[0].ppk.toPk().toPem());
+    a.setCompetency(competencyToAssert.shortId());
+    a.setConfidence(1.0);
+    let date = new Date().getTime();
+    await a.setAssertionDate(date);
+    assert.equal(await a.getAssertionDate(), date);
+    await a.setExpirationDate(date + 1000 * 60 * 60);
+    assert.equal(await a.getExpirationDate(), date + 1000 * 60 * 60);
     await a.setDecayFunction("t");
+    assert.equal(await a.getDecayFunction(), "t");
     await a.save(null, failure, repo);
     return a;
 }
 async function newFalseAssertion(competencyToAssert) {
     let a = new EcAssertion();
     a.generateId(repo.selectedServer);
-    a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+    await a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+    await a.addReader(EcIdentityManager.default.ids[1].ppk.toPk());
     await a.setSubject(EcIdentityManager.default.ids[0].ppk.toPk());
     await a.setAgent(EcIdentityManager.default.ids[0].ppk.toPk());
-    await a.setCompetency(competencyToAssert.shortId());
-    await a.setConfidence(1.0);
+    a.setCompetency(competencyToAssert.shortId());
+    a.setConfidence(1.0);
     await a.setNegative(true);
     await a.setAssertionDate(new Date().getTime());
     await a.setExpirationDate(new Date().getTime() + 1000 * 60 * 60);
@@ -118,7 +129,7 @@ async function newFramework(frameworkName) {
 
 describe("EcFrameworkGraph", () => {
     it('init', async () => {
-        let newId1;
+        let newId1, newId2;
         EcIdentityManager.default.clearIdentities();
         if ((typeof Cypress !== 'undefined') && Cypress != null && Cypress.env != null)
             process.env.CASS_LOOPBACK = Cypress.env('CASS_LOOPBACK');
@@ -126,14 +137,20 @@ describe("EcFrameworkGraph", () => {
         await repo.init(process.env.CASS_LOOPBACK || "http://localhost/api/", null, null, console.log);
         newId1 = null;
         if (EcIdentityManager.default.ids.length > 0)
+        {
             newId1 = EcIdentityManager.default.ids[0];
+            newId2 = EcIdentityManager.default.ids[0];
+        }
         else {
             newId1 = new EcIdentity();
             newId1.ppk = EcPpk.fromPem(
                 "-----BEGIN RSA PRIVATE KEY-----MIIEpAIBAAKCAQEAz4BiFucFE9bNcKfGD+e6aPRHl402YM4Z6nrurDRNlnwsWpsCoZasPLkjC314pVtHAI2duZo+esGKDloBsiLxASRJo3R2XiXVh2Y8U1RcHA5mWL4tMG5UY2d0libpNEHbHPNBmooVYpA2yhxN/vGibIk8x69uZWxJcFOxOg6zWG8EjF8UMgGnRCVSMTY3THhTlfZ0cGUzvrfb7OvHUgdCe285XkmYkj/V9P/m7hbWoOyJAJSTOm4/s6fIKpl72lblfN7bKaxTCsJp6/rQdmUeo+PIaa2lDOfo7dWbuTMcqkZ93kispNfYYhsEGUGlCsrrVWhlve8MenO4GdLsFP+HRwIDAQABAoIBAGaQpOuBIYde44lNxJ7UAdYi+Mg2aqyK81Btl0/TQo6hriLTAAfzPAt/z4y8ZkgFyCDD3zSAw2VWCPFzF+d/UfUohKWgyWlb9iHJLQRbbHQJwhkXV6raviesWXpmnVrROocizkie/FcNxac9OmhL8+cGJt7lHgJP9jTpiW6TGZ8ZzM8KBH2l80x9AWdvCjsICuPIZRjc706HtkKZzTROtq6Z/F4Gm0uWRnwAZrHTRpnh8qjtdBLYFrdDcUoFtzOM6UVRmocTfsNe4ntPpvwY2aGTWY7EmTj1kteMJ+fCQFIS+KjyMWQHsN8yQNfD5/j2uv6/BdSkO8uorGSJT6DwmTECgYEA8ydoQ4i58+A1udqA+fujM0Zn46++NTehFe75nqIt8rfQgoduBam3lE5IWj2U2tLQeWxQyr1ZJkLbITtrAI3PgfMnuFAii+cncwFo805Fss/nbKx8K49vBuCEAq3MRhLjWy3ZvIgUHj67jWvl50dbNqc7TUguxhS4BxGr/cPPkP0CgYEA2nbJPGzSKhHTETL37NWIUAdU9q/6NVRISRRXeRqZYwE1VPzs2sIUxA8zEDBHX7OtvCKzvZy1Lg5Unx1nh4nCEVkbW/8npLlRG2jOcZJF6NRfhzwLz3WMIrP6j9SmjJaB+1mnrTjfsg36tDEPDjjJLjJHCx9z/qRJh1v4bh4aPpMCgYACG31T2IOEEZVlnvcvM3ceoqWT25oSbAEBZ6jSLyWmzOEJwJK7idUFfAg0gAQiQWF9K+snVqzHIB02FIXA43nA7pKRjmA+RiqZXJHEShFgk1y2HGiXGA8mSBvcyhTTJqbBy4vvjl5eRLzrZNwBPSUVPC3PZajCHrvZk9WhxWivIQKBgQCzCu1MH2dy4R7ZlqsIJ8zKweeJMZpfQI7pjclO0FTrhh7+Yzd+5db9A/P2jYrBTVHSwaILgTYf49DIguHJfEZXz26TzB7iapqlWxTukVHISt1ryPNo+E58VoLAhChnSiaHJ+g7GESE+d4A9cAACNwgh0YgQIvhIyW70M1e+j7KDwKBgQDQSBLFDFmvvTP3sIRAr1+0OZWd1eRcwdhs0U9GwootoCoUP/1Y64pqukT6B9oIB/No9Nyn8kUX3/ZDtCslaGKEUGMJXQ4hc5J+lq0tSi9ZWBdhqOuMPEfUF3IxW+9yeILP4ppUBn1m5MVOWg5CvuuEeCmy4bhMaUErUlHZ78t5cA==-----END RSA PRIVATE KEY-----"
             );
+            newId2 = new EcIdentity();
+            newId2.ppk = EcPpk.generateKey();
             EcIdentityManager.default.ids = [];
             EcIdentityManager.default.addIdentity(newId1);
+            EcIdentityManager.default.addIdentity(newId2);
         }
     });
     it('encryption then decryption', async () => {
@@ -183,6 +200,48 @@ describe("EcFrameworkGraph", () => {
         });
         assert.deepEqual(result, [1]);
     })
+    it('assertion encrypt decrypt async', async () => {
+        let a = new EcAssertion();
+        let c = await newCompetency("async test");
+        a.generateId(repo.selectedServer);
+        await a.addOwner(EcIdentityManager.default.ids[0].ppk.toPk());
+        assert.equal(a.owner[0], EcIdentityManager.default.ids[0].ppk.toPk().toPem());
+        await a.addReader(EcIdentityManager.default.ids[1].ppk.toPk());
+        assert.equal(a.reader[0], EcIdentityManager.default.ids[1].ppk.toPk().toPem());
+        let date = new Date().getTime();
+        a.setSubjectAsync(EcIdentityManager.default.ids[0].ppk.toPk(), async () => {
+            assert.equal((await a.getSubject()).toPem(), EcIdentityManager.default.ids[0].ppk.toPk().toPem());
+            a.getSubjectAsync((subject) => {
+                assert.equal(subject.toPem(), EcIdentityManager.default.ids[0].ppk.toPk().toPem());
+            })
+            a.setAgentAsync(EcIdentityManager.default.ids[0].ppk.toPk(), async () => {
+                assert.equal((await a.getAgent()).toPem(), EcIdentityManager.default.ids[0].ppk.toPk().toPem());
+                a.getAgentAsync((agent) => {
+                    assert.equal(agent.toPem(), EcIdentityManager.default.ids[0].ppk.toPk().toPem());
+                })
+                a.setAssertionDate(date, async () => {
+                    assert.equal(await a.getAssertionDate(), date);
+                    a.getAssertionDateAsync((date2) => {
+                        assert.equal(date2, date);
+                    })
+                    a.setExpirationDate(date + 1000 * 60 * 60, async () => {
+                        assert.equal(await a.getExpirationDate(), date + 1000 * 60 * 60);
+                        a.getExpirationDateAsync((date2) => {
+                            assert.equal(date2, date + 1000 * 60 * 60);
+                        })
+                        a.setDecayFunction("t", async () => {
+                            a.getDecayFunctionAsync((df) => {
+                                assert.equal(df, "t");
+                            });
+                            assert.equal(await a.getDecayFunction(), "t");
+                        });
+                    });
+                });
+            });
+        });
+        a.setCompetency(c.shortId());
+        a.setConfidence(1.0);
+    });
     it('basic false test', async () => {
         let f = await newFramework("basic false framework");
         let c = await newCompetency("Add");

@@ -1,4 +1,10 @@
 let chai = require("chai");
+const EbacCredential = require("../com/eduworks/schema/ebac/EbacCredential.js");
+const EbacCredentialCommit = require("../com/eduworks/schema/ebac/EbacCredentialCommit.js");
+const EbacCredentials = require("../com/eduworks/schema/ebac/EbacCredentials.js");
+const EbacCredentialRequest = require("../com/eduworks/schema/ebac/EbacCredentialRequest.js");
+const EbacEncryptedSecret = require("../com/eduworks/schema/ebac/EbacEncryptedSecret.js");
+const EbacEncryptedValue = require("../com/eduworks/schema/ebac/EbacEncryptedValue.js");
 global.EcRemoteLinkedData = require("../org/cassproject/schema/general/EcRemoteLinkedData.js");
 global.ce = {};
 global.ce.Agent = require("../org/credentialengine/Agent.js");
@@ -1497,4 +1503,34 @@ describe("S3000L", () => {
             }
         });
     }
+});
+describe("EBAC", () => {
+    let e = new EbacCredential();
+    e.upgrade();
+    e.getTypes();
+    e = new EbacCredentialCommit();
+    e.upgrade();
+    e.getTypes();
+    e = new EbacCredentialRequest();
+    e.upgrade();
+    e.getTypes();
+    e = new EbacCredentials();
+    e.upgrade();
+    e.getTypes();
+    e = new EbacEncryptedSecret();
+    e.upgrade();
+    e.getTypes();
+    e.iv = e.id = e.secret = e.field = 'v';
+    e = EbacEncryptedSecret.fromEncryptableJson(JSON.parse(e.toEncryptableJson()));
+    assert.equal(e.iv, 'v');
+    assert.equal(e.id, 'v');
+    assert.equal(e.secret, 'v');
+    assert.equal(e.field, 'v');
+    e.iv = e.secret = 'v';
+    e = EbacEncryptedSecret.fromEncryptableJson(JSON.parse(e.toEncryptableJson()));
+    assert.equal(e.iv, 'v');
+    assert.equal(e.secret, 'v');
+    e = new EbacEncryptedValue();
+    e.upgrade();
+    e.getTypes();
 });

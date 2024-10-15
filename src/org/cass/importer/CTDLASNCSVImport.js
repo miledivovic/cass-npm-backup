@@ -352,11 +352,13 @@ module.exports = class CTDLASNCSVImport {
 											)
 										];
 									done = true;
+								} else {
+									parent = null;
 								}
 							}
 							if (!done) {
 								failure(
-									"Could not find framework:" +
+									`Row ${i+1}: Could not find framework:` +
 										e["type"]
 								);
 								return;
@@ -375,14 +377,14 @@ module.exports = class CTDLASNCSVImport {
 									].competency.push(f.shortId());
 								} else {
 									failure(
-										"Object cannot trace to framework:" +
+										`Row ${i+1}: Object cannot trace to framework:` +
 											e["type"]
 									);
 									return;
 								}
 							} else {
 								failure(
-									"Object has no framework:" +
+									`Row ${i+1}: Object has no framework:` +
 										e["type"]
 								);
 								return;
@@ -579,7 +581,7 @@ module.exports = class CTDLASNCSVImport {
 						return;
 					} else {
 						failure(
-							"Found unknown type:" + pretranslatedE["@type"]
+							`Row ${i+1}: Found unknown type:` + pretranslatedE["@type"]
 						);
 						return;
 					}
@@ -927,7 +929,7 @@ module.exports = class CTDLASNCSVImport {
 						return;
 					} else {
 						failure(
-							"Found unknown type:" + pretranslatedE["@type"]
+							`Row ${i+1}: Found unknown type:` + pretranslatedE["@type"]
 						);
 						return;
 					}

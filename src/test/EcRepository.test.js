@@ -114,6 +114,7 @@ describe("EcRepository", () => {
         rld.setName("Some Thing");
         rld.setDescription("Some Description");
         rld.squirrel = "brown";
+        assert.notEqual(EcIdentityManager.default.ids.length, 0);
     });
     it('save (to)', async () => {
         await changeNameAndSaveAndCheck(rld);
@@ -131,6 +132,7 @@ describe("EcRepository", () => {
         rld = await EcEncryptedValue.toEncryptedValue(rld);
         EcEncryptedValue.encryptOnSave(rld.shortId(), true);
         await repo.saveTo(rld);
+        await changeNameAndSaveAndCheck(rld);
     }).timeout(10000);
     it('search', async () => {
         let results = await repo.search(`@id:"${rld.shortId()}"`);

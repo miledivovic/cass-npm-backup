@@ -50,16 +50,6 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 		if (this.global == null) return true;
 		return this.global;
 	}
-	configure(
-		usernameSalt,
-		usernameIterations,
-		usernameWidth,
-		passwordSalt,
-		passwordIterations,
-		passwordWidth,
-		secretSalt,
-		secretIterations
-	) {}
 	configureFromServer(success, failure) {
 		success(null);
 	}
@@ -84,7 +74,6 @@ module.exports = class OAuth2FileBasedRemoteIdentityManager extends
 	setDefaultIdentityManagementServer(server) {
 		this.server = server;
 	}
-	startLogin(username, password) {}
 	changePassword(username, oldPassword, newPassword) {
 		return false;
 	}

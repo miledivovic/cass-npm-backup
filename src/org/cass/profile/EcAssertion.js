@@ -18,13 +18,13 @@ module.exports = class EcAssertion extends Assertion {
 	}
 	async decrypt() {
 		let a = new Assertion().copyFrom(this);
-		a.setSubject(await this.getSubject());
-		a.setAgent(await this.getAgent());
-		a.setAssertionDate(await this.getAssertionDate());
-		a.setExpirationDate(await this.getExpirationDate());
-		a.setEvidence(await this.getEvidences());
-		a.setNegative(await this.getNegative());
-		a.setDecayFunction(await this.getDecayFunction());
+		a.setSubject(await this.getSubject(eim));
+		a.setAgent(await this.getAgent(eim));
+		a.setAssertionDate(await this.getAssertionDate(eim));
+		a.setExpirationDate(await this.getExpirationDate(eim));
+		a.setEvidence(await this.getEvidences(eim));
+		a.setNegative(await this.getNegative(eim));
+		a.setDecayFunction(await this.getDecayFunction(eim));
 		a.setCompetency(this.competency);
 		a.setLevel(this.level);
 		a.setConfidence(this.confidence);

@@ -147,6 +147,7 @@ describe("EcFrameworkGraph", () => {
             EcIdentityManager.default.addIdentity(newId1);
             EcIdentityManager.default.addIdentity(newId2);
         }
+        assert.notEqual(EcIdentityManager.default.ids.length, 0);
     });
     it('encryption then decryption', async () => {
         let randomString = EcAes.newIv(256).substring(0, 190);

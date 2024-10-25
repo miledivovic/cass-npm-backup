@@ -140,6 +140,7 @@ describe('EcCompetency', async function () {
         competency.name = 'testName';
         competency.save(function () {
             stub.restore();
+            expect(competency.name).to.equal('testName');
             done();
         }, done);
     });

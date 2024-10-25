@@ -69,6 +69,7 @@ jobs:
           -Dsonar.organization=cassproject
           -Dsonar.sources=src/com/,src/org/
           -Dsonar.tests=src/test/
+          -Dsonar.cpd.exclusions=src/com/asd/**/*,src/org/credentialengine/*
         projectBaseDir: .
 
     - name: Perform CodeQL Analysis

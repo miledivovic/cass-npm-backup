@@ -9,13 +9,13 @@ module.exports = class RemoteIdentityManagerInterface {
 		secretSalt,
 		secretIterations
 	) {}
-	configureFromServer(success, failure) {}
-	isGlobal() {}
-	clear() {}
-	setDefaultIdentityManagementServer(server) {}
-	startLogin(username, password) {}
-	changePassword(username, oldPassword, newPassword) {}
-	fetch(success, failure) {}
-	commit(success, failure) {}
-	create(success, failure) {}
+	configureFromServer(success, failure) {/*Do nothing.*/}
+	isGlobal() {/*Do nothing.*/ }
+	clear() {/*Do nothing.*/ }
+	setDefaultIdentityManagementServer(server) {/*Do nothing.*/ }
+	startLogin(username, password) {/*Do nothing.*/ }
+	changePassword(username, oldPassword, newPassword) {/*Do nothing.*/ }
+	fetch(success, failure) {/*Do nothing.*/ }
+	commit(success, failure) {/*Do nothing.*/ }
+	create(success, failure) {/*Do nothing.*/ }
 };

@@ -16,7 +16,8 @@ module.exports = class EcAssertion extends Assertion {
 	equals(obj) {
 		return this.isId(obj.id);
 	}
-	async decrypt() {
+	async decrypt(eim) {
+		eim = eim || EcIdentityManager.default;
 		let a = new Assertion().copyFrom(this);
 		a.setSubject(await this.getSubject(eim));
 		a.setAgent(await this.getAgent(eim));

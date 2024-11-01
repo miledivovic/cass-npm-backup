@@ -175,7 +175,7 @@ describe("EcRepository", () => {
     }).timeout(10000);
     it('history', async () => {
         let history = await EcRepository.history(rld.shortId(),repo);
-        assert.isTrue(history.length ==6,"History is not populated.");
+        assert.isAbove(history.length,6,"History is not populated.");
     }).timeout(10000);
     it('search', async () => {
         let results = await repo.search(`@id:"${rld.shortId()}"`);

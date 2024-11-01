@@ -124,6 +124,7 @@ describe("EcRepository", () => {
         await changeNameAndSaveAndCheck(rld);
     }).timeout(10000);
     it('encrypt some more', async () => {
+        await changeNameAndSaveAndCheck(rld);
         rld = await EcEncryptedValue.toEncryptedValue(rld);
         rld = await EcEncryptedValue.toEncryptedValue(rld);
         rld = await EcEncryptedValue.toEncryptedValue(rld);
@@ -132,7 +133,6 @@ describe("EcRepository", () => {
         rld = await EcEncryptedValue.toEncryptedValue(rld);
         EcEncryptedValue.encryptOnSave(rld.shortId(), true);
         await repo.saveTo(rld);
-        await changeNameAndSaveAndCheck(rld);
     }).timeout(10000);
     it('search', async () => {
         let results = await repo.search(`@id:"${rld.shortId()}"`);

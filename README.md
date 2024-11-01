@@ -49,6 +49,10 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.68
+* Hardening and CI/CD testing.
+* Fixed CEASN infinite loop.
+
 ## 1.5.66
 * Fixed null pointer in L2 caching with arrays.
 

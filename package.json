@@ -65,7 +65,7 @@
 		"mocha:dev": "export CASS_LOOPBACK=https://dev.cassproject.org/api/|| set CASS_LOOPBACK=https://dev.cassproject.org/api/&& export HTTP2=false|| set HTTP2=false&& mocha --timeout 300000 -b src/**/*.test.js",
 		"mocha:demo": "export CASS_LOOPBACK=https://demo.cassproject.org/api/|| set CASS_LOOPBACK=https://demo.cassproject.org/api/&& export HTTP2=false|| set HTTP2=false&& mocha --timeout 300000 -b src/**/*.test.js",
 		"mochaGraph": "mocha --timeout 30000 -b src/com/eduworks/ec/graph/**/*.test.js",
-		"mochaCrypto": "mocha --timeout 30000 -b src/com/eduworks/ec/crypto/**/*.test.js",
+		"mochaCrypto": "mocha --timeout 30000 -b src/test/*Rsa*.test.js -b src/test/*Aes*.test.js -b src/test/*Crypto*.test.js",
 		"automocha": "nodemon --exec \"npm run mocha\"",
 		"automochaGraph": "nodemon --exec \"npm run mochaGraph\"",
 		"automochaCrypto": "nodemon --exec \"npm run mochaCrypto\"",

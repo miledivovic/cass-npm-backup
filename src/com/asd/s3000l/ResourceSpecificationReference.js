@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class ResourceSpecificationReference extends EcRemoteLinkedData {
-resSpecId;
-uidRef;
+    resSpecId;
+    uidRef;
 
- getResSpecId() {
-        return resSpecId;
+    getResSpecId() {
+        return this.resSpecId;
     }
 
- setResSpecId( value) {
+    setResSpecId(value) {
         this.resSpecId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ResourceSpecificationReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ResourceSpecificationReference");
+    }
 };

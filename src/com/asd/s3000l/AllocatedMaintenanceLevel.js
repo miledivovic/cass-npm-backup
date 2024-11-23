@@ -1,83 +1,85 @@
 
-module.exports = class AllocatedMaintenanceLevel extends EcRemoteLinkedData {
-opLocRef;
-opTypeRef;
-mlvRef;
-mLocRef;
-rmks;
-applic;
-uid;
-crud;
 
- getOpLocRef() {
-        return opLocRef;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class AllocatedMaintenanceLevel extends EcRemoteLinkedData {
+    opLocRef;
+    opTypeRef;
+    mlvRef;
+    mLocRef;
+    rmks;
+    applic;
+    uid;
+    crud;
+
+    getOpLocRef() {
+        return this.opLocRef;
     }
 
- setOpLocRef( value) {
+    setOpLocRef(value) {
         this.opLocRef = value;
     }
 
- getOpTypeRef() {
-        return opTypeRef;
+    getOpTypeRef() {
+        return this.opTypeRef;
     }
 
- setOpTypeRef( value) {
+    setOpTypeRef(value) {
         this.opTypeRef = value;
     }
 
- getMlvRef() {
-        return mlvRef;
+    getMlvRef() {
+        return this.mlvRef;
     }
 
- setMlvRef( value) {
+    setMlvRef(value) {
         this.mlvRef = value;
     }
 
- getMLocRef() {
-        return mLocRef;
+    getMLocRef() {
+        return this.mLocRef;
     }
 
- setMLocRef( value) {
+    setMLocRef(value) {
         this.mLocRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "AllocatedMaintenanceLevel");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "AllocatedMaintenanceLevel");
+    }
 };

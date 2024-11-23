@@ -1,16 +1,17 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class BreakdownElementRevisionCreationDate extends EcRemoteLinkedData {
-date;
+    date;
 
- getDate() {
-        return date;
+    getDate() {
+        return this.date;
     }
 
- setDate( value) {
+    setDate(value) {
         this.date = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "BreakdownElementRevisionCreationDate");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "BreakdownElementRevisionCreationDate");
+    }
 };

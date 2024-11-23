@@ -34,19 +34,18 @@ module.exports = class CSVExport extends Exporter {
 		} else {
 			jsonArray = json;
 		}
-		for (let j = 0; j < jsonArray.length; j++) {
-			let framework = jsonArray[j];
+		for (let framework of jsonArray) {
 			let graph = framework["@graph"];
 			if (graph != null) {
-				for (let i = 0; i < graph.length; i++) {
+				for (let g of graph) {
 					let rld = new EcRemoteLinkedData(
 						"https://credreg.net/ctdlasn/schema/context/json",
-						graph[i]["@type"]
+						g["@type"]
 					);
 					rld.copyFrom(graph[i]);
 					objects.push(rld);
-					if (graph[i]["@graph"] != null) {
-						CSVExport.findGraphs(graph[i], objects);
+					if (g["@graph"] != null) {
+						CSVExport.findGraphs(g, objects);
 					}
 				}
 			}
@@ -80,8 +79,7 @@ module.exports = class CSVExport extends Exporter {
 					fw.copyFrom(data);
 					if (fw.competency == null || fw.competency.length == 0)
 						failure("No Competencies in Framework");
-					for (let i = 0; i < fw.competency.length; i++) {
-						let competencyUrl = fw.competency[i];
+					for (let competencyUrl of fw.competency) {
 						EcRepository.get(
 							competencyUrl,
 							function (competency) {
@@ -119,8 +117,7 @@ module.exports = class CSVExport extends Exporter {
 								}
 							}, repo, eim);
 					}
-					for (let i = 0; i < fw.relation.length; i++) {
-						let relationUrl = fw.relation[i];
+					for (let relationUrl of fw.relation) {
 						EcRepository.get(
 							relationUrl,
 							function (relation) {
@@ -226,8 +223,7 @@ module.exports = class CSVExport extends Exporter {
 			let props = JSON.parse(flattenedObject.toJson());
 			for (let prop in props) {
 				if (props[prop] != null && props[prop] != "") {
-					for (let i = 0; i < this.csvOutput.length; i++) {
-						let row = this.csvOutput[i];
+					for (let row of this.csvOutput) {
 						if (row[prop] === undefined) {
 							row[prop] = "";
 						}
@@ -236,11 +232,9 @@ module.exports = class CSVExport extends Exporter {
 			}
 		}
 		buildExport(objects, piped) {
-			for (let i = 0; i < objects.length; i++)
-				if (objects[i] != null) {
-					let object = objects[i];
-					this.addCSVRow(object, piped);
-				}
+			for (let object of objects.filter(x=>x)) {
+				this.addCSVRow(object, piped);
+			}
 		}
 		downloadCSV(name) {
 			let csv = Papa.unparse(this.csvOutput);
@@ -251,14 +245,14 @@ module.exports = class CSVExport extends Exporter {
 			);
 			pom.setAttribute("download", name);
 			if (window.document["createEvent"] != null) {
-				let event = window.document["createEvent"].call(
+				let event = window.document["createEvent"].call( //NOSONAR - false positive
 					window.document,
 					"MouseEvents"
 				);
-				event["initEvent"].call(event, "click", true, true);
+				event["initEvent"].call(event, "click", true, true); //NOSONAR - false positive
 				pom.dispatchEvent(event);
 			} else {
-				pom["click"].call(pom);
+				pom["click"].call(pom); //NOSONAR - false positive
 			}
 		}
 	};

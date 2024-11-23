@@ -1,34 +1,35 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TradeReference extends EcRemoteLinkedData {
-tradeName;
-uidRef;
-uriRef;
+    tradeName;
+    uidRef;
+    uriRef;
 
- getTradeName() {
-        return tradeName;
+    getTradeName() {
+        return this.tradeName;
     }
 
- setTradeName( value) {
+    setTradeName(value) {
         this.tradeName = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
- getUriRef() {
-        return uriRef;
+    getUriRef() {
+        return this.uriRef;
     }
 
- setUriRef( value) {
+    setUriRef(value) {
         this.uriRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TradeReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TradeReference");
+    }
 };

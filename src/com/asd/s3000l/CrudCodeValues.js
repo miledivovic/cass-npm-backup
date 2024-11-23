@@ -1,4 +1,3 @@
-
 module.exports = {
     I: "I",
     D: "D",

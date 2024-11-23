@@ -1,92 +1,93 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class LsaCandidateMaintenanceTaskAnalysisActivity extends EcRemoteLinkedData {
-indicator;
-rationale;
-status;
-update;
-orgInfos;
-docs;
-rmks;
-uid;
-crud;
+    indicator;
+    rationale;
+    status;
+    update;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getIndicator() {
-        return indicator;
+    getIndicator() {
+        return this.indicator;
     }
 
- setIndicator( value) {
+    setIndicator(value) {
         this.indicator = value;
     }
 
- getRationale() {
-        return rationale;
+    getRationale() {
+        return this.rationale;
     }
 
- setRationale( value) {
+    setRationale(value) {
         this.rationale = value;
     }
 
- getStatus() {
-        return status;
+    getStatus() {
+        return this.status;
     }
 
- setStatus( value) {
+    setStatus(value) {
         this.status = value;
     }
 
- getUpdate() {
-        return update;
+    getUpdate() {
+        return this.update;
     }
 
- setUpdate( value) {
+    setUpdate(value) {
         this.update = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "LsaCandidateMaintenanceTaskAnalysisActivity");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "LsaCandidateMaintenanceTaskAnalysisActivity");
+    }
 };

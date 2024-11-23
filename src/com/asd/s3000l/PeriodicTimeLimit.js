@@ -1,99 +1,100 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class PeriodicTimeLimit extends EcRemoteLinkedData {
-harmoniz;
-limitDescr;
-initial;
-repeat;
-orgInfos;
-docs;
-rmks;
-applic;
-uid;
-crud;
+    harmoniz;
+    limitDescr;
+    initial;
+    repeat;
+    orgInfos;
+    docs;
+    rmks;
+    applic;
+    uid;
+    crud;
 
- getHarmoniz() {
-        return harmoniz;
+    getHarmoniz() {
+        return this.harmoniz;
     }
 
- setHarmoniz( value) {
+    setHarmoniz(value) {
         this.harmoniz = value;
     }
 
- getLimitDescr() {
-        return limitDescr;
+    getLimitDescr() {
+        return this.limitDescr;
     }
 
- setLimitDescr( value) {
+    setLimitDescr(value) {
         this.limitDescr = value;
     }
 
- getInitial() {
+    getInitial() {
         if (this.initial == null) {
             this.initial = [];
         }
         return this.initial;
     }
 
- getRepeat() {
+    getRepeat() {
         if (this.repeat == null) {
             this.repeat = [];
         }
         return this.repeat;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "PeriodicTimeLimit");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "PeriodicTimeLimit");
+    }
 };

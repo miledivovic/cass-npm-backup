@@ -37,6 +37,7 @@ module.exports = (on, config) => {
         resolve: {
             fallback: {
               "fs": false,
+              "process/browser": require.resolve("process/browser")
             },
         }
       }

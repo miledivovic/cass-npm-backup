@@ -1,91 +1,92 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskRequirement extends EcRemoteLinkedData {
-trId;
-trRev;
-secs;
-orgInfos;
-docs;
-rmks;
-applic;
-uid;
-crud;
+    trId;
+    trRev;
+    secs;
+    orgInfos;
+    docs;
+    rmks;
+    applic;
+    uid;
+    crud;
 
- getTrId() {
-        return trId;
+    getTrId() {
+        return this.trId;
     }
 
- setTrId( value) {
+    setTrId(value) {
         this.trId = value;
     }
 
- getTrRev() {
+    getTrRev() {
         if (this.trRev == null) {
             this.trRev = [];
         }
         return this.trRev;
     }
 
- getSecs() {
-        return secs;
+    getSecs() {
+        return this.secs;
     }
 
- setSecs( value) {
+    setSecs(value) {
         this.secs = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirement");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirement");
+    }
 };

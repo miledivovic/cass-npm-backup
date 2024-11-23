@@ -1,55 +1,56 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class OrderedSubtaskCircuitBreakerSettings extends EcRemoteLinkedData {
-cb;
-precCb;
-applic;
-uid;
-crud;
+    cb;
+    precCb;
+    applic;
+    uid;
+    crud;
 
- getCb() {
+    getCb() {
         if (this.cb == null) {
             this.cb = [];
         }
         return this.cb;
     }
 
- getPrecCb() {
-        return precCb;
+    getPrecCb() {
+        return this.precCb;
     }
 
- setPrecCb( value) {
+    setPrecCb(value) {
         this.precCb = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "OrderedSubtaskCircuitBreakerSettings");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "OrderedSubtaskCircuitBreakerSettings");
+    }
 };

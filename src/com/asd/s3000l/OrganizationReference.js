@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class OrganizationReference extends EcRemoteLinkedData {
-orgId;
-uidRef;
+    orgId;
+    uidRef;
 
- getOrgId() {
-        return orgId;
+    getOrgId() {
+        return this.orgId;
     }
 
- setOrgId( value) {
+    setOrgId(value) {
         this.orgId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "OrganizationReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "OrganizationReference");
+    }
 };

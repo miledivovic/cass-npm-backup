@@ -1,5 +1,7 @@
 const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
 const Level = require("../../cassproject/schema/cass/competency/Level.js");
+const EcRemoteLinkedData = require("../../cassproject/schema/general/EcRemoteLinkedData.js");
+const EcAlignment = require("./EcAlignment.js");
 /**
  *  Implementation of a Level object with methods for interacting with CASS
  *  services on a server.
@@ -94,12 +96,6 @@ module.exports = class EcLevel extends Level {
 			failure("No Competency Specified");
 			return;
 		}
-		let query =
-			'competency:"' +
-			competencyId +
-			'" OR competency:"' +
-			EcRemoteLinkedData.trimVersionFromUrl(competencyId) +
-			'"';
 		return EcLevel.search(repo, competencyId, success, failure, paramObj, eim);
 	}
 	/**
@@ -121,7 +117,6 @@ module.exports = class EcLevel extends Level {
 		targetLevel,
 		alignmentType,
 		identity,
-		serverUrl,
 		success,
 		failure,
 		repo, eim
@@ -131,11 +126,11 @@ module.exports = class EcLevel extends Level {
 		a.target = targetLevel.id;
 		a.relationType = alignmentType;
 		a.addOwner(identity.toPk());
-		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
-			a.generateId(serverUrl);
-		else a.generateShortId(serverUrl);
+		if (repo?.selectedServer != null)
+			a.generateId(repo.selectedServer);
 		await a.signWith(identity);
-		return a.save(success, failure, repo, eim);
+		await a.save(success, failure, repo, eim);
+		return a;
 	}
 	/**
 	 *  Method to set the name of this level

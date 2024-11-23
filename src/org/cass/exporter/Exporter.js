@@ -8,4 +8,4 @@
  *  @abstract
  */
 
-module.exports = class Exporter {};
+module.exports = class Exporter {}; //NOSONAR base class has no functions to implement

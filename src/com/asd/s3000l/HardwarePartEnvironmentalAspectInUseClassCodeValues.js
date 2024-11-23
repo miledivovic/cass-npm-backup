@@ -1,4 +1,5 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = {
     HARM: "HARM",
     ACID: "ACID",

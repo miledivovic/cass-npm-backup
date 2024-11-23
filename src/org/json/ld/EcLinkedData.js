@@ -47,8 +47,9 @@ global.jsonld = require("jsonld");
 	 *  @method isAtProperty
 	 */
 	static isAtProperty(key) {
-		for (let i = 0; i < EcLinkedData.atProperties.length; i++)
-			if (EcLinkedData.atProperties[i] == key) return true;
+		for (let atProperty of EcLinkedData.atProperties)
+			if (atProperty == key) 
+				return true;
 		return false;
 	}
 	/**
@@ -107,12 +108,14 @@ global.jsonld = require("jsonld");
 		let a = [];
 		for (let i = 0; i < o.length; i++) {
 			if (EcObject.isObject(o[i])) {
-				if (o[i] instanceof EcLinkedData) a[i] = this.atIfyObject(o[i]);
-				else {
+				if (o[i] instanceof EcLinkedData) 
+					a[i] = this.atIfyObject(o[i]);
+				else 
 					a[i] = o[i];
-				}
-			} else if (EcArray.isArray(o[i])) a[i] = this.atIfyArray(o[i]);
-			else a[i] = o[i];
+			} else if (EcArray.isArray(o[i])) 
+				a[i] = this.atIfyArray(o[i]);
+			else 
+				a[i] = o[i];
 		}
 		return a;
 	}
@@ -120,23 +123,24 @@ global.jsonld = require("jsonld");
 		let keys = [];
 		let me = o;
 		for (let key in me) {
-			if (me["type"] != null)
-				if (EcLinkedData.isAtProperty(key)) key = "@" + key;
+			if (me["type"] != null && EcLinkedData.isAtProperty(key)) 
+				key = "@" + key; //NOSONAR -- Reassignment of non-const variable is intended.
 			keys.push(key);
 		}
-		keys.sort(function (a, b) {
-			return a.localeCompare(b);
-		});
+		keys.sort((a, b) => a.localeCompare(b));
 		let op = {};
-		for (let i = 0; i < keys.length; i++) {
-			let key = keys[i];
+		for (let key of keys) {
 			let value = me[key.replace("@", "")];
-			if (value != null)
-				if (value instanceof EcLinkedData) value = value.atIfy();
-				else if (EcArray.isArray(value)) value = this.atIfyArray(value);
-			if (value != null) op[key] = value;
-			else value = me[key];
-			if (value != null) op[key] = value;
+			if (value != null && value instanceof EcLinkedData) 
+				value = value.atIfy();
+			else if (EcArray.isArray(value)) 
+				value = this.atIfyArray(value);
+			if (value != null) 
+				op[key] = value;
+			else 
+				value = me[key];
+			if (value != null) 
+				op[key] = value;
 		}
 		return op;
 	}
@@ -160,11 +164,11 @@ global.jsonld = require("jsonld");
 	 *  @return {boolean} True if match, False if not.
 	 *  @method isAny
 	 */
-	isAny(type) {
+	isAny(types) {
 		let computedType = this.getFullType();
-		if (type.length == 0) return true;
-		for (let i = 0; i < type.length; i++)
-			if (type[i] == computedType || type[i] == this.type)
+		if (types.length == 0) return true;
+		for (let type of types)
+			if (type == computedType || type == this.type)
 				return true;
 		return false;
 	}
@@ -204,17 +208,26 @@ global.jsonld = require("jsonld");
 	 *  @method copyFrom
 	 */
 	copyFrom(that, eim) {
-		let me = this;
-		for (let key in me) {
-			if (typeof me[key] != "function") delete me[key];
+		for (let key in this) {
+			if (typeof this[key] == "function")
+				continue;
+			delete this[key];
 		}
-		let you = that;
-		for (let key in you) {
-			if (typeof you[key] != "function") {
-				if (you["@type"] != null) me[key.replace("@", "")] = you[key];
-				else me[key] = you[key];
-			}
+		for (let key in that) {
+			if (typeof that[key] == "function") 
+				continue;
+			if (that["@type"] != null) 
+				this[key.replace("@", "")] = that[key];
+			else 
+				this[key] = that[key];
 		}
+		this.swapContext();
+		this.upgrade(eim);
+		if (!this.isAny(this.getTypes()))
+			throw new Error("Incompatible type: " + this.getFullType() + that);
+		return this;
+	}
+	swapContext() {
 		let stripNamespace = null;
 		let newContext = null;
 		if (
@@ -226,43 +239,31 @@ global.jsonld = require("jsonld");
 			if (typeParts.length == 2) {
 				newContext = this.context[typeParts[0]];
 				stripNamespace = typeParts[0];
-				if (!newContext.endsWith("/")) newContext += "/";
+				if (!newContext.endsWith("/"))
+					newContext += "/";
 			} else if (this.context["@vocab"] != null)
 				newContext = this.context["@vocab"];
 		}
 		if (stripNamespace != null)
-			for (let key in me) {
-				if (typeof me[key] != "function") {
-					if (key.startsWith(stripNamespace + ":")) {
-						if (EcArray.isArray(me[key])) {
-							me[
-								key.replace(stripNamespace + ":", "")
-							] = JSON.parse(
-								JSON.stringify(me[key]).replace(
-									stripNamespace + ":",
-									""
-								)
-							);
-						} else if (EcObject.isObject(me[key])) {
-							me[
-								key.replace(stripNamespace + ":", "")
-							] = JSON.parse(
-								JSON.stringify(me[key]).replace(
-									stripNamespace + ":",
-									""
-								)
-							);
-						} else
-							me[key.replace(stripNamespace + ":", "")] = me[key];
-						delete me[key];
-					}
-				}
+			this.stripNamespace();
+		if (newContext != null)
+			this.context = newContext;
+	}
+	stripNamespace() {
+		for (let key in this) {
+			if (typeof this[key] != "function" && key.startsWith(stripNamespace + ":")) {
+				if (EcArray.isArray(this[key]) || EcObject.isObject(this[key])) {
+					this[key.replace(stripNamespace + ":", "")] = JSON.parse(
+						JSON.stringify(this[key]).replace(
+							stripNamespace + ":",
+							""
+						)
+					);
+				} else
+					this[key.replace(stripNamespace + ":", "")] = this[key];
+				delete this[key];
 			}
-		if (newContext != null) this.context = newContext;
-		this.upgrade(eim);
-		if (!this.isAny(this.getTypes()))
-			throw "Incompatible type: " + this.getFullType() + that;
-		return this;
+		}
 	}
 	async recast(translationContext, targetContext) {
 		let me = this;
@@ -329,7 +330,7 @@ global.jsonld = require("jsonld");
 	 *
 	 *  @method upgrade
 	 */
-	upgrade() {}
+	upgrade() { } //NOSONAR -- Method is a stub.
 	/**
 	 *  Removes the @ symbol from properties in order to make them more
 	 *  accessible in Javascript.
@@ -339,24 +340,16 @@ global.jsonld = require("jsonld");
 	 *  @internal
 	 */
 	deAtify() {
-		let me = this;
-		let typeFound = false;
-		if (me["@type"] != null) typeFound = true;
-		for (let key in me) {
-			if (me[key] == null) {
+		let typeFound = this["@type"] != null;
+		for (let key in this) {
+			if (this[key] == null) {
 				if (typeFound) {
-					let value = me[key];
-					if (value != null)
-						if (value instanceof EcLinkedData)
-							value = value.deAtify();
-					me[key.replace("@", "")] = value;
-				} else {
-					let value = me[key];
-					if (value != null)
-						if (value instanceof EcLinkedData)
-							value = value.deAtify();
-					me[key] = value;
-				}
+					let value = this[key];
+					if (value != null && value instanceof EcLinkedData)
+						value = value.deAtify();
+					this[key.replace("@", "")] = value;
+				} else if (this?.[key] instanceof EcLinkedData)
+					this[key] = this[key].deAtify();
 			}
 		}
 		return this;

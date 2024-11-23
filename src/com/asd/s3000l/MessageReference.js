@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class MessageReference extends EcRemoteLinkedData {
-msgId;
-uidRef;
+    msgId;
+    uidRef;
 
- getMsgId() {
-        return msgId;
+    getMsgId() {
+        return this.msgId;
     }
 
- setMsgId( value) {
+    setMsgId(value) {
         this.msgId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "MessageReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "MessageReference");
+    }
 };

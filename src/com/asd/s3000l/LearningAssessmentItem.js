@@ -1,15 +1,16 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class LearningAssessmentItem extends EcRemoteLinkedData {
-assessmnt;
+    assessmnt;
 
- getAssessmnt() {
+    getAssessmnt() {
         if (this.assessmnt == null) {
             this.assessmnt = [];
         }
         return this.assessmnt;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "LearningAssessmentItem");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "LearningAssessmentItem");
+    }
 };

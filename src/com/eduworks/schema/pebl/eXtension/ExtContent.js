@@ -88,35 +88,23 @@ module.exports = class ExtContent extends schema.CreativeWork {
 	 *  @method save
 	 */
 	save(success, failure, repo, eim) {
-		if (this.getId() == null || this.getId() == "") {
-			let msg = "ID cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
+		let invalid = (it) => {return it == null || it != ""};
+		let fail = (msg) => {
+			if (failure != null)
+				return failure(msg);
+			else
+				throw new Error(msg);
 		}
-		if (this.getTitle() == null || this.getTitle() == "") {
-			let msg = "Title cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
-		}
-		if (this.getDescription() == null || this.getDescription() == "") {
-			let msg = "Description cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
-		}
-		if (this.getLaunchURL() == null || this.getLaunchURL() == "") {
-			let msg = "Launch URL cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
-		}
-		if (
-			this.getInstitution() == null ||
-			this.getInstitution().name == null ||
-			this.getInstitution().name == ""
-		) {
-			let msg = "Institution name cannot be missing";
-			if (failure != null) return failure(msg);
-			else throw new Error(msg);
-		}
+		if (invalid(this.getId()))
+			return fail("ID cannot be missing");
+		if (invalid(this.getTitle()))
+			return fail("Title cannot be missing");
+		if (invalid(this.getDescription()))
+			return fail("Description cannot be missing");
+		if (invalid(this.getLaunchURL()))
+			return fail("Launch URL cannot be missing");
+		if (invalid(this.getInstitution()?.name))
+			return fail("Institution name cannot be missing");
 		return EcRepository.save(this, success, failure, repo, eim);
 	}
 	/**

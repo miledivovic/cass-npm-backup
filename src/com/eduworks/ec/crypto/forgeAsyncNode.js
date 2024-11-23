@@ -38,7 +38,7 @@ function registerPromiseWorker(callback) {
   }
 
   function handleIncomingMessage(e, callback, messageId, message) {
-    var result = tryCatchFunc(callback, message)
+    let result = tryCatchFunc(callback, message)
 
     if (result.err) {
       postOutgoingMessage(e, messageId, result.err)
@@ -56,13 +56,13 @@ function registerPromiseWorker(callback) {
   function onIncomingMessage(e) {
     if (e.origin != 'cassproject' && e.data?.origin != 'cassproject' && e.data?.[1]?.origin != 'cassproject') { console.log("Origin does not match.", e.origin);return;}
 
-    var payload = e.data
+    let payload = e.data
     if (!Array.isArray(payload) || payload.length !== 2) {
       // message doens't match communication format; ignore
       return
     }
-    var messageId = payload[0]
-    var message = payload[1]
+    let messageId = payload[0]
+    let message = payload[1]
 
     if (typeof callback !== 'function') {
       postOutgoingMessage(e, messageId, new Error(
@@ -78,7 +78,7 @@ function registerPromiseWorker(callback) {
 require('../../../../../');
 
 registerPromiseWorker(function (e) {
-  var data = e;
+  let data = e;
   try {
     switch (data.cmd) {
       case 'encryptRsaOaep':

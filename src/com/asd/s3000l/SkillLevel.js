@@ -1,83 +1,84 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SkillLevel extends EcRemoteLinkedData {
-skillLevName;
-skillLevDescr;
-trainPopDef;
-ksaGaps;
-docs;
-rmks;
-uid;
-crud;
+    skillLevName;
+    skillLevDescr;
+    trainPopDef;
+    ksaGaps;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getSkillLevName() {
-        return skillLevName;
+    getSkillLevName() {
+        return this.skillLevName;
     }
 
- setSkillLevName( value) {
+    setSkillLevName(value) {
         this.skillLevName = value;
     }
 
- getSkillLevDescr() {
-        return skillLevDescr;
+    getSkillLevDescr() {
+        return this.skillLevDescr;
     }
 
- setSkillLevDescr( value) {
+    setSkillLevDescr(value) {
         this.skillLevDescr = value;
     }
 
- getTrainPopDef() {
-        return trainPopDef;
+    getTrainPopDef() {
+        return this.trainPopDef;
     }
 
- setTrainPopDef( value) {
+    setTrainPopDef(value) {
         this.trainPopDef = value;
     }
 
- getKsaGaps() {
-        return ksaGaps;
+    getKsaGaps() {
+        return this.ksaGaps;
     }
 
- setKsaGaps( value) {
+    setKsaGaps(value) {
         this.ksaGaps = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SkillLevel");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SkillLevel");
+    }
 };

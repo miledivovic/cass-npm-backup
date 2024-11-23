@@ -1,82 +1,83 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SpecialEvent extends EcRemoteLinkedData {
-evntTitle;
-evntDescr;
-evntGrp;
-specialEventOccurrenceNonAbstractClasses;
-docs;
-rmks;
-uid;
-crud;
+    evntTitle;
+    evntDescr;
+    evntGrp;
+    specialEventOccurrenceNonAbstractClasses;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getEvntTitle() {
-        return evntTitle;
+    getEvntTitle() {
+        return this.evntTitle;
     }
 
- setEvntTitle( value) {
+    setEvntTitle(value) {
         this.evntTitle = value;
     }
 
- getEvntDescr() {
-        return evntDescr;
+    getEvntDescr() {
+        return this.evntDescr;
     }
 
- setEvntDescr( value) {
+    setEvntDescr(value) {
         this.evntDescr = value;
     }
 
- getEvntGrp() {
-        return evntGrp;
+    getEvntGrp() {
+        return this.evntGrp;
     }
 
- setEvntGrp( value) {
+    setEvntGrp(value) {
         this.evntGrp = value;
     }
 
- getSpecialEventOccurrenceNonAbstractClasses() {
+    getSpecialEventOccurrenceNonAbstractClasses() {
         if (this.specialEventOccurrenceNonAbstractClasses == null) {
             this.specialEventOccurrenceNonAbstractClasses = [];
         }
         return this.specialEventOccurrenceNonAbstractClasses;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SpecialEvent");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SpecialEvent");
+    }
 };

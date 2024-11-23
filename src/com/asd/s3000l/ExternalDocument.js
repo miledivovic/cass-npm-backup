@@ -1,90 +1,92 @@
 
-module.exports = class ExternalDocument extends EcRemoteLinkedData {
-docId;
-docTitle;
-docType;
-docLoc;
-docIss;
-orgInfos;
-rmks;
-uid;
-crud;
 
- getDocId() {
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ExternalDocument extends EcRemoteLinkedData {
+    docId;
+    docTitle;
+    docType;
+    docLoc;
+    docIss;
+    orgInfos;
+    rmks;
+    uid;
+    crud;
+
+    getDocId() {
         if (this.docId == null) {
             this.docId = [];
         }
         return this.docId;
     }
 
- getDocTitle() {
-        return docTitle;
+    getDocTitle() {
+        return this.docTitle;
     }
 
- setDocTitle( value) {
+    setDocTitle(value) {
         this.docTitle = value;
     }
 
- getDocType() {
-        return docType;
+    getDocType() {
+        return this.docType;
     }
 
- setDocType( value) {
+    setDocType(value) {
         this.docType = value;
     }
 
- getDocLoc() {
-        return docLoc;
+    getDocLoc() {
+        return this.docLoc;
     }
 
- setDocLoc( value) {
+    setDocLoc(value) {
         this.docLoc = value;
     }
 
- getDocIss() {
+    getDocIss() {
         if (this.docIss == null) {
             this.docIss = [];
         }
         return this.docIss;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ExternalDocument");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ExternalDocument");
+    }
 };

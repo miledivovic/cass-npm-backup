@@ -48,7 +48,7 @@ module.exports = class Hypergraph {
 	 *  @return a <code>Array</code> view of all edges in this graph
 	 *  @method getEdges
 	 */
-	getEdges() {}
+	getEdges() { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns a view of all vertices in this graph. In general, this obeys the
 	 *  <code>Array</code> contract, and therefore makes no guarantees about the
@@ -57,7 +57,7 @@ module.exports = class Hypergraph {
 	 *  @return a <code>Array</code> view of all vertices in this graph
 	 *  @method getVerticies
 	 */
-	getVertices() {}
+	getVertices() { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns true if this graph's vertex collection contains
 	 *  <code>vertex</code>. Equivalent to
@@ -67,7 +67,7 @@ module.exports = class Hypergraph {
 	 *  @return true iff this graph contains a vertex <code>vertex</code>
 	 *  @method containsVertex
 	 */
-	containsVertex(vertex) {}
+	containsVertex(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns true if this graph's edge collection contains <code>edge</code>.
 	 *  Equivalent to <code>getEdges().contains(edge)</code>.
@@ -76,21 +76,21 @@ module.exports = class Hypergraph {
 	 *  @return true iff this graph contains an edge <code>edge</code>
 	 *  @method containsEdge
 	 */
-	containsEdge(edge) {}
+	containsEdge(edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of edges in this graph.
 	 *
 	 *  @return the number of edges in this graph
 	 *  @method getEdgeCount
 	 */
-	getEdgeCount() {}
+	getEdgeCount() { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of vertices in this graph.
 	 *
 	 *  @return the number of vertices in this graph
 	 *  @method getVertexCount
 	 */
-	getVertexCount() {}
+	getVertexCount() { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the collection of vertices which are connected to
 	 *  <code>vertex</code> via any edges in this graph. If <code>vertex</code>
@@ -103,7 +103,7 @@ module.exports = class Hypergraph {
 	 *  is not present
 	 *  @method getNeighbors
 	 */
-	getNeighbors(vertex) {}
+	getNeighbors(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the collection of edges in this graph which are connected to
 	 *  <code>vertex</code>.
@@ -114,7 +114,7 @@ module.exports = class Hypergraph {
 	 *  is not present
 	 *  @method getIncidentEdges
 	 */
-	getIncidentEdges(vertex) {}
+	getIncidentEdges(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the collection of vertices in this graph which are connected to
 	 *  <code>edge</code>. Note that for some graph types there are guarantees
@@ -129,7 +129,7 @@ module.exports = class Hypergraph {
 	 *  not present
 	 *  @method getIncidentVertices
 	 */
-	getIncidentVertices(edge) {}
+	getIncidentVertices(edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns an edge that connects this vertex to <code>v</code>. If this edge
 	 *  is not uniquely defined (that is, if the graph contains more than one
@@ -158,7 +158,7 @@ module.exports = class Hypergraph {
 	 *  @method findEdge
 	 *  @see Hypergraph#findEdgeSet(Object, Object)
 	 */
-	findEdge(v1, v2) {}
+	findEdge(v1, v2) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns all edges that connects this vertex to <code>v</code>. If this
 	 *  edge is not uniquely defined (that is, if the graph contains more than
@@ -186,7 +186,7 @@ module.exports = class Hypergraph {
 	 *  @method findEdgeSet
 	 *  @see Hypergraph#findEdge(Object, Object)
 	 */
-	findEdgeSet(v1, v2) {}
+	findEdgeSet(v1, v2) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Adds <code>vertex</code> to this graph. Fails if <code>vertex</code> is
 	 *  null or already in the graph.
@@ -197,7 +197,7 @@ module.exports = class Hypergraph {
 	 *  @throws IllegalArgumentException if <code>vertex</code> is <code>null</code>
 	 *  @method addVertex
 	 */
-	addVertex(vertex) {}
+	addVertex(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Adds <code>edge</code> to this graph. Fails under the following
 	 *  circumstances:
@@ -221,7 +221,7 @@ module.exports = class Hypergraph {
 	 *                                   legal vertex set for <code>edge</code>
 	 *  @method addHyperEdge
 	 */
-	addHyperEdge(edge, vertices) {}
+	addHyperEdge(edge, vertices) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Removes <code>vertex</code> from this graph. As a side effect, removes
 	 *  any edges <code>e</code> incident to <code>vertex</code> if the removal
@@ -242,7 +242,7 @@ module.exports = class Hypergraph {
 	 *  <code>false</code> otherwise
 	 *  @method removeVertex
 	 */
-	removeVertex(vertex) {}
+	removeVertex(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Removes <code>edge</code> from this graph. Fails if <code>edge</code> is
 	 *  null, or is otherwise not an element of this graph.
@@ -252,7 +252,7 @@ module.exports = class Hypergraph {
 	 *  <code>false</code> otherwise
 	 *  @method removeEdge
 	 */
-	removeEdge(edge) {}
+	removeEdge(edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns <code>true</code> if <code>v1</code> and <code>v2</code> share an
 	 *  incident edge. Equivalent to <code>getNeighbors(v1).contains(v2)</code>.
@@ -263,7 +263,7 @@ module.exports = class Hypergraph {
 	 *  incident edge
 	 *  @method isNeighbor
 	 */
-	isNeighbor(v1, v2) {}
+	isNeighbor(v1, v2) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns <code>true</code> if <code>vertex</code> and <code>edge</code>
 	 *  are incident to each other. Equivalent to
@@ -276,7 +276,7 @@ module.exports = class Hypergraph {
 	 *  are incident to each other
 	 *  @method isIncident
 	 */
-	isIncident(vertex, edge) {}
+	isIncident(vertex, edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of edges incident to <code>vertex</code>. Special
 	 *  cases of interest:
@@ -300,7 +300,7 @@ module.exports = class Hypergraph {
 	 *  @method degree
 	 *  @see Hypergraph#getNeighborCount(Object)
 	 */
-	degree(vertex) {}
+	degree(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of vertices that are adjacent to <code>vertex</code>
 	 *  (that is, the number of vertices that are incident to edges in
@@ -313,7 +313,7 @@ module.exports = class Hypergraph {
 	 *  @return the number of neighboring vertices
 	 *  @method getNeighborCount
 	 */
-	getNeighborCount(vertex) {}
+	getNeighborCount(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of vertices that are incident to <code>edge</code>.
 	 *  For hyperedges, this can be any nonnegative integer; for edges this must
@@ -326,7 +326,7 @@ module.exports = class Hypergraph {
 	 *  @return the number of vertices that are incident to <code>edge</code>.
 	 *  @method getIncidentCount
 	 */
-	getIncidentCount(edge) {}
+	getIncidentCount(edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the edge type of <code>edge</code> in this graph.
 	 *
@@ -335,14 +335,14 @@ module.exports = class Hypergraph {
 	 *  <code>null</code> if <code>edge</code> has no defined type
 	 *  @method getEdgeType
 	 */
-	getEdgeType(edge) {}
+	getEdgeType(edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the default edge type for this graph.
 	 *
 	 *  @return the default edge type for this graph
 	 *  @method getDefaultEdgeType
 	 */
-	getDefaultEdgeType() {}
+	getDefaultEdgeType() { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the collection of edges in this graph which are of type
 	 *  <code>edge_type</code>.
@@ -354,7 +354,7 @@ module.exports = class Hypergraph {
 	 *  @method getEdgesOfType
 	 *  @see EdgeType
 	 */
-	getEdgesOfType(edge_type) {}
+	getEdgesOfType(edge_type) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of edges of type <code>edge_type</code> in this graph.
 	 *
@@ -362,7 +362,7 @@ module.exports = class Hypergraph {
 	 *  @return the number of edges of type <code>edge_type</code> in this graph
 	 *  @method getEdgeCountOfType
 	 */
-	getEdgeCountOfType(edge_type) {}
+	getEdgeCountOfType(edge_type) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns a <code>Array</code> view of the incoming edges incident to
 	 *  <code>vertex</code> in this graph.
@@ -372,7 +372,7 @@ module.exports = class Hypergraph {
 	 *  <code>vertex</code> in this graph
 	 *  @method getInEdges
 	 */
-	getInEdges(vertex) {}
+	getInEdges(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns a <code>Array</code> view of the outgoing edges incident to
 	 *  <code>vertex</code> in this graph.
@@ -382,7 +382,7 @@ module.exports = class Hypergraph {
 	 *  <code>vertex</code> in this graph
 	 *  @method getOutEdges
 	 */
-	getOutEdges(vertex) {}
+	getOutEdges(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of incoming edges incident to <code>vertex</code>.
 	 *  Equivalent to <code>getInEdges(vertex).size()</code>.
@@ -391,7 +391,7 @@ module.exports = class Hypergraph {
 	 *  @return the number of incoming edges incident to <code>vertex</code>
 	 *  @method inDegree
 	 */
-	inDegree(vertex) {}
+	inDegree(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns the number of outgoing edges incident to <code>vertex</code>.
 	 *  Equivalent to <code>getOutEdges(vertex).size()</code>.
@@ -400,7 +400,7 @@ module.exports = class Hypergraph {
 	 *  @return the number of outgoing edges incident to <code>vertex</code>
 	 *  @method outDegree
 	 */
-	outDegree(vertex) {}
+	outDegree(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  If <code>directed_edge</code> is a directed edge in this graph, returns
 	 *  the source; otherwise returns <code>null</code>. The source of a directed
@@ -413,7 +413,7 @@ module.exports = class Hypergraph {
 	 *  in this graph, or <code>null</code> otherwise
 	 *  @method getSource
 	 */
-	getSource(directed_edge) {}
+	getSource(directed_edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  If <code>directed_edge</code> is a directed edge in this graph, returns
 	 *  the destination; otherwise returns <code>null</code>. The destination of
@@ -427,7 +427,7 @@ module.exports = class Hypergraph {
 	 *  edge in this graph, or <code>null</code> otherwise
 	 *  @method getDest
 	 */
-	getDest(directed_edge) {}
+	getDest(directed_edge) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns a <code>Array</code> view of the predecessors of
 	 *  <code>vertex</code> in this graph. A predecessor of <code>vertex</code>
@@ -441,7 +441,7 @@ module.exports = class Hypergraph {
 	 *  <code>vertex</code> in this graph
 	 *  @method getPredecessors
 	 */
-	getPredecessors(vertex) {}
+	getPredecessors(vertex) { } //NOSONAR -- Method is intended to be abstract
 	/**
 	 *  Returns a <code>Array</code> view of the successors of
 	 *  <code>vertex</code> in this graph. A successor of <code>vertex</code> is
@@ -455,5 +455,5 @@ module.exports = class Hypergraph {
 	 *  <code>vertex</code> in this graph
 	 *  @method getSuccessors
 	 */
-	getSuccessors(vertex) {}
+	getSuccessors(vertex) { } //NOSONAR -- Method is intended to be abstract
 };

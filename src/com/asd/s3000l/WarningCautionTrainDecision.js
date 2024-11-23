@@ -1,117 +1,118 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class WarningCautionTrainDecision extends EcRemoteLinkedData {
-iterationId;
-trainLev;
-trainLevRtnle;
-iterRtnle;
-iterDate;
-orgInfos;
-docs;
-rmks;
-ksaReqs;
-uid;
-uri;
-crud;
+    iterationId;
+    trainLev;
+    trainLevRtnle;
+    iterRtnle;
+    iterDate;
+    orgInfos;
+    docs;
+    rmks;
+    ksaReqs;
+    uid;
+    uri;
+    crud;
 
- getIterationId() {
-        return iterationId;
+    getIterationId() {
+        return this.iterationId;
     }
 
- setIterationId( value) {
+    setIterationId(value) {
         this.iterationId = value;
     }
 
- getTrainLev() {
-        return trainLev;
+    getTrainLev() {
+        return this.trainLev;
     }
 
- setTrainLev( value) {
+    setTrainLev(value) {
         this.trainLev = value;
     }
 
- getTrainLevRtnle() {
+    getTrainLevRtnle() {
         if (this.trainLevRtnle == null) {
             this.trainLevRtnle = [];
         }
         return this.trainLevRtnle;
     }
 
- getIterRtnle() {
+    getIterRtnle() {
         if (this.iterRtnle == null) {
             this.iterRtnle = [];
         }
         return this.iterRtnle;
     }
 
- getIterDate() {
-        return iterDate;
+    getIterDate() {
+        return this.iterDate;
     }
 
- setIterDate( value) {
+    setIterDate(value) {
         this.iterDate = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getKsaReqs() {
-        return ksaReqs;
+    getKsaReqs() {
+        return this.ksaReqs;
     }
 
- setKsaReqs( value) {
+    setKsaReqs(value) {
         this.ksaReqs = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "WarningCautionTrainDecision");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "WarningCautionTrainDecision");
+    }
 };

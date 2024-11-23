@@ -4,9 +4,6 @@ const EbacCredentials = require("./EbacCredentials");
 
 /**
  *  Message used to commit credentials to a remote login server.
- *  <p>
- *  TODO: Vulnerable to replay attacks. Token field prevents some replay
- *  attacks.
  *
  *  @author fritz.ray@eduworks.com
  *  @class EbacCredentialCommit

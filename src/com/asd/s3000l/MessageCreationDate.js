@@ -1,16 +1,17 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class MessageCreationDate extends EcRemoteLinkedData {
-dateTime;
+    dateTime;
 
- getDateTime() {
-        return dateTime;
+    getDateTime() {
+        return this.dateTime;
     }
 
- setDateTime( value) {
+    setDateTime(value) {
         this.dateTime = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "MessageCreationDate");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "MessageCreationDate");
+    }
 };

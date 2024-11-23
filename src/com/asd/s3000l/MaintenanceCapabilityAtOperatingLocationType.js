@@ -1,38 +1,39 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class MaintenanceCapabilityAtOperatingLocationType extends EcRemoteLinkedData {
-mlvRef;
-uid;
-crud;
+    mlvRef;
+    uid;
+    crud;
 
- getMlvRef() {
-        return mlvRef;
+    getMlvRef() {
+        return this.mlvRef;
     }
 
- setMlvRef( value) {
+    setMlvRef(value) {
         this.mlvRef = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "MaintenanceCapabilityAtOperatingLocationType");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "MaintenanceCapabilityAtOperatingLocationType");
+    }
 };

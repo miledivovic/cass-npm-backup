@@ -1,110 +1,111 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TrainingComponentSpecialResourceRequirementReference extends EcRemoteLinkedData {
-refType;
-prodRef;
-prodVarRef;
-partRef;
-beRef;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    refType;
+    prodRef;
+    prodVarRef;
+    partRef;
+    beRef;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getRefType() {
-        return refType;
+    getRefType() {
+        return this.refType;
     }
 
- setRefType( value) {
+    setRefType(value) {
         this.refType = value;
     }
 
- getProdRef() {
-        return prodRef;
+    getProdRef() {
+        return this.prodRef;
     }
 
- setProdRef( value) {
+    setProdRef(value) {
         this.prodRef = value;
     }
 
- getProdVarRef() {
-        return prodVarRef;
+    getProdVarRef() {
+        return this.prodVarRef;
     }
 
- setProdVarRef( value) {
+    setProdVarRef(value) {
         this.prodVarRef = value;
     }
 
- getPartRef() {
-        return partRef;
+    getPartRef() {
+        return this.partRef;
     }
 
- setPartRef( value) {
+    setPartRef(value) {
         this.partRef = value;
     }
 
- getBeRef() {
-        return beRef;
+    getBeRef() {
+        return this.beRef;
     }
 
- setBeRef( value) {
+    setBeRef(value) {
         this.beRef = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TrainingComponentSpecialResourceRequirementReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TrainingComponentSpecialResourceRequirementReference");
+    }
 };

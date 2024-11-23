@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskRequirementReference extends EcRemoteLinkedData {
-trId;
-uidRef;
+    trId;
+    uidRef;
 
- getTrId() {
-        return trId;
+    getTrId() {
+        return this.trId;
     }
 
- setTrId( value) {
+    setTrId(value) {
         this.trId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementReference");
+    }
 };

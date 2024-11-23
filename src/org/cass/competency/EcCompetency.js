@@ -1,5 +1,8 @@
 const EcRepository = require("../../cassproject/ebac/repository/EcRepository.js");
 const Competency = require("../../cassproject/schema/cass/competency/Competency.js");
+const EcAlignment = require("./EcAlignment.js");
+const EcLevel = require("./EcLevel.js");
+const EcRollupRule = require("./EcRollupRule.js");
 require("../../cassproject/general/AuditLogger.js");
 /**
  *  Implementation of a Competency object with methods for interacting with CASS
@@ -115,16 +118,14 @@ module.exports = class EcCompetency extends Competency {
 		target,
 		alignmentType,
 		owner,
-		serverUrl,
 		success,
 		failure,
 		repo,
 		eim
 	) {
 		let a = new EcAlignment();
-		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
-			a.generateId(serverUrl);
-		else a.generateShortId(serverUrl);
+		if (repo != null)
+			a.generateId(repo.selectedServer);
 		a.source = this.shortId();
 		a.target = target.shortId();
 		a.relationType = alignmentType;
@@ -147,7 +148,7 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method relations
 	 */
 	relations(repo, eachSuccess, failure, successAll) {
-		return this.relationships(repo, eachSuccess, failure, successAll);
+		return this.relationships(repo, eachSuccess, failure, successAll); //NOSONAR - Renamed function is intentional
 	}
 	/**
 	 *  Searches the repository given for any relationships that contain this competency
@@ -178,8 +179,8 @@ module.exports = class EcCompetency extends Competency {
 			'"',
 			async (results) => {
 				if (eachSuccess !== undefined && eachSuccess != null)
-					for (let i = 0; i < results.length; i++)
-						await eachSuccess(results[i]);
+					for (let result of results)
+						await eachSuccess(result);
 				if (successAll !== undefined && successAll != null)
 					await successAll(results);
 				return results;
@@ -212,16 +213,14 @@ module.exports = class EcCompetency extends Competency {
 		name,
 		description,
 		owner,
-		serverUrl,
 		success,
 		failure,
 		repo,
 		eim
 	) {
 		let l = new EcLevel();
-		if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
-			l.generateId(serverUrl);
-		else l.generateShortId(serverUrl);
+		if (repo == null) throw new Error("Repo must not be null.");
+		l.generateId(repo.selectedServer);
 		l.competency = this.shortId();
 		l.description = description;
 		l.name = name;
@@ -254,10 +253,10 @@ module.exports = class EcCompetency extends Competency {
 			repo,
 			query,
 			async (results) => {
-				for (let i = 0; i < results.length; i++)
-					if (eachSuccess !== undefined && eachSuccess != null)
-						await eachSuccess(results[i]);
-				if (successAll !== undefined && successAll != null)
+				if (eachSuccess != null)
+					for (let result of results)
+						await eachSuccess(result);
+				if (successAll != null)
 					await successAll(results);
 				return results;
 			},
@@ -289,16 +288,14 @@ module.exports = class EcCompetency extends Competency {
 		name,
 		description,
 		owner,
-		serverUrl,
 		success,
 		failure,
 		repo, eim
 	) {
 		let r = new EcRollupRule();
 		if (repo == null)
-			if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
-				r.generateId(serverUrl);
-			else r.generateShortId(serverUrl);
+			throw new Error("Repo is required.");
+		r.generateId(repo.selectedServer);
 		r.competency = this.shortId();
 		r.description = description;
 		r.name = name;
@@ -331,9 +328,11 @@ module.exports = class EcCompetency extends Competency {
 			repo,
 			query,
 			async (results) => {
-				for (let i = 0; i < results.length; i++)
-					await eachSuccess(results[i]);
-				await successAll(results);
+				if (eachSuccess != null)
+					for (let result of results)
+						await eachSuccess(result);
+				if (successAll != null)
+					await successAll(results);
 			},
 			failure,
 			{}, eim
@@ -371,8 +370,6 @@ module.exports = class EcCompetency extends Competency {
 	}
 	/**
 	 *  Deletes the competency from the server
-	 *  <p>
-	 *  TODO: Delete rollup rules?
 	 *
 	 *  @param {Callback1<String>} success
 	 *                             Callback triggered on successful deleting the competency
@@ -384,7 +381,6 @@ module.exports = class EcCompetency extends Competency {
 	 *  @method _delete
 	 */
 	async _delete(success, failure, repo, eim) {
-		let me = this;
 		if (repo != null) global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", await this.relations(repo));
 		if (repo != null) {
 			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.INFO, "EcCompDelete", JSON.stringify(await this.relations(repo)));

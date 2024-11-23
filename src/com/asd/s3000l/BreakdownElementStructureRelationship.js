@@ -1,56 +1,58 @@
 
-module.exports = class BreakdownElementStructureRelationship extends EcRemoteLinkedData {
-relType;
-elemRef;
-rmks;
-uid;
-crud;
 
- getRelType() {
-        return relType;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class BreakdownElementStructureRelationship extends EcRemoteLinkedData {
+    relType;
+    elemRef;
+    rmks;
+    uid;
+    crud;
+
+    getRelType() {
+        return this.relType;
     }
 
- setRelType( value) {
+    setRelType(value) {
         this.relType = value;
     }
 
- getElemRef() {
-        return elemRef;
+    getElemRef() {
+        return this.elemRef;
     }
 
- setElemRef( value) {
+    setElemRef(value) {
         this.elemRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "BreakdownElementStructureRelationship");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "BreakdownElementStructureRelationship");
+    }
 };

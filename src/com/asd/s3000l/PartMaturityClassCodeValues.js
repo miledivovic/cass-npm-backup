@@ -1,4 +1,5 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = {
     NEW: "NEW",
     MOD_L: "MOD_L",

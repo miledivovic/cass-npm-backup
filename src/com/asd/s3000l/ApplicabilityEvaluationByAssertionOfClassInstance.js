@@ -1,155 +1,157 @@
 
-module.exports = class ApplicabilityEvaluationByAssertionOfClassInstance extends EcRemoteLinkedData {
-prodVarRef;
-hwElemRealRef;
-swElemRealRef;
-orgRef;
-opLocRef;
-opTypeRef;
-mlvRef;
-mLocRef;
-beRef;
-usagePhaseRef;
-contrRef;
-partRef;
-prodConfRef;
-rmks;
-uid;
-crud;
 
- getProdVarRef() {
-        return prodVarRef;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ApplicabilityEvaluationByAssertionOfClassInstance extends EcRemoteLinkedData {
+    prodVarRef;
+    hwElemRealRef;
+    swElemRealRef;
+    orgRef;
+    opLocRef;
+    opTypeRef;
+    mlvRef;
+    mLocRef;
+    beRef;
+    usagePhaseRef;
+    contrRef;
+    partRef;
+    prodConfRef;
+    rmks;
+    uid;
+    crud;
+
+    getProdVarRef() {
+        return this.prodVarRef;
     }
 
- setProdVarRef( value) {
+    setProdVarRef(value) {
         this.prodVarRef = value;
     }
 
- getHwElemRealRef() {
-        return hwElemRealRef;
+    getHwElemRealRef() {
+        return this.hwElemRealRef;
     }
 
- setHwElemRealRef( value) {
+    setHwElemRealRef(value) {
         this.hwElemRealRef = value;
     }
 
- getSwElemRealRef() {
-        return swElemRealRef;
+    getSwElemRealRef() {
+        return this.swElemRealRef;
     }
 
- setSwElemRealRef( value) {
+    setSwElemRealRef(value) {
         this.swElemRealRef = value;
     }
 
- getOrgRef() {
-        return orgRef;
+    getOrgRef() {
+        return this.orgRef;
     }
 
- setOrgRef( value) {
+    setOrgRef(value) {
         this.orgRef = value;
     }
 
- getOpLocRef() {
-        return opLocRef;
+    getOpLocRef() {
+        return this.opLocRef;
     }
 
- setOpLocRef( value) {
+    setOpLocRef(value) {
         this.opLocRef = value;
     }
 
- getOpTypeRef() {
-        return opTypeRef;
+    getOpTypeRef() {
+        return this.opTypeRef;
     }
 
- setOpTypeRef( value) {
+    setOpTypeRef(value) {
         this.opTypeRef = value;
     }
 
- getMlvRef() {
-        return mlvRef;
+    getMlvRef() {
+        return this.mlvRef;
     }
 
- setMlvRef( value) {
+    setMlvRef(value) {
         this.mlvRef = value;
     }
 
- getMLocRef() {
-        return mLocRef;
+    getMLocRef() {
+        return this.mLocRef;
     }
 
- setMLocRef( value) {
+    setMLocRef(value) {
         this.mLocRef = value;
     }
 
- getBeRef() {
-        return beRef;
+    getBeRef() {
+        return this.beRef;
     }
 
- setBeRef( value) {
+    setBeRef(value) {
         this.beRef = value;
     }
 
- getUsagePhaseRef() {
-        return usagePhaseRef;
+    getUsagePhaseRef() {
+        return this.usagePhaseRef;
     }
 
- setUsagePhaseRef( value) {
+    setUsagePhaseRef(value) {
         this.usagePhaseRef = value;
     }
 
- getContrRef() {
-        return contrRef;
+    getContrRef() {
+        return this.contrRef;
     }
 
- setContrRef( value) {
+    setContrRef(value) {
         this.contrRef = value;
     }
 
- getPartRef() {
-        return partRef;
+    getPartRef() {
+        return this.partRef;
     }
 
- setPartRef( value) {
+    setPartRef(value) {
         this.partRef = value;
     }
 
- getProdConfRef() {
-        return prodConfRef;
+    getProdConfRef() {
+        return this.prodConfRef;
     }
 
- setProdConfRef( value) {
+    setProdConfRef(value) {
         this.prodConfRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ApplicabilityEvaluationByAssertionOfClassInstance");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ApplicabilityEvaluationByAssertionOfClassInstance");
+    }
 };

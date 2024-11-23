@@ -1,97 +1,98 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TrainingComponentSpecialResourceRequirement extends EcRemoteLinkedData {
-resName;
-resType;
-resDescr;
-resRef;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    resName;
+    resType;
+    resDescr;
+    resRef;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getResName() {
+    getResName() {
         if (this.resName == null) {
             this.resName = [];
         }
         return this.resName;
     }
 
- getResType() {
+    getResType() {
         if (this.resType == null) {
             this.resType = [];
         }
         return this.resType;
     }
 
- getResDescr() {
+    getResDescr() {
         if (this.resDescr == null) {
             this.resDescr = [];
         }
         return this.resDescr;
     }
 
- getResRef() {
+    getResRef() {
         if (this.resRef == null) {
             this.resRef = [];
         }
         return this.resRef;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TrainingComponentSpecialResourceRequirement");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TrainingComponentSpecialResourceRequirement");
+    }
 };

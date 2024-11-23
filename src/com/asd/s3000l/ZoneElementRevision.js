@@ -1,309 +1,310 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class ZoneElementRevision extends EcRemoteLinkedData {
-beRevId;
-status;
-msi;
-beRevDate;
-beDescr;
-funcFail;
-beRel;
-lsaCand;
-candRtnl;
-maintCpt;
-maintSln;
-productServiceLife;
-scheduledMaintenanceInterval;
-maintenanceFreeOperatingPeriod;
-downTime;
-maintenanceManHoursPerOperatingHour;
-meanTimeBetweenUnscheduledRemoval;
-meanTimeToRepair;
-directMaintenanceCost;
-shopProcessingTime;
-failuresPerOperatingHour;
-replacementTime;
-lifeCycleCost;
-meanTimeBetweenFailure;
-failureRate;
-anlysActvty;
-taskReq;
-taskTargetNonAbstractClasses;
-docs;
-rmks;
-dmgAnlys;
-failModes;
-detectMnCaps;
-uid;
-crud;
+    beRevId;
+    status;
+    msi;
+    beRevDate;
+    beDescr;
+    funcFail;
+    beRel;
+    lsaCand;
+    candRtnl;
+    maintCpt;
+    maintSln;
+    productServiceLife;
+    scheduledMaintenanceInterval;
+    maintenanceFreeOperatingPeriod;
+    downTime;
+    maintenanceManHoursPerOperatingHour;
+    meanTimeBetweenUnscheduledRemoval;
+    meanTimeToRepair;
+    directMaintenanceCost;
+    shopProcessingTime;
+    failuresPerOperatingHour;
+    replacementTime;
+    lifeCycleCost;
+    meanTimeBetweenFailure;
+    failureRate;
+    anlysActvty;
+    taskReq;
+    taskTargetNonAbstractClasses;
+    docs;
+    rmks;
+    dmgAnlys;
+    failModes;
+    detectMnCaps;
+    uid;
+    crud;
 
- getBeRevId() {
-        return beRevId;
+    getBeRevId() {
+        return this.beRevId;
     }
 
- setBeRevId( value) {
+    setBeRevId(value) {
         this.beRevId = value;
     }
 
- getStatus() {
-        return status;
+    getStatus() {
+        return this.status;
     }
 
- setStatus( value) {
+    setStatus(value) {
         this.status = value;
     }
 
- getMsi() {
-        return msi;
+    getMsi() {
+        return this.msi;
     }
 
- setMsi( value) {
+    setMsi(value) {
         this.msi = value;
     }
 
- getBeRevDate() {
-        return beRevDate;
+    getBeRevDate() {
+        return this.beRevDate;
     }
 
- setBeRevDate( value) {
+    setBeRevDate(value) {
         this.beRevDate = value;
     }
 
- getBeDescr() {
-        return beDescr;
+    getBeDescr() {
+        return this.beDescr;
     }
 
- setBeDescr( value) {
+    setBeDescr(value) {
         this.beDescr = value;
     }
 
- getFuncFail() {
+    getFuncFail() {
         if (this.funcFail == null) {
             this.funcFail = [];
         }
         return this.funcFail;
     }
 
- getBeRel() {
+    getBeRel() {
         if (this.beRel == null) {
             this.beRel = [];
         }
         return this.beRel;
     }
 
- getLsaCand() {
-        return lsaCand;
+    getLsaCand() {
+        return this.lsaCand;
     }
 
- setLsaCand( value) {
+    setLsaCand(value) {
         this.lsaCand = value;
     }
 
- getCandRtnl() {
-        return candRtnl;
+    getCandRtnl() {
+        return this.candRtnl;
     }
 
- setCandRtnl( value) {
+    setCandRtnl(value) {
         this.candRtnl = value;
     }
 
- getMaintCpt() {
+    getMaintCpt() {
         if (this.maintCpt == null) {
             this.maintCpt = [];
         }
         return this.maintCpt;
     }
 
- getMaintSln() {
+    getMaintSln() {
         if (this.maintSln == null) {
             this.maintSln = [];
         }
         return this.maintSln;
     }
 
- getProductServiceLife() {
+    getProductServiceLife() {
         if (this.productServiceLife == null) {
             this.productServiceLife = [];
         }
         return this.productServiceLife;
     }
 
- getScheduledMaintenanceInterval() {
+    getScheduledMaintenanceInterval() {
         if (this.scheduledMaintenanceInterval == null) {
             this.scheduledMaintenanceInterval = [];
         }
         return this.scheduledMaintenanceInterval;
     }
 
- getMaintenanceFreeOperatingPeriod() {
+    getMaintenanceFreeOperatingPeriod() {
         if (this.maintenanceFreeOperatingPeriod == null) {
             this.maintenanceFreeOperatingPeriod = [];
         }
         return this.maintenanceFreeOperatingPeriod;
     }
 
- getDownTime() {
+    getDownTime() {
         if (this.downTime == null) {
             this.downTime = [];
         }
         return this.downTime;
     }
 
- getMaintenanceManHoursPerOperatingHour() {
+    getMaintenanceManHoursPerOperatingHour() {
         if (this.maintenanceManHoursPerOperatingHour == null) {
             this.maintenanceManHoursPerOperatingHour = [];
         }
         return this.maintenanceManHoursPerOperatingHour;
     }
 
- getMeanTimeBetweenUnscheduledRemoval() {
+    getMeanTimeBetweenUnscheduledRemoval() {
         if (this.meanTimeBetweenUnscheduledRemoval == null) {
             this.meanTimeBetweenUnscheduledRemoval = [];
         }
         return this.meanTimeBetweenUnscheduledRemoval;
     }
 
- getMeanTimeToRepair() {
+    getMeanTimeToRepair() {
         if (this.meanTimeToRepair == null) {
             this.meanTimeToRepair = [];
         }
         return this.meanTimeToRepair;
     }
 
- getDirectMaintenanceCost() {
+    getDirectMaintenanceCost() {
         if (this.directMaintenanceCost == null) {
             this.directMaintenanceCost = [];
         }
         return this.directMaintenanceCost;
     }
 
- getShopProcessingTime() {
+    getShopProcessingTime() {
         if (this.shopProcessingTime == null) {
             this.shopProcessingTime = [];
         }
         return this.shopProcessingTime;
     }
 
- getFailuresPerOperatingHour() {
+    getFailuresPerOperatingHour() {
         if (this.failuresPerOperatingHour == null) {
             this.failuresPerOperatingHour = [];
         }
         return this.failuresPerOperatingHour;
     }
 
- getReplacementTime() {
+    getReplacementTime() {
         if (this.replacementTime == null) {
             this.replacementTime = [];
         }
         return this.replacementTime;
     }
 
- getLifeCycleCost() {
+    getLifeCycleCost() {
         if (this.lifeCycleCost == null) {
             this.lifeCycleCost = [];
         }
         return this.lifeCycleCost;
     }
 
- getMeanTimeBetweenFailure() {
+    getMeanTimeBetweenFailure() {
         if (this.meanTimeBetweenFailure == null) {
             this.meanTimeBetweenFailure = [];
         }
         return this.meanTimeBetweenFailure;
     }
 
- getFailureRate() {
+    getFailureRate() {
         if (this.failureRate == null) {
             this.failureRate = [];
         }
         return this.failureRate;
     }
 
- getAnlysActvty() {
-        return anlysActvty;
+    getAnlysActvty() {
+        return this.anlysActvty;
     }
 
- setAnlysActvty( value) {
+    setAnlysActvty(value) {
         this.anlysActvty = value;
     }
 
- getTaskReq() {
+    getTaskReq() {
         if (this.taskReq == null) {
             this.taskReq = [];
         }
         return this.taskReq;
     }
 
- getTaskTargetNonAbstractClasses() {
+    getTaskTargetNonAbstractClasses() {
         if (this.taskTargetNonAbstractClasses == null) {
             this.taskTargetNonAbstractClasses = [];
         }
         return this.taskTargetNonAbstractClasses;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getDmgAnlys() {
-        return dmgAnlys;
+    getDmgAnlys() {
+        return this.dmgAnlys;
     }
 
- setDmgAnlys( value) {
+    setDmgAnlys(value) {
         this.dmgAnlys = value;
     }
 
- getFailModes() {
-        return failModes;
+    getFailModes() {
+        return this.failModes;
     }
 
- setFailModes( value) {
+    setFailModes(value) {
         this.failModes = value;
     }
 
- getDetectMnCaps() {
-        return detectMnCaps;
+    getDetectMnCaps() {
+        return this.detectMnCaps;
     }
 
- setDetectMnCaps( value) {
+    setDetectMnCaps(value) {
         this.detectMnCaps = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     DetectMnCaps = class DetectMnCaps {
-detectMnCap;
+        detectMnCap;
 
- getDetectMnCap() {
+        getDetectMnCap() {
             if (this.detectMnCap == null) {
                 this.detectMnCap = [];
             }
@@ -312,92 +313,92 @@ detectMnCap;
     }
 
     Dmc = class Dmc {
-cost;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        cost;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getCost() {
+        getCost() {
             if (this.cost == null) {
                 this.cost = [];
             }
             return this.cost;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     DmgAnlys = class DmgAnlys {
-techBhvr;
-dmg;
+        techBhvr;
+        dmg;
 
- getTechBhvr() {
-            return techBhvr;
+        getTechBhvr() {
+            return this.techBhvr;
         }
 
- setTechBhvr( value) {
+        setTechBhvr(value) {
             this.techBhvr = value;
         }
 
- getDmg() {
+        getDmg() {
             if (this.dmg == null) {
                 this.dmg = [];
             }
@@ -406,222 +407,222 @@ dmg;
     }
 
     Dt = class Dt {
-time;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        time;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getTime() {
+        getTime() {
             if (this.time == null) {
                 this.time = [];
             }
             return this.time;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     FRate = class FRate {
-rate;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-corrFact;
-orgInfos;
-docs;
-rmks;
-applic;
+        rate;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        corrFact;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getRate() {
+        getRate() {
             if (this.rate == null) {
                 this.rate = [];
             }
             return this.rate;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getCorrFact() {
+        getCorrFact() {
             if (this.corrFact == null) {
                 this.corrFact = [];
             }
             return this.corrFact;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
 
         CorrFact = class CorrFact {
-factor;
-just;
-defDate;
-docs;
-rmks;
-applic;
+            factor;
+            just;
+            defDate;
+            docs;
+            rmks;
+            applic;
 
- getFactor() {
-                return factor;
+            getFactor() {
+                return this.factor;
             }
 
- setFactor( value) {
+            setFactor(value) {
                 this.factor = value;
             }
 
- getJust() {
-                return just;
+            getJust() {
+                return this.just;
             }
 
- setJust( value) {
+            setJust(value) {
                 this.just = value;
             }
 
- getDefDate() {
-                return defDate;
+            getDefDate() {
+                return this.defDate;
             }
 
- setDefDate( value) {
+            setDefDate(value) {
                 this.defDate = value;
             }
 
- getDocs() {
-                return docs;
+            getDocs() {
+                return this.docs;
             }
 
- setDocs( value) {
+            setDocs(value) {
                 this.docs = value;
             }
 
- getRmks() {
-                return rmks;
+            getRmks() {
+                return this.rmks;
             }
 
- setRmks( value) {
+            setRmks(value) {
                 this.rmks = value;
             }
 
- getApplic() {
-                return applic;
+            getApplic() {
+                return this.applic;
             }
 
- setApplic( value) {
+            setApplic(value) {
                 this.applic = value;
             }
         }
     }
 
     FailModes = class FailModes {
-failureModeNonAbstractClasses;
+        failureModeNonAbstractClasses;
 
- getFailureModeNonAbstractClasses() {
+        getFailureModeNonAbstractClasses() {
             if (this.failureModeNonAbstractClasses == null) {
                 this.failureModeNonAbstractClasses = [];
             }
@@ -630,828 +631,828 @@ failureModeNonAbstractClasses;
     }
 
     Foh = class Foh {
-nr;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        nr;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getNr() {
+        getNr() {
             if (this.nr == null) {
                 this.nr = [];
             }
             return this.nr;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Lcc = class Lcc {
-cost;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        cost;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getCost() {
+        getCost() {
             if (this.cost == null) {
                 this.cost = [];
             }
             return this.cost;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Mfop = class Mfop {
-per;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        per;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getPer() {
+        getPer() {
             if (this.per == null) {
                 this.per = [];
             }
             return this.per;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Mmhoh = class Mmhoh {
-mh;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        mh;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getMh() {
+        getMh() {
             if (this.mh == null) {
                 this.mh = [];
             }
             return this.mh;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Mtbf = class Mtbf {
-mt;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-corrFact;
-orgInfos;
-docs;
-rmks;
-applic;
+        mt;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        corrFact;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getMt() {
+        getMt() {
             if (this.mt == null) {
                 this.mt = [];
             }
             return this.mt;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getCorrFact() {
+        getCorrFact() {
             if (this.corrFact == null) {
                 this.corrFact = [];
             }
             return this.corrFact;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Mtbur = class Mtbur {
-mt;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        mt;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getMt() {
+        getMt() {
             if (this.mt == null) {
                 this.mt = [];
             }
             return this.mt;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Mttr = class Mttr {
-mt;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        mt;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getMt() {
+        getMt() {
             if (this.mt == null) {
                 this.mt = [];
             }
             return this.mt;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Rplt = class Rplt {
-time;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        time;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getTime() {
+        getTime() {
             if (this.time == null) {
                 this.time = [];
             }
             return this.time;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     SmInt = class SmInt {
-_int;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        _int;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getInt() {
+        getInt() {
             if (this._int == null) {
-                _int = [];
+                this._int = [];
             }
             return this._int;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     Spt = class Spt {
-time;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        time;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getTime() {
+        getTime() {
             if (this.time == null) {
                 this.time = [];
             }
             return this.time;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
     SrvLife = class SrvLife {
-life;
-kpiMthd;
-kpiStatus;
-kpiPctl;
-orgInfos;
-docs;
-rmks;
-applic;
+        life;
+        kpiMthd;
+        kpiStatus;
+        kpiPctl;
+        orgInfos;
+        docs;
+        rmks;
+        applic;
 
- getLife() {
+        getLife() {
             if (this.life == null) {
                 this.life = [];
             }
             return this.life;
         }
 
- getKpiMthd() {
-            return kpiMthd;
+        getKpiMthd() {
+            return this.kpiMthd;
         }
 
- setKpiMthd( value) {
+        setKpiMthd(value) {
             this.kpiMthd = value;
         }
 
- getKpiStatus() {
-            return kpiStatus;
+        getKpiStatus() {
+            return this.kpiStatus;
         }
 
- setKpiStatus( value) {
+        setKpiStatus(value) {
             this.kpiStatus = value;
         }
 
- getKpiPctl() {
-            return kpiPctl;
+        getKpiPctl() {
+            return this.kpiPctl;
         }
 
- setKpiPctl( value) {
+        setKpiPctl(value) {
             this.kpiPctl = value;
         }
 
- getOrgInfos() {
-            return orgInfos;
+        getOrgInfos() {
+            return this.orgInfos;
         }
 
- setOrgInfos( value) {
+        setOrgInfos(value) {
             this.orgInfos = value;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ZoneElementRevision");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ZoneElementRevision");
+    }
 };

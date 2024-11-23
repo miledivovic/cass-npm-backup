@@ -1,31 +1,32 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class LearningObjectivePerformanceStandard extends EcRemoteLinkedData {
-cond;
-action;
-std;
+    cond;
+    action;
+    std;
 
- getCond() {
+    getCond() {
         if (this.cond == null) {
             this.cond = [];
         }
         return this.cond;
     }
 
- getAction() {
+    getAction() {
         if (this.action == null) {
             this.action = [];
         }
         return this.action;
     }
 
- getStd() {
+    getStd() {
         if (this.std == null) {
             this.std = [];
         }
         return this.std;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "LearningObjectivePerformanceStandard");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "LearningObjectivePerformanceStandard");
+    }
 };

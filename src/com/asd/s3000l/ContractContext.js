@@ -1,38 +1,40 @@
 
-module.exports = class ContractContext extends EcRemoteLinkedData {
-projRef;
-uid;
-crud;
 
- getProjRef() {
-        return projRef;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ContractContext extends EcRemoteLinkedData {
+    projRef;
+    uid;
+    crud;
+
+    getProjRef() {
+        return this.projRef;
     }
 
- setProjRef( value) {
+    setProjRef(value) {
         this.projRef = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ContractContext");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ContractContext");
+    }
 };

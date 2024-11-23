@@ -171,7 +171,7 @@ module.exports = class CSVImport {
 					if (
 						(uniquify == undefined ||
 							uniquify == null ||
-							uniquify == false) &&
+							!uniquify) &&
 						idIndex != null &&
 						idIndex >= 0
 					) {
@@ -182,14 +182,11 @@ module.exports = class CSVImport {
 							serverUrl,
 							repo
 						);
-					} else {
-						if (
-							repo == null ||
-							repo.selectedServer.indexOf(serverUrl) != -1
-						)
-							competency.generateId(serverUrl);
-						else competency.generateShortId(serverUrl);
-					}
+					} else if (repo == null || repo.selectedServer.indexOf(serverUrl) != -1)
+						competency.generateId(serverUrl);
+					else 
+						competency.generateShortId(serverUrl);
+					
 					if (owner != undefined && owner != null)
 						competency.addOwner(owner.ppk.toPk());
 					let shortId = null;
@@ -237,19 +234,16 @@ module.exports = class CSVImport {
 							idx == idIndex
 						) {
 							continue;
+						} else if ((name === 'owner' || name === 'reader') && !EcArray.isArray(tabularData[i][idx])) {
+							competency[colNames[idx]] = [tabularData[i][idx]];
 						} else {
-							if ((name === 'owner' || name === 'reader') && !EcArray.isArray(tabularData[i][idx])) {
-								competency[colNames[idx]] = [tabularData[i][idx]];
-							} else {
-								competency[colNames[idx]] = tabularData[i][idx];
-							}
-						}
+							competency[colNames[idx]] = tabularData[i][idx];
+						}						
 					}
 					competencies.push(competency);
 				}
 				CSVImport.saved = 0;
-				for (let i = 0; i < competencies.length; i++) {
-					let comp = competencies[i];
+				for (let comp of competencies) {
 					CSVImport.saveCompetency(
 						comp,
 						incremental,
@@ -399,8 +393,7 @@ module.exports = class CSVImport {
 					relations.push(alignment);
 				}
 				CSVImport.saved = 0;
-				for (let i = 0; i < relations.length; i++) {
-					let relation = relations[i];
+				for (let relation of relations) {
 					CSVImport.saveRelation(
 						relation,
 						incremental,
@@ -433,7 +426,7 @@ module.exports = class CSVImport {
 		Task.asyncImmediate(function(o) {
 			let keepGoing = o;
 			relation.save(
-				function(results) {
+				function() {
 					CSVImport.saved++;
 					if (CSVImport.saved % CSVImport.INCREMENTAL_STEP == 0) {
 						if (CSVImport.progressObject == null)
@@ -447,13 +440,13 @@ module.exports = class CSVImport {
 					}
 					keepGoing();
 				},
-				function(results) {
+				function() {
 					failure("Failed to save competency or relation");
-					for (let j = 0; j < competencies.length; j++) {
-						competencies[j]._delete(null, null, repo, eim);
+					for (let competency of competencies) {
+						competency._delete(null, null, repo, eim);
 					}
-					for (let j = 0; j < relations.length; j++) {
-						relations[j]._delete(null, null, repo, eim);
+					for (let relation of relations) {
+						relation._delete(null, null, repo, eim);
 					}
 					keepGoing();
 				},
@@ -677,8 +670,7 @@ module.exports = class CSVImport {
 					objects.push(data);
 				}
 				CSVImport.saved = 0;
-				for (let i = 0; i < objects.length; i++) {
-					let data = objects[i];
+				for (let data of objects) {
 					CSVImport.transformReferences(data);
 					CSVImport.saveTransformedData(
 						data,

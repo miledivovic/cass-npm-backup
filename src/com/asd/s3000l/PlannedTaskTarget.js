@@ -1,102 +1,103 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class PlannedTaskTarget extends EcRemoteLinkedData {
-taskFreq;
-taskRef;
-maintLevel;
-orgInfos;
-docs;
-rmks;
-applic;
-timeLimits;
-uid;
-crud;
+    taskFreq;
+    taskRef;
+    maintLevel;
+    orgInfos;
+    docs;
+    rmks;
+    applic;
+    timeLimits;
+    uid;
+    crud;
 
- getTaskFreq() {
+    getTaskFreq() {
         if (this.taskFreq == null) {
             this.taskFreq = [];
         }
         return this.taskFreq;
     }
 
- getTaskRef() {
-        return taskRef;
+    getTaskRef() {
+        return this.taskRef;
     }
 
- setTaskRef( value) {
+    setTaskRef(value) {
         this.taskRef = value;
     }
 
- getMaintLevel() {
+    getMaintLevel() {
         if (this.maintLevel == null) {
             this.maintLevel = [];
         }
         return this.maintLevel;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getTimeLimits() {
-        return timeLimits;
+    getTimeLimits() {
+        return this.timeLimits;
     }
 
- setTimeLimits(value) {
+    setTimeLimits(value) {
         this.timeLimits = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     TimeLimits = class TimeLimits {
-timeLimitNonAbstractClasses;
+        timeLimitNonAbstractClasses;
 
- getTimeLimitNonAbstractClasses() {
+        getTimeLimitNonAbstractClasses() {
             if (this.timeLimitNonAbstractClasses == null) {
                 this.timeLimitNonAbstractClasses = [];
             }
@@ -104,7 +105,7 @@ timeLimitNonAbstractClasses;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "PlannedTaskTarget");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "PlannedTaskTarget");
+    }
 };

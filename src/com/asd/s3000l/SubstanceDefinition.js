@@ -1,117 +1,118 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubstanceDefinition extends EcRemoteLinkedData {
-subsId;
-name;
-subsDescr;
-usageCat;
-riskDescr;
-riskFactor;
-recDate;
-orgInfos;
-docs;
-rmks;
-uid;
-crud;
+    subsId;
+    name;
+    subsDescr;
+    usageCat;
+    riskDescr;
+    riskFactor;
+    recDate;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getSubsId() {
+    getSubsId() {
         if (this.subsId == null) {
             this.subsId = [];
         }
         return this.subsId;
     }
 
- getName() {
-        return name;
+    getName() {
+        return this.name;
     }
 
- setName( value) {
+    setName(value) {
         this.name = value;
     }
 
- getSubsDescr() {
-        return subsDescr;
+    getSubsDescr() {
+        return this.subsDescr;
     }
 
- setSubsDescr( value) {
+    setSubsDescr(value) {
         this.subsDescr = value;
     }
 
- getUsageCat() {
-        return usageCat;
+    getUsageCat() {
+        return this.usageCat;
     }
 
- setUsageCat( value) {
+    setUsageCat(value) {
         this.usageCat = value;
     }
 
- getRiskDescr() {
+    getRiskDescr() {
         if (this.riskDescr == null) {
             this.riskDescr = [];
         }
         return this.riskDescr;
     }
 
- getRiskFactor() {
-        return riskFactor;
+    getRiskFactor() {
+        return this.riskFactor;
     }
 
- setRiskFactor( value) {
+    setRiskFactor(value) {
         this.riskFactor = value;
     }
 
- getRecDate() {
-        return recDate;
+    getRecDate() {
+        return this.recDate;
     }
 
- setRecDate( value) {
+    setRecDate(value) {
         this.recDate = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubstanceDefinition");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubstanceDefinition");
+    }
 };

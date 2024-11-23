@@ -1,107 +1,108 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class KnowledgeSkillAttitudeGapDefinitionIteration extends EcRemoteLinkedData {
-gapIterId;
-gapDescr;
-evalCompDef;
-taskGapSource;
-gapLO;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    gapIterId;
+    gapDescr;
+    evalCompDef;
+    taskGapSource;
+    gapLO;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getGapIterId() {
-        return gapIterId;
+    getGapIterId() {
+        return this.gapIterId;
     }
 
- setGapIterId( value) {
+    setGapIterId(value) {
         this.gapIterId = value;
     }
 
- getGapDescr() {
+    getGapDescr() {
         if (this.gapDescr == null) {
             this.gapDescr = [];
         }
         return this.gapDescr;
     }
 
- getEvalCompDef() {
-        return evalCompDef;
+    getEvalCompDef() {
+        return this.evalCompDef;
     }
 
- setEvalCompDef( value) {
+    setEvalCompDef(value) {
         this.evalCompDef = value;
     }
 
- getTaskGapSource() {
+    getTaskGapSource() {
         if (this.taskGapSource == null) {
             this.taskGapSource = [];
         }
         return this.taskGapSource;
     }
 
- getGapLO() {
+    getGapLO() {
         if (this.gapLO == null) {
             this.gapLO = [];
         }
         return this.gapLO;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "KnowledgeSkillAttitudeGapDefinitionIteration");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "KnowledgeSkillAttitudeGapDefinitionIteration");
+    }
 };

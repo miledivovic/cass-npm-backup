@@ -275,10 +275,10 @@ module.exports = class EcRepository {
 	 */
 	static async get(url, success, failure, repo, eim) {
 		if (url == null) {
-			throw "URL is null. Cannot EcRepository.get";
+			throw new Error("URL is null. Cannot EcRepository.get");
 		}
 		if (url.toLowerCase().indexOf("http") != 0) {
-			throw "URL does not begin with http. Cannot EcRepository.get";
+			throw new Error("URL does not begin with http. Cannot EcRepository.get " + url);
 		}
 
 		if (eim === undefined || eim == null)
@@ -425,11 +425,11 @@ module.exports = class EcRepository {
 			}
 		}).finally(
 			(result) => {
-				delete EcRepository.fetching[url + eim.eimId];
+				delete EcRepository.fetching[originalUrl + eim.eimId];
 				return result;
 			}
 		);
-		EcRepository.fetching[url + eim.eimId] = p;
+		EcRepository.fetching[originalUrl + eim.eimId] = p;
 		return p;
 	}
 	static setOffset = function (url) {
@@ -744,12 +744,20 @@ module.exports = class EcRepository {
 			delete this.cache[data.id];
 			delete this.cache[data.shortId()];
 			if (repo != null)
+			{
 				delete this.cache[
 					EcRemoteLinkedData.veryShortId(
 						repo.selectedServer,
 						data.getGuid()
 					)
 				];
+				delete this.cache[
+					EcRemoteLinkedData.veryShortId(
+						repo.selectedServer,
+						EcCrypto.md5(data.shortId())
+					)
+				];
+			}
 		}
 		if (data.invalid()) {
 			if (failure != null) failure("Data is malformed.");
@@ -999,6 +1007,18 @@ module.exports = class EcRepository {
 			if (EcRepository.caching) {
 				delete EcRepository.cache[d.id];
 				delete EcRepository.cache[d.shortId()];
+				delete EcRepository.cache[
+					EcRemoteLinkedData.veryShortId(
+						this.selectedServer,
+						d.getGuid()
+					)
+				];
+				delete EcRepository.cache[
+					EcRemoteLinkedData.veryShortId(
+						this.selectedServer,
+						EcCrypto.md5(d.shortId())
+					)
+				];
 			}
 			if (d.owner != null)
 				for (let j = 0; j < d.owner.length; j++)
@@ -1124,11 +1144,11 @@ module.exports = class EcRepository {
 
 		let fd = new FormData();
 		fd.append("data", JSON.stringify(urls));
-		if (EcRepository.cachingL2 && skipIds != true) {
+		if (EcRepository.cachingL2 && !skipIds) {
 			fd.append("ids", "true");
 		}
 		let p = new Promise((resolve, reject) => resolve());
-		if (EcRepository.unsigned == false)
+		if (!EcRepository.unsigned)
 			p = p.then(() => {
 				return eim.signatureSheet(
 					300000 + this.timeOffset,
@@ -1153,7 +1173,10 @@ module.exports = class EcRepository {
 						if (EcRemoteLinkedData.trimVersionFromUrl(result) == result) continue;
 						let cached = await EcRepository.cacheGet(result);
 						if (cached != null) {
-							let md5Id = this.selectedServer + "data/" + EcCrypto.md5(cached.shortId());
+							let md5Id = EcRemoteLinkedData.veryShortId(
+								this.selectedServer,
+								EcCrypto.md5(cached.shortId())
+							);
 							let shortId = cached.shortId();
 							let veryShortId = EcRemoteLinkedData.veryShortId(
 								this.selectedServer,
@@ -1166,29 +1189,40 @@ module.exports = class EcRepository {
 							EcRepository.cacheBacking[cached.id] = cached;
 						}
 					}
-					return me.precache.call(me, results, success, failure, eim, true, versionedUrls);
+					let objResults = await me.precache.call(me, results, success, failure, eim, true, versionedUrls);
+					if (objResults.length == results.length) 
+						return objResults;
+					//Second attempt, in case the indexed object URL doesn't match the permanent URL.
+					let missingUris = results
+						.filter(r => originals.indexOf(r) == -1) //Filter out URLs that were originally longIds.
+						.filter(r => !objResults.some(rr => r.indexOf(rr.shortId()) != -1)) //Filter out URLs that were found in the first pass.
+						.map(u => EcRemoteLinkedData.trimVersionFromUrl(u)); //NOSONAR - Nesting functions to perform filters is normal.
+					if (missingUris.length > 0)
+						objResults.push(...await me.precache.call(me, missingUris, null, null, eim, true));
+					return objResults;
 				} 
 				for (let i = 0; i < results.length; i++) {
 					let d = new EcRemoteLinkedData(null, null);
 					d.copyFrom(results[i]);
 					results[i] = d;
-					if (EcRepository.caching) {
-						let timestamp = d.getTimestamp();
-						let md5Id = this.selectedServer + "data/" + EcCrypto.md5(d.shortId());
-						let shortId = d.shortId();
-						let veryShortId = EcRemoteLinkedData.veryShortId(
-							this.selectedServer,
-							d.getGuid()
-						);
+					let timestamp = d.getTimestamp();
+					let md5Id = EcRemoteLinkedData.veryShortId(
+						this.selectedServer,
+						EcCrypto.md5(d.shortId())
+					);
+					let shortId = d.shortId();
+					let veryShortId = EcRemoteLinkedData.veryShortId(
+						this.selectedServer,
+						d.getGuid()
+					);
 					// Do not cache requested versioned urls as anything other than the versioned url
 					if (!versionedUrls[`${md5Id}/${timestamp}`] && !versionedUrls[d.id] && !versionedUrls[`${veryShortId}/${timestamp}`]) {
-							if (!d.shortId().startsWith(this.selectedServer))
-								EcRepository.cache[md5Id] = d;
-							EcRepository.cache[shortId] = d; 
-							EcRepository.cache[veryShortId] = d;
-						}
-						EcRepository.cache[d.id] = d;
+						if (!d.shortId().startsWith(this.selectedServer))
+							EcRepository.cache[md5Id] = d;
+						EcRepository.cache[shortId] = d; 
+						EcRepository.cache[veryShortId] = d;
 					}
+					EcRepository.cache[d.id] = d;
 				}
 				return cassPromisify(new Promise((resolve, reject) => { resolve(Promise.all(originals.map(url => EcRepository.cacheGet(url))).then(c => c.filter(x => x))) }), success, failure);
 			});
@@ -1336,9 +1370,16 @@ module.exports = class EcRepository {
 							eachSuccess(each);
 						}
 					}
+					if (objResults.length == results.length)
+						return objResults;
+					//Second attempt, in case the indexed object URL doesn't match the permanent URL.
+					let missingUris = results
+						.filter(r=>!objResults.some(rr=>r.indexOf(rr.shortId()) != -1))
+						.map(u=>EcRemoteLinkedData.trimVersionFromUrl(u)); //NOSONAR - Nesting functions to perform filters is normal.
+					if (missingUris.length > 0)
+						objResults.push(...await me.precache.call(me,missingUris,null,null,eim,true));
 					return objResults;
-				}
-				else {
+				} else {
 					results = results
 						.map((result) => {
 							let d = new EcRemoteLinkedData(null, null);

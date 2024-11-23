@@ -1,85 +1,86 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class RandomSubtaskCircuitBreakerSettings extends EcRemoteLinkedData {
-cb;
-precCb;
-applic;
-uid;
-crud;
+    cb;
+    precCb;
+    applic;
+    uid;
+    crud;
 
- getCb() {
+    getCb() {
         if (this.cb == null) {
             this.cb = [];
         }
         return this.cb;
     }
 
- getPrecCb() {
-        return precCb;
+    getPrecCb() {
+        return this.precCb;
     }
 
- setPrecCb( value) {
+    setPrecCb(value) {
         this.precCb = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     Cb = class Cb {
-cbState;
-cbRef;
-rmks;
+        cbState;
+        cbRef;
+        rmks;
 
- getCbState() {
-            return cbState;
+        getCbState() {
+            return this.cbState;
         }
 
- setCbState( value) {
+        setCbState(value) {
             this.cbState = value;
         }
 
- getCbRef() {
-            return cbRef;
+        getCbRef() {
+            return this.cbRef;
         }
 
- setCbRef( value) {
+        setCbRef(value) {
             this.cbRef = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "RandomSubtaskCircuitBreakerSettings");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "RandomSubtaskCircuitBreakerSettings");
+    }
 };

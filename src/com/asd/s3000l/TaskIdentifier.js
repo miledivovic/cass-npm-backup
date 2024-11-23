@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskIdentifier extends EcRemoteLinkedData {
-clazz;
-setBy;
+    clazz;
+    setBy;
 
- getClazz() {
-        return clazz;
+    getClazz() {
+        return this.clazz;
     }
 
- setClazz( value) {
+    setClazz(value) {
         this.clazz = value;
     }
 
- getSetBy() {
-        return setBy;
+    getSetBy() {
+        return this.setBy;
     }
 
- setSetBy( value) {
+    setSetBy(value) {
         this.setBy = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskIdentifier");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskIdentifier");
+    }
 };

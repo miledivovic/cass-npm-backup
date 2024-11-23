@@ -1,133 +1,134 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class FailureModeDetectionRate extends EcRemoteLinkedData {
-date;
-vdtm;
-unit;
-value;
-nomVal;
-lowOff;
-uppOff;
-lowVal;
-uppVal;
-txt;
-applic;
-docs;
-orgInfos;
-rmks;
+    date;
+    vdtm;
+    unit;
+    value;
+    nomVal;
+    lowOff;
+    uppOff;
+    lowVal;
+    uppVal;
+    txt;
+    applic;
+    docs;
+    orgInfos;
+    rmks;
 
- getDate() {
-        return date;
+    getDate() {
+        return this.date;
     }
 
- setDate( value) {
+    setDate(value) {
         this.date = value;
     }
 
- getVdtm() {
-        return vdtm;
+    getVdtm() {
+        return this.vdtm;
     }
 
- setVdtm( value) {
+    setVdtm(value) {
         this.vdtm = value;
     }
 
- getUnit() {
-        return unit;
+    getUnit() {
+        return this.unit;
     }
 
- setUnit( value) {
+    setUnit(value) {
         this.unit = value;
     }
 
- getValue() {
-        return value;
+    getValue() {
+        return this.value;
     }
 
- setValue( value) {
+    setValue(value) {
         this.value = value;
     }
 
- getNomVal() {
-        return nomVal;
+    getNomVal() {
+        return this.nomVal;
     }
 
- setNomVal( value) {
+    setNomVal(value) {
         this.nomVal = value;
     }
 
- getLowOff() {
-        return lowOff;
+    getLowOff() {
+        return this.lowOff;
     }
 
- setLowOff( value) {
+    setLowOff(value) {
         this.lowOff = value;
     }
 
- getUppOff() {
-        return uppOff;
+    getUppOff() {
+        return this.uppOff;
     }
 
- setUppOff( value) {
+    setUppOff(value) {
         this.uppOff = value;
     }
 
- getLowVal() {
-        return lowVal;
+    getLowVal() {
+        return this.lowVal;
     }
 
- setLowVal( value) {
+    setLowVal(value) {
         this.lowVal = value;
     }
 
- getUppVal() {
-        return uppVal;
+    getUppVal() {
+        return this.uppVal;
     }
 
- setUppVal( value) {
+    setUppVal(value) {
         this.uppVal = value;
     }
 
- getTxt() {
-        return txt;
+    getTxt() {
+        return this.txt;
     }
 
- setTxt( value) {
+    setTxt(value) {
         this.txt = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "FailureModeDetectionRate");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "FailureModeDetectionRate");
+    }
 };

@@ -1,47 +1,48 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskCircuitBreakerSettingsTimeline extends EcRemoteLinkedData {
-cbSettingRef;
-applic;
-uid;
-crud;
+    cbSettingRef;
+    applic;
+    uid;
+    crud;
 
- getCbSettingRef() {
-        return cbSettingRef;
+    getCbSettingRef() {
+        return this.cbSettingRef;
     }
 
- setCbSettingRef( value) {
+    setCbSettingRef(value) {
         this.cbSettingRef = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskCircuitBreakerSettingsTimeline");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskCircuitBreakerSettingsTimeline");
+    }
 };

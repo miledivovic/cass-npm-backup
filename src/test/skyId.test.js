@@ -14,10 +14,13 @@ describe('SkyID Adapter', function() {
     let newPassword = EcAes.newSecret(6);
     let name = 'Test User';
     let ident = null;
+    if ((typeof Cypress !== 'undefined') && Cypress != null && Cypress.env != null)
+        process.env.CASS_LOOPBACK = Cypress.env('CASS_LOOPBACK');
+    console.log(process.env.CASS_LOOPBACK);
 
     it('create user', async () => {
         let rld = new EcRemoteIdentityManager();
-        rld.server = 'http://localhost/api/';
+        rld.server = process.env.CASS_LOOPBACK || 'http://localhost/api/';
         await rld.configureFromServer(null, null);
         rld.startLogin(username, password);
         let im = new EcIdentityManager();
@@ -32,7 +35,7 @@ describe('SkyID Adapter', function() {
 
     it('change password', async () => {
         let rld = new EcRemoteIdentityManager();
-        rld.server = 'http://localhost/api/';
+        rld.server = process.env.CASS_LOOPBACK || 'http://localhost/api/';
         await rld.configureFromServer(null, null);
         rld.startLogin(username, password);
         let im = await rld.fetch();
@@ -43,7 +46,7 @@ describe('SkyID Adapter', function() {
 
     it('load user', async () => {
         let rld = new EcRemoteIdentityManager();
-        rld.server = 'http://localhost/api/';
+        rld.server = process.env.CASS_LOOPBACK || 'http://localhost/api/';
         await rld.configureFromServer(null, null);
         rld.startLogin(username, newPassword);
         let im = await rld.fetch();

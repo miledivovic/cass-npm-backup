@@ -14,6 +14,7 @@ const EcEncryptedValue = require('../org/cassproject/ebac/repository/EcEncrypted
 const EcIdentityManager = require('../org/cassproject/ebac/identity/EcIdentityManager.js');
 const EcIdentity = require('../org/cassproject/ebac/identity/EcIdentity.js');
 const EcPpk = require('../com/eduworks/ec/crypto/EcPpk.js');
+const EcLinkedData = require('../org/json/ld/EcLinkedData.js');
 
 let hrtime = function () {
     try {

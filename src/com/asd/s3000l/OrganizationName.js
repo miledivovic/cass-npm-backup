@@ -1,43 +1,44 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class OrganizationName extends EcRemoteLinkedData {
-descr;
-lang;
-date;
-applic;
+    descr;
+    lang;
+    date;
+    applic;
 
- getDescr() {
-        return descr;
+    getDescr() {
+        return this.descr;
     }
 
- setDescr( value) {
+    setDescr(value) {
         this.descr = value;
     }
 
- getLang() {
-        return lang;
+    getLang() {
+        return this.lang;
     }
 
- setLang( value) {
+    setLang(value) {
         this.lang = value;
     }
 
- getDate() {
-        return date;
+    getDate() {
+        return this.date;
     }
 
- setDate( value) {
+    setDate(value) {
         this.date = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "OrganizationName");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "OrganizationName");
+    }
 };

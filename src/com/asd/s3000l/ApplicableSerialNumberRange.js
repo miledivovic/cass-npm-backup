@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class ApplicableSerialNumberRange extends EcRemoteLinkedData {
-lowBound;
-uppBound;
+    lowBound;
+    uppBound;
 
- getLowBound() {
-        return lowBound;
+    getLowBound() {
+        return this.lowBound;
     }
 
- setLowBound( value) {
+    setLowBound(value) {
         this.lowBound = value;
     }
 
- getUppBound() {
-        return uppBound;
+    getUppBound() {
+        return this.uppBound;
     }
 
- setUppBound( value) {
+    setUppBound(value) {
         this.uppBound = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ApplicableSerialNumberRange");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ApplicableSerialNumberRange");
+    }
 };

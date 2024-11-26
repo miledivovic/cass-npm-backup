@@ -1,56 +1,58 @@
 
-module.exports = class ExternalDocumentIssue extends EcRemoteLinkedData {
-docIssId;
-issDate;
-rmks;
-uid;
-crud;
 
- getDocIssId() {
-        return docIssId;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ExternalDocumentIssue extends EcRemoteLinkedData {
+    docIssId;
+    issDate;
+    rmks;
+    uid;
+    crud;
+
+    getDocIssId() {
+        return this.docIssId;
     }
 
- setDocIssId( value) {
+    setDocIssId(value) {
         this.docIssId = value;
     }
 
- getIssDate() {
-        return issDate;
+    getIssDate() {
+        return this.issDate;
     }
 
- setIssDate( value) {
+    setIssDate(value) {
         this.issDate = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ExternalDocumentIssue");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ExternalDocumentIssue");
+    }
 };

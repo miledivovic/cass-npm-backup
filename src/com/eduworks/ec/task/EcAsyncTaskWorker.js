@@ -52,9 +52,7 @@ module.exports = class EcAsyncTaskWorker {
 				that.invoke();
 			}
 			if (
-				that.currentTask != undefined &&
-				that.currentTask != null &&
-				that.currentTask.getIsComplete()
+				that.currentTask?.getIsComplete()
 			) {
 				that.currentTask = that.assignedList.shift();
 			}

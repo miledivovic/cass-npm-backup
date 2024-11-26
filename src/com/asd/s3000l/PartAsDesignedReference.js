@@ -1,34 +1,35 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class PartAsDesignedReference extends EcRemoteLinkedData {
-partId;
-uidRef;
-uriRef;
+    partId;
+    uidRef;
+    uriRef;
 
- getPartId() {
-        return partId;
+    getPartId() {
+        return this.partId;
     }
 
- setPartId( value) {
+    setPartId(value) {
         this.partId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
- getUriRef() {
-        return uriRef;
+    getUriRef() {
+        return this.uriRef;
     }
 
- setUriRef( value) {
+    setUriRef(value) {
         this.uriRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedReference");
+    }
 };

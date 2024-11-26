@@ -1,18 +1,19 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskRequirementAuthority extends EcRemoteLinkedData {
 
-orgRef;
+    orgRef;
 
- getOrgRef() {
-        return orgRef;
+    getOrgRef() {
+        return this.orgRef;
     }
 
- setOrgRef( value) {
+    setOrgRef(value) {
         this.orgRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementAuthority");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskRequirementAuthority");
+    }
 
 }

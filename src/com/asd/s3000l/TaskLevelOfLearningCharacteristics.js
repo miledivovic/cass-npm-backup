@@ -1,40 +1,41 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskLevelOfLearningCharacteristics extends EcRemoteLinkedData {
-knowlLev;
-lolRtnle;
-iterRtnle;
-iterDate;
+    knowlLev;
+    lolRtnle;
+    iterRtnle;
+    iterDate;
 
- getKnowlLev() {
+    getKnowlLev() {
         if (this.knowlLev == null) {
             this.knowlLev = [];
         }
         return this.knowlLev;
     }
 
- getLolRtnle() {
+    getLolRtnle() {
         if (this.lolRtnle == null) {
             this.lolRtnle = [];
         }
         return this.lolRtnle;
     }
 
- getIterRtnle() {
+    getIterRtnle() {
         if (this.iterRtnle == null) {
             this.iterRtnle = [];
         }
         return this.iterRtnle;
     }
 
- getIterDate() {
-        return iterDate;
+    getIterDate() {
+        return this.iterDate;
     }
 
- setIterDate( value) {
+    setIterDate(value) {
         this.iterDate = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskLevelOfLearningCharacteristics");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskLevelOfLearningCharacteristics");
+    }
 };

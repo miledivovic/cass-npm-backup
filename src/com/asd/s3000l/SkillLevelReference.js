@@ -1,43 +1,44 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SkillLevelReference extends EcRemoteLinkedData {
-tradeName;
-skillLevName;
-uidRef;
-uriRef;
+    tradeName;
+    skillLevName;
+    uidRef;
+    uriRef;
 
- getTradeName() {
-        return tradeName;
+    getTradeName() {
+        return this.tradeName;
     }
 
- setTradeName( value) {
+    setTradeName(value) {
         this.tradeName = value;
     }
 
- getSkillLevName() {
-        return skillLevName;
+    getSkillLevName() {
+        return this.skillLevName;
     }
 
- setSkillLevName( value) {
+    setSkillLevName(value) {
         this.skillLevName = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
- getUriRef() {
-        return uriRef;
+    getUriRef() {
+        return this.uriRef;
     }
 
- setUriRef( value) {
+    setUriRef(value) {
         this.uriRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SkillLevelReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SkillLevelReference");
+    }
 };

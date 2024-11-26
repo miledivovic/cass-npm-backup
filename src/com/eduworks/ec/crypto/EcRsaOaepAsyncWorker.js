@@ -4,12 +4,12 @@ if (global.Worker === undefined || global.Worker == null)
 let PromiseWorker = require("promise-worker");
 const path = require('path');
 const url = require('url');
-let EcCrypto = require("./EcCrypto.js");
-let forge = require("node-forge");
-let cassPromisify = require("../promises/helpers.js").cassPromisify;
-let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
+const EcCrypto = require("./EcCrypto.js");
+const forge = require("node-forge");
+const cassPromisify = require("../promises/helpers.js").cassPromisify;
+const cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
 require("../../../../org/cassproject/general/AuditLogger.js");
-let EcRsaOaep = require("./EcRsaOaep.js")
+const EcRsaOaep = require("./EcRsaOaep.js")
 
 /**
  *  Asynchronous implementation of {{#crossLink
@@ -22,13 +22,10 @@ let EcRsaOaep = require("./EcRsaOaep.js")
 module.exports = class EcRsaOaepAsyncWorker {
 	static rotator = 0;
 	static w = null;
-	static teardown(){
+	static teardown() {
 		if (this.w != null)
-			for (let i = 0;i < this.w.length;i++)
-			{
-				let worker = this.w[i];
+			for (let worker of this.w)
 				worker._worker.terminate();
-			}
 		this.w = null;
 	}
 	static initWorker() {
@@ -57,7 +54,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 				wkr = new Worker(url.pathToFileURL(path.resolve(__dirname, 'forgeAsync.js')));
 			} catch (e) {
 				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
-				}
+			}
 		if (wkr == null)
 			try {
 				wkr = new Worker(path.resolve(__dirname, 'forgeAsync.js'));
@@ -70,10 +67,10 @@ module.exports = class EcRsaOaepAsyncWorker {
 						me.w[index] = (new PromiseWorker(wkr));
 					}
 				}
-		} catch (e) {
-			global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
-			// Eat quietly.
-		}
+			} catch (e) {
+				global.auditLogger.report(global.auditLogger.LogCategory.SYSTEM, global.auditLogger.Severity.ERROR, "EcRsaOaepAsyncWorker", e);
+				// Eat quietly.
+			}
 		if (wkr != null)
 			this.w[index] = (new PromiseWorker(wkr));
 	}
@@ -93,11 +90,8 @@ module.exports = class EcRsaOaepAsyncWorker {
 	static encrypt(pk, plaintext, success, failure) {
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null || this.w[this.rotator] == null) {
-				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaepAsync.encrypt(pk, plaintext));
-				});
-				return cassPromisify(p, success, failure);
+			if (this.w?.[this.rotator] == null) {
+				return cassPromisify(EcRsaOaepAsync.encrypt(pk, plaintext), success, failure);
 			}
 		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
@@ -133,11 +127,8 @@ module.exports = class EcRsaOaepAsyncWorker {
 		}
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null || this.w[this.rotator] == null) {
-				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaepAsync.decrypt(ppk, ciphertext));
-				});
-				return cassPromisify(p, success, failure);
+			if (this.w?.[this.rotator] == null) {
+				return cassPromisify(EcRsaOaepAsync.decrypt(ppk, ciphertext), success, failure);
 			}
 		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
@@ -146,15 +137,14 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["text"] = ciphertext;
 		o["cmd"] = "decryptRsaOaep";
 		o["origin"] = "cassproject";
-		let p = this.w[worker].postMessage(o, 'cassproject'); 
+		let p = this.w[worker].postMessage(o, 'cassproject');
 		p = p.then(function (decrypted) {
 			return forge.util.decodeUtf8(decrypted);
 		});
 		if (EcCrypto.caching)
 			p = p.then(function (decrypted) {
-				return EcCrypto.decryptionCache[
-					ppk.toPk().fingerprint() + ciphertext
-				] = decrypted;
+				EcCrypto.decryptionCache[ppk.toPk().fingerprint() + ciphertext] = decrypted;
+				return decrypted;
 			});
 		return cassPromisify(p, success, failure);
 	}
@@ -174,11 +164,8 @@ module.exports = class EcRsaOaepAsyncWorker {
 	static sign(ppk, text, success, failure) {
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null || this.w[this.rotator] == null) {
-				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaepAsync.sign(ppk, text));
-				});
-				return cassPromisify(p, success, failure);
+			if (this.w?.[this.rotator] == null) {
+				return cassPromisify(EcRsaOaepAsync.sign(ppk, text), success, failure);
 			}
 		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
@@ -206,11 +193,8 @@ module.exports = class EcRsaOaepAsyncWorker {
 	static signSha256 = function (ppk, text, success, failure) {
 		this.initWorker();
 		if (!EcCrypto.testMode)
-			if (this.w == null || this.w[this.rotator] == null) {
-				let p = new Promise((resolve, reject) => {
-					resolve(EcRsaOaepAsync.signSha256(ppk, text));
-				});
-				return cassPromisify(p, success, failure);
+			if (this.w?.[this.rotator] == null) {
+				return cassPromisify(EcRsaOaepAsync.signSha256(ppk, text), success, failure);
 			}
 		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
@@ -219,7 +203,7 @@ module.exports = class EcRsaOaepAsyncWorker {
 		o["text"] = forge.util.encodeUtf8(text);
 		o["cmd"] = "signSha256RsaOaep";
 		o["origin"] = "cassproject";
-		let p = this.w[worker].postMessage(o,'cassproject');
+		let p = this.w[worker].postMessage(o, 'cassproject');
 		return cassPromisify(p, success, failure);
 	};
 	/**
@@ -238,11 +222,8 @@ module.exports = class EcRsaOaepAsyncWorker {
 	 */
 	static verify(pk, text, signature, success, failure) {
 		this.initWorker();
-		if (this.w == null || this.w[this.rotator] == null) {
-			let p = new Promise((resolve, reject) => {
-				resolve(EcRsaOaepAsync.verify(pk, text, signature));
-			});
-			return cassPromisify(p, success, failure);
+		if (this.w?.[this.rotator] == null) {
+			return cassPromisify(EcRsaOaepAsync.verify(pk, text, signature), success, failure);
 		}
 		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;
@@ -271,11 +252,8 @@ module.exports = class EcRsaOaepAsyncWorker {
 	 */
 	static verifySha256(pk, text, signature, success, failure) {
 		this.initWorker();
-		if (this.w == null || this.w[this.rotator] == null) {
-			let p = new Promise((resolve, reject) => {
-				resolve(EcRsaOaepAsync.verify(pk, text, signature));
-			});
-			return cassPromisify(p, success, failure);
+		if (this.w?.[this.rotator] == null) {
+			return cassPromisify(EcRsaOaepAsync.verify(pk, text, signature), success, failure);
 		}
 		let worker = this.rotator++;
 		this.rotator = this.rotator % 8;

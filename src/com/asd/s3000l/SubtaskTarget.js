@@ -1,47 +1,48 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskTarget extends EcRemoteLinkedData {
-beRef;
-partRef;
-uid;
-crud;
+    beRef;
+    partRef;
+    uid;
+    crud;
 
- getBeRef() {
-        return beRef;
+    getBeRef() {
+        return this.beRef;
     }
 
- setBeRef( value) {
+    setBeRef(value) {
         this.beRef = value;
     }
 
- getPartRef() {
-        return partRef;
+    getPartRef() {
+        return this.partRef;
     }
 
- setPartRef( value) {
+    setPartRef(value) {
         this.partRef = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTarget");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTarget");
+    }
 };

@@ -1,107 +1,108 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskTrainStepDefinition extends EcRemoteLinkedData {
-stepId;
-stepName;
-stepDescr;
-perfStd;
-orgInfos;
-docs;
-rmks;
-ksaReqs;
-uid;
-uri;
-crud;
+    stepId;
+    stepName;
+    stepDescr;
+    perfStd;
+    orgInfos;
+    docs;
+    rmks;
+    ksaReqs;
+    uid;
+    uri;
+    crud;
 
- getStepId() {
-        return stepId;
+    getStepId() {
+        return this.stepId;
     }
 
- setStepId( value) {
+    setStepId(value) {
         this.stepId = value;
     }
 
- getStepName() {
+    getStepName() {
         if (this.stepName == null) {
             this.stepName = [];
         }
         return this.stepName;
     }
 
- getStepDescr() {
+    getStepDescr() {
         if (this.stepDescr == null) {
             this.stepDescr = [];
         }
         return this.stepDescr;
     }
 
- getPerfStd() {
+    getPerfStd() {
         if (this.perfStd == null) {
             this.perfStd = [];
         }
         return this.perfStd;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getKsaReqs() {
-        return ksaReqs;
+    getKsaReqs() {
+        return this.ksaReqs;
     }
 
- setKsaReqs( value) {
+    setKsaReqs(value) {
         this.ksaReqs = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainStepDefinition");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskTrainStepDefinition");
+    }
 };

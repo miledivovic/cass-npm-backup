@@ -1,74 +1,75 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class OrganizationAssignment extends EcRemoteLinkedData {
-orgRole;
-orgRef;
-docs;
-rmks;
-applic;
-uid;
-crud;
+    orgRole;
+    orgRef;
+    docs;
+    rmks;
+    applic;
+    uid;
+    crud;
 
- getOrgRole() {
-        return orgRole;
+    getOrgRole() {
+        return this.orgRole;
     }
 
- setOrgRole( value) {
+    setOrgRole(value) {
         this.orgRole = value;
     }
 
- getOrgRef() {
-        return orgRef;
+    getOrgRef() {
+        return this.orgRef;
     }
 
- setOrgRef( value) {
+    setOrgRef(value) {
         this.orgRef = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "OrganizationAssignment");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "OrganizationAssignment");
+    }
 };

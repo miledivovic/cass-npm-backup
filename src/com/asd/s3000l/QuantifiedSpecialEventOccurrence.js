@@ -1,72 +1,73 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class QuantifiedSpecialEventOccurrence extends EcRemoteLinkedData {
-occRte;
-usagePhaseRef;
-docs;
-rmks;
-applic;
-uid;
-crud;
+    occRte;
+    usagePhaseRef;
+    docs;
+    rmks;
+    applic;
+    uid;
+    crud;
 
- getOccRte() {
+    getOccRte() {
         if (this.occRte == null) {
             this.occRte = [];
         }
         return this.occRte;
     }
 
- getUsagePhaseRef() {
+    getUsagePhaseRef() {
         if (this.usagePhaseRef == null) {
             this.usagePhaseRef = [];
         }
         return this.usagePhaseRef;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "QuantifiedSpecialEventOccurrence");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "QuantifiedSpecialEventOccurrence");
+    }
 };

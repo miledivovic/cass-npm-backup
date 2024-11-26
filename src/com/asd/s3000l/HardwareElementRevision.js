@@ -1,348 +1,349 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class HardwareElementRevision extends EcRemoteLinkedData {
-beRevId;
-status;
-msi;
-repl;
-rep;
-beRevDate;
-ssi;
-rly;
-rpy;
-funcFail;
-beRel;
-hwPart;
-lsaCand;
-candRtnl;
-maintCpt;
-maintSln;
-productServiceLife;
-scheduledMaintenanceInterval;
-maintenanceFreeOperatingPeriod;
-downTime;
-maintenanceManHoursPerOperatingHour;
-meanTimeBetweenUnscheduledRemoval;
-meanTimeToRepair;
-directMaintenanceCost;
-shopProcessingTime;
-failuresPerOperatingHour;
-replacementTime;
-lifeCycleCost;
-meanTimeBetweenFailure;
-failureRate;
-anlysActvty;
-taskReq;
-taskTargetNonAbstractClasses;
-docs;
-rmks;
-dmgAnlys;
-failModes;
-detectMnCaps;
-uid;
-crud;
+    beRevId;
+    status;
+    msi;
+    repl;
+    rep;
+    beRevDate;
+    ssi;
+    rly;
+    rpy;
+    funcFail;
+    beRel;
+    hwPart;
+    lsaCand;
+    candRtnl;
+    maintCpt;
+    maintSln;
+    productServiceLife;
+    scheduledMaintenanceInterval;
+    maintenanceFreeOperatingPeriod;
+    downTime;
+    maintenanceManHoursPerOperatingHour;
+    meanTimeBetweenUnscheduledRemoval;
+    meanTimeToRepair;
+    directMaintenanceCost;
+    shopProcessingTime;
+    failuresPerOperatingHour;
+    replacementTime;
+    lifeCycleCost;
+    meanTimeBetweenFailure;
+    failureRate;
+    anlysActvty;
+    taskReq;
+    taskTargetNonAbstractClasses;
+    docs;
+    rmks;
+    dmgAnlys;
+    failModes;
+    detectMnCaps;
+    uid;
+    crud;
 
- getBeRevId() {
-        return beRevId;
+    getBeRevId() {
+        return this.beRevId;
     }
 
- setBeRevId( value) {
+    setBeRevId(value) {
         this.beRevId = value;
     }
 
- getStatus() {
-        return status;
+    getStatus() {
+        return this.status;
     }
 
- setStatus( value) {
+    setStatus(value) {
         this.status = value;
     }
 
- getMsi() {
-        return msi;
+    getMsi() {
+        return this.msi;
     }
 
- setMsi( value) {
+    setMsi(value) {
         this.msi = value;
     }
 
- getRepl() {
-        return repl;
+    getRepl() {
+        return this.repl;
     }
 
- setRepl( value) {
+    setRepl(value) {
         this.repl = value;
     }
 
- getRep() {
-        return rep;
+    getRep() {
+        return this.rep;
     }
 
- setRep( value) {
+    setRep(value) {
         this.rep = value;
     }
 
- getBeRevDate() {
-        return beRevDate;
+    getBeRevDate() {
+        return this.beRevDate;
     }
 
- setBeRevDate( value) {
+    setBeRevDate(value) {
         this.beRevDate = value;
     }
 
- getSsi() {
-        return ssi;
+    getSsi() {
+        return this.ssi;
     }
 
- setSsi( value) {
+    setSsi(value) {
         this.ssi = value;
     }
 
- getRly() {
+    getRly() {
         if (this.rly == null) {
             this.rly = [];
         }
         return this.rly;
     }
 
- getRpy() {
+    getRpy() {
         if (this.rpy == null) {
             this.rpy = [];
         }
         return this.rpy;
     }
 
- getFuncFail() {
+    getFuncFail() {
         if (this.funcFail == null) {
             this.funcFail = [];
         }
         return this.funcFail;
     }
 
- getBeRel() {
+    getBeRel() {
         if (this.beRel == null) {
             this.beRel = [];
         }
         return this.beRel;
     }
 
- getHwPart() {
+    getHwPart() {
         if (this.hwPart == null) {
             this.hwPart = [];
         }
         return this.hwPart;
     }
 
- getLsaCand() {
-        return lsaCand;
+    getLsaCand() {
+        return this.lsaCand;
     }
 
- setLsaCand( value) {
+    setLsaCand(value) {
         this.lsaCand = value;
     }
 
- getCandRtnl() {
-        return candRtnl;
+    getCandRtnl() {
+        return this.candRtnl;
     }
 
- setCandRtnl( value) {
+    setCandRtnl(value) {
         this.candRtnl = value;
     }
 
- getMaintCpt() {
+    getMaintCpt() {
         if (this.maintCpt == null) {
             this.maintCpt = [];
         }
         return this.maintCpt;
     }
 
- getMaintSln() {
+    getMaintSln() {
         if (this.maintSln == null) {
             this.maintSln = [];
         }
         return this.maintSln;
     }
 
- getProductServiceLife() {
+    getProductServiceLife() {
         if (this.productServiceLife == null) {
             this.productServiceLife = [];
         }
         return this.productServiceLife;
     }
 
- getScheduledMaintenanceInterval() {
+    getScheduledMaintenanceInterval() {
         if (this.scheduledMaintenanceInterval == null) {
             this.scheduledMaintenanceInterval = [];
         }
         return this.scheduledMaintenanceInterval;
     }
 
- getMaintenanceFreeOperatingPeriod() {
+    getMaintenanceFreeOperatingPeriod() {
         if (this.maintenanceFreeOperatingPeriod == null) {
             this.maintenanceFreeOperatingPeriod = [];
         }
         return this.maintenanceFreeOperatingPeriod;
     }
 
- getDownTime() {
+    getDownTime() {
         if (this.downTime == null) {
             this.downTime = [];
         }
         return this.downTime;
     }
 
- getMaintenanceManHoursPerOperatingHour() {
+    getMaintenanceManHoursPerOperatingHour() {
         if (this.maintenanceManHoursPerOperatingHour == null) {
             this.maintenanceManHoursPerOperatingHour = [];
         }
         return this.maintenanceManHoursPerOperatingHour;
     }
 
- getMeanTimeBetweenUnscheduledRemoval() {
+    getMeanTimeBetweenUnscheduledRemoval() {
         if (this.meanTimeBetweenUnscheduledRemoval == null) {
             this.meanTimeBetweenUnscheduledRemoval = [];
         }
         return this.meanTimeBetweenUnscheduledRemoval;
     }
 
- getMeanTimeToRepair() {
+    getMeanTimeToRepair() {
         if (this.meanTimeToRepair == null) {
             this.meanTimeToRepair = [];
         }
         return this.meanTimeToRepair;
     }
 
- getDirectMaintenanceCost() {
+    getDirectMaintenanceCost() {
         if (this.directMaintenanceCost == null) {
             this.directMaintenanceCost = [];
         }
         return this.directMaintenanceCost;
     }
 
- getShopProcessingTime() {
+    getShopProcessingTime() {
         if (this.shopProcessingTime == null) {
             this.shopProcessingTime = [];
         }
         return this.shopProcessingTime;
     }
 
- getFailuresPerOperatingHour() {
+    getFailuresPerOperatingHour() {
         if (this.failuresPerOperatingHour == null) {
             this.failuresPerOperatingHour = [];
         }
         return this.failuresPerOperatingHour;
     }
 
- getReplacementTime() {
+    getReplacementTime() {
         if (this.replacementTime == null) {
             this.replacementTime = [];
         }
         return this.replacementTime;
     }
 
- getLifeCycleCost() {
+    getLifeCycleCost() {
         if (this.lifeCycleCost == null) {
             this.lifeCycleCost = [];
         }
         return this.lifeCycleCost;
     }
 
- getMeanTimeBetweenFailure() {
+    getMeanTimeBetweenFailure() {
         if (this.meanTimeBetweenFailure == null) {
             this.meanTimeBetweenFailure = [];
         }
         return this.meanTimeBetweenFailure;
     }
 
- getFailureRate() {
+    getFailureRate() {
         if (this.failureRate == null) {
             this.failureRate = [];
         }
         return this.failureRate;
     }
 
- getAnlysActvty() {
-        return anlysActvty;
+    getAnlysActvty() {
+        return this.anlysActvty;
     }
 
- setAnlysActvty( value) {
+    setAnlysActvty(value) {
         this.anlysActvty = value;
     }
 
- getTaskReq() {
+    getTaskReq() {
         if (this.taskReq == null) {
             this.taskReq = [];
         }
         return this.taskReq;
     }
 
- getTaskTargetNonAbstractClasses() {
+    getTaskTargetNonAbstractClasses() {
         if (this.taskTargetNonAbstractClasses == null) {
             this.taskTargetNonAbstractClasses = [];
         }
         return this.taskTargetNonAbstractClasses;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getDmgAnlys() {
-        return dmgAnlys;
+    getDmgAnlys() {
+        return this.dmgAnlys;
     }
 
- setDmgAnlys( value) {
+    setDmgAnlys(value) {
         this.dmgAnlys = value;
     }
 
- getFailModes() {
-        return failModes;
+    getFailModes() {
+        return this.failModes;
     }
 
- setFailModes( value) {
+    setFailModes(value) {
         this.failModes = value;
     }
 
- getDetectMnCaps() {
-        return detectMnCaps;
+    getDetectMnCaps() {
+        return this.detectMnCaps;
     }
 
- setDetectMnCaps( value) {
+    setDetectMnCaps(value) {
         this.detectMnCaps = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "HardwareElementRevision");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "HardwareElementRevision");
+    }
 };

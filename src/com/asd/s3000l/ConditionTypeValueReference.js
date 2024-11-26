@@ -1,34 +1,35 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class ConditionTypeValueReference extends EcRemoteLinkedData {
-code;
-propValue;
-uidRef;
+    code;
+    propValue;
+    uidRef;
 
- getCode() {
-        return code;
+    getCode() {
+        return this.code;
     }
 
- setCode( value) {
+    setCode(value) {
         this.code = value;
     }
 
- getPropValue() {
-        return propValue;
+    getPropValue() {
+        return this.propValue;
     }
 
- setPropValue( value) {
+    setPropValue(value) {
         this.propValue = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ConditionTypeValueReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ConditionTypeValueReference");
+    }
 };

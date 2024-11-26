@@ -1,43 +1,44 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class LearningObjectiveType extends EcRemoteLinkedData {
-code;
-applic;
-docs;
-rmks;
+    code;
+    applic;
+    docs;
+    rmks;
 
- getCode() {
-        return code;
+    getCode() {
+        return this.code;
     }
 
- setCode( value) {
+    setCode(value) {
         this.code = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "LearningObjectiveType");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "LearningObjectiveType");
+    }
 };

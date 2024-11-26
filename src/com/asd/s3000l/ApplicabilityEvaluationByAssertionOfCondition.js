@@ -1,65 +1,67 @@
 
-module.exports = class ApplicabilityEvaluationByAssertionOfCondition extends EcRemoteLinkedData {
-condTypeRef;
-condInstRef;
-assertValue;
-rmks;
-uid;
-crud;
 
- getCondTypeRef() {
-        return condTypeRef;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ApplicabilityEvaluationByAssertionOfCondition extends EcRemoteLinkedData {
+    condTypeRef;
+    condInstRef;
+    assertValue;
+    rmks;
+    uid;
+    crud;
+
+    getCondTypeRef() {
+        return this.condTypeRef;
     }
 
- setCondTypeRef( value) {
+    setCondTypeRef(value) {
         this.condTypeRef = value;
     }
 
- getCondInstRef() {
-        return condInstRef;
+    getCondInstRef() {
+        return this.condInstRef;
     }
 
- setCondInstRef( value) {
+    setCondInstRef(value) {
         this.condInstRef = value;
     }
 
- getAssertValue() {
-        return assertValue;
+    getAssertValue() {
+        return this.assertValue;
     }
 
- setAssertValue( value) {
+    setAssertValue(value) {
         this.assertValue = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ApplicabilityEvaluationByAssertionOfCondition");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ApplicabilityEvaluationByAssertionOfCondition");
+    }
 };

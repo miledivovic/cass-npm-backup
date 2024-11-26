@@ -1,65 +1,66 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SecurityClassClass extends EcRemoteLinkedData {
-scc;
-orgInfos;
-docs;
-rmks;
-uid;
-crud;
+    scc;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getScc() {
-        return scc;
+    getScc() {
+        return this.scc;
     }
 
- setScc( value) {
+    setScc(value) {
         this.scc = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SecurityClassClass");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SecurityClassClass");
+    }
 };

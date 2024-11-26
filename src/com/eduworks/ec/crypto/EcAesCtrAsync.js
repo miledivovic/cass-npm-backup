@@ -1,5 +1,4 @@
-let base64 = require("base64-arraybuffer");
-let forge = require("node-forge");
+const base64 = require("base64-arraybuffer");
 require("../../../../org/cassproject/general/AuditLogger.js");
 if (typeof crypto == 'undefined')
 {
@@ -15,24 +14,22 @@ if (typeof crypto == 'undefined')
 	}
 }
 
-let EcCrypto = require("./EcCrypto.js");
-let EcAesCtrAsyncWorker = require("./EcAesCtrAsyncWorker.js");
-let cassPromisify = require("../promises/helpers.js").cassPromisify;
-let cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
-let realCrypto = require('crypto');
+const EcCrypto = require("./EcCrypto.js");
+const cassPromisify = require("../promises/helpers.js").cassPromisify;
+const cassReturnAsPromise = require("../promises/helpers.js").cassReturnAsPromise;
+const realCrypto = require('crypto');
 let inWorker = false;
 let fipsForced = false;
 /**
  *  Async version of EcAesCtr that uses browser extensions (window.crypto) to accomplish cryptography much faster.
- *  Falls back to EcAesCtrAsyncWorker, if window.crypto is not available.
+ *  Falls back to EcAesCtr, if window.crypto is not available.
  *  @class EcAesCtrAsync
  */
 module.exports = class EcAesCtrAsync {
 	static fipsOn() {
 		if (inWorker || fipsForced)
 			return;
-		if (typeof process !== 'undefined' && process && process.env && process.env.FIPS)
-		if (realCrypto.getFips() == 0)
+		if (typeof process !== 'undefined' && process?.env?.FIPS && realCrypto.getFips() == 0)
 			try {
 				realCrypto.setFips(true);
 			} catch (e) {
@@ -51,8 +48,7 @@ module.exports = class EcAesCtrAsync {
 	static fipsOff() {
 		if (inWorker || fipsForced)
 			return;
-		if (typeof process !== 'undefined' && process && process.env && process.env.FIPS)	
-		if (realCrypto.getFips() == 1)
+		if (typeof process !== 'undefined' && process?.env?.FIPS && realCrypto.getFips() == 1)	
 			try {
 				realCrypto.setFips(false);
 			} catch (e) {
@@ -83,12 +79,7 @@ module.exports = class EcAesCtrAsync {
 	 *  @static
 	 */
 	static encrypt(plaintext, secret, iv, success, failure) {
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined
-		) {
+		if (crypto?.subtle == null) {
 			return EcAesCtr.encrypt(
 				plaintext,
 				secret,
@@ -148,12 +139,7 @@ module.exports = class EcAesCtrAsync {
 				return cassReturnAsPromise(cacheGet, success, failure);
 			}
 		}
-		if (
-			crypto == null ||
-			crypto === undefined ||
-			crypto.subtle == null ||
-			crypto.subtle === undefined
-		) {
+		if (crypto?.subtle == null) {
 			return EcAesCtr.decrypt(
 				ciphertext,
 				secret,

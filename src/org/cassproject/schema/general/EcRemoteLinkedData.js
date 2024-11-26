@@ -26,7 +26,7 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	 *  @param {string} type JSON-LD Type.
 	 *  @constructor
 	 */
-	constructor(context, type) {
+	constructor(context, type) { //NOSONAR - Required for proper documentation
 		super(context, type);
 	}
 	/**
@@ -83,24 +83,24 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	static caching = false;
 	static trimVersionFromUrl(id) {
 		if (id == null) return null;
-		if (EcRemoteLinkedData.caching == true && EcRemoteLinkedData.tvfuCache[id] != null)
+		if (EcRemoteLinkedData.caching && EcRemoteLinkedData.tvfuCache[id] != null)
 			return EcRemoteLinkedData.tvfuCache[id];
 		if (
 			id.indexOf("/api/data/") == -1 &&
 			id.indexOf("/api/custom/data/") == -1
 		) {
-			if (EcRemoteLinkedData.caching == true)
+			if (EcRemoteLinkedData.caching)
 				EcRemoteLinkedData.tvfuCache[id] = id;
 			return id;
 		}
 		if (!id.substring(id.lastIndexOf("/")).match("^\\/[0-9]+$")) {
-			if (EcRemoteLinkedData.caching == true)
+			if (EcRemoteLinkedData.caching)
 				EcRemoteLinkedData.tvfuCache[id] = id;
 			return id;
 		}
 		let rawId = id.substring(0, id.lastIndexOf("/"));
 		if (rawId.endsWith("/")) rawId = rawId.substring(0, rawId.length - 1);
-		if (EcRemoteLinkedData.caching == true)
+		if (EcRemoteLinkedData.caching)
 			EcRemoteLinkedData.tvfuCache[id] = rawId;
 		return rawId;
 	}
@@ -209,8 +209,9 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	hasOwner(pk) {
 		if (this.owner == null) return false;
 		let pkPem = pk.toPem();
-		for (let i = 0; i < this.owner.length; i++)
-			if (pkPem == EcPk.fromPem(this.owner[i]).toPem()) return true;
+		for (let ownerPem of this.owner)
+			if (pkPem == EcPk.fromPem(ownerPem).toPem())
+				return true;
 		return false;
 	}
 	/**
@@ -225,8 +226,9 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	hasReader(pk) {
 		if (this.reader == null) return false;
 		let pkPem = pk.toPem();
-		for (let i = 0; i < this.reader.length; i++)
-			if (pkPem == EcPk.fromPem(this.reader[i]).toPem()) return true;
+		for (let readerPem of this.reader)
+			if (pkPem == EcPk.fromPem(readerPem).toPem())
+				return true;
 		return false;
 	}
 	/**
@@ -254,8 +256,9 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 	canEditAny(ids) {
 		if (this.owner == null || this.owner.length == 0) return true;
 		if (ids == null) return false;
-		for (let i = 0; i < ids.length; i++)
-			if (this.hasOwner(ids[i])) return true;
+		for (let id of ids)
+			if (this.hasOwner(id))
+				return true;
 		return false;
 	}
 	/**
@@ -269,18 +272,11 @@ module.exports = class EcRemoteLinkedData extends EcLinkedData {
 		if (ppk instanceof EcPpkFacade)
 			return;
 		let signableJson = this.toSignableJson();
-		// let signed = await EcRsaOaepAsync.sign(ppk, signableJson);
-		// if (this.signature != null) {
-		// 	for (let i = 0; i < this.signature.length; i++)
-		// 		if (this.signature[i] == signed) return;
-		// } else {
-		// 	this.signature = [];
-		// }
-		// this.signature.push(signed);
 		let signedSha256 = await EcRsaOaepAsyncWorker.signSha256(ppk, signableJson);
 		if (this.signatureSha256 != null) {
-			for (let i = 0; i < this.signatureSha256.length; i++)
-				if (this.signatureSha256[i] == signedSha256) return;
+			for (let signatureSha256Actual of this.signatureSha256)
+				if (signatureSha256Actual == signedSha256)
+					return;
 		} else {
 			this.signatureSha256 = [];
 		}

@@ -1,151 +1,152 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class LsaCandidateAnalysisActivities extends EcRemoteLinkedData {
-comp;
-hf;
-rlbty;
-mntnblty;
-tstblty;
-fmea;
-dmg;
-sEvnt;
-lora;
-mta;
-sdl;
-ssa;
-opa;
-simOp;
-tna;
-other;
+    comp;
+    hf;
+    rlbty;
+    mntnblty;
+    tstblty;
+    fmea;
+    dmg;
+    sEvnt;
+    lora;
+    mta;
+    sdl;
+    ssa;
+    opa;
+    simOp;
+    tna;
+    other;
 
- getComp() {
-        return comp;
+    getComp() {
+        return this.comp;
     }
 
- setComp( value) {
+    setComp(value) {
         this.comp = value;
     }
 
- getHf() {
-        return hf;
+    getHf() {
+        return this.hf;
     }
 
- setHf( value) {
+    setHf(value) {
         this.hf = value;
     }
 
- getRlbty() {
-        return rlbty;
+    getRlbty() {
+        return this.rlbty;
     }
 
- setRlbty( value) {
+    setRlbty(value) {
         this.rlbty = value;
     }
 
- getMntnblty() {
-        return mntnblty;
+    getMntnblty() {
+        return this.mntnblty;
     }
 
- setMntnblty( value) {
+    setMntnblty(value) {
         this.mntnblty = value;
     }
 
- getTstblty() {
-        return tstblty;
+    getTstblty() {
+        return this.tstblty;
     }
 
- setTstblty( value) {
+    setTstblty(value) {
         this.tstblty = value;
     }
 
- getFmea() {
-        return fmea;
+    getFmea() {
+        return this.fmea;
     }
 
- setFmea( value) {
+    setFmea(value) {
         this.fmea = value;
     }
 
- getDmg() {
-        return dmg;
+    getDmg() {
+        return this.dmg;
     }
 
- setDmg( value) {
+    setDmg(value) {
         this.dmg = value;
     }
 
- getSEvnt() {
-        return sEvnt;
+    getSEvnt() {
+        return this.sEvnt;
     }
 
- setSEvnt( value) {
+    setSEvnt(value) {
         this.sEvnt = value;
     }
 
- getLora() {
-        return lora;
+    getLora() {
+        return this.lora;
     }
 
- setLora( value) {
+    setLora(value) {
         this.lora = value;
     }
 
- getMta() {
-        return mta;
+    getMta() {
+        return this.mta;
     }
 
- setMta( value) {
+    setMta(value) {
         this.mta = value;
     }
 
- getSdl() {
-        return sdl;
+    getSdl() {
+        return this.sdl;
     }
 
- setSdl( value) {
+    setSdl(value) {
         this.sdl = value;
     }
 
- getSsa() {
-        return ssa;
+    getSsa() {
+        return this.ssa;
     }
 
- setSsa( value) {
+    setSsa(value) {
         this.ssa = value;
     }
 
- getOpa() {
-        return opa;
+    getOpa() {
+        return this.opa;
     }
 
- setOpa( value) {
+    setOpa(value) {
         this.opa = value;
     }
 
- getSimOp() {
-        return simOp;
+    getSimOp() {
+        return this.simOp;
     }
 
- setSimOp( value) {
+    setSimOp(value) {
         this.simOp = value;
     }
 
- getTna() {
-        return tna;
+    getTna() {
+        return this.tna;
     }
 
- setTna( value) {
+    setTna(value) {
         this.tna = value;
     }
 
- getOther() {
-        return other;
+    getOther() {
+        return this.other;
     }
 
- setOther( value) {
+    setOther(value) {
         this.other = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "LsaCandidateAnalysisActivities");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "LsaCandidateAnalysisActivities");
+    }
 };

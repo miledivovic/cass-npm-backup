@@ -1,101 +1,102 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskAffectiveLevelOfLearning extends EcRemoteLinkedData {
-affIterId;
-affLoL;
-taskLoLChar;
-taskKSAGaps;
-orgInfos;
-docs;
-rmks;
-uid;
-uri;
-crud;
+    affIterId;
+    affLoL;
+    taskLoLChar;
+    taskKSAGaps;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    uri;
+    crud;
 
- getAffIterId() {
-        return affIterId;
+    getAffIterId() {
+        return this.affIterId;
     }
 
- setAffIterId( value) {
+    setAffIterId(value) {
         this.affIterId = value;
     }
 
- getAffLoL() {
-        return affLoL;
+    getAffLoL() {
+        return this.affLoL;
     }
 
- setAffLoL( value) {
+    setAffLoL(value) {
         this.affLoL = value;
     }
 
- getTaskLoLChar() {
-        return taskLoLChar;
+    getTaskLoLChar() {
+        return this.taskLoLChar;
     }
 
- setTaskLoLChar( value) {
+    setTaskLoLChar(value) {
         this.taskLoLChar = value;
     }
 
- getTaskKSAGaps() {
-        return taskKSAGaps;
+    getTaskKSAGaps() {
+        return this.taskKSAGaps;
     }
 
- setTaskKSAGaps( value) {
+    setTaskKSAGaps(value) {
         this.taskKSAGaps = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskAffectiveLevelOfLearning");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskAffectiveLevelOfLearning");
+    }
 };

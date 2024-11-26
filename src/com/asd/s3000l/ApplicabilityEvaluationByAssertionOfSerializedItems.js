@@ -1,74 +1,76 @@
 
-module.exports = class ApplicabilityEvaluationByAssertionOfSerializedItems extends EcRemoteLinkedData {
-range;
-partRef;
-prodRef;
-prodVarRef;
-rmks;
-uid;
-crud;
 
- getRange() {
-        return range;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ApplicabilityEvaluationByAssertionOfSerializedItems extends EcRemoteLinkedData {
+    range;
+    partRef;
+    prodRef;
+    prodVarRef;
+    rmks;
+    uid;
+    crud;
+
+    getRange() {
+        return this.range;
     }
 
- setRange( value) {
+    setRange(value) {
         this.range = value;
     }
 
- getPartRef() {
-        return partRef;
+    getPartRef() {
+        return this.partRef;
     }
 
- setPartRef( value) {
+    setPartRef(value) {
         this.partRef = value;
     }
 
- getProdRef() {
-        return prodRef;
+    getProdRef() {
+        return this.prodRef;
     }
 
- setProdRef( value) {
+    setProdRef(value) {
         this.prodRef = value;
     }
 
- getProdVarRef() {
-        return prodVarRef;
+    getProdVarRef() {
+        return this.prodVarRef;
     }
 
- setProdVarRef( value) {
+    setProdVarRef(value) {
         this.prodVarRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ApplicabilityEvaluationByAssertionOfSerializedItems");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ApplicabilityEvaluationByAssertionOfSerializedItems");
+    }
 };

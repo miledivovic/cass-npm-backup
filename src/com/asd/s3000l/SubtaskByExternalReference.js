@@ -1,258 +1,259 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskByExternalReference extends EcRemoteLinkedData {
-subtId;
-subtRole;
-name;
-infoCode;
-subtDescr;
-duration;
-maintLoc;
-eiObjState;
-accParam;
-subtaskCircuitBreakerSettingsNonAbstractClasses;
-wcn;
-precSubt;
-inZone;
-subtTgt;
-docRef;
-secs;
-docs;
-rmks;
-applic;
-resources;
-uid;
-uri;
-crud;
+    subtId;
+    subtRole;
+    name;
+    infoCode;
+    subtDescr;
+    duration;
+    maintLoc;
+    eiObjState;
+    accParam;
+    subtaskCircuitBreakerSettingsNonAbstractClasses;
+    wcn;
+    precSubt;
+    inZone;
+    subtTgt;
+    docRef;
+    secs;
+    docs;
+    rmks;
+    applic;
+    resources;
+    uid;
+    uri;
+    crud;
 
- getSubtId() {
-        return subtId;
+    getSubtId() {
+        return this.subtId;
     }
 
- setSubtId( value) {
+    setSubtId(value) {
         this.subtId = value;
     }
 
- getSubtRole() {
-        return subtRole;
+    getSubtRole() {
+        return this.subtRole;
     }
 
- setSubtRole( value) {
+    setSubtRole(value) {
         this.subtRole = value;
     }
 
- getName() {
-        return name;
+    getName() {
+        return this.name;
     }
 
- setName( value) {
+    setName(value) {
         this.name = value;
     }
 
- getInfoCode() {
-        return infoCode;
+    getInfoCode() {
+        return this.infoCode;
     }
 
- setInfoCode( value) {
+    setInfoCode(value) {
         this.infoCode = value;
     }
 
- getSubtDescr() {
-        return subtDescr;
+    getSubtDescr() {
+        return this.subtDescr;
     }
 
- setSubtDescr( value) {
+    setSubtDescr(value) {
         this.subtDescr = value;
     }
 
- getDuration() {
-        return duration;
+    getDuration() {
+        return this.duration;
     }
 
- setDuration( value) {
+    setDuration(value) {
         this.duration = value;
     }
 
- getMaintLoc() {
-        return maintLoc;
+    getMaintLoc() {
+        return this.maintLoc;
     }
 
- setMaintLoc( value) {
+    setMaintLoc(value) {
         this.maintLoc = value;
     }
 
- getEiObjState() {
+    getEiObjState() {
         if (this.eiObjState == null) {
             this.eiObjState = [];
         }
         return this.eiObjState;
     }
 
- getAccParam() {
+    getAccParam() {
         if (this.accParam == null) {
             this.accParam = [];
         }
         return this.accParam;
     }
 
- getSubtaskCircuitBreakerSettingsNonAbstractClasses() {
+    getSubtaskCircuitBreakerSettingsNonAbstractClasses() {
         if (this.subtaskCircuitBreakerSettingsNonAbstractClasses == null) {
             this.subtaskCircuitBreakerSettingsNonAbstractClasses = [];
         }
         return this.subtaskCircuitBreakerSettingsNonAbstractClasses;
     }
 
- getWcn() {
+    getWcn() {
         if (this.wcn == null) {
             this.wcn = [];
         }
         return this.wcn;
     }
 
- getPrecSubt() {
-        return precSubt;
+    getPrecSubt() {
+        return this.precSubt;
     }
 
- setPrecSubt( value) {
+    setPrecSubt(value) {
         this.precSubt = value;
     }
 
- getInZone() {
+    getInZone() {
         if (this.inZone == null) {
             this.inZone = [];
         }
         return this.inZone;
     }
 
- getSubtTgt() {
+    getSubtTgt() {
         if (this.subtTgt == null) {
             this.subtTgt = [];
         }
         return this.subtTgt;
     }
 
- getDocRef() {
+    getDocRef() {
         if (this.docRef == null) {
             this.docRef = [];
         }
         return this.docRef;
     }
 
- getSecs() {
-        return secs;
+    getSecs() {
+        return this.secs;
     }
 
- setSecs( value) {
+    setSecs(value) {
         this.secs = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getResources() {
-        return resources;
+    getResources() {
+        return this.resources;
     }
 
- setResources( value) {
+    setResources(value) {
         this.resources = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getUri() {
-        return uri;
+    getUri() {
+        return this.uri;
     }
 
- setUri( value) {
+    setUri(value) {
         this.uri = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     AccParam = class AccParam {
-paraDescr;
-paraValue;
-docs;
-rmks;
-applic;
+        paraDescr;
+        paraValue;
+        docs;
+        rmks;
+        applic;
 
- getParaDescr() {
-            return paraDescr;
+        getParaDescr() {
+            return this.paraDescr;
         }
 
- setParaDescr( value) {
+        setParaDescr(value) {
             this.paraDescr = value;
         }
 
- getParaValue() {
+        getParaValue() {
             if (this.paraValue == null) {
                 this.paraValue = [];
             }
             return this.paraValue;
         }
 
- getDocs() {
-            return docs;
+        getDocs() {
+            return this.docs;
         }
 
- setDocs( value) {
+        setDocs(value) {
             this.docs = value;
         }
 
- getRmks() {
-            return rmks;
+        getRmks() {
+            return this.rmks;
         }
 
- setRmks( value) {
+        setRmks(value) {
             this.rmks = value;
         }
 
- getApplic() {
-            return applic;
+        getApplic() {
+            return this.applic;
         }
 
- setApplic( value) {
+        setApplic(value) {
             this.applic = value;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskByExternalReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskByExternalReference");
+    }
 };

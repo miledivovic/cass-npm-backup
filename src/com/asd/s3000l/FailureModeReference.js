@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class FailureModeReference extends EcRemoteLinkedData {
-fmId;
-uidRef;
+    fmId;
+    uidRef;
 
- getFmId() {
-        return fmId;
+    getFmId() {
+        return this.fmId;
     }
 
- setFmId( value) {
+    setFmId(value) {
         this.fmId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "FailureModeReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "FailureModeReference");
+    }
 };

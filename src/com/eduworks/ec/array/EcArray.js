@@ -69,19 +69,15 @@ module.exports = class EcArray {
 	 *  @memberOf EcArray
 	 */
 	static has = function (a, o) {
+		if (a.includes(o)) 
+			return true;
 		if (EcObject.isObject(o))
-			for (let i = 0; i < a.length; i++) {
-				if (a[i] === o) return true;
+			for (let b of a) {
 				try {
-					if (a[i].equals(o)) return true;
+					if (b.equals != null)
+						if (b.equals(o)) return true;
 				} catch (e) {
 					// eat quietly
-				}
-			}
-		else
-			for (let i = 0; i < a.length; i++) {
-				if (a[i] === o) {
-					return true;
 				}
 			}
 		return false;
@@ -97,19 +93,16 @@ module.exports = class EcArray {
 	 *  @memberOf EcArray
 	 */
 	static indexOf = function (a, o) {
+		let index = a.indexOf(o);
+		if (index != -1) 
+			return index;
 		if (EcObject.isObject(o))
 			for (let i = 0; i < a.length; i++) {
-				if (a[i] === o) return i;
 				try {
-					if (a[i].equals(o)) return i;
+					if (a[i].equals != null)
+						if (a[i].equals(o)) return i;
 				} catch (e) {
 					// eat quietly
-				}
-			}
-		else
-			for (let i = 0; i < a.length; i++) {
-				if (a[i] === o) {
-					return i;
 				}
 			}
 		return -1;

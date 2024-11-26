@@ -1,73 +1,75 @@
 
-module.exports = class Damage extends EcRemoteLinkedData {
-dmgDescr;
-dmgFamily;
-cause;
-docs;
-rmks;
-uid;
-crud;
 
- getDmgDescr() {
-        return dmgDescr;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class Damage extends EcRemoteLinkedData {
+    dmgDescr;
+    dmgFamily;
+    cause;
+    docs;
+    rmks;
+    uid;
+    crud;
+
+    getDmgDescr() {
+        return this.dmgDescr;
     }
 
- setDmgDescr( value) {
+    setDmgDescr(value) {
         this.dmgDescr = value;
     }
 
- getDmgFamily() {
-        return dmgFamily;
+    getDmgFamily() {
+        return this.dmgFamily;
     }
 
- setDmgFamily( value) {
+    setDmgFamily(value) {
         this.dmgFamily = value;
     }
 
- getCause() {
+    getCause() {
         if (this.cause == null) {
             this.cause = [];
         }
         return this.cause;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "Damage");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "Damage");
+    }
 };

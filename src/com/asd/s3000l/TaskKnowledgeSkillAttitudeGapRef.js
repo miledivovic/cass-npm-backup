@@ -1,61 +1,62 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskKnowledgeSkillAttitudeGapRef extends EcRemoteLinkedData {
-taskAffLoLRef;
-taskCognLoLRef;
-taskPsychLoLRef;
-taskKSAGapId;
-uidRef;
-uriRef;
+    taskAffLoLRef;
+    taskCognLoLRef;
+    taskPsychLoLRef;
+    taskKSAGapId;
+    uidRef;
+    uriRef;
 
- getTaskAffLoLRef() {
-        return taskAffLoLRef;
+    getTaskAffLoLRef() {
+        return this.taskAffLoLRef;
     }
 
- setTaskAffLoLRef( value) {
+    setTaskAffLoLRef(value) {
         this.taskAffLoLRef = value;
     }
 
- getTaskCognLoLRef() {
-        return taskCognLoLRef;
+    getTaskCognLoLRef() {
+        return this.taskCognLoLRef;
     }
 
- setTaskCognLoLRef( value) {
+    setTaskCognLoLRef(value) {
         this.taskCognLoLRef = value;
     }
 
- getTaskPsychLoLRef() {
-        return taskPsychLoLRef;
+    getTaskPsychLoLRef() {
+        return this.taskPsychLoLRef;
     }
 
- setTaskPsychLoLRef( value) {
+    setTaskPsychLoLRef(value) {
         this.taskPsychLoLRef = value;
     }
 
- getTaskKSAGapId() {
-        return taskKSAGapId;
+    getTaskKSAGapId() {
+        return this.taskKSAGapId;
     }
 
- setTaskKSAGapId( value) {
+    setTaskKSAGapId(value) {
         this.taskKSAGapId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
- getUriRef() {
-        return uriRef;
+    getUriRef() {
+        return this.uriRef;
     }
 
- setUriRef( value) {
+    setUriRef(value) {
         this.uriRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskKnowledgeSkillAttitudeGapRef");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskKnowledgeSkillAttitudeGapRef");
+    }
 };

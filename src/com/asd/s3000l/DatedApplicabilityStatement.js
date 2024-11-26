@@ -1,146 +1,148 @@
 
-module.exports = class DatedApplicabilityStatement extends EcRemoteLinkedData {
-applicId;
-applicDescr;
-startDate;
-endDate;
-and;
-not;
-or;
-assertInst;
-assertCond;
-nestedApplic;
-assertSi;
-docs;
-rmks;
-uid;
-crud;
 
- getApplicId() {
-        return applicId;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class DatedApplicabilityStatement extends EcRemoteLinkedData {
+    applicId;
+    applicDescr;
+    startDate;
+    endDate;
+    and;
+    not;
+    or;
+    assertInst;
+    assertCond;
+    nestedApplic;
+    assertSi;
+    docs;
+    rmks;
+    uid;
+    crud;
+
+    getApplicId() {
+        return this.applicId;
     }
 
- setApplicId( value) {
+    setApplicId(value) {
         this.applicId = value;
     }
 
- getApplicDescr() {
-        return applicDescr;
+    getApplicDescr() {
+        return this.applicDescr;
     }
 
- setApplicDescr( value) {
+    setApplicDescr(value) {
         this.applicDescr = value;
     }
 
- getStartDate() {
-        return startDate;
+    getStartDate() {
+        return this.startDate;
     }
 
- setStartDate( value) {
+    setStartDate(value) {
         this.startDate = value;
     }
 
- getEndDate() {
-        return endDate;
+    getEndDate() {
+        return this.endDate;
     }
 
- setEndDate( value) {
+    setEndDate(value) {
         this.endDate = value;
     }
 
- getAnd() {
-        return and;
+    getAnd() {
+        return this.and;
     }
 
- setAnd( value) {
+    setAnd(value) {
         this.and = value;
     }
 
- getNot() {
-        return not;
+    getNot() {
+        return this.not;
     }
 
- setNot( value) {
+    setNot(value) {
         this.not = value;
     }
 
- getOr() {
-        return or;
+    getOr() {
+        return this.or;
     }
 
- setOr( value) {
+    setOr(value) {
         this.or = value;
     }
 
- getAssertInst() {
-        return assertInst;
+    getAssertInst() {
+        return this.assertInst;
     }
 
- setAssertInst( value) {
+    setAssertInst(value) {
         this.assertInst = value;
     }
 
- getAssertCond() {
-        return assertCond;
+    getAssertCond() {
+        return this.assertCond;
     }
 
- setAssertCond( value) {
+    setAssertCond(value) {
         this.assertCond = value;
     }
 
- getNestedApplic() {
-        return nestedApplic;
+    getNestedApplic() {
+        return this.nestedApplic;
     }
 
- setNestedApplic( value) {
+    setNestedApplic(value) {
         this.nestedApplic = value;
     }
 
- getAssertSi() {
-        return assertSi;
+    getAssertSi() {
+        return this.assertSi;
     }
 
- setAssertSi( value) {
+    setAssertSi(value) {
         this.assertSi = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "DatedApplicabilityStatement");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "DatedApplicabilityStatement");
+    }
 };

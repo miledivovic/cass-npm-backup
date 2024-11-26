@@ -1,25 +1,26 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class OperatingLocationReference extends EcRemoteLinkedData {
-opLocId;
-uidRef;
+    opLocId;
+    uidRef;
 
- getOpLocId() {
-        return opLocId;
+    getOpLocId() {
+        return this.opLocId;
     }
 
- setOpLocId( value) {
+    setOpLocId(value) {
         this.opLocId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "OperatingLocationReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "OperatingLocationReference");
+    }
 };

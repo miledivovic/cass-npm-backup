@@ -1,82 +1,83 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class MaintenanceLevel extends EcRemoteLinkedData {
-mlvId;
-name;
-mlvCapDescr;
-opers;
-docs;
-rmks;
-uid;
-crud;
+    mlvId;
+    name;
+    mlvCapDescr;
+    opers;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getMlvId() {
-        return mlvId;
+    getMlvId() {
+        return this.mlvId;
     }
 
- setMlvId( value) {
+    setMlvId(value) {
         this.mlvId = value;
     }
 
- getName() {
-        return name;
+    getName() {
+        return this.name;
     }
 
- setName( value) {
+    setName(value) {
         this.name = value;
     }
 
- getMlvCapDescr() {
-        return mlvCapDescr;
+    getMlvCapDescr() {
+        return this.mlvCapDescr;
     }
 
- setMlvCapDescr( value) {
+    setMlvCapDescr(value) {
         this.mlvCapDescr = value;
     }
 
- getOpers() {
+    getOpers() {
         if (this.opers == null) {
             this.opers = [];
         }
         return this.opers;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "MaintenanceLevel");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "MaintenanceLevel");
+    }
 };

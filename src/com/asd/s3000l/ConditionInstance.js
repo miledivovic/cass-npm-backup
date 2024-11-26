@@ -1,77 +1,79 @@
 
-module.exports = class ConditionInstance extends EcRemoteLinkedData {
-condInstId;
-name;
-condInstDescr;
-docs;
-rmks;
-uid;
-crud;
 
- getCondInstId() {
-        return condInstId;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class ConditionInstance extends EcRemoteLinkedData {
+    condInstId;
+    name;
+    condInstDescr;
+    docs;
+    rmks;
+    uid;
+    crud;
+
+    getCondInstId() {
+        return this.condInstId;
     }
 
- setCondInstId( value) {
+    setCondInstId(value) {
         this.condInstId = value;
     }
 
- getName() {
-        return name;
+    getName() {
+        return this.name;
     }
 
- setName( value) {
+    setName(value) {
         this.name = value;
     }
 
- getCondInstDescr() {
-        return condInstDescr;
+    getCondInstDescr() {
+        return this.condInstDescr;
     }
 
- setCondInstDescr( value) {
+    setCondInstDescr(value) {
         this.condInstDescr = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     Docs = class Docs {
-doc;
+        doc;
 
- getDoc() {
+        getDoc() {
             if (this.doc == null) {
                 this.doc = [];
             }
@@ -80,9 +82,9 @@ doc;
     }
 
     Rmks = class Rmks {
-rmk;
+        rmk;
 
- getRmk() {
+        getRmk() {
             if (this.rmk == null) {
                 this.rmk = [];
             }
@@ -90,7 +92,7 @@ rmk;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "ConditionInstance");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "ConditionInstance");
+    }
 };

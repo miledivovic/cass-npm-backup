@@ -1,67 +1,68 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class KnowledgeSkillAttitudeRequirementItem extends EcRemoteLinkedData {
-affLoL;
-cognLoL;
-psychLoL;
-tradeRef;
-skillLevelRef;
-skillRef;
-jobPosRef;
+    affLoL;
+    cognLoL;
+    psychLoL;
+    tradeRef;
+    skillLevelRef;
+    skillRef;
+    jobPosRef;
 
- getAffLoL() {
+    getAffLoL() {
         if (this.affLoL == null) {
             this.affLoL = [];
         }
         return this.affLoL;
     }
 
- getCognLoL() {
+    getCognLoL() {
         if (this.cognLoL == null) {
             this.cognLoL = [];
         }
         return this.cognLoL;
     }
 
- getPsychLoL() {
+    getPsychLoL() {
         if (this.psychLoL == null) {
             this.psychLoL = [];
         }
         return this.psychLoL;
     }
 
- getTradeRef() {
-        return tradeRef;
+    getTradeRef() {
+        return this.tradeRef;
     }
 
- setTradeRef( value) {
+    setTradeRef(value) {
         this.tradeRef = value;
     }
 
- getSkillLevelRef() {
-        return skillLevelRef;
+    getSkillLevelRef() {
+        return this.skillLevelRef;
     }
 
- setSkillLevelRef( value) {
+    setSkillLevelRef(value) {
         this.skillLevelRef = value;
     }
 
- getSkillRef() {
-        return skillRef;
+    getSkillRef() {
+        return this.skillRef;
     }
 
- setSkillRef( value) {
+    setSkillRef(value) {
         this.skillRef = value;
     }
 
- getJobPosRef() {
-        return jobPosRef;
+    getJobPosRef() {
+        return this.jobPosRef;
     }
 
- setJobPosRef( value) {
+    setJobPosRef(value) {
         this.jobPosRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "KnowledgeSkillAttitudeRequirementItem");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "KnowledgeSkillAttitudeRequirementItem");
+    }
 };

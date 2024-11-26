@@ -1,16 +1,17 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class CandidateItemAnalysisActivityReference extends EcRemoteLinkedData {
-uidRef;
+    uidRef;
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "CandidateItemAnalysisActivityReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "CandidateItemAnalysisActivityReference");
+    }
 };

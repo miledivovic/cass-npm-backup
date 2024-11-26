@@ -1,48 +1,49 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class SubtaskPerformanceObjective extends EcRemoteLinkedData {
-cond;
-action;
-std;
-poStmnt;
-applic;
+    cond;
+    action;
+    std;
+    poStmnt;
+    applic;
 
- getCond() {
+    getCond() {
         if (this.cond == null) {
             this.cond = [];
         }
         return this.cond;
     }
 
- getAction() {
+    getAction() {
         if (this.action == null) {
             this.action = [];
         }
         return this.action;
     }
 
- getStd() {
+    getStd() {
         if (this.std == null) {
             this.std = [];
         }
         return this.std;
     }
 
- getPoStmnt() {
+    getPoStmnt() {
         if (this.poStmnt == null) {
             this.poStmnt = [];
         }
         return this.poStmnt;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "SubtaskPerformanceObjective");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "SubtaskPerformanceObjective");
+    }
 };

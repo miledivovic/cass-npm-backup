@@ -1,5 +1,3 @@
-let pemJwk = require("pem-jwk");
-let forge = require("node-forge");
 let EcPk = require("./EcPk.js");
 let EcPpk = require("./EcPpk.js");
 /**
@@ -101,9 +99,8 @@ module.exports = class EcPpkFacade extends EcPpk {
 	 *  @method inArray
 	 */
 	inArray(ppks) {
-		for (let i = 0; i < ppks.length; i++) {
-			if (ppks[i].equals(this)) return true;
-		}
+		for (let ppk of ppks)
+			if (ppk.equals(this)) return true;
 		return false;
 	}
 };

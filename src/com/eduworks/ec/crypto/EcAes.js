@@ -1,4 +1,4 @@
-let forge = require("node-forge");
+const forge = require("node-forge");
 /**
  *  AES encryption tasks common across all variants of AES.
  *  @class EcAes

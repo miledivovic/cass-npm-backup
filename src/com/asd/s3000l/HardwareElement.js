@@ -1,107 +1,108 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class HardwareElement extends EcRemoteLinkedData {
-beId;
-name;
-esc;
-beType;
-beRev;
-secs;
-orgInfos;
-docs;
-rmks;
-uid;
-crud;
+    beId;
+    name;
+    esc;
+    beType;
+    beRev;
+    secs;
+    orgInfos;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getBeId() {
+    getBeId() {
         if (this.beId == null) {
             this.beId = [];
         }
         return this.beId;
     }
 
- getName() {
+    getName() {
         if (this.name == null) {
             this.name = [];
         }
         return this.name;
     }
 
- getEsc() {
-        return esc;
+    getEsc() {
+        return this.esc;
     }
 
- setEsc( value) {
+    setEsc(value) {
         this.esc = value;
     }
 
- getBeType() {
-        return beType;
+    getBeType() {
+        return this.beType;
     }
 
- setBeType( value) {
+    setBeType(value) {
         this.beType = value;
     }
 
- getBeRev() {
+    getBeRev() {
         if (this.beRev == null) {
             this.beRev = [];
         }
         return this.beRev;
     }
 
- getSecs() {
-        return secs;
+    getSecs() {
+        return this.secs;
     }
 
- setSecs( value) {
+    setSecs(value) {
         this.secs = value;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "HardwareElement");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "HardwareElement");
+    }
 };

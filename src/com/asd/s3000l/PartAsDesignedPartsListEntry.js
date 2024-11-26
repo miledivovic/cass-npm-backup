@@ -1,116 +1,117 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class PartAsDesignedPartsListEntry extends EcRemoteLinkedData {
-qty;
-rfd;
-posId;
-repl;
-rly;
-partRef;
-substPart;
-apcEfys;
-docs;
-rmks;
-uid;
-crud;
+    qty;
+    rfd;
+    posId;
+    repl;
+    rly;
+    partRef;
+    substPart;
+    apcEfys;
+    docs;
+    rmks;
+    uid;
+    crud;
 
- getQty() {
-        return qty;
+    getQty() {
+        return this.qty;
     }
 
- setQty( value) {
+    setQty(value) {
         this.qty = value;
     }
 
- getRfd() {
-        return rfd;
+    getRfd() {
+        return this.rfd;
     }
 
- setRfd( value) {
+    setRfd(value) {
         this.rfd = value;
     }
 
- getPosId() {
+    getPosId() {
         if (this.posId == null) {
             this.posId = [];
         }
         return this.posId;
     }
 
- getRepl() {
-        return repl;
+    getRepl() {
+        return this.repl;
     }
 
- setRepl( value) {
+    setRepl(value) {
         this.repl = value;
     }
 
- getRly() {
+    getRly() {
         if (this.rly == null) {
             this.rly = [];
         }
         return this.rly;
     }
 
- getPartRef() {
-        return partRef;
+    getPartRef() {
+        return this.partRef;
     }
 
- setPartRef( value) {
+    setPartRef(value) {
         this.partRef = value;
     }
 
- getSubstPart() {
+    getSubstPart() {
         if (this.substPart == null) {
             this.substPart = [];
         }
         return this.substPart;
     }
 
- getApcEfys() {
-        return apcEfys;
+    getApcEfys() {
+        return this.apcEfys;
     }
 
- setApcEfys( value) {
+    setApcEfys(value) {
         this.apcEfys = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedPartsListEntry");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "PartAsDesignedPartsListEntry");
+    }
 };

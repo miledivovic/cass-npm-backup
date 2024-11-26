@@ -1,83 +1,85 @@
 
-module.exports = class DocumentAssignment extends EcRemoteLinkedData {
-docRole;
-docPortion;
-docRef;
-docIssRef;
-rmks;
-applic;
-uid;
-crud;
 
- getDocRole() {
-        return docRole;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class DocumentAssignment extends EcRemoteLinkedData {
+    docRole;
+    docPortion;
+    docRef;
+    docIssRef;
+    rmks;
+    applic;
+    uid;
+    crud;
+
+    getDocRole() {
+        return this.docRole;
     }
 
- setDocRole( value) {
+    setDocRole(value) {
         this.docRole = value;
     }
 
- getDocPortion() {
-        return docPortion;
+    getDocPortion() {
+        return this.docPortion;
     }
 
- setDocPortion( value) {
+    setDocPortion(value) {
         this.docPortion = value;
     }
 
- getDocRef() {
-        return docRef;
+    getDocRef() {
+        return this.docRef;
     }
 
- setDocRef( value) {
+    setDocRef(value) {
         this.docRef = value;
     }
 
- getDocIssRef() {
-        return docIssRef;
+    getDocIssRef() {
+        return this.docIssRef;
     }
 
- setDocIssRef( value) {
+    setDocIssRef(value) {
         this.docIssRef = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "DocumentAssignment");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "DocumentAssignment");
+    }
 };

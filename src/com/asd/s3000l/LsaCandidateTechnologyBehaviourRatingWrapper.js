@@ -1,41 +1,42 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class LsaCandidateTechnologyBehaviourRatingWrapper extends EcRemoteLinkedData {
-bhvrRtg;
-sensRtg;
-docs;
-rmks;
+    bhvrRtg;
+    sensRtg;
+    docs;
+    rmks;
 
- getBhvrRtg() {
+    getBhvrRtg() {
         if (this.bhvrRtg == null) {
             this.bhvrRtg = [];
         }
         return this.bhvrRtg;
     }
 
- getSensRtg() {
+    getSensRtg() {
         if (this.sensRtg == null) {
             this.sensRtg = [];
         }
         return this.sensRtg;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "LsaCandidateTechnologyBehaviourRatingWrapper");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "LsaCandidateTechnologyBehaviourRatingWrapper");
+    }
 };

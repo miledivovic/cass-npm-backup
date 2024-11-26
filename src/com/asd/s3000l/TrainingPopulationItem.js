@@ -1,24 +1,25 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TrainingPopulationItem extends EcRemoteLinkedData {
-trainPopData;
-compDef;
+    trainPopData;
+    compDef;
 
- getTrainPopData() {
-        return trainPopData;
+    getTrainPopData() {
+        return this.trainPopData;
     }
 
- setTrainPopData( value) {
+    setTrainPopData(value) {
         this.trainPopData = value;
     }
 
- getCompDef() {
+    getCompDef() {
         if (this.compDef == null) {
             this.compDef = [];
         }
         return this.compDef;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TrainingPopulationItem");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TrainingPopulationItem");
+    }
 };

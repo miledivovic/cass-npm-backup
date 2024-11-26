@@ -1,70 +1,71 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class TaskPsychomotorLevelOfLearningRef extends EcRemoteLinkedData {
-trainTaskRef;
-trainSubtaskRef;
-trainStepRef;
-wcnRef;
-psychoIterId;
-uidRef;
-uriRef;
+    trainTaskRef;
+    trainSubtaskRef;
+    trainStepRef;
+    wcnRef;
+    psychoIterId;
+    uidRef;
+    uriRef;
 
- getTrainTaskRef() {
-        return trainTaskRef;
+    getTrainTaskRef() {
+        return this.trainTaskRef;
     }
 
- setTrainTaskRef( value) {
+    setTrainTaskRef(value) {
         this.trainTaskRef = value;
     }
 
- getTrainSubtaskRef() {
-        return trainSubtaskRef;
+    getTrainSubtaskRef() {
+        return this.trainSubtaskRef;
     }
 
- setTrainSubtaskRef( value) {
+    setTrainSubtaskRef(value) {
         this.trainSubtaskRef = value;
     }
 
- getTrainStepRef() {
-        return trainStepRef;
+    getTrainStepRef() {
+        return this.trainStepRef;
     }
 
- setTrainStepRef( value) {
+    setTrainStepRef(value) {
         this.trainStepRef = value;
     }
 
- getWcnRef() {
-        return wcnRef;
+    getWcnRef() {
+        return this.wcnRef;
     }
 
- setWcnRef( value) {
+    setWcnRef(value) {
         this.wcnRef = value;
     }
 
- getPsychoIterId() {
-        return psychoIterId;
+    getPsychoIterId() {
+        return this.psychoIterId;
     }
 
- setPsychoIterId( value) {
+    setPsychoIterId(value) {
         this.psychoIterId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
- getUriRef() {
-        return uriRef;
+    getUriRef() {
+        return this.uriRef;
     }
 
- setUriRef( value) {
+    setUriRef(value) {
         this.uriRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "TaskPsychomotorLevelOfLearningRef");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "TaskPsychomotorLevelOfLearningRef");
+    }
 };

@@ -1,34 +1,35 @@
 
+const CrudCodeValues = require("./CrudCodeValues");
 module.exports = class BreakdownElementRevisionReference extends EcRemoteLinkedData {
-beId;
-beRevId;
-uidRef;
+    beId;
+    beRevId;
+    uidRef;
 
- getBeId() {
-        return beId;
+    getBeId() {
+        return this.beId;
     }
 
- setBeId( value) {
+    setBeId(value) {
         this.beId = value;
     }
 
- getBeRevId() {
-        return beRevId;
+    getBeRevId() {
+        return this.beRevId;
     }
 
- setBeRevId( value) {
+    setBeRevId(value) {
         this.beRevId = value;
     }
 
- getUidRef() {
-        return uidRef;
+    getUidRef() {
+        return this.uidRef;
     }
 
- setUidRef( value) {
+    setUidRef(value) {
         this.uidRef = value;
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "BreakdownElementRevisionReference");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "BreakdownElementRevisionReference");
+    }
 };

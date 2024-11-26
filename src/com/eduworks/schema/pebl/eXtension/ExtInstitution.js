@@ -462,7 +462,7 @@ module.exports = class ExtInstitution extends schema.Organization {
 	 *  @param {String} addrCityState
 	 *  @param {String} addrZip
 	 */
-	addPOC(
+	addPOC( //NOSONAR Unused, kept for legacy purposes.
 		type,
 		name,
 		title,

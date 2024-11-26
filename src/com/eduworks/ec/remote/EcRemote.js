@@ -15,20 +15,20 @@ if (isNode)
 	let undici = eval("require('undici');");
 	if (undici != null)
 	{
-		var {setGlobalDispatcher,Agent,fetch} = undici;
+		var {setGlobalDispatcher,Agent,fetch} = undici; //NOSONAR - Intentional use of var to allow for global scope.
 		setGlobalDispatcher(new Agent({
 			allowH2: process.env.HTTP2 != null ? process.env.HTTP2.trim() == 'true' : true
 		}))
 	}
 }
 if (typeof window !== 'undefined' && window.fetch != null)
-	var fetch = window.fetch;
+	var fetch = window.fetch;  //NOSONAR - Intentional use of var to allow for global scope.
 
 if (isNode)
 {
 	try{
-		var dns = require('node:dns');
-		if (dns && dns.setDefaultResultOrder)
+		var dns = require('node:dns'); //NOSONAR - Intentional use of var to allow for global scope.
+		if (dns?.setDefaultResultOrder)
 		{
 			//Support for Node 18 using Docker containers with a network that doesn't support ipv6 loopback.
 			dns.setDefaultResultOrder('ipv4first');
@@ -154,7 +154,7 @@ module.exports = class EcRemote {
 		if (DEBUG)
 			console.log("POST " + server + "" + (service || "") + " " + headers + fd);
 		let url = server;
-		if (!url.endsWith("/") && service != null && !("" == service)) {
+		if (!url.endsWith("/") && service != null && "" != service) {
 			url += "/";
 		}
 		if (service != null) {
@@ -362,13 +362,11 @@ module.exports = class EcRemote {
 	}
 	static upgradeHttpToHttps(url) {
 		if (typeof window !== "undefined")
-			if (window != null) {
-				if (window.location != null) {
-					if (url.indexOf(window.location.protocol) == -1) {
-						if (window.location.protocol.startsWith("https")) {
-							if (!url.startsWith("https:")) {
-								url = url.replace("http:", "https:");
-							}
+			if (window?.location != null) {
+				if (url.indexOf(window.location.protocol) == -1) {
+					if (window.location.protocol.startsWith("https")) {
+						if (!url.startsWith("https:")) {
+							url = url.replace("http:", "https:");
 						}
 					}
 				}

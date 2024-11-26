@@ -1,204 +1,206 @@
 
-module.exports = class DiscreteTimeLimit extends EcRemoteLinkedData {
-harmoniz;
-limitDescr;
-trig;
-thld;
-orgInfos;
-docs;
-rmks;
-applic;
-samplByDef;
-samplByValue;
-samplByRo;
-uid;
-crud;
 
- getHarmoniz() {
-        return harmoniz;
+const CrudCodeValues = require("./CrudCodeValues");
+module.exports = class DiscreteTimeLimit extends EcRemoteLinkedData {
+    harmoniz;
+    limitDescr;
+    trig;
+    thld;
+    orgInfos;
+    docs;
+    rmks;
+    applic;
+    samplByDef;
+    samplByValue;
+    samplByRo;
+    uid;
+    crud;
+
+    getHarmoniz() {
+        return this.harmoniz;
     }
 
- setHarmoniz( value) {
+    setHarmoniz(value) {
         this.harmoniz = value;
     }
 
- getLimitDescr() {
-        return limitDescr;
+    getLimitDescr() {
+        return this.limitDescr;
     }
 
- setLimitDescr( value) {
+    setLimitDescr(value) {
         this.limitDescr = value;
     }
 
- getTrig() {
+    getTrig() {
         if (this.trig == null) {
             this.trig = [];
         }
         return this.trig;
     }
 
- getThld() {
+    getThld() {
         if (this.thld == null) {
             this.thld = [];
         }
         return this.thld;
     }
 
- getOrgInfos() {
-        return orgInfos;
+    getOrgInfos() {
+        return this.orgInfos;
     }
 
- setOrgInfos( value) {
+    setOrgInfos(value) {
         this.orgInfos = value;
     }
 
- getDocs() {
-        return docs;
+    getDocs() {
+        return this.docs;
     }
 
- setDocs( value) {
+    setDocs(value) {
         this.docs = value;
     }
 
- getRmks() {
-        return rmks;
+    getRmks() {
+        return this.rmks;
     }
 
- setRmks( value) {
+    setRmks(value) {
         this.rmks = value;
     }
 
- getApplic() {
-        return applic;
+    getApplic() {
+        return this.applic;
     }
 
- setApplic( value) {
+    setApplic(value) {
         this.applic = value;
     }
 
- getSamplByDef() {
-        return samplByDef;
+    getSamplByDef() {
+        return this.samplByDef;
     }
 
- setSamplByDef( value) {
+    setSamplByDef(value) {
         this.samplByDef = value;
     }
 
- getSamplByValue() {
-        return samplByValue;
+    getSamplByValue() {
+        return this.samplByValue;
     }
 
- setSamplByValue( value) {
+    setSamplByValue(value) {
         this.samplByValue = value;
     }
 
- getSamplByRo() {
-        return samplByRo;
+    getSamplByRo() {
+        return this.samplByRo;
     }
 
- setSamplByRo( value) {
+    setSamplByRo(value) {
         this.samplByRo = value;
     }
 
- getUid() {
-        return uid;
+    getUid() {
+        return this.uid;
     }
 
- setUid( value) {
+    setUid(value) {
         this.uid = value;
     }
 
- getCrud() {
+    getCrud() {
         if (this.crud == null) {
             return CrudCodeValues.I;
         } else {
-            return crud;
+            return this.crud;
         }
     }
 
- setCrud( value) {
+    setCrud(value) {
         this.crud = value;
     }
 
     Thld = class Thld {
-paramThld;
-taskThld;
-sEvntThld;
-fmThld;
+        paramThld;
+        taskThld;
+        sEvntThld;
+        fmThld;
 
- getParamThld() {
-            return paramThld;
+        getParamThld() {
+            return this.paramThld;
         }
 
- setParamThld( value) {
+        setParamThld(value) {
             this.paramThld = value;
         }
 
- getTaskThld() {
-            return taskThld;
+        getTaskThld() {
+            return this.taskThld;
         }
 
- setTaskThld( value) {
+        setTaskThld(value) {
             this.taskThld = value;
         }
 
- getSEvntThld() {
-            return sEvntThld;
+        getSEvntThld() {
+            return this.sEvntThld;
         }
 
- setSEvntThld( value) {
+        setSEvntThld(value) {
             this.sEvntThld = value;
         }
 
- getFmThld() {
-            return fmThld;
+        getFmThld() {
+            return this.fmThld;
         }
 
- setFmThld( value) {
+        setFmThld(value) {
             this.fmThld = value;
         }
     }
 
     Trig = class Trig {
-paramThld;
-taskThld;
-sEvntThld;
-fmThld;
+        paramThld;
+        taskThld;
+        sEvntThld;
+        fmThld;
 
- getParamThld() {
-            return paramThld;
+        getParamThld() {
+            return this.paramThld;
         }
 
- setParamThld( value) {
+        setParamThld(value) {
             this.paramThld = value;
         }
 
- getTaskThld() {
-            return taskThld;
+        getTaskThld() {
+            return this.taskThld;
         }
 
- setTaskThld( value) {
+        setTaskThld(value) {
             this.taskThld = value;
         }
 
- getSEvntThld() {
-            return sEvntThld;
+        getSEvntThld() {
+            return this.sEvntThld;
         }
 
- setSEvntThld( value) {
+        setSEvntThld(value) {
             this.sEvntThld = value;
         }
 
- getFmThld() {
-            return fmThld;
+        getFmThld() {
+            return this.fmThld;
         }
 
- setFmThld( value) {
+        setFmThld(value) {
             this.fmThld = value;
         }
     }
 
-	constructor() {
-		super("http://www.asd-europe.org/s-series/s3000l", "DiscreteTimeLimit");
-	}
+    constructor() {
+        super("http://www.asd-europe.org/s-series/s3000l", "DiscreteTimeLimit");
+    }
 };

@@ -49,6 +49,9 @@ Development unit tests presume you have a CaSS Repository running on `localhost:
 
 # Changelog
 
+## 1.5.71
+* Fixed issue by trimming spaces in some inputs.
+
 ## 1.5.70
 * Fixed issue with L2 caching of data with mismatched index/permanent records.
 * Lots of updates to tests.
